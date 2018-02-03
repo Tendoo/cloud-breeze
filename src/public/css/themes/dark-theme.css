@@ -1,0 +1,14 @@
+.dark-theme #sidebar-menu, .dark-theme #main-nav{
+    background: rgb(83, 83, 83);
+    color: #FFF;
+}
+.dark-theme #sidebar-menu #tendoo-aside-menu .list-group-item a, .dark-theme #main-nav a {
+    color: #EEE;
+}
+.dark-theme #main-nav .dropdown-menu a {
+    color : rgb(83, 83, 83);
+}
+.dark-theme #main-nav .dropdown-menu a.dropdown-item.active, .dark-theme #main-nav .dropdown-menu a.dropdown-item:active {
+    color : #EEE;
+    background: rgb(83, 83, 83);
+}

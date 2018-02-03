@@ -1,0 +1,29 @@
+{
+    "name": "tendoo/cms",
+    "description": "Add cms feature to a laravel application.",
+    "type": "metapackage",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "blair Jersyer",
+            "email": "carlosjohnsonluv2004@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Tendoo\\": "src"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Tendoo\\ServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev",
+    "require": {},
+    "require-dev": {
+        "barryvdh/laravel-debugbar" : "^3.1.*"
+    }
+}

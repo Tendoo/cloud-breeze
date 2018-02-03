@@ -1,0 +1,8 @@
+<?xml version="1.0" ?>
+<module>
+    <namespace>Bar</namespace>
+    <version>1.0</version>
+    <author>Blair Jersyer</author>
+    <name>Bar Module</name>
+    <description>Some Module</description>
+</module>

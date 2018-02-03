@@ -1,0 +1,28 @@
+.red-theme #sidebar-menu {
+    background: #FFF;
+    color: rgb(169, 36, 36);
+}
+.red-theme #main-nav{
+    background: rgb(169, 36, 36);
+    color: #FFF;
+}
+.red-theme #main-nav a {
+    color: #FFF;
+}
+.red-theme #sidebar-menu #tendoo-aside-menu .list-group-item a {
+    color: rgb(169, 36, 36);
+}
+.red-theme #main-nav .dropdown-menu a {
+    color : rgb(169, 36, 36);
+}
+.red-theme #main-nav .dropdown-menu a.dropdown-item.active, .red-theme #main-nav .dropdown-menu a.dropdown-item:active {
+    color : #FFF;
+    background: rgb(169, 36, 36);
+}
+.red-theme #app-body .content-header {
+    color: #FFF;
+    background: rgb(172, 57, 57);
+}
+.red-theme .nav-tabs .nav-link.active:focus, .red-theme .nav-tabs .nav-link.active:hover {
+    border-color: rgb(172, 57, 57);
+}
