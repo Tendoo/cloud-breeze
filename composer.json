@@ -26,6 +26,7 @@
         "php" : "^7.1"
     },
     "require-dev": {
-        "barryvdh/laravel-debugbar": "^3.1"
+        "barryvdh/laravel-debugbar": "^3.1",
+        "jackiedo/dotenv-editor" : "^1.0"
     }
 }
