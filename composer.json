@@ -22,7 +22,9 @@
         }
     },
     "minimum-stability": "dev",
-    "require": {},
+    "require": {
+        "php" : "^7.1"
+    },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.1"
     }
