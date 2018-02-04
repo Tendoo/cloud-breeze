@@ -1,7 +1,6 @@
 {
     "name": "tendoo/cms",
     "description": "Add cms feature to a laravel application.",
-    "type": "metapackage",
     "license": "MIT",
     "authors": [
         {
@@ -21,6 +20,7 @@
             ]
         }
     },
+    "prefer-stable": true,
     "minimum-stability": "dev",
     "require": {
         "php" : ">=7.1"
