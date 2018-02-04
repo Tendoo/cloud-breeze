@@ -1,10 +1,10 @@
 <?php
 
-namespace Tendoo\App\Console\Commands;
+namespace Tendoo\Cms\App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
-use Tendoo\App\Services\Update;
+use Tendoo\Cms\App\Services\Update;
 
 class RefreshCommand extends Command
 {

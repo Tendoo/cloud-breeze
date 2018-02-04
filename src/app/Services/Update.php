@@ -1,5 +1,5 @@
 <?php
-namespace Tendoo\App\Services;
+namespace Tendoo\Cms\App\Services;
 
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Artisan;

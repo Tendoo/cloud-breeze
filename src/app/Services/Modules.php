@@ -1,9 +1,9 @@
 <?php
-namespace Tendoo\App\Services;
+namespace Tendoo\Cms\App\Services;
 
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\View;
-use Tendoo\App\Services\Helper;
+use Tendoo\Cms\App\Services\Helper;
 use XmlParser;
 use PhpParser\Error;
 use PhpParser\NodeDumper;
@@ -18,7 +18,7 @@ class Modules
             /**
              * We can only enable a module if the databse is installed.
              */
-            $this->options          =   app()->make( 'Tendoo\App\Services\Options' );
+            $this->options          =   app()->make( 'Tendoo\Cms\App\Services\Options' );
         }
     }
 

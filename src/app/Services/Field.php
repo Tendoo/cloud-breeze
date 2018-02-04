@@ -1,11 +1,11 @@
 <?php
-namespace Tendoo\App\Services;
+namespace Tendoo\Cms\App\Services;
 
-use Tendoo\App\Services\Fields\SetupFields;
-use Tendoo\App\Services\Fields\AuthFields;
-use Tendoo\App\Services\Fields\GeneralSettingsFields;
-use Tendoo\App\Services\Fields\UsersFields;
-use Tendoo\App\Services\Fields\ProfileFields;
+use Tendoo\Cms\App\Services\Fields\SetupFields;
+use Tendoo\Cms\App\Services\Fields\AuthFields;
+use Tendoo\Cms\App\Services\Fields\GeneralSettingsFields;
+use Tendoo\Cms\App\Services\Fields\UsersFields;
+use Tendoo\Cms\App\Services\Fields\ProfileFields;
 
 class Field
 {

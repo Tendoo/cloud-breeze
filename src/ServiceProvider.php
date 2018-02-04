@@ -1,9 +1,7 @@
 <?php
-namespace Tendoo;
+namespace Tendoo\Cms;
 
-use Illuminate\Support\ServiceProvider as CoreServiceProvider;
-
-class ServiceProvider extends CoreServiceProvider
+class ServiceProvider extends Illuminate\Support\ServiceProvider
 {
     protected $defer    =   true;
     

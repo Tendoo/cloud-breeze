@@ -1,9 +1,9 @@
 <?php
 
-namespace Tendoo\App\Http\Controllers\Dashboard;
+namespace Tendoo\Cms\App\Http\Controllers\Dashboard;
 
 use Illuminate\Http\Request;
-use Tendoo\App\Http\Controllers\TendooController;
+use Tendoo\Cms\App\Http\Controllers\TendooController;
 
 class IndexController extends TendooController
 {

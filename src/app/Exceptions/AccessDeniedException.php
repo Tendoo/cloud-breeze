@@ -1,5 +1,5 @@
 <?php
-namespace Tendoo\App\Exceptions;
+namespace Tendoo\Cms\App\Exceptions;
 use Exception;
 
 class AccessDeniedException extends Exception

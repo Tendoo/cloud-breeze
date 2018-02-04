@@ -1,6 +1,6 @@
 <?php
 
-namespace Tendoo\App\Mail;
+namespace Tendoo\Cms\App\Mail;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;

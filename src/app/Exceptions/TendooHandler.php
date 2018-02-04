@@ -1,6 +1,6 @@
 <?php
 
-namespace Tendoo\App\Exceptions;
+namespace Tendoo\Cms\App\Exceptions;
 
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;

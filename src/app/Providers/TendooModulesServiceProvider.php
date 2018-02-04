@@ -1,9 +1,9 @@
 <?php
 
-namespace Tendoo\App\Providers;
+namespace Tendoo\Cms\App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Tendoo\App\Services\Modules;
+use Tendoo\Cms\App\Services\Modules;
 class TendooModulesServiceProvider extends ServiceProvider
 {
     /**
@@ -25,7 +25,7 @@ class TendooModulesServiceProvider extends ServiceProvider
     public function register()
     {
         // register module singleton
-        $this->app->singleton( 'Tendoo\App\Services\Modules', function( $app ) {
+        $this->app->singleton( 'Tendoo\Cms\App\Services\Modules', function( $app ) {
             return new Modules;
         });
     }

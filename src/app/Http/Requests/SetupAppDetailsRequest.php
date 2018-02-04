@@ -1,9 +1,9 @@
 <?php
 
-namespace Tendoo\App\Http\Requests;
+namespace Tendoo\Cms\App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Tendoo\App\Services\Field;
+use Tendoo\Cms\App\Services\Field;
 
 class SetupAppDetailsRequest extends FormRequest
 {

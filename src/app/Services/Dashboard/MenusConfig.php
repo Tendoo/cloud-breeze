@@ -1,7 +1,7 @@
 <?php
-namespace Tendoo\App\Services\Dashboard;
+namespace Tendoo\Cms\App\Services\Dashboard;
 
-use Tendoo\App\Services\Menus;
+use Tendoo\Cms\App\Services\Menus;
 
 class MenusConfig 
 {

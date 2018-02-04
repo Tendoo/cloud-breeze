@@ -1,5 +1,5 @@
 <?php
-namespace Tendoo\App\Services;
+namespace Tendoo\Cms\App\Services;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;

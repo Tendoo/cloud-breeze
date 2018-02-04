@@ -1,6 +1,6 @@
 <?php
 
-namespace Tendoo\App\Console\Commands;
+namespace Tendoo\Cms\App\Console\Commands;
 
 use Illuminate\Console\Command;
 

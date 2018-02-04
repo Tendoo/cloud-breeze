@@ -1,12 +1,12 @@
 <?php
 
-namespace Tendoo\App\Providers;
+namespace Tendoo\Cms\App\Providers;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Storage;
 
-use Tendoo\App\Services\Modules;
+use Tendoo\Cms\App\Services\Modules;
 
 class TendooRouteServiceProvider extends ServiceProvider
 {
@@ -17,7 +17,7 @@ class TendooRouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    protected $namespace = 'Tendoo\App\Http\Controllers';
+    protected $namespace = 'Tendoo\Cms\App\Http\Controllers';
 
     /**
      * Define your route model bindings, pattern filters, etc.

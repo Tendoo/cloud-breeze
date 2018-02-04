@@ -1,6 +1,6 @@
 <?php
 
-namespace Tendoo\App\Providers;
+namespace Tendoo\Cms\App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Auth;
@@ -8,10 +8,10 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Schema;
-use Tendoo\App\Services\Menus;
-use Tendoo\App\Services\Dashboard\MenusConfig;
-use Tendoo\App\Services\Options;
-use Tendoo\App\Services\Guard;
+use Tendoo\Cms\App\Services\Menus;
+use Tendoo\Cms\App\Services\Dashboard\MenusConfig;
+use Tendoo\Cms\App\Services\Options;
+use Tendoo\Cms\App\Services\Guard;
 use Jackiedo\DotenvEditor\Facades\DotenvEditor;
 
 class TendooAppServiceProvider extends ServiceProvider
@@ -51,12 +51,12 @@ class TendooAppServiceProvider extends ServiceProvider
         }
 
         // register a singleton a menu
-        $this->app->singleton( 'Tendoo\App\Services\Menus', function( $app ) {
+        $this->app->singleton( 'Tendoo\Cms\App\Services\Menus', function( $app ) {
             return new Menus();
         });
 
         // register dashboard menu singleton
-        $this->app->singleton( 'Tendoo\App\Services\Dashboard\MenusConfig', function( $app ) {
+        $this->app->singleton( 'Tendoo\Cms\App\Services\Dashboard\MenusConfig', function( $app ) {
             return new MenusConfig( $app->make( Menus::class ) );
         });
 

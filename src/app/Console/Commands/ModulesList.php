@@ -1,9 +1,9 @@
 <?php
 
-namespace Tendoo\App\Console\Commands;
+namespace Tendoo\Cms\App\Console\Commands;
 
 use Illuminate\Console\Command;
-use Tendoo\App\Services\Modules;
+use Tendoo\Cms\App\Services\Modules;
 
 class ModulesList extends Command
 {

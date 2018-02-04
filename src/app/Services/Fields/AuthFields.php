@@ -1,5 +1,5 @@
 <?php
-namespace Tendoo\App\Services\Fields;
+namespace Tendoo\Cms\App\Services\Fields;
 
 trait AuthFields {
     /**

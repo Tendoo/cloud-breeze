@@ -1,15 +1,15 @@
 <?php
 
-namespace Tendoo\App\Http\Controllers\Dashboard;
+namespace Tendoo\Cms\App\Http\Controllers\Dashboard;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Hash;
-use Tendoo\App\Http\Controllers\TendooController;
-use Tendoo\App\Http\Requests\UserProfileRequest;
-use Tendoo\App\Http\Requests\PostUserSecurityRequest;
-use Tendoo\App\Models\User;
+use Tendoo\Cms\App\Http\Controllers\TendooController;
+use Tendoo\Cms\App\Http\Requests\UserProfileRequest;
+use Tendoo\Cms\App\Http\Requests\PostUserSecurityRequest;
+use Tendoo\Cms\App\Models\User;
 
 class UsersController extends TendooController
 {

@@ -1,12 +1,12 @@
 <?php
 
-namespace Tendoo\App\Models;
+namespace Tendoo\Cms\App\Models;
 
 use Illuminate\Notifications\Notifiable;
 // use Laravel\Passport\HasApiTokens;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Auth;
-use Tendoo\App\Services\UserOptions;
+use Tendoo\Cms\App\Services\UserOptions;
 
 class User extends Authenticatable
 {

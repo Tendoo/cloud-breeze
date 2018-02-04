@@ -4,7 +4,7 @@
  * register validation rules
  */
 
-namespace Tendoo\App\Http\Requests;
+namespace Tendoo\Cms\App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Event;
@@ -37,7 +37,7 @@ class OptionsRequest extends FormRequest
         
         /**
          * Options validation rules can be registered using the 
-         * Tendoo\App\Service\Helper::(trait)pushValidationRule method
+         * Tendoo\Cms\App\Service\Helper::(trait)pushValidationRule method
          */
         Event::Fire( 'before.validating.options', $this );
 

@@ -1,9 +1,9 @@
 <?php
 
-namespace Tendoo\App\Console\Commands;
+namespace Tendoo\Cms\App\Console\Commands;
 
 use Illuminate\Console\Command;
-use Tendoo\App\Services\Options;
+use Tendoo\Cms\App\Services\Options;
 
 class OptionDelete extends Command
 {

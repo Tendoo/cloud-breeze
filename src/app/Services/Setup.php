@@ -1,5 +1,5 @@
 <?php
-namespace Tendoo\App\Services;
+namespace Tendoo\Cms\App\Services;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
@@ -8,12 +8,12 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Auth;
 use Jackiedo\DotenvEditor\Facades\DotenvEditor;
-use Tendoo\App\Mail\SetupComplete;
-use Tendoo\App\Models\User;
-use Tendoo\App\Models\Role;
-use Tendoo\App\Models\Permission;
-use Tendoo\App\Services\Options;
-use Tendoo\App\Services\UserOptions;
+use Tendoo\Cms\App\Mail\SetupComplete;
+use Tendoo\Cms\App\Models\User;
+use Tendoo\Cms\App\Models\Role;
+use Tendoo\Cms\App\Models\Permission;
+use Tendoo\Cms\App\Services\Options;
+use Tendoo\Cms\App\Services\UserOptions;
 
 class Setup
 {
@@ -117,7 +117,7 @@ class Setup
          * We assume so far the application is installed
          * then we can launch option service
          */
-        $this->options  =   app()->make( 'Tendoo\App\Services\Options' );
+        $this->options  =   app()->make( 'Tendoo\Cms\App\Services\Options' );
         
         /**
          * Add permissions
@@ -163,7 +163,7 @@ class Setup
         /**
          * define option for the admin
          */
-        $this->userOptions  =   app()->make( 'Tendoo\App\Services\UserOptions' );
+        $this->userOptions  =   app()->make( 'Tendoo\Cms\App\Services\UserOptions' );
         $this->userOptions->set( 'theme_class', 'dark-theme' ); 
 
         Auth::logout();

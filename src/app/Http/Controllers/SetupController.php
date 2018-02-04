@@ -1,14 +1,14 @@
 <?php
 
-namespace Tendoo\App\Http\Controllers;
+namespace Tendoo\Cms\App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Event;
-use Tendoo\App\Services\Page;
-use Tendoo\App\Http\Requests\SetupDatabaseRequest;
-use Tendoo\App\Http\Requests\SetupAppDetailsRequest;
-use Tendoo\App\Services\Setup;
+use Tendoo\Cms\App\Services\Page;
+use Tendoo\Cms\App\Http\Requests\SetupDatabaseRequest;
+use Tendoo\Cms\App\Http\Requests\SetupAppDetailsRequest;
+use Tendoo\Cms\App\Services\Setup;
 
 class SetupController extends Controller
 {

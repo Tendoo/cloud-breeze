@@ -1,10 +1,10 @@
 <?php
 
-namespace Tendoo\App\Http\Controllers;
+namespace Tendoo\Cms\App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Event;
-use Tendoo\App\Services\Page;
+use Tendoo\Cms\App\Services\Page;
 class ErrorsController extends Controller
 {
     /**

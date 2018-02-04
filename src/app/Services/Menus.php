@@ -1,6 +1,6 @@
 <?php
 
-namespace Tendoo\App\Services;
+namespace Tendoo\Cms\App\Services;
 
 class Menus 
 {

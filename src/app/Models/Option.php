@@ -1,6 +1,6 @@
 <?php
 
-namespace Tendoo\App\Models;
+namespace Tendoo\Cms\App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 

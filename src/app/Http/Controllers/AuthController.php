@@ -1,15 +1,15 @@
 <?php
 
-namespace Tendoo\App\Http\Controllers;
+namespace Tendoo\Cms\App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Event;
-use Tendoo\App\Services\Page;
-use Tendoo\App\Services\Options;
-use Tendoo\App\Http\Requests\LoginRequest;
-use Tendoo\App\Http\Requests\PostRegisterRequest;
-use Tendoo\App\Models\User;
+use Tendoo\Cms\App\Services\Page;
+use Tendoo\Cms\App\Services\Options;
+use Tendoo\Cms\App\Http\Requests\LoginRequest;
+use Tendoo\Cms\App\Http\Requests\PostRegisterRequest;
+use Tendoo\Cms\App\Models\User;
 
 
 class AuthController extends Controller

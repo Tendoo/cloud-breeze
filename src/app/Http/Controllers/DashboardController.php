@@ -1,6 +1,6 @@
 <?php
 
-namespace Tendoo\App\Http\Controllers;
+namespace Tendoo\Cms\App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Event;

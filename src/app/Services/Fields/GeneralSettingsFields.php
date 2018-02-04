@@ -1,13 +1,13 @@
 <?php
-namespace Tendoo\App\Services\Fields;
-use Tendoo\App\Models\Role;
-use Tendoo\App\Services\Helper;
+namespace Tendoo\Cms\App\Services\Fields;
+use Tendoo\Cms\App\Models\Role;
+use Tendoo\Cms\App\Services\Helper;
 
 trait GeneralSettingsFields
 {
     public static function generalSettings()
     {
-        $options                    =   app()->make( 'Tendoo\App\Services\Options' );
+        $options                    =   app()->make( 'Tendoo\Cms\App\Services\Options' );
         $app_name                   =   new \StdClass;
         $app_name->name             =   'app_name';
         $app_name->label            =   __( 'Application Name' );
@@ -30,7 +30,7 @@ trait GeneralSettingsFields
 
     public static function registration()
     {
-        $options    =   app()->make( 'Tendoo\App\Services\Options' );
+        $options    =   app()->make( 'Tendoo\Cms\App\Services\Options' );
 
         $open_registration                  =   new \StdClass;
         $open_registration->name            =   'open_registration';

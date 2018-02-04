@@ -1,6 +1,6 @@
 <?php
 
-namespace Tendoo\App\Http\Middleware;
+namespace Tendoo\Cms\App\Http\Middleware;
 
 use Closure;
 
@@ -15,7 +15,7 @@ class CheckRegistrationStatus
      */
     public function handle($request, Closure $next)
     {
-        $options    =   app()->make( 'Tendoo\App\Services\Options' );
+        $options    =   app()->make( 'Tendoo\Cms\App\Services\Options' );
 
         /**
          * It's not strict. So it's not proceeding a strict comparison

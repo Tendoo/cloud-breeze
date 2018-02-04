@@ -1,7 +1,7 @@
 <?php
-namespace Tendoo\App\Services;
+namespace Tendoo\Cms\App\Services;
 
-use Tendoo\App\Services\Options;
+use Tendoo\Cms\App\Services\Options;
 
 class UserOptions extends Options
 {

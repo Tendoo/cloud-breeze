@@ -1,11 +1,11 @@
 <?php
 
-namespace Tendoo\App\Http\Controllers\Dashboard;
+namespace Tendoo\Cms\App\Http\Controllers\Dashboard;
 
 use Illuminate\Http\Request;
-use Tendoo\App\Http\Controllers\TendooController;
+use Tendoo\Cms\App\Http\Controllers\TendooController;
 use Illuminate\Support\Facades\Event;
-use Tendoo\App\Http\Requests\OptionsRequest;
+use Tendoo\Cms\App\Http\Requests\OptionsRequest;
 
 class SettingsController extends TendooController
 {

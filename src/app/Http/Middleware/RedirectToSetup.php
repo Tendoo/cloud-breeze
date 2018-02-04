@@ -1,9 +1,9 @@
 <?php
 
-namespace Tendoo\App\Http\Middleware;
+namespace Tendoo\Cms\App\Http\Middleware;
 
 use Closure;
-use Tendoo\App\Services\Helper;
+use Tendoo\Cms\App\Services\Helper;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Cookie;

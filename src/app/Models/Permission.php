@@ -1,9 +1,9 @@
 <?php
 
-namespace Tendoo\App\Models;
+namespace Tendoo\Cms\App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Tendoo\App\Models\Role;
+use Tendoo\Cms\App\Models\Role;
 
 class Permission extends Model
 {

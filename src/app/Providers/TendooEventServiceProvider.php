@@ -1,6 +1,6 @@
 <?php
 
-namespace Tendoo\App\Providers;
+namespace Tendoo\Cms\App\Providers;
 
 use Illuminate\Support\Facades\Event;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -13,13 +13,13 @@ class TendooEventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        'Tendoo\App\Events\Event' => [
-            'Tendoo\App\Listeners\EventListener',
+        'Tendoo\Cms\App\Events\Event' => [
+            'Tendoo\Cms\App\Listeners\EventListener',
         ]
     ];
 
     protected $subscribe    =   [
-        // 'Tendoo\App\Listeners\UsersListeners'
+        // 'Tendoo\Cms\App\Listeners\UsersListeners'
     ];
 
     /**
@@ -69,6 +69,6 @@ class TendooEventServiceProvider extends ServiceProvider
         /**
          * Register Crud definition
          */
-        Event::listen( 'define.crud', 'Tendoo\App\Crud\Users@register' );
+        Event::listen( 'define.crud', 'Tendoo\Cms\App\Crud\Users@register' );
     }
 }

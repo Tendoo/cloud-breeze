@@ -1,7 +1,7 @@
 <?php
-namespace Tendoo\App\Services;
-use Tendoo\App\Models\User;
-use Tendoo\App\Models\Role;
+namespace Tendoo\Cms\App\Services;
+use Tendoo\Cms\App\Models\User;
+use Tendoo\Cms\App\Models\Role;
 
 class Guard
 {

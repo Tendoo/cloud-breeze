@@ -1,5 +1,5 @@
 <?php
-namespace Tendoo\App\Services\Helpers;
+namespace Tendoo\Cms\App\Services\Helpers;
 use Illuminate\Http\Request;
 
 trait Routes

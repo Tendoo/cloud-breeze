@@ -1,10 +1,10 @@
 <?php
-namespace Tendoo\App\Http\Controllers\Dashboard;
+namespace Tendoo\Cms\App\Http\Controllers\Dashboard;
 
-use Tendoo\App\Http\Controllers\TendooController;
+use Tendoo\Cms\App\Http\Controllers\TendooController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Event;
-use Tendoo\App\Http\Requests\PostModuleRequest;
+use Tendoo\Cms\App\Http\Requests\PostModuleRequest;
 
 class ModulesController extends TendooController
 {

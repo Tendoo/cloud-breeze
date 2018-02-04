@@ -1,11 +1,11 @@
 <?php
-namespace Tendoo\App\Crud;
-use Tendoo\App\Services\Crud;
+namespace Tendoo\Cms\App\Crud;
+use Tendoo\Cms\App\Services\Crud;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-use Tendoo\App\Services\Field;
-use Tendoo\App\Services\Helper;
-use Tendoo\App\Models\User;
+use Tendoo\Cms\App\Services\Field;
+use Tendoo\Cms\App\Services\Helper;
+use Tendoo\Cms\App\Models\User;
 
 class Users extends Crud
 {
@@ -28,7 +28,7 @@ class Users extends Crud
     /**
      * Model Used
      */
-    protected $model      =   'Tendoo\App\Models\User';
+    protected $model      =   'Tendoo\Cms\App\Models\User';
 
     /**
      * Adding relation

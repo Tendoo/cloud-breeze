@@ -1,14 +1,14 @@
 <?php
-namespace Tendoo\App\Http\Controllers;
+namespace Tendoo\Cms\App\Http\Controllers;
 
-use Tendoo\App\Services\Guard;
-use Tendoo\App\Services\Helper;
-use Tendoo\App\Services\Modules;
-use Tendoo\App\Models\User;
-use Tendoo\App\Services\Page;
-use Tendoo\App\Services\Options;
-use Tendoo\App\Services\UserOptions;
-use Tendoo\App\Exceptions\AccessDeniedException;
+use Tendoo\Cms\App\Services\Guard;
+use Tendoo\Cms\App\Services\Helper;
+use Tendoo\Cms\App\Services\Modules;
+use Tendoo\Cms\App\Models\User;
+use Tendoo\Cms\App\Services\Page;
+use Tendoo\Cms\App\Services\Options;
+use Tendoo\Cms\App\Services\UserOptions;
+use Tendoo\Cms\App\Exceptions\AccessDeniedException;
 
 use Illuminate\Support\Facades\Event;
 
@@ -32,10 +32,10 @@ class TendooController extends Controller
                 /**
                  * Registering stuff from middleware
                  */
-                $this->options      =   app()->make( 'Tendoo\App\Services\Options' );
-                $this->userOptions  =   app()->make( 'Tendoo\App\Services\UserOptions' );
+                $this->options      =   app()->make( 'Tendoo\Cms\App\Services\Options' );
+                $this->userOptions  =   app()->make( 'Tendoo\Cms\App\Services\UserOptions' );
                 $this->modules      =   app()->make( Modules::class );
-                $this->menus        =   app()->make( 'Tendoo\App\Services\Dashboard\MenusConfig' );
+                $this->menus        =   app()->make( 'Tendoo\Cms\App\Services\Dashboard\MenusConfig' );
                 $this->guard        =   app()->make( Guard::class );
         
                 Event::fire( 'dashboard.loaded' );

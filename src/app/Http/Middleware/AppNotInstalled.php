@@ -1,6 +1,6 @@
 <?php
 
-namespace Tendoo\App\Http\Middleware;
+namespace Tendoo\Cms\App\Http\Middleware;
 
 use Closure;
 use Jackiedo\DotenvEditor\Facades\DotenvEditor;

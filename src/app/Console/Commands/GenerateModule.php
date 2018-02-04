@@ -1,12 +1,12 @@
 <?php
 
-namespace Tendoo\App\Console\Commands;
+namespace Tendoo\Cms\App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Storage;
-use Tendoo\App\Services\Modules;
-use Tendoo\App\Services\Setup;
-use Tendoo\App\Services\Helper;
+use Tendoo\Cms\App\Services\Modules;
+use Tendoo\Cms\App\Services\Setup;
+use Tendoo\Cms\App\Services\Helper;
 
 class GenerateModule extends Command
 {

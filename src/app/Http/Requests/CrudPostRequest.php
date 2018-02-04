@@ -1,10 +1,10 @@
 <?php
 
-namespace Tendoo\App\Http\Requests;
+namespace Tendoo\Cms\App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Event;
-use Tendoo\App\Services\Helper;
+use Tendoo\Cms\App\Services\Helper;
 
 class CrudPostRequest extends FormRequest
 {

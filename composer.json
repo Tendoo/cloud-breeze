@@ -11,19 +11,19 @@
     ],
     "autoload": {
         "psr-4": {
-            "Tendoo\\": "src/"
+            "Tendoo\\Cms\\": "src/"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "Tendoo\\ServiceProvider"
+                "Tendoo\\Cms\\ServiceProvider"
             ]
         }
     },
     "minimum-stability": "dev",
     "require": {
-        "php" : "^7.1"
+        "php" : ">=7.1"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.1",

@@ -1,10 +1,10 @@
 <?php
-namespace Tendoo\App\Services;
+namespace Tendoo\Cms\App\Services;
 
-use Tendoo\App\Services\Helpers\ArrayHelper;
-use Tendoo\App\Services\Helpers\App;
-use Tendoo\App\Services\Helpers\Routes;
-use Tendoo\App\Services\Helpers\Validation;
+use Tendoo\Cms\App\Services\Helpers\ArrayHelper;
+use Tendoo\Cms\App\Services\Helpers\App;
+use Tendoo\Cms\App\Services\Helpers\Routes;
+use Tendoo\Cms\App\Services\Helpers\Validation;
 
 class Helper
 {

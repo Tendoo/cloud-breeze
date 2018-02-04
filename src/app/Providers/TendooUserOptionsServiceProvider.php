@@ -1,10 +1,10 @@
 <?php
 
-namespace Tendoo\App\Providers;
+namespace Tendoo\Cms\App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Auth;
-use Tendoo\App\Services\UserOptions;
+use Tendoo\Cms\App\Services\UserOptions;
 
 class TendooUserOptionsServiceProvider extends ServiceProvider
 {    

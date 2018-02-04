@@ -1,6 +1,6 @@
 <?php
 
-namespace Tendoo\App\Http\Requests;
+namespace Tendoo\Cms\App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 

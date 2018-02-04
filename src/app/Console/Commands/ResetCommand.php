@@ -1,6 +1,6 @@
 <?php
 
-namespace Tendoo\App\Console\Commands;
+namespace Tendoo\Cms\App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Cookie;
 use Jackiedo\DotenvEditor\Facades\DotenvEditor;
-use Tendoo\App\Services\Helper;
+use Tendoo\Cms\App\Services\Helper;
 
 class ResetCommand extends Command
 {

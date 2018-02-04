@@ -1,11 +1,11 @@
 <?php
 
-namespace Tendoo\App\Http\Controllers\Dashboard;
+namespace Tendoo\Cms\App\Http\Controllers\Dashboard;
 
 use Illuminate\Http\Request;
-use Tendoo\App\Http\Controllers\TendooController;
-use Tendoo\App\Http\Requests\CrudPostRequest;
-use Tendoo\App\Http\Requests\CrudPutRequest;
+use Tendoo\Cms\App\Http\Controllers\TendooController;
+use Tendoo\Cms\App\Http\Requests\CrudPostRequest;
+use Tendoo\Cms\App\Http\Requests\CrudPutRequest;
 use Illuminate\Support\Facades\Event;
 
 class CrudController extends TendooController

@@ -1,6 +1,6 @@
 <?php
 
-namespace Tendoo\App\Http;
+namespace Tendoo\Cms\App\Http;
 
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
@@ -16,9 +16,9 @@ class TendooKernel extends HttpKernel
     protected $middleware = [
         \Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode::class,
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
-        \Tendoo\App\Http\Middleware\TrimStrings::class,
+        \Tendoo\Cms\App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
-        \Tendoo\App\Http\Middleware\TrustProxies::class,
+        \Tendoo\Cms\App\Http\Middleware\TrustProxies::class,
     ];
 
     /**
@@ -28,13 +28,13 @@ class TendooKernel extends HttpKernel
      */
     protected $middlewareGroups = [
         'web' => [
-            \Tendoo\App\Http\Middleware\RedirectToSetup::class,
-            \Tendoo\App\Http\Middleware\EncryptCookies::class,
+            \Tendoo\Cms\App\Http\Middleware\RedirectToSetup::class,
+            \Tendoo\Cms\App\Http\Middleware\EncryptCookies::class,
             \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
             \Illuminate\Session\Middleware\StartSession::class,
             \Illuminate\Session\Middleware\AuthenticateSession::class,
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
-            \Tendoo\App\Http\Middleware\VerifyCsrfToken::class,
+            \Tendoo\Cms\App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
 
@@ -56,12 +56,12 @@ class TendooKernel extends HttpKernel
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,
         'can' => \Illuminate\Auth\Middleware\Authorize::class,
-        'guest' => \Tendoo\App\Http\Middleware\RedirectIfAuthenticated::class,
+        'guest' => \Tendoo\Cms\App\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
-        'app.installed' => \Tendoo\App\Http\Middleware\AppInstalled::class,
-        'app.notInstalled' => \Tendoo\App\Http\Middleware\AppNotInstalled::class,
-        'expect.unlogged'  =>   \Tendoo\App\Http\Middleware\RedirectIfAuthenticated::class,
-        'expect.logged'  =>   \Tendoo\App\Http\Middleware\RedirectIfNotAuthenticated::class,
-        'can.register'  =>  \Tendoo\App\Http\Middleware\CheckRegistrationStatus::class,
+        'app.installed' => \Tendoo\Cms\App\Http\Middleware\AppInstalled::class,
+        'app.notInstalled' => \Tendoo\Cms\App\Http\Middleware\AppNotInstalled::class,
+        'expect.unlogged'  =>   \Tendoo\Cms\App\Http\Middleware\RedirectIfAuthenticated::class,
+        'expect.logged'  =>   \Tendoo\Cms\App\Http\Middleware\RedirectIfNotAuthenticated::class,
+        'can.register'  =>  \Tendoo\Cms\App\Http\Middleware\CheckRegistrationStatus::class,
     ];
 }

@@ -1,7 +1,7 @@
 <?php
-namespace Tendoo\App\Services\Fields;
-use Tendoo\App\Models\Role;
-use Tendoo\App\Services\Helper;
+namespace Tendoo\Cms\App\Services\Fields;
+use Tendoo\Cms\App\Models\Role;
+use Tendoo\Cms\App\Services\Helper;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
