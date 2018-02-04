@@ -8,22 +8,22 @@
             "email": "carlosjohnsonluv2004@gmail.com"
         }
     ],
+    "require": {
+        "php" : ">=7.0.0"
+    },
     "autoload": {
         "psr-4": {
             "Tendoo\\Cms\\": "src/"
         }
     },
+    "prefer-stable": true,
+    "minimum-stability": "dev",
     "extra": {
         "laravel": {
             "providers": [
                 "Tendoo\\Cms\\ServiceProvider"
             ]
         }
-    },
-    "prefer-stable": true,
-    "minimum-stability": "dev",
-    "require": {
-        "php" : ">=7.1"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.1",
