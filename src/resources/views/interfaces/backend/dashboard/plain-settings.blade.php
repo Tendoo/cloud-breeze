@@ -4,7 +4,7 @@
 @extends( 'components.backend.dashboard.master', [ 'parent_class' => 'p-0' ])
 @section( 'components.backend.dashboard.master.body' )
     <div class="content-wrapper">
-        @include( 'partials.shared.page-title', [
+        @include( 'tendoo::partials.shared.page-title', [
             'title'     =>  @$page_title ? $page_title : __( 'Unamed page' ),
             'description'   =>  @$page_description
         ])
@@ -19,7 +19,7 @@
                         <div class="card-header p-3">
                             <button type="submit" class="mb-0 btn btn-raised btn-primary">{{ __( 'Save Settings' ) }}</button>
                         </div>
-                        @include( 'partials.shared.errors', [
+                        @include( 'tendoo::partials.shared.errors', [
                             'errors'    =>  $errors,
                             'class'     =>  'mb-0'
                         ])

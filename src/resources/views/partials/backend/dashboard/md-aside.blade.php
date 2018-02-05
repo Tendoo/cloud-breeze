@@ -16,7 +16,7 @@
 </nav>
 {{-- 
 	@if( @$menu->childrens ) 
-		@include( 'partials.backend.dashboard.aside', [ 
+		@include( 'tendoo::partials.backend.dashboard.aside', [ 
 			'menus' => $menu->childrens, 
 			'tree' => intval( @$tree ) + 1 
 		]) 

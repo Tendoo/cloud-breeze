@@ -7,7 +7,7 @@
 @extends( 'components.backend.dashboard.master', [ 'parent_class' => 'app-body-container' ] )
 @section( 'components.backend.dashboard.master.body' )
     <div class="h-100 content-wrapper">
-        @include( 'partials.shared.page-title', [
+        @include( 'tendoo::partials.shared.page-title', [
             'title'     =>  __( 'Upload a module' ),
             'description'   =>  __( 'Add feature by uploading a Tendoo CMS module' ),
             'links'   =>  [
@@ -26,7 +26,7 @@
                             <h5 class="box-title">{{ __( 'Please choose the file to upload' ) }}</h5>
                         </div>
                         <div class="card-body p-0">
-                        @include( 'partials.shared.errors', compact( 'errors' ) )
+                        @include( 'tendoo::partials.shared.errors', compact( 'errors' ) )
                         </div>
                         {{ csrf_field() }}
                         <div class="card-body p-3">

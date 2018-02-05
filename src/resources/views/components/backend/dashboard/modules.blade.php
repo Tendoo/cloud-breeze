@@ -7,7 +7,7 @@
 @extends( 'components.backend.dashboard.master', [ 'parent_class' => 'app-body-container' ] )
 @section( 'components.backend.dashboard.master.body' )
     <div class="content-wrapper">
-        @include( 'partials.shared.page-title', [
+        @include( 'tendoo::partials.shared.page-title', [
             'title'     =>  __( 'Modules' ),
             'description'   =>  __( 'Display all module installed on the system.' ),
             'links'     =>  [
@@ -29,7 +29,7 @@
                     $class          =   'm-0';
                     @endphp
                     <div class="card-body p-0">
-                    @include( 'partials.shared.errors', compact( 'errors' ) )
+                    @include( 'tendoo::partials.shared.errors', compact( 'errors' ) )
                     </div>
                     <div class="row m-0">
                         @if( $collection->isNotEmpty() )

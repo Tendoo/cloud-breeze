@@ -1,7 +1,7 @@
 <form action="{{ @$action ? $action : route( 'dashboard.options.post' ) }}" method="post">
     {{ csrf_field() }}
     <div class="row">
-        @include( 'partials.shared.errors', compact( 'errors' ) )
+        @include( 'tendoo::partials.shared.errors', compact( 'errors' ) )
         <div class="col-md-6 col-xs-12">
             <div class="card">
                 <div class="card-body p-3">

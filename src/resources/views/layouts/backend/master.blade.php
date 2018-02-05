@@ -25,6 +25,6 @@
     <!-- Scroll Bar JS -->
     <script src="https://unpkg.com/simplebar@latest/dist/simplebar.js"></script>
 @endsection
-@include( 'partials.shared.header' )
+@include( 'tendoo::partials.shared.header' )
     @yield( 'layouts.backend.master.body' ) 
-@include( 'partials.shared.footer' )
+@include( 'tendoo::partials.shared.footer' )

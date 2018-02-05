@@ -13,7 +13,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Tendoo\\Cms\\": "src/"
+            "Tendoo\\": "src/"
         }
     },
     "prefer-stable": true,
@@ -21,7 +21,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Tendoo\\Cms\\ServiceProvider"
+                "Tendoo\\ServiceProvider"
             ]
         }
     },

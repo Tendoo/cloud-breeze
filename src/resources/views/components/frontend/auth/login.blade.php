@@ -8,7 +8,7 @@
         <div class="card">
             <div class="card-header">{{ __( 'Login' ) }}</div>
             <div class="card-body">
-                @include( 'partials.shared.errors', compact( 'errors' ) )
+                @include( 'tendoo::partials.shared.errors', compact( 'errors' ) )
                 @each( 'partials.shared.fields', $Field::login(), 'field' )
             </div>
             <div class="card-footer p-2 d-flex justify-content-between">

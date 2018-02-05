@@ -7,14 +7,14 @@
             Hello World
             </div>
             <div class="menu-wrapper h-100" data-simplebar>
-            @include( 'partials.backend.dashboard.aside', [
+            @include( 'tendoo::partials.backend.dashboard.aside', [
                 'menus'     =>  $Menus->get(),
                 'tree'      =>  0
             ])
             </div>
         </aside>
         <div id="app-body" class="align-items-stretch h-100 flex-column d-flex">
-            @include( 'partials.backend.dashboard.navbar' )
+            @include( 'tendoo::partials.backend.dashboard.navbar' )
             <div class="h-100 app-body-container {{ @$parent_class ? $parent_class : 'p-3' }}">
                 @yield( 'components.backend.dashboard.master.body' )
             </div>

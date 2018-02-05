@@ -6,6 +6,6 @@
     <script>$(document).ready(function() { $('body').bootstrapMaterialDesign(); });</script>
 @endsection
 
-@include( 'partials.shared.frontend-header' )
+@include( 'tendoo::partials.shared.frontend-header' )
     @yield( 'layouts.frontend.master.body' )
-@include( 'partials.shared.footer' )
+@include( 'tendoo::partials.shared.footer' )

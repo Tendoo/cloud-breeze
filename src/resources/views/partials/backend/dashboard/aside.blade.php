@@ -14,7 +14,7 @@
 			<i class="material-icons arrow">keyboard_arrow_down</i>
 			@endif
 		</a>
-		@if( @$menu->childrens ) @include( 'partials.backend.dashboard.aside', [ 'menus' => $menu->childrens, 'tree' => intval( @$tree
+		@if( @$menu->childrens ) @include( 'tendoo::partials.backend.dashboard.aside', [ 'menus' => $menu->childrens, 'tree' => intval( @$tree
 		) + 1 ]) @endif
 	</li>
 	@endforeach

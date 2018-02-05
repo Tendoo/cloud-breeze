@@ -26,7 +26,7 @@
                     @endif
                 </div>
             </div>
-            @include( 'partials.shared.errors', compact( 'errors' ) )
+            @include( 'tendoo::partials.shared.errors', compact( 'errors' ) )
             <div class="card-body p-0">
                 <table class="table table-striped mb-0">
                     <thead>
@@ -141,5 +141,5 @@
     </form>
 
 @else
-    @include( 'errors.unhandled-crud' )
+    @include( 'tendoo::errors.unhandled-crud' )
 @endif

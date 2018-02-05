@@ -17,7 +17,7 @@
         @endforelse
     </ul>
 </div>
-@include( 'partials.shared.errors', [
+@include( 'tendoo::partials.shared.errors', [
     'errors'    =>  $errors,
     'class'     =>  'mb-0'
 ])

@@ -12,7 +12,7 @@
 @endpush
 @section( 'components.backend.dashboard.master.body' )
     <div class="content-wrapper">
-        @include( 'partials.shared.page-title', [
+        @include( 'tendoo::partials.shared.page-title', [
             'title'     =>  __( 'Modules &mdash; Migration' ),
             'description'   =>  sprintf( __( 'Migratin the module %s.' ), $module[ 'name' ] )
         ])

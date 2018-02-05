@@ -5,13 +5,13 @@
 @endphp
 
 @if ( ! is_object( $resource ) )
-    @include( 'errors.unhandled-crud' )
+    @include( 'tendoo::errors.unhandled-crud' )
 @else 
 <div class="content-wrapper">
     @php
         $entry     =   $Request->route( 'entry' );
     @endphp
-    @include( 'partials.shared.page-title', [
+    @include( 'tendoo::partials.shared.page-title', [
         'title'         =>  @$resource->edit_title ? $resource->edit_title : __( 'Undefined Page' ),
         'description'   =>  @$resource->edit_description ? $resource->edit_description : __( 'Undefined Description' ),
         'links'         =>  $resource->getLinks()[ 'edit' ]
@@ -24,7 +24,7 @@
                         <h5 class="box-title">{{ @$resource->edit_title ? $resource->edit_title : __( 'Undefined Page' ) }}</h5>
                     </div>
                     <div class="card-body p-0">
-                    @include( 'partials.shared.errors', compact( 'errors' ) )
+                    @include( 'tendoo::partials.shared.errors', compact( 'errors' ) )
                     </div>
                     {{ csrf_field() }}
                     <div class="card-body p-3">
