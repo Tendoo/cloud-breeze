@@ -46,7 +46,7 @@ class TendooAppServiceProvider extends ServiceProvider
          * if not. Let's create it. since it's needed
          */
         if ( ! Storage::disk( 'root' )->exists( '.env' ) ) {
-            Storage::disk( 'root' )->put( '.env', view( 'generate.env' ) );
+            Storage::disk( 'root' )->put( '.env', view( 'tendoo::generate.env' ) );
             return redirect( url()->current() );
         }
 
