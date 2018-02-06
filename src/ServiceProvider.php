@@ -48,28 +48,6 @@ class ServiceProvider extends CoreServiceProvider
         $publicPath     =   base_path() . _SLASH_ . 'public' . _SLASH_ . 'tendoo';
         $servicePath    =   $corePath . 'Services';
 
-        config([ 'temp.temp-core' => [
-            'driver' => 'local',
-            'root' => storage_path( 'core' ),
-        ] ]);
-        
-        config([ 'temp.root' => [
-            'driver' => 'local',
-            'root' => base_path(),
-        ] ]);
-
-        config([ 'temp.modules' => [
-            'driver' => 'local',
-            'root' => base_path( 'modules' ),
-        ] ]);
-        
-        config([ 'temp.temp-modules' => [
-            'driver'    =>  'local',
-            'root'  =>  storage_path( 'modules' )
-        ] ]);
-
-        config([ 'filesystems.disks' => array_merge( config( 'filesystems.disks' ), config( 'temp' ) ) ]);
-
         if ( $this->app->runningInConsole() ) {
             $this->commands([
                 DisableModule::class,
@@ -174,6 +152,28 @@ class ServiceProvider extends CoreServiceProvider
      */
     public function register()
     {
+        config([ 'temp.temp-core' => [
+            'driver' => 'local',
+            'root' => storage_path( 'core' ),
+        ] ]);
+        
+        config([ 'temp.root' => [
+            'driver' => 'local',
+            'root' => base_path(),
+        ] ]);
+
+        config([ 'temp.modules' => [
+            'driver' => 'local',
+            'root' => base_path( 'modules' ),
+        ] ]);
+        
+        config([ 'temp.temp-modules' => [
+            'driver'    =>  'local',
+            'root'  =>  storage_path( 'modules' )
+        ] ]);
+
+        config([ 'filesystems.disks' => array_merge( config( 'filesystems.disks' ), config( 'temp' ) ) ]);
+
         $this->app->singleton('orchestra.parser.xml', function ($app) {
             return new XmlReader(new XmlDocument($app));
         });
