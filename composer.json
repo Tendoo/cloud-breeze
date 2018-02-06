@@ -9,7 +9,11 @@
         }
     ],
     "require": {
-        "php" : ">=7.0.0"
+        "php" : ">=7.0.0",
+        "barryvdh/laravel-debugbar": "^3.1",
+        "jackiedo/dotenv-editor" : "^1.0",
+        "nikic/php-parser": "^3.1",
+        "orchestra/parser": "^3.5"
     },
     "autoload": {
         "psr-4": {
@@ -21,12 +25,16 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Tendoo\\ServiceProvider"
+                "Tendoo\\ServiceProvider",
+                "Tendoo\\Core\\Providers\\TendooAppServiceProvider",
+                "Tendoo\\Core\\Providers\\TendooEventServiceProvider",
+                "Tendoo\\Core\\Providers\\TendooModulesServiceProvider",
+                "Tendoo\\Core\\Providers\\TendooRouteServiceProvider",
+                "Tendoo\\Core\\Providers\\TendooUserOptionsServiceProvider"                
             ]
         }
     },
     "require-dev": {
-        "barryvdh/laravel-debugbar": "^3.1",
-        "jackiedo/dotenv-editor" : "^1.0"
+        
     }
 }

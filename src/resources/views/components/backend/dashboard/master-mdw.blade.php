@@ -1,6 +1,6 @@
-@inject( 'Menus', 'App\Services\Menus' ) 
-@extends( 'layouts.backend.master' ) 
-@section( 'layouts.backend.master.body' )
+@inject( 'Menus', 'Tendoo\Core\Services\Menus' ) 
+@extends( 'tendoo::layouts.backend.master' ) 
+@section( 'tendoo::layouts.backend.master.body' )
     <!-- Always shows a header, even in smaller screens. -->
     <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
     <header class="mdl-layout__header">

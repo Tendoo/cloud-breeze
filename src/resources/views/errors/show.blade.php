@@ -1,5 +1,5 @@
-@extends( 'components.frontend.auth.master' )
-@section( 'components.frontend.auth.master.body' )
+@extends( 'tendoo::components.frontend.auth.master' )
+@section( 'tendoo::components.frontend.auth.master.body' )
     <div class="card">
         <div class="card-header text-center">
             <h1>{{ $title }}</h1>

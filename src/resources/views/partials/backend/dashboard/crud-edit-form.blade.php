@@ -28,7 +28,7 @@
                     </div>
                     {{ csrf_field() }}
                     <div class="card-body p-3">
-                        @each( 'partials.shared.fields', $resource->getFields( 
+                        @each( 'tendoo::partials.shared.fields', $resource->getFields( 
                             $entry
                         ), 'field' )
                     </div>

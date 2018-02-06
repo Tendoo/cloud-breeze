@@ -1,5 +1,5 @@
-@inject( 'Field', 'App\Services\Field' )
-@inject( 'Helper', 'App\Services\Helper' )
+@inject( 'Field', 'Tendoo\Core\Services\Field' )
+@inject( 'Helper', 'Tendoo\Core\Services\Helper' )
 <form action="">
 
     <div class="card">
@@ -27,10 +27,10 @@
             <div class="tab-content p-3">
                 <div class="row">
                     <div class="col-md-6 col-xs-6">
-                        @each( 'partials.shared.fields', $Helper::arrayDivide( $Field::setupAppDetails(), 'even' ), 'field' )
+                        @each( 'tendoo::partials.shared.fields', $Helper::arrayDivide( $Field::setupAppDetails(), 'even' ), 'field' )
                     </div>
                     <div class="col-md-6 col-xs-6">
-                        @each( 'partials.shared.fields', $Helper::arrayDivide( $Field::setupAppDetails(), 'odd' ), 'field' )
+                        @each( 'tendoo::partials.shared.fields', $Helper::arrayDivide( $Field::setupAppDetails(), 'odd' ), 'field' )
                     </div>
                 </div>
             </div>

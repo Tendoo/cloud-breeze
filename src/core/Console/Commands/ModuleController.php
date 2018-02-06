@@ -71,7 +71,7 @@ class ModuleController extends Command
             if ( ! Storage::disk( 'modules' )->exists( 
                 $fileName 
             ) ) {
-                Storage::disk( 'modules' )->put( $fileName . '.php', view( 'generate.modules.controller', compact(
+                Storage::disk( 'modules' )->put( $fileName . '.php', view( 'tendoo::generate.modules.controller', compact(
                     'modules', 'module', 'name', 'namespace'
                 ) ) );
                 return $this->info( 'The controller has been created !' );

@@ -171,7 +171,7 @@ class Setup
         /**
          * Set version to close setup
          */
-        DotenvEditor::setKey( 'TENDOO_VERSION', config( 'tendoo.version' ) );
+        DotenvEditor::setKey( 'TENDOO_VERSION', TENDOO_VERSION );
         DotenvEditor::save();
 
         /**

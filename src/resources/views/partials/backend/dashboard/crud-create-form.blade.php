@@ -24,7 +24,7 @@
                     </div>
                     {{ csrf_field() }}
                     <div class="card-body p-3">
-                        @each( 'partials.shared.fields', $resource->getFields(), 'field' )
+                        @each( 'tendoo::partials.shared.fields', $resource->getFields(), 'field' )
                     </div>
                     <div class="p-2 card-footer">
                         <button type="submit" class="mb-0 btn btn-raised btn-primary">{{ @$resource->create_button ? $resource->create_button : __( 'Create' ) }}</button>

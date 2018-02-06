@@ -125,17 +125,17 @@ class GenerateModule extends Command
     {
         switch ( $content ) {
             case 'main'     :   
-            return view( 'generate.modules.main', [
+            return view( 'tendoo::generate.modules.main', [
                 'module'    =>  $this->module
             ]); 
             break;
             case 'config'     :   
-            return view( 'generate.modules.config', [
+            return view( 'tendoo::generate.modules.config', [
                 'module'    =>  $this->module
             ]); 
             break;
             case 'event'     :   
-            return view( 'generate.modules.event', [
+            return view( 'tendoo::generate.modules.event', [
                 'module'    =>  $this->module
             ]); 
             break;

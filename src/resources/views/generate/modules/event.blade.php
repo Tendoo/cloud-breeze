@@ -1,8 +1,8 @@
 <{{ '?php' }}
 namespace Modules\{{ $module[ 'namespace' ] }}\Events;
 
-// use App\Services\Menus;
-// use App\Services\Helper;
+// use Tendoo\Core\Services\Menus;
+// use Tendoo\Core\Services\Helper;
 
 /**
  * Register Events

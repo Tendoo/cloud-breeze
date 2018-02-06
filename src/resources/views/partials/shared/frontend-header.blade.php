@@ -1,4 +1,4 @@
-@inject( 'Page', 'App\Services\Page' )
+@inject( 'Page', 'Tendoo\Core\Services\Page' )
 <!DOCTYPE html>
 <html lang="en">
 <head>

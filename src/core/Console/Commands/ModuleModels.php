@@ -58,7 +58,7 @@ class ModuleModels extends Command
             if ( ! Storage::disk( 'modules' )->exists( 
                 $fileName 
             ) ) {
-                Storage::disk( 'modules' )->put( $fileName . '.php', view( 'generate.modules.model', compact(
+                Storage::disk( 'modules' )->put( $fileName . '.php', view( 'tendoo::generate.modules.model', compact(
                     'modules', 'module', 'name', 'namespace'
                 ) ) );
                 return $this->info( 'The model has been created !' );

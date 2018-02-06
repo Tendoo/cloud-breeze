@@ -1,7 +1,7 @@
-@inject( 'Field', 'App\Services\Field' )
-@inject( 'Options', 'App\Services\Options' )
-@extends( 'components.frontend.auth.master' )
-@section( 'components.frontend.auth.master.body' )
+@inject( 'Field', 'Tendoo\Core\Services\Field' )
+@inject( 'Options', 'Tendoo\Core\Services\Options' )
+@extends( 'tendoo::components.frontend.auth.master' )
+@section( 'tendoo::components.frontend.auth.master.body' )
 <div class="col-md-4">
     <form action="{{ route( 'login.post' ) }}" method="post">
         {{ csrf_field() }}
@@ -9,7 +9,7 @@
             <div class="card-header">{{ __( 'Login' ) }}</div>
             <div class="card-body">
                 @include( 'tendoo::partials.shared.errors', compact( 'errors' ) )
-                @each( 'partials.shared.fields', $Field::login(), 'field' )
+                @each( 'tendoo::partials.shared.fields', $Field::login(), 'field' )
             </div>
             <div class="card-footer p-2 d-flex justify-content-between">
                 <button class="mb-0 btn btn-raised btn-primary" type="submit">{{ __( 'Login' ) }}</button>

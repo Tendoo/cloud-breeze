@@ -1,5 +1,5 @@
-@extends( 'components.frontend.setup.master' )
-@section( 'components.frontend.setup.body' )
+@extends( 'tendoo::components.frontend.setup.master' )
+@section( 'tendoo::components.frontend.setup.body' )
 <div class="card">
     <form action="{{ route( 'setup.post.database' ) }}" method="post" class="mb-0">
         {{ csrf_field() }}

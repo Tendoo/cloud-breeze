@@ -1,4 +1,4 @@
-@inject( 'Field', 'App\Services\Field' )
+@inject( 'Field', 'Tendoo\Core\Services\Field' )
 @inject( 'Route', 'illuminate\Support\Facades\Route' )
 <form action="{{ route( 'dashboard.users.post' ) }}" method="post">
     {{ csrf_field() }}
@@ -8,7 +8,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <h4>{{ __( 'Personnal Settings' ) }}</h4>
-                    @each( 'partials.shared.fields', $Field->userGeneralFields(), 'field' )
+                    @each( 'tendoo::partials.shared.fields', $Field->userGeneralFields(), 'field' )
                 </div>
             </div>
         </div>

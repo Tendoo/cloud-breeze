@@ -1,5 +1,5 @@
-@inject( 'Page', 'App\Services\Page' )
-@inject( 'User', 'App\Services\UserOptions' )
+@inject( 'Page', 'Tendoo\Core\Services\Page' )
+@inject( 'User', 'Tendoo\Core\Services\UserOptions' )
 <!DOCTYPE html>
 <html lang="en">
 <head>

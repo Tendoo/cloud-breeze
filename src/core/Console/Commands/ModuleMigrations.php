@@ -97,7 +97,7 @@ class ModuleMigrations extends Command
     {
         switch ( $content ) {
             case 'migration'     :   
-            return view( 'generate.modules.migration', [
+            return view( 'tendoo::generate.modules.migration', [
                 'module'    =>  $this->module,
                 'version'   =>  $this->version,
                 'migration' =>  $this->migration,

@@ -22,7 +22,7 @@
     'class'     =>  'mb-0'
 ])
 <div class="card-body p-0">
-    @includeFirst([ $base_path . '.' . $tab, 'partials.shared.layouts.missing-view' ], [
+    @includeFirst([ $base_path . '.' . $tab, 'tendoo::partials.shared.layouts.missing-view' ], [
         'view'  =>  $base_path . '.' . $tab
     ])
 </div>

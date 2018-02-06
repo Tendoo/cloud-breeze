@@ -1,6 +1,6 @@
-@inject( 'Field', 'App\Services\Field' )
-@extends( 'components.backend.dashboard.master', [ 'parent_class' => 'app-body-container' ])
-@section( 'components.backend.dashboard.master.body' )
+@inject( 'Field', 'Tendoo\Core\Services\Field' )
+@extends( 'tendoo::components.backend.dashboard.master', [ 'parent_class' => 'app-body-container' ])
+@section( 'tendoo::components.backend.dashboard.master.body' )
     <div class="content-wrapper">
         @include( 'tendoo::partials.shared.page-title', [
             'title'         =>  __( 'My Settings' ),
@@ -14,7 +14,7 @@
                         [ 'name'     =>  __( 'Security' ) ],
                     ],
                     'tab'       =>  $tab,
-                    'base_path' =>  'components.backend.dashboard.user',
+                    'base_path' =>  'tendoo::components.backend.dashboard.user',
                     'base_url'  =>  route( 'dashboard.users.profile' ),
                     'route'     =>  'dashboard.users.profile'
                 ])

@@ -7,7 +7,7 @@
 <div class="row">
     <div class="col-md-6">
         <h4>{{ __( 'Default Fields' ) }}</h4>
-        @each( 'partials.shared.fields', $Field->get(
+        @each( 'tendoo::partials.shared.fields', $Field->get(
             'Modules\Foo\Fields\DashboardFields', 
             'generalSettings'
         ), 'field' )

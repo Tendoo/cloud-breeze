@@ -1,8 +1,8 @@
-@inject( 'Field', 'App\Services\Field' )
+@inject( 'Field', 'Tendoo\Core\Services\Field' )
 @inject( 'Route', 'illuminate\Support\Facades\Route' )
 
-@extends( 'components.backend.dashboard.master', [ 'parent_class' => 'p-0' ])
-@section( 'components.backend.dashboard.master.body' )
+@extends( 'tendoo::components.backend.dashboard.master', [ 'parent_class' => 'p-0' ])
+@section( 'tendoo::components.backend.dashboard.master.body' )
     <div class="content-wrapper">
         @include( 'tendoo::partials.shared.page-title', [
             'title'         =>  __( 'Dashboard Settings' ),

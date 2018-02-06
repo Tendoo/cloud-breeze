@@ -1,5 +1,5 @@
-@extends( 'components.frontend.auth.master' )
-@section( 'components.frontend.auth.master.body' )
+@extends( 'tendoo::components.frontend.auth.master' )
+@section( 'tendoo::components.frontend.auth.master.body' )
     <div class="card">
         <div class="card-header text-center py-3">
             <h3 class="mb-0">{{ __( 'Access Denied' ) }}</h3>

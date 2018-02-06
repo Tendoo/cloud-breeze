@@ -1,4 +1,4 @@
-@inject( 'User', 'App\Models\User' )
+@inject( 'User', 'Tendoo\Core\Models\User' )
 <nav id="main-nav" class="p-0 navbar navbar-expand-lg d-flex">
 	<div class="toggle-button h-100 d-flex align-items-center justify-content-center ripple" @click="toggle()">
 		<a href="javascript:void(0)">

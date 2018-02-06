@@ -10,6 +10,6 @@ trait App {
      */
     static function AppIsInstalled()
     {
-        // return DotenvEditor::keyExists( 'TENDOO_VERSION' ) && ! in_array( DotenvEditor::getValue( 'TENDOO_VERSION' ), [ '', null, false ]);
+        return env( 'TENDOO_VERSION', false ) && ! in_array( env( 'TENDOO_VERSION', false ), [ '', null, false ]);
     }
 }

@@ -8,6 +8,7 @@ use XmlParser;
 use PhpParser\Error;
 use PhpParser\NodeDumper;
 use PhpParser\ParserFactory;
+
 class Modules 
 {
     private $modules    =   [];
@@ -122,7 +123,7 @@ class Modules
          * Required to autoload module components
          */
 
-        include_once( base_path() . '/app/Services/TendooModule.php' );
+        include_once( TENDOO_ROOT . '/core/Services/TendooModule.php' );
         
         foreach( $this->modules as $module ) {
             if ( ! $module[ 'enabled' ] ) {

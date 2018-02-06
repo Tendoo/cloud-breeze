@@ -1,4 +1,4 @@
-@inject( 'SchemaService', 'App\Services\Schema' )<{{ '?php' }}
+@inject( 'SchemaService', 'Tendoo\Core\Services\Schema' )<{{ '?php' }}
 /**
  * Table Migration
  * @package {{ config( 'tendoo.version' ) }}

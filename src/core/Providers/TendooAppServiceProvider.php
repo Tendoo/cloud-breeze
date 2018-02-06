@@ -70,7 +70,7 @@ class TendooAppServiceProvider extends ServiceProvider
             return new Guard;
         });
 
-        require_once app_path() . '/Services/Helper.php';
-        require_once app_path() . '/Services/HelperFunctions.php';
+        require_once TENDOO_ROOT . '/Core/Services/Helper.php';
+        require_once TENDOO_ROOT . '/Core/Services/HelperFunctions.php';
     }
 }

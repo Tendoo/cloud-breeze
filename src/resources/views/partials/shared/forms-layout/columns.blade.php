@@ -5,7 +5,7 @@
         <div class="col-md-6 col-xs-12">
             <div class="card">
                 <div class="card-body p-3">
-                @each( 'partials.shared.fields', $field::$method(), 'field' )
+                @each( 'tendoo::partials.shared.fields', $field::$method(), 'field' )
                 </div>
                 <div class="card-footer p-2">
                     <button class="mb-0 btn btn-raised btn-primary">{{ __( 'Submit' ) }}</button>

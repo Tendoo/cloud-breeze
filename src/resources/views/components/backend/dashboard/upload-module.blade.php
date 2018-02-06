@@ -1,11 +1,11 @@
-@inject( 'Modules', 'App\Services\Modules' )
+@inject( 'Modules', 'Tendoo\Core\Services\Modules' )
 @section( 'partials.shared.head' )
     @parent
     <link rel="stylesheet" href="{{ asset( 'css/backend-module.css' ) }}">
 @endsection
 
-@extends( 'components.backend.dashboard.master', [ 'parent_class' => 'app-body-container' ] )
-@section( 'components.backend.dashboard.master.body' )
+@extends( 'tendoo::components.backend.dashboard.master', [ 'parent_class' => 'app-body-container' ] )
+@section( 'tendoo::components.backend.dashboard.master.body' )
     <div class="h-100 content-wrapper">
         @include( 'tendoo::partials.shared.page-title', [
             'title'     =>  __( 'Upload a module' ),
