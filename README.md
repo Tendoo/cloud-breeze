@@ -13,8 +13,8 @@ To get started, all you have to do is add it to composer.json as following :
 Now you're required to publish the vendors and select Tendoo/ServiceProvider.php
 `php artisan vendor:publish`
 
-## 3 - Open the browser at http://localhost:8000/do-setup
-Now all you have to do, is to follow the setup instructions
+## 3 - Serve Laravel and access to the setup page
+Now all you have to do, to `php artisan serve`, then access to http://localhost:8000/do-setup (according to your port configuration).
 
 ## 4 - Login to the dashboard
 Now you have the project installed. You can starte reading the documentation on https://tendoo-cms.readme.io/v5.0
