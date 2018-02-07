@@ -26,7 +26,7 @@ class TendooAppServiceProvider extends ServiceProvider
         /**
          * We might need to publish views as well
          */
-        if ( Storage::disk( 'root' )->directories( 'public' )->has( 'tendoo' ) ) {
+        if ( ! is_dir( base_path() . '/public/tendoo' ) ) {
             Artisan::call( 'vendor:publish --provider=Tendoo\ServiceProvider' );
         }
         
