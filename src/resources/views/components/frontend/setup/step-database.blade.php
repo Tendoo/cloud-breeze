@@ -51,7 +51,7 @@
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1">{{ __( 'Password' ) }}</label>
-                        <input name="password" type="text" class="form-control">
+                        <input name="password" type="password" class="form-control">
                         <small class="form-text text-muted">{{ __( 'User password to have acces to the database.' ) }}</small>
                     </div>
                 </div>
