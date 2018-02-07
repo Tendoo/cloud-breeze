@@ -24,15 +24,23 @@ class TendooAppServiceProvider extends ServiceProvider
     public function boot()
     {
         /**
+         * We might need to publish views as well
+         */
+        if ( Storage::disk( 'root' )->directories( 'public' )->has( 'tendoo' ) ) {
+            Artisan::call( 'vendor:publish --provider=Tendoo\ServiceProvider' );
+        }
+        
+        /**
          * Let's check if the .env exists 
          * if not. Let's create it. since it's needed
          */
         if ( ! Storage::disk( 'root' )->exists( '.env' ) ) {
-            Storage::disk( 'root' )->put( '.env', view( 'tendoo::generate.env' ) );
+            Storage::disk( 'root' )->put( '.env', view( 'tendoo::generate.env' ) );            
             return redirect( url()->current() )->send();
         }
         
         Schema::defaultStringLength(191);
+
         /**
          * If app key is not defined, we can define it automatically and redirect 
          * to the same page
