@@ -23,6 +23,15 @@ class TendooAppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        /**
+         * Let's check if the .env exists 
+         * if not. Let's create it. since it's needed
+         */
+        if ( ! Storage::disk( 'root' )->exists( '.env' ) ) {
+            Storage::disk( 'root' )->put( '.env', view( 'tendoo::generate.env' ) );
+            return redirect( url()->current() )->send();
+        }
+        
         Schema::defaultStringLength(191);
         /**
          * If app key is not defined, we can define it automatically and redirect 
@@ -30,7 +39,7 @@ class TendooAppServiceProvider extends ServiceProvider
          */
         if ( empty( DotenvEditor::getValue( 'APP_KEY' ) ) ) {
             Artisan::call( 'key:generate' );
-            return redirect( url()->current() );
+            return redirect( url()->current() )->send();
         }
     }
 
@@ -41,15 +50,6 @@ class TendooAppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        /**
-         * Let's check if the .env exists 
-         * if not. Let's create it. since it's needed
-         */
-        if ( ! Storage::disk( 'root' )->exists( '.env' ) ) {
-            Storage::disk( 'root' )->put( '.env', view( 'tendoo::generate.env' ) );
-            return redirect( url()->current() );
-        }
-
         // register a singleton a menu
         $this->app->singleton( 'Tendoo\Core\Services\Menus', function( $app ) {
             return new Menus();
