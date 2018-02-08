@@ -7,6 +7,7 @@ use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Jackiedo\DotenvEditor\Facades\DotenvEditor;
 use Tendoo\Core\Mail\SetupComplete;
 use Tendoo\Core\Models\User;
@@ -95,10 +96,10 @@ class Setup
         DotEnvEditor::setKey( 'DB_PREFIX', $request->input( 'table_prefix' ) );
         DotEnvEditor::setKey( 'DB_PORT', 3306 );
         DotEnvEditor::setKey( 'DB_CONNECTION', 'mysql' );
+        DotEnvEditor::setKey( 'APP_URL', url()->to( '/' ) );
         DotenvEditor::save();
 
-        return true;
-        
+        return true;   
     }
 
     /**

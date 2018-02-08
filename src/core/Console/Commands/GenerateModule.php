@@ -28,7 +28,7 @@ class GenerateModule extends Command
      *
      * @var string
      */
-    protected $description = 'Generate a new Tendoo module';
+    protected $description = 'Create a new Tendoo module';
 
     /**
      * Create a new command instance.
@@ -51,7 +51,7 @@ class GenerateModule extends Command
         if ( Helper::AppIsInstalled() ) {
             $this->askInformations();
         } else {
-            $this->info( 'Tendoo is not yet installed' );
+            $this->info( 'Tendoo is not yet installed.' );
         }
     }
 
@@ -89,7 +89,7 @@ class GenerateModule extends Command
             /**
              * Geneate Internal Directories
              */
-            foreach([ 'Events', 'Fileds', 'Http', 'Migrations', 'Resources', 'Routes', 'Models' ] as $folder ) {
+            foreach([ 'Events', 'Fileds', 'Http', 'Migrations', 'Resources', 'Routes', 'Models', 'Providers' ] as $folder ) {
                 Storage::disk( 'modules' )->makeDirectory( $this->module[ 'namespace' ] . '/' . $folder );
             }
 

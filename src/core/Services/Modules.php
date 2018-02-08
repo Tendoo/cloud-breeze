@@ -12,6 +12,8 @@ use PhpParser\ParserFactory;
 class Modules 
 {
     private $modules    =   [];
+    private $xmlParser;
+    private $options;
 
     public function __construct()
     {
@@ -21,6 +23,8 @@ class Modules
              */
             $this->options          =   app()->make( 'Tendoo\Core\Services\Options' );
         }
+
+        $this->xmlParser    =   app()->make( 'XmlParser' );
     }
 
     /**
@@ -59,8 +63,7 @@ class Modules
 
         // check if a config file exists
         if ( in_array( $dir . '/config.xml', $files ) ) {
-
-            $xml        =   XmlParser::load( dirname( __FILE__ ) . '/../../modules/' . $dir . '/config.xml' );
+            $xml        =   $this->xmlParser->load( base_path() . '/modules/' . $dir . '/config.xml' );
             $config     =   $xml->parse([
                 'namespace'             => [ 'uses'     => 'namespace' ],
                 // 'language'           =>  [ 'uses'    => 'language' ], 
@@ -76,17 +79,19 @@ class Modules
             // If a module has at least a namespace
             if ( $config[ 'namespace' ] != null ) {
                 // index path
-                $moduleBasePath     =   config( 'tendoo.modules_path' ) . $dir . '\\';
-                $indexPath          =   $moduleBasePath . ucwords( $config[ 'namespace' ] . 'Module.php' );
-                $webRoutesPath      =   $moduleBasePath . 'Routes\web.php';
+                $modulesPath        =   config( 'tendoo.modules_path' );
+                $currentModulePath  =   $modulesPath . $dir . '\\';
+                $indexPath          =   $currentModulePath . ucwords( $config[ 'namespace' ] . 'Module.php' );
+                $webRoutesPath      =   $currentModulePath . 'Routes\web.php';
 
                 // check index existence
+                $config[ 'path' ]                       =   $currentModulePath;
                 $config[ 'index-file' ]                 =   is_file( $indexPath ) ? $indexPath : false;
                 $config[ 'routes-file' ]                =   is_file( $webRoutesPath ) ? $webRoutesPath : false;
-                $config[ 'controllers-path' ]           =   $moduleBasePath . 'Http\Controllers';
+                $config[ 'controllers-path' ]           =   $currentModulePath . 'Http\Controllers';
                 $config[ 'controllers-relativePath' ]   =   ucwords( $config[ 'namespace' ] ) . '\Http\Controllers';
-                $config[ 'views-path' ]                 =   $moduleBasePath . 'Resources\Views\\';
-                $config[ 'dashboard-path' ]             =   $moduleBasePath . 'Dashboard\\';
+                $config[ 'views-path' ]                 =   $currentModulePath . 'Resources\Views\\';
+                $config[ 'dashboard-path' ]             =   $currentModulePath . 'Dashboard\\';
                 $config[ 'enabled' ]                    =   false; // by default the module is set as disabled
 
                 /**
@@ -103,6 +108,42 @@ class Modules
                  * Entry class must be namespaced like so : 'Modules\[namespace]\[namespace] . 'Module';
                  */
                 $config[ 'entry-class' ]    =  'Modules\\' . $config[ 'namespace' ] . '\\' . $config[ 'namespace' ] . 'Module'; 
+
+                // hosting providers
+                $config[ 'providers' ]      =   [];
+
+                /**
+                 * Service providers are registered when the module is enabled
+                 */
+                if ( $config[ 'enabled' ] ) {
+
+                    /**
+                     * @todo register module service provider
+                     */
+                    $servicesProviders   =   Storage::disk( 'modules' )->allFiles( $config[ 'namespace' ] . '/Providers' );
+    
+                    foreach( $servicesProviders as $service ) {
+                        /**
+                         * @todo run service provider
+                         */
+                        include_once( $modulesPath . $service );
+                        $fileInfo       =   pathinfo( $service );
+                        $className      =   ucwords( $fileInfo[ 'filename' ] );
+                        $fullClassName  =   'Modules\\' . $config[ 'namespace' ] . '\\Providers\\' . $className;
+                        
+                        if ( class_exists( $fullClassName ) ) {
+    
+                            $config[ 'providers' ][ $className ]   =   new $fullClassName( app() );
+                            
+                            /**
+                             * If a register method exists
+                             */
+                            if ( method_exists( $config[ 'providers' ][ $className ], 'register' ) ) {
+                                call_user_func([ $config[ 'providers' ][ $className ], 'register' ]);
+                            }
+                        }
+                    }
+                }
 
                 // an index MUST be provided and MUST have the same Name than the module namespace + 'Module'
                 if ( $config[ 'index-file' ] ) {
@@ -128,6 +169,15 @@ class Modules
         foreach( $this->modules as $module ) {
             if ( ! $module[ 'enabled' ] ) {
                 continue;
+            }
+
+            /**
+             * Run boot() method for each enabled module
+             */
+            foreach( $module[ 'providers' ] as $provider ) {
+                if( method_exists( $provider, 'boot' ) ) {
+                    $provider->boot();
+                }
             }
 
             // include module index file

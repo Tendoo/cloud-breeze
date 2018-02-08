@@ -22,7 +22,7 @@ class ModuleController extends Command
      *
      * @var string
      */
-    protected $description = 'Create a controller for a specific module.';
+    protected $description = 'Create a module controller.';
 
     /**
      * Create a new command instance.

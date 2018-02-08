@@ -1,7 +1,7 @@
 @inject( 'Request', 'Illuminate\Http\Request' )
 @section( 'partials.shared.footer' )
     @parent
-    <script src="{{ asset( 'js/dashboard/table.vue.js' ) }}"></script>
+    <script src="{{ asset( 'tendoo/js/dashboard/table.vue.js' ) }}"></script>
 @endsection
 
 @if ( @$resource )

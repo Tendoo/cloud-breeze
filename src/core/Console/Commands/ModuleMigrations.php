@@ -22,7 +22,7 @@ class ModuleMigrations extends Command
      *
      * @var string
      */
-    protected $description = 'Create module migration';
+    protected $description = 'Create a module migration';
 
     /**
      * Create a new command instance.

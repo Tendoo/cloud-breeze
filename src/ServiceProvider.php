@@ -19,11 +19,15 @@ use Tendoo\Core\Console\Commands\OptionDelete;
 use Tendoo\Core\Console\Commands\OptionSet;
 use Tendoo\Core\Console\Commands\RefreshCommand;
 use Tendoo\Core\Console\Commands\ResetCommand;
+use Tendoo\Core\Console\Commands\MakeModuleServiceProvider;
 use Illuminate\Routing\Router;
 use Jackiedo\DotenvEditor\DotenvEditor;
 use Tendoo\Core\Http\TendooKernel;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Support\Facades\Artisan;
+
+use Orchestra\Parser\Xml\Reader as XmlReader;
+use Orchestra\Parser\Xml\Document as XmlDocument;
 
 class ServiceProvider extends CoreServiceProvider
 {
@@ -60,64 +64,9 @@ class ServiceProvider extends CoreServiceProvider
                 OptionSet::class,
                 RefreshCommand::class,
                 ResetCommand::class,
+                MakeModuleServiceProvider::class,
             ]);
         }
-
-        /**
-         * Moving the CRUD services
-         */
-        // $this->publishes([
-        //     __DIR__ . '/core/Crud'   =>  $corePath . 'Crud'
-        // ]);
-
-        /**
-         * Moving Exceptions
-         */
-        // $this->publishes([
-        //     __DIR__ . '/core/Exceptions'   =>  $corePath . 'Exceptions'
-        // ]);
-
-        /**
-         * Moving Controllers
-         */
-        // $this->publishes([
-        //     __DIR__ . '/core/Http/Controllers'   =>  $corePath . 'Http' . _SLASH_ . 'Controllers'
-        // ]);
-
-        /**
-         * Moving Middlewares
-         */
-        // $this->publishes([
-        //     __DIR__ . '/core/Http/Middleware'   =>  $corePath . 'Http' . _SLASH_ . 'Middleware'
-        // ]);
-
-        /**
-         * Moving Request
-         */
-        // $this->publishes([
-        //     __DIR__ . '/core/Http/Requests'   =>  $corePath . 'Http' . _SLASH_ . 'Requests'
-        // ]);
-
-        /**
-         * Moving Request
-         */
-        // $this->publishes([
-        //     __DIR__ . '/core/Models'   =>  $corePath . 'Models'
-        // ]);
-        
-        /**
-         * Moving Providers
-         */
-        // $this->publishes([
-        //     __DIR__ . '/core/Providers'   =>  $corePath . 'Providers'
-        // ]);
-        
-        /**
-         * Moving Services
-         */
-        // $this->publishes([
-        //     __DIR__ . '/core/Services'   =>  $corePath . 'Services'
-        // ]);
         
         /**
          * Load Route from Web
@@ -134,17 +83,13 @@ class ServiceProvider extends CoreServiceProvider
          */
         $this->loadViewsFrom( __DIR__ . '/resources/views', 'tendoo' );
         
-        // $this->publishes([
-            // __DIR__ . '/resources/views' => resource_path('views/tendoo' ),
-        // ]);
-        
         $this->publishes([
             __DIR__ . '/config/tendoo.php'   =>  $configPath . '/tendoo.php'
-        ]);
+        ], 'tendoo-config' );
 
         $this->publishes([
             __DIR__ . '/public'   =>  $publicPath
-        ]);
+        ], 'tendoo-assets' );
     }
 
     /**
@@ -174,7 +119,7 @@ class ServiceProvider extends CoreServiceProvider
 
         config([ 'filesystems.disks' => array_merge( config( 'filesystems.disks' ), config( 'temp' ) ) ]);
 
-        $this->app->singleton('orchestra.parser.xml', function ($app) {
+        $this->app->singleton( 'XmlParser', function ($app) {
             return new XmlReader(new XmlDocument($app));
         });
 

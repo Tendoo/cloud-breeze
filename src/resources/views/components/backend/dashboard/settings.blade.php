@@ -16,7 +16,7 @@
                         [ 'name'     =>  __( 'Registration' ) ]
                     ],
                     'tab'       =>  $tab,
-                    'base_path' =>  'components.backend.dashboard.settings.tabs',
+                    'base_path' =>  'tendoo::components.backend.dashboard.settings.tabs',
                     'base_url'  =>  route( 'dashboard.settings' ),
                     'route'     =>  'dashboard.settings'
                 ])

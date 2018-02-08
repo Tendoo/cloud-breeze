@@ -4,9 +4,12 @@ namespace Tendoo\Core\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Tendoo\Core\Models\Permission;
+use Illuminate\Support\Facades\DB;
 
 class Role extends Model
 {
+    private static $cachedPermissions   =   [];
+
     /**
      * Relation with users
      * @return void
@@ -49,19 +52,50 @@ class Role extends Model
         $role       =   self::namespace( $role_name );
         
         if( $role ) {
+            
+            $relations          =   [];
+
             foreach( ( array ) $permissions as $permission ) {
                 $perm       =   explode( '.', $permission );
+               
+
                 if( $perm[0] == 'crud' ) {
                     foreach( [ 'create', 'read', 'update', 'delete' ] as $prefix ) {
-                        $getPerm        =   Permission::where( 'namespace', $prefix . '.' . $perm[1] )->first();
-                        if( $role->permissions()->find( $getPerm[ 'id' ] ) == null ) {
-                            $role->permissions()->attach( $getPerm );
-                        }                        
+
+                        /**
+                         * Caching permission, to avoid more request during the installation
+                         */
+                        if ( @self::$cachedPermissions[ $prefix . '.' . $perm[1] ] == null ) {
+                            self::$cachedPermissions[ $prefix . '.' . $perm[1] ]   =   Permission::where( 'namespace', $prefix . '.' . $perm[1] )->first();
+                        }
+
+                        
+                        $getPerm =  self::$cachedPermissions[ $prefix . '.' . $perm[1] ];
+
+                        $relations[]    =   [
+                            'role_id'           =>  $role->id,
+                            'permission_id'     =>  $getPerm->id
+                        ];
                     }
                 } else {
-                    $getPerm        =   Permission::where( 'namespace', $permission )->first();
-                    $role->permissions()->attach( $getPerm );
+                    if ( @self::$cachedPermissions[ $permission ] == null ) {
+                        self::$cachedPermissions[ $permission ]   =   Permission::where( 'namespace', $permission )->first();
+                    }
+
+                    $getPerm                =   self::$cachedPermissions[ $permission ];
+
+                    $relations[]    =   [
+                        'role_id'           =>  $role->id,
+                        'permission_id'     =>  $getPerm->id
+                    ];
                 }
+            }
+
+            /**
+             * if the relation array is set, then we can insert all
+             */
+            if ( $relations ) {
+                DB::table( 'role_permission' )->insert( $relations );
             }
             return true;
         }

@@ -13,7 +13,6 @@ class TendooModulesServiceProvider extends ServiceProvider
      */
     public function boot( Modules $modules )
     {
-        $modules->load();
         $modules->init();
     }
 
@@ -26,7 +25,9 @@ class TendooModulesServiceProvider extends ServiceProvider
     {
         // register module singleton
         $this->app->singleton( 'Tendoo\Core\Services\Modules', function( $app ) {
-            return new Modules;
+            $modules    =   new Modules;
+            $modules->load();
+            return $modules;
         });
     }
 }

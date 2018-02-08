@@ -8,11 +8,13 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Encryption\Encrypter;
 use Tendoo\Core\Services\Menus;
 use Tendoo\Core\Services\Dashboard\MenusConfig;
 use Tendoo\Core\Services\Options;
 use Tendoo\Core\Services\Guard;
 use Jackiedo\DotenvEditor\Facades\DotenvEditor;
+
 
 class TendooAppServiceProvider extends ServiceProvider
 {    
@@ -27,9 +29,15 @@ class TendooAppServiceProvider extends ServiceProvider
          * We might need to publish views as well
          */
         if ( ! is_dir( base_path() . '/public/tendoo' ) ) {
-            Artisan::call( 'vendor:publish --provider=Tendoo\ServiceProvider' );
+            Artisan::call( 'vendor:publish', [
+                '--tag' => 'tendoo-assets',
+            ]);
+
+            Artisan::call( 'vendor:publish', [
+                '--tag' => 'tendoo-config',
+            ]);
         }
-        
+
         /**
          * Let's check if the .env exists 
          * if not. Let's create it. since it's needed
@@ -45,9 +53,13 @@ class TendooAppServiceProvider extends ServiceProvider
          * If app key is not defined, we can define it automatically and redirect 
          * to the same page
          */
-        if ( empty( DotenvEditor::getValue( 'APP_KEY' ) ) ) {
-            Artisan::call( 'key:generate' );
-            return redirect( url()->current() )->send();
+        if ( DotenvEditor::keyExists( 'APP_KEY' ) ) {
+            if ( empty( DotenvEditor::getValue( 'APP_KEY' ) ) ) {
+                DotEnvEditor::setKey( 'APP_KEY', 'base64:' . base64_encode(
+                    Encrypter::generateKey( config( 'app.cipher' ) )
+                ) );
+                DotEnvEditor::save();
+            }
         }
     }
 

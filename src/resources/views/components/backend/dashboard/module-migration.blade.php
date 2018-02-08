@@ -8,7 +8,7 @@
         "use strict";
         tendoo.migration  =   @json( compact( 'module', 'versions', 'module_url' ) );
     </script>
-    <script src="{{ asset( 'js/dashboard/modules-migration.vue.js' ) }}"></script>
+    <script src="{{ asset( 'tendoo/js/dashboard/modules-migration.vue.js' ) }}"></script>
 @endpush
 @section( 'tendoo::components.backend.dashboard.master.body' )
     <div class="content-wrapper">
