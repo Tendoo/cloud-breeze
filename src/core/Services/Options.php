@@ -2,6 +2,8 @@
 namespace Tendoo\Core\Services;
 
 use Tendoo\Core\Models\Option;
+use Tendoo\Core\Services\OptionWrapper;
+use Illuminate\Support\Facades\Log;
 
 class Options 
 {
@@ -53,26 +55,42 @@ class Options
 
         foreach( $this->rawOptions as $option ) {
             $option     =   array_only( $option->toArray(), [ 'id', 'key', 'value', 'array', 'user_id' ] );
-            if( @$this->options[ $option[ 'key' ] ] == null ) {
-                if( ( bool ) $option[ 'array' ] ) {
-                    $this->options[ $option[ 'key' ] ]      =   array_merge( $option, [
-                        'value'     =>  [ $option ]
-                    ]);
-                } else {
-                    $this->options[ $option[ 'key' ] ]      =   array_merge( $option, [
-                        'value'     =>  $option[ 'value' ]
-                    ]);
-                }               
-            } else {
-                // if value has yet been saved, then well consider it as an array
-                if( ! is_array( $this->options[ $option[ 'key' ] ][ 'value' ] ) ) {
-                    $temp   =   $this->options[ $option[ 'key' ] ][ 'value' ];
-                    unset( $this->options[ $option[ 'key' ] ][ 'value' ] );
-                    $this->options[ $option[ 'key' ] ][ 'value' ]      =   [ $temp ];
-                } else {
-                    $this->options[ $option[ 'key' ] ][ 'value' ][]    =   $option;
+            if ( preg_match( '/(.*)\[(\w*)\]/', trim( $option[ 'key' ] ), $result ) ) {
+                if ( @$this->options[ strtolower( $result[1] ) ] == null ) {
+                    $this->options[ strtolower( $result[1] )]   =   new OptionWrapper( $result[1] );
                 }
-            }   
+
+                $this->options[ strtolower( $result[1] ) ]->add( $result[2], [
+                    'value'         =>  $option[ 'value' ],
+                    'id'            =>  $option[ 'id' ],
+                    'user_id'       =>  $option[ 'user_id' ],
+                    'original_key'  =>  $option[ 'key' ],
+                    'array'         =>  ( bool ) intval( $option[ 'array' ] )
+                ]);
+
+            } else {
+                // might be deprecated
+                if( @$this->options[ $option[ 'key' ] ] == null ) {
+                    if( ( bool ) $option[ 'array' ] ) {
+                        $this->options[ $option[ 'key' ] ]      =   array_merge( $option, [
+                            'value'     =>  [ $option ]
+                        ]);
+                    } else {
+                        $this->options[ $option[ 'key' ] ]      =   array_merge( $option, [
+                            'value'     =>  $option[ 'value' ]
+                        ]);
+                    }               
+                } else {
+                    // if value has yet been saved, then well consider it as an array
+                    if( ! is_array( $this->options[ $option[ 'key' ] ][ 'value' ] ) ) {
+                        $temp   =   $this->options[ $option[ 'key' ] ][ 'value' ];
+                        unset( $this->options[ $option[ 'key' ] ][ 'value' ] );
+                        $this->options[ $option[ 'key' ] ][ 'value' ]      =   [ $temp ];
+                    } else {
+                        $this->options[ $option[ 'key' ] ][ 'value' ][]    =   $option;
+                    }
+                } 
+            }  
         }
     }
 
@@ -96,71 +114,70 @@ class Options
 
     public function set( $key, $value, $isArray = false )
     {
-        $option     =   null;
-        // check if we're pushing array value
-        $bracket    =   substr( $key, -2 );
+        if( preg_match( '/(.*)\[(\w*)\]/', $key, $result ) ) {
 
-        if( $bracket == '[]' ) {
-            // reassign key value
-            $key        =   substr( $key, 0, -2 );
+            // check it the root array exists
+            $options    =   @$this->options[ $result[1] ];
 
-            if ( ! in_array( $key, array_keys( $this->options ) ) ) {
-                // the option has not been loaded. We'll try from the db
-                $option       =   $this->option()->key( $key );
-            }
-            
-            // Fetch if item already exists
-            if( in_array( $key, array_keys( $this->options ) ) ) {
-                $option     =   $this->options[ $key ][ 'value' ];
-                // if option is an array
-                if( ! $option->array ) {
-                    $this->option()->where( 'id', $option[ 'id' ] )->update([
-                        'value'     =>  $value
-                    ]);
-                } else {
-                    $option             =   $option->toArray();
-                    $newOption          =   new Option;
-                    $newOption->key     =   strtolower( $option[ 'key' ] );
-                    $newOption->value   =   $value;
-                    $newOption->array   =   $option[ 'array' ];
-
-                    /**
-                     * If user is defined
-                     */
-                    if ( $this->user_id ) {
-                        $newOption->user_id     =   $this->user_id;
-                    }
-
-                    $newOption->save();
-                }
-                
+            if ( $options instanceof OptionWrapper ) {
+                $this->__saveOptionWrapper( $options, $result[2], $value );
+            } else if( @$options == null ) {
+                $this->__save( $key, $value, 1 );
             } else {
-                $this->__save( $key, $value, true );
+                /**
+                 * we're attempting to set an array and
+                 * if the a similar value with the same key already exist. We can't proceed
+                 * by saving this new entry as an array to avoid Option Build error.
+                 * If the value already exists as a non array. The data can't be saved.
+                 */
+                Log::warning( sprintf( 'Unable to save %s as an array since an entry already exists as a non array.', $key ) );
             }
-
-        } else if( preg_match( '/(.*)\[(\d)\]/', $key, $result ) && ! is_array( $value ) ) {
-            // get all array for this input
-            $options    =   $this->option()
-                ->Allkeys( $result[1] );
-
-            if( $options ) {
-                foreach( $options->toArray() as $index => $option ) {
-                    // We'll update an index
-                    if( $index == $result[2] ) {
-                        $_option    =   $this->option()->where( 'id', $option[ 'id' ] )->update([
-                            'value' =>  $value
-                        ]);
-                    }
-                }
-                return true;
-            }
-            return false;
-
         } else {
-            $this->__save( $key, $value, $isArray );
+            if ( ! @$this->options[ $key ] instanceof OptionWrapper ) {
+                $this->__save( $key, $value, $isArray );
+            } else {
+                /**
+                 * we're attempting to set a non array and
+                 * if the a similar value with the same key already exist. We can't proceed
+                 * by saving this new entry as an array to avoid Option Build error.
+                 * If the value already exists as an array. The data can't be saved.
+                 */
+                Log::warning( sprintf( 'Unable to save %s as a non array since an entry already exists as an array.', $key ) );
+            }   
+        }      
+    }
+
+    /**
+     * Save option Wrapper
+     * @return void
+     */
+    private function __saveOptionWrapper( &$wrapper, $key, $value ) 
+    {
+        $key    =   trim( strtolower( $key ) );
+
+        /**
+         * If option exists
+         * then we can directly update it
+         */
+        if( @$wrapper->get( $key ) ) {
+            $this->option()->where( 'id', $wrapper->get( $key )[ 'id' ] )->update([
+                'value'     =>  $value
+            ]);
+
+            $wrapper->setValue( $key, $value );
+        } else {
+            $option         =   new Option;
+            $option->key    =   $wrapper->getPrimaryKey()  . "[{$key}]";
+            $option->value  =   $value;
+            $option->array  =   1;
+            $option->save();
+
+            if ( $this->user_id != null ) {
+                $option->user_id    =   $this->user_id;
+            }
+
+            $wrapper->set( $key, $option->toArray() );
         }
-        
-        return @$this->options[ $key ][ 'value' ];
     }
 
     private function __save( $key, $value, $isArray = false )
@@ -169,22 +186,19 @@ class Options
         $value      =   empty( $value ) ? '' : $value;
         // if options is an array, we should then save it as multiple instance
         if( is_array( $value ) ) {
-            foreach( $value as $val ) {
-                $this->option           =   new Option;
-                $this->option->key      =   trim( strtolower( $key ) );
-                $this->option->value    =   empty( $val ) ? '' : $val;
-                $this->option->array    =   true;
+            $this->option           =   new Option;
+            $this->option->key      =   trim( strtolower( $key ) );
+            $this->option->value    =   json_encode( $value );
+            $this->option->array    =   true;
 
-                /**
-                 * If user is defined
-                 */
-                if ( $this->user_id ) {
-                    $this->option->user_id     =   $this->user_id;
-                }
-
-                $this->option->save();
+            /**
+             * If user is defined
+             */
+            if ( $this->user_id ) {
+                $this->option->user_id     =   $this->user_id;
             }
 
+            $this->option->save();
         } else {
 
             if( in_array( $key, array_keys( $this->options ) ) ) {
@@ -223,6 +237,8 @@ class Options
 
     public function get( $key = null, $default = null )
     {
+        $key    =   trim( strtolower( $key ) );
+
         // Get a set of options
         if( is_array( $key ) ) {
             $options    =   [];
@@ -239,12 +255,15 @@ class Options
              */
             $key    =   strtolower( $key );
 
-            if( preg_match( '/(.*)\[(\d)\]/', $key, $result ) ) {
-                if( @$this->options[ $result[1] ] != null ) {
-                    return $this->options[ $result[1] ][ 'value' ][ $result[2] ];
+            if( preg_match( '/(.*)\[(\w*)\]/', $key, $result ) ) {
+                if( @$this->options[ $result[1] ] instanceof OptionWrapper ) {
+                    return $this->options[ $result[1] ]->getValue( $result[2] );
                 }
             } else if( @$this->options[ $key ] != null ) {
-                return @$this->options[ $key ][ 'value' ];
+                if ( $this->options[ $key ] instanceof OptionWrapper ) {
+                    return $this->options[ $key ]->getValue();
+                }
+                return $this->options[ $key ][ 'value' ];
             }
     
             if( $key == null ) {
@@ -263,29 +282,55 @@ class Options
 
     public function delete( $key ) 
     {
-        if( preg_match( '/(.*)\[(\d)\]/', trim( $key ), $result ) ) {
+        if( preg_match( '/(.*)\[(\w*)\]/', trim( $key ), $result ) ) {
             // get all array for this input
-            $options    =   $this->options[ strtolower( $result[1] ) ];
-
-            if( $options ) {
-                foreach( $options[ 'value' ] as $index => $option ) {
-                    // We'll update an index
-                    if( $index == $result[2] ) {
-                        // @temporal
-                        // @todo save indexes before deleting in a bulkd delete
-                        unset( $this->options[ $option[ 'key' ] ] );
-                        $this->option()->where( 'id', $option[ 'id' ] )->delete();
+            $options    =   @$this->options[ strtolower( $result[1] ) ];
+            if ( $options != null ) {
+                if( $options instanceof OptionWrapper ) {
+                    $options->delete( $result[1] );
+                } else {
+                    foreach( $options[ 'value' ] as $index => $option ) {
+                        // We'll update an index
+                        if( $index == $result[2] ) {
+                            // @temporal
+                            // @todo save indexes before deleting in a bulkd delete
+                            unset( $this->options[ $option[ 'key' ] ] );
+                            $this->option()->where( 'id', $option[ 'id' ] )->delete();
+                        }
                     }
                 }
                 return true;
             }
+
+            /**
+             * The user attempted to delete an entry which doesn't exists
+             */
+            Log::warning( sprintf( 'Unable to delete the key %s, this key is not defined.', $key ) );
             return false;
 
         } else {
-            unset( $this->options[ $key ] );
-            return $this->option()
+
+            /**
+             * If the option is an instanceof OptionWrapper, then we'll delete 
+             * all options under this label
+             */
+            if ( @$this->options[ $key ] instanceof OptionWrapper ) {
+
+                /**
+                 * Get all sub option of the OptionWrapper
+                 */
+                $options    =   $this->options[ $key ]->get();
+                foreach ( $options as $option ) {
+                    $this->option()
+                    ->where( 'id', $option[ 'id' ] )
+                    ->delete();
+                }
+            } else {
+                $this->option()
                 ->where( 'key', $key )
                 ->delete();
+            }
+            unset( $this->options[ $key ] );
         }        
     }
 }

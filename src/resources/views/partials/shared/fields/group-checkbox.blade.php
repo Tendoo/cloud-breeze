@@ -2,7 +2,7 @@
 <div class="checkbox">
     @foreach( $field->options as $value => $text )
     <label>
-        <input {{ in_array( $value, ( array ) @$field->value ) ? 'checked="checked"' : null }} type="checkbox"  name="{{ $field->name }}" value="{{ $value }}">
+        <input {{ in_array( $value, ( array ) @$field->value ) ? 'checked="checked"' : null }} type="checkbox"  name="{{ $field->name }}[{{ $value }}]" value="{{ $value }}">
         {{ @$text }}
     </label>
     @endforeach

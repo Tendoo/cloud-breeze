@@ -70,7 +70,9 @@ class SettingsController extends TendooController
             if ( ! is_array( $value ) ) {
                 $this->options->set( $key, $value );
             } else {
-                $this->options->set( $key, $value, true ); // set as array
+                foreach ( $value as $_optionName => $_optionValue ) {
+                    $this->options->set( $key . "[{$_optionName}]", $_optionValue, true ); // set as array
+                }
             }
         }
 
@@ -78,7 +80,7 @@ class SettingsController extends TendooController
             'status'    =>  'success',
             'message'   =>  __( 'The options has been saved.' )
         ];
-        
+
         /**
          * Redirect to previous route
          */

@@ -2,9 +2,10 @@
 <div class="switch">
     @foreach( $field->options as $value => $text )
     <label>
-        <input {{ in_array( $value, ( array ) @$field->value ) ? 'checked="checked"' : null }} type="checkbox"  name="{{ $field->name }}[]" value="{{ $value }}">
+        <input {{ in_array( $value, array_keys( ( array ) @$field->value ) ) ? 'checked="checked"' : null }} type="checkbox"  name="{{ $field->name }}" value="true">
         {{ @$text }}
     </label>
+    <br>
     @endforeach
 
     @if ( $errors->has( $field->name ) )

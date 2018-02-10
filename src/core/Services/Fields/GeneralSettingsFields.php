@@ -42,6 +42,17 @@ trait GeneralSettingsFields
         ];
         $open_registration->description  =   __( 'Let anyone sees the registration page and register an account' );
 
+        $allowPasswordRecovery                  =   new \StdClass;
+        $allowPasswordRecovery->name            =   'recovery';
+        $allowPasswordRecovery->label           =   __( 'Allow Password Recovery' );
+        $allowPasswordRecovery->type            =   'switch';
+        $allowPasswordRecovery->value           =   $options->get( $allowPasswordRecovery->name );
+        $allowPasswordRecovery->options         =   [
+            'enable_recovery'        =>  __( 'Enable Password Recovery' )
+        ];
+
+        $allowPasswordRecovery->description  =   __( 'Let user reset their password in case the lost it, from the login page.' );
+
         $validate_users                  =   new \StdClass;
         $validate_users->name            =   'validate_users';
         $validate_users->label           =   __( 'Validate Users' );
@@ -60,6 +71,6 @@ trait GeneralSettingsFields
         $register_as->options           =   Helper::toOptions( Role::all(), [ 'id', 'name' ]);
         $register_as->value             =   $options->get( $register_as->name );
 
-        return [ $open_registration, $validate_users, $register_as ];
+        return [ $open_registration, $allowPasswordRecovery, $validate_users, $register_as ];
     }
 }
