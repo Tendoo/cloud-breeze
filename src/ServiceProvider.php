@@ -17,6 +17,7 @@ use Tendoo\Core\Console\Commands\ModuleMigrations;
 use Tendoo\Core\Console\Commands\ModuleModels;
 use Tendoo\Core\Console\Commands\OptionDelete;
 use Tendoo\Core\Console\Commands\OptionSet;
+use Tendoo\Core\Console\Commands\OptionGet;
 use Tendoo\Core\Console\Commands\RefreshCommand;
 use Tendoo\Core\Console\Commands\ResetCommand;
 use Tendoo\Core\Console\Commands\MakeModuleServiceProvider;
@@ -56,12 +57,13 @@ class ServiceProvider extends CoreServiceProvider
             $this->commands([
                 DisableModule::class,
                 EnableModule::class,
-                GenerateModule::class, // where the error comes from
+                GenerateModule::class,
                 ModuleController::class,
                 ModuleMigrations::class,
                 ModuleModels::class,
                 OptionDelete::class,
                 OptionSet::class,
+                OptionGet::class,
                 RefreshCommand::class,
                 ResetCommand::class,
                 MakeModuleServiceProvider::class,

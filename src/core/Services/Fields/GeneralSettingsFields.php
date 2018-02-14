@@ -32,26 +32,26 @@ trait GeneralSettingsFields
     {
         $options    =   app()->make( 'Tendoo\Core\Services\Options' );
 
-        $open_registration                  =   new \StdClass;
-        $open_registration->name            =   'open_registration';
-        $open_registration->label           =   __( 'Open Registration' );
-        $open_registration->type            =   'switch';
-        $open_registration->value           =   $options->get( $open_registration->name );
-        $open_registration->options         =   [
+        $allow_registration                  =   new \StdClass;
+        $allow_registration->name            =   'allow_registration';
+        $allow_registration->label           =   __( 'Open Registration' );
+        $allow_registration->type            =   'switch';
+        $allow_registration->value           =   $options->get( $allow_registration->name );
+        $allow_registration->options         =   [
             'true'   =>  __( 'Allow registration' )
         ];
-        $open_registration->description  =   __( 'Let anyone sees the registration page and register an account' );
+        $allow_registration->description  =   __( 'Let anyone sees the registration page and register an account' );
 
-        $allowPasswordRecovery                  =   new \StdClass;
-        $allowPasswordRecovery->name            =   'recovery';
-        $allowPasswordRecovery->label           =   __( 'Allow Password Recovery' );
-        $allowPasswordRecovery->type            =   'switch';
-        $allowPasswordRecovery->value           =   $options->get( $allowPasswordRecovery->name );
-        $allowPasswordRecovery->options         =   [
+        $allow_password_recovery                  =   new \StdClass;
+        $allow_password_recovery->name            =   'allow_recovery';
+        $allow_password_recovery->label           =   __( 'Allow Password Recovery' );
+        $allow_password_recovery->type            =   'switch';
+        $allow_password_recovery->value           =   $options->get( $allow_password_recovery->name );
+        $allow_password_recovery->options         =   [
             'enable_recovery'        =>  __( 'Enable Password Recovery' )
         ];
 
-        $allowPasswordRecovery->description  =   __( 'Let user reset their password in case the lost it, from the login page.' );
+        $allow_password_recovery->description  =   __( 'Let user reset their password in case the lost it, from the login page.' );
 
         $validate_users                  =   new \StdClass;
         $validate_users->name            =   'validate_users';
@@ -71,6 +71,6 @@ trait GeneralSettingsFields
         $register_as->options           =   Helper::toOptions( Role::all(), [ 'id', 'name' ]);
         $register_as->value             =   $options->get( $register_as->name );
 
-        return [ $open_registration, $allowPasswordRecovery, $validate_users, $register_as ];
+        return [ $allow_registration, $allow_password_recovery, $validate_users, $register_as ];
     }
 }

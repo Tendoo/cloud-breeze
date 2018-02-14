@@ -22,7 +22,7 @@ class CheckRegistrationStatus
             /**
              * It's not strict. So it's not proceeding a strict comparison
              */
-            if ( ! $options->get( 'open_registration' ) ) {
+            if ( ! $options->get( 'allow_registration' ) ) {
                 return redirect()->route( 'login.index' )->with([
                     'status'    =>  'danger',
                     'message'   =>  __( 'The registration is closed. Please contact the administrator.' )

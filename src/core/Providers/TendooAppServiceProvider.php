@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Encryption\Encrypter;
 use Tendoo\Core\Services\Menus;
 use Tendoo\Core\Services\Dashboard\MenusConfig;
@@ -25,6 +26,8 @@ class TendooAppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        Blade::withoutDoubleEncoding();
+
         /**
          * We might need to publish views as well
          */

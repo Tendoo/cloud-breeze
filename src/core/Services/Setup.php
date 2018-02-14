@@ -131,7 +131,7 @@ class Setup
         $this->createRoles();
         
         $this->options->set( 'app_name', $request->input( 'app_name' ) );
-        $this->options->set( 'open_registration', 'true' );
+        $this->options->set( 'allow_registration', 'true' );
         $this->options->set( 'db_version', config( 'tendoo.db_version' ) );
         $this->options->set( 'register_as', 1 ); // register as user;
         

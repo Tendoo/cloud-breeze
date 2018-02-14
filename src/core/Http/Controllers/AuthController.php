@@ -11,12 +11,22 @@ use Tendoo\Core\Http\Requests\LoginRequest;
 use Tendoo\Core\Http\Requests\PostRegisterRequest;
 use Tendoo\Core\Models\User;
 
-
-class AuthController extends Controller
+class AuthController extends BaseController
 {
     public function __construct()
     {
+        parent::__construct();
+
         $this->middleware( 'can.register' )->only([ 'registerIndex', 'postRegister' ]);
+        $this->middleware( function( $request, $next ) {
+            /**
+             * If the feature is not enabled according to the options
+             * an exception is thrown FeatureDisabledException
+             */
+            $this->checkFeature( 'allow_recovery' );
+            
+            return $next($request);
+        })->only([ 'recoveryIndex' ]);
     }
     
     /**
@@ -35,6 +45,12 @@ class AuthController extends Controller
      */
     public function registerIndex()
     {
+        /**
+         * If the feature is not enabled according to the options
+         * an exception is thrown FeatureDisabledException
+         */
+        $this->checkFeature( 'allow_registration' );
+
         Page::setTitle( __( 'Registration' ) );
         return view( 'tendoo::components.frontend.auth.register' );
     }
@@ -105,6 +121,7 @@ class AuthController extends Controller
         $user->save();
 
         /**
+         * @todo
          * if it shouldn't activate the user, we might send an email
          * for letting him know his account has been created
          */
@@ -127,5 +144,15 @@ class AuthController extends Controller
         Event::fire( 'before.logout' );
         Auth::logout();
         return redirect()->route( config( 'tendoo.redirect.not-authenticated' ) );
+    }
+
+    /**
+     * Recover Password
+     * @return void
+     */
+    public function recoveryIndex()
+    {
+        Page::setTitle( __( 'Password Recover' ) );
+        return view( 'tendoo::components.frontend.auth.register' );
     }
 }

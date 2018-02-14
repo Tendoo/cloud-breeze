@@ -24,7 +24,7 @@ The documentation is currently written as we add/remove feature.
 Just fork the project and send your pull request :). 
 The code is commented and we do follow PSR-2, PSR-4 Standars, hope you're skilled.
 
-# Internal Features
+# Internal Commands
 We've just recently turned this app into a Laravel package. So efore it was an entire Laravel application, but we wanted to ease 
 setup as well as update, with all feature that composer actually offer. You might then see some bugs with some command below. If it's the case
 please report it :)
@@ -71,13 +71,27 @@ Create a model on the module Model folder.
 ### B - Delete a value
 `php artisan option:delete {key}`
 
-## 7 - 
-
 this will launch the module generator command where you'll have to provide namespae, name, author and description. the default verison is set to 1.0.
 We'll add more generator to generate : 
 - Settings Pages
 - Crud Pages
 - Fields Options
 ...
+
+# Handling Tendoo Errors
+Tendoo generates his own errors and out of the box, a laravel application can't properly handle theses errors. In order to add support for theses errors, your `App\Http\Exceptions\Handler` must extends `Tendoo\Core\Exceptions\TendooHandler` which already extends `Illuminate\Foundation\Exceptions\Handler`.
+
+`
+<?php
+namespace App\Exceptions;
+
+use Exception;
+use Tendoo\Core\Exceptions\TendooHandler;
+
+class Handler extends TendooHandler
+`
+
+This parent class `...\TendooHandler` will add support for Tendoo specific exceptions, and you'll have the capacity in your own handle to extends it.
+
 ## Known Issue
 When you attempt to reset the system using `php artisan reset`, make sure to delete the cookie on your browser. You might just try to disconnect before resetting. We we're unable so far to delete cookies before "resetting" the system.

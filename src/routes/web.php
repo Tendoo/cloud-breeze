@@ -57,6 +57,7 @@ Route::middleware([ 'web' ])->group( function(){
         Route::get( '/login', 'Tendoo\Core\Http\Controllers\AuthController@loginIndex' )->name( 'login.index' )->middleware( 'expect.unlogged' );
         Route::get( '/logout', 'Tendoo\Core\Http\Controllers\AuthController@LogoutIndex' )->name( 'logout.index' );
         Route::get( '/register', 'Tendoo\Core\Http\Controllers\AuthController@registerIndex' )->name( 'register.index' )->middleware( 'expect.unlogged' );
+        Route::get( '/password-recovery', 'Tendoo\Core\Http\Controllers\AuthController@recoveryIndex' )->name( 'recover.index' )->middleware( 'expect.unlogged' );
         
         /**
          * User POST Routes

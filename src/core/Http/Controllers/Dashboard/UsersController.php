@@ -74,7 +74,7 @@ class UsersController extends TendooController
      */
     public function postUserSecurity( PostUserSecurityRequest $request )
     {
-        $user               =   User::find( Auth::id() );
+        $user               =   Auth::user();
 
         if ( ! Hash::check( $request->input( 'old_password' ), $user->password ) ) {
             return redirect()->route( 'dashboard.users.profile', [
@@ -85,14 +85,13 @@ class UsersController extends TendooController
             ]);
         }
 
-        $user->password     =   bcrypt( $request->input( 'password' ) );
+        $user->password     =   Hash::make( $request->input( 'new_password' ) );
         $user->save();
 
         /**
-         * We don't want to close session so the user is logged just after
+         * @todo send an email to the user saying that his password
+         * has been changed.
          */
-        Auth::logout();
-        Auth::loginUsingId( $user->id );
 
         /**
          * Redirect to the security tag

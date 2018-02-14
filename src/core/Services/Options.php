@@ -63,6 +63,7 @@ class Options
                 $this->options[ strtolower( $result[1] ) ]->add( $result[2], [
                     'value'         =>  $option[ 'value' ],
                     'id'            =>  $option[ 'id' ],
+                    'key'           =>  $result[2],
                     'user_id'       =>  $option[ 'user_id' ],
                     'original_key'  =>  $option[ 'key' ],
                     'array'         =>  ( bool ) intval( $option[ 'array' ] )
@@ -287,7 +288,8 @@ class Options
             $options    =   @$this->options[ strtolower( $result[1] ) ];
             if ( $options != null ) {
                 if( $options instanceof OptionWrapper ) {
-                    $options->delete( $result[1] );
+                    $single     =   $options->get( $result[2] );
+                    $this->option()->where( 'id', $single[ 'id' ] )->delete();
                 } else {
                     foreach( $options[ 'value' ] as $index => $option ) {
                         // We'll update an index

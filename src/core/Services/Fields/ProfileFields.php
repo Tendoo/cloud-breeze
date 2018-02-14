@@ -25,7 +25,7 @@ trait ProfileFields
         
         $passwordConfirm                    =   new \stdClass;
         $passwordConfirm->name              =   'password_confirm';
-        $passwordConfirm->label             =   __( 'New Password' );
+        $passwordConfirm->label             =   __( 'Confirm the Password' );
         $passwordConfirm->type              =   'password';
         $passwordConfirm->validation        =   'sometimes|required|same:new_password';
         $passwordConfirm->description       =   __( 'Confirm the new password.' );

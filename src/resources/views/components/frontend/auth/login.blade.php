@@ -12,8 +12,13 @@
                 @each( 'tendoo::partials.shared.fields', $Field::login(), 'field' )
             </div>
             <div class="card-footer p-2 d-flex justify-content-between">
+                <div>
                 <button class="mb-0 btn btn-raised btn-primary" type="submit">{{ __( 'Login' ) }}</button>
-                @if( $Options->get( 'open_registration' ) )
+                @if( $Options->get( 'allow_recovery' ) )
+                    <a href="{{ route( 'recover.index' ) }}" class="mb-0 btn btn-raised btn-info">{{ __( 'Lost Password ?' ) }}</a>
+                @endif
+                </div>
+                @if( $Options->get( 'allow_registration' ) )
                 <button onClick="document.location = '{{ route( 'register.index' ) }}'" class="mb-0 btn btn-raised btn-info" type="button">{{ __( 'Register' ) }}</a>
                 @endif
             </div>
