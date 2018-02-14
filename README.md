@@ -82,7 +82,6 @@ We'll add more generator to generate :
 Tendoo generates his own errors and out of the box, a laravel application can't properly handle theses errors. In order to add support for theses errors, your `App\Http\Exceptions\Handler` must extends `Tendoo\Core\Exceptions\TendooHandler` which already extends `Illuminate\Foundation\Exceptions\Handler`.
 
 `
-<?php
 namespace App\Exceptions;
 
 use Exception;
