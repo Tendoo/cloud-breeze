@@ -53,11 +53,11 @@ class TendooHandler extends ExceptionHandler
                 }
             } else {
                 if( $exception instanceof QueryException ) {
-                    return response()->view( 'errors.db-error', [ 'e' => $exception ] );
+                    return response()->view( 'tendoo::errors.db-error', [ 'e' => $exception ] );
                 } else if ( $exception instanceof AccessDeniedException ) {
-                    return response()->view( 'errors.access-denied', [ 'e' => $exception ] );
+                    return response()->view( 'tendoo::errors.access-denied', [ 'e' => $exception ] );
                 } else if ( $exception instanceof FeatureDisabledException ) {
-                    return response()->view( 'errors.feature-disabled', [ 'e' => $exception ] );
+                    return response()->view( 'tendoo::errors.feature-disabled', [ 'e' => $exception ] );
                 }
             }
         }
