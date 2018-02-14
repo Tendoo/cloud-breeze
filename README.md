@@ -91,7 +91,7 @@ use Tendoo\Core\Exceptions\TendooHandler;
 class Handler extends TendooHandler
 ```
 
-This parent class `...\TendooHandler` will add support for Tendoo specific exceptions, and you'll have the capacity in your own handle to extends it.
+This parent class `Tendoo\Core\Exceptions\TendooHandler` will add support for Tendoo specific exceptions, and you'll have the capacity in `App\Http\Exceptions\Handler` to add your own behaviours.
 
 ## Known Issue
 When you attempt to reset the system using `php artisan reset`, make sure to delete the cookie on your browser. You might just try to disconnect before resetting. We we're unable so far to delete cookies before "resetting" the system.
