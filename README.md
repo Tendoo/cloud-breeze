@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/Tendoo/cms.svg?branch=master)](https://travis-ci.org/Tendoo/cms)
 # Tendoo CMS
 Tendoo CMS 5 is a new version of Tendoo CMS build with CodeIgniter.
 The purpose of this project is to share with other the skills i've earned during my professional life on CodeCanyon and providing a
