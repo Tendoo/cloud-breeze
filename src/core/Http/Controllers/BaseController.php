@@ -7,6 +7,7 @@ use Tendoo\Core\Services\Modules;
 use Tendoo\Core\Models\User;
 use Tendoo\Core\Services\Page;
 use Tendoo\Core\Services\Options;
+use Tendoo\Core\Services\Date;
 use Tendoo\Core\Services\UserOptions;
 use Tendoo\Core\Exceptions\FeatureDisabledException;
 
@@ -32,6 +33,7 @@ class BaseController extends Controller
                 $this->modules      =   app()->make( Modules::class );
                 $this->menus        =   app()->make( 'Tendoo\Core\Services\Dashboard\MenusConfig' );
                 $this->guard        =   app()->make( Guard::class );
+                $this->date         =   app()->make( Date::class );
 
                 return $next($request);
             });
@@ -43,9 +45,9 @@ class BaseController extends Controller
      */
     public function checkFeature( $option, $textValue = null )
     {
-        if ( $this->options->get( $option ) == null && $textValue == null ) {
+        if ( $this->options->get( $option ) === null && $textValue == null ) {
             throw new FeatureDisabledException();
-        } else if ( $this->options->get( $option ) != $textValue ) {
+        } else if ( $this->options->get( $option ) !== $textValue ) {
             throw new FeatureDisabledException();
         }
     }

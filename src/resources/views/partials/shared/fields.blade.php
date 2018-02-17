@@ -3,6 +3,11 @@
     @include( 'tendoo::partials.shared.fields.text' )
 @endif
 
+{{-- Adding Field : hidden --}}
+@if ( $field->type == 'hidden' ) 
+    @include( 'tendoo::partials.shared.fields.hidden' )
+@endif
+
 {{-- Adding Field : textarea --}}
 @if ( $field->type == 'textarea' ) 
     @include( 'tendoo::partials.shared.fields.textarea' )

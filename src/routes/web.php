@@ -57,7 +57,8 @@ Route::middleware([ 'web' ])->group( function(){
         Route::get( '/login', 'Tendoo\Core\Http\Controllers\AuthController@loginIndex' )->name( 'login.index' )->middleware( 'expect.unlogged' );
         Route::get( '/logout', 'Tendoo\Core\Http\Controllers\AuthController@LogoutIndex' )->name( 'logout.index' );
         Route::get( '/register', 'Tendoo\Core\Http\Controllers\AuthController@registerIndex' )->name( 'register.index' )->middleware( 'expect.unlogged' );
-        Route::get( '/password-recovery', 'Tendoo\Core\Http\Controllers\AuthController@recoveryIndex' )->name( 'recover.index' )->middleware( 'expect.unlogged' );
+        Route::get( '/recovery', 'Tendoo\Core\Http\Controllers\AuthController@recoveryIndex' )->name( 'recovery.index' )->middleware( 'expect.unlogged' );
+        Route::get( '/recovery/password/{user}/{code}', 'Tendoo\Core\Http\Controllers\AuthController@recoveryPassword' )->name( 'recovery.password' )->middleware( 'expect.unlogged' );
         
         /**
          * User POST Routes
@@ -88,6 +89,8 @@ Route::middleware([ 'web' ])->group( function(){
          */
         Route::post( '/login/post', 'Tendoo\Core\Http\Controllers\AuthController@postLogin' )->name( 'login.post' )->middleware( 'expect.unlogged' );
         Route::post( '/register/post', 'Tendoo\Core\Http\Controllers\AuthController@postRegister' )->name( 'register.post' )->middleware( 'expect.unlogged' );
+        Route::post( '/recovery/post', 'Tendoo\Core\Http\Controllers\AuthController@postRecovery' )->name( 'recovery.post' )->middleware( 'expect.unlogged' );
+        Route::post( '/recovery/password/post/{user}', 'Tendoo\Core\Http\Controllers\AuthController@postRecoveryPassword' )->name( 'recovery.password.post' )->middleware( 'expect.unlogged' );
         
         /**
          * CRUD DELETE Routes
@@ -123,5 +126,5 @@ Route::middleware([ 'web' ])->group( function(){
  * @testing
  */
 Route::get( '/mail', function(){
-    return new App\Mail\SetupComplete();
+    return new Tendoo\Core\Mail\SetupComplete();
 });

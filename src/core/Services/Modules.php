@@ -623,7 +623,7 @@ class Modules
 
             // make sure to enable only once
             if ( ! in_array( $namespace, $enabledModules ) ) {
-                $enabledModules[]   =   $namespace;
+                $enabledModules[]   =   strtolower( $namespace );
                 $this->options->set( 'enabled_modules', json_encode( $enabledModules ) );
             }
 

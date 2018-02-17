@@ -45,7 +45,11 @@ class TendooHandler extends ExceptionHandler
                     ], 401 );
                 }
 
-                if ( $exception instanceof AccessDeniedException ) {
+                if ( 
+                    $exception instanceof AccessDeniedException ||
+                    $exception instanceof RecoveryExpiredException ||
+                    $exception instanceof FeatureDisabledException
+                ) {
                     return response()->json([
                         'status'    =>  'danger',
                         'message'   =>  $exception->getMessage()
@@ -54,10 +58,12 @@ class TendooHandler extends ExceptionHandler
             } else {
                 if( $exception instanceof QueryException ) {
                     return response()->view( 'tendoo::errors.db-error', [ 'e' => $exception ] );
-                } else if ( $exception instanceof AccessDeniedException ) {
-                    return response()->view( 'tendoo::errors.access-denied', [ 'e' => $exception ] );
-                } else if ( $exception instanceof FeatureDisabledException ) {
-                    return response()->view( 'tendoo::errors.feature-disabled', [ 'e' => $exception ] );
+                } else if ( 
+                    $exception instanceof AccessDeniedException ||
+                    $exception instanceof RecoveryExpiredException ||
+                    $exception instanceof FeatureDisabledException
+                ) {
+                    return response()->view( 'tendoo::errors.common', [ 'e' => $exception ] );
                 }
             }
         }

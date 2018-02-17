@@ -15,7 +15,7 @@
                 <div>
                 <button class="mb-0 btn btn-raised btn-primary" type="submit">{{ __( 'Login' ) }}</button>
                 @if( $Options->get( 'allow_recovery' ) )
-                    <a href="{{ route( 'recover.index' ) }}" class="mb-0 btn btn-raised btn-info">{{ __( 'Lost Password ?' ) }}</a>
+                    <a href="{{ route( 'recovery.index' ) }}" class="mb-0 btn btn-raised btn-info">{{ __( 'Lost Password ?' ) }}</a>
                 @endif
                 </div>
                 @if( $Options->get( 'allow_registration' ) )

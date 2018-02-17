@@ -7,6 +7,7 @@ use Tendoo\Core\Services\Modules;
 use Tendoo\Core\Models\User;
 use Tendoo\Core\Services\Page;
 use Tendoo\Core\Services\Options;
+use Tendoo\Core\Services\Date;
 use Tendoo\Core\Services\UserOptions;
 use Tendoo\Core\Exceptions\AccessDeniedException;
 
@@ -18,6 +19,7 @@ class TendooController extends Controller
     protected $userOptions;
     protected $modules;
     protected $menus;
+    protected $date;
 
     public function __construct()
     {
@@ -37,7 +39,8 @@ class TendooController extends Controller
                 $this->modules      =   app()->make( Modules::class );
                 $this->menus        =   app()->make( 'Tendoo\Core\Services\Dashboard\MenusConfig' );
                 $this->guard        =   app()->make( Guard::class );
-        
+                $this->date         =   app()->make( Date::class );
+                
                 Event::fire( 'dashboard.loaded' );
 
                 return $next($request);
