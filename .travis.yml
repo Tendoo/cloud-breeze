@@ -7,6 +7,7 @@ before_install:
   - cd ./laravel
   - composer require tendoo/cms:dev-master
   - composer update
-  - php artisan vendor:publish --force
+  - php artisan vendor:publish --tag=tendoo-config --force
+  - php artisan vendor:publish --tag=tendoo-assets --force
   
 script: "phpunit"
