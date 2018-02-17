@@ -15,6 +15,10 @@ use Tendoo\Core\Services\Dashboard\MenusConfig;
 use Tendoo\Core\Services\Options;
 use Tendoo\Core\Services\Date;
 use Tendoo\Core\Services\Guard;
+use Tendoo\Core\Services\Users;
+use Tendoo\Core\Models\Role;
+use Tendoo\Core\Models\User;
+use Tendoo\Core\Models\Permission;
 use Jackiedo\DotenvEditor\Facades\DotenvEditor;
 
 
@@ -87,6 +91,15 @@ class TendooAppServiceProvider extends ServiceProvider
         // save Singleton for options
         $this->app->singleton( Options::class, function(){
             return new Options;
+        });
+
+        // save Singleton for options
+        $this->app->singleton( Users::class, function(){
+            return new Users( 
+                new Role,
+                new User,
+                new Permission
+            );
         });
 
         // save Singleton for options
