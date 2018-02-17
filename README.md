@@ -1,4 +1,7 @@
 [![Build Status](https://travis-ci.org/Tendoo/cms.svg?branch=master)](https://travis-ci.org/Tendoo/cms)
+<a href="https://packagist.org/packages/tendoo/cms"><img src="https://poser.pugx.org/tendoo/cms/d/total.svg" alt="Total Downloads"></a>
+<a href="https://packagist.org/packages/tendoo/cms"><img src="https://poser.pugx.org/tendoo/cms/v/stable.svg" alt="Latest Stable Version"></a>
+<a href="https://packagist.org/packages/tendoo/cms"><img src="https://poser.pugx.org/tendoo/cms/license.svg" alt="License"></a>
 # Tendoo CMS
 Tendoo CMS 5 is a new version of Tendoo CMS build with CodeIgniter.
 The purpose of this project is to share with other the skills i've earned during my professional life on CodeCanyon and providing a
