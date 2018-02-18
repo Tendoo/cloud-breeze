@@ -152,9 +152,8 @@ class Setup
          * Send Welcome email 
          * since we're polite
          */
-        // Mail::to( $user->email )->send( 
-        //     new SetupComplete()
-        // );
+            new SetupComplete()
+        );
 
         /**
          * Login auth since we would like to create some basic options

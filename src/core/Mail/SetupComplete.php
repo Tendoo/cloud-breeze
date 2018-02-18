@@ -28,6 +28,8 @@ class SetupComplete extends Mailable
      */
     public function build()
     {
-        return $this->from( 'app@tendoo.org' )->markdown('tendoo::email.setup-complete');
+        return $this->from( 'app@tendoo.org' )
+            ->subject( __( 'Thank you for installing Tendoo CMS &mdash; Tendoo' ) )
+            ->markdown('tendoo::email.setup-complete');
     }
 }

@@ -1,11 +1,12 @@
 @component( 'mail::message' )
 
 @component('mail::panel')
-# {{ __( 'Thank You for installing Tendoo CMS' ) }}
-{{ __( 'Your new Tendoo application has been correctly installed.')}}
+# {{ __( 'Password Change Success' ) }}
+{{ sprintf( __( 'Hi, %s We would like to inform you that your password has been successfully updated.' ), $user->username ) }}
 @component( 'mail::button', [ 'url' => url()->route( 'login.index' ) ])
 {{ __( 'Login' ) }}
 @endcomponent
 @endcomponent
+
 
 @endcomponent

@@ -16,6 +16,7 @@ use Tendoo\Core\Http\Requests\RecoveryRequest;
 use Tendoo\Core\Http\Requests\PasswordChangeRequest;
 use Tendoo\Core\Models\User;
 use Tendoo\Core\Mail\PasswordReset;
+use Tendoo\Core\Mail\PasswordUpdated;
 use Tendoo\Core\Exceptions\RecoveryException;
 use Carbon\Carbon;
 
@@ -205,7 +206,6 @@ class AuthController extends BaseController
 
         /**
          * Sending an email which expire
-         * @todo:email Sending email for recovery
          */
         Mail::to( $user->email )
             ->queue( new PasswordReset( url()->route( 'recovery.password', [
@@ -249,6 +249,9 @@ class AuthController extends BaseController
         /**
          * @todo:email we might inform the user that his password has been reseted
          */
+        Mail::to( $user->email )
+            ->queue( new PasswordUpdated(), $user );
+        
         return redirect()->route( 'login.index' )->with([
             'status'    =>  'success', 
             'message'   =>  __( 'Your password has been successfully updated!' )
