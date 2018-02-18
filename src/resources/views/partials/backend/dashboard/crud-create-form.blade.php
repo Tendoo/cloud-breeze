@@ -13,7 +13,7 @@
         'links'         =>  $resource->getLinks()[ 'create' ]
     ])
     <div class="content-body">
-        <div class="container-fluid pt-3 p-4">
+        <div class="container-fluid pt-4 pb-4 px-xs-0 px-lg-4">
             <form class="mb-0" action="{{ route( 'dashboard.crud.post', [ 'namespace' => $resource->getNamespace() ] ) }}" enctype="multipart/form-data" method="post">
                 <div class="card">
                     <div class="card-header p-0">

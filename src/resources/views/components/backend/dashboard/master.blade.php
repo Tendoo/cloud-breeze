@@ -1,10 +1,10 @@
 @inject( 'Menus', 'Tendoo\Core\Services\Menus' )
 @extends( 'tendoo::layouts.backend.master' )
 @section( 'tendoo::layouts.backend.master.body' )
-    <div class="h-100 d-flex align-items-stretch flex-row">
+    <div class="app-wrapper h-100 d-flex align-items-stretch flex-row bmd-layout-container bmd-drawer-f-l">
         <aside id="sidebar-menu" class="h-100 d-flex flex-column">
             <div class="sidebar-logo align-items-center d-flex justify-content-center">
-            Hello World
+            <b>Tend</b>oo
             </div>
             <div class="menu-wrapper h-100" data-simplebar>
             @include( 'tendoo::partials.backend.dashboard.aside', [
@@ -19,5 +19,6 @@
                 @yield( 'tendoo::components.backend.dashboard.master.body' )
             </div>
         </div>
+        <div class="bmd-layout-backdrop in"></div>
     </div>
 @endsection
