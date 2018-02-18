@@ -57,7 +57,7 @@ class AuthController extends BaseController
          * If the feature is not enabled according to the options
          * an exception is thrown FeatureDisabledException
          */
-        $this->checkFeature( 'allow_registration' );
+        $this->checkFeature( 'allow_registration', 'true' );
 
         Page::setTitle( __( 'Registration' ) );
         return view( 'tendoo::components.frontend.auth.register' );
