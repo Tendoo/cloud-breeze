@@ -34,7 +34,7 @@ class AuthController extends BaseController
             $this->checkFeature( 'allow_recovery', 'true' );
             
             return $next($request);
-        })->only([ 'recoveryIndex' ]);
+        })->only([ 'recoveryIndex', 'recoveryPassword', 'postRecoveryPassword' ]);
     }
     
     /**
@@ -281,7 +281,7 @@ class AuthController extends BaseController
              * do we need to provide more information about this issue ?
              */
             throw new RecoveryException( 
-                __( 'The token provide is incorrect or may have expired.' )
+                __( 'The token provided is incorrect or may have expired.' )
             );
         }
     }
