@@ -41,8 +41,8 @@ class PasswordReset extends Mailable
      */
     public function build()
     {
-        return $this->from( 'app@tendoo.org' )
-            ->subject( __( 'Password Reset &mdash; Tendoo' ) )
+        return $this->from( 'Tendoo CMS - Notifications' )
+            ->subject( __( 'Password Reset !' ) )
             ->markdown('tendoo::email.password-reset', [
             'link'  =>  $this->link,
             'user'  =>  $this->user

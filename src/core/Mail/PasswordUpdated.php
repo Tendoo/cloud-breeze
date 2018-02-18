@@ -41,8 +41,8 @@ class PasswordUpdated extends Mailable
      */
     public function build()
     {
-        return $this->from( 'app@tendoo.org' )
-            ->subject( __( 'Password Successfully Updated &mdash; Tendoo' ) )
+        return $this->from( 'Tendoo CMS - Notifications' )
+            ->subject( __( 'Password Successfully Updated !' ) )
             ->markdown('tendoo::email.password-changed', [
             'link'  =>  $this->link,
             'user'  =>  $this->user
