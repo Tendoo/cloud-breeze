@@ -152,6 +152,7 @@ class Setup
          * Send Welcome email 
          * since we're polite
          */
+        Mail::to( $user->email )->queue( 
             new SetupComplete()
         );
 
