@@ -193,7 +193,7 @@ class AuthController extends BaseController
         /**
          * Generating a hashed code according to the username
          */
-        $hashedCode     =   Hash::make( $user->username );
+        $hashedCode     =   str_random( strlen( $user->username ) ) . $this->date->instance()->timestamp;
         $userOptions    =   new UserOptions( $user->id );
         $userOptions->set( 'recovery-token', $hashedCode );
         $userOptions->set( 'recovery-validity', 
