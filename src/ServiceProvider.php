@@ -48,6 +48,7 @@ class ServiceProvider extends CoreServiceProvider
          * Register DotEnv Editor
          */
         $this->app->bind('dotenv-editor', 'Jackiedo\DotenvEditor\DotenvEditor');
+        $this->app->bind('tendoo.doteditor', 'Jackiedo\DotenvEditor\DotenvEditor');
 
         /**
          * Register Eventy
