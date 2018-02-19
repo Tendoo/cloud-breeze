@@ -250,7 +250,7 @@ class AuthController extends BaseController
          * @todo:email we might inform the user that his password has been reseted
          */
         Mail::to( $user->email )
-            ->queue( new PasswordUpdated(), $user );
+            ->queue( new PasswordUpdated( $user ) );
         
         return redirect()->route( 'login.index' )->with([
             'status'    =>  'success', 

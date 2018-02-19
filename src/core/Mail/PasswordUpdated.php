@@ -28,9 +28,8 @@ class PasswordUpdated extends Mailable
      *
      * @return void
      */
-    public function __construct( $link, $user )
+    public function __construct( $user )
     {
-        $this->link     =   $link;
         $this->user     =   $user;
     }
 
@@ -44,7 +43,6 @@ class PasswordUpdated extends Mailable
         return $this->from( 'notification@tendoo.org' )
             ->subject( __( 'Password Successfully Updated !' ) )
             ->markdown('tendoo::email.password-changed', [
-            'link'  =>  $this->link,
             'user'  =>  $this->user
         ]);
     }
