@@ -4,7 +4,7 @@ namespace Tendoo\Core\Console\Commands;
 
 use Illuminate\Console\Command;
 
-class services extends Command
+class ServicesCommand extends Command
 {
     /**
      * The name and signature of the console command.

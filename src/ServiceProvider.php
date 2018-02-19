@@ -21,6 +21,8 @@ use Tendoo\Core\Console\Commands\OptionGet;
 use Tendoo\Core\Console\Commands\RefreshCommand;
 use Tendoo\Core\Console\Commands\ResetCommand;
 use Tendoo\Core\Console\Commands\MakeModuleServiceProvider;
+use Tendoo\Core\Console\Commands\EnvEditorSetCommand;
+use Tendoo\Core\Console\Commands\EnvEditorGetCommand;
 use Illuminate\Routing\Router;
 use Jackiedo\DotenvEditor\DotenvEditor;
 use Tendoo\Core\Http\TendooKernel;
@@ -67,6 +69,8 @@ class ServiceProvider extends CoreServiceProvider
                 RefreshCommand::class,
                 ResetCommand::class,
                 MakeModuleServiceProvider::class,
+                EnvEditorSetCommand::class,
+                EnvEditorGetCommand::class,
             ]);
         }
         
