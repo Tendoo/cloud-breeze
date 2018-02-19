@@ -42,7 +42,7 @@ class PasswordUpdated extends Mailable
     {
         return $this->from( 'notification@tendoo.org' )
             ->subject( __( 'Password Successfully Updated !' ) )
-            ->markdown('tendoo::email.password-changed', [
+            ->markdown('tendoo::email.password-updated', [
             'user'  =>  $this->user
         ]);
     }

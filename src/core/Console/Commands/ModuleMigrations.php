@@ -227,7 +227,7 @@ class ModuleMigrations extends Command
     {
         if ( ! in_array( $type, [ 
             'bigIncrements',
-            'bigInteger', 'binary', 'boolean', 'char', 'date', 'dateTime', 'decimal', 
+            'bigInteger', 'binary', 'boolean', 'char', 'date', 'datetime', 'decimal', 
             'double', 'enum', 'float', 'increments', 'integer', 'json',
             'jsonb', 'longText', 'mediumInteger', 'mediumText',
             'morphs', 'nullableTimestamps', 'smallInteger', 'tinyInteger',
