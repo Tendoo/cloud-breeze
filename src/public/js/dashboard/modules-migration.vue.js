@@ -112,18 +112,18 @@ var ModuleMigration     =   new Vue({
              * check if a migration is available
              */
             if ( this.lastVersion ) {
-                axios.post( tendoo.url.postOptions, {
-                    [ this.module.namespace + '_last_migration' ]     :   this.lastVersion
-                }).then( () => {
-                    /**
-                     * Finishing Task
-                     */
-                    this.tasks.push({
-                        text        :   'Migration Complete',
-                        subTasks    :   []
-                    });
-                    this.complete   =   true;
-                });
+                // axios.post( tendoo.url.postOptions, {
+                //     [ this.module.namespace + '_last_migration' ]     :   this.lastVersion
+                // }).then( () => {
+                //     /**
+                //      * Finishing Task
+                //      */
+                //     this.tasks.push({
+                //         text        :   'Migration Complete',
+                //         subTasks    :   []
+                //     });
+                //     this.complete   =   true;
+                // });
             } else {
                 this.complete   =   true;
                 this.tasks.push({

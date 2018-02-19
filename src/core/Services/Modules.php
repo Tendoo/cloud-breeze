@@ -714,7 +714,9 @@ class Modules
 
     /**
      * Run module migration
-     * @param array of migration
+     * @param string module namespace
+     * @param string version number
+     * @param string file path
      * @return void
      */
     public function runMigration( $namespace, $version, $file )

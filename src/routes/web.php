@@ -109,12 +109,14 @@ Route::middleware([ 'web' ])->group( function(){
         });
     });
     
-    /**
-     * Setup Routes
-     */
-    Route::get( '/do-setup/{step?}', 'Tendoo\Core\Http\Controllers\SetupController@steps' )->name( 'setup.step' );
-    Route::post( '/do-setup/post/database', 'Tendoo\Core\Http\Controllers\SetupController@post_database' )->name( 'setup.post.database' );
-    Route::post( '/do-setup/post/app-details', 'Tendoo\Core\Http\Controllers\SetupController@post_appdetails' )->name( 'setup.post.app-details' );
+    Route::middleware([ 'app.notInstalled' ])->group( function(){
+        /**
+         * Setup Routes
+         */
+        Route::get( '/do-setup/{step?}', 'Tendoo\Core\Http\Controllers\SetupController@steps' )->name( 'setup.step' );
+        Route::post( '/do-setup/post/database', 'Tendoo\Core\Http\Controllers\SetupController@post_database' )->name( 'setup.post.database' );
+        Route::post( '/do-setup/post/app-details', 'Tendoo\Core\Http\Controllers\SetupController@post_appdetails' )->name( 'setup.post.app-details' );
+    });
     
     /**
      * Error Get Route

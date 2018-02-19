@@ -224,7 +224,7 @@ class ModulesController extends TendooController
     public function runMigration( $namespace, Request $request )
     {
         $migration     =   $this->modules->runMigration( 
-            $namespace,  
+            $namespace,
             $request->input( 'version' ), 
             $request->input( 'file' ) 
         );
