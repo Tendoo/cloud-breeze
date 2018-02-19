@@ -118,7 +118,7 @@ class Modules
                 if ( $config[ 'enabled' ] ) {
 
                     /**
-                     * @todo register module service provider
+                     * register module service provider
                      */
                     $servicesProviders   =   Storage::disk( 'modules' )->allFiles( $config[ 'namespace' ] . '/Providers' );
     
@@ -143,6 +143,21 @@ class Modules
                             }
                         }
                     }
+
+                    /**
+                     * Load Module models
+                     */
+                    $models   =   Storage::disk( 'modules' )->allFiles( $config[ 'namespace' ] . '/Models' );
+
+                    foreach( $models as $model ) {
+                        /**
+                         * @todo run service provider
+                         */
+                        $file   =   pathinfo(  $modulesPath . $model );
+                        if ( $file[ 'extension' ] == 'php' ) {
+                            include_once( $modulesPath . $model );
+                        }
+                    }
                 }
 
                 // an index MUST be provided and MUST have the same Name than the module namespace + 'Module'
@@ -165,7 +180,7 @@ class Modules
          */
 
         include_once( TENDOO_ROOT . '/core/Services/TendooModule.php' );
-        
+
         foreach( $this->modules as $module ) {
             if ( ! $module[ 'enabled' ] ) {
                 continue;
@@ -623,7 +638,7 @@ class Modules
 
             // make sure to enable only once
             if ( ! in_array( $namespace, $enabledModules ) ) {
-                $enabledModules[]   =   strtolower( $namespace );
+                $enabledModules[]   =   $namespace;
                 $this->options->set( 'enabled_modules', json_encode( $enabledModules ) );
             }
 

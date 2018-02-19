@@ -100,13 +100,13 @@ Route::middleware([ 'web' ])->group( function(){
         /**
          * API Resource
          */
-        Route::group([ 'prefix' => '/api/{resource}'], function( $request ) {        
-            Route::get( '', 'Tendoo\Core\Http\Controllers\ApiController@getAll' )->name( 'api.all' );
-            Route::get( '{id}', 'Tendoo\Core\Http\Controllers\ApiController@getOne' )->name( 'api.one' );
-            Route::delete( '{id}', 'Tendoo\Core\Http\Controllers\ApiController@delete' )->name( 'api.delete' );
-            Route::put( '{id}', 'Tendoo\Core\Http\Controllers\ApiController@put' )->name( 'api.put' );
-            Route::post( '', 'Tendoo\Core\Http\Controllers\ApiController@single' )->name( 'api.post' );
-        });
+        // Route::group([ 'prefix' => '/api/{resource}'], function( $request ) {        
+        //     Route::get( '', 'Tendoo\Core\Http\Controllers\ApiController@getAll' )->name( 'api.all' );
+        //     Route::get( '{id}', 'Tendoo\Core\Http\Controllers\ApiController@getOne' )->name( 'api.one' );
+        //     Route::delete( '{id}', 'Tendoo\Core\Http\Controllers\ApiController@delete' )->name( 'api.delete' );
+        //     Route::put( '{id}', 'Tendoo\Core\Http\Controllers\ApiController@put' )->name( 'api.put' );
+        //     Route::post( '', 'Tendoo\Core\Http\Controllers\ApiController@single' )->name( 'api.post' );
+        // });
     });
     
     Route::middleware([ 'app.notInstalled' ])->group( function(){

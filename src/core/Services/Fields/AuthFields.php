@@ -2,6 +2,8 @@
 namespace Tendoo\Core\Services\Fields;
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Event;
+use Tendoo\Core\Facades\Hook;
 
 trait AuthFields {
 
@@ -148,12 +150,15 @@ trait AuthFields {
      */
     public static function register()
     {
-        return [
-            self::username(),
-            self::email(),
-            self::password(),
-            self::passwordConfirm(),
+        $fields                 =   [
+            'username'          =>  self::username(),
+            'email'             =>  self::email(),
+            'password'          =>  self::password(),
+            'password_confirm'  =>  self::passwordConfirm(),
         ];
+
+        $fields     =   Hook::filter( 'registration.fields', $fields );
+        return $fields;
     }
 
     /**

@@ -89,7 +89,7 @@ class GenerateModule extends Command
             /**
              * Geneate Internal Directories
              */
-            foreach([ 'Events', 'Fileds', 'Http', 'Migrations', 'Resources', 'Routes', 'Models', 'Providers' ] as $folder ) {
+            foreach([ 'Events', 'Fields', 'Http', 'Migrations', 'Resources', 'Routes', 'Models', 'Providers' ] as $folder ) {
                 Storage::disk( 'modules' )->makeDirectory( $this->module[ 'namespace' ] . '/' . $folder );
             }
 

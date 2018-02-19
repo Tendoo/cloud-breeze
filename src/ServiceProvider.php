@@ -28,6 +28,7 @@ use Jackiedo\DotenvEditor\DotenvEditor;
 use Tendoo\Core\Http\TendooKernel;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Foundation\AliasLoader;
 
 use Orchestra\Parser\Xml\Reader as XmlReader;
 use Orchestra\Parser\Xml\Document as XmlDocument;
@@ -41,15 +42,30 @@ class ServiceProvider extends CoreServiceProvider
      */
     public function boot( Router $router )
     {
-        // Am i forced to do this ?
+        $instance       =   AliasLoader::getInstance();
+
+        /**
+         * Register DotEnv Editor
+         */
         $this->app->bind('dotenv-editor', 'Jackiedo\DotenvEditor\DotenvEditor');
 
+        /**
+         * Register Eventy
+         */
+        $this->app->register( 'TorMorten\Eventy\EventServiceProvider' );
+        $this->app->register( 'TorMorten\Eventy\EventBladeServiceProvider' );
+        $this->app->bind( 'tendoo.hook', 'TorMorten\Eventy\Events');
+
+        /**
+         * Register Middleware
+         */
         $router->aliasMiddleware( 'app.installed', \Tendoo\Core\Http\Middleware\AppInstalled::class );
         $router->aliasMiddleware( 'app.notInstalled', \Tendoo\Core\Http\Middleware\AppNotInstalled::class );
         $router->aliasMiddleware( 'expect.unlogged', \Tendoo\Core\Http\Middleware\RedirectIfAuthenticated::class );
         $router->aliasMiddleware( 'expect.logged', \Tendoo\Core\Http\Middleware\RedirectIfNotAuthenticated::class );
         $router->aliasMiddleware( 'can.register', \Tendoo\Core\Http\Middleware\CheckRegistrationStatus::class );
         
+
         $corePath       =   base_path() . _SLASH_ . 'core' . _SLASH_ ;
         $configPath     =   base_path() . _SLASH_ . 'config' . _SLASH_ ;
         $publicPath     =   base_path() . _SLASH_ . 'public' . _SLASH_ . 'tendoo';

@@ -7,10 +7,10 @@
 
 namespace Modules\{{ $module[ 'namespace' ] }}\Http\Controllers;
 use Illuminate\Support\Facades\View;
-use App\Http\Controllers\DashboardController;
+use Tendoo\Core\Http\Controllers\TendooController;
 // use Tendoo\Core\Services\Page;
 
-class {{ $name }} extends DashboardController
+class {{ $name }} extends TendooController
 {
     public function __construct()
     {
