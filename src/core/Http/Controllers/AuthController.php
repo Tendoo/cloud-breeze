@@ -247,6 +247,14 @@ class AuthController extends BaseController
         $user->save();
 
         /**
+         * Delete the keys so that the password can't be changed with the same
+         * keys
+         */
+        $userOptions    =   new UserOptions( $user->id );
+        $userOptions->delete( 'recovery-token' );
+        $userOptions->delete( 'recovery-validity' );
+
+        /**
          * @todo:email we might inform the user that his password has been reseted
          */
         Mail::to( $user->email )
