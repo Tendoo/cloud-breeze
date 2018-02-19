@@ -43,13 +43,15 @@ class Schema
     {
         extract( $data );
         if ( @$table ) {
-            echo "Schema::create( '{$table}', function (Blueprint \$table) {\n";
-            echo "\t\t\t\$table->increments('id');\n";
+            echo "if ( ! Schema::hasTable( '{$table}' ) ) {\n";
+            echo "\t\t\tSchema::create( '{$table}', function (Blueprint \$table) {\n";
+            echo "\t\t\t\t\$table->increments('id');\n";
             if ( @$schema ) {
                 $this->render( $schema );
             }
-            echo "\t\t\t\$table->timestamps();\n";
-            echo "\t\t});\n";
+            echo "\t\t\t\t\$table->timestamps();\n";
+            echo "\t\t\t});\n";
+            echo "\t\t}";
         } else {
             echo "// Add the schema here !\n";
         }
