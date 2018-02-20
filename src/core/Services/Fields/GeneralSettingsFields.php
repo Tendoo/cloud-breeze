@@ -71,7 +71,7 @@ trait GeneralSettingsFields
         $reset_activation_link->options         =   [
             'true'   =>  __( 'Display a link to receive the activation email.' )
         ];
-        $validate_users->description  =   __( 'If the user didn\'t get the email, he\'ll be able to receive another email if his account is not activated.' );
+        $reset_activation_link->description  =   __( 'If the user didn\'t get the email, he\'ll be able to receive another email if his account is not activated.' );
 
         $register_as                    =   new \StdClass;
         $register_as->name              =   'register_as';
