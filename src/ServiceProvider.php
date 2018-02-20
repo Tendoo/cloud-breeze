@@ -58,6 +58,7 @@ class ServiceProvider extends CoreServiceProvider
         /**
          * register CURL
          */
+        // $this->app->register( 'Ixudra\Curl\CurlServiceProvider' );
         $this->app->bind( 'tendoo.curl', 'Ixudra\Curl\Facades\Curl' );
 
         /**
