@@ -81,6 +81,6 @@ trait GeneralSettingsFields
         $register_as->options           =   Helper::toOptions( Role::all(), [ 'id', 'name' ]);
         $register_as->value             =   $options->get( $register_as->name );
 
-        return [ $allow_registration, $allow_password_recovery, $validate_users, $register_as ];
+        return [ $allow_registration, $allow_password_recovery, $reset_activation_link, $validate_users, $register_as ];
     }
 }
