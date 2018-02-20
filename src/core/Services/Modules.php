@@ -145,18 +145,34 @@ class Modules
                     }
 
                     /**
-                     * Load Module models
+                     * Load module folder contents
                      */
-                    $models   =   Storage::disk( 'modules' )->allFiles( $config[ 'namespace' ] . '/Models' );
-
-                    foreach( $models as $model ) {
+                    foreach([ 'Models', 'Services' ] as $folder ) {
                         /**
-                         * @todo run service provider
+                         * Load Module models
                          */
-                        $file   =   pathinfo(  $modulesPath . $model );
-                        if ( $file[ 'extension' ] == 'php' ) {
-                            include_once( $modulesPath . $model );
+                        $files   =   Storage::disk( 'modules' )->allFiles( $config[ 'namespace' ] . '/' . $folder );
+
+                        foreach( $files as $file ) {
+                            /**
+                             * @todo run service provider
+                             */
+                            $fileInfo   =   pathinfo(  $modulesPath . $file );
+                            if ( $fileInfo[ 'extension' ] == 'php' ) {
+                                include_once( $modulesPath . $file );
+                            }
                         }
+                    }
+
+                    /**
+                     * Load Module Config
+                     */
+                    $files   =   Storage::disk( 'modules' )->allFiles( $config[ 'namespace' ] . '/Config' );
+
+                    foreach( $files as $file ) {
+                        $moduleConfig     =   include_once( $modulesPath . $file );
+                        $final[ $config[ 'namespace' ] ]    =   $moduleConfig;
+                        array_dot( $final );
                     }
                 }
 

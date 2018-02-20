@@ -14,7 +14,8 @@
         "jackiedo/dotenv-editor" : "^1.0",
         "nikic/php-parser": "^3.1",
         "orchestra/parser": "^3.5",
-        "tormjens/eventy": "^0.5.3"
+        "tormjens/eventy": "^0.5.3",
+        "ixudra/curl": "6.*"
     },
     "autoload": {
         "psr-4": {

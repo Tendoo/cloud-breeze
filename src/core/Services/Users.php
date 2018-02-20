@@ -4,6 +4,9 @@ namespace Tendoo\Core\Services;
 use Tendoo\Core\Models\Role;
 use Tendoo\Core\Models\User;
 use Tendoo\Core\Models\Permission;
+use Tendoo\Core\Services\UserOptions;
+use Tendoo\Core\Mail\ActivateAccountMail;
+use Illuminate\Support\Facades\Mail;
 
 class Users
 {
@@ -20,8 +23,8 @@ class Users
         $this->user         =   $user;
         $this->permission   =   $permission;
 
-        $this->buildRoles();
-        $this->buildUsers();
+        // $this->buildRoles();
+        // $this->buildUsers();
     }
 
     /**
@@ -71,5 +74,30 @@ class Users
             $this->roles[ $user->role->namespace ][ 'users' ][]   =   $user;
             $this->users[]      =   $user;
         }
+    }
+
+    /**
+     * Send Activation Email
+     * @param user id
+     */
+    public function sendActivationEmail( User $user )
+    {
+        /**
+         * Send user activation code
+         */
+        $activationCode     =   str_random( 10 ) . $user->id;
+        $userOptions        =   new UserOptions( $user->id );
+        $userOptions->set( 'activation-code', $activationCode );
+
+        /**
+         * @todo
+         * if it shouldn't activate the user, we might send an email
+         * for letting him know his account has been created
+         */
+        Mail::to( $user->email )
+            ->queue( new ActivateAccountMail( url()->route( 'register.activate', [
+                'code'  =>  $activationCode,
+                'user'  =>  $user->id
+            ]), $user ) );
     }
 }

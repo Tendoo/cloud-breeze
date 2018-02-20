@@ -42,8 +42,6 @@ class ServiceProvider extends CoreServiceProvider
      */
     public function boot( Router $router )
     {
-        $instance       =   AliasLoader::getInstance();
-
         /**
          * Register DotEnv Editor
          */
@@ -56,6 +54,11 @@ class ServiceProvider extends CoreServiceProvider
         $this->app->register( 'TorMorten\Eventy\EventServiceProvider' );
         $this->app->register( 'TorMorten\Eventy\EventBladeServiceProvider' );
         $this->app->bind( 'tendoo.hook', 'TorMorten\Eventy\Events');
+
+        /**
+         * register CURL
+         */
+        $this->app->bind( 'tendoo.curl', 'Ixudra\Curl\Facades\Curl' );
 
         /**
          * Register Middleware

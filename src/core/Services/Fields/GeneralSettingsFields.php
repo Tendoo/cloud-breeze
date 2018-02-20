@@ -62,6 +62,16 @@ trait GeneralSettingsFields
             'true'   =>  __( 'Set all users as active after registration' )
         ];
         $validate_users->description  =   __( 'Everytime a user will register, his account will be set as active immediately' );
+        
+        $reset_activation_link                  =   new \StdClass;
+        $reset_activation_link->name            =   'reset_activation_link';
+        $reset_activation_link->label           =   __( 'Resend Activation Link' );
+        $reset_activation_link->type            =   'switch';
+        $reset_activation_link->value           =   $options->get( $validate_users->name );
+        $reset_activation_link->options         =   [
+            'true'   =>  __( 'Display a link to receive the activation email.' )
+        ];
+        $validate_users->description  =   __( 'If the user didn\'t get the email, he\'ll be able to receive another email if his account is not activated.' );
 
         $register_as                    =   new \StdClass;
         $register_as->name              =   'register_as';

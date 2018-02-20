@@ -18,10 +18,12 @@ use Tendoo\Core\Models\User;
 use Tendoo\Core\Mail\PasswordReset;
 use Tendoo\Core\Mail\PasswordUpdated;
 use Tendoo\Core\Exceptions\RecoveryException;
+use Tendoo\Core\Facades\Hook;
 use Carbon\Carbon;
 
 class AuthController extends BaseController
 {
+    protected $userService;
     public function __construct()
     {
         parent::__construct();
@@ -87,7 +89,18 @@ class AuthController extends BaseController
              */
             if ( ! ( boolean ) Auth::user()->active ) {
                 
+                $userId     =   Auth::user()->id;
+
                 Auth::logout();
+
+                if( $this->options->get( 'reset_activation_link' ) == 'true' ) {
+                    return redirect()->route( 'login.index' )->with([
+                        'status'    =>  'danger',
+                        'message'   =>  sprintf( __( 'Your account hasn\'t yet been activated. If you didn\'t get the activation mail, <a href="%s">click here</a> to receive another one.' ), url()->route( 'register.send-activation', [
+                            'user'  =>  $userId
+                        ]) )
+                    ]);
+                }
 
                 return redirect()->route( 'login.index' )->with([
                     'status'    =>  'danger',
@@ -113,12 +126,49 @@ class AuthController extends BaseController
     }
 
     /**
+     * Send Activation Email
+     * @param object user
+     * @return void
+     */
+    public function sendActivation( User $user )
+    {
+        /**
+         * only if the user is not active
+         */
+        if ( intval( $user->active ) == 0 ) {
+            $this->userService->sendActivationEmail( $user );
+            return redirect()->route( 'login.index' )->with([
+                'status'    =>  'success',
+                'message'   =>  __( 'An activation link has been send to your mail.' )
+            ]);
+        }
+
+        return redirect()->route( 'login.index' )->with([
+            'status'    =>  'failed',
+            'message'   =>  __( 'Only unactive account can request the activation mail.' )
+        ]);
+    }
+
+    /**
      * post register
      * @param object register Request
      * @return void
      */
     public function postRegister( PostRegisterRequest $request, Options $options )
     {
+        /**
+         * Trigger Action before registering the users
+         * @filter:before.registration
+         */
+        $redirect           =   Hook::filter( 'before.registration', false, $request, $options );
+
+        /**
+         * A hook can control the user registration
+         */
+        if ( ! empty( $redirect ) ) {
+            return redirect()->route( 'registration.index' )->with( $redirect );
+        }
+
         $shouldActive       =   $options->get( 'validate_users', 'false' ) === 'true' ? true : false;
 
         $user   =   new User;
@@ -129,19 +179,50 @@ class AuthController extends BaseController
         $user->active       =   $shouldActive ? 1 : 0;
         $user->save();
 
-        /**
-         * @todo
-         * if it shouldn't activate the user, we might send an email
-         * for letting him know his account has been created
-         */
-        if ( ! $shouldActive ) {
-
+        if ( $shouldActive ) {
+            $this->userService->sendActivationEmail( $user->id );
         }
 
         return redirect()->route( 'login.index' )->with([
             'status'    =>  'success',
             'message'   =>  __( 'Your account has been created.' )
         ]);
+    }
+
+    /**
+     * Register Activate Account
+     * @param int user id
+     * @param string activation code
+     * @return void
+     */
+    public function registerActivate( User $user, $code )
+    {
+        $userOptions    =   new UserOptions( $user->id );
+        
+        if ( $userOptions->get( 'activation-code' ) === $code ) {
+
+            /**
+             * Set the user as active
+             */
+            $user->active   =   1;
+            $user->save();
+
+            $userOptions->delete( 'activation-code' );
+
+            return redirect()->route( 'login.index' )->with([
+                'status'    =>  'success',
+                'message'   =>  __( 'Your account has been successfully activated.' )
+            ]);
+        } else {
+
+            /**
+             * Wrong activation link provided. redirect the user to the login page
+             */
+            return redirect()->route( 'login.index' )->with([
+                'status'    =>  'danger',
+                'message'   =>  __( 'Unable to activate the account %s. Wrong activation code provided' )
+            ]);
+        }
     }
 
     /**

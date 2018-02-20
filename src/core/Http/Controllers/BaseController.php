@@ -34,6 +34,7 @@ class BaseController extends Controller
                 $this->menus        =   app()->make( 'Tendoo\Core\Services\Dashboard\MenusConfig' );
                 $this->guard        =   app()->make( Guard::class );
                 $this->date         =   app()->make( Date::class );
+                $this->userService  =   app()->make( 'Tendoo\Core\Services\Users' );
 
                 return $next($request);
             });
