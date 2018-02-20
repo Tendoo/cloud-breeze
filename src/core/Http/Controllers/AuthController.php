@@ -77,7 +77,7 @@ class AuthController extends BaseController
          * Event: before.login
          * @since 1.0
          */
-        Event::fire( 'before.login' );
+        Hook::action( 'before.login' );
 
         if ( Auth::attempt([
             'username'  => $request->input( 'username' ), 
@@ -111,12 +111,12 @@ class AuthController extends BaseController
             /**
              * We might perform an action before login
              */
-            Event::fire( 'after.login' );
+            Hook::action( 'after.login' );
 
             /**
              * Redirect user to the dashboard
              */
-            return redirect()->intended( route( config( 'tendoo.redirect.authenticated' ) ) );
+            return redirect()->intended( route( Hook::filter( 'after.login.route', config( 'tendoo.redirect.authenticated' ), Auth::user() ) ) );
         }
 
         return redirect()->route( 'login.index' )->withErrors([
