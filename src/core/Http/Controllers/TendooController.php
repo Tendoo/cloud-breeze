@@ -10,6 +10,7 @@ use Tendoo\Core\Services\Options;
 use Tendoo\Core\Services\Date;
 use Tendoo\Core\Services\UserOptions;
 use Tendoo\Core\Exceptions\AccessDeniedException;
+use Tendoo\Core\Facades\Hook;
 
 use Illuminate\Support\Facades\Event;
 
@@ -41,7 +42,11 @@ class TendooController extends Controller
                 $this->guard        =   app()->make( Guard::class );
                 $this->date         =   app()->make( Date::class );
                 
-                Event::fire( 'dashboard.loaded' );
+                /**
+                 * @hook.action
+                 * run when the dashboard is loaded
+                 */
+                Hook::action( 'dashboard.loaded' );
 
                 return $next($request);
             });

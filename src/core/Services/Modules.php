@@ -109,7 +109,7 @@ class Modules
                  */
                 $config[ 'entry-class' ]    =  'Modules\\' . $config[ 'namespace' ] . '\\' . $config[ 'namespace' ] . 'Module'; 
 
-                // hosting providers
+                // store providers
                 $config[ 'providers' ]      =   [];
 
                 /**
@@ -147,7 +147,7 @@ class Modules
                     /**
                      * Load module folder contents
                      */
-                    foreach([ 'Models', 'Services' ] as $folder ) {
+                    foreach([ 'Models', 'Services', 'Facades' ] as $folder ) {
                         /**
                          * Load Module models
                          */
@@ -168,11 +168,18 @@ class Modules
                      * Load Module Config
                      */
                     $files   =   Storage::disk( 'modules' )->allFiles( $config[ 'namespace' ] . '/Config' );
+                    $moduleConfig       =   [];
 
                     foreach( $files as $file ) {
-                        $moduleConfig     =   include_once( $modulesPath . $file );
-                        $final[ $config[ 'namespace' ] ]    =   $moduleConfig;
-                        array_dot( $final );
+                        $info           =     pathinfo( $file );
+                        $_config        =   include_once( $modulesPath . $file );
+                        $final[ $config[ 'namespace' ] ]    =   [];
+                        $final[ $config[ 'namespace' ] ][ $info[ 'filename' ] ]     =   $_config;   
+                        $moduleConfig       =   array_dot( $final );
+                    }
+
+                    foreach( $moduleConfig as $key => $value ) {
+                        config([ $key => $value ]);
                     }
                 }
 
@@ -200,6 +207,13 @@ class Modules
         foreach( $this->modules as $module ) {
             if ( ! $module[ 'enabled' ] ) {
                 continue;
+            }
+
+            /**
+             * Autoload Vendors
+             */
+            if ( is_file( $module[ 'path' ] . '/vendor/autoload.php' ) ) {
+                include_once( $module[ 'path' ] . '/vendor/autoload.php' );
             }
 
             /**

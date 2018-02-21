@@ -7,6 +7,7 @@ use Tendoo\Core\Models\Permission;
 use Tendoo\Core\Services\UserOptions;
 use Tendoo\Core\Mail\ActivateAccountMail;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Auth;
 
 class Users
 {
@@ -99,5 +100,19 @@ class Users
                 'code'  =>  $activationCode,
                 'user'  =>  $user->id
             ]), $user ) );
+    }
+
+    /**
+     * Check if a user belongs to a group
+     * @param mixed group of user
+     * @return boolean
+     */
+    public function is( $group_name ) 
+    {
+        if ( is_array( $group_name ) ) {
+            return in_array( Auth::user()->role->namespace, $group_name );
+        } else {
+            return Auth::user()->role->namespace === $group_name;
+        }
     }
 }
