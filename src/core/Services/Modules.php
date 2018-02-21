@@ -63,7 +63,7 @@ class Modules
 
         // check if a config file exists
         if ( in_array( $dir . '/config.xml', $files ) ) {
-            $xml        =   $this->xmlParser->load( base_path() . '/modules/' . $dir . '/config.xml' );
+            $xml        =   $this->xmlParser->load( base_path() . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . $dir . DIRECTORY_SEPARATOR . 'config.xml' );
             $config     =   $xml->parse([
                 'namespace'             => [ 'uses'     => 'namespace' ],
                 // 'language'           =>  [ 'uses'    => 'language' ], 
@@ -80,18 +80,19 @@ class Modules
             if ( $config[ 'namespace' ] != null ) {
                 // index path
                 $modulesPath        =   config( 'tendoo.modules_path' );
-                $currentModulePath  =   $modulesPath . $dir . '\\';
+                $currentModulePath  =   $modulesPath . $dir . DIRECTORY_SEPARATOR;
                 $indexPath          =   $currentModulePath . ucwords( $config[ 'namespace' ] . 'Module.php' );
-                $webRoutesPath      =   $currentModulePath . 'Routes\web.php';
+                $webRoutesPath      =   $currentModulePath . 'Routes' . DIRECTORY_SEPARATOR . 'web.php';
+                dd( $indexPath );
 
                 // check index existence
                 $config[ 'path' ]                       =   $currentModulePath;
                 $config[ 'index-file' ]                 =   is_file( $indexPath ) ? $indexPath : false;
                 $config[ 'routes-file' ]                =   is_file( $webRoutesPath ) ? $webRoutesPath : false;
-                $config[ 'controllers-path' ]           =   $currentModulePath . 'Http\Controllers';
-                $config[ 'controllers-relativePath' ]   =   ucwords( $config[ 'namespace' ] ) . '\Http\Controllers';
-                $config[ 'views-path' ]                 =   $currentModulePath . 'Resources\Views\\';
-                $config[ 'dashboard-path' ]             =   $currentModulePath . 'Dashboard\\';
+                $config[ 'controllers-path' ]           =   $currentModulePath . 'Http' . DIRECTORY_SEPARATOR . 'Controllers';
+                $config[ 'controllers-relativePath' ]   =   ucwords( $config[ 'namespace' ] ) . DIRECTORY_SEPARATOR . 'Http' . DIRECTORY_SEPARATOR . 'Controllers';
+                $config[ 'views-path' ]                 =   $currentModulePath . 'Resources' . DIRECTORY_SEPARATOR . 'Views';
+                $config[ 'dashboard-path' ]             =   $currentModulePath . 'Dashboard' . DIRECTORY_SEPARATOR;
                 $config[ 'enabled' ]                    =   false; // by default the module is set as disabled
 
                 /**
@@ -120,7 +121,7 @@ class Modules
                     /**
                      * register module service provider
                      */
-                    $servicesProviders   =   Storage::disk( 'modules' )->allFiles( $config[ 'namespace' ] . '/Providers' );
+                    $servicesProviders   =   Storage::disk( 'modules' )->allFiles( $config[ 'namespace' ] . DIRECTORY_SEPARATOR . 'Providers' );
     
                     foreach( $servicesProviders as $service ) {
                         /**
@@ -151,7 +152,7 @@ class Modules
                         /**
                          * Load Module models
                          */
-                        $files   =   Storage::disk( 'modules' )->allFiles( $config[ 'namespace' ] . '/' . $folder );
+                        $files   =   Storage::disk( 'modules' )->allFiles( $config[ 'namespace' ] . DIRECTORY_SEPARATOR . $folder );
 
                         foreach( $files as $file ) {
                             /**
@@ -167,7 +168,7 @@ class Modules
                     /**
                      * Load Module Config
                      */
-                    $files   =   Storage::disk( 'modules' )->allFiles( $config[ 'namespace' ] . '/Config' );
+                    $files   =   Storage::disk( 'modules' )->allFiles( $config[ 'namespace' ] . DIRECTORY_SEPARATOR . 'Config' );
                     $moduleConfig       =   [];
 
                     foreach( $files as $file ) {
@@ -202,7 +203,7 @@ class Modules
          * Required to autoload module components
          */
 
-        include_once( TENDOO_ROOT . '/core/Services/TendooModule.php' );
+        include_once( TENDOO_ROOT . DIRECTORY_SEPARATOR .'core' . DIRECTORY_SEPARATOR . 'Services' . DIRECTORY_SEPARATOR . 'TendooModule.php' );
 
         foreach( $this->modules as $module ) {
             if ( ! $module[ 'enabled' ] ) {
@@ -212,8 +213,8 @@ class Modules
             /**
              * Autoload Vendors
              */
-            if ( is_file( $module[ 'path' ] . '/vendor/autoload.php' ) ) {
-                include_once( $module[ 'path' ] . '/vendor/autoload.php' );
+            if ( is_file( $module[ 'path' ] . DIRECTORY_SEPARATOR .'vendor' . DIRECTORY_SEPARATOR . 'autoload.php' ) ) {
+                include_once( $module[ 'path' ] . DIRECTORY_SEPARATOR .'vendor' . DIRECTORY_SEPARATOR . 'autoload.php' );
             }
 
             /**
@@ -283,7 +284,7 @@ class Modules
     public function extract( $namespace )
     {
         if ( $module  = $this->get( $namespace ) ) {
-            $zipFile        =   storage_path() . '\module.zip';
+            $zipFile        =   storage_path() . DIRECTORY_SEPARATOR . 'module.zip';
             // unlink old module zip
             if ( is_file( $zipFile ) ) {
                 unlink( $zipFile );
@@ -292,7 +293,7 @@ class Modules
             // create new archive
             $zipArchive     =   new \ZipArchive;
             $zipArchive->open( 
-                storage_path() . '\module.zip', 
+                storage_path() . DIRECTORY_SEPARATOR . 'module.zip', 
                 \ZipArchive::CREATE | 
                 \ZipArchive::OVERWRITE 
             );
@@ -327,7 +328,7 @@ class Modules
             $file 
         );
 
-        $fullPath   =   storage_path( 'modules\\' . $path );        
+        $fullPath   =   storage_path( 'modules' . DIRECTORY_SEPARATOR . $path );        
         $dir        =   dirname( $fullPath );
         $archive    =   new \ZipArchive;
 
@@ -350,9 +351,9 @@ class Modules
             // browse directory files
             $files          =   Storage::disk( 'temp-modules' )->allFiles( $dir );
 
-            if ( in_array( $dir . '/config.xml', $files ) ) {
+            if ( in_array( $dir . DIRECTORY_SEPARATOR . 'config.xml', $files ) ) {
                 
-                $file   =   $dir . '/config.xml';
+                $file   =   $dir . DIRECTORY_SEPARATOR . 'config.xml';
 
                 $xml    =   new \SimpleXMLElement( 
                     Storage::disk( 'temp-modules' )->get( $file )
@@ -550,7 +551,7 @@ class Modules
              */
 
             $migrationFiles   =   Storage::disk( 'modules' )->allFiles( 
-                $module[ 'namespace' ] . '/Migrations/'
+                $module[ 'namespace' ] . DIRECTORY_SEPARATOR . 'Migrations' . DIRECTORY_SEPARATOR
             );
 
             /**
@@ -594,7 +595,7 @@ class Modules
         /**
          * include initial migration files
          */             
-        $filePath   =   base_path() . '/modules/' . $file;
+        $filePath   =   base_path() . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . $file;
         $fileInfo   =   pathinfo( $filePath );
         $fileName   =   $fileInfo[ 'filename' ];
         $className  =   str_replace( ' ', '', ucwords( str_replace( '_', ' ', $fileName ) ) );
@@ -733,7 +734,7 @@ class Modules
         if ( $module ) {
             $lastVersion        =   $this->options->get( strtolower( $module[ 'namespace' ] ) . '_last_migration' );
             $currentVersion     =   $module[ 'version' ];
-            $directories        =   Storage::disk( 'modules' )->directories( ucwords( $module[ 'namespace' ] ) . '/Migrations/' );
+            $directories        =   Storage::disk( 'modules' )->directories( ucwords( $module[ 'namespace' ] ) . DIRECTORY_SEPARATOR . 'Migrations' . DIRECTORY_SEPARATOR );
             $version_names      =   [];
 
             foreach( $directories as $dir ) {
@@ -748,7 +749,7 @@ class Modules
                     version_compare( $currentVersion, $version, '>=' )
                 ) {
                     $version_names[ $version ]    =   array_map( 'basename', Storage::disk( 'modules' )->allFiles(
-                        ucwords( $module[ 'namespace' ] ) . '/Migrations/' . $version 
+                        ucwords( $module[ 'namespace' ] ) . DIRECTORY_SEPARATOR . 'Migrations' . DIRECTORY_SEPARATOR . $version 
                     ) );
                 }
             }
@@ -767,6 +768,6 @@ class Modules
     public function runMigration( $namespace, $version, $file )
     {
         $module     =   $this->get( $namespace );
-        return $this->__runSingleFile( 'up', $module, $module[ 'namespace' ] . '/Migrations/' . $version . '/' . $file );
+        return $this->__runSingleFile( 'up', $module, $module[ 'namespace' ] . DIRECTORY_SEPARATOR . 'Migrations' . DIRECTORY_SEPARATOR . $version . DIRECTORY_SEPARATOR . $file );
     }
 }
