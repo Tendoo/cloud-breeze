@@ -15,6 +15,7 @@ use Tendoo\Core\Console\Commands\GenerateModule;
 use Tendoo\Core\Console\Commands\ModuleController;
 use Tendoo\Core\Console\Commands\ModuleMigrations;
 use Tendoo\Core\Console\Commands\ModuleModels;
+use Tendoo\Core\Console\Commands\ModuleCrudGeneratorCommand;
 use Tendoo\Core\Console\Commands\OptionDelete;
 use Tendoo\Core\Console\Commands\OptionSet;
 use Tendoo\Core\Console\Commands\OptionGet;
@@ -60,6 +61,7 @@ class ServiceProvider extends CoreServiceProvider
          */
         // $this->app->register( 'Ixudra\Curl\CurlServiceProvider' );
         $this->app->bind( 'tendoo.curl', 'Ixudra\Curl\Facades\Curl' );
+        $this->app->bind( 'tendoo.page', 'Tendoo\Core\Services\Page' );
 
         /**
          * Register Middleware
@@ -92,6 +94,7 @@ class ServiceProvider extends CoreServiceProvider
                 MakeModuleServiceProvider::class,
                 EnvEditorSetCommand::class,
                 EnvEditorGetCommand::class,
+                ModuleCrudGeneratorCommand::class,
             ]);
         }
         

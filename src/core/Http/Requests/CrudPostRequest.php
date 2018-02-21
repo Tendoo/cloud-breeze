@@ -5,6 +5,7 @@ namespace Tendoo\Core\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Event;
 use Tendoo\Core\Services\Helper;
+use Tendoo\Core\Facades\Hook;
 
 class CrudPostRequest extends FormRequest
 {
@@ -28,7 +29,7 @@ class CrudPostRequest extends FormRequest
         /**
          * get resource defined
          */
-        $resource   =   @Event::fire( 'define.crud' )[0];
+        $resource   =   Hook::filter( 'define.crud', null, $this->route( 'namespace' ) );
 
         if ( is_object( $resource ) ) {
             return $resource->validationRules( $this );      

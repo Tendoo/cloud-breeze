@@ -1,6 +1,6 @@
-@inject( 'Event', 'Illuminate\Support\Facades\Event' )
+@inject( 'Hook', 'Tendoo\Core\Facades\Hook' )
 @php
-    $resource   =   @$Event::fire( 'define.crud', $namespace )[0];
+    $resource   =   $Hook::filter( 'define.crud', null, $namespace );
 @endphp
 
 @if ( ! is_object( $resource ) )

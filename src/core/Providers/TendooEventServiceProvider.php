@@ -4,6 +4,7 @@ namespace Tendoo\Core\Providers;
 
 use Illuminate\Support\Facades\Event;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
+use Tendoo\Core\Facades\Hook;
 
 class TendooEventServiceProvider extends ServiceProvider
 {
@@ -69,6 +70,6 @@ class TendooEventServiceProvider extends ServiceProvider
         /**
          * Register Crud definition
          */
-        Event::listen( 'define.crud', 'Tendoo\Core\Crud\Users@register' );
+        Hook::addFilter( 'define.crud', 'Tendoo\Core\Crud\Users@register', 10, 3 );
     }
 }

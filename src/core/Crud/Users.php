@@ -49,24 +49,28 @@ class Users extends Crud
     public function __construct()
     {
         parent::__construct();
-
-        $this->list_title           =   __( 'User List' );
-        $this->list_description     =   __( 'List all users and roles' );  
-        $this->edit_title           =   __( 'Edit a user' );
-        $this->edit_description     =   __( 'Edit a user details.' );  
-        $this->create_title         =   __( 'Create User' );
-        $this->create_description   =   __( 'Create a new user.' );
-
-        $this->setActions();
     }
 
     /**
      * Register Self
      * @return object current instance
      */
-    public function register()
+    public function register( $resource, $namespace )
     {
-        return $this;
+        if ( $namespace == $this->namespace ) {
+            
+            $this->list_title           =   __( 'User List' );
+            $this->list_description     =   __( 'List all users and roles' );  
+            $this->edit_title           =   __( 'Edit a user' );
+            $this->edit_description     =   __( 'Edit a user details.' );  
+            $this->create_title         =   __( 'Create User' );
+            $this->create_description   =   __( 'Create a new user.' );
+
+            $this->setActions();
+
+            return $this;
+        }
+        return $resource;
     }
 
     /**

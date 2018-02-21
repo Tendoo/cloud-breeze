@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Tendoo\Core\Http\Controllers\TendooController;
 use Tendoo\Core\Http\Requests\CrudPostRequest;
 use Tendoo\Core\Http\Requests\CrudPutRequest;
+use Tendoo\Core\Facades\Hook;
 use Illuminate\Support\Facades\Event;
 
 class CrudController extends TendooController
@@ -29,7 +30,7 @@ class CrudController extends TendooController
         /**
          * Catch event before deleting user
          */
-        $crud_config        =   @Event::fire( 'define.crud', $namespace, $id )[0];
+        $crud_config        =   Hook::filter( 'define.crud', null, $namespace, $id );
         $resource           =   new $crud_config;
 
         if ( empty( $resource ) ) {
@@ -74,7 +75,7 @@ class CrudController extends TendooController
      */
     public function crudPost( String $namespace, CrudPostRequest $request )
     {
-        $crud_config        =   @Event::fire( 'define.crud', $namespace )[0];
+        $crud_config        =   Hook::filter( 'define.crud', null, $namespace );
         $resource           =   new $crud_config;
 
         /**
@@ -136,12 +137,12 @@ class CrudController extends TendooController
      * @param object request : CrudPutRequest
      * @return void
      */
-    public function crudPut( String $namespace, $entry, CrudPutRequest $request ) 
+    public function crudPut( String $namespace, $entry, CrudPutRequest $request  ) 
     {
         /**
          * Trigger event before submitting put request for CRUD resource
          */
-        $crud_config        =   @Event::fire( 'define.crud', $namespace )[0];
+        $crud_config        =   Hook::filter( 'define.crud', null, $namespace );
         $resource           =   new $crud_config;
 
         /**
@@ -206,7 +207,7 @@ class CrudController extends TendooController
         /**
          * Build CRUD resource
          */
-        $crud_config        =   @Event::fire( 'define.crud', $namespace )[0];
+        $crud_config        =   Hook::filter( 'define.crud', null, $namespace );
         $resource           =   new $crud_config;
         
         /**

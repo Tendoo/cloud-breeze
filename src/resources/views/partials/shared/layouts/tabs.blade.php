@@ -1,8 +1,9 @@
+@inject( 'Hook', 'Tendoo\Core\Facades\Hook')
 <div class="card-header p-0">
     <ul class="nav nav-tabs">
-        @forelse( ( array ) @$tabs as $_tab )
+        @forelse( ( array ) @$tabs as $slug => $_tab )
         @php
-            $tabSlug        =   str_slug( $_tab[ 'name' ] );
+            $tabSlug        =   str_slug( $slug );
             $completeURL    =   route( $route, [
                 'tab'   =>  $tabSlug
             ]);
@@ -21,8 +22,13 @@
     'errors'    =>  $errors,
     'class'     =>  'mb-0'
 ])
+@php
+/**
+ * @hook:profile.tabs.view
+**/
+@endphp
 <div class="card-body p-0">
-    @includeFirst([ $base_path . '.' . $tab, 'tendoo::partials.shared.layouts.missing-view' ], [
-        'view'  =>  $base_path . '.' . $tab
+    @includeFirst([ $Hook::filter( 'profile.tabs.view', $base_path . '.' . $tab, $tab, $base_path ), 'tendoo::partials.shared.layouts.missing-view' ], [
+        'view'  =>  $Hook::filter( 'profile.tabs.view', $base_path . '.' . $tab, $tab, $base_path )
     ])
 </div>
