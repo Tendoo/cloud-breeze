@@ -1,6 +1,6 @@
 <?php
 return [
-    'modules_path'  =>  base_path() . '\modules\\',
+    'modules_path'  =>  base_path() . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR,
     'version'       =>  '5.0',
     'db_version'    =>  '1.0',
     'debug'         =>  [

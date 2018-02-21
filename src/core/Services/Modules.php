@@ -83,7 +83,6 @@ class Modules
                 $currentModulePath  =   $modulesPath . $dir . DIRECTORY_SEPARATOR;
                 $indexPath          =   $currentModulePath . ucwords( $config[ 'namespace' ] . 'Module.php' );
                 $webRoutesPath      =   $currentModulePath . 'Routes' . DIRECTORY_SEPARATOR . 'web.php';
-                dd( $indexPath );
 
                 // check index existence
                 $config[ 'path' ]                       =   $currentModulePath;
