@@ -62,7 +62,7 @@ class Modules
         $files  =   Storage::disk( 'modules' )->files( $dir );
 
         // check if a config file exists
-        if ( in_array( $dir . '/config.xml', $files ) ) {
+        if ( in_array( $dir . DIRECTORY_SEPARATOR . 'config.xml', $files ) ) {
             $xml        =   $this->xmlParser->load( base_path() . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . $dir . DIRECTORY_SEPARATOR . 'config.xml' );
             $config     =   $xml->parse([
                 'namespace'             => [ 'uses'     => 'namespace' ],
