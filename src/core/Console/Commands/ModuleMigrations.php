@@ -73,12 +73,12 @@ class ModuleMigrations extends Command
          * if we would like to delete all migrations
          */
         if ( $this->option( 'delete' ) == 'all' ) {
-            Storage::disk( 'modules' )->deleteDirectory( $this->module[ 'namespace' ] . '/Migrations' );
-            Storage::disk( 'modules' )->makeDirectory( $this->module[ 'namespace' ] . '/Migrations' );
+            Storage::disk( 'modules' )->deleteDirectory( $this->module[ 'namespace' ] . DIRECTORY_SEPARATOR . 'Migrations' );
+            Storage::disk( 'modules' )->makeDirectory( $this->module[ 'namespace' ] . DIRECTORY_SEPARATOR . 'Migrations' );
             $this->info( sprintf( 'All %s migration folders has been deleted !', $this->module[ 'name' ] ) );
             return false;
         } else if( $this->option( 'delete' ) != '' ) {
-            Storage::disk( 'modules' )->deleteDirectory( $this->module[ 'namespace' ] . '/Migrations/' . $this->option( 'delete' ) );
+            Storage::disk( 'modules' )->deleteDirectory( $this->module[ 'namespace' ] . DIRECTORY_SEPARATOR . 'Migrations' . DIRECTORY_SEPARATOR . $this->option( 'delete' ) );
             $this->info( sprintf( 'The migration directory %s has been deleted.', $this->option( 'delete' ) ) );
             return false;
         }
@@ -130,7 +130,7 @@ class ModuleMigrations extends Command
         $this->schema       =   $this->__getSchema( $this->migration );
         $this->migration    =   $this->__getMigrationName( $this->migration );
 
-        $fileName           =   $this->module[ 'namespace' ] . '/Migrations/' . $this->version . '/' . snake_case( $this->migration ) . '.php';
+        $fileName           =   $this->module[ 'namespace' ] . DIRECTORY_SEPARATOR . 'Migrations' . DIRECTORY_SEPARATOR . $this->version . DIRECTORY_SEPARATOR . snake_case( $this->migration ) . '.php';
 
         /**
          * Make sure the migration don't exist yet

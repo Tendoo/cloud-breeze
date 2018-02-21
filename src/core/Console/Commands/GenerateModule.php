@@ -90,22 +90,22 @@ class GenerateModule extends Command
              * Geneate Internal Directories
              */
             foreach([ 'Config', 'Crud', 'Events', 'Fields', 'Facades', 'Http', 'Migrations', 'Resources', 'Routes', 'Models', 'Providers', 'Services' ] as $folder ) {
-                Storage::disk( 'modules' )->makeDirectory( $this->module[ 'namespace' ] . '/' . $folder );
+                Storage::disk( 'modules' )->makeDirectory( $this->module[ 'namespace' ] . DIRECTORY_SEPARATOR . $folder );
             }
 
             /**
              * Generate Sub Folders
              */
-            Storage::disk( 'modules' )->makeDirectory( $this->module[ 'namespace' ] . '/Http/Controllers' );
-            Storage::disk( 'modules' )->makeDirectory( $this->module[ 'namespace' ] . '/Migrations/1.0' );
-            Storage::disk( 'modules' )->makeDirectory( $this->module[ 'namespace' ] . '/Resources/Views' );
+            Storage::disk( 'modules' )->makeDirectory( $this->module[ 'namespace' ] . DIRECTORY_SEPARATOR . 'Http' . DIRECTORY_SEPARATOR . 'Controllers' );
+            Storage::disk( 'modules' )->makeDirectory( $this->module[ 'namespace' ] . DIRECTORY_SEPARATOR . 'Migrations' . DIRECTORY_SEPARATOR . '1.0' );
+            Storage::disk( 'modules' )->makeDirectory( $this->module[ 'namespace' ] . DIRECTORY_SEPARATOR . 'Resources' . DIRECTORY_SEPARATOR . 'Views' );
 
             /**
              * Generate Files
              */
-            Storage::disk( 'modules' )->put( $this->module[ 'namespace' ] . '/config.xml', $this->streamContent( 'config' ) );
-            Storage::disk( 'modules' )->put( $this->module[ 'namespace' ] . '/' . $this->module[ 'namespace' ] . 'Module.php', $this->streamContent( 'main' ) );
-            Storage::disk( 'modules' )->put( $this->module[ 'namespace' ] . '/Events/' . $this->module[ 'namespace' ] . 'Event.php', $this->streamContent( 'event' ) );
+            Storage::disk( 'modules' )->put( $this->module[ 'namespace' ] . DIRECTORY_SEPARATOR . 'config.xml', $this->streamContent( 'config' ) );
+            Storage::disk( 'modules' )->put( $this->module[ 'namespace' ] . DIRECTORY_SEPARATOR . $this->module[ 'namespace' ] . 'Module.php', $this->streamContent( 'main' ) );
+            Storage::disk( 'modules' )->put( $this->module[ 'namespace' ] . DIRECTORY_SEPARATOR . 'Events' . DIRECTORY_SEPARATOR . $this->module[ 'namespace' ] . 'Event.php', $this->streamContent( 'event' ) );
 
         } else {
 

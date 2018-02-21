@@ -48,7 +48,7 @@ class ModuleController extends Command
          */
         if ( $module = $modules->get( $this->argument( 'namespace' ) ) ) {
 
-            $controllerPath     =   $module[ 'namespace' ] . '/Http/Controllers/';
+            $controllerPath     =   $module[ 'namespace' ] . DIRECTORY_SEPARATOR . 'Http' . DIRECTORY_SEPARATOR . 'Controllers' . DIRECTORY_SEPARATOR;
 
             /**
              * delete all module controllers

@@ -42,7 +42,7 @@ class MakeModuleServiceProvider extends Command
                  */
                 if ( $module = $modules->get( $this->argument( 'namespace') ) ) {
                     $fileName   =   ucwords( camel_case( $this->argument( 'name' ) ) );
-                    $filePath   =   $module[ 'namespace' ] . '/Providers/' . $fileName . '.php';
+                    $filePath   =   $module[ 'namespace' ] . DIRECTORY_SEPARATOR . 'Providers' . DIRECTORY_SEPARATOR . $fileName . '.php';
                     if ( ! Storage::disk( 'modules' )->exists( $filePath ) ) {
                         Storage::disk( 'modules' )->put( 
                             $filePath,

@@ -50,7 +50,7 @@ class ModuleModels extends Command
             /**
              * Define Variables
              */
-            $modelsPath     =   $module[ 'namespace' ] . '/Models/';
+            $modelsPath     =   $module[ 'namespace' ] . DIRECTORY_SEPARATOR . 'Models' . DIRECTORY_SEPARATOR;
             $name           =   ucwords( camel_case( $this->argument( 'name' ) ) );
             $fileName       =   $modelsPath . $name;
             $namespace      =   $this->argument( 'namespace' );
