@@ -79,12 +79,17 @@ Create a model on the module Model folder.
 ### B - Delete a value
 `php artisan option:delete {key}`
 
-this will launch the module generator command where you'll have to provide namespae, name, author and description. the default verison is set to 1.0.
-We'll add more generator to generate : 
-- Settings Pages
-- Crud Pages
-- Fields Options
-...
+## 7 - CRUD generator
+Tendoo CMS has a CRUD Resource, which basically build CRUD configuration file. In order to generate a CRUD resource file for a module run the following command : 
+
+`php artisan module:crud {ModuleNamespace}`
+
+Replace {ModuleNamespace} by your current module namespace. Then you'll be asked to provide some information to generate the CRUD Resource. The CRUD resource file will be stored on the folder 'Crud' of the defined module.
+You might open that CRUD resource to adjust the generated data, such as the columns the field and the name.
+
+# User Model
+in order for Tendoo to work properly, you need to make the config auth.users.providers.model to point to 
+`Tendoo\Core\Models\User::class`
 
 # Handling Tendoo Errors
 Tendoo generates his own errors and out of the box, a laravel application can't properly handle theses errors. In order to add support for theses errors, your `App\Http\Exceptions\Handler` must extends `Tendoo\Core\Exceptions\TendooHandler` which already extends `Illuminate\Foundation\Exceptions\Handler`.
