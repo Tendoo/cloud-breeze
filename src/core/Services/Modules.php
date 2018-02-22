@@ -59,10 +59,20 @@ class Modules
         /**
          * Loading files from module directory
          */
-        $files  =   Storage::disk( 'modules' )->files( $dir );
+        $rawfiles  =   Storage::disk( 'modules' )->files( $dir );
+        
+        /**
+         * Just retreive the files name
+         */
+        $files  =   array_map( function( $file ) {
+            $info   =   pathinfo( $file );
+            return $info[ 'basename' ];
+        }, $rawfiles );
 
-        // check if a config file exists
-        if ( in_array( $dir . DIRECTORY_SEPARATOR . 'config.xml', $files ) ) {
+        /**
+         * Checks if a config file exists
+         */
+        if ( in_array( 'config.xml', $files ) ) {
             $xml        =   $this->xmlParser->load( base_path() . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . $dir . DIRECTORY_SEPARATOR . 'config.xml' );
             $config     =   $xml->parse([
                 'namespace'             => [ 'uses'     => 'namespace' ],
@@ -348,9 +358,17 @@ class Modules
          */
         foreach( $directories as $dir ) {
             // browse directory files
-            $files          =   Storage::disk( 'temp-modules' )->allFiles( $dir );
+            $rawFiles          =   Storage::disk( 'temp-modules' )->allFiles( $dir );
 
-            if ( in_array( $dir . DIRECTORY_SEPARATOR . 'config.xml', $files ) ) {
+            /**
+             * Just retreive the files name
+             */
+            $files  =   array_map( function( $file ) {
+                $info   =   pathinfo( $file );
+                return $info[ 'basename' ];
+            }, $rawfiles );
+
+            if ( in_array( 'config.xml', $files ) ) {
                 
                 $file   =   $dir . DIRECTORY_SEPARATOR . 'config.xml';
 
