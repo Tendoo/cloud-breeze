@@ -17,6 +17,10 @@ To get started, all you have to do is add it to composer.json as following :
 Now you're required to publish the vendors and select Tendoo/ServiceProvider.php
 `php artisan vendor:publish`
 
+You might also publish the tag : 
+- tendoo-assets
+- tendoo-config
+
 ## 3 - Serve Laravel and access to the setup page
 Now all you have to do, to `php artisan serve`, then access to http://localhost:8000/do-setup (according to your port configuration).
 
