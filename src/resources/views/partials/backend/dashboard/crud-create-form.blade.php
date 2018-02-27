@@ -1,6 +1,6 @@
 @inject( 'Hook', 'Tendoo\Core\Facades\Hook' )
 @php
-    $resource   =   $Hook::filter( 'define.crud', null, $namespace );
+    $resource   =   $Hook::filter( 'register.crud', null, $namespace );
 @endphp
 
 @if ( ! is_object( $resource ) )

@@ -70,6 +70,6 @@ class TendooEventServiceProvider extends ServiceProvider
         /**
          * Register Crud definition
          */
-        Hook::addFilter( 'define.crud', 'Tendoo\Core\Crud\Users@register', 10, 3 );
+        Hook::addFilter( 'register.crud', 'Tendoo\Core\Crud\Users@register', 10, 3 );
     }
 }

@@ -30,7 +30,7 @@ class CrudController extends TendooController
         /**
          * Catch event before deleting user
          */
-        $crud_config        =   Hook::filter( 'define.crud', null, $namespace, $id );
+        $crud_config        =   Hook::filter( 'register.crud', null, $namespace, $id );
         $resource           =   new $crud_config;
 
         if ( empty( $resource ) ) {
@@ -75,7 +75,7 @@ class CrudController extends TendooController
      */
     public function crudPost( String $namespace, CrudPostRequest $request )
     {
-        $crud_config        =   Hook::filter( 'define.crud', null, $namespace );
+        $crud_config        =   Hook::filter( 'register.crud', null, $namespace );
         $resource           =   new $crud_config;
 
         /**
@@ -149,7 +149,7 @@ class CrudController extends TendooController
         /**
          * Trigger event before submitting put request for CRUD resource
          */
-        $crud_config        =   Hook::filter( 'define.crud', null, $namespace );
+        $crud_config        =   Hook::filter( 'register.crud', null, $namespace );
         $resource           =   new $crud_config;
 
         /**
@@ -219,7 +219,7 @@ class CrudController extends TendooController
         /**
          * Build CRUD resource
          */
-        $crud_config        =   Hook::filter( 'define.crud', null, $namespace );
+        $crud_config        =   Hook::filter( 'register.crud', null, $namespace );
         $resource           =   new $crud_config;
         
         /**

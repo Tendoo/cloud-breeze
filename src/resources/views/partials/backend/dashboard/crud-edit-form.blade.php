@@ -1,7 +1,7 @@
 @inject( 'Hook', 'Tendoo\Core\Facades\Hook' )
 @inject( 'Request', 'Illuminate\Http\Request' )
 @php
-    $resource   =   $Hook::filter( 'define.crud', null, $namespace );
+    $resource   =   $Hook::filter( 'register.crud', null, $namespace );
 @endphp
 
 @if ( ! is_object( $resource ) )
