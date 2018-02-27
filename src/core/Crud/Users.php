@@ -49,28 +49,15 @@ class Users extends Crud
     public function __construct()
     {
         parent::__construct();
-    }
 
-    /**
-     * Register Self
-     * @return object current instance
-     */
-    public function register( $resource, $namespace )
-    {
-        if ( $namespace == $this->namespace ) {
-            
-            $this->list_title           =   __( 'User List' );
-            $this->list_description     =   __( 'List all users and roles' );  
-            $this->edit_title           =   __( 'Edit a user' );
-            $this->edit_description     =   __( 'Edit a user details.' );  
-            $this->create_title         =   __( 'Create User' );
-            $this->create_description   =   __( 'Create a new user.' );
+        $this->list_title           =   __( 'User List' );
+        $this->list_description     =   __( 'List all users and roles' );  
+        $this->edit_title           =   __( 'Edit a user' );
+        $this->edit_description     =   __( 'Edit a user details.' );  
+        $this->create_title         =   __( 'Create User' );
+        $this->create_description   =   __( 'Create a new user.' );
 
-            $this->setActions();
-
-            return $this;
-        }
-        return $resource;
+        $this->setActions();
     }
 
     /**
@@ -85,35 +72,33 @@ class Users extends Crud
     }
 
     /**
-     * Filter Entry for POST request
-     * @param string field name
-     * @param mixed value
-     * @return mixed result
+     * Filter POST input fields
+     * @param array of fields
+     * @return array of fields
      */
-    public function filterPost( $value, $name ) {
-        /**
-         * bcrypt the password
-         */
-        if ( $name == 'password' ) {
-            return bcrypt( $value );
+    public function filterPostInputs( $inputs )
+    {
+        foreach( $inputs as $name => $value ) {
+            if ( $name == 'password' ) {
+                $inputs[ $name ]    =   bcrypt( $value );
+            }
         }
-        return $value;
+        return $inputs;
     }
 
     /**
-     * Filter Entry for PUT request
-     * @param string field name
-     * @param mixed value
-     * @return mixed result
+     * Filter PUT input fields
+     * @param array of fields
+     * @return array of fields
      */
-    public function filterPut( $value, $name ) {
-        /**
-         * bcrypt the password
-         */
-        if ( $name == 'password' ) {
-            return bcrypt( $value );
+    public function filterPutInputs( $inputs )
+    {
+        foreach( $inputs as $name => $value ) {
+            if ( $name == 'password' ) {
+                $inputs[ $name ]    =   bcrypt( $value );
+            }
         }
-        return $value;
+        return $inputs;
     }
 
     /**

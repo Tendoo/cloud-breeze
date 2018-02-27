@@ -28,7 +28,15 @@ class CrudPutRequest extends FormRequest
         /**
          * get resource defined
          */
-        $resource   =   Hook::filter( 'register.crud', null, $this->route( 'namespace' ) );
+
+        /**
+         * In case nothing handle this crud
+         */
+        if ( ! class_exists( $crudClass ) ) {
+            return redirect()->route( 'errors', [ 'code' => 'unhandled-crud-resource' ]);
+        }
+        
+        $resource   =   new $crudClass;
 
         if ( is_object( $resource ) ) {
             return $resource->validationRules( $this );      

@@ -2,12 +2,15 @@
 @inject( 'Hook', 'Tendoo\Core\Facades\Hook' )
 @inject( 'Request', 'Illuminate\Http\Request' )
 @php
-    $resource   =   $Hook::filter( 'register.crud', null, $namespace );
+    $class      =   $Hook::filter( 'register.crud', $namespace );
 @endphp
 
-@if ( ! is_object( $resource ) )
+@if ( ! class_exists( $class ) )
     @include( 'tendoo::errors.unhandled-crud' )
-@else 
+@else
+    @php
+    $resource   =   new $class;
+    @endphp
     <div class="content-wrapper">
         
         @include( 'tendoo::partials.shared.page-title', [

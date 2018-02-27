@@ -52,28 +52,15 @@ class {{ ucwords( camel_case( str_plural( $resource_name ) ) ) }} extends Crud
     public function __construct()
     {
         parent::__construct();
-    }
 
-    /**
-     * Register Self
-     * @return object current instance
-     */
-    public function register( $resource, $namespace )
-    {
-        if ( $namespace == $this->namespace ) {
-            
-            $this->list_title           =   __( '{{ ucwords( str_plural( trim( $resource_name ) ) ) }} List' );
-            $this->list_description     =   __( 'List all {{ strtolower( str_plural( trim( $resource_name ) ) ) }}' );  
-            $this->edit_title           =   __( 'Edit a {{ ucwords( str_singular( trim( $resource_name ) ) ) }}' );
-            $this->edit_description     =   __( 'Edit a {{ strtolower( str_singular( trim( $resource_name ) ) ) }} details' );  
-            $this->create_title         =   __( 'Create {{ ucwords( str_singular( trim( $resource_name ) ) ) }}' );
-            $this->create_description   =   __( 'Create a new {{ strtolower( str_singular( trim( $resource_name ) ) ) }}.' );
+        $this->list_title           =   __( '{{ ucwords( str_plural( trim( $resource_name ) ) ) }} List' );
+        $this->list_description     =   __( 'List all {{ strtolower( str_plural( trim( $resource_name ) ) ) }}' );  
+        $this->edit_title           =   __( 'Edit a {{ ucwords( str_singular( trim( $resource_name ) ) ) }}' );
+        $this->edit_description     =   __( 'Edit a {{ strtolower( str_singular( trim( $resource_name ) ) ) }} details' );  
+        $this->create_title         =   __( 'Create {{ ucwords( str_singular( trim( $resource_name ) ) ) }}' );
+        $this->create_description   =   __( 'Create a new {{ strtolower( str_singular( trim( $resource_name ) ) ) }}.' );
 
-            $this->setActions();
-
-            return $this;
-        }
-        return $resource;
+        $this->setActions();
     }
 
     /**
@@ -88,63 +75,43 @@ class {{ ucwords( camel_case( str_plural( $resource_name ) ) ) }} extends Crud
     }
 
     /**
-     * Filter Entry for POST request
-     * @param string field name
-     * @param mixed value
-     * @return mixed result
+     * Filter POST input fields
+     * @param array of fields
+     * @return array of fields
      */
-    public function filterPost( $value, $name ) {
-        /**
-         *  Filter value before insertion
-         *  Example : 
-         *
-         *  if ( $name == 'password' ) {
-         *      return bcrypt( $value );
-         *  }
-         *
-        **/
-        return $value;
-    }
-
-    /**
-     * Filter PUT inputs
-     * @param array of inputs
-     * @return array of inputs
-    **/
-    public function filterPutInputs( $inputs )
-    {
-        // you might do something here
-        return $inputs;
-    }
-
-    /**
-     * Filter POST inputs
-     * @param array of inputs
-     * @return array of inputs
-    **/
     public function filterPostInputs( $inputs )
     {
-        // you might do something here
         return $inputs;
     }
 
     /**
-     * Filter Entry for PUT request
-     * @param string field name
-     * @param mixed value
-     * @return mixed result
+     * Filter PUT input fields
+     * @param array of fields
+     * @return array of fields
      */
-    public function filterPut( $value, $name ) {
-        /**
-         *  Filter value before insertion
-         *  Example : 
-         *
-         *  if ( $name == 'password' ) {
-         *      return bcrypt( $value );
-         *  }
-         *
-        **/
-        return $value;
+    public function filterPutInputs( $inputs )
+    {
+        return $inputs;
+    }
+
+    /**
+     * After Crud POST
+     * @param object entry
+     * @return void
+     */
+    public function afterPost( $inputs )
+    {
+        return $inputs;
+    }
+
+    /**
+     * After Crud PUT
+     * @param object entry
+     * @return void
+     */
+    public function afterPut( $inputs )
+    {
+        return $inputs;
     }
 
     /**

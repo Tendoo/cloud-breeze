@@ -30,8 +30,8 @@ class CrudController extends TendooController
         /**
          * Catch event before deleting user
          */
-        $crud_config        =   Hook::filter( 'register.crud', null, $namespace, $id );
-        $resource           =   new $crud_config;
+        $crudClass      =   Hook::filter( 'register.crud', $namespace, $id );
+        $resource       =   new $crudClass;
 
         if ( empty( $resource ) ) {
             return response([
@@ -75,25 +75,27 @@ class CrudController extends TendooController
      */
     public function crudPost( String $namespace, CrudPostRequest $request )
     {
-        $crud_config        =   Hook::filter( 'register.crud', null, $namespace );
-        $resource           =   new $crud_config;
+        $crudClass          =   Hook::filter( 'register.crud', $namespace );
 
         /**
          * In case nothing handle this crud
          */
-        if ( empty( $resource ) ) {
+        if ( ! class_exists( $crudClass ) ) {
             return redirect()->route( 'errors', [ 'code' => 'unhandled-crud-resource' ]);
         }
-
+        
+        $resource   =   new $crudClass;
         $model      =   $resource->getModel();
         $entry      =   new $model;
 
         /**
-         * We might give the capacity to update/change stuff 
-         * this behaviour shouldn't only be allowed to the CRUD resource
-         * but it should be hookable.
+         * Filter POST input
+         * check if on the CRUD resource the filter exists
          */
-        $inputs     =   Hook::filter( 'filter.crud.post', $request->all(), $namespace );
+        $inputs         =   $request->all();
+        if ( method_exists( $resource, 'filterPostInputs' ) ) {
+            $inputs     =   $resource->filterPostInputs( $request->all() );
+        }
         
         foreach ( $inputs as $name => $value ) {
 
@@ -117,19 +119,15 @@ class CrudController extends TendooController
         $entry->save();
 
         /**
-         * Create an event after crud post
+         * Create an event after crud POST
          */
-        Event::fire( 'after.crudPost', $entry );
-
-        /**
-         * Once the request is done, 
-         * we might redirect the user to the users list page
-         */
+        if ( method_exists( $resource, 'afterPost' ) ) {
+            $resource->afterPost( $entry );
+        }
 
         /**
          * @todo adding a link to edit the new entry
          */
-
         return redirect()->route( $resource->getMainRoute() )->with([
             'status'    =>  'success',
             'message'   =>  __( 'An new entry has been successfully created.' )
@@ -146,26 +144,27 @@ class CrudController extends TendooController
      */
     public function crudPut( String $namespace, $entry, CrudPutRequest $request  ) 
     {
-        /**
-         * Trigger event before submitting put request for CRUD resource
-         */
-        $crud_config        =   Hook::filter( 'register.crud', null, $namespace );
-        $resource           =   new $crud_config;
+        $crudClass          =   Hook::filter( 'register.crud', $namespace );
 
         /**
          * In case nothing handle this crud
          */
-        if ( empty( $resource ) ) {
+        if ( ! class_exists( $crudClass ) ) {
             return redirect()->route( 'errors', [ 'code' => 'unhandled-crud-resource' ]);
         }
         
+        $resource   =   new $crudClass;
         $model      =   $resource->getModel();
         $entry      =   $model::find( $entry );
 
         /**
-         * Filter POST input
+         * Filter PUT input
+         * check if on the CRUD resource the filter exists
          */
-        $inputs         =   Hook::filter( 'filter.crud.put', $request->all(), $namespace );
+        $inputs         =   $request->all();
+        if ( method_exists( $resource, 'filterPutInputs' ) ) {
+            $inputs     =   $resource->filterPutInputs( $request->all() );
+        }
 
         foreach ( $inputs as $name => $value ) {
 
@@ -190,19 +189,15 @@ class CrudController extends TendooController
         $entry->save();
 
         /**
-         * Create an event after crud post
+         * Create an event after crud put
          */
-        Event::fire( 'after.crudPut', $entry );
-
-        /**
-         * Once the request is done, 
-         * we might redirect the user to the users list page
-         */
+        if ( method_exists( $resource, 'afterPut' ) ) {
+            $resource->afterPut( $entry );
+        }
 
         /**
          * @todo adding a link to edit the new entry
          */
-
         return redirect()->route( $resource->getMainRoute() )->with([
             'status'    =>  'success',
             'message'   =>  __( 'An new entry has been successfully updated.' )
@@ -216,11 +211,16 @@ class CrudController extends TendooController
      */
     public function crudBulkActions( String $namespace, Request $request )
     {
+        $crudClass          =   Hook::filter( 'register.crud', $namespace );
+
         /**
-         * Build CRUD resource
+         * In case nothing handle this crud
          */
-        $crud_config        =   Hook::filter( 'register.crud', null, $namespace );
-        $resource           =   new $crud_config;
+        if ( ! class_exists( $crudClass ) ) {
+            return redirect()->route( 'errors', [ 'code' => 'unhandled-crud-resource' ]);
+        }
+        
+        $resource   =   new $crudClass;
         
         /**
          * Check if an entry is selected, 
@@ -242,7 +242,6 @@ class CrudController extends TendooController
 
         $response           =   $resource->bulkDelete( $request );
         $errors             =   [];
-
 
         if ( $response[ 'success' ] > 0 ) {
             $errors[ 'success' ]    =   sprintf( $resource->bulkDeleteSuccessMessage, $response[ 'success' ]);

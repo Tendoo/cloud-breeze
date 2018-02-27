@@ -1,11 +1,14 @@
 @inject( 'Hook', 'Tendoo\Core\Facades\Hook' )
 @php
-    $resource   =   $Hook::filter( 'register.crud', null, $namespace );
+    $class      =   $Hook::filter( 'register.crud', $namespace );
 @endphp
 
-@if ( ! is_object( $resource ) )
+@if ( ! class_exists( $class ) )
     @include( 'tendoo::errors.unhandled-crud' )
 @else
+    @php
+    $resource   =   new $class;
+    @endphp
 <div class="content-wrapper">
     @include( 'tendoo::partials.shared.page-title', [
         'title'         =>  @$resource->create_title ? $resource->create_title : __( 'Undefined Page' ),
