@@ -51,7 +51,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @if( @$entries )
+                        @if( @$entries->total() )
                             @foreach( $entries as $entry )
                             <tr>
                                 <td>
