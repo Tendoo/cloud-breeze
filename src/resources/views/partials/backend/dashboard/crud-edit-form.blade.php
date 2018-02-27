@@ -18,25 +18,12 @@
     ])
     <div class="content-body">
         <div class="container-fluid pt-3 p-4">
-            <form class="mb-0" action="{{ route( 'dashboard.crud.put', [ 'namespace' => $namespace, 'id' =>   $entry->id ] ) }}" enctype="multipart/form-data" method="post">
-                <div class="card">
-                    <div class="card-header p-0">
-                        <h5 class="box-title">{{ @$resource->edit_title ? $resource->edit_title : __( 'Undefined Page' ) }}</h5>
-                    </div>
-                    <div class="card-body p-0">
-                    @include( 'tendoo::partials.shared.errors', compact( 'errors' ) )
-                    </div>
-                    {{ csrf_field() }}
-                    <div class="card-body p-3">
-                        @each( 'tendoo::partials.shared.fields', $resource->getFields( 
-                            $entry
-                        ), 'field' )
-                    </div>
-                    <div class="p-2 card-footer">
-                        <button type="submit" class="mb-0 btn btn-raised btn-primary">{{ __( 'Edit' ) }}</button>
-                    </div>
-                </div>
-            </form>
+            @include( 'tendoo::partials.backend.dashboard.crud-form', [
+                'actionUrl'     =>  route( 'dashboard.crud.put', [ 'namespace' => $namespace, 'id' =>   $entry->id ] ),
+                'resource'      =>  $resource,
+                'fields'        =>  $resource->getFields( $entry ),
+                'action'        =>  'edit'
+            ])
         </div>
     </div>
 </div>

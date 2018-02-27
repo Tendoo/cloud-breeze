@@ -107,6 +107,28 @@ class {{ ucwords( camel_case( str_plural( $resource_name ) ) ) }} extends Crud
     }
 
     /**
+     * Filter PUT inputs
+     * @param array of inputs
+     * @return array of inputs
+    **/
+    public function filterPutInputs( $inputs )
+    {
+        // you might do something here
+        return $inputs;
+    }
+
+    /**
+     * Filter POST inputs
+     * @param array of inputs
+     * @return array of inputs
+    **/
+    public function filterPostInputs( $inputs )
+    {
+        // you might do something here
+        return $inputs;
+    }
+
+    /**
      * Filter Entry for PUT request
      * @param string field name
      * @param mixed value

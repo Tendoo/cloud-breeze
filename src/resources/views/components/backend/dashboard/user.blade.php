@@ -17,13 +17,17 @@
                  
                 @include( 'tendoo::partials.shared.layouts.tabs', [
                     'tabs'  =>  $Hook::filter( 'profile.tabs', [
-                        'general'       =>      [ 'name'     =>  __( 'General' ) ],
-                        'security'      =>      [ 'name'     =>  __( 'Security' ) ],
+                        'general'       =>      [ 
+                            'text'      =>  __( 'General' ),
+                            'url'       =>  route( 'dashboard.users.profile.general' )
+                        ],
+                        'security'      =>      [ 
+                            'text'      =>  __( 'Security' ),
+                            'url'       =>  route( 'dashboard.users.profile.security' )
+                        ],
                     ]),
                     'tab'       =>  $tab,
-                    'base_path' =>  'tendoo::components.backend.dashboard.user',
-                    'base_url'  =>  route( 'dashboard.users.profile' ),
-                    'route'     =>  'dashboard.users.profile'
+                    'view_path' =>  @$view_path
                 ])
             </div>
         </div>

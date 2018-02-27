@@ -1,4 +1,5 @@
 @inject( 'User', 'Tendoo\Core\Models\User' )
+@inject( 'Hook', 'Tendoo\Core\Facades\Hook' )
 <nav id="main-nav" class="p-0 navbar navbar-expand-lg d-flex">
 	<div class="toggle-button h-100 d-flex align-items-center justify-content-center ripple" @click="toggle()">
 		<a href="javascript:void(0)">
@@ -16,8 +17,28 @@
 						{{ $User->pseudo() }}
 					</a>
 					<div class="dropdown-menu dropdown-menu-right">
-						<a class="dropdown-item" href="{{  route( 'dashboard.users.profile' ) }}">{{ __( 'Profile' ) }}</a>
-						<a class="dropdown-item" href="{{  route( 'logout.index' ) }}">{{ __( 'Logout' ) }}</a>
+					@php
+					$userLinks 		=	[
+						'profile'	=>	[
+							'url'		=>	url()->route( 'dashboard.index', [
+								'tab'	 =>	'general'
+							]),
+							'text'		=>	__( 'Profile' )
+						],
+						'logout'	=>	[
+							'url'		=>	route( 'logout.index' ),
+							'text'		=>	__( 'Logout' )
+						]
+					]
+
+					/**
+					 * @hook:profile.links
+					 * Let you filter the user dropdown menu
+					**/
+					@endphp					
+					@foreach( $Hook::filter( 'profile.links', $userLinks ) as $name => $link )
+						<a class="dropdown-item field-{{ $name }}" href="{{ $link[ 'url' ] }}">{{ $link[ 'text' ] }}</a>
+					@endforeach
 					</div>
 				</li>
 			</ul>

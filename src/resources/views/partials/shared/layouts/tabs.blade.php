@@ -2,14 +2,8 @@
 <div class="card-header p-0">
     <ul class="nav nav-tabs">
         @forelse( ( array ) @$tabs as $slug => $_tab )
-        @php
-            $tabSlug        =   str_slug( $slug );
-            $completeURL    =   route( $route, [
-                'tab'   =>  $tabSlug
-            ]);
-        @endphp
         <li class="nav-item">
-            <a class="nav-link {{ $tabSlug == $tab ? 'active' : '' }}" href="{{ @$_tab[ 'href' ] ? $_tab[ 'href' ] : $completeURL }}">{{ $_tab[ 'name' ] }}</a>
+            <a class="nav-link {{ $slug == $tab ? 'active' : '' }}" href="{{ @$_tab[ 'url' ] ? $_tab[ 'url' ] : '#' }}">{{ $_tab[ 'text' ] }}</a>
         </li>
         @empty
         <li class="nav-item">
@@ -28,7 +22,7 @@
 **/
 @endphp
 <div class="card-body p-0">
-    @includeFirst([ $Hook::filter( 'profile.tabs.view', $base_path . '.' . $tab, $tab, $base_path ), 'tendoo::partials.shared.layouts.missing-view' ], [
-        'view'  =>  $Hook::filter( 'profile.tabs.view', $base_path . '.' . $tab, $tab, $base_path )
+    @includeFirst([ $view_path ], [
+        'view'  =>  $view_path
     ])
 </div>

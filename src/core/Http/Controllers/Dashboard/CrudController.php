@@ -88,7 +88,14 @@ class CrudController extends TendooController
         $model      =   $resource->getModel();
         $entry      =   new $model;
 
-        foreach ( $request->all() as $name => $value ) {
+        /**
+         * We might give the capacity to update/change stuff 
+         * this behaviour shouldn't only be allowed to the CRUD resource
+         * but it should be hookable.
+         */
+        $inputs     =   Hook::filter( 'filter.crud.post', $request->all(), $namespace );
+        
+        foreach ( $inputs as $name => $value ) {
 
             /**
              * If submitted field are part of fillable fields
@@ -155,7 +162,12 @@ class CrudController extends TendooController
         $model      =   $resource->getModel();
         $entry      =   $model::find( $entry );
 
-        foreach ( $request->all() as $name => $value ) {
+        /**
+         * Filter POST input
+         */
+        $inputs         =   Hook::filter( 'filter.crud.put', $request->all(), $namespace );
+
+        foreach ( $inputs as $name => $value ) {
 
             /**
              * If submitted field are part of fillable fields

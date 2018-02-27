@@ -27,7 +27,8 @@ Route::middleware([ 'web' ])->group( function(){
          */
         Route::get( '/dashboard/users', 'Tendoo\Core\Http\Controllers\Dashboard\UsersController@usersList' )->name( 'dashboard.users.list' );
         Route::get( '/dashboard/users/create', 'Tendoo\Core\Http\Controllers\Dashboard\UsersController@createUser' )->name( 'dashboard.users.create' );
-        Route::get( '/dashboard/users/profile/{tab?}', 'Tendoo\Core\Http\Controllers\Dashboard\UsersController@showProfile' )->name( 'dashboard.users.profile' );
+        Route::get( '/dashboard/profile/general', 'Tendoo\Core\Http\Controllers\Dashboard\UsersController@showGeneral' )->name( 'dashboard.users.profile.general' );
+        Route::get( '/dashboard/profile/security', 'Tendoo\Core\Http\Controllers\Dashboard\UsersController@showSecurity' )->name( 'dashboard.users.profile.security' );
         Route::get( '/dashboard/users/{entry}', 'Tendoo\Core\Http\Controllers\Dashboard\UsersController@editUser' )->name( 'dashboard.users.edit' );
         
         /**
@@ -65,8 +66,8 @@ Route::middleware([ 'web' ])->group( function(){
         /**
          * User POST Routes
          */
-        Route::post( '/dashboard/users/profile', 'Tendoo\Core\Http\Controllers\Dashboard\UsersController@postUserProfile' )->name( 'dashboard.users.post' );
-        Route::post( '/dashboard/users/profile/security', 'Tendoo\Core\Http\Controllers\Dashboard\UsersController@postUserSecurity' )->name( 'dashboard.users.post-security' );
+        Route::post( '/dashboard/profile', 'Tendoo\Core\Http\Controllers\Dashboard\UsersController@postUserProfile' )->name( 'dashboard.users.post' );
+        Route::post( '/dashboard/profile/security', 'Tendoo\Core\Http\Controllers\Dashboard\UsersController@postUserSecurity' )->name( 'dashboard.users.post-security' );
         
         /**
          * Module POST Routes

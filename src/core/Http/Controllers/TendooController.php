@@ -41,7 +41,7 @@ class TendooController extends Controller
                 $this->menus        =   app()->make( 'Tendoo\Core\Services\Dashboard\MenusConfig' );
                 $this->guard        =   app()->make( Guard::class );
                 $this->date         =   app()->make( Date::class );
-                
+
                 /**
                  * @hook.action
                  * run when the dashboard is loaded

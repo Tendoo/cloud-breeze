@@ -109,11 +109,35 @@ class UsersController extends TendooController
      * @param void
      * @return view
      */
-    public function showProfile( $tab = 'general' )
+    public function showGeneral()
     {
         $this->checkPermission( 'read.profile' );
         $this->setTitle( __( 'My Profile' ) );
-        return view( 'tendoo::components.backend.dashboard.user', compact( 'tab' ) );
+        
+        $view_path  =   'tendoo::components.backend.dashboard.user.general';
+
+        return view( 'tendoo::components.backend.dashboard.user', [
+            'tab'           =>  'general',
+            'view_path'     =>  $view_path
+        ]);
+    }
+
+    /**
+     * Show profile security tab
+     * @param void
+     * @return view
+     */
+    public function showSecurity()
+    {
+        $this->checkPermission( 'read.profile' );
+        $this->setTitle( __( 'My Profile' ) );
+        
+        $view_path  =   'tendoo::components.backend.dashboard.user.security';
+
+        return view( 'tendoo::components.backend.dashboard.user', [
+            'tab'           =>  'security',
+            'view_path'     =>  $view_path
+        ]);
     }
 
     /**

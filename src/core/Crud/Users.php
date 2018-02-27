@@ -203,7 +203,7 @@ class Users extends Crud
                 if ( Auth::id() == $user->id ) {
                     return [
                         'text'  =>  __( 'My Profile' ),
-                        'url'   =>  url()->route( 'dashboard.users.profile' )
+                        'url'   =>  url()->route( 'dashboard.users.profile.general' )
                     ];
                 } else {
                     return [

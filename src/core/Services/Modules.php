@@ -131,7 +131,7 @@ class Modules
                      * register module service provider
                      */
                     $servicesProviders   =   Storage::disk( 'modules' )->allFiles( $config[ 'namespace' ] . DIRECTORY_SEPARATOR . 'Providers' );
-    
+
                     foreach( $servicesProviders as $service ) {
                         /**
                          * @todo run service provider
@@ -140,7 +140,7 @@ class Modules
                         $fileInfo       =   pathinfo( $service );
                         $className      =   ucwords( $fileInfo[ 'filename' ] );
                         $fullClassName  =   'Modules\\' . $config[ 'namespace' ] . '\\Providers\\' . $className;
-                        
+
                         if ( class_exists( $fullClassName ) ) {
     
                             $config[ 'providers' ][ $className ]   =   new $fullClassName( app() );
@@ -339,8 +339,8 @@ class Modules
 
         $fullPath   =   storage_path( 'modules' . DIRECTORY_SEPARATOR . $path );        
         $dir        =   dirname( $fullPath );
+        
         $archive    =   new \ZipArchive;
-
         $archive->open( $fullPath );
         $archive->extractTo( $dir );
         $archive->close();
