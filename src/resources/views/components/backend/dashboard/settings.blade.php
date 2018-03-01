@@ -12,13 +12,21 @@
             <div class="container-fluid pt-3 p-4">
                 @include( 'tendoo::partials.shared.layouts.tabs', [
                     'tabs'  =>  [
-                        [ 'name'     =>  __( 'General' ) ],
-                        [ 'name'     =>  __( 'Registration' ) ]
+                        'general'       =>  [ 
+                            'text'     =>  __( 'General' ) ,
+                            'url'       =>  route( 'dashboard.settings', [
+                                'tab'   =>  'general'
+                            ])
+                        ],
+                        'registration'  =>  [ 
+                            'text'      =>  __( 'Registration' ) ,
+                            'url'       =>  route( 'dashboard.settings', [
+                                'tab'   =>  'registration'
+                            ])
+                        ]
                     ],
                     'tab'       =>  $tab,
-                    'base_path' =>  'tendoo::components.backend.dashboard.settings.tabs',
-                    'base_url'  =>  route( 'dashboard.settings' ),
-                    'route'     =>  'dashboard.settings'
+                    'view_path' =>  'tendoo::components.backend.dashboard.settings.tabs.' . $tab
                 ])
             </div>
         </div>

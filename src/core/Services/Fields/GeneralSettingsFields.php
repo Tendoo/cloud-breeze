@@ -67,7 +67,7 @@ trait GeneralSettingsFields
         $reset_activation_link->name            =   'reset_activation_link';
         $reset_activation_link->label           =   __( 'Resend Activation Link' );
         $reset_activation_link->type            =   'switch';
-        $reset_activation_link->value           =   $options->get( $validate_users->name );
+        $reset_activation_link->value           =   $options->get( $reset_activation_link->name );
         $reset_activation_link->options         =   [
             'true'   =>  __( 'Display a link to receive the activation email.' )
         ];
