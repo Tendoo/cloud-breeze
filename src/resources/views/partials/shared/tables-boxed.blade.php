@@ -26,7 +26,9 @@
                     @endif
                 </div>
             </div>
-            @include( 'tendoo::partials.shared.errors', compact( 'errors' ) )
+            @if ( @$displayNotices == null )
+                @include( 'tendoo::partials.shared.errors', compact( 'errors' ) )
+            @endif
             <div class="card-body p-0 table-responsive">
                 <table class="table table-striped mb-0">
                     <thead>

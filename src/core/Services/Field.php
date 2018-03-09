@@ -63,8 +63,11 @@ class Field
      * @param string Class Name
      * @return void
      */
-    static function get( string $className, $method )
+    static function get( string $className, $method, $entry = null )
     {
-        return app()->make( $className )->$method();
+        /**
+         * if an entry is defined (Model Object), we might pass it to the fields
+         */
+        return app()->make( $className )->$method( $entry );
     }
 }

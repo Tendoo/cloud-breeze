@@ -8,6 +8,7 @@ use Tendoo\Core\Http\Requests\CrudPostRequest;
 use Tendoo\Core\Http\Requests\CrudPutRequest;
 use Tendoo\Core\Facades\Hook;
 use Illuminate\Support\Facades\Event;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class CrudController extends TendooController
 {
@@ -95,6 +96,14 @@ class CrudController extends TendooController
         $inputs         =   $request->all();
         if ( method_exists( $resource, 'filterPostInputs' ) ) {
             $inputs     =   $resource->filterPostInputs( $request->all() );
+
+            /**
+             * if a redirect response is returned
+             * the execution should stop immediately
+             */
+            if ( $inputs instanceof RedirectResponse ) {
+                return $inputs;
+            }
         }
         
         foreach ( $inputs as $name => $value ) {
@@ -164,6 +173,14 @@ class CrudController extends TendooController
         $inputs         =   $request->all();
         if ( method_exists( $resource, 'filterPutInputs' ) ) {
             $inputs     =   $resource->filterPutInputs( $request->all() );
+
+            /**
+             * if a redirect response is returned
+             * the execution should stop immediately
+             */
+            if ( $inputs instanceof RedirectResponse ) {
+                return $inputs;
+            }
         }
 
         foreach ( $inputs as $name => $value ) {

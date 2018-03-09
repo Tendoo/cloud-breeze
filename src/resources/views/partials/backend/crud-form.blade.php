@@ -8,9 +8,11 @@
             <h5 class="box-title">{{ @$resource->create_title ? $resource->create_title : __( 'Undefined Page' ) }}</h5>
             @endif
         </div>
+        @if ( @$displayNotices !== false )
         <div class="card-body p-0">
-        @include( 'tendoo::partials.shared.errors', compact( 'errors' ) )
+            @include( 'tendoo::partials.shared.errors', compact( 'errors' ) )
         </div>
+        @endif
         {{ csrf_field() }}
         <div class="card-body p-3">
             @each( 'tendoo::partials.shared.fields', $fields, 'field' )
