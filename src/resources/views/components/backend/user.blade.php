@@ -1,5 +1,7 @@
 @inject( 'Field', 'Tendoo\Core\Services\Field' )
 @inject( 'Hook', 'Tendoo\Core\Facades\Hook' )
+@extends( 'tendoo::components.backend.master', [ 'parent_class' => 'app-body-container' ])
+@section( 'tendoo::components.backend.master.body' )
     <div class="content-wrapper">
         @include( 'tendoo::partials.shared.page-title', [
             'title'         =>  __( 'My Settings' ),

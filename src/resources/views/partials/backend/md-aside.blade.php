@@ -16,6 +16,7 @@
 </nav>
 {{-- 
 	@if( @$menu->childrens ) 
+		@include( 'tendoo::partials.backend.aside', [ 
 			'menus' => $menu->childrens, 
 			'tree' => intval( @$tree ) + 1 
 		]) 

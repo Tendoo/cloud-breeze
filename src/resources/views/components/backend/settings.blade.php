@@ -1,6 +1,8 @@
 @inject( 'Field', 'Tendoo\Core\Services\Field' )
 @inject( 'Route', 'illuminate\Support\Facades\Route' )
 
+@extends( 'tendoo::components.backend.master', [ 'parent_class' => 'p-0' ])
+@section( 'tendoo::components.backend.master.body' )
     <div class="content-wrapper">
         @include( 'tendoo::partials.shared.page-title', [
             'title'         =>  __( 'Dashboard Settings' ),
@@ -24,6 +26,7 @@
                         ]
                     ],
                     'tab'       =>  $tab,
+                    'view_path' =>  'tendoo::components.backend.settings.tabs.' . $tab
                 ])
             </div>
         </div>

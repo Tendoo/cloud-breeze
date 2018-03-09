@@ -1,3 +1,4 @@
+@extends( 'tendoo::components.backend.master', [ 'parent_class' => 'app-body-container' ])
 @php
     $module_url     =   url( 'dashboard/modules/migrate/' . $module[ 'namespace' ] );
     $options_url    =   url( 'dashboard/options' );
@@ -9,6 +10,7 @@
     </script>
     <script src="{{ asset( 'tendoo/js/dashboard/modules-migration.vue.js' ) }}"></script>
 @endpush
+@section( 'tendoo::components.backend.master.body' )
     <div class="content-wrapper">
         @include( 'tendoo::partials.shared.page-title', [
             'title'     =>  __( 'Modules &mdash; Migration' ),
