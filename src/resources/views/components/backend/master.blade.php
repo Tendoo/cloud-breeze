@@ -7,16 +7,16 @@
             <b>Tend</b>oo
             </div>
             <div class="menu-wrapper h-100" data-simplebar>
-            @include( 'tendoo::partials.backend.dashboard.aside', [
+            @include( 'tendoo::partials.backend.aside', [
                 'menus'     =>  $Menus->get(),
                 'tree'      =>  0
             ])
             </div>
         </aside>
         <div id="app-body" class="align-items-stretch h-100 flex-column d-flex">
-            @include( 'tendoo::partials.backend.dashboard.navbar' )
+            @include( 'tendoo::partials.backend.navbar' )
             <div class="h-100 app-body-container {{ @$parent_class ? $parent_class : 'p-3' }}">
-                @yield( 'tendoo::components.backend.dashboard.master.body' )
+                @yield( 'tendoo::components.backend.master.body' )
             </div>
         </div>
         <div class="bmd-layout-backdrop in"></div>

@@ -25,6 +25,6 @@ class IndexController extends TendooController
     public function index( UserOptions $userOptions )
     {
         $this->setTitle( __( 'Dashboard Index' ) );
-        return view( 'tendoo::components.backend.dashboard.index' );
+        return view( 'tendoo::components.backend.index' );
     }
 }

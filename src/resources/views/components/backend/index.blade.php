@@ -1,7 +1,5 @@
 @inject( 'Modules', 'Tendoo\Core\Services\Modules' )
 @inject( 'Users', 'Tendoo\Core\Services\Users' )
-@extends( 'tendoo::components.backend.dashboard.master' )
-@section( 'tendoo::components.backend.dashboard.master.body' )
     <div class="row">
         <div class="col-md-4 col-xs-6 col-lg-3 mb-3">
             <div class="card">

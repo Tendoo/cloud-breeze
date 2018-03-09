@@ -1,8 +1,6 @@
 @inject( 'Field', 'Tendoo\Core\Services\Field' )
 @inject( 'Route', 'illuminate\Support\Facades\Route' )
 
-@extends( 'tendoo::components.backend.dashboard.master', [ 'parent_class' => 'p-0' ])
-@section( 'tendoo::components.backend.dashboard.master.body' )
     <div class="content-wrapper">
         @include( 'tendoo::partials.shared.page-title', [
             'title'     =>  @$page_title ? $page_title : __( 'Unamed page' ),
@@ -24,7 +22,6 @@
                             'class'     =>  'mb-0'
                         ])
                         <div class="card-body">
-                            @yield( 'interfaces.backend.dashboard.plain-settings.body' )
                         </div>
                     </div>
                 </form>

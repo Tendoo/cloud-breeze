@@ -24,7 +24,7 @@ class ModulesController extends TendooController
     public function modulesList()
     {        
         $this->setTitle( __( 'Modules' ) );
-        return view( 'tendoo::components.backend.dashboard.modules' );
+        return view( 'tendoo::components.backend.modules' );
     }
 
     /**
@@ -127,7 +127,7 @@ class ModulesController extends TendooController
     public function uploadModule()
     {
         $this->setTitle( __( 'Upload Module' ) );
-        return view( 'tendoo::components.backend.dashboard.upload-module' );
+        return view( 'tendoo::components.backend.upload-module' );
     }
 
     /**
@@ -204,7 +204,7 @@ class ModulesController extends TendooController
             $versions  =   $this->modules->getMigrations( $namespace );
 
             $this->setTitle( __( 'Module Migration' ) );
-            return view( 'tendoo::components.backend.dashboard.module-migration', compact( 'module', 'versions' ) );
+            return view( 'tendoo::components.backend.module-migration', compact( 'module', 'versions' ) );
         }
 
         /**

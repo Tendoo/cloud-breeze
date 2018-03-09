@@ -20,7 +20,6 @@
     </header>
     <div class="mdl-layout__drawer">
         <span class="mdl-layout-title">Title</span>
-        @include( 'tendoo::partials.backend.dashboard.md-aside', [
             'menus'     =>  $Menus->get(),
             'tree'      =>  0
         ])

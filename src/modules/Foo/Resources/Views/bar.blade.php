@@ -1,4 +1,4 @@
-@extends( 'tendoo::components.backend.dashboard.master' )
-@section( 'tendoo::components.backend.dashboard.master.body' )
+@extends( 'tendoo::components.backend.master' )
+@section( 'tendoo::components.backend.master.body' )
 Hello
 @endsection

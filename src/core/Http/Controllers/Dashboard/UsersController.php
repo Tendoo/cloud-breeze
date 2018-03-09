@@ -31,7 +31,7 @@ class UsersController extends TendooController
     {
         $this->checkPermission( 'read.users' );
         $this->setTitle( __( 'Users' ) );
-        return view( 'tendoo::components.backend.dashboard.users-list' );
+        return view( 'tendoo::components.backend.users-list' );
     }
 
     /**
@@ -43,7 +43,7 @@ class UsersController extends TendooController
     {
         $this->checkPermission( 'create.users' );
         $this->setTitle( __( 'Create a user' ) );
-        return view( 'tendoo::components.backend.dashboard.create-user' );
+        return view( 'tendoo::components.backend.create-user' );
     }
 
     /**
@@ -65,7 +65,7 @@ class UsersController extends TendooController
         }
 
         $this->setTitle( __( 'Edit a user' ) );
-        return view( 'tendoo::components.backend.dashboard.edit-user' );
+        return view( 'tendoo::components.backend.edit-user' );
     }
 
     /**
@@ -114,9 +114,9 @@ class UsersController extends TendooController
         $this->checkPermission( 'read.profile' );
         $this->setTitle( __( 'My Profile' ) );
         
-        $view_path  =   'tendoo::components.backend.dashboard.user.general';
+        $view_path  =   'tendoo::components.backend.user.general';
 
-        return view( 'tendoo::components.backend.dashboard.user', [
+        return view( 'tendoo::components.backend.user', [
             'tab'           =>  'general',
             'view_path'     =>  $view_path
         ]);
@@ -132,9 +132,9 @@ class UsersController extends TendooController
         $this->checkPermission( 'read.profile' );
         $this->setTitle( __( 'My Profile' ) );
         
-        $view_path  =   'tendoo::components.backend.dashboard.user.security';
+        $view_path  =   'tendoo::components.backend.user.security';
 
-        return view( 'tendoo::components.backend.dashboard.user', [
+        return view( 'tendoo::components.backend.user', [
             'tab'           =>  'security',
             'view_path'     =>  $view_path
         ]);

@@ -17,7 +17,6 @@
     ])       
     <div class="content-body">
         <div class="container-fluid pt-3 p-4">
-            @include( 'tendoo::partials.backend.dashboard.crud-form', [
                 'actionUrl'     =>  route( 'dashboard.crud.post', [ 'namespace' => $namespace ] ),
                 'resource'      =>  $resource,
                 'fields'        =>  $resource->getFields(),

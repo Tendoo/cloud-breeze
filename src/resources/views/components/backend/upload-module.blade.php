@@ -4,8 +4,6 @@
     <link rel="stylesheet" href="{{ asset( 'css/backend-module.css' ) }}">
 @endsection
 
-@extends( 'tendoo::components.backend.dashboard.master', [ 'parent_class' => 'app-body-container' ] )
-@section( 'tendoo::components.backend.dashboard.master.body' )
     <div class="h-100 content-wrapper">
         @include( 'tendoo::partials.shared.page-title', [
             'title'     =>  __( 'Upload a module' ),

@@ -26,7 +26,7 @@ class SettingsController extends TendooController
     public function dashboardSettings( $tab = 'general' )
     {
         $this->setTitle( __( 'Registration Settings' ) );
-        return view( 'tendoo::components.backend.dashboard.settings', compact( 'tab' ) );
+        return view( 'tendoo::components.backend.settings', compact( 'tab' ) );
     }
 
     /**

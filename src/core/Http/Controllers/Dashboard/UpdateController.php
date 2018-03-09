@@ -24,6 +24,6 @@ class UpdateController extends TendooController
     public function update()
     {
         $this->setTitle( __( 'Update Tendoo CMS' ) );
-        return view( 'tendoo::components.backend.dashboard.update' );
+        return view( 'tendoo::components.backend.update' );
     }
 }
