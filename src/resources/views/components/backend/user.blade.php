@@ -25,6 +25,10 @@
                             'text'      =>  __( 'Security' ),
                             'url'       =>  route( 'dashboard.users.profile.security' )
                         ],
+                        'oauth'         =>  [
+                            'text'      =>  __( 'Oauth' ),
+                            'url'       =>  route( 'dashboard.users.profile.oauth' )
+                        ]
                     ]),
                     'tab'       =>  $tab,
                     'view_path' =>  @$view_path

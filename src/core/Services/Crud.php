@@ -41,6 +41,12 @@ class Crud
     ];
 
     /**
+     * Define a where for getEntries
+     * @var array
+     */
+    protected $listWhere    =   [];
+
+    /**
      * Bulk Options
      * @param array
      */
@@ -153,6 +159,15 @@ class Crud
 
             foreach( $this->relations as $relation ) {
                 $query->join( $relation[0], $relation[1], $relation[2], $relation[3] );
+            }
+
+            /**
+             * check if the query has a where statement
+             */
+            if ( $this->listWhere ) {
+                foreach( $this->listWhere as $key => $value ) {
+                    $query->where( $key, $value );
+                }
             }
         }
 

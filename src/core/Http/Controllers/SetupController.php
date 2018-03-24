@@ -5,6 +5,7 @@ namespace Tendoo\Core\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Cookie;
 use Tendoo\Core\Services\Page;
 use Tendoo\Core\Http\Requests\SetupDatabaseRequest;
 use Tendoo\Core\Http\Requests\SetupAppDetailsRequest;
@@ -26,6 +27,13 @@ class SetupController extends Controller
     public function steps( string $step = '' )
     {
         if ( $step == '' ) {
+            /**
+             * delete the laravel session
+             * to avoid unlimited loop
+             * after a reset
+             */
+            Cookie::forget( 'laravel_session' );
+
             Page::setTitle( 'Setup Tendoo CMS' );
             return view( 'tendoo::components.frontend.setup.step-home' );
         } else if ( $step == 'database' ) {

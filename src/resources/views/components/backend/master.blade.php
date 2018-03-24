@@ -1,4 +1,5 @@
 @inject( 'Menus', 'Tendoo\Core\Services\Menus' )
+@inject( 'Hook', 'Tendoo\Core\Facades\Hook' )
 @extends( 'tendoo::layouts.backend.master' )
 @section( 'tendoo::layouts.backend.master.body' )
     <div class="app-wrapper h-100 d-flex align-items-stretch flex-row bmd-layout-container bmd-drawer-f-l">
@@ -8,7 +9,7 @@
             </div>
             <div class="menu-wrapper h-100" data-simplebar>
             @include( 'tendoo::partials.backend.aside', [
-                'menus'     =>  $Menus->get(),
+                'menus'     =>  $Hook::filter( 'dashboard.menus', $Menus->get() ),
                 'tree'      =>  0
             ])
             </div>

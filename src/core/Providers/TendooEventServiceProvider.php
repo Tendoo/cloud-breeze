@@ -32,7 +32,7 @@ class TendooEventServiceProvider extends ServiceProvider
     {
         parent::boot();
 
-        Event::listen( 'before.showing.errors', function( $errorCode ) {
+        Hook::addFilter( 'errors.codes', function( $errorCode ) {
             switch( $errorCode ) {
                 case '404' : 
                     return [
@@ -58,6 +58,30 @@ class TendooEventServiceProvider extends ServiceProvider
                         'title'     =>  __( 'Unhandled Crud' )
                     ];
                 break;
+                case 'missing-scopes' : 
+                    return [
+                        'message'   =>  __( 'Unable to load the Oauth page. The scopes are not defined.' ),
+                        'title'     =>  __( 'Missing Scope Parameter' )
+                    ];
+                break;
+                case 'missing-or-wrong-callback' : 
+                    return [
+                        'message'   =>  __( 'Unable to load the Oauth page. The callback is wrong or not provided.' ),
+                        'title'     =>  __( 'Wrong Callback Parameter' )
+                    ];
+                break;
+                case 'undefined-scope' : 
+                    return [
+                        'message'   =>  __( 'The requested scope is not allowed.' ),
+                        'title'     =>  __( 'Wrong Scope Provided' )
+                    ];
+                break;
+                case 'wrong-oauth-request' : 
+                    return [
+                        'message'   =>  __( 'The current Oauth request can\'t be handled.' ),
+                        'title'     =>  __( 'Wrong Oauth Request' )
+                    ];
+                break;
                 default: 
                     return [
                         'message'   =>  __( 'Unexpected error code has been send to the system' ),
@@ -65,7 +89,7 @@ class TendooEventServiceProvider extends ServiceProvider
                     ];
                 break;
             }
-        });
+        }, 10, 2 );
 
         /**
          * Register Crud definition

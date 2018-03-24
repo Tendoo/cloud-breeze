@@ -5,6 +5,7 @@ namespace Tendoo\Core\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Event;
 use Tendoo\Core\Services\Page;
+use Tendoo\Core\Facades\Hook;
 class ErrorsController extends Controller
 {
     /**
@@ -17,11 +18,11 @@ class ErrorsController extends Controller
         /**
          * Trigger even before showing errors
          */
-        $message    =   Event::fire( 'before.showing.errors', $code );
+        $message    =   Hook::filter( 'errors.codes', $code, [] );
 
         if ( $message ) {
-            Page::setTitle( $message[0][ 'title' ] );
-            return view( 'tendoo::errors.show', $message[0] );
+            Page::setTitle( $message[ 'title' ] );
+            return view( 'tendoo::errors.show', $message );
         }
 
         /**

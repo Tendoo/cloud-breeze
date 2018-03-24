@@ -116,7 +116,9 @@ class AuthController extends BaseController
             /**
              * Redirect user to the dashboard
              */
-            return redirect()->intended( route( Hook::filter( 'after.login.route', config( 'tendoo.redirect.authenticated' ), Auth::user() ) ) );
+            $loginRoute     =   route( Hook::filter( 'after.login.route', config( 'tendoo.redirect.authenticated' ), Auth::user() ) );
+            
+            return redirect()->intended( $loginRoute );
         }
 
         return redirect()->route( 'login.index' )->withErrors([
@@ -169,18 +171,33 @@ class AuthController extends BaseController
             return redirect()->route( 'registration.index' )->with( $redirect );
         }
 
-        $shouldActive       =   $options->get( 'validate_users', 'false' ) === 'true' ? true : false;
+        $shouldActivate     =   $options->get( 'validate_users', 'false' ) === 'true' ? true : false;
 
-        $user   =   new User;
+        /**
+         * Create user instance
+         */
+        $user               =   new User;
         $user->username     =   $request->input( 'username' );
         $user->password     =   bcrypt( $request->input( 'password' ) );
         $user->email        =   $request->input( 'email' );
         $user->role_id      =   $options->get( 'register_as', 1 ); // default user
-        $user->active       =   $shouldActive ? 1 : 0;
+        $user->active       =   $shouldActivate ? 1 : 0;
         $user->save();
 
-        if ( $shouldActive ) {
-            $this->userService->sendActivationEmail( $user->id );
+        /**
+         * Save user options
+         * before registration
+         */
+        $option             =   new Options( $user->id );
+        $option->set( 'theme_class', 'red-theme' );
+
+        /**
+         * Trigger Hook for the user
+         */
+        Hook::action( 'register.user', $user, $option );
+
+        if ( $shouldActivate ) {
+            $this->userService->sendActivationEmail( $user );
         }
 
         return redirect()->route( 'login.index' )->with([

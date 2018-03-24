@@ -129,3 +129,13 @@ function route_field()
 	echo '<input type="hidden" name="_route" value="' . Route::currentRouteName() . '">';
 	echo '<input type="hidden" name="_previous" value="' . url()->current() . '">';
 }
+
+/**
+ * Test if a string is a url
+ * @param string
+ * @return boolean
+ */
+function isUrl( $text )  
+{  
+    return filter_var( $text, FILTER_VALIDATE_URL, FILTER_FLAG_HOST_REQUIRED) !== false;  
+}

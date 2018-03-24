@@ -10,6 +10,7 @@ use Tendoo\Core\Http\Controllers\TendooController;
 use Tendoo\Core\Http\Requests\UserProfileRequest;
 use Tendoo\Core\Http\Requests\PostUserSecurityRequest;
 use Tendoo\Core\Models\User;
+use Tendoo\Core\Models\Oauth;
 
 class UsersController extends TendooController
 {
@@ -205,5 +206,43 @@ class UsersController extends TendooController
             return redirect( $request->input( '_previous' ) )
                 ->with( $response );
         }
+    }
+
+    /**
+     * Show Oauth
+     * @return view
+     */
+    public function showOauth()
+    {
+        $this->checkPermission( 'read.profile' );
+        $this->setTitle( __( 'My authorized oauth connexions' ) );
+
+        $oauth      =   Oauth::where( 'user_id', Auth::id() )->get();
+        $view_path  =   'tendoo::components.backend.user.oauth';
+
+        return view( 'tendoo::components.backend.user', [
+            'tab'           =>  'oauth',
+            'view_path'     =>  $view_path,
+            'oauth'         =>  $oauth
+        ]);
+    }
+
+    /**
+     * Post User Oauth
+     * @return json
+     */
+    public function postUserOauth( Request $request )
+    {
+        $token  =   $request->input( 'token' );
+        
+        /**
+         * Delete a key
+         */
+        Oauth::find( $token[ 'id' ] )->delete();
+        
+        return [
+            'status'    =>  'success',
+            'message'   =>  __( 'The access key has been revoked' )
+        ];
     }
 }

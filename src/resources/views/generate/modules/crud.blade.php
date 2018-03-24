@@ -41,6 +41,12 @@ class {{ ucwords( camel_case( str_plural( $resource_name ) ) ) }} extends Crud
     ];
 
     /**
+     * Define where statement
+     * @var array
+    **/
+    protected $listWhere    =   [];
+
+    /**
      * Fields which will be filled during post/put
      */
     public $fillable    =   [ '{{ strtolower( trim( $fillable ) ) }}' ];
@@ -104,6 +110,19 @@ class {{ ucwords( camel_case( str_plural( $resource_name ) ) ) }} extends Crud
         return $inputs;
     }
 
+    
+    /**
+     * get
+     * @param string
+     * @return mixed
+     */
+    public function get( $param )
+    {
+        switch( $param ) {
+            case 'model' : return $this->model ; break;
+        }
+    }
+
     /**
      * After Crud PUT
      * @param object entry
@@ -124,7 +143,7 @@ class {{ ucwords( camel_case( str_plural( $resource_name ) ) ) }} extends Crud
         /**
          * Retreive the entry ID from the Route
          */
-        $entryId       =   $request->route( 'id' ) ? User::find( $request->route( 'id' ) ) : false;
+        $entryId       =   $request->route( 'id' ) ? User::find( $request->route( 'id' ) ) : null;
         
         /**
          * If the current request process {{ strtolower( trim( $namespace ) ) }} namespace

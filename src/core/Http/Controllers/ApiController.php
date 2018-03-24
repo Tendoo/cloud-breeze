@@ -4,48 +4,110 @@ namespace Tendoo\Core\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Collection;
 use Tendoo\Core\Servies\Modules;
+use Tendoo\Core\Facades\Hook;
+use Illuminate\Support\Facades\Auth;
+use Tendoo\Core\Services\Oauth;
+use Tendoo\Core\Models\Oauth as OauthModel;
+use Tendoo\Core\Exceptions\ApiAmbiguousTokenException;
+use Tendoo\Core\Exceptions\ApiMissingTokenException;
+use Tendoo\Core\Exceptions\ApiForbiddenScopeException;
+use Tendoo\Core\Exceptions\ApiUnknowTokenException;
+use Tendoo\Core\Exceptions\ApiUnknowEndpointException;
 
-class ApiController extends Controller
+class ApiController extends BaseController
 {
+    protected $option;
+    private $accessToken;
+    private $accessTokenData;
+
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->middleware(function( $request, $next ) {
+
+            $this->accessToken    =   $request->header( 'X_API_TOKEN' );
+            
+            /**
+             * In case the token is not provided
+             */
+            if ( $this->accessToken == null ) {
+                throw new ApiMissingTokenException;
+            }
+
+            /**
+             * Let's retreive the option which use the accessToken
+             */
+            $this->accessTokenData      =   OauthModel::where( 'access_token', $this->accessToken )->get();
+
+            /**
+             * More than one key has been found
+             */
+            if ( $this->accessTokenData->count() > 1 ) {
+                throw new ApiAmbiguousTokenException;
+            } else if ( $this->accessTokenData->isEmpty() ) {
+                throw new ApiUnknowTokenException;
+            }
+
+            return $next( $request );
+        });
+    }
+
     /**
      * get All
      * @return json
      */
     public function getAll( $resource )
     {
+        $request    =   app()->make( Request::class );
+        
         /**
          * Load route and pass resource loaded
+         * @hook:load.api
          */
-        $details    =   Event::fire( 'before.loading.api', $resource );
+        $details    =   Hook::filter( 'load.api', false, $resource, $request );
         
-        if ( count( $details ) == 1 ) {
-
-            return [
-                'entries'   =>  $details[0]->model::all(),
-            ];
-
-        } else if ( count( $details ) > 1 ) {
+        if ( $details != false ) {
 
             /**
-             * The resource is declared more that once. We don't know what to procees first.
+             * check if the current token has access to the requested scope
              */
-            return response([
-                'status'    =>   'failed',
-                'message'   =>  'the resource is declared more that once',
-                'declared'  =>  $details
-            ], 400 );
-            
+            $this->__checkScope( $details );
+
+            /**
+             * if a where statement is provided
+             */
+            $model  =   $details->model;
+            if ( is_array( @$details->where ) ) {
+                foreach( $details as $key => $value ) {
+                    $model::where( $key, $value );
+                }
+            }
+
+            return $model::all();
+
         } else {
 
             /**
-             * If resource is not handled
+             * If the endpoint is unknow
+             * we should throw an exception
              */
-            return response([
-                'status'    =>   'failed',
-                'message'   =>  'unable to locate the resource. This resource may not be handled'
-            ], 400 );
+            throw new ApiUnknowEndpointException;
+        }
+    }
 
+    /**
+     * Check the scope
+     * @param object api resource
+     * @return void
+     */
+    private function __checkScope( $apiResource )
+    {
+        $accessToken       =   $this->accessTokenData[0];
+        if ( ! in_array( $apiResource->scope, json_decode( $accessToken->scopes, true ) ) ) {
+            throw new ApiForbiddenScopeException;
         }
     }
 
@@ -55,21 +117,36 @@ class ApiController extends Controller
      */
     public function getOne( $resource, $id )
     {
+        $request    =   app()->make( Request::class );
+
         /**
          * Load route and pass resource loaded
+         * @hook:load.api
          */
-        $details    =   Event::fire( 'before.loading.api', $resource );
+        $details    =   Hook::filter( 'load.api', false, $resource, $request );
+        
         if ( $details ) {
-            $model  =   $details->model::find( $id );
+
+            /**
+             * check if the current token has access to the requested scope
+             */
+            $this->__checkScope( $details );
+
+            /**
+             * if a where statement is provided
+             */
+            $model  =   $details->model;
+
+            if ( is_array( @$details->where ) ) {
+                foreach( $details as $key => $value ) {
+                    $model::where( $key, $value );
+                }
+            }
+
+            $model  =   $model::find( $id );
             return $model->first();
         }
 
-        /**
-         * If resource is not handled
-         */
-        return response([
-            'status'    =>   'failed',
-            'message'   =>  'unable to locate the resource. This resource may not be handled'
-        ], 400 );
+        throw new ApiUnknowEndpointException;
     }
 }

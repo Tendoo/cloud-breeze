@@ -25,7 +25,15 @@ trait GeneralSettingsFields
         $timezone->options          =   generate_timezone_list();
         $timezone->value            =   $options->get( $timezone->name );
 
-        return [ $app_name, $timezone ];
+        $multisite                  =   new \StdClass;
+        $multisite->name            =   'multisite_enabled';
+        $multisite->label           =   __( 'Enable the multisite' );
+        $multisite->type            =   'select';
+        $multisite->description     =   __( 'Enable a multi site feature which let you have multiple instance of the application with on database.' );
+        $multisite->options         =   [ 'no' => __( 'No' ), 'yes' => __( 'Yes' ) ];
+        $multisite->value           =   $options->get( $multisite->name );         
+
+        return [ $app_name, $timezone, $multisite ];
     }
 
     public static function registration()

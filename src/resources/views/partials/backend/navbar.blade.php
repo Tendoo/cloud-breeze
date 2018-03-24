@@ -20,9 +20,7 @@
 					@php
 					$userLinks 		=	[
 						'profile'	=>	[
-							'url'		=>	url()->route( 'dashboard.index', [
-								'tab'	 =>	'general'
-							]),
+							'url'		=>	url()->route( 'dashboard.users.profile.general' ),
 							'text'		=>	__( 'Profile' )
 						],
 						'logout'	=>	[

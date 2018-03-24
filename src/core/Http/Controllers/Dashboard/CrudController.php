@@ -44,7 +44,7 @@ class CrudController extends TendooController
         /**
          * Run the filter before deleting
          */
-        if ( is_callable( $resource->beforeDelete ) ) {
+        if ( method_exists( $resource, 'beforeDelete' ) ) {
 
             /**
              * the callback should return an empty value to proceed.
@@ -57,7 +57,7 @@ class CrudController extends TendooController
         /**
          * We'll retreive the model and delete it
          */
-        $model          =   $resource[ 'model' ];
+        $model          =   $resource->get( 'model' );
         $model::find( $id )->delete();
 
         Event::fire( 'after.deleting.crud', $namespace, $id );

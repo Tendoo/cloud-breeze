@@ -22,9 +22,13 @@ class OptionWrapper
      * @param object array
      * @return void
      */
-    public function add( $key, $value ) 
+    public function add( $value, $key = null ) 
     {
-        $this->options[ $key ]  =   $value;
+        if( $key != null ) {
+            $this->options[ $key ]  =   $value;
+        } else {
+            $this->options[]        =   $value;
+        }
     }
 
     /**
@@ -57,9 +61,13 @@ class OptionWrapper
      * @param mixed value
      * @return void
      */
-    public function setValue( string $key, $mixed )
+    public function setValue( string $key = null, $mixed )
     {
-        $this->options[ $key ][ 'value' ]  =   $mixed;
+        if ( $key == null ) {
+            $this->options[][ 'value' ]  =   $mixed;
+        } else {
+            $this->options[ $key ][ 'value' ]  =   $mixed;
+        }
     }
 
     /**

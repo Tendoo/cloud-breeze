@@ -45,6 +45,19 @@ class TendooHandler extends ExceptionHandler
                     ], 401 );
                 }
 
+                if( 
+                    $exception instanceof ApiAmbiguousTokenException ||
+                    $exception instanceof ApiForbiddenScopeException ||
+                    $exception instanceof ApiMissingTokenException || 
+                    $exception instanceof ApiUnknowEndpointException ||
+                    $exception instanceof ApiUnknowTokenException
+                ) {
+                    return response()->json([
+                        'status'    =>  'failed',
+                        'message'   =>  $exception->getMessage()
+                    ], 401 );
+                }
+
                 if ( 
                     $exception instanceof AccessDeniedException ||
                     $exception instanceof RecoveryExpiredException ||

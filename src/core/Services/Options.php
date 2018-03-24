@@ -60,14 +60,14 @@ class Options
                     $this->options[ strtolower( $result[1] )]   =   new OptionWrapper( $result[1] );
                 }
 
-                $this->options[ strtolower( $result[1] ) ]->add( $result[2], [
+                $this->options[ strtolower( $result[1] ) ]->add([
                     'value'         =>  $option[ 'value' ],
                     'id'            =>  $option[ 'id' ],
                     'key'           =>  $result[2],
                     'user_id'       =>  $option[ 'user_id' ],
                     'original_key'  =>  $option[ 'key' ],
                     'array'         =>  ( bool ) intval( $option[ 'array' ] )
-                ]);
+                ], empty( $result[2] ) ? $result[2] : null );
 
             } else {
                 // might be deprecated
@@ -93,6 +93,7 @@ class Options
                 } 
             }  
         }
+        // dd( $this->options );
     }
 
     /**
@@ -119,7 +120,6 @@ class Options
 
             // check it the root array exists
             $options    =   @$this->options[ $result[1] ];
-
             if ( $options instanceof OptionWrapper ) {
                 $this->__saveOptionWrapper( $options, $result[2], $value );
             } else if( @$options == null ) {
@@ -160,17 +160,23 @@ class Options
          * If option exists
          * then we can directly update it
          */
-        if( @$wrapper->get( $key ) ) {
+        if( @$wrapper->get( $key ) && ! empty( $key ) ) {
             $this->option()->where( 'id', $wrapper->get( $key )[ 'id' ] )->update([
                 'value'     =>  $value
             ]);
 
             $wrapper->setValue( $key, $value );
         } else {
+            
             $option         =   new Option;
             $option->key    =   $wrapper->getPrimaryKey()  . "[{$key}]";
-            $option->value  =   $value;
+            $option->value  =   is_array( $value ) ? json_encode( $value ) : $value;
             $option->array  =   1;
+
+            if( ! empty( $this->user_id ) ) {
+                $option->user_id    =   $this->user_id;
+            }
+            
             $option->save();
 
             if ( $this->user_id != null ) {

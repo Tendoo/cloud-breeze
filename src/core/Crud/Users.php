@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Tendoo\Core\Services\Field;
 use Tendoo\Core\Services\Helper;
 use Tendoo\Core\Models\User;
+use Tendoo\Core\Facades\Hook;
+use Tendoo\Core\Models\Option as OptionModel;
 
 class Users extends Crud
 {
@@ -136,15 +138,34 @@ class Users extends Crud
     public function beforeDelete( $namespace, $id ) {
         if ( $namespace == 'system.users' ) {
             /**
-             * @todo we might check if the user has the right to delete
-             * 
+             * @todo we might check if the 
+             * user has the right to delete
              */
-            if ( Auth::id() === ( int ) $id ) {
+            if ( Auth::id() === ( int ) $id && Hook::filter( 'delete.user', true, $id ) ) {
                 return response([
                     'status'    =>  'danger',
                     'message'   =>  __( 'You can\'t delete your own account' )
                 ], 403 );
             }
+
+            /**
+             * Delete user options
+             * when the request is allowed to delete
+             * the users
+             */
+            $this->deleteOptions( $id );
+        }
+    }
+
+    /**
+     * get
+     * @param string
+     * @return mixed
+     */
+    public function get( $param )
+    {
+        switch( $param ) {
+            case 'model' : return $this->model ; break;
         }
     }
 
@@ -230,8 +251,15 @@ class Users extends Crud
                 if ( ( int ) $id == Auth::id() ) {
                     $status[ 'danger' ]++;
                 } else {
-                    $this->model::find( $id )->delete();
-                    $status[ 'success' ]++;
+                    /**
+                     * This filter might block the
+                     * deletion
+                     */
+                    if ( Hook::filter( 'delete.user', true, $id ) ) {
+                        $this->model::find( $id )->delete();
+                        $this->deleteOptions( $id );
+                        $status[ 'success' ]++;
+                    }
                 }
             }
             return $status;
@@ -256,5 +284,15 @@ class Users extends Crud
                 [ 'href'    =>  route( 'dashboard.users.list' ), 'text' => __( 'Return' ), 'class' => 'btn btn-raised btn-secondary' ]
             ]
         ];
+    }
+
+    /**
+     * Delete the users Options
+     * @param int user id
+     * @return void
+     */
+    public function deleteOptions( $user_id )
+    {
+        OptionModel::where( 'user_id', $user_id )->delete();
     }
 }
