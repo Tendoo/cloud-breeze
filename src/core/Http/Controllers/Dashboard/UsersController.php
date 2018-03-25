@@ -78,9 +78,7 @@ class UsersController extends TendooController
         $user               =   Auth::user();
 
         if ( ! Hash::check( $request->input( 'old_password' ), $user->password ) ) {
-            return redirect()->route( 'dashboard.users.profile', [
-                'tab'   =>  'security'
-            ])->withErrors([
+            return redirect()->route( 'dashboard.users.profile.security' )->withErrors([
                 'status'    =>  'danger',
                 'message'   =>  __( 'The old password is not correct !' )
             ]);
