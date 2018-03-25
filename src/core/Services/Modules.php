@@ -366,7 +366,7 @@ class Modules
             $files  =   array_map( function( $file ) {
                 $info   =   pathinfo( $file );
                 return $info[ 'basename' ];
-            }, $rawfiles );
+            }, $rawFiles );
 
             if ( in_array( 'config.xml', $files ) ) {
                 
