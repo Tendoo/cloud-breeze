@@ -448,7 +448,8 @@ class Modules
                  * @step 3 : run migrations
                  * check if the module has a migration
                  */                    
-                return $this->__runModuleMigration( $moduleNamespace, $xml->version );                
+                return $this->__runModuleMigration( $moduleNamespace, $xml->version );    
+
             } else {
                 /**
                  * the file send is not a valid module
@@ -490,6 +491,11 @@ class Modules
              * runtime
              */
             $this->load( $moduleNamespace );
+
+            /**
+             * Get the module details
+             */
+            $module         =   $this->get( $moduleNamespace );
 
             /**
              * Run the first migration
@@ -772,10 +778,10 @@ class Modules
                 if ( 
                     version_compare( $lastVersion, $version, '<' ) && 
                     version_compare( $currentVersion, $version, '>=' )
-                ) {
-                    $version_names[ $version ]    =   array_map( 'basename', Storage::disk( 'modules' )->allFiles(
+                ) {					
+					$version_names[ $version ]    =   Storage::disk( 'modules' )->allFiles(
                         ucwords( $module[ 'namespace' ] ) . DIRECTORY_SEPARATOR . 'Migrations' . DIRECTORY_SEPARATOR . $version 
-                    ) );
+                    );
                 }
             }
             return $version_names;
