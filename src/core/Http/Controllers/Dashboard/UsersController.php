@@ -97,9 +97,7 @@ class UsersController extends TendooController
         /**
          * Redirect to the security tag
          */
-        return redirect()->route( 'dashboard.users.profile', [
-            'tab'   =>  'security'
-        ])->with([
+        return redirect()->route( 'dashboard.users.profile.security' )->with([
             'status'    =>  'success',
             'message'   =>  __( 'Your password has been updated.' )
         ]);
