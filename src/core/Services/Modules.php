@@ -437,8 +437,7 @@ class Modules
                  * @step 2 : move files
                  * We're now looping to move files
                  */
-                foreach( $files as $file ) {
-                    // $realFile   =   substr( $file, strlen( $dir ) + 1 );
+                foreach( $rawFiles as $file ) {
                     Storage::disk( 'modules' )->put( 
                         $file,
                         Storage::disk( 'temp-modules' )->get( $file )
