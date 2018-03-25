@@ -315,7 +315,11 @@ class Modules
                 /**
                  * We should avoid to extract git stuff as well
                  */
-                if ( strpos( $file, $namespace . '/.git' ) ) {
+                if ( 
+                    strpos( $file, $namespace . '/.git' ) === false || 
+                    strpos( $file, $namespace . '/composer.json' ) ||
+                    strpos( $file, $namespace . '/composer.lock' )
+                ) {
                     $zipArchive->addFile( config( 'tendoo.modules_path' ) . $file, $file );
                 }
             }
