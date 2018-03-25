@@ -310,9 +310,14 @@ class Modules
 
             $moduleDir      =   dirname( $module[ 'index-file' ] );
             $files          =   Storage::disk( 'modules' )->allFiles( ucwords( $namespace ) );
-            
+
             foreach( $files as $index => $file ) {
-                $zipArchive->addFile( config( 'tendoo.modules_path' ) . $file, $file );
+                /**
+                 * We should avoid to extract git stuff as well
+                 */
+                if ( strpos( $file, $namespace . '/.git' ) ) {
+                    $zipArchive->addFile( config( 'tendoo.modules_path' ) . $file, $file );
+                }
             }
 
             $zipArchive->close();
