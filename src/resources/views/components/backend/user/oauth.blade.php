@@ -19,7 +19,7 @@
                 <div class="col-md-6">
                     <h4>{{ __( 'Oauth Connexions' ) }}</h4>
                     <div class="list-group" v-for="( token, index ) in tokens">
-                        <a href="javascript:void(0)" v-on:click="revoke( token )" class="list-group-item list-group-item-action flex-column align-items-start">
+                        <a href="javascript:void(0)" v-on:click="revoke( token, index )" class="list-group-item list-group-item-action flex-column align-items-start">
                             <div class="d-flex w-100 justify-content-between">
                                 <h5 class="mb-1">@{{ token.app_name }}</h5>
                                 <small>@{{ token.created_at }}</small>

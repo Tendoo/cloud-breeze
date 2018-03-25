@@ -29,6 +29,12 @@ class OauthControllers extends BaseController
         $request    =   app()->make( Request::class );
 
         /**
+         * @hook:before.loading.api
+         * trigger an action while loading the API.
+         */
+        Hook::action( 'load.oauth', $request );
+
+        /**
          * Having Scope is required
          */
         if ( ! $scope = $request->query( 'scopes' ) ) {

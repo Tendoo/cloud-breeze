@@ -17,7 +17,7 @@ class RedirectIfNotAuthenticated
     public function handle($request, Closure $next, $guard = null )
     {
         if ( Auth::guest() ) {
-            return redirect()->route( config( 'tendoo.redirect.not-authenticated' ) )->withErrors([
+            return redirect()->guest('login')->with([
                 'status'    =>  'warning',
                 'message'   =>  __( 'Please login first !' )
             ]);

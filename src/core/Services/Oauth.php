@@ -20,16 +20,4 @@ class Oauth
             ]
         ];
     }
-
-    /**
-     * Authenticate
-     * @param request
-     */
-    public function auth( Request $request )
-    {
-        $accessToken    =   $request->header( 'X-API-TOKEN' );
-        $option         =   Option::where( 'value', $accessToken )->first();
-        $user_id        =   $option->user_id;
-        Auth::loginUsingId( $user_id );
-    }
 }

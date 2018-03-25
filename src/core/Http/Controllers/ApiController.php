@@ -50,6 +50,11 @@ class ApiController extends BaseController
             } else if ( $this->accessTokenData->isEmpty() ) {
                 throw new ApiUnknowTokenException;
             }
+            
+            /**
+             * Auth the user
+             */
+            Auth::loginUsingId( $this->accessTokenData[0]->user_id );
 
             return $next( $request );
         });
