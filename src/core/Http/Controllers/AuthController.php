@@ -111,7 +111,7 @@ class AuthController extends BaseController
             /**
              * We might perform an action before login
              */
-            Hook::action( 'after.login' );
+            Hook::action( 'after.login', $request );
 
             /**
              * Redirect user to the dashboard
@@ -193,6 +193,7 @@ class AuthController extends BaseController
 
         /**
          * Trigger Hook for the user
+         * @hook:register.user
          */
         Hook::action( 'register.user', $user, $option );
 

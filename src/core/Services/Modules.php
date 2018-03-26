@@ -799,6 +799,6 @@ class Modules
     public function runMigration( $namespace, $version, $file )
     {
         $module     =   $this->get( $namespace );
-        return $this->__runSingleFile( 'up', $module, $module[ 'namespace' ] . DIRECTORY_SEPARATOR . 'Migrations' . DIRECTORY_SEPARATOR . $version . DIRECTORY_SEPARATOR . $file );
+        return $this->__runSingleFile( 'up', $module, $file );
     }
 }

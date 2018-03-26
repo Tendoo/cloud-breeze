@@ -139,7 +139,7 @@ class CrudController extends TendooController
          */
         return redirect()->route( $resource->getMainRoute() )->with([
             'status'    =>  'success',
-            'message'   =>  __( 'An new entry has been successfully created.' )
+            'message'   =>  __( 'A new entry has been successfully created.' )
         ]);
     }
 
