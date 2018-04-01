@@ -45,6 +45,13 @@ $BasicRoutes    =   function() {
     Route::get( '/dashboard/modules/delete/{namespace}', 'Tendoo\Core\Http\Controllers\Dashboard\ModulesController@deleteModule' )->name( 'dashboard.modules.delete' );
     Route::get( '/dashboard/modules/extract/{namespace}', 'Tendoo\Core\Http\Controllers\Dashboard\ModulesController@extractModule' )->name( 'dashboard.modules.extract' );
     Route::get( '/dashboard/modules/migration/{namespace}', 'Tendoo\Core\Http\Controllers\Dashboard\ModulesController@migrateModule' )->name( 'dashboard.modules.migration' );
+
+    /**
+     * Media Get Routes
+     */
+    Route::get( '/dashboard/medias', 'Tendoo\Core\Http\Controllers\Dashboard\MediasController@list' )->name( 'dashboard.medias.list' );
+    Route::post( '/dashboard/medias', 'Tendoo\Core\Http\Controllers\Dashboard\MediasController@upload' )->name( 'dashboard.medias.upload' );
+    Route::delete( '/dashboard/medias/{id}', 'Tendoo\Core\Http\Controllers\Dashboard\MediasController@post' )->name( 'dashboard.medias.update' );
     
     /**
      * Settings Get Routes

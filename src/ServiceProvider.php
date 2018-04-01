@@ -147,6 +147,11 @@ class ServiceProvider extends CoreServiceProvider
             'root'  =>  storage_path( 'modules' )
         ] ]);
 
+        config([ 'temp.uploads' => [
+            'driver'    =>  'local',
+            'root'      =>  storage_path( 'uploads' )
+        ]]);
+
         config([ 'filesystems.disks' => array_merge( config( 'filesystems.disks' ), config( 'temp' ) ) ]);
 
         $this->app->singleton( 'XmlParser', function ($app) {

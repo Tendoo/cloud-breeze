@@ -16,9 +16,25 @@ class MenusConfig
 
         $this->menus            =   $menus;
         $this->menus->add( $dashboard );
+        $this->registerMediaMenu();
         $this->registerModulesMenu();
         $this->registerSettingsMenu();
         $this->registerUserMenu();
+    }
+
+    /**
+     * register media menu
+     * @return void
+     */
+    public function registerMediaMenu()
+    {
+        $media              =   new \stdClass;
+        $media->text        =   __( 'Media' );
+        $media->namespace   =   'media';
+        $media->icon        =   'collections';
+        $media->href        =   route( 'dashboard.medias.list' );
+
+        $this->menus->add( $media );
     }
 
     /**
