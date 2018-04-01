@@ -114,7 +114,7 @@ $BasicRoutes    =   function() {
 };
 
 Route::middleware([ 'web' ])->group( function(){
-    Route::middleware([ 'app.installed' ])->group( function(){
+    Route::middleware([ 'app.installed', 'check.updates' ])->group( function(){
 
         global $BasicRoutes;
 
@@ -169,6 +169,13 @@ Route::middleware([ 'web' ])->group( function(){
         Route::get( '/do-setup/{step?}', 'Tendoo\Core\Http\Controllers\SetupController@steps' )->name( 'setup.step' );
         Route::post( '/do-setup/post/database', 'Tendoo\Core\Http\Controllers\SetupController@post_database' )->name( 'setup.post.database' );
         Route::post( '/do-setup/post/app-details', 'Tendoo\Core\Http\Controllers\SetupController@post_appdetails' )->name( 'setup.post.app-details' );
+    });
+
+    Route::middleware([ 'app.installed' ])->group( function(){
+        /**
+         * register database updates routes
+         */
+        Route::get( '/do-update/database', 'Tendoo\Core\Http\Controllers\UpdateController@index' )->name( 'update.database' );
     });
     
     /**

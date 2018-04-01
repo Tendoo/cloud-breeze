@@ -17,8 +17,7 @@ class CreateMediasTable extends Migration
             $table->increments('id');
             $table->string( 'name' );
             $table->string( 'extension' );
-            $table->float( 'size' );
-            $table->string( 'url' );
+            $table->string( 'slug' );
             $table->integer( 'user_id' );
             $table->timestamps();
         });

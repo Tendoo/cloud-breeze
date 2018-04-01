@@ -2,7 +2,7 @@
 return [
     'modules_path'  =>  base_path() . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR,
     'version'       =>  '5.0',
-    'db_version'    =>  '1.0',
+    'db_version'    =>  '1.1',
     'debug'         =>  [
         'errors'    =>  true
     ],
@@ -20,5 +20,5 @@ return [
     ],
     'archive'       =>  [
         'master'    =>  'https://github.com/Blair2004/tendoo/archive/master.zip',
-    ]
+    ],
 ];

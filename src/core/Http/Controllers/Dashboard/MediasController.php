@@ -9,9 +9,25 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
 use Tendoo\Core\Services\Date;
+use Tendoo\Core\Services\MediaService;
 
 class MediasController extends TendooController
 {
+    /**
+     * Media Service
+     * @var service
+     */
+    private $service;
+
+    /**
+     * Constructor
+     * 
+     */
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
     /**
      * list all media on the system
      */
@@ -49,39 +65,21 @@ class MediasController extends TendooController
      */
     public function upload( Request $request )
     {
+        /**
+         * Supported file extension
+         * @var array<String>
+         */
+        $extensions     =   [ 'jpeg', 'png'  ];
+
+        /**
+         * Launching the media Service
+         */
+        $this->mediaService  =   new MediaService( compact( 'extensions' ) );
+
+        /**
+         * uploading a file
+         */
         $file = $request->file('file');
-
-        /**
-         * Differents resize sizes
-         */
-        $sizes  =   [
-            'thumb'     =>  [ 280, 181 ]
-        ];
-
-        /**
-         * getting file extension
-         */
-        $extension  =   $request->file->extension();
-        
-        if ( in_array( $extension, [ 'jpeg', 'png' ] ) ) {
-
-            $pathInfo   =   pathinfo( $request->file->getClientOriginalName() );
-            $filename   =   str_slug( $pathInfo[ 'filename' ], '-' ) . '.' . strtolower( $request->file->getClientOriginalExtension() );
-
-            $request->file->storeAs( 
-                'uploads', 
-                $filename
-            );
-
-            dd( Storage::disk( 'local' )->url( 'uploads/' . $filename ) );
-
-            $media              =   new Media;
-            $media->name        =   $request->file->getClientOriginalName();
-            $media->extension   =   $request->file->getClientOriginalExtension();
-            $media->size        =   $request->file->getClientSize();
-            $media->url         =   Storage::disk( 'local' )->url( 'uploads/' . $filename );
-            $media->user_id     =   Auth::id();
-            $media->save();
-        }
+        $this->mediaService->upload( $file );
     }
 }

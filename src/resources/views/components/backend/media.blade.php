@@ -1,11 +1,13 @@
 @inject( 'Field', 'Tendoo\Core\Services\Field' )
 @inject( 'Route', 'illuminate\Support\Facades\Route' )
+
 @push( 'partials.shared.head' )
     <link rel="stylesheet" href="{{ asset( 'tendoo/bower_components/dropzone/dist/min/dropzone.min.css' ) }}">
     <link rel="stylesheet" href="{{ asset( 'tendoo/bower_components/dropzone/dist/min/basic.min.css' ) }}">
     <link rel="stylesheet" href="{{ asset( 'tendoo/css/dashboard/media-file.css' ) }}">
     <script src="{{ asset( 'tendoo/bower_components/dropzone/dist/dropzone.js' ) }}"></script>
 @endpush
+
 @push( 'partials.shared.footer' )
     <script>
         "use strict";
