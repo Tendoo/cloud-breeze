@@ -15,6 +15,7 @@ use Tendoo\Core\Http\Requests\PostRegisterRequest;
 use Tendoo\Core\Http\Requests\RecoveryRequest;
 use Tendoo\Core\Http\Requests\PasswordChangeRequest;
 use Tendoo\Core\Models\User;
+use Tendoo\Core\Models\Role;
 use Tendoo\Core\Mail\PasswordReset;
 use Tendoo\Core\Mail\PasswordUpdated;
 use Tendoo\Core\Mail\UserRegistrationMail;
@@ -207,7 +208,7 @@ class AuthController extends BaseController
          * @todo create an option to disable this
          * @todo adding a filter for role selected to receive an email
          */
-        foreach( $this->userService->all( 'admin' ) as $admin ) {
+        foreach( Role::where( 'namespace', 'admin' )->first()->user as $admin ) {
             Mail::to( $admin->email )
                 ->queue( new UserRegistrationMail([
                     'link'  =>  route( 'dashboard.users.list' ),

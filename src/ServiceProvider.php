@@ -132,8 +132,8 @@ class ServiceProvider extends CoreServiceProvider
          * database update location path
          * @var constant
          */
-        define( 'DATABASE_UPDATES_PATH', dirname( __FILE__ ) . '/database/updates/' );
-        define( 'DATABASE_MIGRATIONS_PATH', dirname( __FILE__ ) . '/database/migrations/' );
+        if ( ! defined( 'DATABASE_UPDATES_PATH' ) ): define( 'DATABASE_UPDATES_PATH', dirname( __FILE__ ) . '/database/updates/' ); endif;
+        if ( ! defined( 'DATABASE_MIGRATIONS_PATH' ) ): define( 'DATABASE_MIGRATIONS_PATH', dirname( __FILE__ ) . '/database/migrations/' ); endif;
 
         config([ 'temp.database-updates' => [
             'driver' => 'local',
