@@ -170,19 +170,21 @@ Route::middleware([ 'web' ])->group( function(){
         Route::post( '/do-setup/post/database', 'Tendoo\Core\Http\Controllers\SetupController@post_database' )->name( 'setup.post.database' );
         Route::post( '/do-setup/post/app-details', 'Tendoo\Core\Http\Controllers\SetupController@post_appdetails' )->name( 'setup.post.app-details' );
     });
-
-    Route::middleware([ 'app.installed' ])->group( function(){
-        /**
-         * register database updates routes
-         */
-        Route::get( '/do-update/database', 'Tendoo\Core\Http\Controllers\UpdateController@index' )->name( 'update.database' );
-        Route::post( '/do-update/database', 'Tendoo\Core\Http\Controllers\UpdateController@postUpdate' )->name( 'update.post.database' );
-    });
     
     /**
      * Error Get Route
      */
     Route::get( '/errors/{code}/{value?}', 'Tendoo\Core\Http\Controllers\ErrorsController@show' )->name( 'errors' );
+});
+
+Route::middleware([ 'app.installed' ])->group( function(){
+    /**
+     * register database updates routes
+     */
+    Route::get( '/do-update/database', 'Tendoo\Core\Http\Controllers\UpdateController@index' )->name( 'update.database' );
+    Route::post( '/do-update/database', 'Tendoo\Core\Http\Controllers\UpdateController@postUpdate' )->name( 'update.post.database' );
+    Route::get( '/do-update/files', 'Tendoo\Core\Http\Controllers\UpdateController@filesIndex' )->name( 'update.files' );
+    Route::post( '/do-update/files', 'Tendoo\Core\Http\Controllers\UpdateController@postFiles' )->name( 'update.post.files' );
 });
 
 /**

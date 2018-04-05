@@ -6,25 +6,39 @@ use Illuminate\Support\Facades\Storage;
 use Tendoo\Core\Services\Page;
 use Tendoo\Core\Services\Options;
 use Tendoo\Core\Exceptions\AccessDeniedException;
+use Illuminate\Support\Facades\Artisan;
 
-class UpdateController extends TendooController 
+class UpdateController extends Controller 
 {
     protected $options;
 
-    public function __construct(
-        Options $options
-    )
+    public function __construct()
     {
-        parent::__construct();
-        $this->options  =   $options;
-
+        /**
+         * middleware to control the database update
+         */
         $this->middleware( function( $request, $next ){
+            
+            $this->options      =   app()->make( 'Tendoo\Core\Services\Options' );
+
             if ( $this->options->get( 'db_version' ) === config( 'tendoo.db_version' ) ) {
-                throw new AccessDeniedException( __( 'Unable to access to the update' ) );
+                throw new \Exception( __( 'Updating the database is not required.' ) );
             }
 
             return $next( $request );
-        });
+        })->only([ 'index', 'postUpdate' ]);
+        
+        /**
+         * middleware to control the files update
+         */
+        $this->middleware( function( $request, $next ){
+
+            if ( ! Storage::disk( 'root' )->exists( 'should-publish-assets' ) ) {
+                throw new \Exception( __( 'Updating the files is not required.' ) );
+            }
+
+            return $next( $request );
+        })->only([ 'filesIndex', 'postFiles' ]);
     }
 
     /**
@@ -35,6 +49,16 @@ class UpdateController extends TendooController
     {
         Page::setTitle( __( 'Database Update' ) );
         return view( 'tendoo::components.frontend.update.database' );
+    }
+
+    /**
+     * Updating the files
+     * @return view
+     */
+    public function filesIndex()
+    {
+        Page::setTitle( __( 'File Update' ) );
+        return view( 'tendoo::components.frontend.update.files' );
     }
 
     /**
@@ -99,9 +123,38 @@ class UpdateController extends TendooController
          */
         $options->set( 'db_version', config( 'tendoo.db_version' ) );
 
+        /**
+         * if we're updating the database, we might publish the files as well.
+         * @warn this operation might be low.
+         * We should consider looking for an easier solution.
+         */
+
         return [
             'status'    =>  'success',
             'message'   =>  __( 'The database has been correctly updated. You\'ll be redirected shortly.' )
+        ];
+    }
+
+    /**
+     * Post File
+     * @return void
+     */
+    public function postFiles() 
+    {
+        /**
+         * if we're updating the database, we might publish the files as well.
+         * @warn this operation might be low.
+         * We should consider looking for an easier solution.
+         */
+
+        /**
+         * if the publish is done. We can then close this
+         */
+        Storage::disk( 'root' )->delete( 'should-publish-assets' );
+
+        return [
+            'status'    =>  'success',
+            'message'   =>  __( 'The file has been published. You\'ll be redirected shortly.' )
         ];
     }
 }

@@ -79,26 +79,28 @@ class ServiceProvider extends CoreServiceProvider
         $publicPath     =   base_path() . _SLASH_ . 'public' . _SLASH_ . 'tendoo';
         $servicePath    =   $corePath . 'Services';
 
-        if ( $this->app->runningInConsole() ) {
-            $this->commands([
-                DisableModule::class,
-                EnableModule::class,
-                GenerateModule::class,
-                ModuleController::class,
-                ModuleMigrations::class,
-                ModuleModels::class,
-                OptionDelete::class,
-                OptionSet::class,
-                OptionGet::class,
-                RefreshCommand::class,
-                ResetCommand::class,
-                MakeModuleServiceProvider::class,
-                EnvEditorSetCommand::class,
-                EnvEditorGetCommand::class,
-                ModuleCrudGeneratorCommand::class,
-                PublishCommand::class,
-            ]);
-        }
+        /**
+         * we don't need to be running the console
+         * to have access to theses features
+         */
+        $this->commands([
+            DisableModule::class,
+            EnableModule::class,
+            GenerateModule::class,
+            ModuleController::class,
+            ModuleMigrations::class,
+            ModuleModels::class,
+            OptionDelete::class,
+            OptionSet::class,
+            OptionGet::class,
+            RefreshCommand::class,
+            ResetCommand::class,
+            MakeModuleServiceProvider::class,
+            EnvEditorSetCommand::class,
+            EnvEditorGetCommand::class,
+            ModuleCrudGeneratorCommand::class,
+            PublishCommand::class,
+        ]);
         
         /**
          * Load Route from Web
