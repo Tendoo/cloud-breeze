@@ -180,6 +180,11 @@ class ServiceProvider extends CoreServiceProvider
             'driver' => 'local',
             'root' => base_path( 'modules' ),
         ] ]);
+
+        config([ 'temp.config' => [
+            'driver' => 'local',
+            'root' => base_path( 'config' ),
+        ] ]);
         
         config([ 'temp.temp-modules' => [
             'driver'    =>  'local',
@@ -193,24 +198,17 @@ class ServiceProvider extends CoreServiceProvider
 
         config([ 'filesystems.disks' => array_merge( config( 'filesystems.disks' ), config( 'temp' ) ) ]);
 
+        /**
+         *  Changing the Auth Model Provider
+         */
+        config([ 'auth.providers.users'     =>  [
+            'driver'    =>  'eloquent',
+            'model'     =>  'Tendoo\Core\Models\User'
+        ]]);
+
         $this->app->singleton( 'XmlParser', function ($app) {
             return new XmlReader(new XmlDocument($app));
         });
-
-        /**
-         * Merge Configurations
-         */
-        $this->mergeConfigFrom(
-            __DIR__. '/config/app.php', 'app'
-        );
-
-        $this->mergeConfigFrom(
-            __DIR__. '/config/auth.php', 'auth'
-        );
-
-        $this->mergeConfigFrom(
-            __DIR__. '/config/filesystems.php', 'filesystems'
-        );
     }
 
     /**

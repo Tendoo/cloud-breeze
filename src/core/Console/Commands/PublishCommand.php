@@ -38,9 +38,22 @@ class PublishCommand extends Command
      */
     public function handle()
     {
+        /**
+         * moving assets
+         */
         $files  =   Storage::disk( 'tendoo-assets' )->allFiles();
+
         foreach( $files as $file ) {
             Storage::disk( 'public' )->put( 'tendoo/' . $file, Storage::disk( 'tendoo-assets' )->get( $file ) );
+        }
+
+        /**
+         * moving config
+         */
+        $files  =   Storage::disk( 'tendoo-config' )->allFiles();
+        
+        foreach( $files as $file ) {
+            Storage::disk( 'config' )->put( $file, Storage::disk( 'tendoo-config' )->get( $file ) );
         }
     }
 }
