@@ -159,7 +159,7 @@ class ServiceProvider extends CoreServiceProvider
             'root' => TENDOO_ROOT_PATH,
         ] ]);
 
-        config([ 'temp.public' => [
+        config([ 'temp.laravel-public' => [
             'driver' => 'local',
             'root' => base_path( 'public' ),
         ] ]);

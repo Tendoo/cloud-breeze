@@ -16,7 +16,6 @@ class MediaService
      */
     private $sizes      =   [
         'thumb'     =>  [ 280, 181 ],
-        'original'  =>  [] // when not defined, image original with is choosed
     ];
 
     /**
@@ -46,20 +45,31 @@ class MediaService
         
         if ( in_array( $extension, $this->extensions ) ) {
 
-            $pathInfo       =   pathinfo( $file->getClientOriginalName() );
-            $fileName       =   str_slug( $pathInfo[ 'filename' ], '-' );
+            $uploadedInfo   =   pathinfo( $file->getClientOriginalName() );
+            $fileName       =   str_slug( $uploadedInfo[ 'filename' ], '-' );
             $fullFileName   =   $fileName . '.' . strtolower( $file->getClientOriginalExtension() );
 
             $year           =   $this->date->instance()->year;
             $month          =   sprintf( "%02d", $this->date->instance()->month );
-            $folderPath     =   $year . '/' . $month . '/';
+            $folderPath     =   $year . DIRECTORY_SEPARATOR . $month . DIRECTORY_SEPARATOR;
             
-            $filePath       =   $file->storeAs( 
-                'uploads', 
+            $filePath       =   Storage::disk( 'public' )->putFileAs( 
+                '', 
+                $file,
                 $folderPath . $fullFileName
             );
 
-            dd( $filePath );
+            /**
+             * Resizing the images
+             */
+            $fullPath           =   storage_path( 'app' . DIRECTORY_SEPARATOR . 'public' . DIRECTORY_SEPARATOR . $filePath );
+            $realPathInfo       =   pathinfo( $fullPath );
+
+            foreach( $this->sizes as $resizeName => $size ) {
+                $image      =   new ImageResize( $fullPath );
+                $image->resizeToBestFit( $size[0], $size[1] );
+                $image->save( $realPathInfo[ 'dirname' ] . DIRECTORY_SEPARATOR . $fileName . '-' . $resizeName . '.' . $extension );
+            }
 
             $media              =   new Media;
             $media->name        =   $file->getClientOriginalName();
@@ -67,6 +77,7 @@ class MediaService
             $media->slug        =   $fileName;
             $media->user_id     =   Auth::id();
             $media->save();
+
             return true;
         }
         

@@ -44,7 +44,7 @@ class PublishCommand extends Command
         $files  =   Storage::disk( 'tendoo-assets' )->allFiles();
 
         foreach( $files as $file ) {
-            Storage::disk( 'public' )->put( 'tendoo/' . $file, Storage::disk( 'tendoo-assets' )->get( $file ) );
+            Storage::disk( 'laravel-public' )->put( 'tendoo/' . $file, Storage::disk( 'tendoo-assets' )->get( $file ) );
         }
 
         /**
