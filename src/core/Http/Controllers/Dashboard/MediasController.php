@@ -1,5 +1,5 @@
 <?php
-namespace Tendoo\Core\Http\Controllers\dashboard;
+namespace Tendoo\Core\Http\Controllers\Dashboard;
 
 use Tendoo\Core\Http\Controllers\TendooController;
 use Tendoo\Core\Services\Page;
