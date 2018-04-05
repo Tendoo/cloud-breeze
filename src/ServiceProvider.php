@@ -24,6 +24,7 @@ use Tendoo\Core\Console\Commands\ResetCommand;
 use Tendoo\Core\Console\Commands\MakeModuleServiceProvider;
 use Tendoo\Core\Console\Commands\EnvEditorSetCommand;
 use Tendoo\Core\Console\Commands\EnvEditorGetCommand;
+use Tendoo\Core\Console\Commands\PublishCommand;
 use Illuminate\Routing\Router;
 use Jackiedo\DotenvEditor\DotenvEditor;
 use Tendoo\Core\Http\TendooKernel;
@@ -73,7 +74,6 @@ class ServiceProvider extends CoreServiceProvider
         $router->aliasMiddleware( 'can.register', \Tendoo\Core\Http\Middleware\CheckRegistrationStatus::class );
         $router->aliasMiddleware( 'check.updates', \Tendoo\Core\Http\Middleware\CheckUpdates::class );
         
-
         $corePath       =   base_path() . _SLASH_ . 'core' . _SLASH_ ;
         $configPath     =   base_path() . _SLASH_ . 'config' . _SLASH_ ;
         $publicPath     =   base_path() . _SLASH_ . 'public' . _SLASH_ . 'tendoo';
@@ -96,6 +96,7 @@ class ServiceProvider extends CoreServiceProvider
                 EnvEditorSetCommand::class,
                 EnvEditorGetCommand::class,
                 ModuleCrudGeneratorCommand::class,
+                PublishCommand::class,
             ]);
         }
         
@@ -134,10 +135,30 @@ class ServiceProvider extends CoreServiceProvider
          */
         if ( ! defined( 'DATABASE_UPDATES_PATH' ) ): define( 'DATABASE_UPDATES_PATH', dirname( __FILE__ ) . '/database/updates/' ); endif;
         if ( ! defined( 'DATABASE_MIGRATIONS_PATH' ) ): define( 'DATABASE_MIGRATIONS_PATH', dirname( __FILE__ ) . '/database/migrations/' ); endif;
+        if ( ! defined( 'TENDOO_CONFIG_PATH' ) ): define( 'TENDOO_CONFIG_PATH', dirname( __FILE__ ) . '/config/' ); endif;
+        if ( ! defined( 'TENDOO_ASSETS_PATH' ) ): define( 'TENDOO_ASSETS_PATH', dirname( __FILE__ ) . '/public/' ); endif;
 
+        /**
+         * Define Storage Location Path
+         */
         config([ 'temp.database-updates' => [
             'driver' => 'local',
             'root' => DATABASE_UPDATES_PATH,
+        ] ]);
+        
+        config([ 'temp.tendoo-assets' => [
+            'driver' => 'local',
+            'root' => TENDOO_ASSETS_PATH,
+        ] ]);
+
+        config([ 'temp.public' => [
+            'driver' => 'local',
+            'root' => base_path( 'public' ),
+        ] ]);
+        
+        config([ 'temp.tendoo-config' => [
+            'driver' => 'local',
+            'root' => TENDOO_CONFIG_PATH,
         ] ]);
         
         config([ 'temp.database-migrations' => [
