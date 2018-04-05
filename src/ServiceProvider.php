@@ -139,6 +139,7 @@ class ServiceProvider extends CoreServiceProvider
         if ( ! defined( 'DATABASE_MIGRATIONS_PATH' ) ): define( 'DATABASE_MIGRATIONS_PATH', dirname( __FILE__ ) . '/database/migrations/' ); endif;
         if ( ! defined( 'TENDOO_CONFIG_PATH' ) ): define( 'TENDOO_CONFIG_PATH', dirname( __FILE__ ) . '/config/' ); endif;
         if ( ! defined( 'TENDOO_ASSETS_PATH' ) ): define( 'TENDOO_ASSETS_PATH', dirname( __FILE__ ) . '/public/' ); endif;
+        if ( ! defined( 'TENDOO_ROOT_PATH' ) ): define( 'TENDOO_ROOT_PATH', dirname( __FILE__ ) ); endif;
 
         /**
          * Define Storage Location Path
@@ -151,6 +152,11 @@ class ServiceProvider extends CoreServiceProvider
         config([ 'temp.tendoo-assets' => [
             'driver' => 'local',
             'root' => TENDOO_ASSETS_PATH,
+        ] ]);
+
+        config([ 'temp.tendoo-root' => [
+            'driver' => 'local',
+            'root' => TENDOO_ROOT_PATH,
         ] ]);
 
         config([ 'temp.public' => [

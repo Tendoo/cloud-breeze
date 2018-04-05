@@ -25,7 +25,7 @@ class CheckUpdates
              * as well. An update might not include a database update, 
              * but it might include publishing assets.
              */
-            if ( Storage::disk( 'root' )->exists( 'should-publish-assets' ) ) {
+            if ( Storage::disk( 'tendoo-root' )->exists( 'should-publish-assets' ) ) {
                 return redirect( route( 'update.files' ) );
             }
         }

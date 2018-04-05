@@ -33,7 +33,7 @@ class UpdateController extends Controller
          */
         $this->middleware( function( $request, $next ){
 
-            if ( ! Storage::disk( 'root' )->exists( 'should-publish-assets' ) ) {
+            if ( ! Storage::disk( 'tendoo-root' )->exists( 'should-publish-assets' ) ) {
                 throw new \Exception( __( 'Updating the files is not required.' ) );
             }
 
@@ -152,7 +152,7 @@ class UpdateController extends Controller
         /**
          * if the publish is done. We can then close this
          */
-        Storage::disk( 'root' )->delete( 'should-publish-assets' );
+        Storage::disk( 'tendoo-root' )->delete( 'should-publish-assets' );
 
         return [
             'status'    =>  'success',
