@@ -43,5 +43,6 @@
   },
   "_source": "https://github.com/mzabriskie/axios.git",
   "_target": "^0.17.1",
-  "_originalSource": "axios"
+  "_originalSource": "axios",
+  "_direct": true
 }
