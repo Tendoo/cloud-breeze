@@ -128,6 +128,7 @@ class UpdateController extends Controller
          * @warn this operation might be low.
          * We should consider looking for an easier solution.
          */
+        Artisan::call( 'tendoo:publish' );
 
         return [
             'status'    =>  'success',
@@ -146,6 +147,7 @@ class UpdateController extends Controller
          * @warn this operation might be low.
          * We should consider looking for an easier solution.
          */
+        Artisan::call( 'tendoo:publish' );
 
         /**
          * if the publish is done. We can then close this
