@@ -128,6 +128,23 @@ class ServiceProvider extends CoreServiceProvider
      */
     public function register()
     {
+        /**
+         * database update location path
+         * @var constant
+         */
+        define( 'DATABASE_UPDATES_PATH', dirname( __FILE__ ) . '/database/updates/' );
+        define( 'DATABASE_MIGRATIONS_PATH', dirname( __FILE__ ) . '/database/migrations/' );
+
+        config([ 'temp.database-updates' => [
+            'driver' => 'local',
+            'root' => DATABASE_UPDATES_PATH,
+        ] ]);
+        
+        config([ 'temp.database-migrations' => [
+            'driver' => 'local',
+            'root' => DATABASE_MIGRATIONS_PATH,
+        ] ]);
+
         config([ 'temp.temp-core' => [
             'driver' => 'local',
             'root' => storage_path( 'core' ),

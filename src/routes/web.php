@@ -176,6 +176,7 @@ Route::middleware([ 'web' ])->group( function(){
          * register database updates routes
          */
         Route::get( '/do-update/database', 'Tendoo\Core\Http\Controllers\UpdateController@index' )->name( 'update.database' );
+        Route::post( '/do-update/database', 'Tendoo\Core\Http\Controllers\UpdateController@postUpdate' )->name( 'update.post.database' );
     });
     
     /**

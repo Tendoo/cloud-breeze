@@ -44,6 +44,7 @@ class Users
 
     /**
      * BuildRoles
+     * @deprecated
      * @return void
      */
     public function buildRoles()
@@ -57,6 +58,7 @@ class Users
 
     /**
      * Build Users
+     * @deprecated
      * @return void
      */
     public function buildUsers()

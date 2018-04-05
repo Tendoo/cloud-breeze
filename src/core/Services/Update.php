@@ -3,6 +3,7 @@ namespace Tendoo\Core\Services;
 
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Artisan;
+use Tendoo\Core\Services\Options;
 
 class Update
 {
@@ -170,5 +171,28 @@ class Update
         Storage::disk( 'root' )->deleteDirectory( 'storage/core' );
         Storage::disk( 'root' )->put( 'storage/core/index.php', '<h1>Golden Slicence !</h1>' );
         Artisan::call( 'up' );
+    }
+
+    /**
+     * Get DB Update files
+     * @return array of files
+     */
+    public function getUpdates()
+    {
+        $options            =   app()->make( Options::class );
+        $db_version         =   $options->get( 'db_version' );
+        $file_db_version    =   config( 'tendoo.db_version' );
+        $files              =   [];
+
+        foreach( Storage::disk( 'database-updates' )->allDirectories() as $dir ) {
+            if ( version_compare( $dir, $db_version, '>' ) && version_compare( $dir, $file_db_version, '<=' ) ) {
+                $files    =   array_merge( 
+                    Storage::disk( 'database-updates' )->allFiles( $dir ),
+                    $files
+                );
+            }
+        }
+
+        return $files;
     }
 }

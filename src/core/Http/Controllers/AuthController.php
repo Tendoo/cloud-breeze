@@ -17,6 +17,7 @@ use Tendoo\Core\Http\Requests\PasswordChangeRequest;
 use Tendoo\Core\Models\User;
 use Tendoo\Core\Mail\PasswordReset;
 use Tendoo\Core\Mail\PasswordUpdated;
+use Tendoo\Core\Mail\UserRegistrationMail;
 use Tendoo\Core\Exceptions\RecoveryException;
 use Tendoo\Core\Facades\Hook;
 use Carbon\Carbon;
@@ -199,6 +200,19 @@ class AuthController extends BaseController
 
         if ( $shouldActivate ) {
             $this->userService->sendActivationEmail( $user );
+        }
+
+        /**
+         * let's notify all admin with admin role a user has been registered
+         * @todo create an option to disable this
+         * @todo adding a filter for role selected to receive an email
+         */
+        foreach( $this->userService->all( 'admin' ) as $admin ) {
+            Mail::to( $admin->email )
+                ->queue( new UserRegistrationMail([
+                    'link'  =>  route( 'dashboard.users.list' ),
+                    'user'  =>  $user
+                ]));
         }
 
         return redirect()->route( 'login.index' )->with([
