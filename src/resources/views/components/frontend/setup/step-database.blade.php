@@ -1,5 +1,6 @@
 @extends( 'tendoo::components.frontend.setup.master' )
 @section( 'tendoo::components.frontend.setup.body' )
+@include( 'tendoo::partials.shared.auth-logo' )
 <div class="card">
     <form action="{{ route( 'setup.post.database' ) }}" method="post" class="mb-0">
         {{ csrf_field() }}

@@ -35,6 +35,7 @@ class MakeModuleServiceProvider extends Command
     {
         if ( Helper::AppIsInstalled() ) {
             if ( ! empty( $this->argument( 'namespace' ) && ! empty( $this->argument( 'name' ) ) ) ) {
+                
                 $modules     =   app()->make( 'Tendoo\Core\Services\Modules' );
 
                 /**

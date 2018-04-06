@@ -4,7 +4,7 @@ namespace Tendoo\Core\Http\Controllers\Dashboard;
 use Tendoo\Core\Http\Controllers\TendooController;
 use Tendoo\Core\Services\Page;
 use Illuminate\Http\Request;
-use tendoo\Core\Models\Media;
+use Tendoo\Core\Models\Media;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
@@ -55,8 +55,9 @@ class MediasController extends TendooController
          * define upload url
          */
         $uploadUrl  =   route( 'dashboard.medias.upload' );
+        $loadUrl    =   route( 'dashboard.medias.load' );
         
-        return view( 'tendoo::components.backend.media', compact( 'tabs', 'uploadUrl' ) );
+        return view( 'tendoo::components.backend.media', compact( 'tabs', 'uploadUrl', 'loadUrl' ) );
     }
 
     /**
@@ -81,5 +82,15 @@ class MediasController extends TendooController
          */
         $file = $request->file('file');
         $this->mediaService->upload( $file );
+    }
+
+    /**
+     * Load Media
+     * @return json
+     */
+    public function loadMedias( $page = 1 ) 
+    {
+        $medias     =   Media::all();
+        return $medias;
     }
 }

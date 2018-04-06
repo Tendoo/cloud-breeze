@@ -1,5 +1,6 @@
 @extends( 'tendoo::components.frontend.setup.master' )
 @section( 'tendoo::components.frontend.setup.body' )
+@include( 'tendoo::partials.shared.auth-logo' )
 <div class="card">
     <div class="card-header text-center">
         <h3 style="margin-bottom:0px" class="card-title">{{ __( 'Installation Page' ) }}</h3>

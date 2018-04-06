@@ -50,6 +50,7 @@ $BasicRoutes    =   function() {
      * Media Get Routes
      */
     Route::get( '/dashboard/medias', 'Tendoo\Core\Http\Controllers\Dashboard\MediasController@list' )->name( 'dashboard.medias.list' );
+    Route::get( '/dashboard/medias/{page?}', 'Tendoo\Core\Http\Controllers\Dashboard\MediasController@loadMedias' )->name( 'dashboard.medias.load' );
     Route::post( '/dashboard/medias', 'Tendoo\Core\Http\Controllers\Dashboard\MediasController@upload' )->name( 'dashboard.medias.upload' );
     Route::delete( '/dashboard/medias/{id}', 'Tendoo\Core\Http\Controllers\Dashboard\MediasController@post' )->name( 'dashboard.medias.update' );
     
