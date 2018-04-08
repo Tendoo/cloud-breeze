@@ -56,8 +56,9 @@ class MediasController extends TendooController
          */
         $uploadUrl  =   route( 'dashboard.medias.upload' );
         $loadUrl    =   route( 'dashboard.medias.load' );
+        $medias     =   [];
         
-        return view( 'tendoo::components.backend.media', compact( 'tabs', 'uploadUrl', 'loadUrl' ) );
+        return view( 'tendoo::components.backend.media', compact( 'tabs', 'uploadUrl', 'loadUrl', 'medias' ) );
     }
 
     /**

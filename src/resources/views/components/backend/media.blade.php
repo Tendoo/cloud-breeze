@@ -11,7 +11,7 @@
 @push( 'partials.shared.footer' )
     <script>
         "use strict";
-        var data  =   @json( compact( 'tabs', 'uploadUrl', 'loadUrl' ) );
+        var data  =   {!! json_encode( compact( 'medias', 'tabs', 'uploadUrl', 'loadUrl' ) ) !!}
         Dropzone.options.mediaUploader   =   {
             headers     :   {
                 'X-CSRF-TOKEN'  :   '{{ csrf_token() }}'
