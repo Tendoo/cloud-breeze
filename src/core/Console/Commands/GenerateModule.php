@@ -89,7 +89,7 @@ class GenerateModule extends Command
             /**
              * Geneate Internal Directories
              */
-            foreach([ 'Config', 'Crud', 'Events', 'Fields', 'Facades', 'Http', 'Migrations', 'Resources', 'Routes', 'Models', 'Providers', 'Services' ] as $folder ) {
+            foreach([ 'Config', 'Crud', 'Events', 'Fields', 'Facades', 'Http', 'Migrations', 'Resources', 'Routes', 'Models', 'Providers', 'Services', 'Public' ] as $folder ) {
                 Storage::disk( 'modules' )->makeDirectory( $this->module[ 'namespace' ] . DIRECTORY_SEPARATOR . $folder );
             }
 
@@ -106,7 +106,23 @@ class GenerateModule extends Command
             Storage::disk( 'modules' )->put( $this->module[ 'namespace' ] . DIRECTORY_SEPARATOR . 'config.xml', $this->streamContent( 'config' ) );
             Storage::disk( 'modules' )->put( $this->module[ 'namespace' ] . DIRECTORY_SEPARATOR . $this->module[ 'namespace' ] . 'Module.php', $this->streamContent( 'main' ) );
             Storage::disk( 'modules' )->put( $this->module[ 'namespace' ] . DIRECTORY_SEPARATOR . 'Events' . DIRECTORY_SEPARATOR . $this->module[ 'namespace' ] . 'Event.php', $this->streamContent( 'event' ) );
+            Storage::disk( 'modules' )->put( $this->module[ 'namespace' ] . DIRECTORY_SEPARATOR . 'Public' . DIRECTORY_SEPARATOR . 'index.html', '<h1>Silence is golden !</h1>' );
 
+            /**
+             * Generate Module Public Folder
+             * create a symbolink link to that directory
+             */
+            $target     =   base_path( 'modules/' . $this->module[ 'namespace' ] . '/Public' );
+
+            if ( ! \windows_os() ) {
+                Storage::disk( 'laravel-public' )->makeDirectory( 'modules/' . $this->module[ 'namespace' ] );
+                $link           =   \symlink( $target, public_path( '/modules/' . strtolowe( $this->module[ 'namespace' ] ) ) );
+            } else {
+                $mode       =   'J';
+                $link       =   public_path( 'modules' . DIRECTORY_SEPARATOR . strtolower( $this->module[ 'namespace' ] ) );
+                $target     =   base_path( 'modules' . DIRECTORY_SEPARATOR . $this->module[ 'namespace' ] . DIRECTORY_SEPARATOR . 'Public' );
+                $link       =   exec("mklink /{$mode} \"{$link}\" \"{$target}\"");
+            }
         } else {
 
             $this->error( 'A similar module has been found' );
