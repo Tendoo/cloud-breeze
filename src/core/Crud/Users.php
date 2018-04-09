@@ -204,7 +204,11 @@ class Users extends Crud
      */
     public function setActions()
     {
-        $this->actions      =   [
+        /**
+         * @hook:users.crud.actions
+         * Let you filter actions available on the user CRUD.
+         */
+        $this->actions      =   Hook::filter( 'users.crud.actions', [
             'edit'      =>  function( $user ) {
                 if ( Auth::id() == $user->id ) {
                     return [
@@ -231,7 +235,7 @@ class Users extends Crud
                 }
                 return false;
             }
-        ];
+        ]);
     }
 
     /**
