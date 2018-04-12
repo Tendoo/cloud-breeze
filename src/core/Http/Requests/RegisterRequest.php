@@ -4,6 +4,7 @@ namespace Tendoo\Core\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Tendoo\Core\Services\Field;
+use Tendoo\Core\Facades\Hook;
 
 class RegisterRequest extends FormRequest
 {
@@ -24,6 +25,9 @@ class RegisterRequest extends FormRequest
      */
     public function rules()
     {
-        return Field::buildValidation( 'register' );
+        /**
+         * @Hook:register.validation.rules
+         */
+        return Hook::filter( 'register.validation.rules', [], $this );
     }
 }

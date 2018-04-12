@@ -137,11 +137,14 @@ trait AuthFields {
      */
     public static function login()
     {
-        return [
+        /**
+         * @Hook:login.fields
+         */
+        return Hook::filter( 'login.fields', [
             self::loginUsername(),
             self::password(),
             self::rememberme()
-        ];
+        ]);
     }
 
     /**
@@ -157,7 +160,10 @@ trait AuthFields {
             'password_confirm'  =>  self::passwordConfirm(),
         ];
 
-        $fields     =   Hook::filter( 'registration.fields', $fields );
+        /**
+         * @Hook:register.fields
+         */
+        $fields     =   Hook::filter( 'register.fields', $fields );
         return $fields;
     }
 

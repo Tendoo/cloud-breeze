@@ -58,6 +58,10 @@ class TendooHandler extends ExceptionHandler
                     ], 401 );
                 }
 
+                if ( $exception instanceof CrudException ) {
+                    return response()->json( $exception->getResponse() );
+                }
+
                 if ( 
                     $exception instanceof AccessDeniedException ||
                     $exception instanceof RecoveryExpiredException ||

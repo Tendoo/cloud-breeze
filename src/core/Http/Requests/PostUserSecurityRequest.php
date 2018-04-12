@@ -3,8 +3,9 @@
 namespace Tendoo\Core\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Event;
 use Tendoo\Core\Services\Field;
+use Tendoo\Core\Facades\Hook;
+
 
 class PostUserSecurityRequest extends FormRequest
 {
@@ -25,11 +26,9 @@ class PostUserSecurityRequest extends FormRequest
      */
     public function rules()
     {
-        Event::Fire( 'before.validating.user-security-fields', $this );
-
         /**
-         * implemented to support multiple field on differents tabs
+         * @Hook:profile-security.validation.rules
          */
-        return Field::buildValidation([ 'userSecurityFields' ]);
+        return Hook::filter( 'profile-security.validation.rules', [], $this );
     }
 }

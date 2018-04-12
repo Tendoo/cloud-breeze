@@ -50,7 +50,7 @@ $BasicRoutes    =   function() {
      * Media Get Routes
      */
     Route::get( '/dashboard/medias', 'Tendoo\Core\Http\Controllers\Dashboard\MediasController@list' )->name( 'dashboard.medias.list' );
-    Route::get( '/dashboard/medias/{page?}', 'Tendoo\Core\Http\Controllers\Dashboard\MediasController@loadMedias' )->name( 'dashboard.medias.load' );
+    Route::get( '/ajax/medias/{page?}', 'Tendoo\Core\Http\Controllers\Dashboard\MediasController@loadMedias' )->name( 'dashboard.medias.load' );
     Route::post( '/dashboard/medias', 'Tendoo\Core\Http\Controllers\Dashboard\MediasController@upload' )->name( 'dashboard.medias.upload' );
     Route::delete( '/dashboard/medias/{id}', 'Tendoo\Core\Http\Controllers\Dashboard\MediasController@post' )->name( 'dashboard.medias.update' );
     
@@ -112,6 +112,13 @@ $BasicRoutes    =   function() {
      * CRUD DELETE Routes
      */
     Route::delete( '/dashboard/crud/{namespace}/{id}', 'Tendoo\Core\Http\Controllers\Dashboard\CrudController@crudDelete' )->name( 'dashboard.crud.delete' );
+
+    /**
+     * Options CRUD
+     */
+    Route::get( '/ajax/options/{key?}', 'Tendoo\Core\Http\Controllers\AjaxOptionsController@get' )->name( 'ajax.get.options' );
+    Route::post( '/ajax/options', 'Tendoo\Core\Http\Controllers\AjaxOptionsController@set' )->name( 'ajax.set.options' );
+    Route::delete( '/ajax/options/{key?}', 'Tendoo\Core\Http\Controllers\AjaxOptionsController@delete' )->name( 'ajax.delete.options' );
 };
 
 Route::middleware([ 'web' ])->group( function(){

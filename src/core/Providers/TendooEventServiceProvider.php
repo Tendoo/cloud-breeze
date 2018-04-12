@@ -5,6 +5,7 @@ namespace Tendoo\Core\Providers;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Tendoo\Core\Facades\Hook;
+use Tendoo\Core\Events\Settings;
 
 class TendooEventServiceProvider extends ServiceProvider
 {
@@ -100,5 +101,13 @@ class TendooEventServiceProvider extends ServiceProvider
             }
             return $namespace;
         });
+
+        /**
+         * Register Events
+         */
+        Hook::addFilter( 'options.validation.rules', Settings::class . '@validation', 10, 2 );
+        Hook::addFilter( 'profile-security.validation.rules', 'Tendoo\Core\Events\Users@profileSecurity', 10, 2 );
+        Hook::addFilter( 'profile-general.validation.rules', 'Tendoo\Core\Events\Users@profileGeneral', 10, 2 );
+        Hook::addFilter( 'register.validation.rules', 'Tendoo\Core\Events\Users@registration', 10, 2 );
     }
 }

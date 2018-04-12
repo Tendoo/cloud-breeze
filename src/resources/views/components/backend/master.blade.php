@@ -1,8 +1,9 @@
 @inject( 'Menus', 'Tendoo\Core\Services\Menus' )
 @inject( 'Hook', 'Tendoo\Core\Facades\Hook' )
+@inject( 'UserOptions', 'Tendoo\Core\Services\UserOptions' )
 @extends( 'tendoo::layouts.backend.master' )
 @section( 'tendoo::layouts.backend.master.body' )
-    <div class="app-wrapper h-100 d-flex align-items-stretch flex-row bmd-layout-container bmd-drawer-f-l">
+    <div class="app-wrapper {{ $UserOptions->get( 'dashboard-aside' ) }} h-100 d-flex align-items-stretch flex-row bmd-layout-container bmd-drawer-f-l">
         <aside id="sidebar-menu" class="h-100 d-flex flex-column">
             <div class="sidebar-logo align-items-center d-flex justify-content-center">
             <b>Tend</b>oo

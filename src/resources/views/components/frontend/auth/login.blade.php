@@ -1,5 +1,16 @@
 @inject( 'Field', 'Tendoo\Core\Services\Field' )
 @inject( 'Options', 'Tendoo\Core\Services\Options' )
+@Inject( 'Hook', 'Tendoo\Core\Facades\Hook' )
+@push( 'partials.shared.footer' )
+    @php
+    /**
+    * @Hook:login.footer.views
+    **/
+    @endphp
+    @foreach( $Hook::filter( 'login.footer.views', []) as $view )
+        @includeIf( $view )
+    @endforeach
+@endpush
 @extends( 'tendoo::components.frontend.auth.master' )
 @section( 'tendoo::components.frontend.auth.master.body' )
 <div class="col-md-4">

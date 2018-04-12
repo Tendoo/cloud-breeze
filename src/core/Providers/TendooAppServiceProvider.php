@@ -13,6 +13,7 @@ use Illuminate\Encryption\Encrypter;
 use Tendoo\Core\Services\Menus;
 use Tendoo\Core\Services\Dashboard\MenusConfig;
 use Tendoo\Core\Services\Options;
+use Tendoo\Core\Services\UserOptions;
 use Tendoo\Core\Services\Date;
 use Tendoo\Core\Services\Guard;
 use Tendoo\Core\Services\Users;
@@ -91,6 +92,11 @@ class TendooAppServiceProvider extends ServiceProvider
         // save Singleton for options
         $this->app->singleton( Options::class, function(){
             return new Options;
+        });
+
+        // save Singleton for options
+        $this->app->singleton( UserOptions::class, function(){
+            return new UserOptions( Auth::id() );
         });
 
         // save Singleton for options

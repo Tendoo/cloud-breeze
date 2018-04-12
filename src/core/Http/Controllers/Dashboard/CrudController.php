@@ -9,6 +9,7 @@ use Tendoo\Core\Http\Requests\CrudPutRequest;
 use Tendoo\Core\Facades\Hook;
 use Illuminate\Support\Facades\Event;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Tendoo\Core\Exceptions\CrudException;
 
 class CrudController extends TendooController
 {
@@ -137,10 +138,15 @@ class CrudController extends TendooController
         /**
          * @todo adding a link to edit the new entry
          */
-        return redirect()->route( $resource->getMainRoute() )->with([
+        // return redirect()->route( $resource->getMainRoute() )->with([
+        //     'status'    =>  'success',
+        //     'message'   =>  __( 'A new entry has been successfully created.' )
+        // ]);
+
+        return [
             'status'    =>  'success',
-            'message'   =>  __( 'A new entry has been successfully created.' )
-        ]);
+            'message'   =>  __( 'A new entry has been successfully created' )
+        ];
     }
 
     /**
@@ -215,10 +221,14 @@ class CrudController extends TendooController
         /**
          * @todo adding a link to edit the new entry
          */
-        return redirect()->route( $resource->getMainRoute() )->with([
+        // return redirect()->route( $resource->getMainRoute() )->with([
+        //     'status'    =>  'success',
+        //     'message'   =>  __( 'An new entry has been successfully updated.' )
+        // ]);
+        return [
             'status'    =>  'success',
             'message'   =>  __( 'An new entry has been successfully updated.' )
-        ]);
+        ];
     }
 
     /**
@@ -244,17 +254,18 @@ class CrudController extends TendooController
          * else throw an error
          */
         if ( $request->input( 'entry_id' ) == null ) {
-            return redirect()->route( $resource->getMainRoute() )->with([
+            // return redirect()->route( $resource->getMainRoute() )->with();
+            return [
                 'status'    =>  'danger',
                 'message'   =>  __( 'You must select an entry.' )
-            ]);
+            ];
         }
 
         if ( $request->input( 'action' ) == null ) {
-            return redirect()->route( $resource->getMainRoute() )->with([
+            return [
                 'status'    =>  'danger',
                 'message'   =>  __( 'You must select an action to perform.' )
-            ]);
+            ];
         }
 
         $response           =   $resource->bulkDelete( $request );
@@ -269,5 +280,29 @@ class CrudController extends TendooController
         }
 
         return redirect()->route( $resource->getMainRoute() )->with( $errors );
+    }
+
+    /**
+     * Crud GET
+     * @param string resource namespace
+     * @return CRUD Response
+     */
+    public function crudGet( string $namespace, Request $request )
+    {
+        $crudClass          =   Hook::filter( 'register.crud', $namespace );
+
+        /**
+         * Let's check it the resource has a method to retreive an item
+         */
+        $resource  =   new $crudClass;
+
+        if ( method_exists( $resource, 'getEntries' ) ) {
+            return $resource->getEntries( $request );
+        } else {
+            throw new CrudException([
+                'message'   =>  __( 'Unable to retreive items. The current CRUD resource doesn\'t implement "getEntries" methods' ),
+                'status'    =>  'danger'
+            ]);
+        }
     }
 }

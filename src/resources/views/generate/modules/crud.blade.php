@@ -70,6 +70,15 @@ class {{ ucwords( camel_case( str_plural( $resource_name ) ) ) }} extends Crud
     }
 
     /**
+     * Check whether a feature is enabled
+     * @return boolean
+    **/
+    public function isEnabled( $feature )
+    {
+        return false; // by default
+    }
+
+    /**
      * Fields
      * @param object/null
      * @return array of field
@@ -262,5 +271,23 @@ class {{ ucwords( camel_case( str_plural( $resource_name ) ) ) }} extends Crud
                 [ 'href'    =>  route( '{{ strtolower( trim( $route_name ) ) }}.list' ), 'text' => __( 'Return' ), 'class' => 'btn btn-raised btn-secondary' ]
             ]
         ];
+    }
+
+    /**
+     * Get Bulk actions
+     * @return array of actions
+    **/
+    public function getBulkActions()
+    {
+        return [];
+    }
+
+    /**
+     * get exports
+     * @return array of export formats
+    **/
+    public function getExports()
+    {
+        return [];
     }
 }

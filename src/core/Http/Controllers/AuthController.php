@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Http\RedirectResponse;
 use Tendoo\Core\Services\Page;
 use Tendoo\Core\Services\Options;
 use Tendoo\Core\Services\UserOptions;
@@ -77,9 +78,13 @@ class AuthController extends BaseController
     {
         /**
          * Event: before.login
+         * It might return a redirection
          * @since 1.0
          */
-        Hook::action( 'before.login' );
+        $response   =   Hook::filter( 'before.login', '' );
+        if ( $response instanceof RedirectResponse ) {
+            return $response;
+        }
 
         if ( Auth::attempt([
             'username'  => $request->input( 'username' ), 
@@ -162,15 +167,15 @@ class AuthController extends BaseController
     {
         /**
          * Trigger Action before registering the users
-         * @filter:before.registration
+         * @filter:before.register
          */
-        $redirect           =   Hook::filter( 'before.registration', false, $request, $options );
+        $redirect           =   Hook::filter( 'before.register', false, $request, $options );
 
         /**
          * A hook can control the user registration
          */
-        if ( ! empty( $redirect ) ) {
-            return redirect()->route( 'registration.index' )->with( $redirect );
+        if ( $redirect instanceof RedirectResponse ) {
+            return $redirect;
         }
 
         $shouldActivate     =   $options->get( 'validate_users', 'false' ) === 'true' ? true : false;

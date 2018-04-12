@@ -43,7 +43,7 @@ class TendooController extends Controller
                 $this->date         =   app()->make( Date::class );
 
                 /**
-                 * @hook.action
+                 * @hook:dashboard.loaded
                  * run when the dashboard is loaded
                  */
                 Hook::action( 'dashboard.loaded' );

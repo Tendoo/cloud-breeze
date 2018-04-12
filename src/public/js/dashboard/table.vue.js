@@ -1,5 +1,12 @@
 var TendooTable     =   new Vue({
     el      :   '#tendoo-table',
+    data    :   Object.assign({}, data, {
+        entries   :   [],
+        action  :   '',
+        format  :   '',
+        sortColumn  :   '',
+        sortMethod  :   '',
+    }),
     methods: {
         /**
          * delete
@@ -39,8 +46,61 @@ var TendooTable     =   new Vue({
                     $( this ).prop( 'checked' , false );
                 })
             }
+        },
+
+        /**
+         * Perform a bulk Action
+         * @return void
+         */
+        bulk( action ) {
+            console.log( action );
+        },
+
+        /**
+         * Export Actions
+         * @param string format
+         * @return void
+         */
+        export( format ) {
+            console.log( format );
+        },
+
+        /**
+         * Set order by column
+         * @param string column
+         * @param string method
+         */
+        sortBy( namespace, column ) {
+
+            /**
+             * cancel sort on others columns
+             */
+            for ( let _namespace in this.columns ) {
+                if ( _namespace != namespace ) {
+                    this.columns[ _namespace ].method     =   '';
+                }
+            }
+
+            column              =   Object.assign({}, column );
+            /**
+             * Define column method
+             */
+            if ( column.method == 'asc' ) {
+                column.method   =   'desc';
+            } else {
+                column.method   =   'asc';
+            }
+
+            this.sortMethod     =   column.method;
+            this.sortColumn     =   namespace;
+
+            /**
+             * Trigger Render
+             */
+            this.$set( this.columns, namespace, column );
         }
     },
-    mounted()  {
+    created()  {
+        
     }
 })

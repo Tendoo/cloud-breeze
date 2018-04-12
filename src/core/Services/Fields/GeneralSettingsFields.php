@@ -14,7 +14,7 @@ trait GeneralSettingsFields
         $app_name->type             =   'text';
         $app_name->description      =   __( 'This name will be used to identify the application.' );
         $app_name->placeholder      =   $app_name->label;
-        $app_name->validation       =   'require|min:5';
+        $app_name->validation       =   'sometimes|required|min:5';
         $app_name->value            =   $options->get( $app_name->name );
 
         $timezone                   =   new \StdClass;

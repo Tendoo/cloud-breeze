@@ -12,7 +12,7 @@ class PublishCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'tendoo:publish';
+    protected $signature = 'tendoo:publish {--asset=}';
 
     /**
      * The console command description.
@@ -38,22 +38,37 @@ class PublishCommand extends Command
      */
     public function handle()
     {
-        /**
-         * moving assets
-         */
-        $files  =   Storage::disk( 'tendoo-assets' )->allFiles();
+        if ( $this->option( 'asset' ) ) {
+            /**
+             * Can only publis file which exists
+             */
+            if ( Storage::disk( 'tendoo-assets' )->exists( $this->option( 'asset' ) ) ) {
+                $file   =   Storage::disk( 'tendoo-assets' )->get( $this->option( 'asset' ) );
+                Storage::disk( 'laravel-public' )->put( 'tendoo/' . $this->option( 'asset' ), $file );
 
-        foreach( $files as $file ) {
-            Storage::disk( 'laravel-public' )->put( 'tendoo/' . $file, Storage::disk( 'tendoo-assets' )->get( $file ) );
-        }
+                return $this->info( sprintf( __( 'The file : %s has been published' ), $this->option( 'asset' ) ) );
+            } else {
 
-        /**
-         * moving config
-         */
-        $files  =   Storage::disk( 'tendoo-config' )->allFiles();
-        
-        foreach( $files as $file ) {
-            Storage::disk( 'config' )->put( $file, Storage::disk( 'tendoo-config' )->get( $file ) );
+                return $this->error( sprintf( __( 'Unable to located the file : %s' ), $this->option( 'asset' ) ) );
+            }
+        } else {
+            /**
+             * moving assets
+             */
+            $files  =   Storage::disk( 'tendoo-assets' )->allFiles();
+    
+            foreach( $files as $file ) {
+                Storage::disk( 'laravel-public' )->put( 'tendoo/' . $file, Storage::disk( 'tendoo-assets' )->get( $file ) );
+            }
+    
+            /**
+             * moving config
+             */
+            $files  =   Storage::disk( 'tendoo-config' )->allFiles();
+            
+            foreach( $files as $file ) {
+                Storage::disk( 'config' )->put( $file, Storage::disk( 'tendoo-config' )->get( $file ) );
+            }
         }
     }
 }

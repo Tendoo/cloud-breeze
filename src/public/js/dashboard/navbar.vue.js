@@ -4,7 +4,8 @@ var TendooTopBar    =   new Vue({
         window  :   {
             width: 0,
             height: 0
-        }
+        },
+        options     :   new Options
     },
     methods: {
         /**
@@ -19,6 +20,10 @@ var TendooTopBar    =   new Vue({
                 
                 $( '.app-wrapper' ).removeClass( 'bmd-drawer-overlay' );
                 $( '#app-body' ).removeClass( 'bmd-drawer-overlay' );
+
+                this.options.save( 'dashboard-aside', 'collapsed-aside' ).then( foo => {
+                    console.log( foo );
+                });
             } else {
                 $( 'body > div' ).addClass( 'expanded-aside' );
                 $( 'body > div' ).removeClass( 'collapsed-aside' );
@@ -30,6 +35,10 @@ var TendooTopBar    =   new Vue({
                 } else {
                     $( '#sidebar-menu' ).css({ 'position' : 'relative' });
                 }
+
+                this.options.save( 'dashboard-aside', 'expanded-aside' ).then( foo => {
+                    console.log( foo );
+                });
             }
         },
 

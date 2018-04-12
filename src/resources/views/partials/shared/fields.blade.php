@@ -48,3 +48,8 @@
     @include( 'tendoo::partials.shared.fields.radio' )
 @endif
 
+{{-- Adding Field : html --}}
+@if ( $field->type == 'html' ) 
+    {!! $field->output !!}
+@endif
+

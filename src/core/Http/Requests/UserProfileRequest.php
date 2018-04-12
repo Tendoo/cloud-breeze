@@ -3,8 +3,8 @@
 namespace Tendoo\Core\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Event;
 use Tendoo\Core\Services\Field;
+use Tendoo\Core\Facades\Hook;
 
 class UserProfileRequest extends FormRequest
 {
@@ -25,11 +25,9 @@ class UserProfileRequest extends FormRequest
      */
     public function rules()
     {
-        Event::Fire( 'before.validating.user-general-fields', $this );
-
         /**
-         * implemented to support multiple field on differents tabs
+         * @Hook:profile-general.validation.rules
          */
-        return Field::buildValidation([ 'userGeneralFields' ]);
+        return Hook::filter( 'profile-general.validation.rules', [], $this );
     }
 }

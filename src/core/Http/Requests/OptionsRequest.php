@@ -8,6 +8,7 @@ namespace Tendoo\Core\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Event;
+use Tendoo\Core\Facades\Hook;
 
 class OptionsRequest extends FormRequest
 {
@@ -27,20 +28,11 @@ class OptionsRequest extends FormRequest
      * @return array
      */
     public function rules()
-    {
+    {        
         /**
-         * Define default validation rules
+         * @Hook:options.validation.rules
+         * Validation rule for options can be registered using this filter
          */
-        config([ 'tendoo.validations.options' => [
-            'app_name'  =>  'sometimes|required'
-        ]]);
-        
-        /**
-         * Options validation rules can be registered using the 
-         * Tendoo\Core\Service\Helper::(trait)pushValidationRule method
-         */
-        Event::Fire( 'before.validating.options', $this );
-
-        return config( 'tendoo.validations.options' );
+        return Hook::filter( 'options.validation.rules', [], $this );
     }
 }

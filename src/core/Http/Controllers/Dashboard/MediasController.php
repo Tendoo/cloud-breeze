@@ -26,6 +26,19 @@ class MediasController extends TendooController
     public function __construct()
     {
         parent::__construct();
+        
+        /**
+         * Supported file extension
+         * @var array<String>
+         */
+        $this->extensions     =   [ 'jpeg', 'png'  ];
+
+        /**
+         * Launching the media Service
+         */
+        $this->mediaService  =   new MediaService([
+            'extensions'   =>  $this->extensions
+        ]);
     }
 
     /**
@@ -52,13 +65,19 @@ class MediasController extends TendooController
         ];
 
         /**
+         * Text Domain
+         */
+        $lang   =   [
+            'deleteBulk'    =>  __( 'Would you like to delete all selected entries ?' )
+        ];
+
+        /**
          * define upload url
          */
         $uploadUrl  =   route( 'dashboard.medias.upload' );
         $loadUrl    =   route( 'dashboard.medias.load' );
-        $medias     =   [];
         
-        return view( 'tendoo::components.backend.media', compact( 'tabs', 'uploadUrl', 'loadUrl', 'medias' ) );
+        return view( 'tendoo::components.backend.media', compact( 'tabs', 'uploadUrl', 'loadUrl', 'lang' ) );
     }
 
     /**
@@ -67,17 +86,6 @@ class MediasController extends TendooController
      */
     public function upload( Request $request )
     {
-        /**
-         * Supported file extension
-         * @var array<String>
-         */
-        $extensions     =   [ 'jpeg', 'png'  ];
-
-        /**
-         * Launching the media Service
-         */
-        $this->mediaService  =   new MediaService( compact( 'extensions' ) );
-
         /**
          * uploading a file
          */
@@ -91,7 +99,6 @@ class MediasController extends TendooController
      */
     public function loadMedias( $page = 1 ) 
     {
-        $medias     =   Media::all();
-        return $medias;
+        return $this->mediaService->loadAjax( $page );
     }
 }

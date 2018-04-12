@@ -21,7 +21,7 @@
         
         <div class="content-body h-100">
             <div class="container-fluid pt-3 p-4">
-                @include( 'tendoo::partials.shared.tables-boxed', [
+                @include( 'tendoo::partials.shared.vue-table-boxed', [
                     'resource'  =>  $resource
                 ])
             </div>

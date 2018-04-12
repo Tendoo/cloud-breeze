@@ -74,7 +74,7 @@ class MediaService
             $media              =   new Media;
             $media->name        =   $file->getClientOriginalName();
             $media->extension   =   $file->getClientOriginalExtension();
-            $media->slug        =   $fileName;
+            $media->slug        =   Storage::disk( 'public' )->url( $year . '/' . $month . '/' . $fileName );
             $media->user_id     =   Auth::id();
             $media->save();
 
@@ -99,4 +99,25 @@ class MediaService
         return false;
     }
 
+    /**
+     * Load Medias
+     * @param media int
+     * @return void
+     */
+    public function loadAjax()
+    {
+        $medias     =   Media::paginate(20);
+        
+        /**
+         * populating the media
+         */
+        foreach( $medias as &$media ) {
+            foreach( $this->sizes as $name => $sizes ) {
+                $media->sizes    =   new \stdClass;
+                $media->sizes->$name    =   $media->slug . '-' . $name . '.' . $media->extension;
+            }
+        }
+
+        return $medias;
+    }
 }
