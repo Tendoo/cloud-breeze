@@ -62,7 +62,7 @@ class UsersController extends TendooController
          * where he can't edit his role
          */
         if ( Auth::id() == $entry->id ) {
-            return redirect()->route( 'dashboard.users.profile' );
+            return redirect()->route( 'dashboard.users.profile.general' );
         }
 
         $this->setTitle( __( 'Edit a user' ) );

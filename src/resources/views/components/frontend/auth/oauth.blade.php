@@ -1,14 +1,17 @@
 @inject( 'Field', 'Tendoo\Core\Services\Field' )
+@Inject( 'Auth', 'Illuminate\Support\Facades\Auth' )
 @extends( 'tendoo::components.frontend.auth.master' )
 @section( 'tendoo::components.frontend.auth.master.body' )
-<div class="col-md-4">
+<div class="col-md-6 col-lg-4 col-sm-10 col-xs-12">
     <div class="row d-flex flex-column">
         @include( 'tendoo::partials.shared.auth-logo' )
         <div class="col-md-12">
             <form action="{{ route( 'oauth.post' ) }}" method="post">
                 {{ csrf_field() }}
                 <div class="card">
-                    <div class="card-header">{{ __( 'Auth Page' ) }}</div>
+                    <div class="card-header">
+                        {{ sprintf( __( '%s : Authorization' ), $Auth::user()->username ) }} 
+                    </div>
                     @include( 'tendoo::partials.shared.errors', compact( 'errors' ) )
                     <div class="card-body p-0">
                         <h4 class="text-center py-3 mb-0">{{ sprintf( __( '%s would like to :' ), $name ) }}</h4>

@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="{{ asset( 'tendoo/css/simplebar.css' ) }}" />
 
     <script src="{{ asset( 'tendoo/bower_components/jquery/dist/jquery.min.js' ) }}"></script>
+    <script src="{{ asset( 'tendoo/js/jquery.extended.js' ) }}"></script>
     <script src="{{ asset( 'tendoo/bower_components/vue/dist/vue.min.js' ) }}"></script>
     <script src="{{ asset( 'tendoo/bower_components/axios/dist/axios.min.js' ) }}"></script>
 @endsection
@@ -24,6 +25,7 @@
     <script src="{{ asset( 'tendoo/bower_components/popper.js/dist/umd/popper.min.js' ) }}"></script>
     <script src="{{ asset( 'tendoo/bower_components/bootstrap-material-design/js/bootstrap-material-design.js' ) }}"></script>
     <script src="{{ asset( 'tendoo/node_modules/material-components-web/dist/material-components-web.js' ) }}"></script>
+    <script src="{{ asset( 'tendoo/js/dashboard/md-snackbar.js' ) }}"></script>
     <script src="{{ asset( 'tendoo/js/dashboard/aside.vue.js' ) }}"></script>
     <script src="{{ asset( 'tendoo/js/dashboard/navbar.vue.js' ) }}"></script>
     <script>
@@ -34,6 +36,14 @@
     </script>
     <!-- Scroll Bar JS -->
     <script src="{{ asset( 'tendoo/js/simplebar.js' ) }}"></script>
+    <script>
+    var tendooApi           =   new Object;
+
+        /**
+         * Tendoo SnackBar
+         */
+        tendooApi.SnackBar  =   new MdSnackbar();
+    </script>
 @endsection
 @include( 'tendoo::partials.shared.header' )
     @yield( 'tendoo::layouts.backend.master.body' ) 

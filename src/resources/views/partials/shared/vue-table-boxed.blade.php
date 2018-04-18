@@ -3,7 +3,14 @@
     @parent
     <script>
     var data    =   {!! json_encode([
-        'columns'   =>  $resource->getColumns()
+        'columns'       =>  $resource->getColumns(),
+        'getURL'        =>  route( 'dashboard.crud.list', [
+            'namespace' =>  $resource->getNamespace()
+        ]),
+        'deleteURL'     =>  route( 'dashboard.crud.delete', [
+            'namespace' =>  $resource->getNamespace()
+        ]),
+        'editURL'       =>  route( 'dashboard.users.edit' )
     ]) !!}
     </script>
     <script src="{{ asset( 'tendoo/js/dashboard/table.vue.js' ) }}"></script>
@@ -48,18 +55,18 @@
                                     </label>
                                 </div>
                             </th>
-                            <th scope="col" v-for="( column, namespace ) in columns" :class="'column-' + namespace">
+                            <th width="200" scope="col" v-for="( column, namespace ) in columns" :class="'column-' + namespace">
                                 <div class="d-flex justify-content-between" @click="sortBy( namespace, column )">
-                                    <a href="javascript:void(0)">@{{ column.text }}</a>
-                                    <i class="material-icons" style="float:right" v-show="column.method == 'asc'">arrow_drop_down</i>
-                                    <i class="material-icons" style="float:right" v-show="column.method == 'desc'">arrow_drop_up</i>
+                                    <span style="font-size:18px">@{{ column.text }}</span>
+                                    <i class="material-icons" style="float:right" v-show="column.method == 'desc'">arrow_drop_down</i>
+                                    <i class="material-icons" style="float:right" v-show="column.method == 'asc'">arrow_drop_up</i>
                                 </div>
                             </th>
                             <th></th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr v-if="entries.length > 0">
+                    <tbody v-if="result">
+                        <tr v-for="( entry, rowIndex ) of result.data">
                             <td>
                                 <div class="checkbox">
                                     <label>
@@ -68,14 +75,7 @@
                                 </div>
                             </td>
 
-                            @foreach( ( array ) @$resource->getColumns() as $name => $column )
-                                @if ( is_callable( @$column[ 'filter' ] ) )
-                                <!-- Hopfully PHP 7.x let us acheive this -->
-                                <th class="column-{{ $name }}"></th>
-                                @else 
-                                <th class="column-{{ $name }}">{{ $name }}</th>
-                                @endif
-                            @endforeach
+                            <th v-for="( column, namespace ) in columns" class="column-">@{{ entry[ namespace ] }}</th>
                             
                             <th class="p-2" width="100">
                                 <div class="dropdown show">
@@ -85,20 +85,44 @@
 
                                     <div class="dropdown-menu dropdown-menu-right">
                                         @foreach( $resource->getActions() as $name => $action )
-                                            <a href="#" class="dropdown-item">{{ $name }}</a>
+                                            <a href="javascript:void(0)" @click="handle('{{ $name }}', entry.id, rowIndex )" class="dropdown-item">{{ $action[ 'text' ] }}</a>
                                         @endforeach
                                     </div>
                                 </div>
                             </th>
                         </tr>
-                        <tr v-if="entries.length == 0">
+                        <tr v-if="! result">
                             <td colspan="{{ count( @$resource->getColumns() ) + 2 }}" class="text-center">{{ __( 'No entry available' ) }}</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
             <div class="card-footer">
-                
+                <div class="row">
+                    <div class="col-md-6">
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination mb-0">
+                                <li class="page-item"><a @click="goTo( currentPage == 1 ? 1 : currentPage -1 )" class="page-link" href="javascript:void(0)"><i class="material-icons">keyboard_arrow_left</i></a></li>
+                                <li class="page-item p-1" :class="{ 'active' : index == result.current_page }" v-for="index of pageIndexes"><a @click="goTo( index )" class="page-link" href="javascript:void(0)">@{{ index }}</a></li>
+                                <li class="page-item"><a @click="goTo( currentPage == lastPage ? lastPage : currentPage + 1 )" class="page-link" href="javascript:void(0)"><i class="material-icons">keyboard_arrow_right</i></a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="dropdown pull-right">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                {{ __( 'Displayed' )}} &mdash; @{{ perPage }}
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a @click="setPerPage(10)" class="dropdown-item" href="javascript:void(0)">10</a>
+                                <a @click="setPerPage(25)" class="dropdown-item" href="javascript:void(0)">25</a>
+                                <a @click="setPerPage(50)" class="dropdown-item" href="javascript:void(0)">50</a>
+                                <a @click="setPerPage(100)" class="dropdown-item" href="javascript:void(0)">100</a>
+                                <a @click="setPerPage(200)" class="dropdown-item" href="javascript:void(0)">200</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </form>

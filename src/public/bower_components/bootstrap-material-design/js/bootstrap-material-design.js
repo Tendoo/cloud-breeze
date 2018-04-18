@@ -1,3 +1,5 @@
+window.BootstrapMaterialAPI   = {};
+
 (function () {
 'use strict';
 
@@ -4462,6 +4464,9 @@ var Checkbox = function ($) {
 
   return Checkbox;
 }(jQuery);
+
+// Export Checkbox Class
+window.BootstrapMaterialAPI.checkbox  = Checkbox;
 
 var CheckboxInline = function ($) {
   /**

@@ -96,7 +96,7 @@ class TendooEventServiceProvider extends ServiceProvider
          * Register Crud definition
          */
         Hook::addFilter( 'register.crud', function( $namespace ) {
-            if ( $namespace == 'system.users' ) {
+            if ( $namespace == 'users' ) {
                 return \Tendoo\Core\Crud\Users::class;
             }
             return $namespace;

@@ -13,7 +13,7 @@
     @endforeach
 @endpush
 @section( 'tendoo::components.frontend.auth.master.body' )
-<div class="col-md-6">
+<div class="col-md-6 col-lg-4 col-sm-10 col-xs-12">
     <div class="row d-flex flex-column">
         @include( 'tendoo::partials.shared.auth-logo' )
         <div class="col-md-12">

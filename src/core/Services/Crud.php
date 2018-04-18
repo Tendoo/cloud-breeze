@@ -109,7 +109,7 @@ class Crud
     public function getEntries()
     {
         $request    =   app()->make( Request::class );
-        $query  =   DB::table( $this->table );
+        $query      =   DB::table( $this->table );
         /**
          * Let's loop relation if they exists
          */
@@ -181,7 +181,15 @@ class Crud
             );
         }
 
-        return   $query->paginate(20);
+        /**
+         * let's make the "perPage" value adjustable
+         */
+        $perPage    =   20;
+        if ( $request->query( 'per_page' ) ) {
+            $perPage    =   $request->query( 'per_page' );
+        }
+
+        return $query->paginate( $perPage );
     }
 
     /**

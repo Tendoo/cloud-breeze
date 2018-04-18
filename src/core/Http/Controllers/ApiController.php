@@ -86,7 +86,7 @@ class ApiController extends BaseController
              */
             $model  =   $details->model;
             if ( is_array( @$details->where ) ) {
-                foreach( $details as $key => $value ) {
+                foreach( $details->where as $key => $value ) {
                     $model::where( $key, $value );
                 }
             }

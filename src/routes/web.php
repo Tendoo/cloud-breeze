@@ -33,7 +33,7 @@ $BasicRoutes    =   function() {
     Route::get( '/dashboard/profile/general', 'Tendoo\Core\Http\Controllers\Dashboard\UsersController@showGeneral' )->name( 'dashboard.users.profile.general' );
     Route::get( '/dashboard/profile/security', 'Tendoo\Core\Http\Controllers\Dashboard\UsersController@showSecurity' )->name( 'dashboard.users.profile.security' );
     Route::get( '/dashboard/profile/oauth', 'Tendoo\Core\Http\Controllers\Dashboard\UsersController@showOauth' )->name( 'dashboard.users.profile.oauth' );
-    Route::get( '/dashboard/users/{entry}', 'Tendoo\Core\Http\Controllers\Dashboard\UsersController@editUser' )->name( 'dashboard.users.edit' );
+    Route::get( '/dashboard/users/{entry?}', 'Tendoo\Core\Http\Controllers\Dashboard\UsersController@editUser' )->name( 'dashboard.users.edit' );
     
     /**
      * Module Get Routes
@@ -99,6 +99,7 @@ $BasicRoutes    =   function() {
     Route::post( '/dashboard/crud/post/{namespace}', 'Tendoo\Core\Http\Controllers\Dashboard\CrudController@crudPost' )->name( 'dashboard.crud.post' );
     Route::post( '/dashboard/crud/put/{namespace}/{id}', 'Tendoo\Core\Http\Controllers\Dashboard\CrudController@crudPut' )->name( 'dashboard.crud.put' );
     Route::post( '/dashboard/crud/bulk/{namespace}', 'Tendoo\Core\Http\Controllers\Dashboard\CrudController@crudBulkActions' )->name( 'dashboard.crud.bulk-actions' );
+    Route::get( '/dashboard/crud/list/{namespace}', 'Tendoo\Core\Http\Controllers\Dashboard\CrudController@crudList' )->name( 'dashboard.crud.list' );
     
     /**
      * Auth POST Routes
@@ -111,7 +112,7 @@ $BasicRoutes    =   function() {
     /**
      * CRUD DELETE Routes
      */
-    Route::delete( '/dashboard/crud/{namespace}/{id}', 'Tendoo\Core\Http\Controllers\Dashboard\CrudController@crudDelete' )->name( 'dashboard.crud.delete' );
+    Route::delete( '/dashboard/crud/{namespace}/{id?}', 'Tendoo\Core\Http\Controllers\Dashboard\CrudController@crudDelete' )->name( 'dashboard.crud.delete' );
 
     /**
      * Options CRUD

@@ -138,15 +138,15 @@ class CrudController extends TendooController
         /**
          * @todo adding a link to edit the new entry
          */
-        // return redirect()->route( $resource->getMainRoute() )->with([
-        //     'status'    =>  'success',
-        //     'message'   =>  __( 'A new entry has been successfully created.' )
-        // ]);
-
-        return [
+        return redirect()->route( $resource->getMainRoute() )->with([
             'status'    =>  'success',
-            'message'   =>  __( 'A new entry has been successfully created' )
-        ];
+            'message'   =>  __( 'A new entry has been successfully created.' )
+        ]);
+
+        // return [
+        //     'status'    =>  'success',
+        //     'message'   =>  __( 'A new entry has been successfully created' )
+        // ];
     }
 
     /**
@@ -221,14 +221,37 @@ class CrudController extends TendooController
         /**
          * @todo adding a link to edit the new entry
          */
-        // return redirect()->route( $resource->getMainRoute() )->with([
-        //     'status'    =>  'success',
-        //     'message'   =>  __( 'An new entry has been successfully updated.' )
-        // ]);
-        return [
+        return redirect()->route( $resource->getMainRoute() )->with([
             'status'    =>  'success',
             'message'   =>  __( 'An new entry has been successfully updated.' )
-        ];
+        ]);
+        // return [
+        //     'status'    =>  'success',
+        //     'message'   =>  __( 'An new entry has been successfully updated.' )
+        // ];
+    }
+
+    /**
+     * Crud List
+     * @return array of results
+     */
+    public function crudList( string $namespace )
+    {
+        $crudClass          =   Hook::filter( 'register.crud', $namespace );
+        $service            =   app()->make( 'Tendoo\Core\Services\Crud' );
+
+        /**
+         * In case nothing handle this crud
+         */
+        if ( ! class_exists( $crudClass ) ) {
+            throw new CrudException([
+                'message'   =>  sprintf( __( 'Unable to load the CRUD resource : %s.' ), $crudClass )
+            ]);
+        }
+
+        $resource   =   new $crudClass;
+
+        return $resource->getEntries();
     }
 
     /**

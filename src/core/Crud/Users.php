@@ -25,7 +25,7 @@ class Users extends Crud
      * Define namespace
      * @param string
      */
-    protected $namespace  =   'system.users';
+    protected $namespace  =   'users';
 
     /**
      * Model Used
@@ -116,11 +116,11 @@ class Users extends Crud
         $user       =   $request->route( 'id' ) ? User::find( $request->route( 'id' ) ) : false;
         
         /**
-         * If the current request process system.users namespace
+         * If the current request process users namespace
          */
         $fields     =   $this->getFields( $user );
 
-        if ( $request->route( 'namespace' ) == 'system.users' ) {
+        if ( $request->route( 'namespace' ) == 'users' ) {
 
             /**
              * Use UserFieldsValidation and add assign it to "crud" validation array
@@ -136,7 +136,7 @@ class Users extends Crud
      * @return void
      */
     public function beforeDelete( $namespace, $id ) {
-        if ( $namespace == 'system.users' ) {
+        if ( $namespace == 'users' ) {
             /**
              * @todo we might check if the 
              * user has the right to delete
@@ -209,32 +209,18 @@ class Users extends Crud
          * Let you filter actions available on the user CRUD.
          */
         $this->actions      =   Hook::filter( 'users.crud.actions', [
-            'edit'      =>  function( $user ) {
-                if ( Auth::id() == $user->id ) {
-                    return [
-                        'text'  =>  __( 'My Profile' ),
-                        'url'   =>  url()->route( 'dashboard.users.profile.general' )
-                    ];
-                } else {
-                    return [
-                        'text'  =>  __( 'Edit' ),
-                        'url'   =>  url()->route( 'dashboard.users.edit', [ 'id' => $user->id ] )
-                    ];
-                }
-            },
-            'delete'    =>  function( $user ) {
-                if ( Auth::id() != $user->id ) {
-                    return [
-                        'type'  =>  'DELETE',
-                            'url'   =>  url()->route( 'dashboard.crud.delete', [ 
-                            'id'            =>  $user->id,
-                            'namespace'     =>  'system.users'
-                        ]),
-                        'text'  =>  __( 'Delete' )
-                    ];
-                }
-                return false;
-            }
+            'edit'      =>  [
+                'text'  =>  __( 'Edit' ),
+                'type'  =>  'GET',
+                'url'   =>  url()->route( 'dashboard.users.edit' )
+            ],
+            'delete'    =>  [
+                'type'  =>  'DELETE',
+                    'url'   =>  url()->route( 'dashboard.crud.delete', [ 
+                    'namespace'     =>  'users'
+                ]),
+                'text'  =>  __( 'Delete' )
+            ]
         ]);
     }
 

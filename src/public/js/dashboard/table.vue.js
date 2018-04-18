@@ -1,13 +1,26 @@
 var TendooTable     =   new Vue({
     el      :   '#tendoo-table',
     data    :   Object.assign({}, data, {
-        entries   :   [],
+        result   :   {},
         action  :   '',
         format  :   '',
         sortColumn  :   '',
         sortMethod  :   '',
+        actions     :   {},
+        pageIndex   :   1,
+        perPage     :   25
     }),
     methods: {
+
+        __serialize( object ) {
+            var str = [];
+            for (var p in object)
+                if (object.hasOwnProperty(p)) {
+                str.push(encodeURIComponent(p) + "=" + encodeURIComponent(object[p]));
+                }
+            return str.join("&");
+        },
+
         /**
          * delete
          * @param int entry id
@@ -93,14 +106,154 @@ var TendooTable     =   new Vue({
 
             this.sortMethod     =   column.method;
             this.sortColumn     =   namespace;
+            
+            this.getEntries();
 
             /**
              * Trigger Render
              */
             this.$set( this.columns, namespace, column );
-        }
+        },
+
+        /**
+         * This Get Entries
+         * @return void
+         */
+        getEntries() {
+            let data    =   {};
+
+            if ( this.sortColumn ) {
+                data.column     =   this.sortColumn;
+            }
+
+            if ( this.sortMethod ) {
+                data.order      =   this.sortMethod;
+            }
+
+            if( this.pageIndex ) {
+                data.page       =   this.pageIndex;
+            }
+
+            if ( this.perPage ) {
+                data.per_page    =   this.perPage;
+            }
+
+            axios.get( this.getURL + `?${this.__serialize( data )}` ).then( result => {
+                this.result     =   result.data;
+                this.pageIndex  =   this.result.current_page;
+                setTimeout( () => {
+                    this.refreshCheckboxes();
+                }, 100 );
+            });
+        },
+
+        /**
+         * refresh Checkboxes
+         * @return void
+         */
+        refreshCheckboxes() {
+            $( 'td > div.checkbox > label > input:checkbox' ).hasNoAncestor( '.bmd-form-group' ).each(function(){
+                new window.BootstrapMaterialAPI.checkbox( $( this ) );
+            });
+        },
+
+        /**
+         * Handle Click events over inline actions
+         * @param string event name
+         * @param int entry index
+         * @param int current row index
+         * @return void
+         */
+        handle( name, id, rowIndex ) {
+            if ( this.actions[ name ] != undefined ) {
+                this.actions[ name ]( id, rowIndex );
+            } else {
+                throw `Unhandled CRUD action : ${name}`;
+            }
+        },
+
+        /**
+         * Delete
+         */
+        delete( id, rowIndex ) {
+            axios.delete( this.deleteURL +  `/${id}` ).then( result => {
+                this.result.data.splice( rowIndex, 1 );
+                tendooApi.SnackBar.show(  result.data.message );
+            }).catch( error => {
+                tendooApi.SnackBar.show( error.response.data.message );
+            })
+        },
+
+        /**
+         * Edit Item
+         * @return void
+         */
+        edit( id, rowIndex ) {
+            document.location   =   this.editURL + `/${id}`;
+        },
+
+        /**
+         * Move a page to a specific index
+         * @param number index
+         * @return void
+         */
+        goTo( index ) {
+            this.pageIndex  =   index;
+            this.getEntries();
+        },
+
+        /**
+         * Set Per Page
+         * @param number page index
+         * @return void
+         */
+        setPerPage( pageIndex ) {
+            this.perPage    =   pageIndex;
+            this.getEntries();
+        },
     },
     created()  {
-        
+        this.actions.delete     =   this.delete;
+        this.actions.edit     =   this.edit;
+        this.getEntries();
+    },
+    computed: {
+        pageIndexes: function() {
+            let indexes     =   [];
+            if ( this.result ) {
+                for( let i = 1; i <= Math.ceil( this.result.total / this.result.per_page ); i++ ) {
+                    indexes.push( i );
+                }
+            }
+            return indexes;
+        },
+
+        lastIndex: function() {
+            let lastIndex   =   1;
+            if( this.result ) {
+                lastIndex   =   this.result.to;
+            }
+            return lastIndex;
+        },
+
+        currentPage: function() {
+            let currentPage     =   1;
+            if ( this.result ) {
+                currentPage     =   this.result.current_page;
+            }
+            return currentPage;
+        },
+
+        lastPage: function() {
+            let lastPage     =   1;
+            if ( this.result ) {
+                lastPage     =   this.result.last_page;
+            }
+            return lastPage;
+        },
+
+        firstIndex: function(){
+            return 1;
+        }
     }
 })
