@@ -197,3 +197,12 @@ table.table .checkbox label .checkbox-decorator, table.table label.checkbox-inli
 .menu-wrapper {
     overflow-y: auto;
 }
+
+.btn.btn-fab-xs {
+    width: 2.0rem;
+    min-width: 2.0rem;
+    height: 2.0rem;
+}
+.content-header .bmd-form-group {
+    padding-top: 0px;
+}

@@ -1,14 +1,18 @@
 var TendooTable     =   new Vue({
     el      :   '#tendoo-table',
     data    :   Object.assign({}, data, {
-        result   :   {},
-        action  :   '',
-        format  :   '',
-        sortColumn  :   '',
-        sortMethod  :   '',
-        actions     :   {},
-        pageIndex   :   1,
-        perPage     :   25
+        result          :   {},
+        action          :   '',
+        format          :   '',
+        sortColumn      :   '',
+        sortMethod      :   '',
+        actions         :   {},
+        searchValue     :   '',
+        pageIndex       :   1,
+        perPage         :   25,
+        enabled         :   {
+            search      :   false
+        }
     }),
     methods: {
 
@@ -138,6 +142,10 @@ var TendooTable     =   new Vue({
                 data.per_page    =   this.perPage;
             }
 
+            if ( this.searchValue.length > 0 ) {
+                data.search     =   this.searchValue;
+            }
+
             axios.get( this.getURL + `?${this.__serialize( data )}` ).then( result => {
                 this.result     =   result.data;
                 this.pageIndex  =   this.result.current_page;
@@ -211,6 +219,26 @@ var TendooTable     =   new Vue({
             this.perPage    =   pageIndex;
             this.getEntries();
         },
+
+        /**
+         * Toggle Search
+         * @return void
+         */
+        toggleSearch() {
+            this.enabled.search     = !this.enabled.search;
+
+            if ( ! this.enabled.search ) {
+                this.searchValue    =   '';
+                this.getEntries();
+            }
+        },
+
+        /**
+         * Proceed to search
+         */
+        search() {
+            this.getEntries();
+        }
     },
     created()  {
         this.actions.delete     =   this.delete;
@@ -254,6 +282,13 @@ var TendooTable     =   new Vue({
 
         firstIndex: function(){
             return 1;
-        }
+        },
+
+        /**
+         * Search Enablee
+         */
+        searchEnabled: function() {
+            return this.enabled.search;
+        },
     }
 })

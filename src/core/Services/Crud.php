@@ -108,8 +108,9 @@ class Crud
      */
     public function getEntries()
     {
-        $request    =   app()->make( Request::class );
-        $query      =   DB::table( $this->table );
+        $request            =   app()->make( Request::class );
+        $query              =   DB::table( $this->table );
+        $columnsLongName    =   [];
         /**
          * Let's loop relation if they exists
          */
@@ -132,7 +133,9 @@ class Crud
             }
 
             foreach( $columns as $index => $column ) {
-                $select[]   =  $this->table . '.' . $column . ' as ' . $column;
+                $__name             =   $this->table . '.' . $column;
+                $columnsLongName[]  =   $__name;
+                $select[]           =  $__name . ' as ' . $column;
             }
 
             /**
@@ -151,7 +154,9 @@ class Crud
                 }
 
                 foreach( $columns as $index => $column ) {
-                    $select[]   =  $relation[0] . '.' . $column . ' as ' . $relation[0] . '_' . $column;
+                    $__name             =   $relation[0] . '.' . $column;
+                    $columnsLongName[]  =   $__name;
+                    $select[]           =   $__name . ' as ' . $relation[0] . '_' . $column;
                 }
             }
 
@@ -187,6 +192,19 @@ class Crud
         $perPage    =   20;
         if ( $request->query( 'per_page' ) ) {
             $perPage    =   $request->query( 'per_page' );
+        }
+
+        /**
+         * searching
+         */
+        if ( $request->query( 'search' ) ) {
+            foreach( $columnsLongName as $index => $column ) {
+                if ( $index == 0 ) {
+                    $query->where( $column, 'like', "%{$request->query( 'search' )}%" );
+                } else {
+                    $query->orWhere( $column, 'like', "%{$request->query( 'search' )}%" );
+                }
+            }
         }
 
         return $query->paginate( $perPage );

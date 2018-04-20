@@ -1,5 +1,6 @@
 @inject( 'Modules', 'Tendoo\Core\Services\Modules' )
-@inject( 'Users', 'Tendoo\Core\Services\Users' )
+@inject( 'Role', 'Tendoo\Core\Models\Role' )
+@inject( 'User', 'Tendoo\Core\Models\User' )
 @extends( 'tendoo::components.backend.master' )
 @section( 'tendoo::components.backend.master.body' )
     <div class="row">
@@ -20,11 +21,10 @@
                     {{ __( 'Users Stats' ) }}
                 </div>
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item">{{ sprintf( __( 'Users : %s' ), count( $Users->all() ) ) }}</li>
-                    <li class="list-group-item">{{ sprintf( __( 'Administrator : %s' ), count( $Users->all( 'admin' ) ) ) }}</li>
-                    <li class="list-group-item">{{ sprintf( __( 'Supervisor : %s' ), count( $Users->all( 'supervisor' ) ) ) }}</li>
-                    <li class="list-group-item">{{ sprintf( __( 'User : %s' ), count( $Users->all( 'user' ) ) ) }}</li>
-                    
+                    <li class="list-group-item">{{ sprintf( __( 'Users : %s' ), $User::all()->count() ) }}</li>
+                    <li class="list-group-item">{{ sprintf( __( 'Administrator : %s' ), $Role::where( 'namespace', 'admin' )->first()->user()->count() ) }}</li>
+                    <li class="list-group-item">{{ sprintf( __( 'Supervisor : %s' ), $Role::where( 'namespace', 'supervisor' )->first()->user()->count() ) }}</li>
+                    <li class="list-group-item">{{ sprintf( __( 'User : %s' ), $Role::where( 'namespace', 'user' )->first()->user()->count() ) }}</li>
                 </ul>
             </div>
         </div>
