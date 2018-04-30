@@ -1,15 +1,19 @@
 @inject( 'Field', 'Tendoo\Core\Services\Field' )
 @inject( 'Route', 'illuminate\Support\Facades\Route' )
+@inject( 'Helper', 'Tendoo\Core\Services\Helper' )
 <form action="{{ route( 'dashboard.options.post' ) }}" method="post">
     {{ csrf_field() }}
     {{ route_field() }}
     <div class="card">
-        <div class="card-body row">
-            <div class="col-md-6 col-xs-12">
-                <h4>{{ __( 'Registration' ) }}</h4>
-                @each( 'tendoo::partials.shared.fields', $Field->registration(), 'field' )
-            </div>
-            <div class="col-md-6 col-xs-12">
+        <div class="card-body">
+            <h4>{{ __( 'Registration' ) }}</h4>
+            <div class="row">
+                <div class="col-md-6 col-xs-12">
+                    @each( 'tendoo::partials.shared.fields', $Helper::arrayDivide( $Field->registration(), 'even' ), 'field' )
+                </div>
+                <div class="col-md-6 col-xs-12">
+                    @each( 'tendoo::partials.shared.fields', $Helper::arrayDivide( $Field->registration(), 'odd' ), 'field' )
+                </div>
             </div>
         </div>
         <div class="card-footer p-2-5">

@@ -54,14 +54,29 @@ var TendooTable     =   new Vue({
          * @return void
          */
         toggleCheckbox( event ) {
-            if ( $( event.srcElement ).is( ':checked' ) ) {
+            this.result.data.forEach( entry => {
+                if ( $( event.srcElement ).is( ':checked' ) ) {
+                    entry.$selected     =   true;
+                } else {
+                    entry.$selected     =   false;
+                }
+
                 $( '.entry-checkbox' ).each( function(){
-                    $( this ).prop( 'checked' , true );
+                    $( this ).prop( 'checked' , entry.$selected );
                 })
+            });
+        },
+
+        /**
+         * Select entry
+         * @param object 
+         * @return void
+         */
+        selectEntry( object ) {
+            if ( object.$selected == undefined ) {
+                object.$selected    =   true;
             } else {
-                $( '.entry-checkbox' ).each( function(){
-                    $( this ).prop( 'checked' , false );
-                })
+                object.$selected    =   ! object.$selected;
             }
         },
 
@@ -70,7 +85,19 @@ var TendooTable     =   new Vue({
          * @return void
          */
         bulk( action ) {
-            console.log( action );
+            if( action == 'delete_selected' ) {
+                this.bulkDeleteSelected();
+            }
+        },
+
+        /**
+         * Bulkd Delete Selected
+         * @param void
+         */
+        bulkDeleteSelected() {
+            if ( confirm( this.textDomain.deleteSelected ) ) {
+                console.log( this.selectedEntries );
+            }
         },
 
         /**
@@ -289,6 +316,14 @@ var TendooTable     =   new Vue({
          */
         searchEnabled: function() {
             return this.enabled.search;
+        },
+
+        /**
+         * Selected entries
+         * @return array of selected entries
+         */
+        selectedEntries() {
+            return this.result.data.filter( entry => entry.$selected );
         },
     }
 })

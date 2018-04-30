@@ -88,7 +88,18 @@ trait GeneralSettingsFields
         $register_as->desccription      =   __( 'Define the default role when user register' );
         $register_as->options           =   Helper::toOptions( Role::all(), [ 'id', 'name' ]);
         $register_as->value             =   $options->get( $register_as->name );
+        
+        $notifyAfterRegistration                    =   new \StdClass;
+        $notifyAfterRegistration->name              =   'registration_notification';
+        $notifyAfterRegistration->label             =   __( 'Registration Notification' );
+        $notifyAfterRegistration->type              =   'select';
+        $notifyAfterRegistration->desccription      =   __( 'Notify the administrator each time a new user is registering.' );
+        $notifyAfterRegistration->options           =   [
+            'no'    =>  __( 'No' ),
+            'yes'   =>  __( 'Yes' )
+        ];
+        $notifyAfterRegistration->value             =   $options->get( $notifyAfterRegistration->name );
 
-        return [ $allow_registration, $allow_password_recovery, $reset_activation_link, $validate_users, $register_as ];
+        return [ $allow_registration, $allow_password_recovery, $reset_activation_link, $validate_users, $register_as, $notifyAfterRegistration ];
     }
 }

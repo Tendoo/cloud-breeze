@@ -210,15 +210,16 @@ class AuthController extends BaseController
 
         /**
          * let's notify all admin with admin role a user has been registered
-         * @todo create an option to disable this
          * @todo adding a filter for role selected to receive an email
          */
-        foreach( Role::where( 'namespace', 'admin' )->first()->user as $admin ) {
-            Mail::to( $admin->email )
-                ->queue( new UserRegistrationMail([
-                    'link'  =>  route( 'dashboard.users.list' ),
-                    'user'  =>  $user
-                ]));
+        if ( $this->options->get( 'registration_notification' ) == 'yes' ) {
+            foreach( Role::where( 'namespace', 'admin' )->first()->user as $admin ) {
+                Mail::to( $admin->email )
+                    ->queue( new UserRegistrationMail([
+                        'link'  =>  route( 'dashboard.users.list' ),
+                        'user'  =>  $user
+                    ]));
+            }
         }
 
         return redirect()->route( 'login.index' )->with([

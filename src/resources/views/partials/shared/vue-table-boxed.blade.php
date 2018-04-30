@@ -10,7 +10,10 @@
         'deleteURL'     =>  route( 'dashboard.crud.delete', [
             'namespace' =>  $resource->getNamespace()
         ]),
-        'editURL'       =>  route( 'dashboard.users.edit' )
+        'editURL'       =>  route( 'dashboard.users.edit' ),
+        'textDomain'    =>  [
+            'deleteSelected'    =>  __( 'Would you like to delete selected entries ?' )
+        ]
     ]) !!}
     </script>
     <script src="{{ asset( 'tendoo/js/dashboard/table.vue.js' ) }}"></script>
@@ -70,12 +73,12 @@
                             <td>
                                 <div class="checkbox">
                                     <label>
-                                        <input class="entry-checkbox" type="checkbox" name="entry_id[]" value="">
+                                        <input :checked="entry.$selected" @click="selectEntry( entry )" class="entry-checkbox" type="checkbox" name="entry_id[]" :value="entry.id">
                                     </label>
                                 </div>
                             </td>
 
-                            <th v-for="( column, namespace ) in columns" class="column-">@{{ entry[ namespace ] }}</th>
+                            <th v-for="( column, namespace ) in columns" :class="'column-' + namespace">@{{ entry[ namespace ] }}</th>
                             
                             <th class="p-2" width="100">
                                 <div class="dropdown show">

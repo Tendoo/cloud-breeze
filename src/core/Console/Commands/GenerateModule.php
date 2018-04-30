@@ -116,7 +116,7 @@ class GenerateModule extends Command
 
             if ( ! \windows_os() ) {
                 Storage::disk( 'laravel-public' )->makeDirectory( 'modules/' . $this->module[ 'namespace' ] );
-                $link           =   \symlink( $target, public_path( '/modules/' . strtolowe( $this->module[ 'namespace' ] ) ) );
+                $link           =   \symlink( $target, public_path( '/modules/' . strtolower( $this->module[ 'namespace' ] ) ) );
             } else {
                 $mode       =   'J';
                 $link       =   public_path( 'modules' . DIRECTORY_SEPARATOR . strtolower( $this->module[ 'namespace' ] ) );

@@ -38,6 +38,7 @@ class SettingsController extends TendooController
     public function postOptions( OptionsRequest $request )
     {
         $inputs     =   $request->except([ '_token', '_route', '_radio', '_checkbox', '_previous' ]);
+        
         /**
          * If the field is defined as a radio or  checkbox field, then
          * it's deleted from the db to define new options. 
