@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Cache;
 use Carbon\Carbon;
+use Tendoo\Core\Facades\Hook;
 
 class Crud 
 {
@@ -207,7 +208,22 @@ class Crud
             }
         }
 
-        return $query->paginate( $perPage );
+        $entries    =   $query->paginate( $perPage )->toArray();
+
+        /**
+         * looping entries to provide inline 
+         * options
+         */
+        foreach( $entries[ 'data' ] as &$entry ) {
+            /**
+             * @hook crud.entry
+             */
+            $entry  =   Hook::filter( 'crud.entry', $entry, [
+                'namespace'     =>  $this->getNamespace()
+            ]);
+        }
+
+        return $entries;
     }
 
     /**

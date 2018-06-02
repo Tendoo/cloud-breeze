@@ -199,32 +199,17 @@ var TendooTable     =   new Vue({
          * @param int current row index
          * @return void
          */
-        handle( name, id, rowIndex ) {
-            if ( this.actions[ name ] != undefined ) {
-                this.actions[ name ]( id, rowIndex );
-            } else {
-                throw `Unhandled CRUD action : ${name}`;
+        handle( action, id, rowIndex ) {
+            if ( action.type == 'GET' ) {
+                document.location   =   action.url;
+            } else if ( action.type == 'DELETE' ) {
+                axios.delete( action.url ).then( result => {
+                    this.result.data.splice( rowIndex, 1 );
+                    tendooApi.SnackBar.show(  result.data.message );
+                }).catch( error => {
+                    tendooApi.SnackBar.show( error.response.data.message );
+                });
             }
-        },
-
-        /**
-         * Delete
-         */
-        delete( id, rowIndex ) {
-            axios.delete( this.deleteURL +  `/${id}` ).then( result => {
-                this.result.data.splice( rowIndex, 1 );
-                tendooApi.SnackBar.show(  result.data.message );
-            }).catch( error => {
-                tendooApi.SnackBar.show( error.response.data.message );
-            })
-        },
-
-        /**
-         * Edit Item
-         * @return void
-         */
-        edit( id, rowIndex ) {
-            document.location   =   this.editURL + `/${id}`;
         },
 
         /**
@@ -269,7 +254,7 @@ var TendooTable     =   new Vue({
     },
     created()  {
         this.actions.delete     =   this.delete;
-        this.actions.edit     =   this.edit;
+        this.actions.edit       =   this.edit;
         this.getEntries();
     },
     computed: {

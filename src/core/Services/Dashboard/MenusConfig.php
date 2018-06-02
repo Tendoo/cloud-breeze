@@ -20,6 +20,7 @@ class MenusConfig
         $this->registerModulesMenu();
         $this->registerSettingsMenu();
         $this->registerUserMenu();
+        $this->registerApplicationsMenu();
     }
 
     /**
@@ -126,5 +127,34 @@ class MenusConfig
         $upload->namespace     =   'modules.upload';
 
         $this->menus->addTo( 'modules', [ $list, $upload ]);
+    }
+
+    /**
+     * An interface where user can register 
+     * an application for Oauth purposes
+     */
+    public function registerApplicationsMenu()
+    {
+        $applications                =   new \stdClass;
+        $applications->text          =   __( 'Applications' );
+        $applications->label         =   10;
+        $applications->namespace     =   'applications';
+        $applications->icon          =   'apps';
+
+        $this->menus->add( $applications );
+
+        $applicationList                =   new \stdClass;
+        $applicationList->text          =   __( 'All applications' );
+        $applicationList->href          =   route( 'dashboard.modules.upload' );
+        $applicationList->label         =   10;
+        $applicationList->namespace     =   'applications.list';
+
+        $applicationRegister                =   new \stdClass;
+        $applicationRegister->text          =   __( 'Register a new' );
+        $applicationRegister->href          =   route( 'dashboard.modules.upload' );
+        $applicationRegister->label         =   10;
+        $applicationRegister->namespace     =   'applications.register';
+
+        $this->menus->addTo( 'applications', [ $applicationList, $applicationRegister ]);
     }
 }

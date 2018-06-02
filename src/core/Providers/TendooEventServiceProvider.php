@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Event;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Tendoo\Core\Facades\Hook;
 use Tendoo\Core\Events\Settings;
+use Illuminate\Support\Facades\Auth;
 
 class TendooEventServiceProvider extends ServiceProvider
 {

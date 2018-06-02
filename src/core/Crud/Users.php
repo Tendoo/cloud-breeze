@@ -59,7 +59,7 @@ class Users extends Crud
         $this->create_title         =   __( 'Create User' );
         $this->create_description   =   __( 'Create a new user.' );
 
-        $this->setActions();
+        Hook::addFilter( 'crud.entry', [ $this, 'setActions' ], 10, 2 );
     }
 
     /**
@@ -202,26 +202,35 @@ class Users extends Crud
     /**
      * Define actions
      */
-    public function setActions()
+    public function setActions( $entry, $namespace )
     {
-        /**
-         * @hook:users.crud.actions
-         * Let you filter actions available on the user CRUD.
-         */
-        $this->actions      =   Hook::filter( 'users.crud.actions', [
-            'edit'      =>  [
-                'text'  =>  __( 'Edit' ),
-                'type'  =>  'GET',
-                'url'   =>  url()->route( 'dashboard.users.edit' )
-            ],
-            'delete'    =>  [
-                'type'  =>  'DELETE',
-                    'url'   =>  url()->route( 'dashboard.crud.delete', [ 
-                    'namespace'     =>  'users'
-                ]),
-                'text'  =>  __( 'Delete' )
-            ]
-        ]);
+        if ( Auth::id() == $entry->id ) {
+            $entry->{'$actions'}    =   [
+                'profile'      =>  [
+                    'type'  =>  'GET',
+                    'url'   =>  route( 'dashboard.users.profile.general' ),
+                    'text'  =>  __( 'My Profile' )
+                ]
+            ];
+        } else {
+            $entry->{'$actions'}    =   [
+                'edit'      =>  [
+                    'type'  =>  'GET',
+                    'url'   =>  route( 'dashboard.users.edit', [
+                        'entry'     =>  $entry->id
+                    ]),
+                    'text'  =>  __( 'Edit' )
+                ], 
+                'delete'      =>  [
+                    'type'  =>  'DELETE',
+                    'url'   =>  route( 'dashboard.crud.delete', [
+                        'entry'     =>  $entry->id
+                    ]),
+                    'text'  =>  __( 'Delete' )
+                ]
+            ];
+        }
+        return $entry;
     }
 
     /**

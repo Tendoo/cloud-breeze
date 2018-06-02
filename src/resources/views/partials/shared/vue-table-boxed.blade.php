@@ -86,10 +86,8 @@
                                         {{ __( 'Options' ) }}
                                     </a>
 
-                                    <div class="dropdown-menu dropdown-menu-right">
-                                        @foreach( $resource->getActions() as $name => $action )
-                                            <a href="javascript:void(0)" @click="handle('{{ $name }}', entry.id, rowIndex )" class="dropdown-item">{{ $action[ 'text' ] }}</a>
-                                        @endforeach
+                                    <div class="dropdown-menu dropdown-menu-right" v-if="entry.$actions">
+                                        <a v-for="( action, name ) of entry.$actions" href="javascript:void(0)" @click="handle( action, entry.id, rowIndex )" class="dropdown-item">@{{ action.text }}</a>
                                     </div>
                                 </div>
                             </th>
