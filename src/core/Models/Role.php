@@ -102,4 +102,14 @@ class Role extends Model
 
         return false;
     }
+
+    /**
+     * @todo remove permission
+     * Remove one or more permission to a specific role.
+     */
+    public static function RemovePermissions( $role_name, $permissions )
+    {
+        $AllPermissions   =   Permission::whereIn( 'namespace', $permissions );
+        dd( $AllPermissions );
+    }
 }

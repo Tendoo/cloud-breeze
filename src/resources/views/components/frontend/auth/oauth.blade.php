@@ -14,7 +14,7 @@
                     </div>
                     @include( 'tendoo::partials.shared.errors', compact( 'errors' ) )
                     <div class="card-body p-0">
-                        <h4 class="text-center py-3 mb-0">{{ sprintf( __( '%s would like to :' ), $name ) }}</h4>
+                        <h4 class="text-center py-3 mb-0">{{ sprintf( __( '%s would like to :' ), $application->name ) }}</h4>
                         <div class="list-group py-0">
                             @foreach( $namespaces as $namespace )
                                 @if( @$scopes[ $namespace ] != null ) 
@@ -27,8 +27,9 @@
                                 </a>
                                 @endif
                             @endforeach
-                            <input type="hidden" name="callback" value="{{ $callback }}">
-                            <input type="hidden" name="name" value="{{ $name }}">
+                            <input type="hidden" name="callback_url" value="{{ $callback_url }}">
+                            <input type="hidden" name="client_key" value="{{ $application->client_key }}">
+                            <input type="hidden" name="client_secret" value="{{ $application->client_secret }}">
                         </div>
                     </div>
                     <div class="card-footer p-2 d-flex justify-content-between">

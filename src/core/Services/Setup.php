@@ -193,7 +193,7 @@ class Setup
          * All roles with basic permissions
          */
         // Crud for users and options
-        foreach( [ 'users', 'profile' ] as $permission ) {
+        foreach( [ 'users', 'profile', 'applications' ] as $permission ) {
             foreach( [ 'create', 'read', 'update', 'delete' ] as $crud ) {
                 // Create User
                 $this->permission                   =   new Permission;
@@ -268,8 +268,9 @@ class Setup
         Role::AddPermissions( 'admin', [ 
             'crud.users', 
             'crud.profile', 
+            'crud.applications',
             'manage.options', 
-            'manage.modules'
+            'manage.modules',
         ]);
 
         Role::AddPermissions( 'supervisor', [ 

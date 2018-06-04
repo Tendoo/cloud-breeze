@@ -6,6 +6,7 @@ use Tendoo\Core\Services\Fields\AuthFields;
 use Tendoo\Core\Services\Fields\GeneralSettingsFields;
 use Tendoo\Core\Services\Fields\UsersFields;
 use Tendoo\Core\Services\Fields\ProfileFields;
+use Tendoo\Core\Services\Fields\ApplicationsFields;
 
 class Field
 {
@@ -13,6 +14,7 @@ class Field
         AuthFields,
         GeneralSettingsFields,
         UsersFields,
+        ApplicationsFields,
         ProfileFields;
 
     /**

@@ -1,10 +1,8 @@
 <?php
 return [
-    'modules_path'  =>  base_path() . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR,
-    'version'       =>  '5.0',
-    'db_version'    =>  '1.1',
-    'debug'         =>  [
-        'errors'    =>  true
+    'modules_path'      =>  base_path() . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR,
+    'debug'             =>  [
+        'errors'        =>  true
     ],
     'redirect'      =>  [
         'authenticated'         =>  'dashboard.index',
@@ -19,6 +17,6 @@ return [
         'users'         =>  2
     ],
     'archive'       =>  [
-        'master'    =>  'https://github.com/Blair2004/tendoo/archive/master.zip',
+        'master'    =>  'https://github.com/Tendoo/cms/archive/master.zip',
     ],
 ];

@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Cookie;
 use Jackiedo\DotenvEditor\Facades\DotenvEditor;
 use Tendoo\Core\Services\Helper;
+use Tendoo\Core\Facades\Hook;
 
 class ResetCommand extends Command
 {
@@ -53,12 +54,15 @@ class ResetCommand extends Command
 
         if ( $this->confirm( 'Would you like to delete everything ?' ) ) {
 
+            /**
+             * @hook tendoo.reset
+             */
+            Hook::action( 'tendoo.reset' );
             // reset migration
             Artisan::call( 'migrate:reset' );
             Artisan::call( 'config:clear' );
             Artisan::call( 'cache:clear' );
             Artisan::call( 'view:clear' );
-
 
             /**
              * Delete Environment Keys

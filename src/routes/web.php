@@ -14,6 +14,8 @@ use Tendoo\Core\Services\Options;
 use Tendoo\Core\Services\Site;
 use Tendoo\Core\Services\Helper;
 
+\Debugbar::disable();
+
 global $BasicRoutes;
 $BasicRoutes    =   function() {
     Route::get('/', function () {
@@ -30,10 +32,17 @@ $BasicRoutes    =   function() {
      */
     Route::get( '/dashboard/users', 'Tendoo\Core\Http\Controllers\Dashboard\UsersController@usersList' )->name( 'dashboard.users.list' );
     Route::get( '/dashboard/users/create', 'Tendoo\Core\Http\Controllers\Dashboard\UsersController@createUser' )->name( 'dashboard.users.create' );
+    Route::get( '/dashboard/users/{entry?}', 'Tendoo\Core\Http\Controllers\Dashboard\UsersController@editUser' )->name( 'dashboard.users.edit' );
     Route::get( '/dashboard/profile/general', 'Tendoo\Core\Http\Controllers\Dashboard\UsersController@showGeneral' )->name( 'dashboard.users.profile.general' );
     Route::get( '/dashboard/profile/security', 'Tendoo\Core\Http\Controllers\Dashboard\UsersController@showSecurity' )->name( 'dashboard.users.profile.security' );
     Route::get( '/dashboard/profile/oauth', 'Tendoo\Core\Http\Controllers\Dashboard\UsersController@showOauth' )->name( 'dashboard.users.profile.oauth' );
-    Route::get( '/dashboard/users/{entry?}', 'Tendoo\Core\Http\Controllers\Dashboard\UsersController@editUser' )->name( 'dashboard.users.edit' );
+
+    /**
+     * Applications Routes
+     */
+    Route::get( '/dashboard/applications', 'Tendoo\Core\Http\Controllers\Dashboard\ApplicationsController@list' )->name( 'dashboard.applications.list' );
+    Route::get( '/dashboard/applications/create', 'Tendoo\Core\Http\Controllers\Dashboard\ApplicationsController@create' )->name( 'dashboard.applications.create' );
+    Route::get( '/dashboard/applications/{entry?}', 'Tendoo\Core\Http\Controllers\Dashboard\ApplicationsController@edit' )->name( 'dashboard.applications.edit' );
     
     /**
      * Module Get Routes

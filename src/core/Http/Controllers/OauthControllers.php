@@ -8,7 +8,9 @@ use Tendoo\Core\Facades\Hook;
 use Tendoo\Core\Services\UserOptions;
 use Tendoo\Core\Models\Oauth as OauthModel;
 use Illuminate\Support\Facades\Auth;
+use Tendoo\Core\Models\Application;
 use Carbon\Carbon;
+use Exceptions;
 
 class OauthControllers extends BaseController
 {
@@ -44,9 +46,8 @@ class OauthControllers extends BaseController
         }
         
         if ( 
-            empty( $request->query( 'callback' ) ) || 
-            ! isUrl( $request->query( 'callback' ) ) ||
-            empty( $request->query( 'name' ) ) 
+            empty( $request->query( 'callback_url' ) ) || 
+            ! isUrl( $request->query( 'callback_url' ) )
         ) {
             return redirect()->route( 'errors', [
                 'code'  =>  'missing-or-wrong-callback'
@@ -54,10 +55,21 @@ class OauthControllers extends BaseController
         }
 
         /**
+         * Authenticating the application
+         */
+        $application    =   Application::where([
+            [ 'client_key',     '=', $request->query( 'client_key' )],
+            [ 'client_secret',  '=', $request->query( 'client_secret' )]
+        ])->firstOrFail();
+
+        // if( $application->isEmpty() ) {
+        //     throw Exception( 'Wrong application credentials are provided' );
+        // }
+
+        /**
          * get the required parameters from the URL
          */
-        $callback   = $request->query( 'callback' );
-        $name       = $request->query( 'name' );
+        $callback_url   = $request->query( 'callback_url' );
 
         /**
          * @hook:api.scope
@@ -78,14 +90,13 @@ class OauthControllers extends BaseController
             }
         }
 
-
         Page::setTitle( 'Authentication Page' );
 
         return view( 'tendoo::components.frontend.auth.oauth', compact( 
             'scopes', 
             'namespaces', 
-            'callback', 
-            'name' 
+            'callback_url', 
+            'application' 
         ) );
     }
 
@@ -99,41 +110,71 @@ class OauthControllers extends BaseController
          */
         if ( 
             ! in_array( $request->input( 'action' ), [ 'grant', 'deny' ] ) || 
-            ! isUrl( $request->input( 'callback' ) ) ||
-            empty( $request->input( 'name' ) ) // the application name which request the connexion is required
+            ! isUrl( $request->input( 'callback_url' ) )
         ) {
             return redirect()->route( 'errors', [
                 'code'  =>  'wrong-oauth-request'
             ]);
         }
 
-        $action     =   $request->input( 'action' );
-        $callback   =   $request->input( 'callback' );
-        $name       =   $request->input( 'name' );
-        $scopes     =   $request->input( 'scopes' );
+        /**
+         * Authenticating the application
+         */
+        $application    =   Application::where([
+            [ 'client_key',     '=', $request->input( 'client_key' )],
+            [ 'client_secret',  '=', $request->input( 'client_secret' )]
+        ])->firstOrFail();
+
+        // if( $application ) {
+        //     throw Exception( 'Wrong application credentials are provided' );
+        // }
+
+        $action         =   $request->input( 'action' );
+        $callback_url   =   $request->input( 'callback_url' );
+        $name           =   $request->input( 'name' );
+        $scopes         =   $request->input( 'scopes' );
 
         /**
          * if the use refuse the connexion
          */
         if ( $action == 'deny' ) {
-            return redirect( $callback . '?status=denied' );
+            return redirect( $callback_url . '?status=denied' );
         } else {
+
             $access_token           =   str_random(40);
             $refresh_token          =   str_random(30);
 
-            $oauth                  =   new OauthModel;
-            $oauth->access_token    =   $access_token;
-            $oauth->app_name        =   $name;
-            $oauth->scopes          =   json_encode( $scopes );
-            $oauth->refresh_token   =   $refresh_token;
-            $oauth->user_id         =   Auth::id();
-            $oauth->expires_at      =   Carbon::now()->addDays(7)->toDateTimeString();
-            $oauth->save();
+            /**
+             * let's check if the user already have this application
+             * within the authorised applications
+             */
+            $oauth                  =   OauthModel::where( 'app_id', '=', $application->id )->first();
+
+            if ( $oauth != null ) {
+                $oauth->access_token    =   $access_token;
+                $oauth->app_name        =   $application->name;
+                $oauth->app_id          =   $application->id;
+                $oauth->scopes          =   json_encode( $scopes );
+                $oauth->refresh_token   =   $refresh_token;
+                $oauth->user_id         =   Auth::id();
+                $oauth->expires_at      =   Carbon::now()->addDays(7)->toDateTimeString();
+                $oauth->save();
+            } else {
+                $oauth                  =   new OauthModel;
+                $oauth->access_token    =   $access_token;
+                $oauth->app_name        =   $application->name;
+                $oauth->app_id          =   $application->id;
+                $oauth->scopes          =   json_encode( $scopes );
+                $oauth->refresh_token   =   $refresh_token;
+                $oauth->user_id         =   Auth::id();
+                $oauth->expires_at      =   Carbon::now()->addDays(7)->toDateTimeString();
+                $oauth->save();
+            }
 
             /**
              * @todo adding expiration to the keys
              */
-            return redirect( $callback . '?access_token=' . $access_token );
+            return redirect( $callback_url . '?access_token=' . $access_token );
         }
     }
 }

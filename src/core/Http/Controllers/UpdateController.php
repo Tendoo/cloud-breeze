@@ -26,14 +26,17 @@ class UpdateController extends Controller
             }
 
             return $next( $request );
+            
         })->only([ 'index', 'postUpdate' ]);
         
         /**
          * middleware to control the files update
          */
         $this->middleware( function( $request, $next ){
+            
+            $this->options      =   app()->make( 'Tendoo\Core\Services\Options' );
 
-            if ( ! Storage::disk( 'tendoo-root' )->exists( 'should-publish-assets' ) ) {
+            if ( $this->options->get( 'assets_version' ) === config( 'tendoo.assets_version' ) ) {
                 throw new \Exception( __( 'Updating the files is not required.' ) );
             }
 
@@ -152,7 +155,8 @@ class UpdateController extends Controller
         /**
          * if the publish is done. We can then close this
          */
-        Storage::disk( 'tendoo-root' )->delete( 'should-publish-assets' );
+        $options    =   app()->make( 'Tendoo\Core\Services\Options' );
+        $options->set( 'assets_version', config( 'tendoo.assets_version' ) );
 
         return [
             'status'    =>  'success',

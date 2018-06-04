@@ -18,6 +18,7 @@ class CreateOauthTable extends Migration
             $table->integer( 'user_id' )->nullable();
             $table->string( 'access_token' );
             $table->string( 'app_name' );
+            $table->integer( 'app_id' ); // as registered on application table
             $table->string( 'scopes' );
             $table->string( 'refresh_token' );
             $table->datetime( 'expires_at' );

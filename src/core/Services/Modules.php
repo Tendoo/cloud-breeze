@@ -801,4 +801,49 @@ class Modules
         $module     =   $this->get( $namespace );
         return $this->__runSingleFile( 'up', $module, $file );
     }
+
+    /**
+     * Run all module migration
+     * @param string module namespace
+     * @param string version number
+     * @param string file path
+     * @return void
+     */
+    public function runAllMigration( $namespace, $version, $file )
+    {
+        $migrations     =   $this->getMigrations( $namespace );
+        if ( $migrations && is_array( $migrations ) ) {
+            foreach( $migrations as $version => $files ) {
+                foreach( $files as $file ) {
+                    $this->runMigration( $namespace, $version, $file );
+                }
+            }
+        }
+    }
+
+    /**
+     * Drop Module Migration
+     * @param string module namespace
+     */
+    public function dropMigration( $namespace, $version, $file )
+    {
+        $module     =   $this->get( $namespace );
+        return $this->__runSingleFile( 'drop', $module, $file );
+    }
+
+    /**
+     * Drop All Migration
+     * @param string module namespace
+     */
+    public function dropAllMigrations( $namespace )
+    {
+        $migrations     =   $this->getMigrations( $namespace );
+        if ( $migrations && is_array( $migrations ) ) {
+            foreach( $migrations as $version => $files ) {
+                foreach( $files as $file ) {
+                    $this->dropMigration( $namespace, $version, $file );
+                }
+            }
+        }
+    }
 }

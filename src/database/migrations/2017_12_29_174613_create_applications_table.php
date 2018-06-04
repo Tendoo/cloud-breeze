@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateApplicationTable extends Migration
+class CreateApplicationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,19 @@ class CreateApplicationTable extends Migration
      */
     public function up()
     {
-        Schema::create('applications', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string( 'name' );
-            $table->text( 'description' );
-            $table->string( 'client_key' );
-            $table->string( 'secret_key' );
-            $table->boolean( 'active' ); // if the application is live or not
-            $table->timestamps();
-        });
+        if ( ! Schema::hasTable('applications') ) {
+            Schema::create('applications', function (Blueprint $table) {
+                $table->increments('id');
+                $table->string( 'name' );
+                $table->string( 'callback_url' );
+                $table->text( 'description' )->nullable();
+                $table->string( 'client_key' )->unique();
+                $table->string( 'client_secret' )->unique();
+                $table->integer( 'user_id' );
+                $table->boolean( 'active' ); // if the application is live or not
+                $table->timestamps();
+            });
+        }
     }
 
     /**
@@ -31,6 +35,8 @@ class CreateApplicationTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('applications');
+        if ( ! Schema::hasTable('applications') ) {
+            Schema::dropIfExists('applications');
+        }
     }
 }

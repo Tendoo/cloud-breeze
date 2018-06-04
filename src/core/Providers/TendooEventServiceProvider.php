@@ -100,6 +100,10 @@ class TendooEventServiceProvider extends ServiceProvider
             if ( $namespace == 'users' ) {
                 return \Tendoo\Core\Crud\Users::class;
             }
+
+            if( $namespace == 'applications' ) {
+                return \Tendoo\Core\Crud\Applications::class;
+            }
             return $namespace;
         });
 

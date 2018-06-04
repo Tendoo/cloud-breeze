@@ -6,7 +6,14 @@ if ( ! defined( '_SLASH_' ) ) {
 }
 
 define( 'TENDOO_ROOT', __DIR__ );
+
+/**
+ * Updating this will force 
+ * assets and database migration
+ */
 define( 'TENDOO_VERSION', '5.0' );
+define( 'TENDOO_ASSETS_VERSION', '1.0' );
+define( 'TENDOO_DB_VERSION', '1.2' );
 
 use Illuminate\Support\ServiceProvider as CoreServiceProvider;
 use Tendoo\Core\Console\Commands\DisableModule;
@@ -213,6 +220,15 @@ class ServiceProvider extends CoreServiceProvider
             'driver'    =>  'eloquent',
             'model'     =>  'Tendoo\Core\Models\User'
         ]]);
+
+        /**
+         * register version
+         */
+        config([
+            'tendoo.db_version'     =>  TENDOO_DB_VERSION,
+            'tendoo.assets_version' =>  TENDOO_ASSETS_VERSION,
+            'tendoo.version'        =>  TENDOO_VERSION
+        ]);
 
         $this->app->singleton( 'XmlParser', function ($app) {
             return new XmlReader(new XmlDocument($app));

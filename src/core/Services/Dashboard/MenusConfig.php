@@ -145,15 +145,15 @@ class MenusConfig
 
         $applicationList                =   new \stdClass;
         $applicationList->text          =   __( 'All applications' );
-        $applicationList->href          =   route( 'dashboard.modules.upload' );
+        $applicationList->href          =   route( 'dashboard.applications.list' );
         $applicationList->label         =   10;
         $applicationList->namespace     =   'applications.list';
 
         $applicationRegister                =   new \stdClass;
         $applicationRegister->text          =   __( 'Register a new' );
-        $applicationRegister->href          =   route( 'dashboard.modules.upload' );
+        $applicationRegister->href          =   route( 'dashboard.applications.create' );
         $applicationRegister->label         =   10;
-        $applicationRegister->namespace     =   'applications.register';
+        $applicationRegister->namespace     =   'applications.create';
 
         $this->menus->addTo( 'applications', [ $applicationList, $applicationRegister ]);
     }
