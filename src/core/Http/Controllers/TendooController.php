@@ -9,7 +9,9 @@ use Tendoo\Core\Services\Page;
 use Tendoo\Core\Services\Options;
 use Tendoo\Core\Services\Date;
 use Tendoo\Core\Services\UserOptions;
+use Tendoo\Core\Services\Users;
 use Tendoo\Core\Exceptions\AccessDeniedException;
+use Tendoo\Core\Exceptions\RoleDeniedException;
 use Tendoo\Core\Facades\Hook;
 
 use Illuminate\Support\Facades\Event;
@@ -41,6 +43,7 @@ class TendooController extends Controller
                 $this->menus        =   app()->make( 'Tendoo\Core\Services\Dashboard\MenusConfig' );
                 $this->guard        =   app()->make( Guard::class );
                 $this->date         =   app()->make( Date::class );
+                $this->userService  =   app()->make( Users::class );
 
                 /**
                  * @hook:dashboard.loaded
@@ -60,6 +63,16 @@ class TendooController extends Controller
     {
         if ( ! User::allowedTo( $permission ) ) {
             throw new AccessDeniedException( $permission );
+        }
+    }
+
+    /**
+     * Check role
+     */
+    public function checkRoles( array $roles )
+    {
+        if ( ! $this->userService->is( $roles ) ) {
+            throw new RoleDeniedException( $roles );
         }
     }
 
