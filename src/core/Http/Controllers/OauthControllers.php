@@ -10,7 +10,7 @@ use Tendoo\Core\Models\Oauth as OauthModel;
 use Illuminate\Support\Facades\Auth;
 use Tendoo\Core\Models\Application;
 use Carbon\Carbon;
-use Exceptions;
+use Exception;
 
 class OauthControllers extends BaseController
 {
@@ -46,12 +46,10 @@ class OauthControllers extends BaseController
         }
         
         if ( 
-            empty( $request->query( 'callback_url' ) ) || 
-            ! isUrl( $request->query( 'callback_url' ) )
+            empty( $request->query( 'callback_url' ) ) ||
+            ! isUrl( $request->input( 'callback_url' ) )
         ) {
-            return redirect()->route( 'errors', [
-                'code'  =>  'missing-or-wrong-callback'
-            ]);
+            throw new Exception( __( 'Wrong callback provided for the Oauth resource.' ) );
         }
 
         /**
@@ -174,7 +172,16 @@ class OauthControllers extends BaseController
             /**
              * @todo adding expiration to the keys
              */
-            return redirect( $callback_url . '?access_token=' . $access_token );
+            $hasQueryParam = parse_url( $callback_url, PHP_URL_QUERY);
+            
+            // Returns a string if the URL has parameters or NULL if not
+            if ( $hasQueryParam ) {
+                $callback_url .= '&access_token=' . $access_token;
+            } else {
+                $callback_url .= '?access_token=' . $access_token;
+            }
+
+            return redirect( $callback_url );
         }
     }
 }

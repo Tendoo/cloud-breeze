@@ -137,5 +137,5 @@ function route_field()
  */
 function isUrl( $text )  
 {  
-    return filter_var( $text, FILTER_VALIDATE_URL, FILTER_FLAG_HOST_REQUIRED) !== false;  
+    return filter_var( $text, FILTER_VALIDATE_URL ) !== false;  
 }
