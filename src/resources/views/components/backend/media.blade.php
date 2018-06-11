@@ -8,28 +8,167 @@
     <script src="{{ asset( 'tendoo/bower_components/dropzone/dist/dropzone.js' ) }}"></script>
 @endpush
 
-@push( 'partials.shared.footer' )
-    <script>
-        "use strict";
-        var data  =   {!! json_encode( compact( 'medias', 'tabs', 'uploadUrl', 'loadUrl', 'lang' ) ) !!}
-        Dropzone.options.mediaUploader   =   {
-            headers     :   {
-                'X-CSRF-TOKEN'  :   '{{ csrf_token() }}'
-            }
+@push( 'vue.components' )
+<script>
+    "use strict";
+    var data  =   {!! json_encode( compact( 'medias', 'tabs', 'url', 'lang' ) ) !!}
+    Dropzone.options.mediaUploader   =   {
+        headers     :   {
+            'X-CSRF-TOKEN'  :   '{{ csrf_token() }}'
         }
-    </script>
-    <script src="{{ asset( 'tendoo/js/dashboard/media-file.vue.js' ) }}"></script>
-    <style>
-    .active-media {
-        box-shadow: 0px 0px 0px 4px #a92424;
     }
-    .media-img-wrapper .card-img-top {
-        width: auto !important;
-    }
-    .media-img-wrapper {
-        overflow: hidden;
-    }
-    </style>
+</script>
+<!-- <script src="{{ asset( 'tendoo/js/dashboard/media-file.vue.js' ) }}"></script> -->
+<style>
+.active-media {
+    box-shadow: 0px 0px 0px 4px #009688;
+}
+.media-img-wrapper .card-img-top {
+    width: auto !important;
+}
+.media-img-wrapper {
+    overflow: hidden;
+    min-height: 120px;
+    max-height: 120px;
+}
+.dropzone .dz-preview .dz-error-mark, .dropzone .dz-preview .dz-success-mark {
+    position: absolute;
+    display: none;
+    left: 30px;
+    top: 50%;
+    width: 54px;
+    height: 58px;
+    left: 50%;
+    margin-left: -27px;
+}
+</style>
+<script>
+    var MediaFile   =   new Vue({
+        el      : '#media-element',
+        data    :   Object.assign({}, data, { media : false, multiselect : false, selected : 0 }),
+        methods : {
+            /**
+             * set as active
+             * @param object tab
+             * @return void
+             */
+            setActive( tab ) {
+                this.tabs.forEach( _tab => _tab.active = false );
+                tab.active  =   true;
+
+                /**
+                 * run dropzone when the upload tab
+                 * is enabled
+                 */
+                if ( tab.namespace == 'upload' ) {
+                    setTimeout( () => {
+                        this.dropZone   =   new Dropzone("div#media-uploader", { url: this.url.upload });
+                    }, 200 );
+                } else if ( tab.namespace == 'list' ) {
+                    this.getMedias();
+                }
+            },
+
+            /**
+             * get Active tab
+             * @param void
+             * @return object
+             */
+            getActive() {
+                let tab     =   this.tabs.filter( tab => tab.active );
+                return tab[0];
+            },
+
+            /**
+             * get medias
+             * @return void
+             */
+            getMedias() {   
+                axios.get( this.url.load ).then( result => {
+                    this.media     =   result.data;
+                });
+            },  
+
+            /**
+             * Show details for a specific media
+             * @return void
+             */
+            show( media ) {
+
+            },
+
+            /**
+             * Delete Items
+             * @param object Media
+             * @return void
+             */
+            deleteMedia( media ) {
+                if ( confirm( this.lang.singleDelete ) ) {
+                    axios.delete( this.url.delete + `/${media.id}` ).then( result => {
+                        this.getMedias();
+                    });
+                }
+            },
+
+            /**
+             * Select the entry
+             * @return void
+             */
+            select( media, index ) {
+
+                /**
+                 * If the multiselect is disabled
+                 */
+                if ( ! this.multiselect ) {
+                    this.media.data.forEach( ( _media, _index ) => {
+                        if ( _index != index ) {
+                            _media.selected     =   false;
+                        }
+                    });
+                }
+
+                media.selected  =   media.selected == undefined ? true : ! media.selected;
+                this.selected   =   this.countSelected();
+                this.$set( this.media.data, index, media );
+            },
+            
+            /**
+             * Count Selected
+             */
+            countSelected() {
+                let countSelected   =   this.media.data.filter( entry => entry.selected );
+                return countSelected.length;
+            },
+
+            /**
+             * Delete Selected Items
+             * @return void
+             */
+            deleteSelected() {
+                if ( confirm( this.lang.bulkDelete ) ) {
+                    let indexes     =   this.media.data.filter( media => media.selected );
+                    axios.post( this.url.bulkDelete, { indexes }).then( result => {
+                        this.getMedias();
+                        this.multiselect    =   false;
+                    });
+                }
+            },
+
+            /**
+             * Unselect all selected items
+             * @return void
+             */
+            unselectAll() {
+                this.media.data.forEach( entry => entry.selected = false );
+                this.media.data     =   [].concat( this.media.data );
+            },
+        },
+        created: function() {
+            this.getMedias();
+            $( '#media-element' ).show();
+        }
+    })
+</script>
 @endpush
 
 @extends( 'tendoo::components.backend.master', [ 'parent_class' => 'p-0' ])
@@ -55,14 +194,14 @@
                 </div>
                 <div class="col-md-12">
                     <div class="row p-0" v-if="getActive().namespace == 'list' && media">
-                        <div class="col-md-3 col-lg-2 col-xs-6 col-sm-4 mb-3" @click="select( media, index )" v-for="( media, index ) of media.data">
+                        <div class="col-md-4 col-lg-2 col-xs-6 col-sm-4 mb-3" @click="select( media, index )" v-for="( media, index ) of media.data">
                             <div class="card" v-bind:class="{ 'active-media' : media.selected }">
-                                <div class="card-body p-0 media-img-wrapper">
-                                    <img class="card-img-top" :src="media.sizes.thumb" style="max-height: 120px" :alt="media.name">
+                                <div class="card-body p-0 media-img-wrapper d-flex justify-content-center">
+                                    <img class="card-img-top" :src="media.sizes.thumb" :alt="media.name">
                                 </div>
                                 <div class="card-footer p-2 d-flex justify-content-between">
-                                    <a v-bind:click="show( media )" href="#" class="btn btn-primary m-0">Details</a>
-                                    <a v-bind:click="delete( media )" href="#" class="btn btn-primary m-0">Delete</a>
+                                    <button @click="show( media )"  class="btn btn-primary m-0">Details</button>
+                                    <button @click="deleteMedia( media )"  class="btn btn-primary m-0">Delete</button>
                                 </div>
                             </div>
                         </div>

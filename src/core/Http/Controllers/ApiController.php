@@ -154,4 +154,16 @@ class ApiController extends BaseController
 
         throw new ApiUnknowEndpointException;
     }
+
+    /**
+     * Require Scope
+     * @return Exception | Null
+     */
+    protected function requireScope( $scope ) 
+    {
+        $accessToken       =   $this->accessTokenData[0];
+        if ( ! in_array( $scope, json_decode( $accessToken->scopes, true ) ) ) {
+            throw new ApiForbiddenScopeException;
+        }
+    }
 }

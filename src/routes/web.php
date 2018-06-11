@@ -13,6 +13,7 @@
 use Tendoo\Core\Services\Options;
 use Tendoo\Core\Services\Site;
 use Tendoo\Core\Services\Helper;
+use Tendoo\Core\Facades\Hook;
 
 \Debugbar::disable();
 
@@ -61,7 +62,8 @@ $BasicRoutes    =   function() {
     Route::get( '/dashboard/medias', 'Tendoo\Core\Http\Controllers\Dashboard\MediasController@list' )->name( 'dashboard.medias.list' );
     Route::get( '/ajax/medias/{page?}', 'Tendoo\Core\Http\Controllers\Dashboard\MediasController@loadMedias' )->name( 'dashboard.medias.load' );
     Route::post( '/dashboard/medias', 'Tendoo\Core\Http\Controllers\Dashboard\MediasController@upload' )->name( 'dashboard.medias.upload' );
-    Route::delete( '/dashboard/medias/{id}', 'Tendoo\Core\Http\Controllers\Dashboard\MediasController@post' )->name( 'dashboard.medias.update' );
+    Route::post( '/dashboard/medias/bulk-delete', 'Tendoo\Core\Http\Controllers\Dashboard\MediasController@bulkDelete' )->name( 'dashboard.medias.bulk-delete' );
+    Route::delete( '/dashboard/medias/{media?}', 'Tendoo\Core\Http\Controllers\Dashboard\MediasController@delete' )->name( 'dashboard.medias.delete' );
     
     /**
      * Settings Get Routes
@@ -208,12 +210,12 @@ Route::middleware([ 'app.installed' ])->group( function(){
 /**
  * API Resource
  */
-Route::middleware([ 'app.installed' ])->group(function(){
-    Route::group([ 'prefix' => '/api/{resource}'], function( $request ) {        
-        Route::get( '', 'Tendoo\Core\Http\Controllers\ApiController@getAll' )->name( 'api.all' );
-        Route::get( '{id}', 'Tendoo\Core\Http\Controllers\ApiController@getOne' )->name( 'api.one' );
-        Route::delete( '{id}', 'Tendoo\Core\Http\Controllers\ApiController@delete' )->name( 'api.delete' );
-        Route::put( '{id}', 'Tendoo\Core\Http\Controllers\ApiController@put' )->name( 'api.put' );
-        Route::post( '', 'Tendoo\Core\Http\Controllers\ApiController@single' )->name( 'api.post' );
-    });
-});
+// Route::middleware([ 'app.installed' ])->group(function(){
+//     Route::group([ 'prefix' => '/api/{resource}'], function( $request ) {    
+//         Route::get( '', 'Tendoo\Core\Http\Controllers\ApiController@getAll' )->name( 'api.all' );
+//         Route::get( '{id}', 'Tendoo\Core\Http\Controllers\ApiController@getOne' )->name( 'api.one' );
+//         Route::delete( '{id}', 'Tendoo\Core\Http\Controllers\ApiController@delete' )->name( 'api.delete' );
+//         Route::put( '{id}', 'Tendoo\Core\Http\Controllers\ApiController@put' )->name( 'api.put' );
+//         Route::post( '', 'Tendoo\Core\Http\Controllers\ApiController@single' )->name( 'api.post' );
+//     });
+// });

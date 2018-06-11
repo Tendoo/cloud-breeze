@@ -72,9 +72,9 @@ class MediaService
             }
 
             $media              =   new Media;
-            $media->name        =   $file->getClientOriginalName();
+            $media->name        =   $fileName;
             $media->extension   =   $file->getClientOriginalExtension();
-            $media->slug        =   Storage::disk( 'public' )->url( $year . '/' . $month . '/' . $fileName );
+            $media->slug        =   $year . '/' . $month . '/' . $fileName;
             $media->user_id     =   Auth::id();
             $media->save();
 
@@ -100,24 +100,66 @@ class MediaService
     }
 
     /**
+     * Delete specific media by id
+     * @param int media id
+     * @return json
+     */
+    public function deleteMedia( $media ) 
+    {
+        $media  =   $this->__getSizes( $media );
+        
+        /**
+         * delete all sizes
+         */
+        foreach( $media->sizes as $name => $file ) {
+            // original files doesn't have the slug original
+            // so we'll keep that empty
+            $name = $name == 'original' ? '' : '-' . $name;
+
+            Storage::disk( 'public' )->delete( $media->slug . $name . '.' . $media->extension );
+        }
+
+        Media::find( $media->id )->delete();
+
+        return [
+            'status'    =>  'success',
+            'message'   =>  __( 'The media has been deleted' )
+        ];
+    }
+
+    /**
      * Load Medias
      * @param media int
      * @return void
      */
     public function loadAjax()
     {
-        $medias     =   Media::paginate(20);
+        $medias     =   Media::orderBy( 'updated_at', 'desc' )->paginate(20);
         
         /**
          * populating the media
          */
         foreach( $medias as &$media ) {
-            foreach( $this->sizes as $name => $sizes ) {
-                $media->sizes    =   new \stdClass;
-                $media->sizes->$name    =   $media->slug . '-' . $name . '.' . $media->extension;
-            }
+            $media       =   $this->__getSizes( $media );
         }
 
         return $medias;
+    }
+
+    /**
+     * @private
+     * @param object media entry
+     * @return array
+     */
+    private function __getSizes( $media ) 
+    {
+        $media->sizes                   =   new \stdClass;
+        $media->sizes->{'original'}     =   Storage::disk( 'public' )->url( $media->slug . '.' . $media->extension );
+
+        foreach( $this->sizes as $name => $sizes ) {
+            $media->sizes->$name    =   Storage::disk( 'public' )->url( $media->slug . '-' . $name . '.' . $media->extension );        
+        }
+
+        return $media;
     }
 }

@@ -68,16 +68,20 @@ class MediasController extends TendooController
          * Text Domain
          */
         $lang   =   [
-            'deleteBulk'    =>  __( 'Would you like to delete all selected entries ?' )
+            'bulkDelete'    =>  __( 'Would you like to delete all selected entries ?' ),
+            'singleDelete'  =>  __( 'Would you like to delete this entry ?' )
         ];
 
         /**
          * define upload url
          */
-        $uploadUrl  =   route( 'dashboard.medias.upload' );
-        $loadUrl    =   route( 'dashboard.medias.load' );
+        $upload         =   route( 'dashboard.medias.upload' );
+        $load           =   route( 'dashboard.medias.load' );
+        $delete         =   route( 'dashboard.medias.delete' );
+        $bulkDelete     =   route( 'dashboard.medias.bulk-delete' );
+        $url            =   compact( 'upload', 'load', 'delete', 'bulkDelete' );
         
-        return view( 'tendoo::components.backend.media', compact( 'tabs', 'uploadUrl', 'loadUrl', 'lang' ) );
+        return view( 'tendoo::components.backend.media', compact( 'tabs', 'lang', 'url' ) );
     }
 
     /**
@@ -100,5 +104,42 @@ class MediasController extends TendooController
     public function loadMedias( $page = 1 ) 
     {
         return $this->mediaService->loadAjax( $page );
+    }
+
+    /**
+     * delete media
+     * @param int media id
+     * @return json response
+     */
+    public function delete( $media ) 
+    {
+        if ( $response = $this->mediaService->deleteMedia( $media ) ) {
+            return $response;
+        } else {
+            return response([
+                'status'    =>  'failed',
+                'message'   =>  __( 'An error has occured.' )
+            ], 403 );
+        }
+    }
+
+    /**
+     * Delete bulk items
+     * @param Request
+     * @return json
+     */
+    public function bulkDelete( Request $request )
+    {
+        $bulkResponse   =   [];
+
+        foreach( $request->input( 'indexes' ) as $media ) {
+            $bulkResponse[]     =   $this->delete( ( object ) $media );
+        }
+
+        return [
+            'status'    =>  'success',
+            'bulk'      =>  $bulkResponse,
+            'message'   =>  __( 'Selected entries has been deleted.' )
+        ];
     }
 }
