@@ -40,9 +40,10 @@
 <script>
 jQuery( document ).ready( function(){
     var MDCSelect               = mdc.select.MDCSelect;
-    var selectField             = document.getElementById( 'field-{{ $field->name }}' );
+    var selectField             = document.querySelector( '#field-{{ $field->name }}' );
+    console.log( selectField );
     var selectFieldComponent    = new mdc.select.MDCSelect( selectField );
-    var adapter                 = new mdc.select.MDCSelectFoundation( selectFieldComponent );
+    // var adapter                 = new mdc.select.MDCSelectFoundation( selectFieldComponent );
     selectFieldComponent.listen( 'MDCSelect:change', () => {
         $( '[name="{{ $field->name }}"]' ).val(
             $( selectFieldComponent.selectedOptions[0] ).attr( 'data-value' )

@@ -29,7 +29,7 @@ trait UsersFields
         $active                     =   new \stdClass;
         $active->name               =   'active';
         $active->label              =   __( 'Active' );
-        $active->type               =   'md-select';
+        $active->type               =   'select';
         $active->placeholder        =   __( 'Active' );
         $active->validation         =   'required';
         $active->options            =   [ __( 'No' ), __( 'Yes' ) ];
@@ -52,7 +52,7 @@ trait UsersFields
         $role                       =   new \stdClass;
         $role->name                 =   'role_id';
         $role->label                =   __( 'Role' );
-        $role->type                 =   'md-select';
+        $role->type                 =   'select';
         $role->placeholder          =   __( 'Role' );
         $role->validation           =   'required';
         $role->options              =   Helper::toOptions( Role::all(), [ 'id', 'name' ]);

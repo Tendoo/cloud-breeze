@@ -100,7 +100,7 @@
             </div>
             <div class="card-footer">
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-6 col-lg-6">
                         <nav aria-label="Page navigation example">
                             <ul class="pagination mb-0">
                                 <li class="page-item"><a @click="goTo( currentPage == 1 ? 1 : currentPage -1 )" class="page-link" href="javascript:void(0)"><i class="material-icons">keyboard_arrow_left</i></a></li>
@@ -109,7 +109,7 @@
                             </ul>
                         </nav>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-6 col-lg-6 d-flex justify-content-end">
                         <div class="dropdown pull-right">
                             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 {{ __( 'Displayed' )}} &mdash; @{{ perPage }}

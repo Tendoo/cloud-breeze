@@ -34,12 +34,12 @@
     @section( 'partials.shared.footer' )
     @parent
     <script>
-        let dialog = mdc.dialog.MDCDialog.attachTo( document.querySelector('#my-mdc-dialog') );
-        mdc.ripple.MDCRipple.attachTo( document.querySelector('.foo-button') );
-        document.querySelector('.foo-button').addEventListener('click', function (evt) {
-            dialog.lastFocusedTarget = evt.target;
-            dialog.show();
-        })
+        // let dialog = mdc.dialog.MDCDialog.attachTo( document.querySelector('#my-mdc-dialog') );
+        // mdc.ripple.MDCRipple.attachTo( document.querySelector('.foo-button') );
+        // document.querySelector('.foo-button').addEventListener('click', function (evt) {
+        //     dialog.lastFocusedTarget = evt.target;
+        //     dialog.show();
+        // })
     </script>
     @endsection
 @endsection

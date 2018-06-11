@@ -30,8 +30,8 @@
     <script src="{{ asset( 'tendoo/js/dashboard/navbar.vue.js' ) }}"></script>
     <script>
     $(document).ready(function() { 
-        $('body').bootstrapMaterialDesign(); 
-        mdc.autoInit();
+        // $('body').bootstrapMaterialDesign(); 
+        // mdc.autoInit();
     });
     </script>
     <!-- Scroll Bar JS -->

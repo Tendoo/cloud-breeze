@@ -24,9 +24,17 @@
     width: 0px;
     left:-280px;
 }
+.collapsed-aside-no-anim aside#sidebar-menu {
+    width: 0px;
+    left:-280px;
+}
 .expanded-aside aside#sidebar-menu {
     animation-name: openAside;
     animation-duration: 0.2s;
+    width: 280px;
+    left:  0px;
+}
+.expanded-aside-no-anim aside#sidebar-menu {
     width: 280px;
     left:  0px;
 }

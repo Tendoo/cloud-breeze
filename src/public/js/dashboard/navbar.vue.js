@@ -14,9 +14,14 @@ var TendooTopBar    =   new Vue({
          * @return void
          */
         toggle() {
-            if( ! $( 'body > div' ).hasClass( 'collapsed-aside' ) ) {
+            if( 
+                ! $( 'body > div' ).hasClass( 'collapsed-aside' ) && 
+                ! $( 'body > div' ).hasClass( 'collapsed-aside-no-anim' ) 
+            ) {
                 $( 'body > div' ).addClass( 'collapsed-aside' );
+                
                 $( 'body > div' ).removeClass( 'expanded-aside' );
+                $( 'body > div' ).removeClass( 'expanded-aside-no-anim' );
                 
                 $( '.app-wrapper' ).removeClass( 'bmd-drawer-overlay' );
                 $( '#app-body' ).removeClass( 'bmd-drawer-overlay' );
@@ -26,7 +31,9 @@ var TendooTopBar    =   new Vue({
                 });
             } else {
                 $( 'body > div' ).addClass( 'expanded-aside' );
+
                 $( 'body > div' ).removeClass( 'collapsed-aside' );
+                $( 'body > div' ).removeClass( 'collapsed-aside-no-anim' );
 
                 if ( [ 'sm', 'xs' ].indexOf( this.is() ) != -1  ) {
                     $( '.app-wrapper' ).addClass( 'bmd-drawer-overlay' );
