@@ -58,11 +58,11 @@ class OauthControllers extends BaseController
         $application    =   Application::where([
             [ 'client_key',     '=', $request->query( 'client_key' )],
             [ 'client_secret',  '=', $request->query( 'client_secret' )]
-        ])->firstOrFail();
+        ])->first();
 
-        // if( $application->isEmpty() ) {
-        //     throw Exception( 'Wrong application credentials are provided' );
-        // }
+        if( $application === null ) {
+            throw Exception( 'Wrong application credentials are provided' );
+        }
 
         /**
          * get the required parameters from the URL
@@ -121,11 +121,11 @@ class OauthControllers extends BaseController
         $application    =   Application::where([
             [ 'client_key',     '=', $request->input( 'client_key' )],
             [ 'client_secret',  '=', $request->input( 'client_secret' )]
-        ])->firstOrFail();
+        ])->first();
 
-        // if( $application ) {
-        //     throw Exception( 'Wrong application credentials are provided' );
-        // }
+        if( $application === null ) {
+            throw Exception( 'Wrong application credentials are provided' );
+        }
 
         $action         =   $request->input( 'action' );
         $callback_url   =   $request->input( 'callback_url' );
@@ -168,6 +168,13 @@ class OauthControllers extends BaseController
                 $oauth->expires_at      =   Carbon::now()->addDays(7)->toDateTimeString();
                 $oauth->save();
             }
+
+            /**
+             * run an action when the Oauth is
+             * succesful
+             * @hook
+             */
+            Hook::action( 'oauth.successful', $oauth );
 
             /**
              * @todo adding expiration to the keys

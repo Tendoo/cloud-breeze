@@ -207,14 +207,16 @@ class Applications extends Crud
             'edit'      =>  [
                 'type'  =>  'GET',
                 'url'   =>  route( 'dashboard.applications.edit', [
-                    'entry'     =>  $entry->id
+                    'entry'     =>  $entry->id,
+                    'namespace' =>  $this->namespace
                 ]),
                 'text'  =>  __( 'Edit' )
             ], 
             'delete'      =>  [
                 'type'  =>  'DELETE',
                 'url'   =>  route( 'dashboard.crud.delete', [
-                    'entry'     =>  $entry->id
+                    'entry'     =>  $entry->id,
+                    'namespace' =>  $this->namespace
                 ]),
                 'text'  =>  __( 'Delete' )
             ]

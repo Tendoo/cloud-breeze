@@ -68,7 +68,7 @@ class ServiceProvider extends CoreServiceProvider
          * register CURL
          */
         // $this->app->register( 'Ixudra\Curl\CurlServiceProvider' );
-        $this->app->bind( 'tendoo.curl', 'Ixudra\Curl\Facades\Curl' );
+        $this->app->bind( 'tendoo.curl', 'Ixudra\Curl\CurlService' );
         $this->app->bind( 'tendoo.page', 'Tendoo\Core\Services\Page' );
 
         /**
@@ -233,6 +233,15 @@ class ServiceProvider extends CoreServiceProvider
         $this->app->singleton( 'XmlParser', function ($app) {
             return new XmlReader(new XmlDocument($app));
         });
+
+        
+        /**
+         * Overriding the Kernel class
+         */
+        $this->app->singleton(
+            \App\Http\Kernel::class,
+            TendooKernel::class
+        );
     }
 
     /**
