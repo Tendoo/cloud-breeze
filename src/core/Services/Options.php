@@ -124,11 +124,9 @@ class Options
             $this->option->save();
         } else {
 
-            if( in_array( $key, array_keys( $this->options ) ) ) {
-                $this->option()->where( 'key', $key )->update([
-                    'value'     =>  $value
-                ]);
-            } else {
+            $option     =   $this->option()->where( 'key', $key )->first();
+
+            if ( $option === null ) {
                 // if option doesn't exist, we'll just
                 $this->option               =   new Option;
                 $this->option->key          =   trim( strtolower( $key ) );
@@ -143,6 +141,10 @@ class Options
                 }
 
                 $this->option->save();
+            } else {
+                $this->option()->where( 'key', $key )->update([
+                    'value'     =>  $value
+                ]);
             }
 
             /**
