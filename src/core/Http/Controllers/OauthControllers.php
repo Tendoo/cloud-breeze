@@ -61,7 +61,7 @@ class OauthControllers extends BaseController
         ])->first();
 
         if( $application === null ) {
-            throw Exception( 'Wrong application credentials are provided' );
+            throw new Exception( 'Wrong application credentials are provided' );
         }
 
         /**
@@ -124,7 +124,7 @@ class OauthControllers extends BaseController
         ])->first();
 
         if( $application === null ) {
-            throw Exception( 'Wrong application credentials are provided' );
+            throw new Exception( 'Wrong application credentials are provided' );
         }
 
         $action         =   $request->input( 'action' );

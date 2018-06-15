@@ -42,7 +42,7 @@ class MediaService
          * getting file extension
          */
         $extension  =   $file->extension();
-        
+
         if ( in_array( $extension, $this->extensions ) ) {
 
             $uploadedInfo   =   pathinfo( $file->getClientOriginalName() );
@@ -73,7 +73,7 @@ class MediaService
 
             $media              =   new Media;
             $media->name        =   $fileName;
-            $media->extension   =   $file->getClientOriginalExtension();
+            $media->extension   =   $extension;
             $media->slug        =   $year . '/' . $month . '/' . $fileName;
             $media->user_id     =   Auth::id();
             $media->save();
@@ -104,8 +104,9 @@ class MediaService
      * @param int media id
      * @return json
      */
-    public function deleteMedia( $media ) 
+    public function deleteMedia( $id ) 
     {
+        $media  =   Media::findOrFail( $id );
         $media  =   $this->__getSizes( $media );
         
         /**
@@ -119,7 +120,7 @@ class MediaService
             Storage::disk( 'public' )->delete( $media->slug . $name . '.' . $media->extension );
         }
 
-        Media::find( $media->id )->delete();
+        $media->delete();
 
         return [
             'status'    =>  'success',

@@ -133,7 +133,7 @@ class MediasController extends TendooController
         $bulkResponse   =   [];
 
         foreach( $request->input( 'indexes' ) as $media ) {
-            $bulkResponse[]     =   $this->delete( ( object ) $media );
+            $bulkResponse[]     =   $this->delete( $media[ 'id' ] );
         }
 
         return [
