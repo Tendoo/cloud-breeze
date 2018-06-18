@@ -1,6 +1,6 @@
 <?php 
 namespace Tendoo\Core\Http;
-use Illuminate\Foundation\Http\Kernel;
+use App\Http\Kernel;
 use Tendoo\Core\Http\Middleware\VerifyCsrfToken;
 
 class TendooKernel extends Kernel {
