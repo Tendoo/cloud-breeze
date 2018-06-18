@@ -25,44 +25,12 @@ class ApiController extends BaseController
     public function __construct()
     {
         parent::__construct();
-
-        $this->middleware(function( $request, $next ) {
-
-            $this->accessToken    =   $request->header( 'X_API_TOKEN' );
-            
-            /**
-             * In case the token is not provided
-             */
-            if ( $this->accessToken == null ) {
-                throw new ApiMissingTokenException;
-            }
-
-            /**
-             * Let's retreive the option which use the accessToken
-             */
-            $this->accessTokenData      =   OauthModel::where( 'access_token', $this->accessToken )->get();
-
-            /**
-             * More than one key has been found
-             */
-            if ( $this->accessTokenData->count() > 1 ) {
-                throw new ApiAmbiguousTokenException;
-            } else if ( $this->accessTokenData->isEmpty() ) {
-                throw new ApiUnknowTokenException;
-            }
-            
-            /**
-             * Auth the user
-             */
-            Auth::loginUsingId( $this->accessTokenData[0]->user_id );
-
-            return $next( $request );
-        });
     }
 
     /**
      * get All
      * @return json
+     * @deprecated
      */
     public function getAll( $resource )
     {
@@ -105,6 +73,7 @@ class ApiController extends BaseController
 
     /**
      * Check the scope
+     * @deprecated
      * @param object api resource
      * @return void
      */
@@ -118,6 +87,7 @@ class ApiController extends BaseController
 
     /**
      * get One
+     * @deprecated
      * @return json
      */
     public function getOne( $resource, $id )
@@ -161,7 +131,10 @@ class ApiController extends BaseController
      */
     protected function requireScope( $scope ) 
     {
-        $accessToken       =   $this->accessTokenData[0];
+        $request                    =   app()->make( Request::class );
+        $this->accessToken          =   $request->header( 'X_API_TOKEN' );
+        $accessToken                =   OauthModel::where( 'access_token', $this->accessToken )->firstOrFail();
+
         if ( ! in_array( $scope, json_decode( $accessToken->scopes, true ) ) ) {
             throw new ApiForbiddenScopeException;
         }

@@ -6,13 +6,13 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Hash;
-use Tendoo\Core\Http\Controllers\TendooController;
+use Tendoo\Core\Http\Controllers\DashboardController;
 use Tendoo\Core\Http\Requests\UserProfileRequest;
 use Tendoo\Core\Http\Requests\PostUserSecurityRequest;
 use Tendoo\Core\Models\User;
 use Tendoo\Core\Models\Oauth;
 
-class UsersController extends TendooController
+class UsersController extends DashboardController
 {
     public function __construct()
     {

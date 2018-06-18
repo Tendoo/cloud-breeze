@@ -3,11 +3,11 @@
 namespace Tendoo\Core\Http\Controllers\Dashboard;
 
 use Illuminate\Http\Request;
-use Tendoo\Core\Http\Controllers\TendooController;
+use Tendoo\Core\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Event;
 use Tendoo\Core\Http\Requests\OptionsRequest;
 
-class SettingsController extends TendooController
+class SettingsController extends DashboardController
 {
     public function __construct()
     {

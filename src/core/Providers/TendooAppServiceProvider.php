@@ -10,8 +10,6 @@ use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Encryption\Encrypter;
-use Tendoo\Core\Services\Menus;
-use Tendoo\Core\Services\Dashboard\MenusConfig;
 use Tendoo\Core\Services\Options;
 use Tendoo\Core\Services\UserOptions;
 use Tendoo\Core\Services\Date;
@@ -79,33 +77,9 @@ class TendooAppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        // register a singleton a menu
-        $this->app->singleton( 'Tendoo\Core\Services\Menus', function( $app ) {
-            return new Menus();
-        });
-
-        // register dashboard menu singleton
-        $this->app->singleton( 'Tendoo\Core\Services\Dashboard\MenusConfig', function( $app ) {
-            return new MenusConfig( $app->make( Menus::class ) );
-        });
-
         // save Singleton for options
         $this->app->singleton( Options::class, function(){
             return new Options;
-        });
-
-        // save Singleton for options
-        $this->app->singleton( UserOptions::class, function(){
-            return new UserOptions( Auth::id() );
-        });
-
-        // save Singleton for options
-        $this->app->singleton( Users::class, function(){
-            return new Users( 
-                new Role,
-                new User,
-                new Permission
-            );
         });
 
         // save Singleton for options
@@ -118,6 +92,20 @@ class TendooAppServiceProvider extends ServiceProvider
         // save Singleton for guard class
         $this->app->singleton( Guard::class, function(){
             return new Guard;
+        });
+        
+        // save Singleton for options
+        $this->app->singleton( UserOptions::class, function(){
+            return new UserOptions( Auth::id() );
+        });
+
+        // save Singleton for options
+        $this->app->singleton( Users::class, function(){
+            return new Users( 
+                new Role,
+                new User,
+                new Permission
+            );
         });
 
         require_once TENDOO_ROOT . '/core/Services/Helper.php';

@@ -80,6 +80,7 @@ class ServiceProvider extends CoreServiceProvider
         $router->aliasMiddleware( 'expect.logged', \Tendoo\Core\Http\Middleware\RedirectIfNotAuthenticated::class );
         $router->aliasMiddleware( 'can.register', \Tendoo\Core\Http\Middleware\CheckRegistrationStatus::class );
         $router->aliasMiddleware( 'check.updates', \Tendoo\Core\Http\Middleware\CheckUpdates::class );
+        $router->aliasMiddleware( 'load.api', \Tendoo\Core\Http\Middleware\LoadApi::class );
         
         $corePath       =   base_path() . _SLASH_ . 'core' . _SLASH_ ;
         $configPath     =   base_path() . _SLASH_ . 'config' . _SLASH_ ;

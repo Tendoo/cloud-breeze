@@ -1,7 +1,7 @@
 <?php
 namespace Tendoo\Core\Http\Controllers\Dashboard;
 
-use Tendoo\Core\Http\Controllers\TendooController;
+use Tendoo\Core\Http\Controllers\DashboardController;
 use Tendoo\Core\Services\Page;
 use Illuminate\Http\Request;
 use Tendoo\Core\Models\Media;
@@ -11,7 +11,7 @@ use Carbon\Carbon;
 use Tendoo\Core\Services\Date;
 use Tendoo\Core\Services\MediaService;
 
-class MediasController extends TendooController
+class MediasController extends DashboardController
 {
     /**
      * Media Service

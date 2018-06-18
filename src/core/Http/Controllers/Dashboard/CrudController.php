@@ -3,7 +3,7 @@
 namespace Tendoo\Core\Http\Controllers\Dashboard;
 
 use Illuminate\Http\Request;
-use Tendoo\Core\Http\Controllers\TendooController;
+use Tendoo\Core\Http\Controllers\DashboardController;
 use Tendoo\Core\Http\Requests\CrudPostRequest;
 use Tendoo\Core\Http\Requests\CrudPutRequest;
 use Tendoo\Core\Facades\Hook;
@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Event;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Tendoo\Core\Exceptions\CrudException;
 
-class CrudController extends TendooController
+class CrudController extends DashboardController
 {
     public function __construct()
     {

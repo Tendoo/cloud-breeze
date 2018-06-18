@@ -1,12 +1,12 @@
 <?php
 namespace Tendoo\Core\Http\Controllers\Dashboard;
 
-use Tendoo\Core\Http\Controllers\TendooController;
+use Tendoo\Core\Http\Controllers\DashboardController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Event;
 use Tendoo\Core\Http\Requests\PostModuleRequest;
 
-class ModulesController extends TendooController
+class ModulesController extends DashboardController
 {
     public function __construct()
     {

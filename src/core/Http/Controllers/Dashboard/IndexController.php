@@ -4,11 +4,11 @@ namespace Tendoo\Core\Http\Controllers\Dashboard;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Tendoo\Core\Http\Controllers\TendooController;
+use Tendoo\Core\Http\Controllers\DashboardController;
 use Tendoo\Core\Services\Options;
 use Tendoo\Core\Services\UserOptions;
 
-class IndexController extends TendooController
+class IndexController extends DashboardController
 {
     public function __construct()
     {
