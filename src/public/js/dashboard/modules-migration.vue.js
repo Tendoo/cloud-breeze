@@ -6,8 +6,7 @@ var ModuleMigration     =   new Vue({
         tasks       :   [],
         complete    :   false,
         lastVersion     : null,
-        module      :   tendoo.migration.module,
-        options     :   new Options
+        module      :   tendoo.migration.module
     },
     methods     :   {
         /**
@@ -113,7 +112,7 @@ var ModuleMigration     =   new Vue({
              * check if a migration is available
              */
             if ( this.lastVersion ) {
-                this.options.save( this.module.namespace + '_last_migration', this.lastVersion ).then( result => {
+                tendooApi.options.save( this.module.namespace + '_last_migration', this.lastVersion ).then( result => {
                     /**
                      * Finishing Task
                      */
