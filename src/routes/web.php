@@ -128,6 +128,10 @@ $BasicRoutes    =   function() {
     /**
      * Options CRUD
      */
+    Route::get( '/user-ajax/options/{key?}', 'Tendoo\Core\Http\Controllers\UserAjaxOptionsController@get' )->name( 'user-ajax.get.options' );
+    Route::post( '/user-ajax/options', 'Tendoo\Core\Http\Controllers\UserAjaxOptionsController@set' )->name( 'user-ajax.set.options' );
+    Route::delete( '/user-ajax/options/{key?}', 'Tendoo\Core\Http\Controllers\UserAjaxOptionsController@delete' )->name( 'user-ajax.delete.options' );
+
     Route::get( '/ajax/options/{key?}', 'Tendoo\Core\Http\Controllers\AjaxOptionsController@get' )->name( 'ajax.get.options' );
     Route::post( '/ajax/options', 'Tendoo\Core\Http\Controllers\AjaxOptionsController@set' )->name( 'ajax.set.options' );
     Route::delete( '/ajax/options/{key?}', 'Tendoo\Core\Http\Controllers\AjaxOptionsController@delete' )->name( 'ajax.delete.options' );

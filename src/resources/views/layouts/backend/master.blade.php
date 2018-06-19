@@ -13,15 +13,32 @@
     <script src="{{ asset( 'tendoo/bower_components/axios/dist/axios.min.js' ) }}"></script>
 @endsection
 @section( 'partials.shared.footer' )
-    <script>
-    var OptionsData    =   {
-        id              :   {!! $Auth::id() !!},
-        postUrl         :   "{{ route( 'ajax.set.options' ) }}",
-        getUrl          :   "{{ route( 'ajax.get.options' ) }}",
-        deleteUrl       :   "{{ route( 'ajax.delete.options' ) }}"
-    }
-    </script>
     <script src="{{ asset( 'tendoo/js/dashboard/options.js' ) }}"></script>
+    <script>
+        var tendooApi               =   new Object;
+
+        /**
+         * hold routes url to the options
+         * of the system
+         */
+        tendooApi.options           =   new Options({
+            postUrl         :   "{{ route( 'ajax.set.options' ) }}",
+            getUrl          :   "{{ route( 'ajax.get.options' ) }}",
+            deleteUrl       :   "{{ route( 'ajax.delete.options' ) }}"
+        });
+
+        /**
+         * Hold the current route to have access
+         * to the user options
+         */
+        tendooApi.userOptions       =   new Options({
+            id              :   {!! $Auth::id() !!},
+            postUrl         :   "{{ route( 'user-ajax.set.options' ) }}",
+            getUrl          :   "{{ route( 'user-ajax.get.options' ) }}",
+            deleteUrl       :   "{{ route( 'user-ajax.delete.options' ) }}"
+        });
+    </script>
+    
     <script src="{{ asset( 'tendoo/bower_components/popper.js/dist/umd/popper.min.js' ) }}"></script>
     <script src="{{ asset( 'tendoo/bower_components/bootstrap-material-design/js/bootstrap-material-design.js' ) }}"></script>
     <script src="{{ asset( 'tendoo/node_modules/material-components-web/dist/material-components-web.js' ) }}"></script>
@@ -37,12 +54,10 @@
     <!-- Scroll Bar JS -->
     <script src="{{ asset( 'tendoo/js/simplebar.js' ) }}"></script>
     <script>
-    var tendooApi           =   new Object;
-
-        /**
-         * Tendoo SnackBar
-         */
-        tendooApi.SnackBar  =   new MdSnackbar();
+    /**
+     * Tendoo SnackBar
+     */
+    tendooApi.SnackBar  =   new MdSnackbar();
     </script>
 @endsection
 @include( 'tendoo::partials.shared.header' )

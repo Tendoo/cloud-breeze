@@ -7,9 +7,9 @@ use Tendoo\Core\Models\User;
 use Tendoo\Core\Services\Options;
 
 
-class AjaxOptionsController extends BaseController
+class UserAjaxOptionsController extends BaseController
 {
-    protected $options;
+    protected $userOptions;
 
     public function __construct() 
     {
@@ -18,7 +18,7 @@ class AjaxOptionsController extends BaseController
 
     public function set( Request $request )
     {   
-        $this->options->set( $request->input( 'key' ), $request->input( 'value' ) );
+        $this->userOptions->set( $request->input( 'key' ), $request->input( 'value' ) );
 
         return [
             'status'    =>  'success',
@@ -32,7 +32,7 @@ class AjaxOptionsController extends BaseController
      */
     public function delete( string $key )
     {
-        $this->options->delete( $key );
+        $this->userOptions->delete( $key );
 
         return [
             'status'    =>  'success',
@@ -46,7 +46,7 @@ class AjaxOptionsController extends BaseController
     public function get( User $user, string $key  )
     {
         return [
-            'value' =>  $this->options->get( $key )
+            'value' =>  $this->userOptions->get( $key )
         ];
     }
 }

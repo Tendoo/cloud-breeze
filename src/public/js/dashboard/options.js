@@ -1,9 +1,9 @@
 class Options {
-    constructor() {
-        this.userId     =   OptionsData.id
-        this.postUrl    =   OptionsData.postUrl;
-        this.deleteUrl  =   OptionsData.deleteUrl;
-        this.getUrl     =   OptionsData.getUrl;
+    constructor( options ) {
+        this.userId     =   options.id
+        this.postUrl    =   options.postUrl;
+        this.deleteUrl  =   options.deleteUrl;
+        this.getUrl     =   options.getUrl;
     }
     
     /**
@@ -12,11 +12,21 @@ class Options {
      * @param {mixed} value 
      */
     save( key, value ) {
-        return axios.post( this.postUrl, {
+        
+        let data    =   {
             key,
-            value,
-            user    :   this.userID
-        })
+            value
+        };
+
+        /**
+         * if the user id is defined
+         * let's use it
+         */
+        if ( this.userId ) {
+            data.user = this.userId;
+        }
+
+        return axios.post( this.postUrl, data )
     }
 
     /**

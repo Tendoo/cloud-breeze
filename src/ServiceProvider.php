@@ -12,7 +12,7 @@ define( 'TENDOO_ROOT', __DIR__ );
  * assets and database migration
  */
 define( 'TENDOO_VERSION', '5.0' );
-define( 'TENDOO_ASSETS_VERSION', '1.1' );
+define( 'TENDOO_ASSETS_VERSION', '1.2' );
 define( 'TENDOO_DB_VERSION', '1.2' );
 
 use Illuminate\Support\ServiceProvider as CoreServiceProvider;
@@ -239,10 +239,10 @@ class ServiceProvider extends CoreServiceProvider
         /**
          * Overriding the Kernel class
          */
-        $this->app->singleton(
-            \App\Http\Kernel::class,
-            TendooKernel::class
-        );
+        // $this->app->singleton(
+        //     \App\Http\Kernel::class,
+        //     TendooKernel::class
+        // );
     }
 
     /**
