@@ -4,8 +4,7 @@ var TendooTopBar    =   new Vue({
         window  :   {
             width: 0,
             height: 0
-        },
-        options     :   new Options
+        }
     },
     methods: {
         /**
@@ -43,7 +42,7 @@ var TendooTopBar    =   new Vue({
                     $( '#sidebar-menu' ).css({ 'position' : 'relative' });
                 }
 
-                this.options.save( 'dashboard-aside', 'expanded-aside' ).then( foo => {
+                tendooApi.options.save( 'dashboard-aside', 'expanded-aside' ).then( foo => {
                     console.log( foo );
                 });
             }
