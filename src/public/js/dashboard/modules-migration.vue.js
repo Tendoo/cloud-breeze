@@ -6,7 +6,8 @@ var ModuleMigration     =   new Vue({
         tasks       :   [],
         complete    :   false,
         lastVersion     : null,
-        module      :   tendoo.migration.module
+        module      :   tendoo.migration.module,
+        options     :   new Options
     },
     methods     :   {
         /**
@@ -112,9 +113,7 @@ var ModuleMigration     =   new Vue({
              * check if a migration is available
              */
             if ( this.lastVersion ) {
-                axios.post( tendoo.url.postOptions, {
-                    [ this.module.namespace + '_last_migration' ]     :   this.lastVersion
-                }).then( () => {
+                this.options.save( this.module.namespace + '_last_migration', this.lastVersion ).then( result => {
                     /**
                      * Finishing Task
                      */
