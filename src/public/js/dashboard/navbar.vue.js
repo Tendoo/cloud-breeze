@@ -25,7 +25,7 @@ var TendooTopBar    =   new Vue({
                 $( '.app-wrapper' ).removeClass( 'bmd-drawer-overlay' );
                 $( '#app-body' ).removeClass( 'bmd-drawer-overlay' );
 
-                this.options.save( 'dashboard-aside', 'collapsed-aside' ).then( foo => {
+                tendooApi.options.save( 'dashboard-aside', 'collapsed-aside' ).then( foo => {
                     console.log( foo );
                 });
             } else {
