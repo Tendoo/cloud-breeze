@@ -42,7 +42,7 @@ trait ProfileFields
         $theme                  =   new \stdClass;
         $theme->name            =   'theme_class';
         $theme->label           =   __( 'Theme' );
-        $theme->type            =   'md-select';
+        $theme->type            =   'select';
         $theme->description     =   __( 'Change the dashboard theme.' );
         $theme->validation      =   'sometimes|required|min:3';
         $theme->options         =   [
