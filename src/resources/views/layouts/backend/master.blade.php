@@ -49,6 +49,8 @@
     $(document).ready(function() { 
         // $('body').bootstrapMaterialDesign(); 
         // mdc.autoInit();
+        window.mdc.autoInit();
+        console.log( mdc );
     });
     </script>
     <!-- Scroll Bar JS -->

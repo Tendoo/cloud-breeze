@@ -52,7 +52,7 @@
                                                 @endif
                                             </div>
                                             <div>
-                                                <a href="{{ route( 'dashboard.modules.delete', [ 'namespace' => $module[ 'namespace' ] ] ) }}" class="mb-0 btn-icon btn btn-danger btn-raised">
+                                                <a onclick="return confirm( '{{ __( 'Would you like to delete this module ?' ) }}' )" href="{{ route( 'dashboard.modules.delete', [ 'namespace' => $module[ 'namespace' ] ] ) }}" class="mb-0 btn-icon btn btn-danger btn-raised">
                                                     <i class="material-icons">delete_forever</i>
                                                 </a>
                                                 <a href="{{ route( 'dashboard.modules.extract', [ 'namespace' => $module[ 'namespace' ] ] ) }}" class="mb-0 btn-icon btn btn-primary btn-raised">

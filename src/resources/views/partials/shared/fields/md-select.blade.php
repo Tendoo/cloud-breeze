@@ -1,32 +1,22 @@
-<div id="field-{{ $field->name }}" style="width:100%" class="mdc-select" role="listbox" tabindex="0">
-    <div class="mdc-select__surface">
-        <div class="mdc-select__label mdc-select__label">{{ $field->label }}</div>
-        <div class="mdc-select__selected-text"></div>
-        <div class="mdc-select__bottom-line"></div>
-    </div>
-    <div class="mdc-simple-menu mdc-select__menu">
-        <ul class="mdc-list mdc-simple-menu__items">
-        @php
-        $index          =   0;
-        $selectedIndex  =   0;
-        $selectedValue  =   '';
+<div class="mdc-select" id="field-{{ $field->name }}">
+    <select name="{{ $field->name }}" class="mdc-select__native-control" style="min-width: 300px">
+        @php 
+        $index = 0; 
+        $selectedIndex = 0; 
+        $selectedValue = ''; 
         @endphp
-        @foreach( ( array ) @$field->options as $value => $text )
-            <li data-value="{{ $value }}" class="mdc-list-item" role="option" tabindex="0">
-                {{ $text }}
-            </li>
-            @if( @$field->value == $value )
-                @php
-                $selectedIndex  =   $index;
-                $selectedValue  =   $value;
-                @endphp
-            @endif
-            @php
-            $index++;
+
+        @foreach( ( array ) 
+            @$field->options as $value => $text
+        )
+        <option value="{{ @$value }}"{{ @$field->value === $value ? ' selected="selected"' : null }}>{{ $text }}</option>
+            @php 
+            $index++; 
             @endphp
         @endforeach
-        </ul>
-    </div>
+    </select>
+    <label class="mdc-floating-label">{{ $field->label }}</label>
+    <div class="mdc-line-ripple"></div>
 </div>
 @if ( $errors->has( $field->name ) )
 <div class="invalid-feedback d-block">
@@ -34,23 +24,10 @@
 </div>
 @else
 <small class="form-text text-muted">{{ @$field->description }}</small>
-<br>
+<br> 
 @endif
-<input type="hidden" name="{{ $field->name }}">
+@push( 'partials.shared.footer' )
 <script>
-jQuery( document ).ready( function(){
-    var MDCSelect               = mdc.select.MDCSelect;
-    var selectField             = document.querySelector( '#field-{{ $field->name }}' );
-    console.log( selectField );
-    var selectFieldComponent    = new mdc.select.MDCSelect( selectField );
-    // var adapter                 = new mdc.select.MDCSelectFoundation( selectFieldComponent );
-    selectFieldComponent.listen( 'MDCSelect:change', () => {
-        $( '[name="{{ $field->name }}"]' ).val(
-            $( selectFieldComponent.selectedOptions[0] ).attr( 'data-value' )
-        );
-    })
-
-    // selectFieldComponent.selectedIndex	    =   {{ $selectedIndex }};
-    $( '[name="{{ $field->name }}"]' ).val( '{{ $selectedValue }}' );
-});
+const select = new mdc.select.MDCSelect(document.querySelector('#field-{{ $field->name }}'));
 </script>
+@endpush

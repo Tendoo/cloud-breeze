@@ -39,10 +39,13 @@ trait ProfileFields
      */
     static function userGeneralFields()
     {
+        $userOptions            =   app()->make( 'Tendoo\Core\Services\UserOptions' );
+        
         $theme                  =   new \stdClass;
         $theme->name            =   'theme_class';
         $theme->label           =   __( 'Theme' );
-        $theme->type            =   'select';
+        $theme->type            =   'md-select';
+        $theme->value           =   $userOptions->get( 'theme_class' );
         $theme->description     =   __( 'Change the dashboard theme.' );
         $theme->validation      =   'sometimes|required|min:3';
         $theme->options         =   [
