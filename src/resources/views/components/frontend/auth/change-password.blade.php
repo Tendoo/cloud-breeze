@@ -1,4 +1,5 @@
 @inject( 'Field', 'Tendoo\Core\Services\Field' )
+@inject( 'Hook', 'Tendoo\Core\Facades\Hook' )
 @extends( 'tendoo::components.frontend.auth.master' )
 @section( 'tendoo::components.frontend.auth.master.body' )
 <div class="col-md-6 col-lg-4 col-sm-10 col-xs-12">

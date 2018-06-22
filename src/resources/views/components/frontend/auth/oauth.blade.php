@@ -1,4 +1,5 @@
 @inject( 'Field', 'Tendoo\Core\Services\Field' )
+@inject( 'Hook', 'Tendoo\Core\Facades\Hook' )
 @Inject( 'Auth', 'Illuminate\Support\Facades\Auth' )
 @extends( 'tendoo::components.frontend.auth.master' )
 @section( 'tendoo::components.frontend.auth.master.body' )
