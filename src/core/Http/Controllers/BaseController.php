@@ -1,7 +1,6 @@
 <?php
 namespace Tendoo\Core\Http\Controllers;
 
-use Tendoo\Core\Services\Guard;
 use Tendoo\Core\Services\Helper;
 use Tendoo\Core\Services\Modules;
 use Tendoo\Core\Models\User;
@@ -31,7 +30,6 @@ class BaseController extends Controller
                 $this->options      =   app()->make( 'Tendoo\Core\Services\Options' );
                 $this->userOptions  =   app()->make( 'Tendoo\Core\Services\UserOptions' );
                 $this->modules      =   app()->make( Modules::class );
-                $this->guard        =   app()->make( Guard::class );
                 $this->date         =   app()->make( Date::class );
                 $this->userService  =   app()->make( 'Tendoo\Core\Services\Users' );
 

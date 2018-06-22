@@ -35,9 +35,6 @@ use Tendoo\Core\Console\Commands\PublishCommand;
 use Illuminate\Routing\Router;
 use Jackiedo\DotenvEditor\DotenvEditor;
 use Tendoo\Core\Http\TendooKernel;
-use Illuminate\Contracts\Config\Repository;
-use Illuminate\Support\Facades\Artisan;
-use Illuminate\Foundation\AliasLoader;
 
 use Orchestra\Parser\Xml\Reader as XmlReader;
 use Orchestra\Parser\Xml\Document as XmlDocument;
@@ -67,7 +64,6 @@ class ServiceProvider extends CoreServiceProvider
         /**
          * register CURL
          */
-        // $this->app->register( 'Ixudra\Curl\CurlServiceProvider' );
         $this->app->bind( 'tendoo.curl', 'Ixudra\Curl\CurlService' );
         $this->app->bind( 'tendoo.page', 'Tendoo\Core\Services\Page' );
 
@@ -80,7 +76,7 @@ class ServiceProvider extends CoreServiceProvider
         $router->aliasMiddleware( 'expect.logged', \Tendoo\Core\Http\Middleware\RedirectIfNotAuthenticated::class );
         $router->aliasMiddleware( 'can.register', \Tendoo\Core\Http\Middleware\CheckRegistrationStatus::class );
         $router->aliasMiddleware( 'check.updates', \Tendoo\Core\Http\Middleware\CheckUpdates::class );
-        $router->aliasMiddleware( 'load.api', \Tendoo\Core\Http\Middleware\LoadApi::class );
+        $router->aliasMiddleware( 'api.guard', \Tendoo\Core\Http\Middleware\LoadApi::class );
         
         $corePath       =   base_path() . _SLASH_ . 'core' . _SLASH_ ;
         $configPath     =   base_path() . _SLASH_ . 'config' . _SLASH_ ;

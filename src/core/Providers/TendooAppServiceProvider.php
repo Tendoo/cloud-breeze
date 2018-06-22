@@ -13,7 +13,6 @@ use Illuminate\Encryption\Encrypter;
 use Tendoo\Core\Services\Options;
 use Tendoo\Core\Services\UserOptions;
 use Tendoo\Core\Services\Date;
-use Tendoo\Core\Services\Guard;
 use Tendoo\Core\Services\Users;
 use Tendoo\Core\Models\Role;
 use Tendoo\Core\Models\User;
@@ -87,11 +86,6 @@ class TendooAppServiceProvider extends ServiceProvider
             $options    =   app()->make( Options::class );
             $timeZone   =   $options->get( 'app_timezone', 'Europe/London' );
             return new Date( $timeZone );
-        });
-        
-        // save Singleton for guard class
-        $this->app->singleton( Guard::class, function(){
-            return new Guard;
         });
         
         // save Singleton for options

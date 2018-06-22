@@ -38,9 +38,9 @@ class ApiController extends BaseController
         
         /**
          * Load route and pass resource loaded
-         * @hook:load.api
+         * @hook:api.guard
          */
-        $details    =   Hook::filter( 'load.api', false, $resource, $request );
+        $details    =   Hook::filter( 'api.guard', false, $resource, $request );
         
         if ( $details != false ) {
 
@@ -96,9 +96,9 @@ class ApiController extends BaseController
 
         /**
          * Load route and pass resource loaded
-         * @hook:load.api
+         * @hook:api.guard
          */
-        $details    =   Hook::filter( 'load.api', false, $resource, $request );
+        $details    =   Hook::filter( 'api.guard', false, $resource, $request );
         
         if ( $details ) {
 
@@ -129,7 +129,7 @@ class ApiController extends BaseController
      * Require Scope
      * @return Exception | Null
      */
-    protected function requireScope( $scope ) 
+    protected function scopeGuard( $scope ) 
     {
         $request                    =   app()->make( Request::class );
         $this->accessToken          =   $request->header( 'X_API_TOKEN' );
