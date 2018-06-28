@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Auth;
 use Tendoo\Core\Models\Application;
 use Carbon\Carbon;
 use Exception;
+use Tendoo\Core\Exceptions\OauthDeniedException;
+use Tendoo\Core\Exceptions\WrongCredentialException;
 
 class OauthControllers extends BaseController
 {
@@ -19,7 +21,7 @@ class OauthControllers extends BaseController
     public function __construct()
     {
         parent::__construct();
-        $this->middleware( 'expect.logged' );
+        $this->middleware( 'expect.logged' )->except([ 'postLogin' ]);
         $this->oauth        =   new Oauth;
     }
 
@@ -115,6 +117,19 @@ class OauthControllers extends BaseController
             ]);
         }
 
+        return $this->__oauthLogin( $request );
+    }
+
+    public function postLogin( Request $request )
+    {
+        if ( Auth::attempt( $request->only( 'username', 'password' ) ) ) {
+            return $this->__oauthLogin( $request );
+        }
+        throw new WrongCredentialException;
+    }
+
+    private function __oauthLogin( Request $request )
+    {
         /**
          * Authenticating the application
          */
@@ -129,13 +144,16 @@ class OauthControllers extends BaseController
 
         $action         =   $request->input( 'action' );
         $callback_url   =   $request->input( 'callback_url' );
-        $name           =   $request->input( 'name' );
+        // $name           =   $request->input( 'name' );
         $scopes         =   $request->input( 'scopes' );
 
         /**
          * if the use refuse the connexion
          */
-        if ( $action == 'deny' ) {
+        if ( $action === 'deny' ) {
+            if ( $request->ajax() ) {
+                throw new OauthDeniedException;
+            }
             return redirect( $callback_url . '?status=denied' );
         } else {
 
@@ -188,7 +206,12 @@ class OauthControllers extends BaseController
                 $callback_url .= '?access_token=' . $access_token;
             }
 
-            return redirect( $callback_url );
+            return $request->ajax() ? [
+                'access_token'  =>  $access_token,
+                'status'        =>  'success',
+                'message'       =>  __( 'You were successfully connected' ),
+                'user'          =>  Auth::user()
+            ] : redirect( $callback_url );
         }
     }
 }

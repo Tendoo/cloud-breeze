@@ -233,12 +233,17 @@ class ServiceProvider extends CoreServiceProvider
 
         
         /**
-         * Overriding the Kernel class
+         * Overriding the Exception Handler
          */
         // $this->app->singleton(
-        //     \App\Http\Kernel::class,
-        //     TendooKernel::class
+        //     \App\Exceptions\Handler::class,
+        //     \Tendoo\Core\Exceptions\TendooHandler::class
         // );
+
+        $this->app->singleton(
+            \Illuminate\Contracts\Debug\ExceptionHandler::class,
+            \Tendoo\Core\Exceptions\TendooHandler::class
+        );
     }
 
     /**

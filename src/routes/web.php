@@ -237,6 +237,7 @@ Route::middleware([ 'web' ])->group( function(){
             ->name( 'oauth.index' );
         Route::post( '/oauth', 'Tendoo\Core\Http\Controllers\OauthControllers@post' )
             ->name( 'oauth.post' );
+        Route::post( '/oauth/login', 'Tendoo\Core\Http\Controllers\OauthControllers@postLogin' );
     });
     
     Route::middleware([ 'app.notInstalled' ])->group( function(){
