@@ -10,6 +10,8 @@ use Tendoo\Core\Services\Date;
 use Tendoo\Core\Services\UserOptions;
 use Tendoo\Core\Services\Users;
 use Tendoo\Core\Exceptions\FeatureDisabledException;
+use Tendoo\Core\Exceptions\AccessDeniedException;
+use Tendoo\Core\Exceptions\RoleDeniedException;
 
 use Illuminate\Support\Facades\Event;
 

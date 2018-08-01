@@ -13,6 +13,7 @@ use Carbon\Carbon;
 use Exception;
 use Tendoo\Core\Exceptions\OauthDeniedException;
 use Tendoo\Core\Exceptions\WrongCredentialException;
+use Tendoo\Core\Exceptions\WrongOauthScopeException;
 
 class OauthControllers extends BaseController
 {
@@ -42,9 +43,7 @@ class OauthControllers extends BaseController
          * Having Scope is required
          */
         if ( ! $scope = $request->query( 'scopes' ) ) {
-            return redirect()->route( 'errors', [
-                'code'  =>  'missing-scopes'
-            ]);
+            throw new WrongOauthScopeException;
         }
         
         if ( 
@@ -84,9 +83,7 @@ class OauthControllers extends BaseController
 
         foreach( $namespaces as $namespace ) {
             if ( @$scopes[ $namespace ] == null ) {
-                return redirect()->route( 'errors', [
-                    'code'  =>  'undefined-scope'
-                ]);
+                throw new WrongOauthScopeException;
             }
         }
 

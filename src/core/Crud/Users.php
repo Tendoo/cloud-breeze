@@ -81,7 +81,7 @@ class Users extends Crud
     public function filterPostInputs( $inputs )
     {
         foreach( $inputs as $name => $value ) {
-            if ( $name == 'password' ) {
+            if ( $name == 'password' && ! empty( $value ) ) {
                 $inputs[ $name ]    =   bcrypt( $value );
             }
         }
@@ -96,7 +96,7 @@ class Users extends Crud
     public function filterPutInputs( $inputs )
     {
         foreach( $inputs as $name => $value ) {
-            if ( $name == 'password' ) {
+            if ( $name == 'password' && ! empty( $value ) ) {
                 $inputs[ $name ]    =   bcrypt( $value );
             }
         }

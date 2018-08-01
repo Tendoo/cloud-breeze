@@ -80,7 +80,12 @@ class TendooHandler extends ExceptionHandler
             } else if ( 
                 $exception instanceof AccessDeniedException ||
                 $exception instanceof RecoveryExpiredException ||
-                $exception instanceof FeatureDisabledException
+                $exception instanceof FeatureDisabledException ||
+                $exception instanceof CrudException ||
+                $exception instanceof OauthDeniedException ||
+                $exception instanceof RoleDeniedException ||
+                $exception instanceof WrongCredentialException ||
+                $exception instanceof WrongOauthScopeException
             ) {
                 return response()->view( 'tendoo::errors.common', [ 'e' => $exception ] );
             }

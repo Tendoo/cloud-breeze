@@ -21,6 +21,9 @@ class Page
      */
     public static function getTitle()
     {
-        return self::$title . ' &mdash; ' . config( 'tendoo.name' );
+        if ( self::$title ) {
+            return self::$title . ' &mdash; ' . config( 'tendoo.name' );
+        }
+        return config( 'tendoo.name' );
     }
 }
