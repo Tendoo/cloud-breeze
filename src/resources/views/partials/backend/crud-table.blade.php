@@ -13,7 +13,7 @@
     @endphp
     <div class="content-wrapper" id="tendoo-table">
         
-            @include( 'tendoo::partials.shared.crud-page-title', [
+        @include( 'tendoo::partials.shared.crud-page-title', [
             'title'         =>  $resource->list_title,
             'description'   =>  $resource->list_description,
             'links'         =>  $resource->getLinks()[ 'list' ]

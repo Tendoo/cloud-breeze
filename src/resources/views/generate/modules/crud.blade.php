@@ -7,6 +7,7 @@ use Tendoo\Core\Services\Crud;
 use Tendoo\Core\Services\Field;
 use Tendoo\Core\Services\Helper;
 use Tendoo\Core\Models\User;
+use Tendoo\Core\Facades\Hook;
 
 class {{ ucwords( camel_case( str_plural( $resource_name ) ) ) }} extends Crud
 {
@@ -66,7 +67,7 @@ class {{ ucwords( camel_case( str_plural( $resource_name ) ) ) }} extends Crud
         $this->create_title         =   __( 'Create {{ ucwords( str_singular( trim( $resource_name ) ) ) }}' );
         $this->create_description   =   __( 'Create a new {{ strtolower( str_singular( trim( $resource_name ) ) ) }}.' );
 
-        $this->setActions();
+        Hook::addFilter( 'crud.entry', [ $this, 'setActions' ], 10, 2 );
     }
 
     /**
@@ -206,29 +207,24 @@ class {{ ucwords( camel_case( str_plural( $resource_name ) ) ) }} extends Crud
     /**
      * Define actions
      */
-    public function setActions()
+    public function setActions( $entry, $namespace )
     {
-        $this->actions      =   [
-            'edit'      =>  function( $entry ) {
-                return [
-                    'text'  =>  __( 'Edit' ),
-                    'url'   =>  url()->route( '{{ strtolower( trim( $route_name ) ) }}.edit', [ 'id' => $entry->id ] )
-                ];
-            },
-            'delete'    =>  function( $entry ) {
-                /**
-                 * You might perform a check to verify if that 
-                 * Action should appear for a specific entry
-                **/
-                return [
-                    'type'  =>  'DELETE',
-                        'url'           =>  url()->route( 'dashboard.crud.delete', [ 
-                        'id'            =>  $entry->id,
-                        'namespace'     =>  '{{ strtolower( trim( $namespace ) ) }}'
-                    ]),
-                    'text'  =>  __( 'Delete' )
-                ];
-            }
+        $entry->{'$actions'}    =   [
+            'edit'      =>  [
+                'type'  =>  'GET',
+                'url'   =>  route( '{{ strtolower( trim( $route_name ) ) }}.edit', [
+                    'entry'     =>  $entry->id
+                ]),
+                'text'  =>  __( 'Edit' )
+            ], 
+            'delete'      =>  [
+                'type'  =>  'DELETE',
+                'url'   =>  route( 'dashboard.crud.delete', [
+                    'entry'     =>  $entry->id,
+                    'namespace' =>  '{{ strtolower( trim( $namespace ) ) }}'
+                ]),
+                'text'  =>  __( 'Delete' )
+            ]
         ];
     }
 

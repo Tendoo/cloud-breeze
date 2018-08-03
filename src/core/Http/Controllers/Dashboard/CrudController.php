@@ -106,7 +106,7 @@ class CrudController extends DashboardController
                 return $inputs;
             }
         }
-        
+
         foreach ( $inputs as $name => $value ) {
 
             /**
