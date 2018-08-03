@@ -66,6 +66,7 @@ class ServiceProvider extends CoreServiceProvider
          */
         $this->app->bind( 'tendoo.curl', 'Ixudra\Curl\CurlService' );
         $this->app->bind( 'tendoo.page', 'Tendoo\Core\Services\Page' );
+        $this->app->bind( 'tendoo.helper', 'Tendoo\Core\Services\Helper' );
 
         /**
          * Register Middleware

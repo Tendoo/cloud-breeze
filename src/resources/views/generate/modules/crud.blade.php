@@ -1,9 +1,9 @@
 @inject( 'Schema', 'Illuminate\Support\Facades\Schema' )
 <{{ '?php' }}
-namespace Modules\{{ ucwords( $module[ 'namespace' ]) }}\Crud;
-use Tendoo\Core\Services\Crud;
+namespace Modules\{{ ucwords( $module[ 'namespace' ] ) }}\Crud;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Tendoo\Core\Services\Crud;
 use Tendoo\Core\Services\Field;
 use Tendoo\Core\Services\Helper;
 use Tendoo\Core\Models\User;
@@ -85,8 +85,9 @@ class {{ ucwords( camel_case( str_plural( $resource_name ) ) ) }} extends Crud
      */
     public function getFields( $entry = null ) 
     {
-        $fields     =   app()->make( Field::class );
-        return $fields->createFields( $entry ); // might be different in your implementation
+        return [
+            // your field here
+        ];
     }
 
     /**

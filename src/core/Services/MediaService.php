@@ -24,6 +24,12 @@ class MediaService
      */
     private $extensions    =   [];
 
+    /**
+     * image extensions
+     * @var array<string>
+     */
+    private $images_extensions  =   [ 'png', 'jpg', 'jpeg', 'gif' ];
+
     public function __construct( $data ) 
     {
         extract( $data );
@@ -34,7 +40,7 @@ class MediaService
     /**
      * Upload a file
      * @param object File
-     * @return boolean
+     * @return boolean / media
      */
     public function upload( $file )
     {
@@ -59,16 +65,18 @@ class MediaService
                 $folderPath . $fullFileName
             );
 
-            /**
-             * Resizing the images
-             */
-            $fullPath           =   storage_path( 'app' . DIRECTORY_SEPARATOR . 'public' . DIRECTORY_SEPARATOR . $filePath );
-            $realPathInfo       =   pathinfo( $fullPath );
-
-            foreach( $this->sizes as $resizeName => $size ) {
-                $image      =   new ImageResize( $fullPath );
-                $image->resizeToBestFit( $size[0], $size[1] );
-                $image->save( $realPathInfo[ 'dirname' ] . DIRECTORY_SEPARATOR . $fileName . '-' . $resizeName . '.' . $extension );
+            if ( in_array( $extension, $this->images_extensions ) ) {
+                /**
+                 * Resizing the images
+                 */
+                $fullPath           =   storage_path( 'app' . DIRECTORY_SEPARATOR . 'public' . DIRECTORY_SEPARATOR . $filePath );
+                $realPathInfo       =   pathinfo( $fullPath );
+    
+                foreach( $this->sizes as $resizeName => $size ) {
+                    $image      =   new ImageResize( $fullPath );
+                    $image->resizeToBestFit( $size[0], $size[1] );
+                    $image->save( $realPathInfo[ 'dirname' ] . DIRECTORY_SEPARATOR . $fileName . '-' . $resizeName . '.' . $extension );
+                }
             }
 
             $media              =   new Media;
@@ -78,7 +86,7 @@ class MediaService
             $media->user_id     =   Auth::id();
             $media->save();
 
-            return true;
+            return $this->getSizesUrls( $media );
         }
         
         return false;
@@ -107,11 +115,15 @@ class MediaService
     public function deleteMedia( $id ) 
     {
         $media  =   Media::findOrFail( $id );
-        $media  =   $this->__getSizes( $media );
         
         /**
          * delete all sizes
          */
+        // if ( in_array( $media->extension, $this->images_extensions ) ) {
+        // }
+
+        $media  =   $this->getSizesUrls( $media );
+        
         foreach( $media->sizes as $name => $file ) {
             // original files doesn't have the slug original
             // so we'll keep that empty
@@ -141,7 +153,7 @@ class MediaService
          * populating the media
          */
         foreach( $medias as &$media ) {
-            $media       =   $this->__getSizes( $media );
+            $media       =   $this->getSizesUrls( $media );
         }
 
         return $medias;
@@ -152,13 +164,18 @@ class MediaService
      * @param object media entry
      * @return array
      */
-    private function __getSizes( $media ) 
+    private function getSizesUrls( Media $media ) 
     {
         $media->sizes                   =   new \stdClass;
         $media->sizes->{'original'}     =   Storage::disk( 'public' )->url( $media->slug . '.' . $media->extension );
 
-        foreach( $this->sizes as $name => $sizes ) {
-            $media->sizes->$name    =   Storage::disk( 'public' )->url( $media->slug . '-' . $name . '.' . $media->extension );        
+        /**
+         * provide others url if the media is an image
+         */
+        if ( in_array( $media->extension, $this->images_extensions ) ) {
+            foreach( $this->sizes as $name => $sizes ) {
+                $media->sizes->$name    =   Storage::disk( 'public' )->url( $media->slug . '-' . $name . '.' . $media->extension );        
+            }
         }
 
         return $media;

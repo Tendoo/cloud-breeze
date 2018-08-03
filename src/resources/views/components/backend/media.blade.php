@@ -70,6 +70,14 @@
             },
 
             /**
+             * is Image
+             * @return boolean
+             */
+            isImage( media ) {
+                return [ 'jpg', 'png', 'jpeg', 'gif' ].indexOf( media.extension ) !== -1;
+            },
+
+            /**
              * get Active tab
              * @param void
              * @return object
@@ -197,7 +205,8 @@
                         <div class="col-md-4 col-lg-2 col-xs-6 col-sm-4 mb-3" @click="select( media, index )" v-for="( media, index ) of media.data">
                             <div class="card" v-bind:class="{ 'active-media' : media.selected }">
                                 <div class="card-body p-0 media-img-wrapper d-flex justify-content-center">
-                                    <img class="card-img-top" :src="media.sizes.thumb" :alt="media.name">
+                                    <i style="font-size: 120px;" v-if="! isImage( media )" class="material-icons" :alt="media.name">attachment</i>
+                                    <img v-if="isImage( media )" class="card-img-top" :src="media.sizes.thumb" :alt="media.name">
                                 </div>
                                 <div class="card-footer p-2 d-flex justify-content-between">
                                     <button @click="show( media )"  class="btn btn-primary m-0">Details</button>

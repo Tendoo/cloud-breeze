@@ -53,3 +53,7 @@
     {!! $field->output !!}
 @endif
 
+{{-- Adding Field : file --}}
+@if ( $field->type == 'file' ) 
+    @include( 'tendoo::partials.shared.fields.file' )
+@endif
