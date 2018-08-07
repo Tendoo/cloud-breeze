@@ -178,7 +178,7 @@ class CrudController extends DashboardController
          */
         $inputs         =   $request->all();
         if ( method_exists( $resource, 'filterPutInputs' ) ) {
-            $inputs     =   $resource->filterPutInputs( $request->all() );
+            $inputs     =   $resource->filterPutInputs( $request->all(), $entry );
 
             /**
              * if a redirect response is returned

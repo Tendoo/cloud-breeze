@@ -2,7 +2,7 @@
 namespace Tendoo\Core\Services;
 
 use Carbon\Carbon;
-use Tendoo\Core\Services\Date;
+use Tendoo\Core\Services\DateService;
 use Tendoo\Core\Models\Media;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -34,7 +34,7 @@ class MediaService
     {
         extract( $data );
         $this->extensions   =   $extensions;
-        $this->date         =   app()->make( Date::class );
+        $this->date         =   app()->make( DateService::class );
     }
 
     /**
@@ -42,7 +42,7 @@ class MediaService
      * @param object File
      * @return boolean / media
      */
-    public function upload( $file )
+    public function upload( $file, $customName = null )
     {
         /**
          * getting file extension
@@ -53,10 +53,11 @@ class MediaService
 
             $uploadedInfo   =   pathinfo( $file->getClientOriginalName() );
             $fileName       =   str_slug( $uploadedInfo[ 'filename' ], '-' );
+            $fileName       =   ( $customName == null ? $fileName : $customName );
             $fullFileName   =   $fileName . '.' . strtolower( $file->getClientOriginalExtension() );
 
-            $year           =   $this->date->instance()->year;
-            $month          =   sprintf( "%02d", $this->date->instance()->month );
+            $year           =   $this->date->year;
+            $month          =   sprintf( "%02d", $this->date->month );
             $folderPath     =   $year . DIRECTORY_SEPARATOR . $month . DIRECTORY_SEPARATOR;
             
             $filePath       =   Storage::disk( 'public' )->putFileAs( 
@@ -108,35 +109,50 @@ class MediaService
     }
 
     /**
+     * find media using the ID
+     * @param int 
+     * @return Media model
+     */
+    public function find( $id ) 
+    {
+        $file   =   Media::where( 'id', $id )->first();
+        if ( $file instanceof Media ) {
+            return $this->getSizesUrls( $file );
+        }
+        return false;
+    }
+
+    /**
      * Delete specific media by id
      * @param int media id
      * @return json
      */
     public function deleteMedia( $id ) 
     {
-        $media  =   Media::findOrFail( $id );
-        
-        /**
-         * delete all sizes
-         */
-        // if ( in_array( $media->extension, $this->images_extensions ) ) {
-        // }
+        $media  =   Media::find( $id );
 
-        $media  =   $this->getSizesUrls( $media );
-        
-        foreach( $media->sizes as $name => $file ) {
-            // original files doesn't have the slug original
-            // so we'll keep that empty
-            $name = $name == 'original' ? '' : '-' . $name;
-
-            Storage::disk( 'public' )->delete( $media->slug . $name . '.' . $media->extension );
+        if ( $media instanceof Media ) {
+            $media  =   $this->getSizesUrls( $media );
+            
+            foreach( $media->sizes as $name => $file ) {
+                // original files doesn't have the slug original
+                // so we'll keep that empty
+                $name = $name == 'original' ? '' : '-' . $name;
+    
+                Storage::disk( 'public' )->delete( $media->slug . $name . '.' . $media->extension );
+            }
+    
+            $media->delete();
+    
+            return [
+                'status'    =>  'success',
+                'message'   =>  __( 'The media has been deleted' )
+            ];
         }
 
-        $media->delete();
-
         return [
-            'status'    =>  'success',
-            'message'   =>  __( 'The media has been deleted' )
+            'status'    =>  'danger',
+            'message'   =>  __( 'Unable to find the media.' )
         ];
     }
 

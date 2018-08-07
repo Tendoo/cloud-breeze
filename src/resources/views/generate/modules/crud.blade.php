@@ -106,7 +106,7 @@ class {{ ucwords( camel_case( str_plural( $resource_name ) ) ) }} extends Crud
      * @param array of fields
      * @return array of fields
      */
-    public function filterPutInputs( $inputs )
+    public function filterPutInputs( $inputs, {{ trim( $model_name ) }} $entry )
     {
         return $inputs;
     }

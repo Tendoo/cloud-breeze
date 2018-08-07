@@ -13,7 +13,7 @@ use Tendoo\Core\Services\Modules;
 use Tendoo\Core\Models\User;
 use Tendoo\Core\Services\Page;
 use Tendoo\Core\Services\Options;
-use Tendoo\Core\Services\Date;
+use Tendoo\Core\Services\DateService;
 use Tendoo\Core\Services\UserOptions;
 use Tendoo\Core\Services\Users;
 use Tendoo\Core\Exceptions\AccessDeniedException;

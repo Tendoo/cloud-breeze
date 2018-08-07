@@ -8,7 +8,7 @@ use Tendoo\Core\Models\Media;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
-use Tendoo\Core\Services\Date;
+use Tendoo\Core\Services\DateService;
 use Tendoo\Core\Services\MediaService;
 
 class MediasController extends DashboardController

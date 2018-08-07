@@ -314,7 +314,7 @@ class AuthController extends BaseController
         /**
          * Generating a hashed code according to the username
          */
-        $hashedCode     =   str_random( strlen( $user->username ) ) . $this->date->instance()->timestamp;
+        $hashedCode     =   str_random( strlen( $user->username ) ) . $this->date->timestamp;
         $userOptions    =   new UserOptions( $user->id );
         $userOptions->set( 'recovery-token', $hashedCode );
         $userOptions->set( 'recovery-validity', 
@@ -398,7 +398,7 @@ class AuthController extends BaseController
         /**
          * Check if the recovery code has not expired
          */
-        if ( $this->date->instance()->gt( 
+        if ( $this->date->gt( 
             Carbon::parse( $expiration ) 
         ) || empty( $expiration ) ) {
             throw new RecoveryException;

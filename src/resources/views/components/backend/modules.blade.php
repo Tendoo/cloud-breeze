@@ -50,6 +50,10 @@
                                                 @else 
                                                     <a href="{{ route( 'dashboard.modules.disable', [ 'namespace' => $module[ 'namespace' ] ] ) }}" class="mb-0 btn btn-secondary btn-raised">{{ __( 'Disable' ) }}</a>
                                                 @endif
+                                                
+                                                @if( $Modules->getMigrations( $module[ 'namespace' ] ) ) 
+                                                <a href="{{ route( 'dashboard.modules.migration', [ 'namespace' => $module[ 'namespace' ] ] ) }}" class="mb-0 btn btn-primary btn-raised">{{ __( 'Migrate' ) }}</a>
+                                                @endif
                                             </div>
                                             <div>
                                                 <a onclick="return confirm( '{{ __( 'Would you like to delete this module ?' ) }}' )" href="{{ route( 'dashboard.modules.delete', [ 'namespace' => $module[ 'namespace' ] ] ) }}" class="mb-0 btn-icon btn btn-danger btn-raised">

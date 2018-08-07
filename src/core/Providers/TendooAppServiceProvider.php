@@ -12,8 +12,9 @@ use Illuminate\Support\Facades\Blade;
 use Illuminate\Encryption\Encrypter;
 use Tendoo\Core\Services\Options;
 use Tendoo\Core\Services\UserOptions;
-use Tendoo\Core\Services\Date;
+use Tendoo\Core\Services\DateService;
 use Tendoo\Core\Services\Users;
+use Tendoo\Core\Services\MediaService;
 use Tendoo\Core\Models\Role;
 use Tendoo\Core\Models\User;
 use Tendoo\Core\Models\Permission;
@@ -82,10 +83,10 @@ class TendooAppServiceProvider extends ServiceProvider
         });
 
         // save Singleton for options
-        $this->app->singleton( Date::class, function(){
+        $this->app->singleton( DateService::class, function(){
             $options    =   app()->make( Options::class );
             $timeZone   =   $options->get( 'app_timezone', 'Europe/London' );
-            return new Date( $timeZone );
+            return new DateService( $timeZone );
         });
         
         // save Singleton for options
@@ -100,6 +101,13 @@ class TendooAppServiceProvider extends ServiceProvider
                 new User,
                 new Permission
             );
+        });
+
+        // provide media manager
+        $this->app->singleton( MediaService::class, function() {
+            return new MediaService([
+                'extensions'    =>  [ 'jpg', 'jpeg', 'png', 'gif', 'zip', 'docx', 'txt' ]
+            ]);
         });
 
         require_once TENDOO_ROOT . '/core/Services/Helper.php';
