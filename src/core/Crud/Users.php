@@ -224,6 +224,7 @@ class Users extends Crud
                 'delete'      =>  [
                     'type'  =>  'DELETE',
                     'url'   =>  route( 'dashboard.crud.delete', [
+                        'namespace' =>  'users',
                         'entry'     =>  $entry->id
                     ]),
                     'text'  =>  __( 'Delete' )
@@ -255,8 +256,11 @@ class Users extends Crud
                      * deletion
                      */
                     if ( Hook::filter( 'delete.user', true, $id ) ) {
-                        $this->model::find( $id )->delete();
-                        $this->deleteOptions( $id );
+                        $user   =   $this->model::find( $id );
+                        if ( $user instanceof User ) {
+                            $user->delete();
+                            $this->deleteOptions( $id );
+                        }
                         $status[ 'success' ]++;
                     }
                 }

@@ -92,6 +92,22 @@ class AuthController extends BaseController
         ], $request->input( 'remember_me' ) ? true : false ) ) {
 
             /**
+             * If users is not admin and if the login is disabled
+             * then he's redirected to the login with an error
+             */
+            if ( ! $this->options->get( 'allow_login', false ) &&  
+                ! in_array( 
+                    Hook::filter( 'login.roles.allowed', [ 'admin' ]),
+                    Auth::user()->role->namespace
+                )
+            ) {
+                return redirect()->route( 'login.index' )->with([
+                    'status'    =>  'danger',
+                    'message'   =>  __( 'Unable to login, the registration has been locked for users.')
+                ]);
+            }
+
+            /**
              * if the user is not active then we should let him know that
              */
             if ( ! ( boolean ) Auth::user()->active ) {

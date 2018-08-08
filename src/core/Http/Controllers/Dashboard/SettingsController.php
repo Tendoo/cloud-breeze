@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Tendoo\Core\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Event;
 use Tendoo\Core\Http\Requests\OptionsRequest;
+use Tendoo\Core\Facades\Hook;
 
 class SettingsController extends DashboardController
 {
@@ -38,6 +39,13 @@ class SettingsController extends DashboardController
     public function postOptions( OptionsRequest $request )
     {
         $inputs     =   $request->except([ '_token', '_route', '_radio', '_checkbox', '_previous' ]);
+
+        /**
+         * Before ssaving an option
+         * we might trigger an even so that 
+         * it can be cauth
+         */
+        $inputs     =   Hook::filter( 'before.update.options', $inputs );
         
         /**
          * If the field is defined as a radio or  checkbox field, then

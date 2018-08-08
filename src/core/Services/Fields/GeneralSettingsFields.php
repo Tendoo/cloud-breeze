@@ -31,9 +31,19 @@ trait GeneralSettingsFields
         $multisite->type            =   'select';
         $multisite->description     =   __( 'Enable a multi site feature which let you have multiple instance of the application with on database.' );
         $multisite->options         =   [ 'no' => __( 'No' ), 'yes' => __( 'Yes' ) ];
-        $multisite->value           =   $options->get( $multisite->name );         
+        $multisite->value           =   $options->get( $multisite->name );        
+        
+        $enable_maintenance                  =   new \StdClass;
+        $enable_maintenance->name            =   'enable_maintenance';
+        $enable_maintenance->label           =   __( 'Maintenance Status' );
+        $enable_maintenance->type            =   'switch';
+        $enable_maintenance->value           =   $options->get( $enable_maintenance->name );
+        $enable_maintenance->options         =   [
+            'true'   =>  __( 'Enabled' )
+        ];
+        $enable_maintenance->description  =   __( 'Only Administrator will be allowed to login and registration will be disabled.' );
 
-        return [ $app_name, $timezone, $multisite ];
+        return [ $app_name, $timezone, $multisite, $enable_maintenance ];
     }
 
     public static function registration()
@@ -45,10 +55,20 @@ trait GeneralSettingsFields
         $allow_registration->label           =   __( 'Open Registration' );
         $allow_registration->type            =   'switch';
         $allow_registration->value           =   $options->get( $allow_registration->name );
+        $allow_registration->description     =   __( 'Let anyone sees the registration page and register an account' );
         $allow_registration->options         =   [
             'true'   =>  __( 'Allow registration' )
         ];
-        $allow_registration->description  =   __( 'Let anyone sees the registration page and register an account' );
+        
+        $allow_login                  =   new \StdClass;
+        $allow_login->name            =   'allow_login';
+        $allow_login->label           =   __( 'Allow Login' );
+        $allow_login->type            =   'switch';
+        $allow_login->value           =   $options->get( $allow_login->name );
+        $allow_login->description     =   __( 'Allow login for registered users' );
+        $allow_login->options         =   [
+            'true'   =>  __( 'Allow' )
+        ];
 
         $allow_password_recovery                  =   new \StdClass;
         $allow_password_recovery->name            =   'allow_recovery';
@@ -100,6 +120,14 @@ trait GeneralSettingsFields
         ];
         $notifyAfterRegistration->value             =   $options->get( $notifyAfterRegistration->name );
 
-        return [ $allow_registration, $allow_password_recovery, $reset_activation_link, $validate_users, $register_as, $notifyAfterRegistration ];
+        return [ 
+            $allow_registration, 
+            $allow_login,
+            $allow_password_recovery, 
+            $reset_activation_link, 
+            $validate_users, 
+            $register_as, 
+            $notifyAfterRegistration
+        ];
     }
 }

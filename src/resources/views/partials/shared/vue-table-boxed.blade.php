@@ -13,6 +13,11 @@
         'editURL'       =>  route( 'dashboard.users.edit' ),
         'textDomain'    =>  [
             'deleteSelected'    =>  __( 'Would you like to delete selected entries ?' )
+        ],
+        'url'   =>  [
+            'bulk'    =>  route( 'dashboard.crud.bulk-actions', [
+                'namespace'     =>  $resource->getNamespace()
+            ])
         ]
     ]) !!}
     </script>

@@ -97,6 +97,13 @@ var TendooTable     =   new Vue({
         bulkDeleteSelected() {
             if ( confirm( this.textDomain.deleteSelected ) ) {
                 console.log( this.selectedEntries );
+                let entry_id  =   this.selectedEntries.map( entry => entry.id );
+                axios.post( this.url.bulk, {
+                    action: 'delete_selected',
+                    entry_id
+                }).then( result => {
+                    this.getEntries();
+                })
             }
         },
 
@@ -262,7 +269,9 @@ var TendooTable     =   new Vue({
             let indexes     =   [];
             if ( this.result ) {
                 for( let i = 1; i <= Math.ceil( this.result.total / this.result.per_page ); i++ ) {
-                    indexes.push( i );
+                    if ( i > this.currentPage - 5 && i < this.currentPage + 5 ) {
+                        indexes.push( i );
+                    }
                 }
             }
             return indexes;

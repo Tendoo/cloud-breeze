@@ -302,6 +302,9 @@ class CrudController extends DashboardController
             $errors[ 'danger' ]     =   sprintf( $resource->bulkDeleteDangerMessage, $response[ 'danger' ]);
         }
 
+        if ( $request->expectsJson() ) {
+            return $errors;
+        }
         return redirect()->route( $resource->getMainRoute() )->with( $errors );
     }
 

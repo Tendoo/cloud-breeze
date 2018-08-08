@@ -114,5 +114,7 @@ class TendooEventServiceProvider extends ServiceProvider
         Hook::addFilter( 'profile-security.validation.rules', 'Tendoo\Core\Events\Users@profileSecurity', 10, 2 );
         Hook::addFilter( 'profile-general.validation.rules', 'Tendoo\Core\Events\Users@profileGeneral', 10, 2 );
         Hook::addFilter( 'register.validation.rules', 'Tendoo\Core\Events\Users@registration', 10, 2 );
+        
+        Hook::addFilter( 'before.update.options', 'Tendoo\Core\Events\Options@handle', 10 );
     }
 }
