@@ -97,8 +97,8 @@ class AuthController extends BaseController
              */
             if ( ! $this->options->get( 'allow_login', false ) &&  
                 ! in_array( 
-                    Hook::filter( 'login.roles.allowed', [ 'admin' ]),
-                    Auth::user()->role->namespace
+                    Auth::user()->role->namespace,
+                    Hook::filter( 'login.roles.allowed', [ 'admin' ])
                 )
             ) {
                 return redirect()->route( 'login.index' )->with([
