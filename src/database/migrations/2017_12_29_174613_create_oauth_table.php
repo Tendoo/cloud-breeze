@@ -19,6 +19,7 @@ class CreateOauthTable extends Migration
             $table->string( 'access_token' );
             $table->string( 'app_name' );
             $table->integer( 'app_id' ); // as registered on application table
+            $table->string( 'domain' );
             $table->string( 'scopes' );
             $table->string( 'refresh_token' );
             $table->datetime( 'expires_at' );

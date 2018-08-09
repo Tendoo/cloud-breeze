@@ -156,33 +156,23 @@ class OauthControllers extends BaseController
 
             $access_token           =   str_random(40);
             $refresh_token          =   str_random(30);
+            $url                    =   parse_url( $request->input( 'callback_url' ) );
 
             /**
-             * let's check if the user already have this application
-             * within the authorised applications
+             * A user can have the same application connected several time to his system.
+             * We should then introduce a website url so that he can know from 
+             * where the request has been made.
              */
-            $oauth                  =   OauthModel::where( 'app_id', '=', $application->id )->first();
-
-            if ( $oauth != null ) {
-                $oauth->access_token    =   $access_token;
-                $oauth->app_name        =   $application->name;
-                $oauth->app_id          =   $application->id;
-                $oauth->scopes          =   json_encode( $scopes );
-                $oauth->refresh_token   =   $refresh_token;
-                $oauth->user_id         =   Auth::id();
-                $oauth->expires_at      =   Carbon::now()->addDays(7)->toDateTimeString();
-                $oauth->save();
-            } else {
-                $oauth                  =   new OauthModel;
-                $oauth->access_token    =   $access_token;
-                $oauth->app_name        =   $application->name;
-                $oauth->app_id          =   $application->id;
-                $oauth->scopes          =   json_encode( $scopes );
-                $oauth->refresh_token   =   $refresh_token;
-                $oauth->user_id         =   Auth::id();
-                $oauth->expires_at      =   Carbon::now()->addDays(7)->toDateTimeString();
-                $oauth->save();
-            }
+            $oauth                  =   new OauthModel;
+            $oauth->access_token    =   $access_token;
+            $oauth->app_name        =   $application->name;
+            $oauth->app_id          =   $application->id;
+            $oauth->scopes          =   json_encode( $scopes );
+            $oauth->refresh_token   =   $refresh_token;
+            $oauth->domain          =   @$url[ 'host' ] ? $url[ 'host' ] : __( 'N/A' );
+            $oauth->user_id         =   Auth::id();
+            $oauth->expires_at      =   Carbon::now()->addDays(7)->toDateTimeString();
+            $oauth->save();
 
             /**
              * run an action when the Oauth is

@@ -22,7 +22,8 @@
                         <a href="javascript:void(0)" v-on:click="revoke( token, index )" class="list-group-item list-group-item-action flex-column align-items-start">
                             <div class="d-flex w-100 justify-content-between">
                                 <h5 class="mb-1">@{{ token.app_name }}</h5>
-                                <small>@{{ token.created_at }}</small>
+                                <small>@{{ token.created_at }}</small><br>
+                                <small>@{{ token.domain }}</small>
                             </div>
                             <p class="mb-1">@{{ token.access_token }}</p>
                             <small>@{{ token.scopes }}</small>
