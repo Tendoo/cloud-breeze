@@ -12,8 +12,8 @@ define( 'TENDOO_ROOT', __DIR__ );
  * assets and database migration
  */
 define( 'TENDOO_VERSION', '5.0' );
-define( 'TENDOO_ASSETS_VERSION', '1.5' );
-define( 'TENDOO_DB_VERSION', '1.2' );
+define( 'TENDOO_ASSETS_VERSION', '1.6' );
+define( 'TENDOO_DB_VERSION', '1.3' );
 
 use Illuminate\Support\ServiceProvider as CoreServiceProvider;
 use Tendoo\Core\Console\Commands\DisableModule;
