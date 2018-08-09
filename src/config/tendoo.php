@@ -19,4 +19,6 @@ return [
     'archive'       =>  [
         'master'    =>  'https://github.com/Tendoo/cms/archive/master.zip',
     ],
+    'db_version'    =>  '1.3',
+    'assets_version'    =>  '1.6'
 ];
