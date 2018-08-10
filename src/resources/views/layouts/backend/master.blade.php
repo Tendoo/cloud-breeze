@@ -9,11 +9,19 @@
 
     <script src="{{ asset( 'tendoo/bower_components/jquery/dist/jquery.min.js' ) }}"></script>
     <script src="{{ asset( 'tendoo/js/jquery.extended.js' ) }}"></script>
+    <script src="{{ asset( 'tendoo/js/truncate.vue.js' ) }}"></script>
     <script src="{{ asset( 'tendoo/bower_components/vue/dist/vue.min.js' ) }}"></script>
     <script src="{{ asset( 'tendoo/bower_components/axios/dist/axios.min.js' ) }}"></script>
+    <script src="{{ asset( 'tendoo/bower_components/vue-router/dist/vue-router.min.js' ) }}"></script>
 @endsection
 @section( 'partials.shared.footer' )
     <script src="{{ asset( 'tendoo/js/dashboard/options.js' ) }}"></script>
+    <script>
+    /**
+     * Register Vue Filters
+     */
+    Vue.use( VueTruncate );
+    </script>
     <script>
         var tendooApi               =   new Object;
 

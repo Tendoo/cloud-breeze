@@ -186,6 +186,12 @@ $BasicRoutes    =   function() {
         ->name( 'ajax.set.options' );
     Route::delete( '/ajax/options/{key?}', 'Tendoo\Core\Http\Controllers\AjaxOptionsController@delete' )
         ->name( 'ajax.delete.options' );
+
+    /**
+     * Builder Routes
+     */
+    Route::get( '/dashboard/builder/{id?}', 'Tendoo\Core\Http\Controllers\Dashboard\PageBuilderController@list' )
+        ->name( 'dashboard.builder.list' );
 };
 
 Route::middleware([ 'web' ])->group( function(){

@@ -5,8 +5,12 @@ use Tendoo\Core\Services\Menus;
 
 class MenusConfig 
 {
+    private $user;
+
     public function __construct( Menus $menus )
     {        
+        $this->user             =   app()->make( \Tendoo\Core\Services\Users::class );
+
         $dashboard              =   new \stdClass;
         $dashboard->text        =   __( 'Dashboard' );
         $dashboard->href        =   url( '/dashboard' );
@@ -17,10 +21,28 @@ class MenusConfig
         $this->menus            =   $menus;
         $this->menus->add( $dashboard );
         $this->registerMediaMenu();
+        $this->registerBuilderMenu();
         $this->registerModulesMenu();
         $this->registerSettingsMenu();
         $this->registerUserMenu();
         $this->registerApplicationsMenu();
+    }
+
+    /**
+     * Register Builder Menu
+     * @return void
+     */
+    public function registerBuilderMenu()
+    {
+        if ( $this->user->is([ 'admin', 'supervisor' ]) ) {
+            $builder              =   new \stdClass;
+            $builder->text        =   __( 'Pages' );
+            $builder->namespace   =   'builder';
+            $builder->icon        =   'web';
+            $builder->href        =   route( 'dashboard.builder.list' );
+
+            $this->menus->add( $builder );
+        }
     }
 
     /**
