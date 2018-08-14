@@ -89,6 +89,7 @@ class Setup
             return $message;
         }
 
+        DotEnvEditor::setKey( 'MAIL_DRIVER', 'log' );
         DotEnvEditor::setKey( 'DB_HOST', $request->input( 'hostname' ) );
         DotEnvEditor::setKey( 'DB_DATABASE', $request->input( 'db_name' ) );
         DotEnvEditor::setKey( 'DB_USERNAME', $request->input( 'username' ) );
