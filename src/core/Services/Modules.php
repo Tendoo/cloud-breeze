@@ -772,7 +772,7 @@ class Modules
                 $version        =   basename( $dir );
 
                 /**
-                 * the last version should be lowed that the looped versions
+                 * the last version should be lower than the looped versions
                  * the current version should greather or equal to the looped versions
                  */
                 if ( 
@@ -784,7 +784,20 @@ class Modules
                     );
                 }
             }
-            return $version_names;
+
+            $version_array     =   array_keys( $version_names );
+
+            usort( $version_array, function( $a, $b ) {
+                return version_compare( $a, $b, '>' );
+            });
+
+            $ordered_versions    =   [];
+
+            foreach( $version_array as $version ) {
+                $ordered_versions[ $version ]   =   $version_names[ $version ];
+            }
+            
+            return $ordered_versions;
         }
         return [];
     }
