@@ -12,6 +12,9 @@ class Options
     private $isUserOptions      =   false;
     private $option;
     private $user_id;
+    private $value;
+    private $hasFound;
+    private $removableIndex;
 
     /**
      * the option class can be constructed with the user id. If the user is not connected we
@@ -21,9 +24,6 @@ class Options
     public function __construct( $user_id = null )
     {
         $this->user_id      =   $user_id;
-        $this->rawOptions   =   $this->option()
-            ->get();
-        
         $this->build();
     }
 
@@ -51,43 +51,8 @@ class Options
 
     public function build()
     {
-        $this->options                  =   [];
-
-        foreach( $this->rawOptions as $option ) {
-            $option     =   array_only( $option->toArray(), [ 'id', 'key', 'value', 'array', 'user_id' ] );
-            // might be deprecated
-            if( @$this->options[ $option[ 'key' ] ] == null ) {
-                if( ( bool ) $option[ 'array' ] ) {
-                    $this->options[ $option[ 'key' ] ]      =   array_merge( $option, [
-                        'value'     =>  [ $option ]
-                    ]);
-                } else {
-                    $this->options[ $option[ 'key' ] ]      =   array_merge( $option, [
-                        'value'     =>  $option[ 'value' ]
-                    ]);
-                }               
-            } else {
-                // if value has yet been saved, then well consider it as an array
-                if( ! is_array( $this->options[ $option[ 'key' ] ][ 'value' ] ) ) {
-                    $temp   =   $this->options[ $option[ 'key' ] ][ 'value' ];
-                    unset( $this->options[ $option[ 'key' ] ][ 'value' ] );
-                    $this->options[ $option[ 'key' ] ][ 'value' ]      =   [ $temp ];
-                } else {
-                    $this->options[ $option[ 'key' ] ][ 'value' ][]    =   $option;
-                }
-            } 
-        }
-        // dd( $this->options );
-    }
-
-    /**
-     * Get Raw Options
-     * @return array;
-    **/
-
-    public function raw()
-    {
-        return $this->rawOptions;
+        $this->options  =   [];
+        $this->rawOptions     =   $this->option()->get();
     }
 
     /**
@@ -98,22 +63,24 @@ class Options
      * @return void
     **/
 
-    public function set( $key, $value, $isArray = false )
+    public function set( $key, $value )
     {
-        $this->__save( $key, $value, $isArray );
-    }
+        $this->hasFound   =   false;
+        
+        $this->rawOptions->map( function( $option, $index ) use ( $value, $key ) {
+            if ( $key === $option->key ) {
+                $this->hasFound     =   true;
+                $option->value      =   is_array( $value ) ? json_encode( $value ) : $value;
+                $option->save();
+            }
+        });
 
-    private function __save( $key, $value, $isArray = false )
-    {
-        $option     =   null;
-        $value      =   empty( $value ) ? '' : $value;
-        // if options is an array, we should then save it as multiple instance
-        if( is_array( $value ) ) {
+        if( ! $this->hasFound ) {
             $this->option           =   new Option;
             $this->option->key      =   trim( strtolower( $key ) );
-            $this->option->value    =   json_encode( $value );
+            $this->option->value    =   is_array( $value ) ? json_encode( $value ) : $value;
             $this->option->array    =   true;
-
+            
             /**
              * If user is defined
              */
@@ -122,35 +89,11 @@ class Options
             }
 
             $this->option->save();
-        } else {
-
-            $option     =   $this->option()->where( 'key', $key )->first();
-
-            if ( $option === null ) {
-                // if option doesn't exist, we'll just
-                $this->option               =   new Option;
-                $this->option->key          =   trim( strtolower( $key ) );
-                $this->option->value        =   $value;
-                $this->option->array        =   $isArray;
-
-                /**
-                 * If user is defined
-                 */
-                if ( $this->user_id ) {
-                    $this->option->user_id     =   $this->user_id;
-                }
-
-                $this->option->save();
-            } else {
-                $this->option()->where( 'key', $key )->update([
-                    'value'     =>  $value
-                ]);
-            }
 
             /**
-             * Updating value
+             * Let's save the new option
              */
-            $this->options[ $key ][ 'value' ]      =   $value;
+            $this->rawOptions[ $this->option->key ]     =   $this->option;
         }
     }
 
@@ -159,35 +102,25 @@ class Options
      * @param string/array key
      * @return any
     **/
-
     public function get( $key = null, $default = null )
     {
-        $key    =   trim( strtolower( $key ) );
+        $this->value    =   $default !== null ? $default : null;
 
-        // Get a set of options
-        if( is_array( $key ) ) {
-            $options    =   [];
-
-            foreach( $key as $key_options ) {
-                $options[ $key_options ]    =   $this->get( $key_options );
+        $this->rawOptions->map( function( $option ) use ( $key ) {
+            if ( $option->key === $key ) {
+                if ( 
+                    is_string( $option->value ) && 
+                    is_array( $json = json_decode( $option->value, true ) ) && 
+                    ( json_last_error() == JSON_ERROR_NONE ) 
+                ) {
+                    $this->value  =  $json;
+                } else {
+                    $this->value  =  $option->value;
+                }
             }
-
-            return $options;
-
-        } else {
-            /**
-             * if keys are saved to lowercase, then we should retreive using lowercase as well
-             */
-            $key    =   strtolower( $key );
-
-            /**
-             * get default value
-             */
-            return @$this->options[ $key ][ 'value' ] != null ? 
-                $this->options[ $key ][ 'value' ] : $default;
-        }
-
-        return $default;
+        });
+        
+        return $this->value;
     }
 
     /**
@@ -195,12 +128,18 @@ class Options
      * @param string key
      * @return Eloquent Model Result
     **/
-
     public function delete( $key ) 
     {
-        $this->option()
-            ->where( 'key', $key )
-            ->delete();
-        unset( $this->options[ $key ] );      
+        $this->removableIndex     =   null;
+        $this->rawOptions->map( function( $option, $index ) use ( $key ) {
+            if ( $option->key === $key ) {
+                $option->delete();
+                $this->removableIndex     =   $index;
+            }
+        });   
+
+        if ( $this->removableIndex ) {
+            unset( $this->rawOptions[ $this->removableIndex ] );
+        }
     }
 }

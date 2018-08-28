@@ -109,7 +109,7 @@ class Modules
                  * since by default it's not enabled
                  */
                 if ( Helper::AppIsInstalled() ) {
-                    $modules                =   ( array ) json_decode( $this->options->get( 'enabled_modules' ), true );
+                    $modules                =   $this->options->get( 'enabled_modules' );
                     $config[ 'enabled' ]    =   in_array( $config[ 'namespace' ], $modules ) ? true : false;
                 }
                 
