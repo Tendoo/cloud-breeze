@@ -201,9 +201,13 @@ class Crud
         if ( $request->query( 'search' ) ) {
             foreach( $columnsLongName as $index => $column ) {
                 if ( $index == 0 ) {
-                    $query->where( $column, 'like', "%{$request->query( 'search' )}%" );
+                    $query->where( function( $query ) use ( $column, $request ) {
+                        $query->where( $column, 'like', "%{$request->query( 'search' )}%" );
+                    });
                 } else {
-                    $query->orWhere( $column, 'like', "%{$request->query( 'search' )}%" );
+                    $query->where( function( $query ) use ( $column, $request ) {
+                        $query->orWhere( $column, 'like', "%{$request->query( 'search' )}%" );
+                    });
                 }
             }
         }

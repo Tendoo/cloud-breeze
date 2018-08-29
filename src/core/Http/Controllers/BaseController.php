@@ -68,7 +68,10 @@ class BaseController extends Controller
     public function checkPermission( $permission )
     {
         if ( ! User::allowedTo( $permission ) ) {
-            throw new AccessDeniedException( $permission );
+            throw new AccessDeniedException( sprintf( 
+                __( 'You don\'t have access to that page. Your role doesn\'t have the required permission %s' ),
+                $permission
+            ) );
         }
     }
 
