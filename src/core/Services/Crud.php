@@ -199,17 +199,15 @@ class Crud
          * searching
          */
         if ( $request->query( 'search' ) ) {
-            foreach( $columnsLongName as $index => $column ) {
-                if ( $index == 0 ) {
-                    $query->where( function( $query ) use ( $column, $request ) {
+            $query->where( function( $query ) use ( $request, $columnsLongName ) {
+                foreach( $columnsLongName as $index => $column ) {
+                    if ( $index == 0 ) {
                         $query->where( $column, 'like', "%{$request->query( 'search' )}%" );
-                    });
-                } else {
-                    $query->where( function( $query ) use ( $column, $request ) {
+                    } else {
                         $query->orWhere( $column, 'like', "%{$request->query( 'search' )}%" );
-                    });
+                    }
                 }
-            }
+            });
         }
 
         $entries    =   $query->paginate( $perPage )->toArray();
