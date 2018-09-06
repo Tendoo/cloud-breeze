@@ -74,6 +74,16 @@ class TendooHandler extends ExceptionHandler
                     'message'   =>  $exception->getMessage()
                 ], 401 );
             }
+
+            if (
+                $exception instanceof NotFoundException
+            ) {
+                return response()->json([
+                    'status'    =>  'danger',
+                    'message'   =>  $exception->getMessage()
+                ], 404 );
+            }
+            
         } else {
             if( $exception instanceof QueryException ) {
                 return response()->view( 'tendoo::errors.db-error', [ 'e' => $exception ] );
@@ -85,7 +95,8 @@ class TendooHandler extends ExceptionHandler
                 $exception instanceof OauthDeniedException ||
                 $exception instanceof RoleDeniedException ||
                 $exception instanceof WrongCredentialException ||
-                $exception instanceof WrongOauthScopeException
+                $exception instanceof WrongOauthScopeException ||
+                $exception instanceof NotFoundException
             ) {
                 return response()->view( 'tendoo::errors.common', [ 'e' => $exception ] );
             }
