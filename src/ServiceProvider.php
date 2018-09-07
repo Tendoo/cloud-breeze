@@ -13,7 +13,7 @@ define( 'TENDOO_ROOT', __DIR__ );
  */
 define( 'TENDOO_VERSION', '5.0' );
 define( 'TENDOO_ASSETS_VERSION', '1.7' );
-define( 'TENDOO_DB_VERSION', '1.4' );
+define( 'TENDOO_DB_VERSION', '1.5' );
 
 require_once TENDOO_ROOT . '/core/Services/Helper.php';
 require_once TENDOO_ROOT . '/core/Services/HelperFunctions.php';
@@ -81,7 +81,7 @@ class ServiceProvider extends CoreServiceProvider
         $router->aliasMiddleware( 'can.register', \Tendoo\Core\Http\Middleware\CheckRegistrationStatus::class );
         $router->aliasMiddleware( 'check.updates', \Tendoo\Core\Http\Middleware\CheckUpdates::class );
         $router->aliasMiddleware( 'api.guard', \Tendoo\Core\Http\Middleware\LoadApi::class );
-        // $router->middleware( \Illuminate\Contracts\Http\Kernel::class, TendooKernel::class );
+        // $router->middleware( \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class );
         
         $corePath       =   base_path() . _SLASH_ . 'core' . _SLASH_ ;
         $configPath     =   base_path() . _SLASH_ . 'config' . _SLASH_ ;

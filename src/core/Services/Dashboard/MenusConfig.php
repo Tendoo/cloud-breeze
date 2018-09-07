@@ -130,7 +130,15 @@ class MenusConfig
                 'tab'   =>  'registration'
             ]);
 
-            $this->menus->addTo( 'settings', [ $general, $registration ]);
+            $email                   =   new \stdClass;
+            $email->text             =   __( 'Email' );
+            $email->label            =   0;
+            $email->namespace        =   'settings.email';
+            $email->href             =   route( 'dashboard.settings', [
+                'tab'   =>  'email'
+            ]);
+
+            $this->menus->addTo( 'settings', [ $general, $registration, $email ]);
         }
     }
 

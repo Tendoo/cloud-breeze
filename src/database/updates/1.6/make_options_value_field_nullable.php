@@ -6,13 +6,13 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 use CreateApplicationTable;
 
-class UpdateExpirationTableForOptions extends Migration
+class MakeOptionsValueFieldNullable extends Migration
 {
     public function up()
     {
-        if ( Schema::hasColumn( 'options', 'expire' ) ) {
+        if ( Schema::hasColumn( 'options', 'value' ) ) {
             Schema::table( 'options', function( Blueprint $table ) {
-                $table->string( 'expire' )->nullable()->change();
+                $table->text( 'value' )->nullable()->change();
             });
         }
     }

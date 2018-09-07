@@ -17,7 +17,7 @@ class CreateOptionsTable extends Migration
             $table->increments('id');
             $table->integer( 'user_id' )->nullable();
             $table->string( 'key' );
-            $table->text( 'value' );
+            $table->text( 'value' )->nullable();
             $table->datetime( 'expire' )->nullable();
             $table->boolean( 'array' ); // this will avoid some option to be saved as options
             $table->timestamps();

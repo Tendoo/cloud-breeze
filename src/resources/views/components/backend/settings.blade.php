@@ -23,6 +23,12 @@
                             'url'       =>  route( 'dashboard.settings', [
                                 'tab'   =>  'registration'
                             ])
+                        ],
+                        'email'  =>  [ 
+                            'text'      =>  __( 'Email' ) ,
+                            'url'       =>  route( 'dashboard.settings', [
+                                'tab'   =>  'email'
+                            ])
                         ]
                     ],
                     'tab'       =>  $tab,

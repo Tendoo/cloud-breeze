@@ -130,4 +130,91 @@ trait GeneralSettingsFields
             $notifyAfterRegistration
         ];
     }
+
+    /**
+     * Email Settings Fields
+     * @return void
+     */
+    public static function emailSettingsFields()
+    {
+        $options                    =   app()->make( 'Tendoo\Core\Services\Options' );
+
+        $email_type                 =   new \StdClass;
+        $email_type->name           =   'app_mail_driver';
+        $email_type->label          =   __( 'Email Driver' );
+        $email_type->type           =   'select';
+        $email_type->options        =   [
+            'disable'  =>  __( 'Disable' ),
+            'smtp'  =>  __( 'SMTP' ),
+            'mandrill'  =>  __( 'Mandrill' ),
+            'mailgun'  =>  __( 'Mailgun' ),
+            'sendmail'  =>  __( 'Sendmail' ),
+            'ses'  =>  __( 'SES' ),
+            'sparkpost'  =>  __( 'Sparkpost' ),
+        ];
+        $email_type->description      =   __( 'This will define the gateway used to send email.' );
+        $email_type->placeholder      =   $email_type->label;
+        $email_type->validation       =   'sometimes';
+        $email_type->value            =   $options->get( $email_type->name );
+
+        $mail_host                  =   new \stdClass;
+        $mail_host->name            =   'app_mail_host';
+        $mail_host->label           =   __( 'Mail Host' );
+        $mail_host->type            =   'text';
+        $mail_host->validation      =   'sometimes';
+        $mail_host->description     =   __( 'Provide the Host for the current mail driver.' );
+        $mail_host->value           =   $options->get( $mail_host->name );
+        
+        $mail_port                  =   new \stdClass;
+        $mail_port->name            =   'app_mail_port';
+        $mail_port->label           =   __( 'Mail Port' );
+        $mail_port->type            =   'text';
+        $mail_port->validation      =   'sometimes';
+        $mail_port->description     =   __( 'Provide the port for the current mail driver.' );
+        $mail_port->value           =   $options->get( $mail_port->name );
+        
+        $mail_from_address                  =   new \stdClass;
+        $mail_from_address->name            =   'app_mail_from_address';
+        $mail_from_address->label           =   __( 'Mail From Address' );
+        $mail_from_address->type            =   'text';
+        $mail_from_address->validation      =   'sometimes|email';
+        $mail_from_address->description     =   __( 'Provide the mail address of the sender.' );
+        $mail_from_address->value           =   $options->get( $mail_from_address->name );
+        
+        $mail_from_name                  =   new \stdClass;
+        $mail_from_name->name            =   'app_mail_from_name';
+        $mail_from_name->label           =   __( 'Mail From Name' );
+        $mail_from_name->type            =   'text';
+        $mail_from_name->validation      =   'sometimes';
+        $mail_from_name->description     =   __( 'Provide the mail name of the sender.' );
+        $mail_from_name->value           =   $options->get( $mail_from_name->name );
+
+        $fields     =   [ $email_type, $mail_host, $mail_from_address, $mail_from_name ];
+
+        /**
+         * if the driver is smtp
+         * let's provide username for the driver
+         */
+        if ( $options->get( 'app_mail_driver' ) === 'smtp' ) {
+            $mail_smtp_username                  =   new \stdClass;
+            $mail_smtp_username->name            =   'app_mail_smtp_username';
+            $mail_smtp_username->label           =   __( 'SMTP Username' );
+            $mail_smtp_username->type            =   'text';
+            $mail_smtp_username->validation      =   'sometimes';
+            $mail_smtp_username->description     =   __( 'Provide the username of the smtp.' );
+            $mail_smtp_username->value           =   $options->get( $mail_smtp_username->name );
+            
+            $mail_smtp_password                  =   new \stdClass;
+            $mail_smtp_password->name            =   'app_mail_smtp_password';
+            $mail_smtp_password->label           =   __( 'SMTP Password' );
+            $mail_smtp_password->type            =   'password';
+            $mail_smtp_password->validation      =   'sometimes';
+            $mail_smtp_password->description     =   __( 'Provide the password of the smtp.' );
+            $mail_smtp_password->value           =   $options->get( $mail_smtp_password->name );
+
+            $fields     =   array_merge( $fields, [ $mail_smtp_username, $mail_smtp_password ]);
+        }
+
+        return $fields;
+    }
 }

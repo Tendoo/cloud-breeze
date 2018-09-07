@@ -70,7 +70,7 @@ class Options
         $this->rawOptions->map( function( $option, $index ) use ( $value, $key ) {
             if ( $key === $option->key ) {
                 $this->hasFound     =   true;
-                $option->value      =   is_array( $value ) ? json_encode( $value ) : $value;
+                $option->value      =   is_array( $value ) ? json_encode( $value ) : empty( $value ) ? '' : $value;
                 $option->save();
             }
         });
@@ -78,7 +78,7 @@ class Options
         if( ! $this->hasFound ) {
             $this->option           =   new Option;
             $this->option->key      =   trim( strtolower( $key ) );
-            $this->option->value    =   is_array( $value ) ? json_encode( $value ) : $value;
+            $this->option->value    =   is_array( $value ) ? json_encode( $value ) : empty( $value ) ? '' : $value;
             $this->option->array    =   true;
             
             /**
