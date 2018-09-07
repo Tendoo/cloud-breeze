@@ -3,6 +3,8 @@
 namespace Tendoo\Core\Providers;
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Routing\Router;
+use App\Http\Kernel\Kernel;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Storage;
 
@@ -27,7 +29,7 @@ class TendooRouteServiceProvider extends ServiceProvider
     public function boot()
     {
         //
-
+        
         parent::boot();
     }
 
@@ -38,7 +40,7 @@ class TendooRouteServiceProvider extends ServiceProvider
      */
     public function map()
     {
-        Route::middleware( 'tendoo-web' ) // <= watch this out
+        Route::middleware( 'web' ) // <= watch this out
             ->namespace( $this->namespace )
             ->group( TENDOO_ROUTES_PATH . DIRECTORY_SEPARATOR . 'web.php' );
 
