@@ -17,7 +17,8 @@
         "tormjens/eventy": "^0.5.3",
         "ixudra/curl": "6.*",
         "gumlet/php-image-resize": "1.8.*",
-        "doctrine/dbal" : "^2.7"
+        "doctrine/dbal" : "^2.7",
+        "barryvdh/laravel-cors": "^0.11.2"
     },
     "autoload": {
         "psr-4": {
@@ -29,12 +30,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Tendoo\\ServiceProvider",
-                "Tendoo\\Core\\Providers\\TendooAppServiceProvider",
-                "Tendoo\\Core\\Providers\\TendooEventServiceProvider",
-                "Tendoo\\Core\\Providers\\TendooModulesServiceProvider",
-                "Tendoo\\Core\\Providers\\TendooRouteServiceProvider",
-                "Tendoo\\Core\\Providers\\TendooUserOptionsServiceProvider"                
+                "Tendoo\\ServiceProvider"       
             ]
         }
     },

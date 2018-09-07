@@ -13,7 +13,10 @@ define( 'TENDOO_ROOT', __DIR__ );
  */
 define( 'TENDOO_VERSION', '5.0' );
 define( 'TENDOO_ASSETS_VERSION', '1.6' );
-define( 'TENDOO_DB_VERSION', '1.3' );
+define( 'TENDOO_DB_VERSION', '1.4' );
+
+require_once TENDOO_ROOT . '/core/Services/Helper.php';
+require_once TENDOO_ROOT . '/core/Services/HelperFunctions.php';
 
 use Illuminate\Support\ServiceProvider as CoreServiceProvider;
 use Tendoo\Core\Console\Commands\DisableModule;
@@ -110,7 +113,7 @@ class ServiceProvider extends CoreServiceProvider
         /**
          * Load Route from Web
          */
-        $this->loadRoutesFrom( __DIR__ . '/routes/web.php');
+        // $this->loadRoutesFrom( __DIR__ . '/routes/web.php');
 
         /**
          * Load Migrations
@@ -129,6 +132,16 @@ class ServiceProvider extends CoreServiceProvider
         $this->publishes([
             __DIR__ . '/public'   =>  $publicPath
         ], 'tendoo-assets' );
+
+        /**
+         * Register the route provider 
+         * before the Laravel Route Provider
+         */
+        app()->register( \Tendoo\Core\Providers\TendooAppServiceProvider::class );
+        app()->register( \Tendoo\Core\Providers\TendooEventServiceProvider::class );
+        app()->register( \Tendoo\Core\Providers\TendooModulesServiceProvider::class );
+        app()->register( \Tendoo\Core\Providers\TendooUserOptionsServiceProvider::class );
+        app()->register( \Tendoo\Core\Providers\TendooRouteServiceProvider::class );
     }
 
     /**
@@ -145,6 +158,7 @@ class ServiceProvider extends CoreServiceProvider
         if ( ! defined( 'TENDOO_CONFIG_PATH' ) ): define( 'TENDOO_CONFIG_PATH', dirname( __FILE__ ) . '/config/' ); endif;
         if ( ! defined( 'TENDOO_ASSETS_PATH' ) ): define( 'TENDOO_ASSETS_PATH', dirname( __FILE__ ) . '/public/' ); endif;
         if ( ! defined( 'TENDOO_ROOT_PATH' ) ): define( 'TENDOO_ROOT_PATH', dirname( __FILE__ ) ); endif;
+        if ( ! defined( 'TENDOO_ROUTES_PATH' ) ): define( 'TENDOO_ROUTES_PATH', TENDOO_ROOT_PATH . DIRECTORY_SEPARATOR . 'routes' . DIRECTORY_SEPARATOR ); endif;
 
         /**
          * Define Storage Location Path

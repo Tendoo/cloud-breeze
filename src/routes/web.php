@@ -19,78 +19,77 @@ use Tendoo\Core\Facades\Hook;
 
 global $BasicRoutes;
 $BasicRoutes    =   function() {
-    Route::get('/', function () {
-        return view('welcome');
-    });
+    
+    Route::get('/', 'HomeController@index' );
     
     /**
      * Dashboard Get Routes
      */
-    Route::get( '/dashboard', 'Tendoo\Core\Http\Controllers\Dashboard\IndexController@index' )
+    Route::get( '/dashboard', 'Dashboard\IndexController@index' )
         ->name( 'dashboard.index' );
     
     /**
      * Users GET Routes
      */
-    Route::get( '/dashboard/users', 'Tendoo\Core\Http\Controllers\Dashboard\UsersController@usersList' )
+    Route::get( '/dashboard/users', 'Dashboard\UsersController@usersList' )
         ->name( 'dashboard.users.list' );
-    Route::get( '/dashboard/users/create', 'Tendoo\Core\Http\Controllers\Dashboard\UsersController@createUser' )
+    Route::get( '/dashboard/users/create', 'Dashboard\UsersController@createUser' )
         ->name( 'dashboard.users.create' );
-    Route::get( '/dashboard/users/{entry?}', 'Tendoo\Core\Http\Controllers\Dashboard\UsersController@editUser' )
+    Route::get( '/dashboard/users/{entry?}', 'Dashboard\UsersController@editUser' )
         ->name( 'dashboard.users.edit' );
-    Route::get( '/dashboard/profile/general', 'Tendoo\Core\Http\Controllers\Dashboard\UsersController@showGeneral' )
+    Route::get( '/dashboard/profile/general', 'Dashboard\UsersController@showGeneral' )
         ->name( 'dashboard.users.profile.general' );
-    Route::get( '/dashboard/profile/security', 'Tendoo\Core\Http\Controllers\Dashboard\UsersController@showSecurity' )
+    Route::get( '/dashboard/profile/security', 'Dashboard\UsersController@showSecurity' )
         ->name( 'dashboard.users.profile.security' );
-    Route::get( '/dashboard/profile/oauth', 'Tendoo\Core\Http\Controllers\Dashboard\UsersController@showOauth' )
+    Route::get( '/dashboard/profile/oauth', 'Dashboard\UsersController@showOauth' )
         ->name( 'dashboard.users.profile.oauth' );
 
     /**
      * Applications Routes
      */
-    Route::get( '/dashboard/applications', 'Tendoo\Core\Http\Controllers\Dashboard\ApplicationsController@list' )
+    Route::get( '/dashboard/applications', 'Dashboard\ApplicationsController@list' )
         ->name( 'dashboard.applications.list' );
-    Route::get( '/dashboard/applications/create', 'Tendoo\Core\Http\Controllers\Dashboard\ApplicationsController@create' )
+    Route::get( '/dashboard/applications/create', 'Dashboard\ApplicationsController@create' )
         ->name( 'dashboard.applications.create' );
-    Route::get( '/dashboard/applications/{entry?}', 'Tendoo\Core\Http\Controllers\Dashboard\ApplicationsController@edit' )
+    Route::get( '/dashboard/applications/{entry?}', 'Dashboard\ApplicationsController@edit' )
         ->name( 'dashboard.applications.edit' );
     
     /**
      * Module Get Routes
      */
-    Route::get( '/dashboard/modules', 'Tendoo\Core\Http\Controllers\Dashboard\ModulesController@modulesList' )
+    Route::get( '/dashboard/modules', 'Dashboard\ModulesController@modulesList' )
         ->name( 'dashboard.modules.list' );
-    Route::get( '/dashboard/modules/upload', 'Tendoo\Core\Http\Controllers\Dashboard\ModulesController@uploadModule' )
+    Route::get( '/dashboard/modules/upload', 'Dashboard\ModulesController@uploadModule' )
         ->name( 'dashboard.modules.upload' );
-    Route::get( '/dashboard/modules/enable/{namespace}', 'Tendoo\Core\Http\Controllers\Dashboard\ModulesController@enableModule' )
+    Route::get( '/dashboard/modules/enable/{namespace}', 'Dashboard\ModulesController@enableModule' )
         ->name( 'dashboard.modules.enable' );
-    Route::get( '/dashboard/modules/disable/{namespace}', 'Tendoo\Core\Http\Controllers\Dashboard\ModulesController@disableModule' )
+    Route::get( '/dashboard/modules/disable/{namespace}', 'Dashboard\ModulesController@disableModule' )
         ->name( 'dashboard.modules.disable' );
-    Route::get( '/dashboard/modules/delete/{namespace}', 'Tendoo\Core\Http\Controllers\Dashboard\ModulesController@deleteModule' )
+    Route::get( '/dashboard/modules/delete/{namespace}', 'Dashboard\ModulesController@deleteModule' )
         ->name( 'dashboard.modules.delete' );
-    Route::get( '/dashboard/modules/extract/{namespace}', 'Tendoo\Core\Http\Controllers\Dashboard\ModulesController@extractModule' )
+    Route::get( '/dashboard/modules/extract/{namespace}', 'Dashboard\ModulesController@extractModule' )
         ->name( 'dashboard.modules.extract' );
-    Route::get( '/dashboard/modules/migration/{namespace}', 'Tendoo\Core\Http\Controllers\Dashboard\ModulesController@migrateModule' )
+    Route::get( '/dashboard/modules/migration/{namespace}', 'Dashboard\ModulesController@migrateModule' )
         ->name( 'dashboard.modules.migration' );
 
     /**
      * Media Get Routes
      */
-    Route::get( '/dashboard/medias', 'Tendoo\Core\Http\Controllers\Dashboard\MediasController@list' )
+    Route::get( '/dashboard/medias', 'Dashboard\MediasController@list' )
         ->name( 'dashboard.medias.list' );
-    Route::get( '/ajax/medias/{page?}', 'Tendoo\Core\Http\Controllers\Dashboard\MediasController@loadMedias' )
+    Route::get( '/ajax/medias/{page?}', 'Dashboard\MediasController@loadMedias' )
         ->name( 'dashboard.medias.load' );
-    Route::post( '/dashboard/medias', 'Tendoo\Core\Http\Controllers\Dashboard\MediasController@upload' )
+    Route::post( '/dashboard/medias', 'Dashboard\MediasController@upload' )
         ->name( 'dashboard.medias.upload' );
-    Route::post( '/dashboard/medias/bulk-delete', 'Tendoo\Core\Http\Controllers\Dashboard\MediasController@bulkDelete' )
+    Route::post( '/dashboard/medias/bulk-delete', 'Dashboard\MediasController@bulkDelete' )
         ->name( 'dashboard.medias.bulk-delete' );
-    Route::delete( '/dashboard/medias/{media?}', 'Tendoo\Core\Http\Controllers\Dashboard\MediasController@delete' )
+    Route::delete( '/dashboard/medias/{media?}', 'Dashboard\MediasController@delete' )
         ->name( 'dashboard.medias.delete' );
     
     /**
      * Settings Get Routes
      */
-    Route::get( '/dashboard/settings/{tab?}', 'Tendoo\Core\Http\Controllers\Dashboard\SettingsController@dashboardSettings' )
+    Route::get( '/dashboard/settings/{tab?}', 'Dashboard\SettingsController@dashboardSettings' )
         ->name( 'dashboard.settings' );
     
     /**
@@ -101,96 +100,96 @@ $BasicRoutes    =   function() {
     /**
      * Auth Get Routes
      */
-    Route::get( '/login', 'Tendoo\Core\Http\Controllers\AuthController@loginIndex' )
+    Route::get( '/login', 'AuthController@loginIndex' )
         ->name( 'login.index' )->middleware( 'expect.unlogged' );
-    Route::get( '/logout', 'Tendoo\Core\Http\Controllers\AuthController@LogoutIndex' )
+    Route::get( '/logout', 'AuthController@LogoutIndex' )
         ->name( 'logout.index' );
-    Route::get( '/register', 'Tendoo\Core\Http\Controllers\AuthController@registerIndex' )
+    Route::get( '/register', 'AuthController@registerIndex' )
         ->name( 'register.index' )->middleware( 'expect.unlogged' );
-    Route::get( '/register/activate/{user}/{code}', 'Tendoo\Core\Http\Controllers\AuthController@registerActivate' )
+    Route::get( '/register/activate/{user}/{code}', 'AuthController@registerActivate' )
         ->name( 'register.activate' )->middleware( 'expect.unlogged' );
-    Route::get( '/register/send-activation/{user}', 'Tendoo\Core\Http\Controllers\AuthController@sendActivation' )
+    Route::get( '/register/send-activation/{user}', 'AuthController@sendActivation' )
         ->name( 'register.send-activation' )->middleware( 'expect.unlogged' );
-    Route::get( '/recovery', 'Tendoo\Core\Http\Controllers\AuthController@recoveryIndex' )
+    Route::get( '/recovery', 'AuthController@recoveryIndex' )
         ->name( 'recovery.index' )->middleware( 'expect.unlogged' );
-    Route::get( '/recovery/password/{user}/{code}', 'Tendoo\Core\Http\Controllers\AuthController@recoveryPassword' )
+    Route::get( '/recovery/password/{user}/{code}', 'AuthController@recoveryPassword' )
         ->name( 'recovery.password' )->middleware( 'expect.unlogged' );
     
     /**
      * User POST Routes
      */
-    Route::post( '/dashboard/profile', 'Tendoo\Core\Http\Controllers\Dashboard\UsersController@postUserProfile' )
+    Route::post( '/dashboard/profile', 'Dashboard\UsersController@postUserProfile' )
         ->name( 'dashboard.users.post' );
-    Route::post( '/dashboard/profile/security', 'Tendoo\Core\Http\Controllers\Dashboard\UsersController@postUserSecurity' )
+    Route::post( '/dashboard/profile/security', 'Dashboard\UsersController@postUserSecurity' )
         ->name( 'dashboard.users.post-security' );
-    Route::post( '/dashboard/profile/oauth', 'Tendoo\Core\Http\Controllers\Dashboard\UsersController@postUserOauth' )
+    Route::post( '/dashboard/profile/oauth', 'Dashboard\UsersController@postUserOauth' )
         ->name( 'dashboard.users.post-oauth' );
     
     /**
      * Module POST Routes
      */
-    Route::post( '/dashboard/modules/post', 'Tendoo\Core\Http\Controllers\Dashboard\ModulesController@postModule' )
+    Route::post( '/dashboard/modules/post', 'Dashboard\ModulesController@postModule' )
         ->name( 'dashboard.modules.post' );
-    Route::post( '/dashboard/modules/migrate/{namespace}', 'Tendoo\Core\Http\Controllers\Dashboard\ModulesController@runMigration' )
+    Route::post( '/dashboard/modules/migrate/{namespace}', 'Dashboard\ModulesController@runMigration' )
         ->name( 'dashboard.modules.migrate' );
     
     /**
      * Options POST Route
      */
-    Route::post( '/dashboard/options/post', 'Tendoo\Core\Http\Controllers\Dashboard\SettingsController@postOptions' )
+    Route::post( '/dashboard/options/post', 'Dashboard\SettingsController@postOptions' )
         ->name( 'dashboard.options.post' );
     
     /**
      * CRUD POST Routes
      */
-    Route::post( '/dashboard/crud/post/{namespace}', 'Tendoo\Core\Http\Controllers\Dashboard\CrudController@crudPost' )
+    Route::post( '/dashboard/crud/post/{namespace}', 'Dashboard\CrudController@crudPost' )
         ->name( 'dashboard.crud.post' );
-    Route::post( '/dashboard/crud/put/{namespace}/{id}', 'Tendoo\Core\Http\Controllers\Dashboard\CrudController@crudPut' )
+    Route::post( '/dashboard/crud/put/{namespace}/{id}', 'Dashboard\CrudController@crudPut' )
         ->name( 'dashboard.crud.put' );
-    Route::post( '/dashboard/crud/bulk/{namespace}', 'Tendoo\Core\Http\Controllers\Dashboard\CrudController@crudBulkActions' )
+    Route::post( '/dashboard/crud/bulk/{namespace}', 'Dashboard\CrudController@crudBulkActions' )
         ->name( 'dashboard.crud.bulk-actions' );
-    Route::get( '/dashboard/crud/list/{namespace}', 'Tendoo\Core\Http\Controllers\Dashboard\CrudController@crudList' )
+    Route::get( '/dashboard/crud/list/{namespace}', 'Dashboard\CrudController@crudList' )
         ->name( 'dashboard.crud.list' );
     
     /**
      * Auth POST Routes
      */
-    Route::post( '/login/post', 'Tendoo\Core\Http\Controllers\AuthController@postLogin' )
+    Route::post( '/login/post', 'AuthController@postLogin' )
         ->name( 'login.post' )->middleware( 'expect.unlogged' );
-    Route::post( '/register/post', 'Tendoo\Core\Http\Controllers\AuthController@postRegister' )
+    Route::post( '/register/post', 'AuthController@postRegister' )
         ->name( 'register.post' )->middleware( 'expect.unlogged' );
-    Route::post( '/recovery/post', 'Tendoo\Core\Http\Controllers\AuthController@postRecovery' )
+    Route::post( '/recovery/post', 'AuthController@postRecovery' )
         ->name( 'recovery.post' )->middleware( 'expect.unlogged' );
-    Route::post( '/recovery/password/post/{user}', 'Tendoo\Core\Http\Controllers\AuthController@postRecoveryPassword' )
+    Route::post( '/recovery/password/post/{user}', 'AuthController@postRecoveryPassword' )
         ->name( 'recovery.password.post' )->middleware( 'expect.unlogged' );
     
     /**
      * CRUD DELETE Routes
      */
-    Route::delete( '/dashboard/crud/{namespace}/{id?}', 'Tendoo\Core\Http\Controllers\Dashboard\CrudController@crudDelete' )
+    Route::delete( '/dashboard/crud/{namespace}/{id?}', 'Dashboard\CrudController@crudDelete' )
         ->name( 'dashboard.crud.delete' );
 
     /**
      * Options CRUD
      */
-    Route::get( '/user-ajax/options/{key?}', 'Tendoo\Core\Http\Controllers\UserAjaxOptionsController@get' )
+    Route::get( '/user-ajax/options/{key?}', 'UserAjaxOptionsController@get' )
         ->name( 'user-ajax.get.options' );
-    Route::post( '/user-ajax/options', 'Tendoo\Core\Http\Controllers\UserAjaxOptionsController@set' )
+    Route::post( '/user-ajax/options', 'UserAjaxOptionsController@set' )
         ->name( 'user-ajax.set.options' );
-    Route::delete( '/user-ajax/options/{key?}', 'Tendoo\Core\Http\Controllers\UserAjaxOptionsController@delete' )
+    Route::delete( '/user-ajax/options/{key?}', 'UserAjaxOptionsController@delete' )
         ->name( 'user-ajax.delete.options' );
 
-    Route::get( '/ajax/options/{key?}', 'Tendoo\Core\Http\Controllers\AjaxOptionsController@get' )
+    Route::get( '/ajax/options/{key?}', 'AjaxOptionsController@get' )
         ->name( 'ajax.get.options' );
-    Route::post( '/ajax/options', 'Tendoo\Core\Http\Controllers\AjaxOptionsController@set' )
+    Route::post( '/ajax/options', 'AjaxOptionsController@set' )
         ->name( 'ajax.set.options' );
-    Route::delete( '/ajax/options/{key?}', 'Tendoo\Core\Http\Controllers\AjaxOptionsController@delete' )
+    Route::delete( '/ajax/options/{key?}', 'AjaxOptionsController@delete' )
         ->name( 'ajax.delete.options' );
 
     /**
      * Builder Routes
      */
-    Route::get( '/dashboard/builder/{id?}', 'Tendoo\Core\Http\Controllers\Dashboard\PageBuilderController@list' )
+    Route::get( '/dashboard/builder/{id?}', 'Dashboard\PageBuilderController@list' )
         ->name( 'dashboard.builder.list' );
 };
 
@@ -239,22 +238,22 @@ Route::middleware([ 'web' ])->group( function(){
         /**
          * Register OauthRoutes
          */
-        Route::get( '/oauth', 'Tendoo\Core\Http\Controllers\OauthControllers@index' )
+        Route::get( '/oauth', 'OauthControllers@index' )
             ->name( 'oauth.index' );
-        Route::post( '/oauth', 'Tendoo\Core\Http\Controllers\OauthControllers@post' )
+        Route::post( '/oauth', 'OauthControllers@post' )
             ->name( 'oauth.post' );
-        Route::post( '/oauth/login', 'Tendoo\Core\Http\Controllers\OauthControllers@postLogin' );
+        Route::post( '/oauth/login', 'OauthControllers@postLogin' );
     });
     
     Route::middleware([ 'app.notInstalled' ])->group( function(){
         /**
          * Setup Routes
          */
-        Route::get( '/do-setup/{step?}', 'Tendoo\Core\Http\Controllers\SetupController@steps' )
+        Route::get( '/do-setup/{step?}', 'SetupController@steps' )
             ->name( 'setup.step' );
-        Route::post( '/do-setup/post/database', 'Tendoo\Core\Http\Controllers\SetupController@post_database' )
+        Route::post( '/do-setup/post/database', 'SetupController@post_database' )
             ->name( 'setup.post.database' );
-        Route::post( '/do-setup/post/app-details', 'Tendoo\Core\Http\Controllers\SetupController@post_appdetails' )
+        Route::post( '/do-setup/post/app-details', 'SetupController@post_appdetails' )
             ->name( 'setup.post.app-details' );
     });
 });
@@ -263,13 +262,13 @@ Route::middleware([ 'app.installed' ])->group( function(){
     /**
      * register database updates routes
      */
-    Route::get( '/do-update/database', 'Tendoo\Core\Http\Controllers\UpdateController@index' )
+    Route::get( '/do-update/database', 'UpdateController@index' )
         ->name( 'update.database' );
-    Route::post( '/do-update/database', 'Tendoo\Core\Http\Controllers\UpdateController@postUpdate' )
+    Route::post( '/do-update/database', 'UpdateController@postUpdate' )
         ->name( 'update.post.database' );
-    Route::get( '/do-update/files', 'Tendoo\Core\Http\Controllers\UpdateController@filesIndex' )
+    Route::get( '/do-update/files', 'UpdateController@filesIndex' )
         ->name( 'update.files' );
-    Route::post( '/do-update/files', 'Tendoo\Core\Http\Controllers\UpdateController@postFiles' )
+    Route::post( '/do-update/files', 'UpdateController@postFiles' )
         ->name( 'update.post.files' );
 });
 
@@ -278,15 +277,15 @@ Route::middleware([ 'app.installed' ])->group( function(){
  */
 // Route::middleware([ 'app.installed' ])->group(function(){
 //     Route::group([ 'prefix' => '/api/{resource}'], function( $request ) {    
-//         Route::get( '', 'Tendoo\Core\Http\Controllers\ApiController@getAll' )
+//         Route::get( '', 'ApiController@getAll' )
     // ->name( 'api.all' );
-//         Route::get( '{id}', 'Tendoo\Core\Http\Controllers\ApiController@getOne' )
+//         Route::get( '{id}', 'ApiController@getOne' )
     // ->name( 'api.one' );
-//         Route::delete( '{id}', 'Tendoo\Core\Http\Controllers\ApiController@delete' )
+//         Route::delete( '{id}', 'ApiController@delete' )
     // ->name( 'api.delete' );
-//         Route::put( '{id}', 'Tendoo\Core\Http\Controllers\ApiController@put' )
+//         Route::put( '{id}', 'ApiController@put' )
     // ->name( 'api.put' );
-//         Route::post( '', 'Tendoo\Core\Http\Controllers\ApiController@single' )
+//         Route::post( '', 'ApiController@single' )
     // ->name( 'api.post' );
 //     });
 // });

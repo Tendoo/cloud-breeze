@@ -22,7 +22,7 @@ use Jackiedo\DotenvEditor\Facades\DotenvEditor;
 
 
 class TendooAppServiceProvider extends ServiceProvider
-{    
+{
     /**
      * Bootstrap any application services.
      *
@@ -109,8 +109,5 @@ class TendooAppServiceProvider extends ServiceProvider
                 'extensions'    =>  [ 'jpg', 'jpeg', 'png', 'gif', 'zip', 'docx', 'txt' ]
             ]);
         });
-
-        require_once TENDOO_ROOT . '/core/Services/Helper.php';
-        require_once TENDOO_ROOT . '/core/Services/HelperFunctions.php';
     }
 }

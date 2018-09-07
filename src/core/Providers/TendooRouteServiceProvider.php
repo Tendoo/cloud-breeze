@@ -38,6 +38,10 @@ class TendooRouteServiceProvider extends ServiceProvider
      */
     public function map()
     {
+        Route::middleware( 'web' )
+            ->namespace( $this->namespace )
+            ->group( TENDOO_ROUTES_PATH . DIRECTORY_SEPARATOR . 'web.php' );
+
         $this->mapModulesWebRoutes();
     }
 
