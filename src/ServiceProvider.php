@@ -81,6 +81,7 @@ class ServiceProvider extends CoreServiceProvider
         $router->aliasMiddleware( 'can.register', \Tendoo\Core\Http\Middleware\CheckRegistrationStatus::class );
         $router->aliasMiddleware( 'check.updates', \Tendoo\Core\Http\Middleware\CheckUpdates::class );
         $router->aliasMiddleware( 'api.guard', \Tendoo\Core\Http\Middleware\LoadApi::class );
+        // $router->middleware( \Illuminate\Contracts\Http\Kernel::class, TendooKernel::class );
         
         $corePath       =   base_path() . _SLASH_ . 'core' . _SLASH_ ;
         $configPath     =   base_path() . _SLASH_ . 'config' . _SLASH_ ;
@@ -254,6 +255,11 @@ class ServiceProvider extends CoreServiceProvider
         //     \App\Exceptions\Handler::class,
         //     \Tendoo\Core\Exceptions\TendooHandler::class
         // );
+
+        $this->app->singleton(
+            \App\Http\Kernel::class,
+            TendooKernel::class
+        );
 
         $this->app->singleton(
             \Illuminate\Contracts\Debug\ExceptionHandler::class,
