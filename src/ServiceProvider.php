@@ -12,7 +12,7 @@ define( 'TENDOO_ROOT', __DIR__ );
  * assets and database migration
  */
 define( 'TENDOO_VERSION', '5.0' );
-define( 'TENDOO_ASSETS_VERSION', '1.6' );
+define( 'TENDOO_ASSETS_VERSION', '1.7' );
 define( 'TENDOO_DB_VERSION', '1.4' );
 
 require_once TENDOO_ROOT . '/core/Services/Helper.php';

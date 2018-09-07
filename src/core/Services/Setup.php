@@ -100,6 +100,11 @@ class Setup
         DotEnvEditor::setKey( 'APP_URL', url()->to( '/' ) );
         DotenvEditor::save();
 
+        /**
+         * Link the resource storage
+         */
+        Artisan::call( 'storage:link' );
+
         return true;   
     }
 

@@ -20,6 +20,12 @@ class MediasController extends DashboardController
     private $service;
 
     /**
+     * Media Service
+     * should be loaded after the middleware has runned
+     */
+    protected $mediaService;
+
+    /**
      * Constructor
      * 
      */
@@ -33,12 +39,17 @@ class MediasController extends DashboardController
          */
         $this->extensions     =   [ 'jpeg', 'png'  ];
 
-        /**
-         * Launching the media Service
-         */
-        $this->mediaService  =   new MediaService([
-            'extensions'   =>  $this->extensions
-        ]);
+        $this->middleware( function( $request, $next ) {
+            
+            /**
+             * Launching the media Service
+             */
+            $this->mediaService  =   new MediaService([
+                'extensions'   =>  $this->extensions
+            ]);
+
+            return $next( $request );
+        });
     }
 
     /**

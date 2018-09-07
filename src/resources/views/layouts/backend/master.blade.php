@@ -13,16 +13,12 @@
     <script src="{{ asset( 'tendoo/bower_components/vue/dist/vue.min.js' ) }}"></script>
     <script src="{{ asset( 'tendoo/bower_components/axios/dist/axios.min.js' ) }}"></script>
     <script src="{{ asset( 'tendoo/bower_components/vue-router/dist/vue-router.min.js' ) }}"></script>
+    <script src="{{ asset( 'tendoo/node_modules/autoresponsive-vue.js' ) }}"></script>
 @endsection
 @section( 'partials.shared.footer' )
     <script src="{{ asset( 'tendoo/js/dashboard/options.js' ) }}"></script>
     <script>
-    /**
-     * Register Vue Filters
-     */
-    Vue.use( VueTruncate );
-    </script>
-    <script>
+        Vue.use( AutoResponsive );
         var tendooApi               =   new Object;
 
         /**

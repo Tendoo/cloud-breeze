@@ -202,11 +202,8 @@
                 </div>
                 <div class="col-md-12">
                     <div class="row p-0" v-if="getActive().namespace == 'list' && media">
-                        <div class="col-md-4 col-lg-2 col-xs-6 col-sm-4 mb-3" @click="select( media, index )" v-for="( media, index ) of media.data">
+                        <div class="col-md-4 col-lg-3 col-xs-6 col-sm-4 mb-3" @click="select( media, index )" v-for="( media, index ) of media.data">
                             <div class="card" v-bind:class="{ 'active-media' : media.selected }">
-                                <div class="card-title p-2">
-                                    <h5>@{{ media.name }}</h5>
-                                </div>
                                 <div class="card-body p-0 media-img-wrapper d-flex justify-content-center">
                                     <i style="font-size: 120px;" v-if="! isImage( media )" class="material-icons" :alt="media.name">@{{ media.extension === 'zip' ? 'archive' : 'attachment' }}</i>
                                     <img v-if="isImage( media )" class="card-img-top" :src="media.sizes.thumb" :alt="media.name">
