@@ -70,6 +70,8 @@ class ServiceProvider extends CoreServiceProvider
         $this->app->bind( 'tendoo.curl', 'Ixudra\Curl\CurlService' );
         $this->app->bind( 'tendoo.page', 'Tendoo\Core\Services\Page' );
         $this->app->bind( 'tendoo.helper', 'Tendoo\Core\Services\Helper' );
+        $this->app->bind( 'tendoo.field', 'Tendoo\Core\Services\Field' );
+        $this->app->bind( 'tendoo.modules', 'Tendoo\Core\Services\Modules' );
 
         /**
          * Register Middleware
@@ -138,11 +140,11 @@ class ServiceProvider extends CoreServiceProvider
          * Register the route provider 
          * before the Laravel Route Provider
          */
-        app()->register( \Tendoo\Core\Providers\TendooAppServiceProvider::class );
-        app()->register( \Tendoo\Core\Providers\TendooEventServiceProvider::class );
-        app()->register( \Tendoo\Core\Providers\TendooModulesServiceProvider::class );
-        app()->register( \Tendoo\Core\Providers\TendooUserOptionsServiceProvider::class );
-        app()->register( \Tendoo\Core\Providers\TendooRouteServiceProvider::class );
+        $this->app->register( \Tendoo\Core\Providers\TendooAppServiceProvider::class );
+        $this->app->register( \Tendoo\Core\Providers\TendooEventServiceProvider::class );
+        $this->app->register( \Tendoo\Core\Providers\TendooModulesServiceProvider::class );
+        $this->app->register( \Tendoo\Core\Providers\TendooUserOptionsServiceProvider::class );
+        $this->app->register( \Tendoo\Core\Providers\TendooRouteServiceProvider::class );
     }
 
     /**

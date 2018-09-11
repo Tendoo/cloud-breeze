@@ -2,6 +2,7 @@
 namespace Tendoo\Core\Services\Fields;
 use Tendoo\Core\Models\Role;
 use Tendoo\Core\Services\Helper;
+use Tendoo\Core\Facades\Field;
 
 trait GeneralSettingsFields
 {
@@ -152,6 +153,7 @@ trait GeneralSettingsFields
             'ses'  =>  __( 'SES' ),
             'sparkpost'  =>  __( 'Sparkpost' ),
         ];
+
         $email_type->description      =   __( 'This will define the gateway used to send email.' );
         $email_type->placeholder      =   $email_type->label;
         $email_type->validation       =   'sometimes';

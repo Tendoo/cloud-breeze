@@ -72,4 +72,93 @@ class Field
          */
         return app()->make( $className )->$method( $entry );
     }
+
+    // private $type = 'text';
+    // private $placeholder = '';
+    // private $name = '';
+    // private $description = '';
+    // private $value = '';
+    // private $validation = '';
+    // private $label = '';
+    // private $options = [];
+
+    // /**
+    //  * Set value for the current field
+    //  * @return self
+    //  */
+    // public function value( $value ) 
+    // {
+    //     $this->value    =   $value;
+    //     return $this;
+    // }
+
+    // /**
+    //  * set placeholder for the current field
+    //  * @return self
+    //  */
+    // public function placeholder( $placeholder )
+    // {
+    //     $this->placeholder  =   $placeholder;
+    //     return $this;
+    // }
+
+    // /**
+    //  * Set the name for the current field
+    //  * @return self
+    //  */
+    // public function name( $name )
+    // {
+    //     $this->name     =   $name;
+    //     return $this;
+    // }
+
+    // /**
+    //  * Set the validation for the current field
+    //  * @return self
+    //  */
+    // public function validation( $validation )
+    // {
+    //     $this->validation     =   $validation;
+    //     return $this;
+    // }
+
+    // /**
+    //  * Set the name for the current field
+    //  * @return self
+    //  */
+    // public function type( $type )
+    // {
+    //     $this->type     =   $type;
+    //     return $this;
+    // }
+    
+    // /**
+    //  * Set the description for the current field
+    //  * @return self
+    //  */
+    // public function description( $description )
+    // {
+    //     $this->description     =   $description;
+    //     return $this;
+    // }
+    
+    // /**
+    //  * Set the options for the current field
+    //  * @return self
+    //  */
+    // public function options( $options )
+    // {
+    //     $this->options     =   $options;
+    //     return $this;
+    // }
+    
+    // /**
+    //  * Set the label for the current field
+    //  * @return self
+    //  */
+    // public function label( $label )
+    // {
+    //     $this->label     =   $label;
+    //     return $this;
+    // }
 }
