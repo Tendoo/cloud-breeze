@@ -11,7 +11,7 @@ class AdjustOptionsTable extends Migration
 {
     public function up()
     {
-        if ( Schema::hasColumn( 'options', 'expire' ) ) {
+        if ( ! Schema::hasColumn( 'options', 'expire' ) ) {
             // set all options as not expiring by default
             $options    =   Option::get();
             $options->map(function( $option ) {
