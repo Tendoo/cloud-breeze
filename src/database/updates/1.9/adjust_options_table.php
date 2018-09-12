@@ -11,14 +11,7 @@ class AdjustOptionsTable extends Migration
 {
     public function up()
     {
-        if ( ! Schema::hasColumn( 'options', 'expire' ) ) {
-            // set all options as not expiring by default
-            $options    =   Option::get();
-            $options->map(function( $option ) {
-                $option->expire     =   null;
-                $option->save();
-            });
-
+        if ( ! Schema::hasColumn( 'options', 'expire_on' ) ) {
             Schema::table( 'options', function( Blueprint $table ) {
                 $table->datetime( 'expire_on' )->nullable();
             });
