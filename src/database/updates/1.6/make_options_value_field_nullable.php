@@ -1,5 +1,5 @@
 <?php
-namespace Tendoo\Database\Updates\v1_5;
+namespace Tendoo\Database\Updates\v1_6;
 
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
@@ -12,7 +12,7 @@ class MakeOptionsValueFieldNullable extends Migration
     {
         if ( Schema::hasColumn( 'options', 'value' ) ) {
             Schema::table( 'options', function( Blueprint $table ) {
-                $table->text( 'value' )->nullable()->change();
+                $table->datetime( 'value' )->nullable()->change();
             });
         }
     }
