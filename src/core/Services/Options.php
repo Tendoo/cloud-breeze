@@ -65,13 +65,15 @@ class Options
 
     public function set( $key, $value, $expiration = null )
     {
+        $date   =   app()->make( 'Tendoo\Core\Services\DateService' );
+
         $this->hasFound   =   false;
         
-        $this->rawOptions->map( function( $option, $index ) use ( $value, $key, $expiration ) {
+        $this->rawOptions->map( function( $option, $index ) use ( $value, $key, $expiration, $date ) {
             if ( $key === $option->key ) {
-                $this->hasFound     =   true;
-                $option->value      =   is_array( $value ) ? json_encode( $value ) : empty( $value ) ? '' : $value;
-                $option->expire     =   $expiration;
+                $this->hasFound         =   true;
+                $option->value          =   is_array( $value ) ? json_encode( $value ) : empty( $value ) ? '' : $value;
+                $option->expire_on      =   $expiration ?: $date->toDateTimeString();
                 $option->save();
             }
         });
@@ -89,7 +91,7 @@ class Options
                 $this->option->user_id     =   $this->user_id;
             }
 
-            $this->option->expire   =   $expiration;
+            $this->option->expire_on    =   $expiration ?: $date->toDateTimeString();
             $this->option->save();
 
             /**

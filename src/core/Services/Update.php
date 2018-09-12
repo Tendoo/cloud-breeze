@@ -193,6 +193,6 @@ class Update
             }
         }
 
-        return $files;
+        return array_reverse( $files );
     }
 }
