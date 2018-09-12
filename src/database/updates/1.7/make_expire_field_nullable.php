@@ -6,7 +6,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 use CreateApplicationTable;
 
-class MakeOptionsValueFieldNullable extends Migration
+class MakeExpireFieldNullable extends Migration
 {
     public function up()
     {
