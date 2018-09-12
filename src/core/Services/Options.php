@@ -63,14 +63,15 @@ class Options
      * @return void
     **/
 
-    public function set( $key, $value )
+    public function set( $key, $value, $expiration = null )
     {
         $this->hasFound   =   false;
         
-        $this->rawOptions->map( function( $option, $index ) use ( $value, $key ) {
+        $this->rawOptions->map( function( $option, $index ) use ( $value, $key, $expiration ) {
             if ( $key === $option->key ) {
                 $this->hasFound     =   true;
                 $option->value      =   is_array( $value ) ? json_encode( $value ) : empty( $value ) ? '' : $value;
+                $option->expire     =   $expiration === null ? '0000-00-00 00:00:00' : $expiration;
                 $option->save();
             }
         });
@@ -88,6 +89,7 @@ class Options
                 $this->option->user_id     =   $this->user_id;
             }
 
+            $this->option->expire   =   $expiration === null ? '0000-00-00 00:00:00' : $expiration;
             $this->option->save();
 
             /**
