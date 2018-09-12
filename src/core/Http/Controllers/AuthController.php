@@ -335,7 +335,8 @@ class AuthController extends BaseController
         $userOptions->set( 'recovery-token', $hashedCode );
         $userOptions->set( 'recovery-validity', 
             $this->date
-            ->tomorrow() 
+            ->copy()
+            ->addDay()
             ->toDateTimeString()
         );
 

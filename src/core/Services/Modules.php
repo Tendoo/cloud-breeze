@@ -668,7 +668,7 @@ class Modules
         // check if module exists
         if ( $module = $this->get( $namespace ) ) {
             // @todo sandbox to test if the module runs
-            $enabledModules     =   ( array ) json_decode( $this->options->get( 'enabled_modules' ), true );
+            $enabledModules     =   $this->options->get( 'enabled_modules' );
 
             /**
              * Let's check if that module can be enabled
@@ -729,7 +729,7 @@ class Modules
         // check if module exists
         if ( $module = $this->get( $namespace ) ) {
             // @todo sandbox to test if the module runs
-            $enabledModules     =   ( array ) json_decode( $this->options->get( 'enabled_modules' ), true );
+            $enabledModules     =   $this->options->get( 'enabled_modules' );
             $indexToRemove      =   array_search( $namespace, $enabledModules );
 
             // if module is found
