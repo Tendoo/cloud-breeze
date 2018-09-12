@@ -93,11 +93,13 @@ class Modules
                 $currentModulePath  =   $modulesPath . $dir . DIRECTORY_SEPARATOR;
                 $indexPath          =   $currentModulePath . ucwords( $config[ 'namespace' ] . 'Module.php' );
                 $webRoutesPath      =   $currentModulePath . 'Routes' . DIRECTORY_SEPARATOR . 'web.php';
+                $apiRoutesPath      =   $currentModulePath . 'Routes' . DIRECTORY_SEPARATOR . 'api.php';
 
                 // check index existence
                 $config[ 'path' ]                       =   $currentModulePath;
                 $config[ 'index-file' ]                 =   is_file( $indexPath ) ? $indexPath : false;
                 $config[ 'routes-file' ]                =   is_file( $webRoutesPath ) ? $webRoutesPath : false;
+                $config[ 'api-file' ]                   =   is_file( $apiRoutesPath ) ? $apiRoutesPath : false;
                 $config[ 'controllers-path' ]           =   $currentModulePath . 'Http' . DIRECTORY_SEPARATOR . 'Controllers';
                 $config[ 'controllers-relativePath' ]   =   ucwords( $config[ 'namespace' ] ) . DIRECTORY_SEPARATOR . 'Http' . DIRECTORY_SEPARATOR . 'Controllers';
                 $config[ 'views-path' ]                 =   $currentModulePath . 'Resources' . DIRECTORY_SEPARATOR . 'Views';

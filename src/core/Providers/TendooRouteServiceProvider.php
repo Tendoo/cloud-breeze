@@ -43,6 +43,10 @@ class TendooRouteServiceProvider extends ServiceProvider
         Route::middleware( 'web' ) // <= watch this out
             ->namespace( $this->namespace )
             ->group( TENDOO_ROUTES_PATH . DIRECTORY_SEPARATOR . 'web.php' );
+        
+        Route::middleware( 'api.guard' ) // <= watch this out
+            ->namespace( $this->namespace )
+            ->group( TENDOO_ROUTES_PATH . DIRECTORY_SEPARATOR . 'api.php' );
 
         $this->mapModulesWebRoutes();
     }
@@ -72,10 +76,17 @@ class TendooRouteServiceProvider extends ServiceProvider
             }
 
             // if module has a web route file
-            if ( $module[ 'routes-file' ] ) {
+            if ( $module[ 'routes-file' ] !== false ) {
                 Route::middleware([ 'web', 'app.installed' ])
                     ->namespace( 'Modules\\' . $module[ 'namespace' ] . '\Http\Controllers' )
                     ->group( $module[ 'routes-file' ] );
+                
+            }
+
+            if ( $module[ 'api-file' ] !== false ) {
+                Route::middleware([ 'api.guard', 'app.installed' ])
+                    ->namespace( 'Modules\\' . $module[ 'namespace' ] . '\Http\Controllers' )
+                    ->group( $module[ 'api-file' ] );
             }
         }
     }
