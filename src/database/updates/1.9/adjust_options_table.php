@@ -20,7 +20,7 @@ class AdjustOptionsTable extends Migration
             });
 
             Schema::table( 'options', function( Blueprint $table ) {
-                $table->datetime( 'expire_on' )->nullable()->change();
+                $table->datetime( 'expire_on' )->nullable();
             });
         }
     }
