@@ -73,7 +73,7 @@ class Options
             if ( $key === $option->key ) {
                 $this->hasFound         =   true;
                 $option->value          =   is_array( $value ) ? json_encode( $value ) : empty( $value ) ? '' : $value;
-                $option->expire_on      =   $expiration ?: $date->toDateTimeString();
+                $option->expire_on      =   $expiration;
                 $option->save();
             }
         });
@@ -91,7 +91,7 @@ class Options
                 $this->option->user_id     =   $this->user_id;
             }
 
-            $this->option->expire_on    =   $expiration ?: $date->toDateTimeString();
+            $this->option->expire_on    =   $expiration;
             $this->option->save();
 
             /**

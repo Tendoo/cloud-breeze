@@ -35,8 +35,6 @@ class CreateApplicationsTable extends Migration
      */
     public function down()
     {
-        if ( ! Schema::hasTable('applications') ) {
-            Schema::dropIfExists('applications');
-        }
+        Schema::dropIfExists('applications');
     }
 }

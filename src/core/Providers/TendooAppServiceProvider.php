@@ -237,7 +237,7 @@ class TendooAppServiceProvider extends ServiceProvider
              * todo we might read module routine as well
              */
             $schedule   =   app( Schedule::class );
-            // $schedule->command( 'tendoo:thank' )->everyMinute();
+            $schedule->command( 'option:purge' )->daily();
         });
     }
 }

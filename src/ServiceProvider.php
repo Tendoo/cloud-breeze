@@ -35,6 +35,7 @@ use Tendoo\Core\Console\Commands\MakeModuleServiceProvider;
 use Tendoo\Core\Console\Commands\EnvEditorSetCommand;
 use Tendoo\Core\Console\Commands\EnvEditorGetCommand;
 use Tendoo\Core\Console\Commands\PublishCommand;
+use Tendoo\Core\Console\Commands\DeleteExpiredOptionsCommand;
 use Illuminate\Routing\Router;
 use Jackiedo\DotenvEditor\DotenvEditor;
 use Tendoo\Core\Http\TendooKernel;
@@ -111,6 +112,7 @@ class ServiceProvider extends CoreServiceProvider
             EnvEditorGetCommand::class,
             ModuleCrudGeneratorCommand::class,
             PublishCommand::class,
+            DeleteExpiredOptionsCommand::class,
         ]);
         
         /**
