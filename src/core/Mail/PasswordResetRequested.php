@@ -7,7 +7,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class PasswordReset extends Mailable
+class PasswordResetRequested extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -28,9 +28,8 @@ class PasswordReset extends Mailable
      *
      * @return void
      */
-    public function __construct( $link, $user )
+    public function __construct( $user )
     {
-        $this->link     =   $link;
         $this->user     =   $user;
     }
 
@@ -43,10 +42,12 @@ class PasswordReset extends Mailable
     {
         $options    =   app()->make( 'Tendoo\Core\Services\Options' );
         return $this->from( $options->get( 'app_mail_from_address', 'notifications@tendoo.org' ) )
-            ->subject( __( '👮 Password Reset !' ) )
-            ->markdown('tendoo::email.password-reset', [
-            'link'  =>  $this->link,
-            'user'  =>  $this->user
-        ]);
+            ->subject( __( '👮 A New Password Reset Has Been Requested !' ) )
+            ->markdown('tendoo::email.password-change-requested', [
+                'user'  =>  $this->user,
+                'link'  =>  route( 'dashboard.users.edit', [
+                    'entry'     =>  $this->user->id
+                ])
+            ]);
     }
 }

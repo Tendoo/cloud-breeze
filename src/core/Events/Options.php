@@ -22,7 +22,7 @@ class Options {
         if ( @$inputs[ 'enable_maintenance' ] === 'true' ) {
             $options->delete( 'allow_recovery' );
             $options->delete( 'allow_registration' );
-            $options->delete( 'allow_login' );
+            $options->delete( 'app_restricted_login' );
         }
 
         return $inputs;

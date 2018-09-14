@@ -37,8 +37,9 @@ class UserRegistrationMail extends Mailable
      */
     public function build()
     {
-        return $this->from( 'notification@tendoo.org' )
-            ->subject( __( 'A new user has registered' ) )
+        $options    =   app()->make( 'Tendoo\Core\Services\Options' );
+        return $this->from( $options->get( 'app_mail_from_address', 'notifications@tendoo.org' ) )
+            ->subject( __( '🎉 A new user has registered' ) )
             ->markdown('tendoo::email.new-user', [
                 'link'  =>  $this->link,
                 'user'  =>  $this->user

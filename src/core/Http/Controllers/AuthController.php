@@ -95,12 +95,14 @@ class AuthController extends BaseController
              * If users is not admin and if the login is disabled
              * then he's redirected to the login with an error
              */
-            if ( ! $this->options->get( 'allow_login', false ) &&  
+            if ( $this->options->get( 'app_restricted_login', false ) &&  
                 ! in_array( 
                     Auth::user()->role->namespace,
                     Hook::filter( 'login.roles.allowed', [ 'admin' ])
                 )
             ) {
+                Auth::logout();
+
                 return redirect()->route( 'login.index' )->with([
                     'status'    =>  'danger',
                     'message'   =>  __( 'Unable to login, the registration has been locked for users.')
@@ -340,6 +342,8 @@ class AuthController extends BaseController
             ->toDateTimeString()
         );
 
+        Hook::action( 'before.send-recovery-email', $user, $hashedCode );
+
         /**
          * Sending an email which expire
          */
@@ -348,7 +352,8 @@ class AuthController extends BaseController
                 'user'  =>  $user->id,
                 'code'  =>  $hashedCode
             ]), $user ) );
-        
+
+        Hook::action( 'after.send-recovery-email', $user, $hashedCode );      
 
         return redirect()->route( 'login.index' )->with([
             'status'    =>  'success',

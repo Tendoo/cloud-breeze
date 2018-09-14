@@ -18,7 +18,8 @@
         "ixudra/curl": "6.*",
         "gumlet/php-image-resize": "1.8.*",
         "doctrine/dbal" : "^2.7",
-        "barryvdh/laravel-cors": "^0.11.2"
+        "barryvdh/laravel-cors": "^0.11.2",
+        "guzzlehttp/guzzle": "^6.3.3"
     },
     "autoload": {
         "psr-4": {

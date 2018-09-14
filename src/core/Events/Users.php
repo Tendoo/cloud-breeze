@@ -3,6 +3,10 @@ namespace Tendoo\Core\Events;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Tendoo\Core\Services\Field;
+use Illuminate\Support\Facades\Mail;
+use Tendoo\Core\Services\Users as UsersServices;
+use Tendoo\Core\Models\Role;
+use Tendoo\Core\Mail\PasswordResetRequested;
 
 class Users
 {
@@ -37,5 +41,29 @@ class Users
     public function registration( $validations, FormRequest $request )
     {
         return array_merge( $validations, Field::buildValidation( 'register' ) );
+    }
+
+    /**
+     * Notify Password recovery to administrators
+     * @param user
+     * @param string hash code
+     * @return void
+     */
+    public function notifyPasswordResetToAdmins( $user, $hashCode ) 
+    {
+        $options    =   app()->make( 'Tendoo\Core\Services\Options' );
+
+        /**
+         * Only notify when the option is enabled
+         */
+        if ( $options->get( 'app_notify_password_reset', 'false' ) === 'true' ) {
+            $admins     =   Role::where( 'namespace', 'admin' )->get();
+            $admins->map( function( $role ) {
+                $role->user->map( function( $user ) {
+                    Mail::to( $user->email )
+                        ->queue( new PasswordResetRequested( $user ) );        
+                });
+            });
+        }
     }
 }

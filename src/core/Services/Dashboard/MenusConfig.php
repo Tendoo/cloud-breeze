@@ -131,7 +131,7 @@ class MenusConfig
             ]);
 
             $email                   =   new \stdClass;
-            $email->text             =   __( 'Email' );
+            $email->text             =   __( 'Mail' );
             $email->label            =   0;
             $email->namespace        =   'settings.email';
             $email->href             =   route( 'dashboard.settings', [

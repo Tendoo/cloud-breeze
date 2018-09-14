@@ -25,7 +25,7 @@
                             ])
                         ],
                         'email'  =>  [ 
-                            'text'      =>  __( 'Email' ) ,
+                            'text'      =>  __( 'Mail' ) ,
                             'url'       =>  route( 'dashboard.settings', [
                                 'tab'   =>  'email'
                             ])

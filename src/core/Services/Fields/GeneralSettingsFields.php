@@ -61,13 +61,23 @@ trait GeneralSettingsFields
             'true'   =>  __( 'Allow registration' )
         ];
         
-        $allow_login                  =   new \StdClass;
-        $allow_login->name            =   'allow_login';
-        $allow_login->label           =   __( 'Allow Login' );
-        $allow_login->type            =   'switch';
-        $allow_login->value           =   $options->get( $allow_login->name );
-        $allow_login->description     =   __( 'Allow login for registered users' );
-        $allow_login->options         =   [
+        $app_restricted_login                  =   new \StdClass;
+        $app_restricted_login->name            =   'app_restricted_login';
+        $app_restricted_login->label           =   __( 'Restrict Login For Admins' );
+        $app_restricted_login->type            =   'switch';
+        $app_restricted_login->value           =   $options->get( $app_restricted_login->name );
+        $app_restricted_login->description     =   __( 'Allow login for only administrators.' );
+        $app_restricted_login->options         =   [
+            'true'   =>  __( 'Allow' )
+        ];
+        
+        $notify_password_reset                  =   new \StdClass;
+        $notify_password_reset->name            =   'app_notify_password_reset';
+        $notify_password_reset->label           =   __( 'Notify Password Reset' );
+        $notify_password_reset->type            =   'switch';
+        $notify_password_reset->value           =   $options->get( $notify_password_reset->name );
+        $notify_password_reset->description     =   __( 'Notify administrators when somebody attempt to reset his account.' );
+        $notify_password_reset->options         =   [
             'true'   =>  __( 'Allow' )
         ];
 
@@ -123,9 +133,10 @@ trait GeneralSettingsFields
 
         return [ 
             $allow_registration, 
-            $allow_login,
+            $app_restricted_login,
             $allow_password_recovery, 
             $reset_activation_link, 
+            $notify_password_reset,
             $validate_users, 
             $register_as, 
             $notifyAfterRegistration
@@ -140,24 +151,31 @@ trait GeneralSettingsFields
     {
         $options                    =   app()->make( 'Tendoo\Core\Services\Options' );
 
-        $email_type                 =   new \StdClass;
-        $email_type->name           =   'app_mail_driver';
-        $email_type->label          =   __( 'Email Driver' );
-        $email_type->type           =   'select';
-        $email_type->options        =   [
-            'disable'  =>  __( 'Disable' ),
-            'smtp'  =>  __( 'SMTP' ),
-            'mandrill'  =>  __( 'Mandrill' ),
-            'mailgun'  =>  __( 'Mailgun' ),
-            'sendmail'  =>  __( 'Sendmail' ),
-            'ses'  =>  __( 'SES' ),
-            'sparkpost'  =>  __( 'Sparkpost' ),
+        $mail_driver                 =   new \StdClass;
+        $mail_driver->name           =   'app_mail_driver';
+        $mail_driver->label          =   __( 'Email Driver' );
+        $mail_driver->type           =   'select';
+        $mail_driver->options        =   [
+            'disable'       =>  __( 'Disable' ),
+            'mail'          =>  __( 'Default PHP Mail' ),
+            'log'           =>  __( 'Log' ),
+            'smtp'          =>  __( 'SMTP' ),
+            'mandrill'      =>  __( 'Mandrill' ),
+            'mailgun'       =>  __( 'Mailgun' ),
+            'sendmail'      =>  __( 'Sendmail' ),
+            'ses'           =>  __( 'SES' ),
+            'sparkpost'     =>  __( 'Sparkpost' ),
         ];
 
-        $email_type->description      =   __( 'This will define the gateway used to send email.' );
-        $email_type->placeholder      =   $email_type->label;
-        $email_type->validation       =   'sometimes';
-        $email_type->value            =   $options->get( $email_type->name );
+        
+        $mail_driver->description      =   __( 'This will define the gateway used to send email.' );
+        $mail_driver->placeholder      =   $mail_driver->label;
+        $mail_driver->validation       =   'sometimes';
+        $mail_driver->value            =   $options->get( $mail_driver->name );
+        
+        if ( $options->get( 'app_mail_driver' ) === 'mail' ) {
+            return [ $mail_driver ];
+        }
 
         $mail_host                  =   new \stdClass;
         $mail_host->name            =   'app_mail_host';
@@ -190,33 +208,109 @@ trait GeneralSettingsFields
         $mail_from_name->validation      =   'sometimes';
         $mail_from_name->description     =   __( 'Provide the mail name of the sender.' );
         $mail_from_name->value           =   $options->get( $mail_from_name->name );
+        
+        $mail_sendmail_path                  =   new \stdClass;
+        $mail_sendmail_path->name            =   'app_sendmail_path';
+        $mail_sendmail_path->label           =   __( 'SendMail path' );
+        $mail_sendmail_path->type            =   'text';
+        $mail_sendmail_path->validation      =   'sometimes';
+        $mail_sendmail_path->description     =   __( 'Provide the path of the server o SendMail.' );
+        $mail_sendmail_path->value           =   $options->get( $mail_from_name->name );
 
-        $fields     =   [ $email_type, $mail_host, $mail_from_address, $mail_from_name ];
+        $mail_smtp_username                  =   new \stdClass;
+        $mail_smtp_username->name            =   'app_mail_smtp_username';
+        $mail_smtp_username->label           =   __( 'SMTP Username' );
+        $mail_smtp_username->type            =   'text';
+        $mail_smtp_username->validation      =   'sometimes';
+        $mail_smtp_username->description     =   __( 'Provide the username of the smtp.' );
+        $mail_smtp_username->value           =   $options->get( $mail_smtp_username->name );
+        
+        $mail_smtp_password                  =   new \stdClass;
+        $mail_smtp_password->name            =   'app_mail_smtp_password';
+        $mail_smtp_password->label           =   __( 'SMTP Password' );
+        $mail_smtp_password->type            =   'password';
+        $mail_smtp_password->validation      =   'sometimes';
+        $mail_smtp_password->description     =   __( 'Provide the password of the smtp.' );
+        $mail_smtp_password->value           =   $options->get( $mail_smtp_password->name );
+        
+        $mail_encryption                  =   new \stdClass;
+        $mail_encryption->name            =   'app_mail_encryption';
+        $mail_encryption->label           =   __( 'Mail Encryption' );
+        $mail_encryption->type            =   'text';
+        $mail_encryption->validation      =   'sometimes';
+        $mail_encryption->description     =   __( 'Provide the encryption for the gateaway selected.' );
+        $mail_encryption->value           =   $options->get( $mail_encryption->name );
+        
+        $mail_mailgun_domain                  =   new \stdClass;
+        $mail_mailgun_domain->name            =   'app_mail_mailgun_domain';
+        $mail_mailgun_domain->label           =   __( 'Mailgun Domain' );
+        $mail_mailgun_domain->type            =   'text';
+        $mail_mailgun_domain->validation      =   'sometimes';
+        $mail_mailgun_domain->description     =   __( 'Provide the mailgun domain.' );
+        $mail_mailgun_domain->value           =   $options->get( $mail_mailgun_domain->name );
+        
+        $mail_mailgun_secret                  =   new \stdClass;
+        $mail_mailgun_secret->name            =   'app_mail_mailgun_secret';
+        $mail_mailgun_secret->label           =   __( 'Mailgun Secret' );
+        $mail_mailgun_secret->type            =   'text';
+        $mail_mailgun_secret->validation      =   'sometimes';
+        $mail_mailgun_secret->description     =   __( 'Provide e mailgun secret.' );
+        $mail_mailgun_secret->value           =   $options->get( $mail_mailgun_secret->name );
+        
+        $mail_sparkpost_driver                  =   new \stdClass;
+        $mail_sparkpost_driver->name            =   'app_mail_' . 'sparkpost_driver';
+        $mail_sparkpost_driver->label           =   __( 'Sparkpost Driver' );
+        $mail_sparkpost_driver->type            =   'text';
+        $mail_sparkpost_driver->validation      =   'sometimes';
+        $mail_sparkpost_driver->description     =   __( 'Provide the sparkpost driver.' );
+        $mail_sparkpost_driver->value           =   $options->get( $mail_sparkpost_driver->name );
 
-        /**
-         * if the driver is smtp
-         * let's provide username for the driver
-         */
-        if ( $options->get( 'app_mail_driver' ) === 'smtp' ) {
-            $mail_smtp_username                  =   new \stdClass;
-            $mail_smtp_username->name            =   'app_mail_smtp_username';
-            $mail_smtp_username->label           =   __( 'SMTP Username' );
-            $mail_smtp_username->type            =   'text';
-            $mail_smtp_username->validation      =   'sometimes';
-            $mail_smtp_username->description     =   __( 'Provide the username of the smtp.' );
-            $mail_smtp_username->value           =   $options->get( $mail_smtp_username->name );
-            
-            $mail_smtp_password                  =   new \stdClass;
-            $mail_smtp_password->name            =   'app_mail_smtp_password';
-            $mail_smtp_password->label           =   __( 'SMTP Password' );
-            $mail_smtp_password->type            =   'password';
-            $mail_smtp_password->validation      =   'sometimes';
-            $mail_smtp_password->description     =   __( 'Provide the password of the smtp.' );
-            $mail_smtp_password->value           =   $options->get( $mail_smtp_password->name );
+        $mail_sparkpost_endpoint                  =   new \stdClass;
+        $mail_sparkpost_endpoint->name            =   'app_mail_' . 'sparkpost_endpoint';
+        $mail_sparkpost_endpoint->label           =   __( 'Sparkpost Endpoint' );
+        $mail_sparkpost_endpoint->type            =   'text';
+        $mail_sparkpost_endpoint->validation      =   'sometimes';
+        $mail_sparkpost_endpoint->description     =   __( 'Provide the sparkpost endpoint' );
+        $mail_sparkpost_endpoint->value           =   $options->get( $mail_sparkpost_endpoint->name );
+        
+        $mail_ses_key                  =   new \stdClass;
+        $mail_ses_key->name            =   'app_mail_' . 'ses_key';
+        $mail_ses_key->label           =   __( 'Ses key' );
+        $mail_ses_key->type            =   'text';
+        $mail_ses_key->validation      =   'sometimes';
+        $mail_ses_key->description     =   __( 'Provide the SES key.' );
+        $mail_ses_key->value           =   $options->get( $mail_ses_key->name );
+        
+        $mail_ses_secret                  =   new \stdClass;
+        $mail_ses_secret->name            =   'app_mail_' . 'ses_secret';
+        $mail_ses_secret->label           =   __( 'Ses Secret' );
+        $mail_ses_secret->type            =   'text';
+        $mail_ses_secret->validation      =   'sometimes';
+        $mail_ses_secret->description     =   __( 'Provide the SES Secret key.' );
+        $mail_ses_secret->value           =   $options->get( $mail_ses_secret->name );
+        
+        $mail_ses_region                  =   new \stdClass;
+        $mail_ses_region->name            =   'app_mail_' . 'region';
+        $mail_ses_region->label           =   __( 'Ses Region' );
+        $mail_ses_region->type            =   'text';
+        $mail_ses_region->validation      =   'sometimes';
+        $mail_ses_region->description     =   __( 'Provide the SES Region.' );
+        $mail_ses_region->value           =   $options->get( $mail_ses_region->name );
 
-            $fields     =   array_merge( $fields, [ $mail_smtp_username, $mail_smtp_password ]);
-        }
-
-        return $fields;
+        return [ 
+            $mail_driver,
+            $mail_host,
+            $mail_port,
+            $mail_from_address, 
+            $mail_from_name, 
+            $mail_sendmail_path, 
+            $mail_smtp_username, 
+            $mail_smtp_password,
+            $mail_encryption,
+            $mail_mailgun_secret, 
+            $mail_mailgun_domain, 
+            $mail_sparkpost_driver, 
+            $mail_sparkpost_endpoint 
+        ];
     }
 }
