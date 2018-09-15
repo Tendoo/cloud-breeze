@@ -94,7 +94,7 @@ class Setup
         DotEnvEditor::setKey( 'DB_DATABASE', $request->input( 'db_name' ) );
         DotEnvEditor::setKey( 'DB_USERNAME', $request->input( 'username' ) );
         DotEnvEditor::setKey( 'DB_PASSWORD', $request->input( 'password' ) );
-        DotEnvEditor::setKey( 'DB_PREFIX', $request->input( 'table_prefix' ) );
+        DotEnvEditor::setKey( 'DB_TABLE_PREFIX', $request->input( 'table_prefix' ) );
         DotEnvEditor::setKey( 'DB_PORT', 3306 );
         DotEnvEditor::setKey( 'DB_CONNECTION', 'mysql' );
         DotEnvEditor::setKey( 'APP_URL', url()->to( '/' ) );
@@ -140,6 +140,7 @@ class Setup
         $this->options->set( 'allow_registration', 'true' );
         $this->options->set( 'db_version', config( 'tendoo.db_version' ) );
         $this->options->set( 'register_as', 1 ); // register as user;
+        $this->options->set( 'assets_version', config( 'tendoo.assets_version' ) );
         
         $user               =   new User;
         $user->id           =   rand(1,99);

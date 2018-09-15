@@ -247,6 +247,16 @@ class ServiceProvider extends CoreServiceProvider
             'tendoo.version'        =>  TENDOO_VERSION
         ]);
 
+        /**
+         * Define the table prefix
+         */
+        config([
+            'database.connections.mysql.prefix'     =>  env( 'DB_TABLE_PREFIX', '' ),
+            'database.connections.sqlite.prefix'    =>  env( 'DB_TABLE_PREFIX', '' ),
+            'database.connections.pgsql.prefix'     =>  env( 'DB_TABLE_PREFIX', '' ),
+            'database.connections.sqlsrv.prefix'    =>  env( 'DB_TABLE_PREFIX', '' ),
+        ]);
+
         $this->app->singleton( 'XmlParser', function ($app) {
             return new XmlReader(new XmlDocument($app));
         });

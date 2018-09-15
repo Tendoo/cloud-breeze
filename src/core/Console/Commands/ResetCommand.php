@@ -71,7 +71,7 @@ class ResetCommand extends Command
             DotEnvEditor::deleteKey( 'DB_DATABASE' );
             DotEnvEditor::deleteKey( 'DB_USERNAME' );
             DotEnvEditor::deleteKey( 'DB_PASSWORD' );
-            DotEnvEditor::deleteKey( 'DB_PREFIX' );
+            DotEnvEditor::deleteKey( 'DB_TABLE_PREFIX' );
             DotEnvEditor::deleteKey( 'DB_PORT' );
             DotEnvEditor::deleteKey( 'DB_CONNECTION' );
             DotEnvEditor::deleteKey( 'TENDOO_VERSION' );
