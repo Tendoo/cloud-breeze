@@ -111,7 +111,7 @@ class Modules
                  * since by default it's not enabled
                  */
                 if ( Helper::AppIsInstalled() ) {
-                    $modules                =   $this->options->get( 'enabled_modules' );
+                    $modules                =   ( array ) $this->options->get( 'enabled_modules' );
                     $config[ 'enabled' ]    =   in_array( $config[ 'namespace' ], $modules ) ? true : false;
                 }
                 
@@ -668,7 +668,7 @@ class Modules
         // check if module exists
         if ( $module = $this->get( $namespace ) ) {
             // @todo sandbox to test if the module runs
-            $enabledModules     =   $this->options->get( 'enabled_modules' );
+            $enabledModules     =   ( array ) $this->options->get( 'enabled_modules' );
 
             /**
              * Let's check if that module can be enabled
