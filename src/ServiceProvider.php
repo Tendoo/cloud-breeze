@@ -164,6 +164,7 @@ class ServiceProvider extends CoreServiceProvider
         if ( ! defined( 'TENDOO_ASSETS_PATH' ) ): define( 'TENDOO_ASSETS_PATH', dirname( __FILE__ ) . '/public/' ); endif;
         if ( ! defined( 'TENDOO_ROOT_PATH' ) ): define( 'TENDOO_ROOT_PATH', dirname( __FILE__ ) ); endif;
         if ( ! defined( 'TENDOO_ROUTES_PATH' ) ): define( 'TENDOO_ROUTES_PATH', TENDOO_ROOT_PATH . DIRECTORY_SEPARATOR . 'routes' . DIRECTORY_SEPARATOR ); endif;
+        if ( ! defined( 'TENDOO_MODULES_PATH' ) ): define( 'TENDOO_MODULES_PATH', base_path() . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR ); endif;
 
         /**
          * Define Storage Location Path
