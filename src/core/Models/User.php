@@ -3,7 +3,6 @@
 namespace Tendoo\Core\Models;
 
 use Illuminate\Notifications\Notifiable;
-// use Laravel\Passport\HasApiTokens;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Auth;
 use Tendoo\Core\Services\UserOptions;
@@ -12,6 +11,7 @@ class User extends Authenticatable
 {
     use Notifiable;
 
+    /** @var */
     public $user_id;
 
     /**
@@ -42,7 +42,6 @@ class User extends Authenticatable
      * Relation with roles
      * @return void
     **/
-
     public function role()
     {
         return $this->belongsTo( Role::class );
@@ -57,9 +56,7 @@ class User extends Authenticatable
         /**
          * If user id is not provided
          */
-        if ( $user_id == null ) {
-            $user_id    =   Auth::user()->role_id;
-        } 
+        $user_id = $user_id ?: Auth::user()->role_id;
 
         if ( empty( @self::$permissions[ $user_id ] ) ) {
 
@@ -95,35 +92,28 @@ class User extends Authenticatable
             $partials       =   explode( '.', $action );
 
             if ( $partials[0] == '*' ) {
-
-                $collection     =   collect( self::permissions() );
-
                 /**
-                 * Getting all defined permission 
-                 * instead of harcoding it
+                 * Getting all defined permission instead of hard-coding it
                  */
-                $permissions    =   $collection->filter( function( $value, $key ) use( $partials ) {
-                    return substr( $value, -strlen( $partials[1] ) ) === $partials[1];
-                });
+                $permissions    =   collect( self::permissions() )
+                    ->filter( function( $value, $key ) use ( $partials ) {
+                        return substr( $value, -strlen( $partials[1] ) ) === $partials[1];
+                    });
 
                 return self::allowedTo( $permissions->toArray() );
             }
 
             /**
-             * We assume the search is not an array but a string. We
-             * can then perform a search
+             * We assume the search is not an array but a string. We can then perform a search
              */
-            if ( in_array( $action, self::permissions() ) ) {
-                return true;
-            }
-            return false;
+            return in_array( $action, self::permissions() );
 
         } else {
 
             /**
-             * While looing, if one permission is not granted, exit the loop and return false
+             * While looping, if one permission is not granted, exit the loop and return false
              */
-            if( $action ) {
+            if ( $action ) {
                 foreach ( $action as $_permission ) {
                     if ( ! self::allowedTo( $_permission ) ) {
                         return false;
@@ -141,8 +131,7 @@ class User extends Authenticatable
      */
     public function pseudo()
     {
-        $user   =   Auth::user();
-        return $user->username;
+        return Auth::user()->username;
     }
 
     /**
@@ -153,17 +142,11 @@ class User extends Authenticatable
      */
     public static function setAs( $id, $roleName )
     {
-        $role   =   Role::namespace( $roleName );
-
-        if ( $role ) {
+        if ( $role = Role::namespace( $roleName ) ) {
             /**
              * check if model is already provided
              */
-            if ( is_object( $id ) ) {
-                $user   =   $id;
-            } else {
-                $user   =   self::find( $id );
-            }
+            $user = is_object( $id ) ? $id : self::find( $id );
 
             $user->role()->associate( $role );
             $user->save();
@@ -177,12 +160,9 @@ class User extends Authenticatable
      * @param object user
      * @return User<Model>
      */
-    public static function set( $user ) 
+    public static function set( $user )
     {
-        if ( $user ) {
-            return User::define( $user->id );
-        }
-        return false;
+        return $user ? User::define( $user->id ) : false;
     }
 
     /**
@@ -212,11 +192,8 @@ class User extends Authenticatable
      * @param string value
      * @return boolean
      */
-    public function getActiveAttribute( $value ) 
+    public function getActiveAttribute( $value )
     {
-        if ( $value == '1' ) {
-            return true;
-        }
-        return false;
+        return $value == '1';
     }
 }
