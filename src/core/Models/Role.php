@@ -110,6 +110,5 @@ class Role extends Model
     public static function RemovePermissions( $role_name, $permissions )
     {
         $AllPermissions   =   Permission::whereIn( 'namespace', $permissions );
-        dd( $AllPermissions );
     }
 }
