@@ -13,33 +13,35 @@ use Tendoo\Core\Services\Setup;
 
 class SetupController extends Controller
 {
+    /** @var */
     private $setup;
 
-    public function __construct() 
+    public function __construct()
     {
         $this->setup    =   new Setup;
     }
 
     /**
      * Display setup steps
-     * @return void
+     *
+     * @param string $step
+     * @return \Illuminate\View\View
      */
-    public function steps( string $step = '' )
+    public function steps( string $step = null )
     {
-        if ( $step == '' ) {
-            /**
-             * delete the laravel session
-             * to avoid unlimited loop
-             * after a reset
-             */
+        if ( !$step ) {
+            /** delete the laravel session to avoid unlimited loop after a reset */
             Cookie::forget( 'laravel_session' );
-
             Page::setTitle( 'Setup Tendoo CMS' );
             return view( 'tendoo::components.frontend.setup.step-home' );
-        } else if ( $step == 'database' ) {
+        }
+
+        if ( $step == 'database' ) {
             Page::setTitle( __( 'Database Configuration' ) );
             return view( 'tendoo::components.frontend.setup.step-database' );
-        } else if ( $step == 'app-details' ) {
+        }
+        
+        if ( $step == 'app-details' ) {
             Page::setTitle( __( 'Database Configuration' ) );
             return view( 'tendoo::components.frontend.setup.step-app-details' );
         }
@@ -47,33 +49,38 @@ class SetupController extends Controller
 
     /**
      * Post Database details
-     * @since 1.0
+     *
+     * @since  1.0
+     * @param  Tendoo\Core\Http\Requests\SetupDatabaseRequest $request
+     * @return \Illiminate\Http\RedirectResponse
      */
     public function post_database( SetupDatabaseRequest $request )
     {
         $errors = $this->setup->saveDatabaseSettings( $request );
-        
-        if ( $errors !== true ) {
-            $validator    =   Validator::make( $request->all(), [] );
-            $validator->errors()->add( $errors[ 'name' ], $errors[ 'message' ] );
+        if ( !$errors ) {
+            Validator::make( $request->all(), [] )
+                ->errors()
+                ->add( $errors[ 'name' ], $errors[ 'message' ] );
             return redirect()->route( 'setup.step', [ 'step' => 'database' ])->withErrors( $validator );
         }
 
-        // the setup is successful
+        /** the setup is successful */
         return redirect()->route( 'setup.step', [ 'step' => 'app-details' ]);
     }
 
     /**
      * Post App details
-     * @since 1.0
+     *
+     * @since  1.0
+     * @param  Tendoo\Core\Http\Requests\SetupDatabaseRequest $request
+     * @return \Illiminate\Http\RedirectResponse
      */
     public function post_appdetails( SetupAppDetailsRequest $request )
     {
         $this->setup->runMigration( $request );
 
-        // fire event when database is installed
+        /** Fire event when database is installed */
         Event::fire( 'after.setup.app', $request );
-
         return redirect()->route( 'login.index' );
     }
 }
