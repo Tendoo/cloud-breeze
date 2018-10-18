@@ -5,6 +5,7 @@ before_install:
   - composer self-update
   - composer create-project laravel/laravel
   - cd ./laravel
+  - rm tests/Feature/ExampleTest.php
   - composer require tendoo/cms:dev-master
   - composer update
   - php artisan tendoo:publish
