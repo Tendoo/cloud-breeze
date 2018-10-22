@@ -234,15 +234,6 @@ Route::middleware([ 'web' ])->group( function(){
              */
             $BasicRoutes();
         }
-
-        /**
-         * Register OauthRoutes
-         */
-        Route::get( '/oauth', 'OauthControllers@index' )
-            ->name( 'oauth.index' );
-        Route::post( '/oauth', 'OauthControllers@post' )
-            ->name( 'oauth.post' );
-        Route::post( '/oauth/login', 'OauthControllers@postLogin' );
     });
     
     Route::middleware([ 'app.notInstalled' ])->group( function(){
@@ -256,6 +247,14 @@ Route::middleware([ 'web' ])->group( function(){
         Route::post( '/do-setup/post/app-details', 'SetupController@post_appdetails' )
             ->name( 'setup.post.app-details' );
     });
+
+    /**
+     * Register OauthRoutes
+     */
+    Route::get( '/oauth', 'OauthControllers@index' )
+        ->name( 'oauth.index' );
+    Route::post( '/oauth', 'OauthControllers@post' )
+        ->name( 'oauth.post' );
 });
 
 Route::middleware([ 'app.installed' ])->group( function(){
@@ -271,21 +270,3 @@ Route::middleware([ 'app.installed' ])->group( function(){
     Route::post( '/do-update/files', 'UpdateController@postFiles' )
         ->name( 'update.post.files' );
 });
-
-/**
- * API Resource
- */
-// Route::middleware([ 'app.installed' ])->group(function(){
-//     Route::group([ 'prefix' => '/api/{resource}'], function( $request ) {    
-//         Route::get( '', 'ApiController@getAll' )
-    // ->name( 'api.all' );
-//         Route::get( '{id}', 'ApiController@getOne' )
-    // ->name( 'api.one' );
-//         Route::delete( '{id}', 'ApiController@delete' )
-    // ->name( 'api.delete' );
-//         Route::put( '{id}', 'ApiController@put' )
-    // ->name( 'api.put' );
-//         Route::post( '', 'ApiController@single' )
-    // ->name( 'api.post' );
-//     });
-// });

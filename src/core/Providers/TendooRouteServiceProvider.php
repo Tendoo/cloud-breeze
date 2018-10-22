@@ -44,11 +44,10 @@ class TendooRouteServiceProvider extends ServiceProvider
             ->namespace( $this->namespace )
             ->group( TENDOO_ROUTES_PATH . DIRECTORY_SEPARATOR . 'web.php' );
         
-        Route::middleware( 'api.guard' ) // <= watch this out
-            ->namespace( $this->namespace )
+        Route::middleware( 'tendoo.cors' )->namespace( $this->namespace )
             ->group( TENDOO_ROUTES_PATH . DIRECTORY_SEPARATOR . 'api.php' );
 
-        $this->mapModulesWebRoutes();
+        $this->mapModulesRoutes();
     }
 
     /**
@@ -58,7 +57,7 @@ class TendooRouteServiceProvider extends ServiceProvider
      * 
      * @return void
      */
-    protected function mapModulesWebRoutes()
+    protected function mapModulesRoutes()
     {
         // make module class
         $Modules    =   app()->make( Modules::class );

@@ -6,6 +6,7 @@ use Tendoo\Core\Services\Page;
 use Tendoo\Core\Services\Oauth;
 use Tendoo\Core\Facades\Hook;
 use Tendoo\Core\Services\UserOptions;
+use Tendoo\Core\Services\AuthService;
 use Tendoo\Core\Models\Oauth as OauthModel;
 use Illuminate\Support\Facades\Auth;
 use Tendoo\Core\Models\Application;
@@ -14,15 +15,25 @@ use Exception;
 use Tendoo\Core\Exceptions\OauthDeniedException;
 use Tendoo\Core\Exceptions\WrongCredentialException;
 use Tendoo\Core\Exceptions\WrongOauthScopeException;
+use Tendoo\Core\Http\Requests\PostRegisterRequest;
 
 class OauthControllers extends BaseController
 {
     private $oauth;
     protected $userOptions;
+    protected $authService;
     public function __construct()
     {
         parent::__construct();
-        $this->middleware( 'expect.logged' )->except([ 'postLogin' ]);
+
+        $this->middleware( 'expect.logged' )
+            ->except([ 'postLogin', 'postRegistration' ]);
+
+        $this->middleware( function( $request, $next ) {
+            $this->authService      =   app()->make( AuthService::class );
+            return $next( $request );
+        });
+
         $this->oauth        =   new Oauth;
     }
 
@@ -141,7 +152,6 @@ class OauthControllers extends BaseController
 
         $action         =   $request->input( 'action' );
         $callback_url   =   $request->input( 'callback_url' );
-        // $name           =   $request->input( 'name' );
         $scopes         =   $request->input( 'scopes' );
 
         /**
@@ -159,20 +169,36 @@ class OauthControllers extends BaseController
             $url                    =   parse_url( $request->input( 'callback_url' ) );
 
             /**
-             * A user can have the same application connected several time to his system.
-             * We should then introduce a website url so that he can know from 
-             * where the request has been made.
+             * A user can not have the same application connected to his account many time. 
+             * If a prior connexion has been made, then this latest will be updated with the new
+             * credentials.
              */
-            $oauth                  =   new OauthModel;
-            $oauth->access_token    =   $access_token;
-            $oauth->app_name        =   $application->name;
-            $oauth->app_id          =   $application->id;
-            $oauth->scopes          =   json_encode( $scopes );
-            $oauth->refresh_token   =   $refresh_token;
-            $oauth->domain          =   @$url[ 'host' ] ? $url[ 'host' ] : __( 'N/A' );
-            $oauth->user_id         =   Auth::id();
-            $oauth->expires_at      =   Carbon::now()->addDays(7)->toDateTimeString();
-            $oauth->save();
+            $oauth =   OauthModel::where([
+                'app_id'    =>  $application->id
+            ])->first();
+
+            if ( $oauth instanceof OauthModel ) {
+                $oauth->access_token    =   $access_token;
+                $oauth->app_name        =   $application->name;
+                $oauth->app_id          =   $application->id;
+                $oauth->scopes          =   json_encode( $scopes );
+                $oauth->refresh_token   =   $refresh_token;
+                $oauth->domain          =   @$url[ 'host' ] ? $url[ 'host' ] : __( 'N/A' );
+                $oauth->user_id         =   Auth::id();
+                $oauth->expires_at      =   Carbon::now()->addDays(7)->toDateTimeString();
+                $oauth->save();
+            } else {
+                $oauth                  =   new OauthModel;
+                $oauth->access_token    =   $access_token;
+                $oauth->app_name        =   $application->name;
+                $oauth->app_id          =   $application->id;
+                $oauth->scopes          =   json_encode( $scopes );
+                $oauth->refresh_token   =   $refresh_token;
+                $oauth->domain          =   @$url[ 'host' ] ? $url[ 'host' ] : __( 'N/A' );
+                $oauth->user_id         =   Auth::id();
+                $oauth->expires_at      =   Carbon::now()->addDays(7)->toDateTimeString();
+                $oauth->save();
+            }
 
             /**
              * run an action when the Oauth is
@@ -200,5 +226,19 @@ class OauthControllers extends BaseController
                 'user'          =>  Auth::user()
             ] : redirect( $callback_url );
         }
+    }
+
+    /**
+     * Post Registration
+     * @return json
+     */
+    public function postRegistration( PostRegisterRequest $request )
+    {
+        $this->authService->register( $request );
+
+        return response()->json([
+            'status'    =>  'success',
+            'message'   =>  __( 'The registration was successful' )
+        ]);
     }
 }

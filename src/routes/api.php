@@ -13,6 +13,21 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+/**
+ * This route is used to proceed to an authentication
+ * of the user using Application Credentials and the username, password.
+ */
+Route::middleware([ 'app.installed' ])->group( function() {
+    
+    Route::post( '/oauth/login', 'OauthControllers@postLogin' );
+    Route::post( '/oauth/registration', 'OauthControllers@postRegistration' );
+
+    /**
+     * Every request send here, should have a valid token 
+     * provided during the Oauth Authentication.
+     */
+    Route::middleware([ 'api.guard' ])->namespace( 'Api' )->group( function() {
+        Route::get( '/api/option/{key}', 'OptionsController@getOption' );
+        Route::get( '/api/options', 'OptionsController@getAllOptions' );
+    });
 });

@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\RedirectResponse;
 use Tendoo\Core\Services\Page;
 use Tendoo\Core\Services\Options;
+use Tendoo\Core\Services\AuthService;
 use Tendoo\Core\Services\UserOptions;
 use Tendoo\Core\Http\Requests\LoginRequest;
 use Tendoo\Core\Http\Requests\PostRegisterRequest;
@@ -27,6 +28,8 @@ use Carbon\Carbon;
 class AuthController extends BaseController
 {
     protected $userService;
+    protected $authService;
+
     public function __construct()
     {
         parent::__construct();
@@ -41,6 +44,11 @@ class AuthController extends BaseController
             
             return $next($request);
         })->only([ 'recoveryIndex', 'recoveryPassword', 'postRecoveryPassword' ]);
+
+        $this->middleware( function( $request, $next ) {
+            $this->authService  =   app()->make( AuthService::class );
+            $next( $request );
+        });
     }
     
     /**
@@ -183,62 +191,7 @@ class AuthController extends BaseController
      */
     public function postRegister( PostRegisterRequest $request, Options $options )
     {
-        /**
-         * Trigger Action before registering the users
-         * @filter:before.register
-         */
-        $redirect           =   Hook::filter( 'before.register', false, $request, $options );
-
-        /**
-         * A hook can control the user registration
-         */
-        if ( $redirect instanceof RedirectResponse ) {
-            return $redirect;
-        }
-
-        $shouldActivate     =   $options->get( 'validate_users', 'false' ) === 'true' ? true : false;
-
-        /**
-         * Create user instance
-         */
-        $user               =   new User;
-        $user->username     =   $request->input( 'username' );
-        $user->password     =   bcrypt( $request->input( 'password' ) );
-        $user->email        =   $request->input( 'email' );
-        $user->role_id      =   $options->get( 'register_as', 1 ); // default user
-        $user->active       =   $shouldActivate ? 1 : 0;
-        $user->save();
-
-        /**
-         * Save user options
-         * before registration
-         */
-        $option             =   new Options( $user->id );
-        $option->set( 'theme_class', 'red-theme' );
-
-        /**
-         * Trigger Hook for the user
-         * @hook:register.user
-         */
-        Hook::action( 'register.user', $user, $option );
-
-        if ( $shouldActivate ) {
-            $this->userService->sendActivationEmail( $user );
-        }
-
-        /**
-         * let's notify all admin with admin role a user has been registered
-         * @todo adding a filter for role selected to receive an email
-         */
-        if ( $this->options->get( 'registration_notification' ) == 'yes' ) {
-            foreach( Role::where( 'namespace', 'admin' )->first()->user as $admin ) {
-                Mail::to( $admin->email )
-                    ->queue( new UserRegistrationMail([
-                        'link'  =>  route( 'dashboard.users.list' ),
-                        'user'  =>  $user
-                    ]));
-            }
-        }
+        $this->authService->register( $request );
 
         return redirect()->route( 'login.index' )->with([
             'status'    =>  'success',

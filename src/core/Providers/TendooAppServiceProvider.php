@@ -15,6 +15,7 @@ use Tendoo\Core\Services\Options;
 use Tendoo\Core\Services\UserOptions;
 use Tendoo\Core\Services\DateService;
 use Tendoo\Core\Services\Users;
+use Tendoo\Core\Services\AuthService;
 use Tendoo\Core\Services\MediaService;
 use Tendoo\Core\Models\Role;
 use Tendoo\Core\Models\User;
@@ -89,6 +90,11 @@ class TendooAppServiceProvider extends ServiceProvider
             $options    =   app()->make( Options::class );
             $timeZone   =   $options->get( 'app_timezone', 'Europe/London' );
             return new DateService( $timeZone );
+        });
+
+        // save Singleton for options
+        $this->app->singleton( AuthService::class, function(){
+            return new AuthService();
         });
         
         // save Singleton for options

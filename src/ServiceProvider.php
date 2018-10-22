@@ -84,7 +84,7 @@ class ServiceProvider extends CoreServiceProvider
         $router->aliasMiddleware( 'can.register', \Tendoo\Core\Http\Middleware\CheckRegistrationStatus::class );
         $router->aliasMiddleware( 'check.updates', \Tendoo\Core\Http\Middleware\CheckUpdates::class );
         $router->aliasMiddleware( 'api.guard', \Tendoo\Core\Http\Middleware\LoadApi::class );
-        // $router->middleware( \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class );
+        $router->aliasMiddleware( 'tendoo.cors', \Barryvdh\Cors\HandleCors::class );      
         
         $corePath       =   base_path() . _SLASH_ . 'core' . _SLASH_ ;
         $configPath     =   base_path() . _SLASH_ . 'config' . _SLASH_ ;
@@ -142,6 +142,7 @@ class ServiceProvider extends CoreServiceProvider
          * Register the route provider 
          * before the Laravel Route Provider
          */
+        $this->app->register( \Barryvdh\Cors\ServiceProvider::class );
         $this->app->register( \Tendoo\Core\Providers\TendooAppServiceProvider::class );
         $this->app->register( \Tendoo\Core\Providers\TendooEventServiceProvider::class );
         $this->app->register( \Tendoo\Core\Providers\TendooModulesServiceProvider::class );
@@ -261,7 +262,6 @@ class ServiceProvider extends CoreServiceProvider
         $this->app->singleton( 'XmlParser', function ($app) {
             return new XmlReader(new XmlDocument($app));
         });
-
         
         /**
          * Overriding the Exception Handler
