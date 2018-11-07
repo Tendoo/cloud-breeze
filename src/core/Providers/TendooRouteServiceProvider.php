@@ -83,7 +83,7 @@ class TendooRouteServiceProvider extends ServiceProvider
             }
 
             if ( $module[ 'api-file' ] !== false ) {
-                Route::middleware([ 'api.guard', 'app.installed' ])
+                Route::middleware([ 'tendoo.cors', 'app.installed' ])
                     ->namespace( 'Modules\\' . $module[ 'namespace' ] . '\Http\Controllers' )
                     ->group( $module[ 'api-file' ] );
             }
