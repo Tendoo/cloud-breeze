@@ -13,7 +13,7 @@ define( 'TENDOO_ROOT', __DIR__ );
  */
 define( 'TENDOO_VERSION', '5.0' );
 define( 'TENDOO_ASSETS_VERSION', '1.7' );
-define( 'TENDOO_DB_VERSION', '1.9' );
+define( 'TENDOO_DB_VERSION', '1.10' );
 
 require_once TENDOO_ROOT . '/core/Services/Helper.php';
 require_once TENDOO_ROOT . '/core/Services/HelperFunctions.php';

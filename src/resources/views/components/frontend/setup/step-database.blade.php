@@ -34,7 +34,7 @@
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1">{{ __( 'Table Prefix' ) }}</label>
-                        <input value="tendoo_" name="table_prefix" type="text" class="form-control" placeholder="{{ __( 'Eg: tendoo_' ) }}">
+                        <input value="app_" name="table_prefix" type="text" class="form-control" placeholder="{{ __( 'Eg: app_' ) }}">
                         <small class="form-text text-muted">{{ __( 'This may help you to have multiple installation in one database.' ) }}</small>
                     </div>
                 </div>

@@ -47,7 +47,7 @@ class AuthController extends BaseController
 
         $this->middleware( function( $request, $next ) {
             $this->authService  =   app()->make( AuthService::class );
-            $next( $request );
+            return $next( $request );
         });
     }
     

@@ -96,7 +96,7 @@ class Role extends Model
              * if the relation array is set, then we can insert all
              */
             if ( $relations ) {
-                DB::table( 'role_permission' )->insert( $relations );
+                DB::table( 'tendoo_role_permission' )->insert( $relations );
             }
             return true;
         }
