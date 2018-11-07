@@ -13,7 +13,7 @@ class CreateOauthTable extends Migration
      */
     public function up()
     {
-        Schema::create('oauth', function (Blueprint $table) {
+        Schema::create('tendoo_oauth', function (Blueprint $table) {
             $table->increments('id');
             $table->integer( 'user_id' )->nullable();
             $table->string( 'access_token' );
@@ -34,6 +34,6 @@ class CreateOauthTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('oauth');
+        Schema::dropIfExists('tendoo_oauth');
     }
 }

@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 class Role extends Model
 {
     private static $cachedPermissions   =   [];
+    protected $table    =   'tendoo_roles';
 
     /**
      * Relation with users

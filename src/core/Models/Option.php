@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Option extends Model
 {
+    protected $table = 'tendoo_options';
+    
     //
     public function scopeKey( $query, $key )
     {
