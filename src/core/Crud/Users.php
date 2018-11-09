@@ -181,7 +181,7 @@ class Users extends Crud
             'email'  =>  [
                 'text'  =>  __( 'Email' )
             ],
-            'roles_name'    =>  [
+            'tendoo_roles_name'    =>  [
                 'text'      =>  __( 'Role' )
             ],
             'created_at'  =>  [
