@@ -36,7 +36,7 @@ class Users extends Crud
      * Adding relation
      */
     public $relations   =  [
-        [ 'roles', 'users.role_id', '=', 'roles.id' ]
+        [ 'tendoo_roles', 'users.role_id', '=', 'tendoo_roles.id' ]
     ];
 
     /**

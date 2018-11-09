@@ -19,6 +19,7 @@
 
         // let axios to be recognized as Ajax Request
         axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+        axios.defaults.headers.common['X-CSRF-TOKEN'] = '{{ csrf_token() }}';
     </script>
 </head>
 <body>
