@@ -4,7 +4,9 @@ namespace Tendoo\Core\Http\Controllers\Dashboard;
 use Tendoo\Core\Http\Controllers\DashboardController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Log;
 use Tendoo\Core\Http\Requests\PostModuleRequest;
+use Tendoo\Core\Exceptions\CoreException;
 
 class ModulesController extends DashboardController
 {
@@ -210,9 +212,12 @@ class ModulesController extends DashboardController
         /**
          * if the module doesn't exist, then we can redirect it
          */
+        $message    =   sprintf( __( 'The namespace <strong>%s</strong> does\'nt seems to belong to any installed module. The migration has failded.' ), $namespace );
+        Log::info( $message );
+
         return redirect()->route( 'dashboard.modules.list' )->with([
             'status'    =>  'danger',
-            'message'   =>  sprintf( __( 'The namespace <strong>%s</strong> does\'nt seems to belong to any installed module. The migration has failded.' ), $namespace )
+            'message'   =>  $message
         ]);
     }
 
@@ -223,13 +228,13 @@ class ModulesController extends DashboardController
      */
     public function runMigration( $namespace, Request $request )
     {
-        $migration     =   $this->modules->runMigration( 
+        $response     =   $this->modules->runMigration( 
             $namespace,
             $request->input( 'version' ), 
             $request->input( 'file' ) 
         );
 
-        if ( $migration ) {
+        if ( $response[ 'status' ] === 'success' ) {
             return [
                 'status'    =>  'success',
                 'message'   =>  __( 'Migration has been correctly executed' )
@@ -239,10 +244,7 @@ class ModulesController extends DashboardController
         /**
          * Probaly the file/version aren't correct
          */
-        return [
-            'status'    =>  'danger',
-            'message'   =>  __( 'An error occured while executing the migration' )
-        ];
+        throw new CoreException( $response );
     }
 
     /**

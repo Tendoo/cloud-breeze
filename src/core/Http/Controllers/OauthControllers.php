@@ -174,7 +174,8 @@ class OauthControllers extends BaseController
              * credentials.
              */
             $oauth =   OauthModel::where([
-                'app_id'    =>  $application->id
+                'app_id'    =>  $application->id,
+                'domain'    =>  @$url[ 'host' ]
             ])->first();
 
             if ( $oauth instanceof OauthModel ) {

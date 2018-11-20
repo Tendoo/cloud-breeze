@@ -17,8 +17,7 @@ use Illuminate\Http\Request;
  * This route is used to proceed to an authentication
  * of the user using Application Credentials and the username, password.
  */
-Route::middleware([ 'app.installed' ])->group( function() {
-    
+Route::middleware([ 'app.installed', 'tendoo.prevent.flood' ])->group( function() {
     Route::post( '/oauth/login', 'OauthControllers@postLogin' );
     Route::post( '/oauth/registration', 'OauthControllers@postRegistration' );
 

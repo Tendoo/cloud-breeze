@@ -652,10 +652,23 @@ class Modules
     
                 // the method should be "up" or "down"
                 $object->$method();
-                return true;
+                
+                return [
+                    'status'    =>  'success',
+                    'message'   =>  __( 'The migration has been successfully runned' )
+                ];
             }
+
+            return [
+                'status'    =>  'failed',
+                'message'   =>  sprintf( __( 'The migration file doens\'t have a valid class name. Expected class : %s' ), $className )
+            ];
         }
-        return false;
+
+        return [
+            'status'    =>  'failed',
+            'message'   =>  sprintf( __( 'Unable to locate the following file : %s' ), $filePath )
+        ];
     }
 
     /**

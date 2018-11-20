@@ -52,7 +52,9 @@ class TendooHandler extends ExceptionHandler
                 $exception instanceof ApiUnknowEndpointException ||
                 $exception instanceof ApiUnknowTokenException || 
                 $exception instanceof OauthDeniedException ||
-                $exception instanceof WrongCredentialException 
+                $exception instanceof WrongCredentialException ||
+                $exception instanceof Exception || 
+                $exception instanceof CoreException
             ) {
                 return response()->json([
                     'status'    =>  'failed',

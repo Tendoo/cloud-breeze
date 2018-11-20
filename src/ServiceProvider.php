@@ -85,6 +85,7 @@ class ServiceProvider extends CoreServiceProvider
         $router->aliasMiddleware( 'check.updates', \Tendoo\Core\Http\Middleware\CheckUpdates::class );
         $router->aliasMiddleware( 'api.guard', \Tendoo\Core\Http\Middleware\LoadApi::class );
         $router->aliasMiddleware( 'tendoo.cors', \Barryvdh\Cors\HandleCors::class );      
+        $router->aliasMiddleware( 'tendoo.prevent.flood', \Tendoo\Core\Http\Middleware\PreviewFloodRequest::class );      
         
         $corePath       =   base_path() . _SLASH_ . 'core' . _SLASH_ ;
         $configPath     =   base_path() . _SLASH_ . 'config' . _SLASH_ ;

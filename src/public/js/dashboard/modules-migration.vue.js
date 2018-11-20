@@ -47,8 +47,12 @@ var ModuleMigration     =   new Vue({
     
                         this.runVersionMigration( newVersions, currentVersion ).then( ( versions, lastVersion ) => {
                             resolve( versions, lastVersion );
-                        });
-                    });
+                        }).catch( error => {
+                            reject( error );
+                        })
+                    }).catch( error => {
+                        reject( error );
+                    })
                 } else {
                     this.lastVersion    =   lastVersion;
                     resolve( versions, lastVersion );
@@ -99,7 +103,9 @@ var ModuleMigration     =   new Vue({
                                 }, 500 );
                             });
                         }
-                    });
+                    }).catch( error => {
+                        reject( error );
+                    })
                 } else {
                     resolve( version, files );
                 }
@@ -129,11 +135,13 @@ var ModuleMigration     =   new Vue({
                     subTasks    :   []
                 });
             }
-        }, () => {
+        }, ( error ) => {
             this.tasks.push({
-                text        :   'An Error occurred',
+                text        :   error.response.data.message,
                 subTasks    :   []
             });
-        });
+        }).catch( error => {
+            console.log( error );
+        })
     }
 })
