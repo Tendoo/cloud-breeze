@@ -1,23 +1,29 @@
-@extends('layouts.app')
+<!doctype html>
+<html lang="en">
 
-@section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Dashboard</div>
+<head>
+    <meta charset="utf-8">
+    <title>TendooSetup</title>
+    <base href="/">
 
-                <div class="panel-body">
-                    @if (session('status'))
-                        <div class="alert alert-success">
-                            {{ session('status') }}
-                        </div>
-                    @endif
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
 
-                    You are logged in!
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-@endsection
+<body>
+    <app-root></app-root>
+    <script>
+        const tendoo    =   {
+            base_url    :   '{{ url("/") }}/'
+        }
+    </script>
+    <script type="text/javascript" src="{{ asset( 'tendoo/tendoo-setup/runtime.js' ) }}"></script>
+    <script type="text/javascript" src="{{ asset( 'tendoo/tendoo-setup/polyfills.js' ) }}"></script>
+    <script type="text/javascript" src="{{ asset( 'tendoo/tendoo-setup/styles.js' ) }}"></script>
+    <script type="text/javascript" src="{{ asset( 'tendoo/tendoo-setup/vendor.js' ) }}"></script>
+    <script type="text/javascript" src="{{ asset( 'tendoo/tendoo-setup/main.js' ) }}"></script>
+</body>
+
+</html>

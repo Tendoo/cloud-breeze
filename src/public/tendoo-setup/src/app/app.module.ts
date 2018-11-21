@@ -26,6 +26,9 @@ import { DoSetupComponent } from './components/do-setup/do-setup.component';
 import { AuthComponent } from './components/auth/auth.component';
 import { AppStateGuard } from './guards/app-state.guard';
 import { HomeComponent } from './components/home/home.component';
+import { TendooService } from './services/tendoo.service';
+import { TendooAuthService } from './services/tendoo-auth.service';
+import { TendooFieldsService } from './services/tendoo-fields.service';
 
 @NgModule({
     declarations: [
@@ -58,6 +61,9 @@ import { HomeComponent } from './components/home/home.component';
     providers: [
         SetupService, 
         LoaderService,
+        TendooService,
+        TendooAuthService,
+        TendooFieldsService,
         AppStateGuard
     ],
     bootstrap: [AppComponent]

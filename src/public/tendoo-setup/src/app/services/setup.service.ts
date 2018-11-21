@@ -6,8 +6,6 @@ import { LoaderService } from './loader.service';
     providedIn: 'root'
 })
 export class SetupService extends LoaderService {
-    
-    baseUrl     =   'http://laravel-5701.go/'; 
 
     /**
      * Send post request to the server for db configuration

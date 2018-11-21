@@ -10,7 +10,6 @@
     ],
     "require": {
         "php" : ">=7.0.0",
-        "barryvdh/laravel-debugbar": "^3.1",
         "jackiedo/dotenv-editor" : "^1.0",
         "nikic/php-parser": "^4.0",
         "orchestra/parser": "^3.5",

@@ -2,11 +2,15 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
+declare const tendoo;
+
 @Injectable({
     providedIn: 'root'
 })
 export class LoaderService {
     isLoading   =   false;
+    baseUrl     =   tendoo.base_url; 
+
     constructor(
         protected http: HttpClient
     ) { }

@@ -52,17 +52,25 @@ class ServiceProvider extends CoreServiceProvider
      */
     public function boot( Router $router )
     {
+        
+        /**
+         * Register the route provider 
+         * before the Laravel Route Provider
+         */
+        $this->app->register( \Barryvdh\Cors\ServiceProvider::class );
+        $this->app->register( \Tendoo\Core\Providers\TendooAppServiceProvider::class );
+        $this->app->register( \Tendoo\Core\Providers\TendooEventServiceProvider::class );
+        $this->app->register( \Tendoo\Core\Providers\TendooModulesServiceProvider::class );
+        $this->app->register( \Tendoo\Core\Providers\TendooUserOptionsServiceProvider::class );
+        $this->app->register( \Tendoo\Core\Providers\TendooRouteServiceProvider::class );
+        $this->app->register( 'TorMorten\Eventy\EventServiceProvider' );
+        $this->app->register( 'TorMorten\Eventy\EventBladeServiceProvider' );
+        
         /**
          * Register DotEnv Editor
          */
         $this->app->bind('dotenv-editor', 'Jackiedo\DotenvEditor\DotenvEditor');
         $this->app->bind('tendoo.doteditor', 'Jackiedo\DotenvEditor\DotenvEditor');
-
-        /**
-         * Register Eventy
-         */
-        $this->app->register( 'TorMorten\Eventy\EventServiceProvider' );
-        $this->app->register( 'TorMorten\Eventy\EventBladeServiceProvider' );
         $this->app->bind( 'tendoo.hook', 'TorMorten\Eventy\Events');
 
         /**
@@ -138,20 +146,10 @@ class ServiceProvider extends CoreServiceProvider
             __DIR__ . '/config/tendoo.php'   =>  $configPath . '/tendoo.php'
         ], 'tendoo-config' );
 
-        $this->publishes([
-            __DIR__ . '/public'   =>  $publicPath
-        ], 'tendoo-assets' );
+        // $this->publishes([
+        //     __DIR__ . '/public'   =>  $publicPath
+        // ], 'tendoo-assets' );
 
-        /**
-         * Register the route provider 
-         * before the Laravel Route Provider
-         */
-        $this->app->register( \Barryvdh\Cors\ServiceProvider::class );
-        $this->app->register( \Tendoo\Core\Providers\TendooAppServiceProvider::class );
-        $this->app->register( \Tendoo\Core\Providers\TendooEventServiceProvider::class );
-        $this->app->register( \Tendoo\Core\Providers\TendooModulesServiceProvider::class );
-        $this->app->register( \Tendoo\Core\Providers\TendooUserOptionsServiceProvider::class );
-        $this->app->register( \Tendoo\Core\Providers\TendooRouteServiceProvider::class );
     }
 
     /**
@@ -167,6 +165,7 @@ class ServiceProvider extends CoreServiceProvider
         if ( ! defined( 'DATABASE_MIGRATIONS_PATH' ) ): define( 'DATABASE_MIGRATIONS_PATH', dirname( __FILE__ ) . '/database/migrations/' ); endif;
         if ( ! defined( 'TENDOO_CONFIG_PATH' ) ): define( 'TENDOO_CONFIG_PATH', dirname( __FILE__ ) . '/config/' ); endif;
         if ( ! defined( 'TENDOO_ASSETS_PATH' ) ): define( 'TENDOO_ASSETS_PATH', dirname( __FILE__ ) . '/public/' ); endif;
+        if ( ! defined( 'TENDOO_DIST_PATH' ) ): define( 'TENDOO_DIST_PATH', dirname( __FILE__ ) . '/public/dist/' ); endif;
         if ( ! defined( 'TENDOO_ROOT_PATH' ) ): define( 'TENDOO_ROOT_PATH', dirname( __FILE__ ) ); endif;
         if ( ! defined( 'TENDOO_ROUTES_PATH' ) ): define( 'TENDOO_ROUTES_PATH', TENDOO_ROOT_PATH . DIRECTORY_SEPARATOR . 'routes' . DIRECTORY_SEPARATOR ); endif;
         if ( ! defined( 'TENDOO_MODULES_PATH' ) ): define( 'TENDOO_MODULES_PATH', base_path() . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR ); endif;
@@ -182,6 +181,11 @@ class ServiceProvider extends CoreServiceProvider
         config([ 'temp.tendoo-assets' => [
             'driver' => 'local',
             'root' => TENDOO_ASSETS_PATH,
+        ] ]);
+
+        config([ 'temp.tendoo-dist' => [
+            'driver' => 'local',
+            'root' => TENDOO_DIST_PATH,
         ] ]);
 
         config([ 'temp.tendoo-root' => [
