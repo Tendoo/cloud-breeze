@@ -44,7 +44,7 @@ trait SetupFields
 
         // Application Name
         $Field  =   new \StdClass;
-        $Field->name            =   'app_name';
+        $Field->name            =   'application_name';
         $Field->type            =   'text';
         $Field->label           =   __( 'Application Name' );
         $Field->placeholder     =   __( 'Application Name' );

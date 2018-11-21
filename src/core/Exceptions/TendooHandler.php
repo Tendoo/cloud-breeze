@@ -6,6 +6,8 @@ use Exception;
 use Illuminate\Session\TokenMismatchException;
 use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Validation\ValidationException;
+use Illuminate\Http\Request;
 
 
 class TendooHandler extends ExceptionHandler
@@ -45,23 +47,6 @@ class TendooHandler extends ExceptionHandler
                 ], 401 );
             }
 
-            if( 
-                $exception instanceof ApiAmbiguousTokenException ||
-                $exception instanceof ApiForbiddenScopeException ||
-                $exception instanceof ApiMissingTokenException || 
-                $exception instanceof ApiUnknowEndpointException ||
-                $exception instanceof ApiUnknowTokenException || 
-                $exception instanceof OauthDeniedException ||
-                $exception instanceof WrongCredentialException ||
-                $exception instanceof Exception || 
-                $exception instanceof CoreException
-            ) {
-                return response()->json([
-                    'status'    =>  'failed',
-                    'message'   =>  $exception->getMessage()
-                ], 401 );
-            }
-
             if ( $exception instanceof CrudException ) {
                 return response()->json( $exception->getResponse() );
             }
@@ -69,10 +54,24 @@ class TendooHandler extends ExceptionHandler
             if ( 
                 $exception instanceof AccessDeniedException ||
                 $exception instanceof RecoveryExpiredException ||
-                $exception instanceof FeatureDisabledException
+                $exception instanceof FeatureDisabledException ||
+                $exception instanceof FloodRequestException ||
+                $exception instanceof ApiAmbiguousTokenException ||
+                $exception instanceof ApiForbiddenScopeException ||
+                $exception instanceof ApiMissingTokenException || 
+                $exception instanceof ApiUnknowEndpointException ||
+                $exception instanceof ApiUnknowTokenException || 
+                $exception instanceof OauthDeniedException ||
+                $exception instanceof WrongCredentialException ||
+                $exception instanceof DBConnexionException ||
+                $exception instanceof CoreException ||
+                $exception instanceof TendooNotInstalledException ||
+                $exception instanceof TendooInstalledException
+
             ) {
                 return response()->json([
-                    'status'    =>  'danger',
+                    'status'    =>  'failed',
+                    'class'     =>  str_replace( '\\', '/', get_class( $exception ) ),
                     'message'   =>  $exception->getMessage()
                 ], 401 );
             }

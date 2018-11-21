@@ -47,7 +47,6 @@ class Setup
                 case 2002   :   
                     $message =  [
                         'name'              =>   'hostname',
-                        'error'             =>  'unableToReachHost',
                         'message'           =>  __( 'Unable to reach the host' ),
                         'status'            =>  'failed'
                     ]; 
@@ -55,15 +54,13 @@ class Setup
                 case 1045   :   
                     $message =  [
                         'name'              =>   'username',
-                        'error'             =>   'wrongUserCredentials',
-                        'message'           =>  __( 'Wrong user credentials.' ),
+                        'message'           =>  __( 'Unable to connect to the database using the credentials provided.' ),
                         'status'            =>  'failed'
                     ];
                 break;
                 case 1049   :   
                     $message =  [
                          'name'             => 'db_name',
-                         'error'            =>  'unableToSelectDb',
                          'message'          =>  __( 'Unable to select the database.' ),
                          'status'           =>  'failed'
                     ];
@@ -71,7 +68,6 @@ class Setup
                 case 1044   :   
                     $message =  [
                         'name'        => 'username',
-                        'error'         =>  'accessDenied',
                         'message'      =>  __( 'Access denied for this user.' ),
                         'status'       =>  'failed'
                     ];
@@ -79,7 +75,6 @@ class Setup
                 default     :   
                     $message =  [
                          'name'        => 'hostname',
-                         'error'         => 'unexpectedError',
                          'message'      =>  sprintf( __( 'Unexpected error occured. :%s' ), $e->getCode() ),
                          'status'       =>  'failed'
                     ]; 
@@ -105,7 +100,10 @@ class Setup
          */
         Artisan::call( 'storage:link' );
 
-        return true;   
+        return [
+            'status'    =>  'success',
+            'message'   =>  __( 'The connexion with the database was successful' )
+        ];   
     }
 
     /**
@@ -157,7 +155,7 @@ class Setup
 
         /**
          * Send Welcome email 
-         * since we're polite
+         * We're polit right here :)
          */
         Mail::to( $user->email )->queue( 
             new SetupComplete()
@@ -187,6 +185,11 @@ class Setup
          */
         Artisan::call( 'cache:clear' );
         Artisan::call( 'config:clear' );
+
+        return [
+            'status'    =>  'success',
+            'message'   =>  __( 'Tendoo has been successfuly installed' )
+        ];
     }
 
     /**

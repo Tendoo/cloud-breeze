@@ -15,7 +15,7 @@ trait ApplicationsFields {
     private static function name()
     {
         $Field  =   new \StdClass;
-        $Field->name            =   'name';
+        $Field->name            =   'application_name';
         $Field->type            =   'text';
         $Field->label           =   __( 'Name' );
         $Field->placeholder     =   __( 'Application Name' );

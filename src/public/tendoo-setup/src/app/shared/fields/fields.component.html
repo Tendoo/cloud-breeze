@@ -1,0 +1,108 @@
+<ng-container [formGroup]="group">
+	<!-- text field field -->
+	
+	<mat-form-field [appearance]="field.appearance || 'standard'" *ngIf="[ 'text', 'password', 'email' ].indexOf( field.type ) != -1" class="example-full-width w-100">
+		<mat-label>{{ field.label }}</mat-label>
+		<input [readonly]="field.readonly" [type]="field.type" [formControlName]="field.name" matInput [placeholder]="field.label" [value]="field.value ? field.value : ''">
+		<mat-hint *ngIf="field.control.valid || field.control.untouched">{{ field.description }}</mat-hint>
+		<mat-error *ngIf="field.control.invalid && field.control.touched">
+			<span *ngIf="field.control.errors.required">This field is required<br></span>
+			<span *ngIf="field.control.errors.email">This field is not a valid email<br></span>
+			<span *ngIf="field.control.errors.minlength">this field doesn't match the required length : {{field.control.errors.minlength.requiredLength }}<br></span>
+			<span *ngIf="field.control.errors.matches">this field doesn't match the field : {{ field.control.errors.matches.formControlName }}<br></span>
+			<span *ngIf="field.control.errors.number">this field require a valid number<br></span>
+			<span *ngFor="let error of field?.errors">{{ error }}<br></span>
+		</mat-error>
+	</mat-form-field>
+	
+	<!-- date time field -->
+	
+	<mat-form-field [appearance]="field.appearance || 'standard'" *ngIf="field.type == 'datetime'" class="w-100">
+		<mat-label>{{ field.label }}</mat-label>
+		<input [readonly]="field.readonly" [formControlName]="field.name" matInput [matDatepicker]="picker" [placeholder]="field.label">
+		<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+		<mat-datepicker #picker startView="year" [startAt]="startDate"></mat-datepicker>
+		<mat-hint *ngIf="field.control.valid || field.control.untouched">{{ field.description }}</mat-hint>
+		<mat-error *ngIf="field.control.invalid && field.control.touched">
+			<span *ngIf="field.control.errors.required">This field is required<br></span>
+			<span *ngIf="field.control.errors.email">This field is not a valid email<br></span>
+			<span *ngIf="field.control.errors.minlength">this field doesn't match the required length : {{field.control.errors.minlength.requiredLength }}<br></span>
+			<span *ngIf="field.control.errors.matches">this field doesn't match the field : {{ field.control.errors.matches.formControlName }}<br></span>
+			<span *ngIf="field.control.errors.number">this field require a valid number<br></span>
+			<span *ngFor="let error of field?.errors">{{ error }}<br></span>
+		</mat-error>
+	</mat-form-field>
+	
+	<!-- select field -->
+	
+	<mat-form-field [appearance]="field.appearance || 'standard'" *ngIf="field.type == 'select'" class="w-100">
+		<mat-label>{{ field.label }}</mat-label>
+		<mat-select [formControlName]="field.name" [placeholder]="field.label">
+			<mat-option *ngFor="let option of field.options" [value]="option.value">
+			{{ option.label }}
+			</mat-option>
+		</mat-select>
+		<mat-hint *ngIf="field.control.valid || field.control.untouched">{{ field.description }}</mat-hint>
+		<mat-error *ngIf="field.control.invalid && field.control.touched">
+			<span *ngIf="field.control.errors.required">This field is required<br></span>
+			<span *ngIf="field.control.errors.email">This field is not a valid email<br></span>
+			<span *ngIf="field.control.errors.minlength">this field doesn't match the required length : {{field.control.errors.minlength.requiredLength }}<br></span>
+			<span *ngIf="field.control.errors.matches">this field doesn't match the field : {{ field.control.errors.matches.formControlName }}<br></span>
+			<span *ngIf="field.control.errors.number">this field require a valid number<br></span>
+			<span *ngFor="let error of field?.errors">{{ error }}<br></span>
+		</mat-error>
+	</mat-form-field>
+	
+	<mat-form-field [appearance]="field.appearance || 'standard'" *ngIf="field.type == 'multiple_select'" multiple class="w-100">
+		<mat-label>{{ field.label }}</mat-label>
+		<mat-select [formControlName]="field.name" [placeholder]="field.label">
+			<mat-option *ngFor="let option of field.options" [value]="option.value">
+			{{ option.label }}
+			</mat-option>
+		</mat-select>
+		<mat-hint *ngIf="field.control.valid || field.control.untouched">{{ field.description }}</mat-hint>
+		<mat-error *ngIf="field.control.invalid && field.control.touched">
+			<span *ngIf="field.control.errors.required">This field is required<br></span>
+			<span *ngIf="field.control.errors.email">This field is not a valid email<br></span>
+			<span *ngIf="field.control.errors.minlength">this field doesn't match the required length : {{field.control.errors.minlength.requiredLength }}<br></span>
+			<span *ngIf="field.control.errors.matches">this field doesn't match the field : {{ field.control.errors.matches.formControlName }}<br></span>
+			<span *ngIf="field.control.errors.number">this field require a valid number<br></span>
+			<span *ngFor="let error of field?.errors">{{ error }}<br></span>
+		</mat-error>
+	</mat-form-field>
+	
+	<!-- textarea field -->
+	
+	<mat-form-field [appearance]="field.appearance || 'standard'" *ngIf="field.type == 'textarea'" class="w-100">
+		<mat-label>{{ field.label }}</mat-label>
+		<textarea [formControlName]="field.name" matInput [placeholder]="field.label"></textarea>
+		<mat-hint *ngIf="field.control.valid || field.control.untouched">{{ field.description }}</mat-hint>
+		<mat-error *ngIf="field.control.invalid && field.control.touched">
+			<span *ngIf="field.control.errors.required">This field is required<br></span>
+			<span *ngIf="field.control.errors.email">This field is not a valid email<br></span>
+			<span *ngIf="field.control.errors.minlength">this field doesn't match the required length : {{field.control.errors.minlength.requiredLength }}<br></span>
+			<span *ngIf="field.control.errors.matches">this field doesn't match the field : {{ field.control.errors.matches.formControlName }}<br></span>
+			<span *ngIf="field.control.errors.number">this field require a valid number<br></span>
+			<span *ngFor="let error of field?.errors">{{ error }}<br></span>
+		</mat-error>
+	</mat-form-field>
+	
+	<!-- text field field -->
+	
+	<mat-form-field [appearance]="field.appearance || 'standard'" *ngIf="[ 'number' ].indexOf( field.type ) != -1" class="example-full-width w-100">
+		<mat-label>{{ field.label }}</mat-label>
+		<input [readonly]="field.readonly" [formControlName]="field.name" matInput type="number" [placeholder]="field.label" [value]="field.value ? field.value : ''">
+		<mat-hint *ngIf="field.control.valid || field.control.untouched">{{ field.description }}</mat-hint>
+		<mat-error *ngIf="field.control.invalid && field.control.touched">
+			<span *ngIf="field.control.errors.required">This field is required<br></span>
+			<span *ngIf="field.control.errors.email">This field is not a valid email<br></span>
+			<span *ngIf="field.control.errors.minlength">this field doesn't match the required length : {{field.control.errors.minlength.requiredLength }}<br></span>
+			<span *ngIf="field.control.errors.matches">this field doesn't match the field : {{ field.control.errors.matches.formControlName }}<br></span>
+			<span *ngIf="field.control.errors.number">this field require a valid number<br></span>
+			<span *ngFor="let error of field?.errors">{{ error }}<br></span>
+		</mat-error>		
+	</mat-form-field>
+
+	<!-- button -->
+	<button [type]="field.type" *ngIf="[ 'button' ].indexOf( field.type ) !== -1" (click)="field.onClick( group )" mat-raised-button color="primary">{{ field.label }}</button>
+</ng-container>

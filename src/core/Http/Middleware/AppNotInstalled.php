@@ -4,6 +4,7 @@ namespace Tendoo\Core\Http\Middleware;
 
 use Closure;
 use Jackiedo\DotenvEditor\Facades\DotenvEditor;
+use Tendoo\Core\Exceptions\TendooInstalledException;
 
 class AppNotInstalled
 {
@@ -17,10 +18,7 @@ class AppNotInstalled
     public function handle($request, Closure $next)
     {
         if ( DotenvEditor::keyExists( 'TENDOO_VERSION' ) ) {
-            return redirect()->route( 'login.index' )->withErrors([
-                'status'    =>  'warning',
-                'message'   =>  __( 'You don\'t have access to that page.' )
-            ]);
+            throw new TendooInstalledException( __( 'Tendoo CMS has already been installed' ) );
         }
         return $next($request);
     }

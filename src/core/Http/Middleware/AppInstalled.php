@@ -5,6 +5,7 @@ namespace Tendoo\Core\Http\Middleware;
 use Closure;
 use Jackiedo\DotenvEditor\Facades\DotenvEditor;
 use Tendoo\Core\Services\Helper;
+use Tendoo\Core\Exceptions\TendooNotInstalledException;
 
 class AppInstalled
 {
@@ -18,7 +19,7 @@ class AppInstalled
     public function handle($request, Closure $next)
     {
         if ( ! Helper::AppIsInstalled() ) {
-            return redirect()->route( 'setup.step' );
+            throw new TendooNotInstalledException;
         }
         return $next($request);
     }

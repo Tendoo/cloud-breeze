@@ -2,31 +2,25 @@
 
 use Illuminate\Http\Request;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
-
 /**
  * This route is used to proceed to an authentication
  * of the user using Application Credentials and the username, password.
  */
-Route::middleware([ 'app.installed', 'tendoo.prevent.flood' ])->group( function() {
+Route::middleware([ 'tendoo.prevent.flood', 'tendoo.prevent.not-installed' ])->group( function() {
     Route::post( '/oauth/login', 'OauthControllers@postLogin' );
     Route::post( '/oauth/registration', 'OauthControllers@postRegistration' );
-
-    /**
-     * Every request send here, should have a valid token 
-     * provided during the Oauth Authentication.
-     */
-    Route::middleware([ 'api.guard' ])->namespace( 'Api' )->group( function() {
-        Route::get( '/api/option/{key}', 'OptionsController@getOption' );
-        Route::get( '/api/options', 'OptionsController@getAllOptions' );
-    });
 });
+
+Route::middleware([ 'tendoo.prevent.flood', 'tendoo.prevent.installed' ])->group( function() {
+    Route::post( 'api/do-setup/database', 'SetupController@post_database' );
+    Route::post( 'api/do-setup/application', 'SetupController@post_appdetails' );
+});
+
+Route::get( 'api/ping', function() {
+
+})
+->middleware([
+    'tendoo.prevent.installed',
+    'tendoo.prevent.not-installed'
+]);
+

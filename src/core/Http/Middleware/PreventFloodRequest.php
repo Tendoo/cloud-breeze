@@ -26,14 +26,15 @@ class PreventFloodRequest
             /**
              * If has reached the access limit
              */
-            if ( $ipAccessTimes >= config( 'tendoo.flood.limit', 30 ) ) {
-                return new FloodRequestException;
+            if ( $ipAccessTimes >= config( 'tendoo.flood.limit', 10 ) ) {
+                throw new FloodRequestException;
             }
             
             /**
              * increment the access for the client
              */
-            Cache::put( $key, $ipAccessTimes++, Carbon::now()->addMinutes(1) );
+            $ipAccessTimes++;
+            Cache::put( $key, $ipAccessTimes, Carbon::now()->addMinutes(1) );
         }
         return $next($request);
     }

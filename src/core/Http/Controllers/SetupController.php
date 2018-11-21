@@ -10,6 +10,7 @@ use Tendoo\Core\Services\Page;
 use Tendoo\Core\Http\Requests\SetupDatabaseRequest;
 use Tendoo\Core\Http\Requests\SetupAppDetailsRequest;
 use Tendoo\Core\Services\Setup;
+use Tendoo\Core\Exceptions\DBConnexionException;
 
 class SetupController extends Controller
 {
@@ -22,32 +23,6 @@ class SetupController extends Controller
     }
 
     /**
-     * Display setup steps
-     *
-     * @param string $step
-     * @return \Illuminate\View\View
-     */
-    public function steps( string $step = null )
-    {
-        if ( !$step ) {
-            /** delete the laravel session to avoid unlimited loop after a reset */
-            Cookie::forget( 'laravel_session' );
-            Page::setTitle( 'Setup Tendoo CMS' );
-            return view( 'tendoo::components.frontend.setup.step-home' );
-        }
-
-        if ( $step == 'database' ) {
-            Page::setTitle( __( 'Database Configuration' ) );
-            return view( 'tendoo::components.frontend.setup.step-database' );
-        }
-        
-        if ( $step == 'app-details' ) {
-            Page::setTitle( __( 'Database Configuration' ) );
-            return view( 'tendoo::components.frontend.setup.step-app-details' );
-        }
-    }
-
-    /**
      * Post Database details
      *
      * @since  1.0
@@ -56,16 +31,11 @@ class SetupController extends Controller
      */
     public function post_database( SetupDatabaseRequest $request )
     {
-        $errors = $this->setup->saveDatabaseSettings( $request );
-        if ( !$errors ) {
-            Validator::make( $request->all(), [] )
-                ->errors()
-                ->add( $errors[ 'name' ], $errors[ 'message' ] );
-            return redirect()->route( 'setup.step', [ 'step' => 'database' ])->withErrors( $validator );
+        $errors     =   $this->setup->saveDatabaseSettings( $request );
+        if ( $errors[ 'status' ] === 'failed' ) {
+            throw new DBConnexionException( $errors );
         }
-
-        /** the setup is successful */
-        return redirect()->route( 'setup.step', [ 'step' => 'app-details' ]);
+        return $errors;
     }
 
     /**
@@ -77,10 +47,16 @@ class SetupController extends Controller
      */
     public function post_appdetails( SetupAppDetailsRequest $request )
     {
-        $this->setup->runMigration( $request );
+        $result     =   $this->setup->runMigration( $request );
+        return $result;
+    }
 
-        /** Fire event when database is installed */
-        Event::fire( 'after.setup.app', $request );
-        return redirect()->route( 'login.index' );
+    /**
+     * return a ping state over the application
+     * @return void
+     */
+    public function ping()
+    {
+        
     }
 }
