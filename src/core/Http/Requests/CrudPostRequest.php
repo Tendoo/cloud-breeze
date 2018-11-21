@@ -6,6 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Event;
 use Tendoo\Core\Services\Helper;
 use Tendoo\Core\Facades\Hook;
+use Tendoo\Core\Crud\Applications;
 
 class CrudPostRequest extends FormRequest
 {
@@ -37,10 +38,10 @@ class CrudPostRequest extends FormRequest
         if ( ! class_exists( $crudClass ) ) {
             return redirect()->route( 'errors', [ 'code' => 'unhandled-crud-resource' ]);
         }
-        
+
         $resource   =   new $crudClass;
 
-        if ( is_object( $resource ) ) {
+        if ( $resource instanceof Applications ) {
             return $resource->validationRules( $this );      
         }
 

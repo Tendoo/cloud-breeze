@@ -2,12 +2,15 @@
 namespace Tendoo\Core\Crud;
 use Tendoo\Core\Services\Crud;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Http\Request;
 use Tendoo\Core\Services\Field;
 use Tendoo\Core\Services\Helper;
 use Tendoo\Core\Models\User;
 use Tendoo\Core\Models\Application;
 use Tendoo\Core\Facades\Hook;
+use Tendoo\Core\Exceptions\CrudException;
 use Tendoo\Core\Models\Option as OptionModel;
 
 class Applications extends Crud
@@ -15,7 +18,7 @@ class Applications extends Crud
     /**
      * define the base table
      */
-    protected $table      =   'applications';
+    protected $table      =   'tendoo_apps';
 
     /**
      * base route name
@@ -28,7 +31,7 @@ class Applications extends Crud
      */
     protected $namespace  =   'applications';
 
-    /**i
+    /**
      * Model Used
      */
     protected $model      =   'Tendoo\Core\Models\Application';
@@ -37,7 +40,7 @@ class Applications extends Crud
      * Adding relation
      */
     public $relations   =  [
-        [ 'users', 'users.id', '=', 'applications.user_id' ]
+        [ 'users', 'users.id', '=', 'tendoo_apps.user_id' ]
     ];
 
     /**
@@ -61,6 +64,13 @@ class Applications extends Crud
         $this->create_description   =   __( 'Create a new application which can use the Oauth Services.' );
 
         Hook::addFilter( 'crud.entry', [ $this, 'setActions' ], 10, 2 );
+
+        if ( ! Schema::hasTable( $this->table ) ) {
+            throw new CrudException([
+                'status'    =>  'failed',
+                'message'   =>  __( 'Unable to locate the table : "' . $this->table . '"' )
+            ]);
+        }
     }
 
     /**
