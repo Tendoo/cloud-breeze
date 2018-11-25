@@ -12,14 +12,14 @@ export class SetupService extends LoaderService {
      * @param fields form field for database configuration
      */
     setupDatabase( fields ) {
-        return this.post( this.baseUrl + 'api/do-setup/database', fields );
+        return this.post( this.baseUrl + 'tendoo/do-setup/database', fields );
     }
 
     application( fields ) {
-        return this.post( this.baseUrl + 'api/do-setup/application', fields );
+        return this.post( this.baseUrl + 'tendoo/do-setup/application', fields );
     }
 
     ping() {
-        return this.get( this.baseUrl + 'api/ping' );
+        return this.get( this.baseUrl + 'tendoo/ping' );
     }
 }

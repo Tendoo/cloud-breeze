@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Loading Index for Tendoo CMS
  * to render SPA

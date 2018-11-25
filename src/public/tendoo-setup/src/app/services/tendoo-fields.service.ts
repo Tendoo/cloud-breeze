@@ -7,6 +7,6 @@ import { Observable } from 'rxjs';
 })
 export class TendooFieldsService extends LoaderService {
     get( namespace ): Observable<{}> {
-        return this.get( this.baseUrl + '/api/fields/' + namespace );
+        return this.get( this.baseUrl + 'tendoo/fields/' + namespace );
     }
 }

@@ -4,9 +4,10 @@
         <mat-card-content>
             <app-fields [field]="field" [group]="loginForm" *ngFor="let field of fields"></app-fields>
         </mat-card-content>
-        <mat-divider></mat-divider>
+        <mat-divider *ngIf="!tendoo.isLoading"></mat-divider>
+        <mat-progress-bar *ngIf="tendoo.auth.isLoading" mode="indeterminate" style="height: 1px;position: absolute;left: 0;"></mat-progress-bar>
         <mat-card-actions>
-            <button mat-button="">
+            <button [disabled]="tendoo.auth.isLoading" (click)="login()" mat-button="">
                 Login
             </button>
         </mat-card-actions>

@@ -29,6 +29,7 @@ import { HomeComponent } from './components/home/home.component';
 import { TendooService } from './services/tendoo.service';
 import { TendooAuthService } from './services/tendoo-auth.service';
 import { TendooFieldsService } from './services/tendoo-fields.service';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 @NgModule({
     declarations: [
@@ -46,7 +47,8 @@ import { TendooFieldsService } from './services/tendoo-fields.service';
         FieldsComponent,
         DoSetupComponent,
         AuthComponent,
-        HomeComponent
+        HomeComponent,
+        DashboardComponent
     ],
     imports: [
         BrowserModule,

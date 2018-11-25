@@ -10,6 +10,7 @@ use Carbon\Carbon;
 use Tendoo\Core\Models\Role;
 use Tendoo\Core\Models\User;
 use Tendoo\Core\Services\Users;
+use Tendoo\Core\Services\DateService;
 use Tendoo\Core\Services\Options;
 use Tendoo\Core\Facades\Hook;
 use Tendoo\Core\Mail\PasswordReset;
@@ -79,5 +80,59 @@ class AuthService
                     ]));
             }
         }
+    }
+
+    /**
+     * generate expiring token for a specific user
+     * @return token
+     */
+    public function generateToken( $user )
+    {
+        $dateService    =   app()->make( DateService::class );
+        $newKey         =   str_random(40);
+        $tokenKey       =   'Auth-Token::' . $newKey;
+        
+        Cache::forget( $tokenKey );
+        Cache::put( $tokenKey, [
+            'key'       =>  $tokenKey,
+            'user_id'   =>  $user->id,
+            'expire'    =>  $dateService
+                ->copy()
+                ->addMinutes(60)
+                ->toDateTimestring(),
+        ], 3600 ); // expire in one hour.
+
+        return $newKey;
+    }
+
+    /**
+     * refresh key
+     * @return boolean
+     */
+    public function refreshToken( $token )
+    {
+        $dateService    =   app()->make( DateService::class );
+        $tokenKey       =   'Auth-Token::' . $token;
+
+        if ( Cache::has( $tokenKey ) ) {
+            $cached            =   Cache::get( $tokenKey );
+
+            /**
+             * if the token expire within 5 minutes, 
+             * let's refresh it
+             */
+            if ( $dateService->copy()->addMinutes(5)->gt( $cached[ 'expire' ] ) ) {
+                Cache::forget( $tokenKey );
+                Cache::put( $tokenKey, [
+                    'key'       =>  $newKey,
+                    'user_id'   =>  $user->id,
+                    'expire'    =>  $dateService
+                        ->copy()
+                        ->addMinutes(60)
+                        ->toDateTimestring(),
+                ], 3600 );
+            }
+        }
+        return false;
     }
 }

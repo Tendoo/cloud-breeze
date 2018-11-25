@@ -131,11 +131,30 @@ class OauthControllers extends BaseController
     public function postLogin( Request $request )
     {
         if ( Auth::attempt( $request->only( 'username', 'password' ) ) ) {
-            return $this->__oauthLogin( $request );
+            $user           =   Auth::user();
+            return [
+                'status'    =>  'success',
+                'message'   =>  __( 'The user has been successfully connected' ),
+                'user'      =>  $user,
+                'token'     =>  $this->authService->generateToken( $user )
+            ];
         }
+
         throw new WrongCredentialException;
     }
 
+    /**
+     * Get the user permissions
+     * @return array
+     */
+    public function permissions()
+    {
+        
+    }
+
+    /**
+     * was called by self::postLogin
+     */
     private function __oauthLogin( Request $request )
     {
         /**

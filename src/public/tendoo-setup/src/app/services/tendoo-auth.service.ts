@@ -6,6 +6,6 @@ import { LoaderService } from './loader.service';
 })
 export class TendooAuthService extends LoaderService {
     login( credentials ) {
-        return this.post( this.baseUrl + '/api/oauth/login', credentials );
+        return this.post( this.baseUrl + 'tendoo/auth/login', credentials );
     }       
 }
