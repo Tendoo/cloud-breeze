@@ -28,12 +28,12 @@ export class LoginComponent implements OnInit {
                 label: 'Username',
                 name: 'username',
                 type: 'text',
-                description: 'Username saved during the registration.'
+                description: 'Username saved during the registration.',
             }, {
                 label: 'Password',
                 name: 'password',
                 type: 'password',
-                description: 'Only you knows what is the password'
+                description: 'Only you knows what is the password',
             }
         ];
 
@@ -57,8 +57,17 @@ export class LoginComponent implements OnInit {
              * each outgoing request
              */
             this.tendoo.auth.setCredentials( result.user.id, result.token );
-            this.snackbar.open( result.message );
+            this.snackbar.open( result.message, null, {
+                duration: 3000
+            });
             this.router.navigateByUrl( 'dashboard' );
+
+            /**
+             * delay redirecting
+             */
+            setTimeout( () => {
+                
+            }, 100 );
 
         }, (result: HttpErrorResponse ) => {
             this.snackbar.open( result.error.message );

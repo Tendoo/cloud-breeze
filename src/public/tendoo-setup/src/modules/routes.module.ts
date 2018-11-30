@@ -12,8 +12,12 @@ import { ModulesComponent } from "src/app/components/dashboard/modules/modules.c
 import { SettingsComponent } from "src/app/components/dashboard/settings/settings.component";
 import { DoSetupComponent } from "src/app/components/do-setup/do-setup.component";
 import { AuthComponent } from "src/app/components/auth/auth.component";
-import { AppStateGuard } from "src/app/guards/app-state.guard";
+import { PreventAppInstalledGuard } from "src/app/guards/app-state.guard";
 import { HomeComponent } from "src/app/components/home/home.component";
+import { DashboardComponent } from "src/app/components/dashboard/dashboard.component";
+import { RequireLoggedGuard } from "src/app/guards/require-logged.guard";
+import { ModulesUploadComponent } from "src/app/components/dashboard/modules-upload/modules-upload.component";
+import { PreventAppNotInstalledGuard } from "src/app/guards/check-app-installed.guard";
 
 @NgModule({
     imports: [
@@ -24,9 +28,7 @@ import { HomeComponent } from "src/app/components/home/home.component";
             }, {
                 path: 'do-setup',
                 component: DoSetupComponent,
-                canActivate: [
-                    AppStateGuard
-                ],
+                canActivate: [ PreventAppInstalledGuard ],
                 children: [
                     {
                         path : '',
@@ -42,6 +44,7 @@ import { HomeComponent } from "src/app/components/home/home.component";
             }, {
                 path: 'auth',
                 component: AuthComponent,
+                canActivate: [ PreventAppNotInstalledGuard ],
                 children: [
                     {
                         path: 'logout',
@@ -56,6 +59,8 @@ import { HomeComponent } from "src/app/components/home/home.component";
                 ]
             }, {
                 path: 'dashboard',
+                component: DashboardComponent,
+                canActivate: [ RequireLoggedGuard ],
                 children: [
                     {
                         path: '',
@@ -66,6 +71,9 @@ import { HomeComponent } from "src/app/components/home/home.component";
                     }, {
                         path: 'modules',
                         component: ModulesComponent
+                    }, {
+                        path: 'modules/upload',
+                        component: ModulesUploadComponent
                     }, {
                         path: 'settings',
                         component: SettingsComponent

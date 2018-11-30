@@ -26,9 +26,6 @@ class OauthControllers extends BaseController
     {
         parent::__construct();
 
-        $this->middleware( 'expect.logged' )
-            ->except([ 'postLogin', 'postRegistration' ]);
-
         $this->middleware( function( $request, $next ) {
             $this->authService      =   app()->make( AuthService::class );
             return $next( $request );

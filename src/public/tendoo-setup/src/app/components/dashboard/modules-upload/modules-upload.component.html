@@ -1,0 +1,25 @@
+<div fxLayout="column" fxFlex="100%">
+    <div fxFlex="150px" fxLayout="row" class="bg-primary p-1">
+        <div fxFlex>
+            <h1 class="mat-display-1 mb-0">Upload a module</h1>
+            <span class="mat-headline">upload a new module to extend Tendoo CMS features</span>
+        </div>
+        <div fxFlex="200px" fxLayoutAlign="end start">
+            <button routerLink="/dashboard/modules" mat-button color="warn">List of modules</button>
+        </div>
+    </div>
+    <mat-progress-bar color="warn" style="height: 1px" *ngIf="tendoo.modules.isLoading" mode="indeterminate"></mat-progress-bar>
+    <mat-divider *ngIf="!tendoo.modules.isLoading"></mat-divider>
+    <div class="p-2 bg-content" fxFlex>
+        <mat-card>
+            <mat-card-title>Upload a file</mat-card-title>
+            <mat-card-content>
+                <p>choose the file you would like to upload on Tendoo CMS</p>
+                <input (change)="handleFileInput($event.target.files)" type="file" name="" id="">
+            </mat-card-content>
+            <mat-card-actions>
+                <button [disabled]="tendoo.modules.isLoading" (click)="upload()" mat-button color="primary">Upload</button>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+</div>

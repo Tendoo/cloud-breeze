@@ -12,7 +12,8 @@ Route::middleware([ 'tendoo.cors', 'tendoo.prevent.flood', 'tendoo.prevent.not-i
 
 Route::middleware([ 'tendoo.cors', 'tendoo.prevent.flood', 'tendoo.auth' ])->group( function() {
     Route::get( '/tendoo/permissions', 'OauthController@permissions' );
-    Route::get( '/tendoo/modules', 'ModulesController@modules' );
+    Route::get( '/tendoo/modules', 'Dashboard\ModulesController@modules' );
+    Route::post( '/tendoo/modules/upload', 'Dashboard\ModulesController@postModule' );
 });
 
 Route::middleware([ 'tendoo.cors', 'tendoo.prevent.flood', 'tendoo.prevent.installed' ])->group( function() {

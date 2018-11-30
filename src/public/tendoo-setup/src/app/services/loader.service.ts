@@ -10,17 +10,11 @@ declare const tendoo;
 export class LoaderService {
     isLoading   =   false;
     baseUrl     =   tendoo.base_url; 
-    headers     =   {};
+    static headers  =   {};
 
     constructor(
         protected http: HttpClient
-    ) { }
-
-    setCredentials( id, token: string ) {
-        this.headers    =   {
-            'X-AUTH-TOKEN'  : token
-        }
-    }
+    ) {}
 
     /**
      * Submit post request
@@ -31,7 +25,7 @@ export class LoaderService {
         return new Observable( ( observer ) => {
             this.isLoading  =   true;
             return this.http.post( url, data, {
-                headers: this.headers
+                headers: LoaderService.headers
             }).subscribe( result => {
                 this.isLoading  =   false;
                 observer.next( result );
@@ -52,7 +46,7 @@ export class LoaderService {
         return new Observable( ( observer ) => {
             this.isLoading  =   true;
             return this.http.get( url, {
-                headers: this.headers
+                headers: LoaderService.headers
             }).subscribe( result => {
                 this.isLoading  =   false;
                 observer.next( result );

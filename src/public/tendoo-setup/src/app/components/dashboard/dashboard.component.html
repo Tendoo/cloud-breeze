@@ -1,3 +1,23 @@
-<p>
-  dashboard works!
-</p>
+<div fxLayout="column" fxFill>
+    <div>
+        <mat-toolbar color="primary">
+            <span>Tendoo CMS</span>
+        </mat-toolbar>
+    </div>
+    
+    <div fxFlex fxLayout="row">
+        <div fxFlex="250px"  fxLayout="column" class="aside-menu">
+            <div fxFlex>
+                <mat-nav-list id="aside-nav-list">
+                    <mat-list-item [routerLink]="link.href" *ngFor="let link of asideLink">
+                        <a matLine >{{ link.label }}</a>
+                    </mat-list-item>
+                </mat-nav-list>
+            </div>    
+        </div>
+        <mat-divider [vertical]="true"></mat-divider>
+        <div fxFlex="auto" fxLayout="column">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</div>

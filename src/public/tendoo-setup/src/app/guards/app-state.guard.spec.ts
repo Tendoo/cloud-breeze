@@ -1,15 +1,15 @@
 import { TestBed, async, inject } from '@angular/core/testing';
 
-import { AppStateGuard } from './app-state.guard';
+import { PreventAppInstalledGuard } from './app-state.guard';
 
 describe('AppStateGuard', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [AppStateGuard]
+      providers: [PreventAppInstalledGuard]
     });
   });
 
-  it('should ...', inject([AppStateGuard], (guard: AppStateGuard) => {
+  it('should ...', inject([PreventAppInstalledGuard], (guard: PreventAppInstalledGuard) => {
     expect(guard).toBeTruthy();
   }));
 });

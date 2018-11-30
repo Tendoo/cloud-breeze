@@ -20,16 +20,13 @@ import { DashboardHomeComponent } from './components/dashboard/home/home.compone
 import { ReactiveFormsModule } from '@angular/forms';
 import { FieldsComponent } from './shared/fields/fields.component';
 import { HttpClientModule } from '@angular/common/http';
-import { SetupService } from './services/setup.service';
 import { LoaderService } from './services/loader.service';
 import { DoSetupComponent } from './components/do-setup/do-setup.component';
 import { AuthComponent } from './components/auth/auth.component';
-import { AppStateGuard } from './guards/app-state.guard';
 import { HomeComponent } from './components/home/home.component';
-import { TendooService } from './services/tendoo.service';
-import { TendooAuthService } from './services/tendoo-auth.service';
-import { TendooFieldsService } from './services/tendoo-fields.service';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { ModulesUploadComponent } from './components/dashboard/modules-upload/modules-upload.component';
+import { ConfirmDialogComponent } from './shared/confirm-dialog/confirm-dialog.component';
 
 @NgModule({
     declarations: [
@@ -48,7 +45,9 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
         DoSetupComponent,
         AuthComponent,
         HomeComponent,
-        DashboardComponent
+        DashboardComponent,
+        ModulesUploadComponent,
+        ConfirmDialogComponent,
     ],
     imports: [
         BrowserModule,
@@ -60,13 +59,11 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
         MaterialModule,
         RoutesModule
     ],
+    entryComponents: [
+        ConfirmDialogComponent
+    ],
     providers: [
-        SetupService, 
-        LoaderService,
-        TendooService,
-        TendooAuthService,
-        TendooFieldsService,
-        AppStateGuard
+        LoaderService
     ],
     bootstrap: [AppComponent]
 })

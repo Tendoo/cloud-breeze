@@ -1,3 +1,36 @@
-<p>
-  modules works!
-</p>
+<div fxLayout="column" fxFlex="100%">
+    <div fxFlex="150px" fxLayout="row" class="bg-primary p-1">
+        <div fxFlex>
+            <h1 class="mat-display-1 mb-0">Modules</h1>
+            <span class="mat-headline">Display and manage all available modules</span>
+        </div>
+        <div fxFlex="200px" fxLayoutAlign="end start">
+            <button routerLink="/dashboard/modules/upload" mat-button color="warn">Upload a module</button>
+        </div>
+    </div>
+    <mat-progress-bar color="warn" style="height: 1px" *ngIf="tendoo.modules.isLoading" mode="indeterminate"></mat-progress-bar>
+    <mat-divider  *ngIf="!tendoo.modules.isLoading"></mat-divider>
+    <div class="p-2 bg-content" fxFlex>
+        <div 
+            *ngFor="let module of modules"
+            fxFlex.xs="100%" 
+            fxFlex.sm="50%" 
+            fxFlex.md="50%" 
+            fxFlex.lg="25%" 
+            fxFlex.xl="20%">
+            <mat-card>
+                <mat-card-title>{{ module.name }}</mat-card-title>
+                <mat-card-content>{{ module.description }}</mat-card-content>
+                <mat-card-actions>
+                    <button (click)="loadModules()" mat-button color="primary">Details</button>
+                    <button *ngIf="module.enabled" (click)="setStatus( module, 'disable' )"  mat-button color="primary">Disable</button>
+                    <button *ngIf="! module.enabled" (click)="setStatus( module, 'enable' )"  mat-button color="accent">Enable</button>
+                    <button (click)="delete( module )" mat-button color="warn">Delete</button>
+                </mat-card-actions>
+            </mat-card>
+        </div>
+        <mat-card *ngIf="modules.length === 0">
+            <mat-card-title>No module has been yet uploaded</mat-card-title>
+        </mat-card>
+    </div>
+</div>

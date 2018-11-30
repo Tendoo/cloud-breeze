@@ -1,0 +1,32 @@
+@import '~@angular/material/theming';
+@import './scss/responsive.scss';
+@include mat-core();
+
+$custom-primary: mat-palette( $mat-lime );
+$custom-accent: mat-palette( $mat-deep-orange );
+$custom-background: mat-palette( $mat-grey );
+$custom-theme: mat-light-theme( $custom-primary, $custom-accent );
+
+// Define a mixin that accepts a theme and outputs the theme-specific styles.
+@mixin aside-menu-theme($theme) {
+    // Extract the palettes you need from the theme definition.
+    $primary: map-get($theme, primary);
+    $accent: map-get($theme, accent);
+    $background: map-get( $theme, background );
+
+    @debug $custom-background;
+    
+    // Define any styles affected by the theme.
+    .aside-menu {
+        
+    }
+    .bg-primary {
+        background-color: mat-color( $primary, 200 );
+    }
+    .bg-content {
+        background-color: mat-color( $custom-background, 200 );
+    }
+}
+
+@include angular-material-theme( $custom-theme );
+@include aside-menu-theme( $custom-theme );

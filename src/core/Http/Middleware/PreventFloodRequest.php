@@ -26,7 +26,8 @@ class PreventFloodRequest
             /**
              * If has reached the access limit
              */
-            if ( $ipAccessTimes >= config( 'tendoo.flood.limit', 10 ) ) {
+            $limit          =   config( 'tendoo.flood.limit', 10 );
+            if ( $ipAccessTimes >= $limit && $limit !== 0 ) {
                 throw new FloodRequestException;
             }
             

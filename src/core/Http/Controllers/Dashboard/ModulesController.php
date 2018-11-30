@@ -19,6 +19,11 @@ class ModulesController extends DashboardController
         });
     }
 
+    public function modules()
+    {
+        return $this->modules->get();
+    }
+
     /**
      * Module List
      * @return view
@@ -43,9 +48,7 @@ class ModulesController extends DashboardController
         $migration  =   $this->modules->getMigrations( $namespace );
 
         if ( $migration ) {
-            return redirect()->route( 'dashboard.modules.migration', [
-                'namespace'     =>  $namespace
-            ]);
+            throw new \Exception( __( 'Should redirect to the migration page' ) );
         }
 
         // @todo check if the user has the right to perform this action.
@@ -57,25 +60,20 @@ class ModulesController extends DashboardController
             // when the module has been enabled
             Event::fire( 'after.enabling.module', $result[ 'module' ] );
 
-            return redirect()->route( 'dashboard.modules.list' )->with([
+            return [
                 'status'    =>  'success',
-                'message'   =>  sprintf( __( 'The module <strong>%s</strong> has been enabled' ), $result[ 'module' ][ 'name' ] )
-            ]);
+                'message'   =>  sprintf( __( 'The module %s has been enabled' ), $result[ 'module' ][ 'name' ] )
+            ];
+
         } else {
 
             /**
              * When the module activation throw an error
              */
-            return redirect()->route( 'dashboard.modules.list' )->with([
-                'status'    =>  'danger',
-                'message'   =>  sprintf( __( 'The module <strong>%s</strong> has been disabled, since it throw that error : <strong>%s</strong>' ), $result[ 'module' ][ 'name' ], $result[ 'message' ] )
-            ]);
+            throw new CoreException( sprintf( __( 'The module <strong>%s</strong> has been disabled, since it throw that error : <strong>%s</strong>' ), $result[ 'module' ][ 'name' ], $result[ 'message' ] ) );
         }
 
-        return redirect()->route( 'dashboard.modules.list' )->with([
-            'status'    =>  'warning',
-            'message'   =>  __( 'Unable to locate the module.' )
-        ]);
+        throw new CoreException( __( 'Unable to locate the module.' ) );
     }
 
     /**
@@ -94,16 +92,13 @@ class ModulesController extends DashboardController
             // when the module has been enabled
             Event::fire( 'after.disabling.module', $result[ 'module' ] );
 
-            return redirect()->route( 'dashboard.modules.list' )->with([
+            return [
                 'status'    =>  'success',
                 'message'   =>  sprintf( __( 'The module <strong>%s</strong> has been disabled' ), $result[ 'module' ][ 'name' ] )
-            ]);
+            ];
         }
 
-        return redirect()->route( 'dashboard.modules.list' )->with([
-            'status'    =>  'warning',
-            'message'   =>  __( 'Unable to locate the module.' )
-        ]);
+        throw new CoreException( __( 'Unable to locate the module.' ) );
     }
 
     /**
@@ -149,42 +144,36 @@ class ModulesController extends DashboardController
         switch ( $result[ 'code' ] ) {
             case 'invalid_module' :
                 Event::fire( 'after.uploading.module', $result );
-                return redirect()->route( 'dashboard.modules.list' )->with([
-                    'status'    =>  'danger',
+                throw new CoreException([
                     'message'   =>  __( 'The zip file is not a valid module.' )
                 ]);
             break;
             case 'old_module' : 
                 Event::fire( 'after.uploading.module', $result );
-                return redirect()->route( 'dashboard.modules.list' )->with([
-                    'status'    =>  'info',
-                    /**
-                     * @todo we might offer solution to overwrite existing module
-                     */
-                    'message'   =>  __( 'The similar module found is up-to-date. Please remove this module before proceeding' )
+                throw new CoreException([
+                    'message'    =>  __( 'The similar module found is up-to-date. Please remove this module before proceeding' )
                 ]);
             break;
             case 'valid_module':
                 Event::fire( 'after.uploading.module', $result );
-                return redirect()->route( 'dashboard.modules.list' )->with([
+                return [
                     'status'    =>  'success',
-                    'message'   =>  __( 'the module has been installed.' )
-                ]);
+                    'message'   =>  __( 'The module has been installed' )
+                ];
             break;
             case 'check_for_migration':
                 Event::fire( 'after.uploading.module', $result );
-                return redirect()->route( 'dashboard.modules.migration', [
-                    'namespace'     =>  $result[ 'module' ][ 'namespace' ]
-                ])->with([
+                return [
                     'status'    =>  'success',
-                    'message'   =>  __( 'the module has been installed.' )
-                ]);
+                    'message'   =>  __( 'the module has been installed.' ),
+                    'action'    =>  'check.migration',
+                    'module'    =>  $result[ 'module' ]
+                ];
             break;
             default:
                 Event::fire( 'after.uploading.module', $result );
-                return redirect()->route( 'dashboard.modules.list' )->with([
-                    'status'    =>  'info',
-                    'message'   =>  __( 'An unexpected error occured.' )
+                throw new CoreException([
+                    'message'   =>  __( 'An unexpected error has occured' )
                 ]);
             break;
         }
