@@ -13,8 +13,6 @@ $custom-theme: mat-light-theme( $custom-primary, $custom-accent );
     $primary: map-get($theme, primary);
     $accent: map-get($theme, accent);
     $background: map-get( $theme, background );
-
-    @debug $custom-background;
     
     // Define any styles affected by the theme.
     .aside-menu {

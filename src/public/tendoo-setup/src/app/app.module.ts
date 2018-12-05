@@ -17,7 +17,7 @@ import { ModulesComponent } from './components/dashboard/modules/modules.compone
 import { SettingsComponent } from './components/dashboard/settings/settings.component';
 import { RoutesModule } from 'src/modules/routes.module';
 import { DashboardHomeComponent } from './components/dashboard/home/home.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { FieldsComponent } from './shared/fields/fields.component';
 import { HttpClientModule } from '@angular/common/http';
 import { LoaderService } from './services/loader.service';
@@ -57,7 +57,8 @@ import { ConfirmDialogComponent } from './shared/confirm-dialog/confirm-dialog.c
         ReactiveFormsModule,
         HttpClientModule,
         MaterialModule,
-        RoutesModule
+        RoutesModule,
+        FormsModule
     ],
     entryComponents: [
         ConfirmDialogComponent

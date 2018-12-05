@@ -28,17 +28,20 @@ export class LoginComponent implements OnInit {
                 label: 'Username',
                 name: 'username',
                 type: 'text',
+                value: 'admin',
                 description: 'Username saved during the registration.',
             }, {
                 label: 'Password',
                 name: 'password',
                 type: 'password',
+                value: 'sanches',
                 description: 'Only you knows what is the password',
             }
         ];
 
         const fields    =   ValidationGenerator.buildFormControls( this.fields );
         this.loginForm  =   new FormGroup( fields );
+        this.login();
     }
 
     login() {
@@ -60,7 +63,7 @@ export class LoginComponent implements OnInit {
             this.snackbar.open( result.message, null, {
                 duration: 3000
             });
-            this.router.navigateByUrl( 'dashboard' );
+            this.router.navigateByUrl( 'dashboard/modules' );
 
             /**
              * delay redirecting

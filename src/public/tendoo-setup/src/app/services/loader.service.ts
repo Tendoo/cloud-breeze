@@ -36,6 +36,27 @@ export class LoaderService {
             })
         });
     }
+    
+    /**
+     * Submit DELETE request
+     * @param {string} url to access
+     * @param data data to submit
+     */
+    delete( url ) {
+        return new Observable( ( observer ) => {
+            this.isLoading  =   true;
+            return this.http.delete( url, {
+                headers: LoaderService.headers
+            }).subscribe( result => {
+                this.isLoading  =   false;
+                observer.next( result );
+                observer.complete();
+            }, error => {
+                this.isLoading  =   false;
+                observer.error( error );
+            })
+        });
+    }
 
     /**
      * Submit get request

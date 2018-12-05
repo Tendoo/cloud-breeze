@@ -10,27 +10,30 @@
     </div>
     <mat-progress-bar color="warn" style="height: 1px" *ngIf="tendoo.modules.isLoading" mode="indeterminate"></mat-progress-bar>
     <mat-divider  *ngIf="!tendoo.modules.isLoading"></mat-divider>
-    <div class="p-2 bg-content" fxFlex>
+    <div class="p-2 bg-content" fxFlex fxLayoutGap="3em">
         <div 
+            style="height:200px"
             *ngFor="let module of modules"
             fxFlex.xs="100%" 
             fxFlex.sm="50%" 
             fxFlex.md="50%" 
             fxFlex.lg="25%" 
             fxFlex.xl="20%">
-            <mat-card>
+            <mat-card fxFill fxLayout="column">
                 <mat-card-title>{{ module.name }}</mat-card-title>
-                <mat-card-content>{{ module.description }}</mat-card-content>
-                <mat-card-actions>
-                    <button (click)="loadModules()" mat-button color="primary">Details</button>
-                    <button *ngIf="module.enabled" (click)="setStatus( module, 'disable' )"  mat-button color="primary">Disable</button>
-                    <button *ngIf="! module.enabled" (click)="setStatus( module, 'enable' )"  mat-button color="accent">Enable</button>
-                    <button (click)="delete( module )" mat-button color="warn">Delete</button>
+                <mat-card-content fxFlex>{{ module.description }}</mat-card-content>
+                <mat-card-actions fxLayoutAlign="space-between">
+                    <button [disabled]="tendoo.modules.isLoading" (click)="loadModules()" mat-button color="primary">Details</button>
+                    <button [disabled]="tendoo.modules.isLoading" *ngIf="module.enabled" (click)="setStatus( module, 'disable' )"  mat-button color="primary">Disable</button>
+                    <button [disabled]="tendoo.modules.isLoading" *ngIf="! module.enabled" (click)="setStatus( module, 'enable' )"  mat-button color="accent">Enable</button>
+                    <button [disabled]="tendoo.modules.isLoading" (click)="delete( module )" mat-button color="warn">Delete</button>
                 </mat-card-actions>
             </mat-card>
         </div>
-        <mat-card *ngIf="modules.length === 0">
-            <mat-card-title>No module has been yet uploaded</mat-card-title>
-        </mat-card>
+        <div>
+            <mat-card *ngIf="modules.length === 0">
+                <mat-card-title>No module has been yet uploaded</mat-card-title>
+            </mat-card>
+        </div>
     </div>
 </div>

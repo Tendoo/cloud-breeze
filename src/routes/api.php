@@ -14,6 +14,11 @@ Route::middleware([ 'tendoo.cors', 'tendoo.prevent.flood', 'tendoo.auth' ])->gro
     Route::get( '/tendoo/permissions', 'OauthController@permissions' );
     Route::get( '/tendoo/modules', 'Dashboard\ModulesController@modules' );
     Route::post( '/tendoo/modules/upload', 'Dashboard\ModulesController@postModule' );
+    Route::delete( '/tendoo/modules/{namespace}', 'Dashboard\ModulesController@deleteModule' );
+    Route::post( '/tendoo/modules/enable', 'Dashboard\ModulesController@enableModule' );
+    Route::post( '/tendoo/modules/disable', 'Dashboard\ModulesController@disableModule' );
+    Route::get( '/tendoo/tables/{namespace}', 'Dashboard\TablesController@tableColumn' );
+    Route::get( '/tendoo/users/{id?}', 'Dashboard\UsersController@getUsers' );
 });
 
 Route::middleware([ 'tendoo.cors', 'tendoo.prevent.flood', 'tendoo.prevent.installed' ])->group( function() {

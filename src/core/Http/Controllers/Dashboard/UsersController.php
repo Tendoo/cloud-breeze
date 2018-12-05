@@ -24,27 +24,17 @@ class UsersController extends DashboardController
     }
 
     /**
-     * User List
-     * display available users
-     * @return view of users
+     * get users
+     * @param int optional id
+     * @return json
      */
-    public function usersList()
+    public function getUsers( $id = null )
     {
-        $this->checkPermission( 'read.users' );
-        $this->setTitle( __( 'Users' ) );
-        return view( 'tendoo::components.backend.users-list' );
-    }
+        if ( $id !== null ) {
+            return User::find( $id );
+        }
 
-    /**
-     * Create users
-     * @param void
-     * @return view
-     */
-    public function createUser()
-    {
-        $this->checkPermission( 'create.users' );
-        $this->setTitle( __( 'Create a user' ) );
-        return view( 'tendoo::components.backend.create-user' );
+        return User::all();
     }
 
     /**

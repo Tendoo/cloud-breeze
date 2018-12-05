@@ -39,8 +39,10 @@ class ModulesController extends DashboardController
      * @param string module namespace
      * @return void
      */
-    public function enableModule( $namespace )
+    public function enableModule( Request $request )
     {
+        $namespace  =   $request->input( 'module' );
+
         /**
          * check if the module has a migration
          * if a migration exist, then we'll return to the migration page
@@ -48,7 +50,11 @@ class ModulesController extends DashboardController
         $migration  =   $this->modules->getMigrations( $namespace );
 
         if ( $migration ) {
-            throw new \Exception( __( 'Should redirect to the migration page' ) );
+            return response()->json([
+                'message'   =>  __( 'Should redirect to the migration page' ),
+                'migration' =>  $migration,
+                'status'    =>  'failed',
+            ], 401 );
         }
 
         // @todo check if the user has the right to perform this action.
@@ -81,8 +87,10 @@ class ModulesController extends DashboardController
      * @param string module namespace
      * @return void
      */
-    public function disableModule( $namespace )
+    public function disableModule( Request $request )
     {
+        $namespace = $request->input( 'module' );
+
         // @todo check if the user has the right to perform this action.
         Event::fire( 'before.disabling.module', $namespace );
 
@@ -249,13 +257,13 @@ class ModulesController extends DashboardController
         $result     =   $this->modules->delete( $namespace );
 
         if ( $result[ 'code' ] == 'module_deleted' ) {
-            return redirect()->route( 'dashboard.modules.list' )->with([
+            return [
                 'status'    =>  'success',
-                'message'   =>  sprintf( __( 'The module <strong>%s</strong> has been deleted.' ), $result[ 'module' ][ 'name' ] )
-            ]);
+                'message'   =>  sprintf( __( 'The module %s has been deleted.' ), $result[ 'module' ][ 'name' ] )
+            ];
         }
 
-        return redirect()->route( 'dashboard.modules.list' )->with([
+        throw new CoreException([
             'status'    =>  'danger',
             'message'   =>  __( 'unable to locate the module.' )
         ]);

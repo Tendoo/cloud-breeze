@@ -17,6 +17,7 @@ export class PreventAppNotInstalledGuard implements CanActivate {
     canActivate(
         next: ActivatedRouteSnapshot,
         state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
+            // return true;
             return new Promise( ( resolve, reject ) => {
                 this.setup.ping().subscribe( result => {
                 }, result => {
@@ -28,6 +29,7 @@ export class PreventAppNotInstalledGuard implements CanActivate {
                         });
                         return resolve( false );
                     }
+                    return resolve( true );
                 })
             })
         }

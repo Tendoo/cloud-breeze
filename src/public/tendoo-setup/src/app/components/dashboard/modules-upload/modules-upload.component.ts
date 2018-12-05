@@ -6,6 +6,7 @@ import { ResponsiveService } from 'src/app/services/responsive.service';
 import { TendooService } from 'src/app/services/tendoo.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AsyncResponse } from 'src/app/interfaces/async-response';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-modules-upload',
@@ -18,7 +19,8 @@ export class ModulesUploadComponent implements OnInit {
         private dialog: MatDialog,
         private responsive: ResponsiveService,
         private snackbar: MatSnackBar,
-        public tendoo: TendooService
+        public tendoo: TendooService,
+        private router: Router,
     ) { }
     
     ngOnInit() {
@@ -97,6 +99,8 @@ export class ModulesUploadComponent implements OnInit {
             this.snackbar.open( result.message, null, {
                 duration: 3000
             });
+
+            this.router.navigateByUrl( 'dashboard/modules' );
 
         }, ( result: HttpErrorResponse ) => {
             /**

@@ -149,18 +149,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
 /* harmony import */ var _shared_fields_fields_component__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./shared/fields/fields.component */ "./src/app/shared/fields/fields.component.ts");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
-/* harmony import */ var _services_setup_service__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./services/setup.service */ "./src/app/services/setup.service.ts");
-/* harmony import */ var _services_loader_service__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./services/loader.service */ "./src/app/services/loader.service.ts");
-/* harmony import */ var _components_do_setup_do_setup_component__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./components/do-setup/do-setup.component */ "./src/app/components/do-setup/do-setup.component.ts");
-/* harmony import */ var _components_auth_auth_component__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./components/auth/auth.component */ "./src/app/components/auth/auth.component.ts");
-/* harmony import */ var _guards_app_state_guard__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./guards/app-state.guard */ "./src/app/guards/app-state.guard.ts");
-/* harmony import */ var _components_home_home_component__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./components/home/home.component */ "./src/app/components/home/home.component.ts");
+/* harmony import */ var _services_loader_service__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./services/loader.service */ "./src/app/services/loader.service.ts");
+/* harmony import */ var _components_do_setup_do_setup_component__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./components/do-setup/do-setup.component */ "./src/app/components/do-setup/do-setup.component.ts");
+/* harmony import */ var _components_auth_auth_component__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./components/auth/auth.component */ "./src/app/components/auth/auth.component.ts");
+/* harmony import */ var _components_home_home_component__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./components/home/home.component */ "./src/app/components/home/home.component.ts");
+/* harmony import */ var _components_dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./components/dashboard/dashboard.component */ "./src/app/components/dashboard/dashboard.component.ts");
+/* harmony import */ var _components_dashboard_modules_upload_modules_upload_component__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./components/dashboard/modules-upload/modules-upload.component */ "./src/app/components/dashboard/modules-upload/modules-upload.component.ts");
+/* harmony import */ var _shared_confirm_dialog_confirm_dialog_component__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./shared/confirm-dialog/confirm-dialog.component */ "./src/app/shared/confirm-dialog/confirm-dialog.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -206,9 +208,12 @@ var AppModule = /** @class */ (function () {
                 _components_dashboard_settings_settings_component__WEBPACK_IMPORTED_MODULE_15__["SettingsComponent"],
                 _components_dashboard_home_home_component__WEBPACK_IMPORTED_MODULE_17__["DashboardHomeComponent"],
                 _shared_fields_fields_component__WEBPACK_IMPORTED_MODULE_19__["FieldsComponent"],
-                _components_do_setup_do_setup_component__WEBPACK_IMPORTED_MODULE_23__["DoSetupComponent"],
-                _components_auth_auth_component__WEBPACK_IMPORTED_MODULE_24__["AuthComponent"],
-                _components_home_home_component__WEBPACK_IMPORTED_MODULE_26__["HomeComponent"]
+                _components_do_setup_do_setup_component__WEBPACK_IMPORTED_MODULE_22__["DoSetupComponent"],
+                _components_auth_auth_component__WEBPACK_IMPORTED_MODULE_23__["AuthComponent"],
+                _components_home_home_component__WEBPACK_IMPORTED_MODULE_24__["HomeComponent"],
+                _components_dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_25__["DashboardComponent"],
+                _components_dashboard_modules_upload_modules_upload_component__WEBPACK_IMPORTED_MODULE_26__["ModulesUploadComponent"],
+                _shared_confirm_dialog_confirm_dialog_component__WEBPACK_IMPORTED_MODULE_27__["ConfirmDialogComponent"],
             ],
             imports: [
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"],
@@ -218,12 +223,14 @@ var AppModule = /** @class */ (function () {
                 _angular_forms__WEBPACK_IMPORTED_MODULE_18__["ReactiveFormsModule"],
                 _angular_common_http__WEBPACK_IMPORTED_MODULE_20__["HttpClientModule"],
                 src_modules_material_module__WEBPACK_IMPORTED_MODULE_6__["MaterialModule"],
-                src_modules_routes_module__WEBPACK_IMPORTED_MODULE_16__["RoutesModule"]
+                src_modules_routes_module__WEBPACK_IMPORTED_MODULE_16__["RoutesModule"],
+                _angular_forms__WEBPACK_IMPORTED_MODULE_18__["FormsModule"]
+            ],
+            entryComponents: [
+                _shared_confirm_dialog_confirm_dialog_component__WEBPACK_IMPORTED_MODULE_27__["ConfirmDialogComponent"]
             ],
             providers: [
-                _services_setup_service__WEBPACK_IMPORTED_MODULE_21__["SetupService"],
-                _services_loader_service__WEBPACK_IMPORTED_MODULE_22__["LoaderService"],
-                _guards_app_state_guard__WEBPACK_IMPORTED_MODULE_25__["AppStateGuard"]
+                _services_loader_service__WEBPACK_IMPORTED_MODULE_21__["LoaderService"]
             ],
             bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_4__["AppComponent"]]
         })
@@ -405,7 +412,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div fxFill fxLayout=\"row\" fxLayoutAlign=\"center center\">\n    <div \n        fxFlex.xs=\"90%\" \n        fxFlex.sm=\"70%\" \n        fxFlex.md=\"50%\" \n        fxFlex.lg=\"40%\" \n        fxFlex.xl=\"40%\">\n        <router-outlet></router-outlet>\n    </div>\n</div>"
+module.exports = "<div fxFill fxLayout=\"row\" fxLayoutAlign=\"center center\" class=\"bg-content\">\r\n    <div \r\n        fxFlex.xs=\"90%\" \r\n        fxFlex.sm=\"70%\" \r\n        fxFlex.md=\"50%\" \r\n        fxFlex.lg=\"30%\" \r\n        fxFlex.xl=\"20%\">\r\n        <router-outlet></router-outlet>\r\n    </div>\r\n</div>"
 
 /***/ }),
 
@@ -468,7 +475,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<p>\n  login works!\n</p>\n"
+module.exports = "<form [formGroup]=\"loginForm\">\r\n    <mat-card color=\"primary\">\r\n        <mat-card-title>Authenticating</mat-card-title>\r\n        <mat-card-content>\r\n            <app-fields [field]=\"field\" [group]=\"loginForm\" *ngFor=\"let field of fields\"></app-fields>\r\n        </mat-card-content>\r\n        <mat-divider *ngIf=\"!tendoo.isLoading\"></mat-divider>\r\n        <mat-progress-bar *ngIf=\"tendoo.auth.isLoading\" mode=\"indeterminate\" style=\"height: 1px;position: absolute;left: 0;\"></mat-progress-bar>\r\n        <mat-card-actions>\r\n            <button [disabled]=\"tendoo.auth.isLoading\" (click)=\"login()\" mat-button=\"\">\r\n                Login\r\n            </button>\r\n        </mat-card-actions>\r\n    </mat-card>\r\n</form>"
 
 /***/ }),
 
@@ -483,6 +490,11 @@ module.exports = "<p>\n  login works!\n</p>\n"
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LoginComponent", function() { return LoginComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var src_app_services_tendoo_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/services/tendoo.service */ "./src/app/services/tendoo.service.ts");
+/* harmony import */ var src_app_classes_validation_generator_class__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/classes/validation-generator.class */ "./src/app/classes/validation-generator.class.ts");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -493,10 +505,65 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
+
+
+
+
+
 var LoginComponent = /** @class */ (function () {
-    function LoginComponent() {
+    function LoginComponent(tendoo, snackbar, router) {
+        this.tendoo = tendoo;
+        this.snackbar = snackbar;
+        this.router = router;
+        this.fields = [];
     }
     LoginComponent.prototype.ngOnInit = function () {
+        this.fields = [
+            {
+                label: 'Username',
+                name: 'username',
+                type: 'text',
+                value: 'admin',
+                description: 'Username saved during the registration.',
+            }, {
+                label: 'Password',
+                name: 'password',
+                type: 'password',
+                value: 'sanches',
+                description: 'Only you knows what is the password',
+            }
+        ];
+        var fields = src_app_classes_validation_generator_class__WEBPACK_IMPORTED_MODULE_2__["ValidationGenerator"].buildFormControls(this.fields);
+        this.loginForm = new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormGroup"](fields);
+        this.login();
+    };
+    LoginComponent.prototype.login = function () {
+        var _this = this;
+        src_app_classes_validation_generator_class__WEBPACK_IMPORTED_MODULE_2__["ValidationGenerator"].touchAllFields(this.loginForm);
+        if (!this.loginForm.valid) {
+            return this.snackbar.open('Unable to login, the login form as some erors', 'OK', {
+                duration: 3000
+            });
+        }
+        this.tendoo.auth.login(this.loginForm.value).subscribe(function (result) {
+            /**
+             * once the user is connected
+             * let's save the credential on
+             * each outgoing request
+             */
+            _this.tendoo.auth.setCredentials(result.user.id, result.token);
+            _this.snackbar.open(result.message, null, {
+                duration: 3000
+            });
+            _this.router.navigateByUrl('dashboard/modules');
+            /**
+             * delay redirecting
+             */
+            setTimeout(function () {
+            }, 100);
+        }, function (result) {
+            _this.snackbar.open(result.error.message);
+        });
     };
     LoginComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -504,7 +571,9 @@ var LoginComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./login.component.html */ "./src/app/components/auth/login/login.component.html"),
             styles: [__webpack_require__(/*! ./login.component.css */ "./src/app/components/auth/login/login.component.css")]
         }),
-        __metadata("design:paramtypes", [])
+        __metadata("design:paramtypes", [src_app_services_tendoo_service__WEBPACK_IMPORTED_MODULE_1__["TendooService"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_4__["MatSnackBar"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"]])
     ], LoginComponent);
     return LoginComponent;
 }());
@@ -531,7 +600,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<p>\n  logout works!\n</p>\n"
+module.exports = "<p>\r\n  logout works!\r\n</p>\r\n"
 
 /***/ }),
 
@@ -594,7 +663,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<p>\n  register works!\n</p>\n"
+module.exports = "<p>\r\n  register works!\r\n</p>\r\n"
 
 /***/ }),
 
@@ -639,6 +708,85 @@ var RegisterComponent = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/components/dashboard/dashboard.component.css":
+/*!**************************************************************!*\
+  !*** ./src/app/components/dashboard/dashboard.component.css ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "#aside-nav-list {\r\n    padding: 0%;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvZGFzaGJvYXJkLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSxZQUFZO0NBQ2YiLCJmaWxlIjoic3JjL2FwcC9jb21wb25lbnRzL2Rhc2hib2FyZC9kYXNoYm9hcmQuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIiNhc2lkZS1uYXYtbGlzdCB7XHJcbiAgICBwYWRkaW5nOiAwJTtcclxufSJdfQ== */"
+
+/***/ }),
+
+/***/ "./src/app/components/dashboard/dashboard.component.html":
+/*!***************************************************************!*\
+  !*** ./src/app/components/dashboard/dashboard.component.html ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div fxLayout=\"column\" fxFill>\r\n    <div>\r\n        <mat-toolbar color=\"primary\">\r\n            <span>Tendoo CMS</span>\r\n        </mat-toolbar>\r\n    </div>\r\n    \r\n    <div fxFlex fxLayout=\"row\">\r\n        <div fxFlex=\"250px\"  fxLayout=\"column\" class=\"aside-menu\">\r\n            <div fxFlex>\r\n                <mat-nav-list id=\"aside-nav-list\">\r\n                    <mat-list-item [routerLink]=\"link.href\" *ngFor=\"let link of asideLink\">\r\n                        <a matLine >{{ link.label }}</a>\r\n                    </mat-list-item>\r\n                </mat-nav-list>\r\n            </div>    \r\n        </div>\r\n        <mat-divider [vertical]=\"true\"></mat-divider>\r\n        <div fxFlex=\"auto\" fxLayout=\"column\">\r\n            <router-outlet></router-outlet>\r\n        </div>\r\n    </div>\r\n</div>"
+
+/***/ }),
+
+/***/ "./src/app/components/dashboard/dashboard.component.ts":
+/*!*************************************************************!*\
+  !*** ./src/app/components/dashboard/dashboard.component.ts ***!
+  \*************************************************************/
+/*! exports provided: DashboardComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DashboardComponent", function() { return DashboardComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var DashboardComponent = /** @class */ (function () {
+    function DashboardComponent() {
+        this.asideLink = [];
+        this.asideLink = [
+            {
+                label: 'Dashboard',
+                namespace: 'dashboard',
+                href: '/dashboard',
+            }, {
+                label: 'Users',
+                namespace: 'users',
+                href: '/dashboard/users',
+            }, {
+                label: 'Modules',
+                namespace: 'users',
+                href: '/dashboard/modules',
+            }
+        ];
+    }
+    DashboardComponent.prototype.ngOnInit = function () {
+    };
+    DashboardComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-dashboard',
+            template: __webpack_require__(/*! ./dashboard.component.html */ "./src/app/components/dashboard/dashboard.component.html"),
+            styles: [__webpack_require__(/*! ./dashboard.component.css */ "./src/app/components/dashboard/dashboard.component.css")]
+        }),
+        __metadata("design:paramtypes", [])
+    ], DashboardComponent);
+    return DashboardComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/components/dashboard/home/home.component.css":
 /*!**************************************************************!*\
   !*** ./src/app/components/dashboard/home/home.component.css ***!
@@ -646,7 +794,7 @@ var RegisterComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2NvbXBvbmVudHMvZGFzaGJvYXJkL2hvbWUvaG9tZS5jb21wb25lbnQuY3NzIn0= */"
+module.exports = ":host {\r\n    height: 100%;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvaG9tZS9ob21lLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSxhQUFhO0NBQ2hCIiwiZmlsZSI6InNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvaG9tZS9ob21lLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyI6aG9zdCB7XHJcbiAgICBoZWlnaHQ6IDEwMCU7XHJcbn0iXX0= */"
 
 /***/ }),
 
@@ -657,7 +805,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<p>\n  home works!\n</p>\n"
+module.exports = "<div fxFill fxFlex=\"row\" class=\"bg-content\">\r\n    Hellow\r\n</div>"
 
 /***/ }),
 
@@ -691,11 +839,173 @@ var DashboardHomeComponent = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-home',
             template: __webpack_require__(/*! ./home.component.html */ "./src/app/components/dashboard/home/home.component.html"),
-            styles: [__webpack_require__(/*! ./home.component.css */ "./src/app/components/dashboard/home/home.component.css")]
+            styles: [__webpack_require__(/*! ./home.component.css */ "./src/app/components/dashboard/home/home.component.css")],
         }),
         __metadata("design:paramtypes", [])
     ], DashboardHomeComponent);
     return DashboardHomeComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/components/dashboard/modules-upload/modules-upload.component.css":
+/*!**********************************************************************************!*\
+  !*** ./src/app/components/dashboard/modules-upload/modules-upload.component.css ***!
+  \**********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ":host {\r\n    height: 100%;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvbW9kdWxlcy11cGxvYWQvbW9kdWxlcy11cGxvYWQuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLGFBQWE7Q0FDaEIiLCJmaWxlIjoic3JjL2FwcC9jb21wb25lbnRzL2Rhc2hib2FyZC9tb2R1bGVzLXVwbG9hZC9tb2R1bGVzLXVwbG9hZC5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiOmhvc3Qge1xyXG4gICAgaGVpZ2h0OiAxMDAlO1xyXG59Il19 */"
+
+/***/ }),
+
+/***/ "./src/app/components/dashboard/modules-upload/modules-upload.component.html":
+/*!***********************************************************************************!*\
+  !*** ./src/app/components/dashboard/modules-upload/modules-upload.component.html ***!
+  \***********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div fxLayout=\"column\" fxFlex=\"100%\">\n    <div fxFlex=\"150px\" fxLayout=\"row\" class=\"bg-primary p-1\">\n        <div fxFlex>\n            <h1 class=\"mat-display-1 mb-0\">Upload a module</h1>\n            <span class=\"mat-headline\">upload a new module to extend Tendoo CMS features</span>\n        </div>\n        <div fxFlex=\"200px\" fxLayoutAlign=\"end start\">\n            <button routerLink=\"/dashboard/modules\" mat-button color=\"warn\">List of modules</button>\n        </div>\n    </div>\n    <mat-progress-bar color=\"warn\" style=\"height: 1px\" *ngIf=\"tendoo.modules.isLoading\" mode=\"indeterminate\"></mat-progress-bar>\n    <mat-divider *ngIf=\"!tendoo.modules.isLoading\"></mat-divider>\n    <div class=\"p-2 bg-content\" fxFlex>\n        <mat-card>\n            <mat-card-title>Upload a file</mat-card-title>\n            <mat-card-content>\n                <p>choose the file you would like to upload on Tendoo CMS</p>\n                <input (change)=\"handleFileInput($event.target.files)\" type=\"file\" name=\"\" id=\"\">\n            </mat-card-content>\n            <mat-card-actions>\n                <button [disabled]=\"tendoo.modules.isLoading\" (click)=\"upload()\" mat-button color=\"primary\">Upload</button>\n            </mat-card-actions>\n        </mat-card>\n    </div>\n</div>"
+
+/***/ }),
+
+/***/ "./src/app/components/dashboard/modules-upload/modules-upload.component.ts":
+/*!*********************************************************************************!*\
+  !*** ./src/app/components/dashboard/modules-upload/modules-upload.component.ts ***!
+  \*********************************************************************************/
+/*! exports provided: ModulesUploadComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ModulesUploadComponent", function() { return ModulesUploadComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var src_app_shared_confirm_dialog_confirm_dialog_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/shared/confirm-dialog/confirm-dialog.component */ "./src/app/shared/confirm-dialog/confirm-dialog.component.ts");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var src_app_services_responsive_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/services/responsive.service */ "./src/app/services/responsive.service.ts");
+/* harmony import */ var src_app_services_tendoo_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/tendoo.service */ "./src/app/services/tendoo.service.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+var ModulesUploadComponent = /** @class */ (function () {
+    function ModulesUploadComponent(dialog, responsive, snackbar, tendoo, router) {
+        this.dialog = dialog;
+        this.responsive = responsive;
+        this.snackbar = snackbar;
+        this.tendoo = tendoo;
+        this.router = router;
+    }
+    ModulesUploadComponent.prototype.ngOnInit = function () {
+    };
+    ModulesUploadComponent.prototype.handleFileInput = function (file) {
+        this.file = file;
+    };
+    /**
+     * Trigger when the user want's to upload
+     * a module
+     * @return void
+     */
+    ModulesUploadComponent.prototype.upload = function () {
+        var _this = this;
+        if (this.file === undefined || this.file.length === 0) {
+            return this.snackbar.open('You need to select a file before uploading.', null, {
+                duration: 3000
+            });
+        }
+        this.dialog.open(src_app_shared_confirm_dialog_confirm_dialog_component__WEBPACK_IMPORTED_MODULE_1__["ConfirmDialogComponent"], {
+            id: 'upload.module',
+            data: {
+                title: 'Would you like to confirm ?',
+                message: 'Would you like to upload this module.',
+                buttons: [{
+                        label: 'Ok',
+                        onClick: function () {
+                            _this.dialog
+                                .getDialogById('upload.module')
+                                .close();
+                            _this.handleUpload();
+                        }
+                    }, {
+                        label: 'Cancel',
+                        color: 'warn',
+                        onClick: function () {
+                            _this.dialog
+                                .getDialogById('upload.module')
+                                .close();
+                        }
+                    }]
+            },
+            height: this.responsive.define({
+                lg: '60%',
+                xl: '60%',
+                md: '70%',
+                sm: '70%',
+                xs: '70%'
+            }),
+            width: this.responsive.define({
+                lg: '60%',
+                xl: '60%',
+                md: '70%',
+                sm: '70%',
+                xs: '70%'
+            }),
+        });
+    };
+    /**
+     * Handled uploaded file
+     * @return void
+     */
+    ModulesUploadComponent.prototype.handleUpload = function () {
+        var _this = this;
+        this.tendoo.modules.uploadFile(this.file.item(0)).subscribe(function (result) {
+            /**
+             * check if a module require a migration
+             */
+            if (result.action === 'check-migration') {
+            }
+            _this.snackbar.open(result.message, null, {
+                duration: 3000
+            });
+            _this.router.navigateByUrl('dashboard/modules');
+        }, function (result) {
+            /**
+             * An erru ash occured, let's
+             * display what happened
+             */
+            _this.snackbar.open(result.error.message, null, {
+                duration: 5000
+            });
+        });
+    };
+    ModulesUploadComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-modules-upload',
+            template: __webpack_require__(/*! ./modules-upload.component.html */ "./src/app/components/dashboard/modules-upload/modules-upload.component.html"),
+            styles: [__webpack_require__(/*! ./modules-upload.component.css */ "./src/app/components/dashboard/modules-upload/modules-upload.component.css")]
+        }),
+        __metadata("design:paramtypes", [_angular_material__WEBPACK_IMPORTED_MODULE_2__["MatDialog"],
+            src_app_services_responsive_service__WEBPACK_IMPORTED_MODULE_3__["ResponsiveService"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_2__["MatSnackBar"],
+            src_app_services_tendoo_service__WEBPACK_IMPORTED_MODULE_4__["TendooService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"]])
+    ], ModulesUploadComponent);
+    return ModulesUploadComponent;
 }());
 
 
@@ -709,7 +1019,7 @@ var DashboardHomeComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2NvbXBvbmVudHMvZGFzaGJvYXJkL21vZHVsZXMvbW9kdWxlcy5jb21wb25lbnQuY3NzIn0= */"
+module.exports = ":host {\r\n    height: 100%;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvbW9kdWxlcy9tb2R1bGVzLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSxhQUFhO0NBQ2hCIiwiZmlsZSI6InNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvbW9kdWxlcy9tb2R1bGVzLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyI6aG9zdCB7XHJcbiAgICBoZWlnaHQ6IDEwMCU7XHJcbn0iXX0= */"
 
 /***/ }),
 
@@ -720,7 +1030,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<p>\n  modules works!\n</p>\n"
+module.exports = "<div fxLayout=\"column\" fxFlex=\"100%\">\r\n    <div fxFlex=\"150px\" fxLayout=\"row\" class=\"bg-primary p-1\">\r\n        <div fxFlex>\r\n            <h1 class=\"mat-display-1 mb-0\">Modules</h1>\r\n            <span class=\"mat-headline\">Display and manage all available modules</span>\r\n        </div>\r\n        <div fxFlex=\"200px\" fxLayoutAlign=\"end start\">\r\n            <button routerLink=\"/dashboard/modules/upload\" mat-button color=\"warn\">Upload a module</button>\r\n        </div>\r\n    </div>\r\n    <mat-progress-bar color=\"warn\" style=\"height: 1px\" *ngIf=\"tendoo.modules.isLoading\" mode=\"indeterminate\"></mat-progress-bar>\r\n    <mat-divider  *ngIf=\"!tendoo.modules.isLoading\"></mat-divider>\r\n    <div class=\"p-2 bg-content\" fxFlex fxLayoutGap=\"3em\">\r\n        <div \r\n            style=\"height:200px\"\r\n            *ngFor=\"let module of modules\"\r\n            fxFlex.xs=\"100%\" \r\n            fxFlex.sm=\"50%\" \r\n            fxFlex.md=\"50%\" \r\n            fxFlex.lg=\"25%\" \r\n            fxFlex.xl=\"20%\">\r\n            <mat-card fxFill fxLayout=\"column\">\r\n                <mat-card-title>{{ module.name }}</mat-card-title>\r\n                <mat-card-content fxFlex>{{ module.description }}</mat-card-content>\r\n                <mat-card-actions fxLayoutAlign=\"space-between\">\r\n                    <button [disabled]=\"tendoo.modules.isLoading\" (click)=\"loadModules()\" mat-button color=\"primary\">Details</button>\r\n                    <button [disabled]=\"tendoo.modules.isLoading\" *ngIf=\"module.enabled\" (click)=\"setStatus( module, 'disable' )\"  mat-button color=\"primary\">Disable</button>\r\n                    <button [disabled]=\"tendoo.modules.isLoading\" *ngIf=\"! module.enabled\" (click)=\"setStatus( module, 'enable' )\"  mat-button color=\"accent\">Enable</button>\r\n                    <button [disabled]=\"tendoo.modules.isLoading\" (click)=\"delete( module )\" mat-button color=\"warn\">Delete</button>\r\n                </mat-card-actions>\r\n            </mat-card>\r\n        </div>\r\n        <div>\r\n            <mat-card *ngIf=\"modules.length === 0\">\r\n                <mat-card-title>No module has been yet uploaded</mat-card-title>\r\n            </mat-card>\r\n        </div>\r\n    </div>\r\n</div>"
 
 /***/ }),
 
@@ -735,6 +1045,10 @@ module.exports = "<p>\n  modules works!\n</p>\n"
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ModulesComponent", function() { return ModulesComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var src_app_services_tendoo_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/services/tendoo.service */ "./src/app/services/tendoo.service.ts");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var src_app_shared_confirm_dialog_confirm_dialog_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/shared/confirm-dialog/confirm-dialog.component */ "./src/app/shared/confirm-dialog/confirm-dialog.component.ts");
+/* harmony import */ var src_app_services_responsive_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/responsive.service */ "./src/app/services/responsive.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -745,10 +1059,199 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
+
+
+
+
 var ModulesComponent = /** @class */ (function () {
-    function ModulesComponent() {
+    function ModulesComponent(tendoo, snackbar, dialog, responsive) {
+        this.tendoo = tendoo;
+        this.snackbar = snackbar;
+        this.dialog = dialog;
+        this.responsive = responsive;
+        this.modules = [];
     }
     ModulesComponent.prototype.ngOnInit = function () {
+        this.loadModules();
+    };
+    ModulesComponent.prototype.loadModules = function () {
+        var _this = this;
+        this.tendoo.modules.getAll().subscribe(function (modules) {
+            _this.modules = Object.values(modules);
+        });
+    };
+    ModulesComponent.prototype.__deleteModule = function (module) {
+        var _this = this;
+        this.tendoo.modules.deleteModule(module.namespace).subscribe(function (result) {
+            _this.snackbar.open(result.message);
+            _this.loadModules();
+        }, function (result) {
+            console.log(result);
+        });
+    };
+    /**
+     * delete a module
+     * @return void
+     */
+    ModulesComponent.prototype.delete = function (module) {
+        var _this = this;
+        this.dialog.open(src_app_shared_confirm_dialog_confirm_dialog_component__WEBPACK_IMPORTED_MODULE_3__["ConfirmDialogComponent"], {
+            id: 'delete.module',
+            data: {
+                title: 'Confirm Your Action',
+                message: 'Would you like to delete this module ? This action can\'t be cancelled.',
+                buttons: [{
+                        label: 'Ok',
+                        onClick: function () {
+                            _this.dialog
+                                .getDialogById('delete.module')
+                                .close();
+                            _this.__deleteModule(module);
+                        }
+                    }, {
+                        label: 'Cancel',
+                        color: 'warn',
+                        onClick: function () {
+                            _this.dialog
+                                .getDialogById('delete.module')
+                                .close();
+                        }
+                    }]
+            },
+            height: this.responsive.define({
+                lg: '30%',
+                xl: '30%',
+                md: '40%',
+                sm: '60%',
+                xs: '80%'
+            }),
+            width: this.responsive.define({
+                lg: '40%',
+                xl: '40%',
+                md: '40%',
+                sm: '70%',
+                xs: '95%'
+            }),
+        });
+    };
+    /**
+     * Change a module
+     * status
+     * @return void
+     */
+    ModulesComponent.prototype.setStatus = function (module, status) {
+        switch (status) {
+            case 'enable':
+                this.__proceedEnableModule(module);
+                break;
+            case 'disable':
+                this.__proceedDisableModule(module);
+                break;
+        }
+    };
+    /**
+     * Proceed Enable Module
+     * @return void
+     */
+    ModulesComponent.prototype.__proceedEnableModule = function (module) {
+        var _this = this;
+        this.dialog.open(src_app_shared_confirm_dialog_confirm_dialog_component__WEBPACK_IMPORTED_MODULE_3__["ConfirmDialogComponent"], {
+            data: {
+                title: 'Please confirm your action',
+                message: 'Would you like to enable this module ?',
+                buttons: [
+                    {
+                        label: 'Yes',
+                        namespace: 'yes',
+                        onClick: function () {
+                            _this.__enableModule(module);
+                        }
+                    }, {
+                        label: 'No',
+                        namespace: 'no',
+                        onClick: function () {
+                            _this.dialog
+                                .getDialogById('confirm-enable-module')
+                                .close();
+                        }
+                    }
+                ]
+            },
+            id: 'confirm-enable-module'
+        });
+    };
+    /**
+     * Proceed Disable Module
+     * @return void
+     */
+    ModulesComponent.prototype.__proceedDisableModule = function (module) {
+        var _this = this;
+        this.dialog.open(src_app_shared_confirm_dialog_confirm_dialog_component__WEBPACK_IMPORTED_MODULE_3__["ConfirmDialogComponent"], {
+            data: {
+                title: 'Please confirm your action',
+                message: 'Would you like to disable this module ?',
+                buttons: [
+                    {
+                        label: 'Yes',
+                        namespace: 'yes',
+                        onClick: function () {
+                            _this.__disableModule(module);
+                        }
+                    }, {
+                        label: 'No',
+                        namespace: 'no',
+                        onClick: function () {
+                            _this.dialog
+                                .getDialogById('disable-enable-module')
+                                .close();
+                        }
+                    }
+                ]
+            },
+            id: 'disable-enable-module'
+        });
+    };
+    /**
+     * Enable module after
+     * the action has been confirmed
+     * @return void
+     */
+    ModulesComponent.prototype.__enableModule = function (module) {
+        var _this = this;
+        this.tendoo.modules.enable(module.namespace).subscribe(function (response) {
+            _this.loadModules();
+            _this.dialog
+                .getDialogById('confirm-enable-module')
+                .close();
+        }, function (result) {
+            _this.snackbar.open(result.error.message, null, {
+                duration: 4000
+            });
+            _this.dialog
+                .getDialogById('confirm-enable-module')
+                .close();
+        });
+    };
+    /**
+     * Enable module after
+     * the action has been confirmed
+     * @return void
+     */
+    ModulesComponent.prototype.__disableModule = function (module) {
+        var _this = this;
+        this.tendoo.modules.disable(module.namespace).subscribe(function (response) {
+            _this.loadModules();
+            _this.dialog
+                .getDialogById('disable-enable-module')
+                .close();
+        }, function (result) {
+            _this.snackbar.open(result.error.message, null, {
+                duration: 4000
+            });
+            _this.dialog
+                .getDialogById('disable-enable-module')
+                .close();
+        });
     };
     ModulesComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -756,7 +1259,10 @@ var ModulesComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./modules.component.html */ "./src/app/components/dashboard/modules/modules.component.html"),
             styles: [__webpack_require__(/*! ./modules.component.css */ "./src/app/components/dashboard/modules/modules.component.css")]
         }),
-        __metadata("design:paramtypes", [])
+        __metadata("design:paramtypes", [src_app_services_tendoo_service__WEBPACK_IMPORTED_MODULE_1__["TendooService"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_2__["MatSnackBar"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_2__["MatDialog"],
+            src_app_services_responsive_service__WEBPACK_IMPORTED_MODULE_4__["ResponsiveService"]])
     ], ModulesComponent);
     return ModulesComponent;
 }());
@@ -783,7 +1289,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<p>\n  settings works!\n</p>\n"
+module.exports = "<p>\r\n  settings works!\r\n</p>\r\n"
 
 /***/ }),
 
@@ -835,7 +1341,7 @@ var SettingsComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2NvbXBvbmVudHMvZGFzaGJvYXJkL3VzZXJzL3VzZXJzLmNvbXBvbmVudC5jc3MifQ== */"
+module.exports = ":host {\r\n    height: 100%;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvdXNlcnMvdXNlcnMuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLGFBQWE7Q0FDaEIiLCJmaWxlIjoic3JjL2FwcC9jb21wb25lbnRzL2Rhc2hib2FyZC91c2Vycy91c2Vycy5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiOmhvc3Qge1xyXG4gICAgaGVpZ2h0OiAxMDAlO1xyXG59Il19 */"
 
 /***/ }),
 
@@ -846,7 +1352,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<p>\n  users works!\n</p>\n"
+module.exports = "<div fxLayout=\"column\" fxFlex=\"100%\" style=\"overflow-y:auto\">\r\n    <div fxFlex=\"150px\" fxLayout=\"row\" class=\"bg-primary p-1\">\r\n        <div fxFlex>\r\n            <h1 class=\"mat-display-1 mb-0\">Users</h1>\r\n            <span class=\"mat-title\">Displays and manage all registered users</span>\r\n        </div>\r\n        <div fxFlex=\"200px\" fxLayoutAlign=\"end start\">\r\n            <button routerLink=\"/dashboard/modules/upload\" mat-button color=\"warn\">Create a user</button>\r\n        </div>\r\n    </div>\r\n    <mat-progress-bar color=\"warn\" style=\"height: 1px\" *ngIf=\"tendoo.users.isLoading\" mode=\"indeterminate\"></mat-progress-bar>\r\n    <mat-divider  *ngIf=\"!tendoo.modules.isLoading\"></mat-divider>\r\n    <div class=\"p-2 bg-content\" fxFlex=\"1 0 auto\" fxLayout=\"row\">\r\n        <table matSort (matSortChange)=\"sortData($event)\" mat-table [dataSource]=\"dataSource\" class=\"mat-elevation-z8\" fxFlex>\r\n            <!--- Note that these columns can be defined in any order.\r\n                The actual rendered columns are set as a property on the row definition\" -->\r\n                \r\n                <!-- Position Column -->\r\n                <ng-container matColumnDef=\"id\">\r\n                    <th mat-sort-header=\"name\" mat-header-cell *matHeaderCellDef style=\"width: 40px\">\r\n                        <mat-checkbox class=\"example-margin\" [(ngModel)]=\"indeterminate\"></mat-checkbox>\r\n                    </th>\r\n                    <td mat-cell *matCellDef=\"let element\" style=\"width: 40px\">\r\n                        <mat-checkbox class=\"example-margin\" [(ngModel)]=\"element.checked\">{{ element.checked }}</mat-checkbox>\r\n                    </td>\r\n                </ng-container>\r\n                \r\n                <ng-container matColumnDef=\"position\">\r\n                    <th mat-sort-header=\"position\" mat-header-cell *matHeaderCellDef> No. </th>\r\n                    <td mat-cell *matCellDef=\"let element\"> {{element.position}} </td>\r\n                </ng-container>\r\n                \r\n                <!-- Name Column -->\r\n                <ng-container matColumnDef=\"name\">\r\n                    <th mat-sort-header=\"name\" mat-header-cell *matHeaderCellDef> Name </th>\r\n                    <td mat-cell *matCellDef=\"let element\"> {{element.name}} </td>\r\n                </ng-container>\r\n                \r\n                <!-- Weight Column -->\r\n                <ng-container matColumnDef=\"weight\">\r\n                    <th mat-sort-header=\"weight\" mat-header-cell *matHeaderCellDef> Weight </th>\r\n                    <td mat-cell *matCellDef=\"let element\"> {{element.weight}} </td>\r\n                </ng-container>\r\n                \r\n                <!-- Symbol Column -->\r\n                <ng-container matColumnDef=\"symbol\">\r\n                    <th [mat-sort-header]=\"symbol\" mat-header-cell *matHeaderCellDef> Symbol </th>\r\n                    <td mat-cell *matCellDef=\"let element\"> {{element.symbol}} </td>\r\n                </ng-container>\r\n                \r\n                <tr mat-header-row *matHeaderRowDef=\"displayedColumns\"></tr>\r\n                <tr mat-row *matRowDef=\"let row; columns: displayedColumns;\"></tr>\r\n            </table>\r\n        </div>\r\n    </div>"
 
 /***/ }),
 
@@ -861,6 +1367,8 @@ module.exports = "<p>\n  users works!\n</p>\n"
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UsersComponent", function() { return UsersComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var src_app_services_tendoo_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/services/tendoo.service */ "./src/app/services/tendoo.service.ts");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -871,10 +1379,46 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
+
+
+var ELEMENT_DATA = [
+    { id: 1, position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H' },
+    { id: 1, position: 2, name: 'Helium', weight: 4.0026, symbol: 'He' },
+    { id: 1, position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li' },
+    { id: 1, position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' },
+    { id: 1, position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' },
+    { id: 1, position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' },
+    { id: 1, position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' },
+    { id: 1, position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' },
+    { id: 1, position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' },
+    { id: 1, position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' },
+    { id: 1, position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' },
+    { id: 1, position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' },
+    { id: 1, position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' },
+    { id: 1, position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' },
+    { id: 1, position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' },
+    { id: 1, position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' },
+    { id: 1, position: 5, name: 'Boron', weight: 10.811, symbol: 'B' },
+    { id: 1, position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C' },
+    { id: 1, position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N' },
+    { id: 1, position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O' },
+    { id: 1, position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F' },
+    { id: 1, position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne' },
+];
 var UsersComponent = /** @class */ (function () {
-    function UsersComponent() {
+    function UsersComponent(tendoo) {
+        this.tendoo = tendoo;
+        this.displayedColumns = [];
+        this.dataSource = ELEMENT_DATA;
     }
     UsersComponent.prototype.ngOnInit = function () {
+        Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["forkJoin"])(this.tendoo.users.getUsers(), this.tendoo.tables.getColumns('dashboard.users'))
+            .subscribe(function (response) {
+            console.log(response);
+        });
+    };
+    UsersComponent.prototype.sortData = function (event) {
+        console.log(event);
     };
     UsersComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -882,7 +1426,7 @@ var UsersComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./users.component.html */ "./src/app/components/dashboard/users/users.component.html"),
             styles: [__webpack_require__(/*! ./users.component.css */ "./src/app/components/dashboard/users/users.component.css")]
         }),
-        __metadata("design:paramtypes", [])
+        __metadata("design:paramtypes", [src_app_services_tendoo_service__WEBPACK_IMPORTED_MODULE_1__["TendooService"]])
     ], UsersComponent);
     return UsersComponent;
 }());
@@ -909,7 +1453,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<form [formGroup]=\"applicationForm\">\n    <mat-card>\n        <mat-card-title>Configuring Application</mat-card-title>\n        <mat-divider></mat-divider>\n        <mat-card-content>\n            <p style=\"margin: 30px 0 20px\">The connexion with the database is successful. Now we need to setup the admin account.</p>\n            <app-fields [field]=\"field\" [group]=\"applicationForm\" *ngFor=\"let field of fields\"></app-fields>\n        </mat-card-content>\n        <mat-divider *ngIf=\"! setup.isLoading\"></mat-divider>\n        <mat-progress-bar *ngIf=\"setup.isLoading\" mode=\"indeterminate\" style=\"height: 1px;position: absolute;left: 0;\"></mat-progress-bar>\n        <mat-card-actions>\n            <button [disabled]=\"setup.isLoading\" (click)=\"setupApplication()\" mat-button>Setup Application</button>\n        </mat-card-actions>\n    </mat-card>\n</form>"
+module.exports = "<form [formGroup]=\"applicationForm\">\r\n    <mat-card>\r\n        <mat-card-title>Configuring Application</mat-card-title>\r\n        <mat-divider></mat-divider>\r\n        <mat-card-content>\r\n            <p style=\"margin: 30px 0 20px\">The connexion with the database is successful. Now we need to setup the admin account.</p>\r\n            <app-fields [field]=\"field\" [group]=\"applicationForm\" *ngFor=\"let field of fields\"></app-fields>\r\n        </mat-card-content>\r\n        <mat-divider *ngIf=\"! setup.isLoading\"></mat-divider>\r\n        <mat-progress-bar *ngIf=\"setup.isLoading\" mode=\"indeterminate\" style=\"height: 1px;position: absolute;left: 0;\"></mat-progress-bar>\r\n        <mat-card-actions>\r\n            <button [disabled]=\"setup.isLoading\" (click)=\"setupApplication()\" mat-button>Setup Application</button>\r\n        </mat-card-actions>\r\n    </mat-card>\r\n</form>"
 
 /***/ }),
 
@@ -1050,7 +1594,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<form [formGroup]=\"setupForm\">\n    <mat-card>\n        <mat-card-title>Configuring Database</mat-card-title>\n        <mat-divider></mat-divider>\n        <mat-card-content>\n            <p style=\"margin: 30px 0 20px\">In order to install Tendoo CMS, please provide all the informations required to connect to the database.</p>\n            <app-fields [field]=\"field\" [group]=\"setupForm\" *ngFor=\"let field of fields\"></app-fields>\n        </mat-card-content>\n        <mat-divider *ngIf=\"! setup.isLoading\"></mat-divider>\n        <mat-progress-bar *ngIf=\"setup.isLoading\" mode=\"indeterminate\" style=\"height: 1px;position: absolute;left: 0;\"></mat-progress-bar>\n        <mat-card-actions>\n            <button [disabled]=\"setup.isLoading\" (click)=\"setupDatabase()\" mat-button>Setup Database</button>\n        </mat-card-actions>\n    </mat-card>\n</form>"
+module.exports = "<form [formGroup]=\"setupForm\">\r\n    <mat-card>\r\n        <mat-card-title>Configuring Database</mat-card-title>\r\n        <mat-divider></mat-divider>\r\n        <mat-card-content>\r\n            <p style=\"margin: 30px 0 20px\">In order to install Tendoo CMS, please provide all the informations required to connect to the database.</p>\r\n            <app-fields [field]=\"field\" [group]=\"setupForm\" *ngFor=\"let field of fields\"></app-fields>\r\n        </mat-card-content>\r\n        <mat-divider *ngIf=\"! setup.isLoading\"></mat-divider>\r\n        <mat-progress-bar *ngIf=\"setup.isLoading\" mode=\"indeterminate\" style=\"height: 1px;position: absolute;left: 0;\"></mat-progress-bar>\r\n        <mat-card-actions>\r\n            <button [disabled]=\"setup.isLoading\" (click)=\"setupDatabase()\" mat-button>Setup Database</button>\r\n        </mat-card-actions>\r\n    </mat-card>\r\n</form>"
 
 /***/ }),
 
@@ -1199,7 +1743,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div fxFill fxLayout=\"row\" fxLayoutAlign=\"center center\">\n    <div \n        fxFlex.xs=\"90%\" \n        fxFlex.sm=\"70%\" \n        fxFlex.md=\"50%\" \n        fxFlex.lg=\"40%\" \n        fxFlex.xl=\"40%\">\n        <router-outlet></router-outlet>\n    </div>\n</div>"
+module.exports = "<div fxFill fxLayout=\"row\" fxLayoutAlign=\"center center\" class=\"bg-content\">\r\n    <div \r\n        fxFlex.xs=\"90%\" \r\n        fxFlex.sm=\"70%\" \r\n        fxFlex.md=\"50%\" \r\n        fxFlex.lg=\"40%\" \r\n        fxFlex.xl=\"40%\">\r\n        <router-outlet></router-outlet>\r\n    </div>\r\n</div>"
 
 /***/ }),
 
@@ -1262,7 +1806,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<mat-card>\n    <mat-card-title>Welcome on Tendoo CMS</mat-card-title>\n    <mat-card-content>\n        Tendoo CMS is ready to be installed. Let's get started\n    </mat-card-content>\n    <mat-divider></mat-divider>\n    <mat-card-actions>\n        <a routerLink=\"/do-setup/database\" mat-button>Database Configuration</a>\n    </mat-card-actions>\n</mat-card>"
+module.exports = "<mat-card>\r\n    <mat-card-title>Welcome on Tendoo CMS</mat-card-title>\r\n    <mat-card-content>\r\n        Tendoo CMS is ready to be installed. Let's get started\r\n    </mat-card-content>\r\n    <mat-divider></mat-divider>\r\n    <mat-card-actions>\r\n        <a routerLink=\"/do-setup/database\" mat-button>Database Configuration</a>\r\n    </mat-card-actions>\r\n</mat-card>"
 
 /***/ }),
 
@@ -1325,7 +1869,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<p>\n  home works!\n</p>\n<ul>\n  <li><a routerLink=\"do-setup\">Setup</a></li>\n</ul>"
+module.exports = "<p>\r\n  home works!\r\n</p>\r\n<ul>\r\n  <li><a routerLink=\"do-setup\">Setup</a></li>\r\n  <li><a routerLink=\"auth/login\">Login</a></li>\r\n</ul>"
 
 /***/ }),
 
@@ -1374,12 +1918,12 @@ var HomeComponent = /** @class */ (function () {
 /*!*******************************************!*\
   !*** ./src/app/guards/app-state.guard.ts ***!
   \*******************************************/
-/*! exports provided: AppStateGuard */
+/*! exports provided: PreventAppInstalledGuard */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AppStateGuard", function() { return AppStateGuard; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PreventAppInstalledGuard", function() { return PreventAppInstalledGuard; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _services_setup_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../services/setup.service */ "./src/app/services/setup.service.ts");
@@ -1397,37 +1941,154 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
-var AppStateGuard = /** @class */ (function () {
-    function AppStateGuard(setup, router, snackbar) {
+var PreventAppInstalledGuard = /** @class */ (function () {
+    function PreventAppInstalledGuard(setup, router, snackbar) {
         this.setup = setup;
         this.router = router;
         this.snackbar = snackbar;
     }
-    AppStateGuard.prototype.canActivate = function (next, state) {
+    PreventAppInstalledGuard.prototype.canActivate = function (next, state) {
         var _this = this;
         return new Promise(function (resolve, reject) {
+            // return resolve( true );
             _this.setup.ping().subscribe(function (result) {
             }, function (result) {
-                if (result.error.class === "Tendoo/Core/Exceptions/TendooInstalledException") {
-                    _this.router.navigateByUrl('');
-                    _this.snackbar.open(result.error.message, null, {
-                        duration: 3000
-                    });
-                    return resolve(false);
+                switch (result.error.class) {
+                    case 'Tendoo/Core/Exceptions/TendooInstalledException':
+                        _this.router.navigateByUrl('');
+                        _this.snackbar.open(result.error.message, null, {
+                            duration: 3000
+                        });
+                        return resolve(false);
                 }
-                resolve(true);
+                return resolve(true);
             });
         });
     };
-    AppStateGuard = __decorate([
+    PreventAppInstalledGuard = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
             providedIn: 'root'
         }),
         __metadata("design:paramtypes", [_services_setup_service__WEBPACK_IMPORTED_MODULE_2__["SetupService"],
             _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"],
             _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatSnackBar"]])
-    ], AppStateGuard);
-    return AppStateGuard;
+    ], PreventAppInstalledGuard);
+    return PreventAppInstalledGuard;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/guards/check-app-installed.guard.ts":
+/*!*****************************************************!*\
+  !*** ./src/app/guards/check-app-installed.guard.ts ***!
+  \*****************************************************/
+/*! exports provided: PreventAppNotInstalledGuard */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PreventAppNotInstalledGuard", function() { return PreventAppNotInstalledGuard; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var _services_setup_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../services/setup.service */ "./src/app/services/setup.service.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var PreventAppNotInstalledGuard = /** @class */ (function () {
+    function PreventAppNotInstalledGuard(setup, router, snackbar) {
+        this.setup = setup;
+        this.router = router;
+        this.snackbar = snackbar;
+    }
+    PreventAppNotInstalledGuard.prototype.canActivate = function (next, state) {
+        var _this = this;
+        // return true;
+        return new Promise(function (resolve, reject) {
+            _this.setup.ping().subscribe(function (result) {
+            }, function (result) {
+                switch (result.error.class) {
+                    case 'Tendoo/Core/Exceptions/TendooNotInstalledException':
+                        _this.router.navigateByUrl('do-setup');
+                        _this.snackbar.open(result.error.message, null, {
+                            duration: 3000
+                        });
+                        return resolve(false);
+                }
+                return resolve(true);
+            });
+        });
+    };
+    PreventAppNotInstalledGuard = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
+            providedIn: 'root'
+        }),
+        __metadata("design:paramtypes", [_services_setup_service__WEBPACK_IMPORTED_MODULE_3__["SetupService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_2__["MatSnackBar"]])
+    ], PreventAppNotInstalledGuard);
+    return PreventAppNotInstalledGuard;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/guards/require-logged.guard.ts":
+/*!************************************************!*\
+  !*** ./src/app/guards/require-logged.guard.ts ***!
+  \************************************************/
+/*! exports provided: RequireLoggedGuard */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RequireLoggedGuard", function() { return RequireLoggedGuard; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _services_loader_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../services/loader.service */ "./src/app/services/loader.service.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+var RequireLoggedGuard = /** @class */ (function () {
+    function RequireLoggedGuard(router) {
+        this.router = router;
+    }
+    RequireLoggedGuard.prototype.canActivate = function (next, state) {
+        if (Object.values(_services_loader_service__WEBPACK_IMPORTED_MODULE_2__["LoaderService"].headers).length === 0) {
+            this.router.navigateByUrl('auth/login?notice=login-required');
+            return false;
+        }
+        return true;
+    };
+    RequireLoggedGuard = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
+            providedIn: 'root'
+        }),
+        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]])
+    ], RequireLoggedGuard);
+    return RequireLoggedGuard;
 }());
 
 
@@ -1463,7 +2124,9 @@ var LoaderService = /** @class */ (function () {
     function LoaderService(http) {
         this.http = http;
         this.isLoading = false;
+        this.baseUrl = tendoo.base_url;
     }
+    LoaderService_1 = LoaderService;
     /**
      * Submit post request
      * @param {string} url to access
@@ -1473,7 +2136,30 @@ var LoaderService = /** @class */ (function () {
         var _this = this;
         return new rxjs__WEBPACK_IMPORTED_MODULE_2__["Observable"](function (observer) {
             _this.isLoading = true;
-            return _this.http.post(url, data).subscribe(function (result) {
+            return _this.http.post(url, data, {
+                headers: LoaderService_1.headers
+            }).subscribe(function (result) {
+                _this.isLoading = false;
+                observer.next(result);
+                observer.complete();
+            }, function (error) {
+                _this.isLoading = false;
+                observer.error(error);
+            });
+        });
+    };
+    /**
+     * Submit DELETE request
+     * @param {string} url to access
+     * @param data data to submit
+     */
+    LoaderService.prototype.delete = function (url) {
+        var _this = this;
+        return new rxjs__WEBPACK_IMPORTED_MODULE_2__["Observable"](function (observer) {
+            _this.isLoading = true;
+            return _this.http.delete(url, {
+                headers: LoaderService_1.headers
+            }).subscribe(function (result) {
                 _this.isLoading = false;
                 observer.next(result);
                 observer.complete();
@@ -1492,7 +2178,9 @@ var LoaderService = /** @class */ (function () {
         var _this = this;
         return new rxjs__WEBPACK_IMPORTED_MODULE_2__["Observable"](function (observer) {
             _this.isLoading = true;
-            return _this.http.get(url).subscribe(function (result) {
+            return _this.http.get(url, {
+                headers: LoaderService_1.headers
+            }).subscribe(function (result) {
                 _this.isLoading = false;
                 observer.next(result);
                 observer.complete();
@@ -1502,13 +2190,106 @@ var LoaderService = /** @class */ (function () {
             });
         });
     };
-    LoaderService = __decorate([
+    var LoaderService_1;
+    LoaderService.headers = {};
+    LoaderService = LoaderService_1 = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
             providedIn: 'root'
         }),
         __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"]])
     ], LoaderService);
     return LoaderService;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/services/responsive.service.ts":
+/*!************************************************!*\
+  !*** ./src/app/services/responsive.service.ts ***!
+  \************************************************/
+/*! exports provided: ResponsiveService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ResponsiveService", function() { return ResponsiveService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+/* TYPESCRIPT */
+
+var ResponsiveService = /** @class */ (function () {
+    function ResponsiveService() {
+        var _this = this;
+        this.callbacks = [];
+        // taken from bootstrap's grid system
+        this.breakpoints = {
+            xs: '(max-width:575px)',
+            sm: '(min-width:576px) and (max-width:767px)',
+            md: '(min-width:768px) and (max-width:991px)',
+            lg: '(min-width:992px) and (max-width:1199px)',
+            xl: '(min-width:1200px)'
+        };
+        this.xsOrs = this.breakpoints.xs + ',' + this.breakpoints.sm;
+        this.isXS = function () { return _this.ruleIsMet(_this.breakpoints.xs); };
+        this.isSM = function () { return _this.ruleIsMet(_this.breakpoints.sm); };
+        this.isMD = function () { return _this.ruleIsMet(_this.breakpoints.md); };
+        this.isLG = function () { return _this.ruleIsMet(_this.breakpoints.lg); };
+        this.isXL = function () { return _this.ruleIsMet(_this.breakpoints.xl); };
+        this.isSmallScreen = function () { return _this.ruleIsMet(_this.xsOrs); };
+        this.registerChangeCallback = function (f) {
+            _this.callbacks.push(f);
+        };
+        this.ruleIsMet = function (rule) { return window.matchMedia(rule).matches; };
+        this.callSubscribers = function () {
+            var len = _this.callbacks.length;
+            if (len == 0) {
+                return;
+            }
+            var i = 0;
+            for (; i < len; i++) {
+                _this.callbacks[i]();
+            }
+        };
+        window.onresize = this.callSubscribers;
+    }
+    /**
+     * define values
+     * @param object
+     */
+    ResponsiveService.prototype.define = function (values) {
+        if (this.isXS()) {
+            return values.xs;
+        }
+        else if (this.isSM()) {
+            return values.sm;
+        }
+        else if (this.isMD()) {
+            return values.md;
+        }
+        else if (this.isLG()) {
+            return values.lg;
+        }
+        else if (this.isXL()) {
+            return values.xl;
+        }
+    };
+    ResponsiveService = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
+            providedIn: 'root'
+        }),
+        __metadata("design:paramtypes", [])
+    ], ResponsiveService);
+    return ResponsiveService;
 }());
 
 
@@ -1551,22 +2332,20 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 var SetupService = /** @class */ (function (_super) {
     __extends(SetupService, _super);
     function SetupService() {
-        var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this.baseUrl = tendoo.base_url;
-        return _this;
+        return _super !== null && _super.apply(this, arguments) || this;
     }
     /**
      * Send post request to the server for db configuration
      * @param fields form field for database configuration
      */
     SetupService.prototype.setupDatabase = function (fields) {
-        return this.post(this.baseUrl + 'api/do-setup/database', fields);
+        return this.post(this.baseUrl + 'tendoo/do-setup/database', fields);
     };
     SetupService.prototype.application = function (fields) {
-        return this.post(this.baseUrl + 'api/do-setup/application', fields);
+        return this.post(this.baseUrl + 'tendoo/do-setup/application', fields);
     };
     SetupService.prototype.ping = function () {
-        return this.get(this.baseUrl + 'api/ping');
+        return this.get(this.baseUrl + 'tendoo/ping');
     };
     SetupService = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
@@ -1575,6 +2354,479 @@ var SetupService = /** @class */ (function (_super) {
     ], SetupService);
     return SetupService;
 }(_loader_service__WEBPACK_IMPORTED_MODULE_1__["LoaderService"]));
+
+
+
+/***/ }),
+
+/***/ "./src/app/services/tendoo-auth.service.ts":
+/*!*************************************************!*\
+  !*** ./src/app/services/tendoo-auth.service.ts ***!
+  \*************************************************/
+/*! exports provided: TendooAuthService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TendooAuthService", function() { return TendooAuthService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _loader_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./loader.service */ "./src/app/services/loader.service.ts");
+var __extends = (undefined && undefined.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    }
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+
+var TendooAuthService = /** @class */ (function (_super) {
+    __extends(TendooAuthService, _super);
+    function TendooAuthService() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    TendooAuthService.prototype.login = function (credentials) {
+        return this.post(this.baseUrl + 'tendoo/auth/login', credentials);
+    };
+    TendooAuthService.prototype.setCredentials = function (id, token) {
+        _loader_service__WEBPACK_IMPORTED_MODULE_1__["LoaderService"].headers = {
+            'X-AUTH-TOKEN': token
+        };
+    };
+    TendooAuthService = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
+            providedIn: 'root'
+        })
+    ], TendooAuthService);
+    return TendooAuthService;
+}(_loader_service__WEBPACK_IMPORTED_MODULE_1__["LoaderService"]));
+
+
+
+/***/ }),
+
+/***/ "./src/app/services/tendoo-fields.service.ts":
+/*!***************************************************!*\
+  !*** ./src/app/services/tendoo-fields.service.ts ***!
+  \***************************************************/
+/*! exports provided: TendooFieldsService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TendooFieldsService", function() { return TendooFieldsService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _tendoo_auth_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./tendoo-auth.service */ "./src/app/services/tendoo-auth.service.ts");
+var __extends = (undefined && undefined.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    }
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+
+var TendooFieldsService = /** @class */ (function (_super) {
+    __extends(TendooFieldsService, _super);
+    function TendooFieldsService() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    TendooFieldsService.prototype.get = function (namespace) {
+        return this.get(this.baseUrl + 'tendoo/fields/' + namespace);
+    };
+    TendooFieldsService = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
+            providedIn: 'root'
+        })
+    ], TendooFieldsService);
+    return TendooFieldsService;
+}(_tendoo_auth_service__WEBPACK_IMPORTED_MODULE_1__["TendooAuthService"]));
+
+
+
+/***/ }),
+
+/***/ "./src/app/services/tendoo-modules.service.ts":
+/*!****************************************************!*\
+  !*** ./src/app/services/tendoo-modules.service.ts ***!
+  \****************************************************/
+/*! exports provided: TendooModulesService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TendooModulesService", function() { return TendooModulesService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _tendoo_auth_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./tendoo-auth.service */ "./src/app/services/tendoo-auth.service.ts");
+var __extends = (undefined && undefined.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    }
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+
+var TendooModulesService = /** @class */ (function (_super) {
+    __extends(TendooModulesService, _super);
+    function TendooModulesService() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    TendooModulesService.prototype.getAll = function () {
+        return this.get(this.baseUrl + 'tendoo/modules');
+    };
+    /**
+     * upload a zip file to Tendoo CMS
+     * server
+     * @param file
+     * @return void
+     */
+    TendooModulesService.prototype.uploadFile = function (file) {
+        var endpoint = 'your-destination-url';
+        var formData = new FormData();
+        formData.append('module', file, file.name);
+        return this.post(this.baseUrl + 'tendoo/modules/upload', formData);
+    };
+    /**
+     * delete a module
+     * @param string module namespace
+     * @return void
+     */
+    TendooModulesService.prototype.deleteModule = function (namespace) {
+        return this.delete(this.baseUrl + 'tendoo/modules/' + namespace);
+    };
+    /**
+     * Enable a module
+     * @param string module namespace
+     * @return {Observable} AsyncResponse
+     */
+    TendooModulesService.prototype.enable = function (module) {
+        return this.post(this.baseUrl + 'tendoo/modules/enable', { module: module });
+    };
+    /**
+     * Disable a module
+     * @param string module namespace
+     * @return {Observable} AsyncReponse
+     */
+    TendooModulesService.prototype.disable = function (module) {
+        return this.post(this.baseUrl + 'tendoo/modules/disable', { module: module });
+    };
+    TendooModulesService = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
+            providedIn: 'root'
+        })
+    ], TendooModulesService);
+    return TendooModulesService;
+}(_tendoo_auth_service__WEBPACK_IMPORTED_MODULE_1__["TendooAuthService"]));
+
+
+
+/***/ }),
+
+/***/ "./src/app/services/tendoo-table.service.ts":
+/*!**************************************************!*\
+  !*** ./src/app/services/tendoo-table.service.ts ***!
+  \**************************************************/
+/*! exports provided: TendooTableService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TendooTableService", function() { return TendooTableService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _tendoo_auth_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./tendoo-auth.service */ "./src/app/services/tendoo-auth.service.ts");
+var __extends = (undefined && undefined.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    }
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+
+var TendooTableService = /** @class */ (function (_super) {
+    __extends(TendooTableService, _super);
+    function TendooTableService() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    TendooTableService.prototype.getColumns = function (table) {
+        return this.get(this.baseUrl + 'tendoo/tables/' + table);
+    };
+    TendooTableService = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
+            providedIn: 'root'
+        })
+    ], TendooTableService);
+    return TendooTableService;
+}(_tendoo_auth_service__WEBPACK_IMPORTED_MODULE_1__["TendooAuthService"]));
+
+
+
+/***/ }),
+
+/***/ "./src/app/services/tendoo-users.service.ts":
+/*!**************************************************!*\
+  !*** ./src/app/services/tendoo-users.service.ts ***!
+  \**************************************************/
+/*! exports provided: TendooUsersService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TendooUsersService", function() { return TendooUsersService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _tendoo_auth_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./tendoo-auth.service */ "./src/app/services/tendoo-auth.service.ts");
+var __extends = (undefined && undefined.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    }
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+
+var TendooUsersService = /** @class */ (function (_super) {
+    __extends(TendooUsersService, _super);
+    function TendooUsersService() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    /**
+     * get users
+     * @return json
+     */
+    TendooUsersService.prototype.getUsers = function () {
+        return this.get(this.baseUrl + 'tendoo/users');
+    };
+    TendooUsersService = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
+            providedIn: 'root'
+        })
+    ], TendooUsersService);
+    return TendooUsersService;
+}(_tendoo_auth_service__WEBPACK_IMPORTED_MODULE_1__["TendooAuthService"]));
+
+
+
+/***/ }),
+
+/***/ "./src/app/services/tendoo.service.ts":
+/*!********************************************!*\
+  !*** ./src/app/services/tendoo.service.ts ***!
+  \********************************************/
+/*! exports provided: TendooService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TendooService", function() { return TendooService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _loader_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./loader.service */ "./src/app/services/loader.service.ts");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _tendoo_auth_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./tendoo-auth.service */ "./src/app/services/tendoo-auth.service.ts");
+/* harmony import */ var _tendoo_fields_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./tendoo-fields.service */ "./src/app/services/tendoo-fields.service.ts");
+/* harmony import */ var _tendoo_modules_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./tendoo-modules.service */ "./src/app/services/tendoo-modules.service.ts");
+/* harmony import */ var _tendoo_users_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./tendoo-users.service */ "./src/app/services/tendoo-users.service.ts");
+/* harmony import */ var _tendoo_table_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./tendoo-table.service */ "./src/app/services/tendoo-table.service.ts");
+var __extends = (undefined && undefined.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    }
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+
+
+var TendooService = /** @class */ (function (_super) {
+    __extends(TendooService, _super);
+    function TendooService(http, auth, fields, modules, users, tables) {
+        var _this = _super.call(this, http) || this;
+        _this.auth = auth;
+        _this.fields = fields;
+        _this.modules = modules;
+        _this.users = users;
+        _this.tables = tables;
+        return _this;
+    }
+    TendooService = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
+            providedIn: 'root'
+        }),
+        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"],
+            _tendoo_auth_service__WEBPACK_IMPORTED_MODULE_3__["TendooAuthService"],
+            _tendoo_fields_service__WEBPACK_IMPORTED_MODULE_4__["TendooFieldsService"],
+            _tendoo_modules_service__WEBPACK_IMPORTED_MODULE_5__["TendooModulesService"],
+            _tendoo_users_service__WEBPACK_IMPORTED_MODULE_6__["TendooUsersService"],
+            _tendoo_table_service__WEBPACK_IMPORTED_MODULE_7__["TendooTableService"]])
+    ], TendooService);
+    return TendooService;
+}(_loader_service__WEBPACK_IMPORTED_MODULE_1__["LoaderService"]));
+
+
+
+/***/ }),
+
+/***/ "./src/app/shared/confirm-dialog/confirm-dialog.component.css":
+/*!********************************************************************!*\
+  !*** ./src/app/shared/confirm-dialog/confirm-dialog.component.css ***!
+  \********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3NoYXJlZC9jb25maXJtLWRpYWxvZy9jb25maXJtLWRpYWxvZy5jb21wb25lbnQuY3NzIn0= */"
+
+/***/ }),
+
+/***/ "./src/app/shared/confirm-dialog/confirm-dialog.component.html":
+/*!*********************************************************************!*\
+  !*** ./src/app/shared/confirm-dialog/confirm-dialog.component.html ***!
+  \*********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div fxFlex=\"auto\" FxLayout=\"column\" fxLayoutAlign=\"center center\">\n\t<div class=\"text-center\" fxFlex.lg=\"80%\" fxFlex.md=\"80%\" fxFlex.xs=\"100%\" fxFlex.sm=\"100%\">\n\t\t<p class=\"mat-display-1 m-0 py-3\">\n\t\t\t{{ data.title }}\n\t\t</p>\n\t\t<p class=\"mat-title\">{{ data.message }}</p>\n\t</div>\n</div>\n<mat-divider></mat-divider>\n<div fxLayout=\"row\" fxFlex=\"50px\" fxLayoutAlign=\"stretch stretch\">\n\t<ng-container *ngFor=\"let button of data.buttons\">\n\t\t<button (click)=\"handle( button )\" fxFlex=\"auto\" mat-button=\"\">\n\t\t\t<span  class=\"mat-subheading-2\">{{ button.label }}</span>\n\t\t</button>\n\t\t<mat-divider [vertical]=\"true\"></mat-divider>\n\t</ng-container>\n</div>"
+
+/***/ }),
+
+/***/ "./src/app/shared/confirm-dialog/confirm-dialog.component.ts":
+/*!*******************************************************************!*\
+  !*** ./src/app/shared/confirm-dialog/confirm-dialog.component.ts ***!
+  \*******************************************************************/
+/*! exports provided: ConfirmDialogComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ConfirmDialogComponent", function() { return ConfirmDialogComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (undefined && undefined.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+
+
+var ConfirmDialogComponent = /** @class */ (function () {
+    function ConfirmDialogComponent(dialog, data, snackBar) {
+        this.dialog = dialog;
+        this.data = data;
+        this.snackBar = snackBar;
+    }
+    ConfirmDialogComponent.prototype.ngOnInit = function () {
+    };
+    /**
+     * Handle Press Events
+     * @param Button
+     * @return void
+     */
+    ConfirmDialogComponent.prototype.handle = function (button) {
+        if (typeof button.onClick == 'function') {
+            button.onClick();
+        }
+    };
+    ConfirmDialogComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-confirm-dialog',
+            template: __webpack_require__(/*! ./confirm-dialog.component.html */ "./src/app/shared/confirm-dialog/confirm-dialog.component.html"),
+            styles: [__webpack_require__(/*! ./confirm-dialog.component.css */ "./src/app/shared/confirm-dialog/confirm-dialog.component.css")],
+            encapsulation: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewEncapsulation"].None,
+            host: {
+                style: 'flex-direction: column; box-sizing: border-box; display: flex; height: 100%;',
+            }
+        }),
+        __param(1, Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Inject"])(_angular_material__WEBPACK_IMPORTED_MODULE_1__["MAT_DIALOG_DATA"])),
+        __metadata("design:paramtypes", [_angular_material__WEBPACK_IMPORTED_MODULE_1__["MatDialogRef"], Object, _angular_material__WEBPACK_IMPORTED_MODULE_1__["MatSnackBar"]])
+    ], ConfirmDialogComponent);
+    return ConfirmDialogComponent;
+}());
 
 
 
@@ -1865,12 +3117,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var src_app_components_auth_auth_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! src/app/components/auth/auth.component */ "./src/app/components/auth/auth.component.ts");
 /* harmony import */ var src_app_guards_app_state_guard__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! src/app/guards/app-state.guard */ "./src/app/guards/app-state.guard.ts");
 /* harmony import */ var src_app_components_home_home_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! src/app/components/home/home.component */ "./src/app/components/home/home.component.ts");
+/* harmony import */ var src_app_components_dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! src/app/components/dashboard/dashboard.component */ "./src/app/components/dashboard/dashboard.component.ts");
+/* harmony import */ var src_app_guards_require_logged_guard__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! src/app/guards/require-logged.guard */ "./src/app/guards/require-logged.guard.ts");
+/* harmony import */ var src_app_components_dashboard_modules_upload_modules_upload_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! src/app/components/dashboard/modules-upload/modules-upload.component */ "./src/app/components/dashboard/modules-upload/modules-upload.component.ts");
+/* harmony import */ var src_app_guards_check_app_installed_guard__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! src/app/guards/check-app-installed.guard */ "./src/app/guards/check-app-installed.guard.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
+
+
+
 
 
 
@@ -1900,9 +3160,7 @@ var RoutesModule = /** @class */ (function () {
                     }, {
                         path: 'do-setup',
                         component: src_app_components_do_setup_do_setup_component__WEBPACK_IMPORTED_MODULE_12__["DoSetupComponent"],
-                        canActivate: [
-                            src_app_guards_app_state_guard__WEBPACK_IMPORTED_MODULE_14__["AppStateGuard"]
-                        ],
+                        canActivate: [src_app_guards_app_state_guard__WEBPACK_IMPORTED_MODULE_14__["PreventAppInstalledGuard"]],
                         children: [
                             {
                                 path: '',
@@ -1918,6 +3176,7 @@ var RoutesModule = /** @class */ (function () {
                     }, {
                         path: 'auth',
                         component: src_app_components_auth_auth_component__WEBPACK_IMPORTED_MODULE_13__["AuthComponent"],
+                        canActivate: [src_app_guards_check_app_installed_guard__WEBPACK_IMPORTED_MODULE_19__["PreventAppNotInstalledGuard"]],
                         children: [
                             {
                                 path: 'logout',
@@ -1932,6 +3191,8 @@ var RoutesModule = /** @class */ (function () {
                         ]
                     }, {
                         path: 'dashboard',
+                        component: src_app_components_dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_16__["DashboardComponent"],
+                        canActivate: [src_app_guards_require_logged_guard__WEBPACK_IMPORTED_MODULE_17__["RequireLoggedGuard"]],
                         children: [
                             {
                                 path: '',
@@ -1942,6 +3203,9 @@ var RoutesModule = /** @class */ (function () {
                             }, {
                                 path: 'modules',
                                 component: src_app_components_dashboard_modules_modules_component__WEBPACK_IMPORTED_MODULE_10__["ModulesComponent"]
+                            }, {
+                                path: 'modules/upload',
+                                component: src_app_components_dashboard_modules_upload_modules_upload_component__WEBPACK_IMPORTED_MODULE_18__["ModulesUploadComponent"]
                             }, {
                                 path: 'settings',
                                 component: src_app_components_dashboard_settings_settings_component__WEBPACK_IMPORTED_MODULE_11__["SettingsComponent"]
