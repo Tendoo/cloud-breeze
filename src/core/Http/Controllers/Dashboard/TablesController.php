@@ -33,6 +33,9 @@ class TablesController extends DashboardController
             ],
             'created_at'    =>  [
                 'label' =>  __( 'Joined On' )
+            ],
+            '$actions'      =>  [
+                'label' =>  __( 'Actions' )
             ]
         ];
     }

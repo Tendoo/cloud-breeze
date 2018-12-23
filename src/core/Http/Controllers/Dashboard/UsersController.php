@@ -11,6 +11,8 @@ use Tendoo\Core\Http\Requests\UserProfileRequest;
 use Tendoo\Core\Http\Requests\PostUserSecurityRequest;
 use Tendoo\Core\Models\User;
 use Tendoo\Core\Models\Oauth;
+use Tendoo\Core\Models\Option as OptionModel;
+use Tendoo\Core\Exceptions\CoreException;
 
 class UsersController extends DashboardController
 {
@@ -34,7 +36,53 @@ class UsersController extends DashboardController
             return User::find( $id );
         }
 
-        return User::all();
+        return User::all()->map( function( $user ) use ( $id ) {
+            $actions                =   '$actions';
+            $isAuthenticated        =   Auth::id() !== intval( $id );
+            $user->{$actions}       =   [
+                [
+                    'label'     =>  $isAuthenticated ? __( 'Profile' ) : __( 'Edit' ),
+                    'namespace' =>  $isAuthenticated ? 'profil' : 'edit',
+                    'type'      =>  'GOTO',
+                    'index'     =>  'id',
+                    'url'       =>  $isAuthenticated ? 'dashboard/profile' : '/dashboard/users/edit/#'
+                ], [
+                    'label'     =>  __( 'Delete' ),
+                    'namespace' =>  'delete',
+                    'type'      =>  'DELETE',
+                    'index'     =>  'id',
+                    'url'       =>  route( 'delete.user' ) . '/#',
+                    'confirm'   =>  [
+                        'message'  =>  __( 'Would you like to delete this account ?' ),
+                        'title'     =>  __( 'Delete a user' )
+                    ]
+                ]
+            ];
+            return $user;
+        });
+    }
+
+    /**
+     * Delete User
+     * @param int user id
+     * @return json
+     */
+    public function deleteUser( $id )
+    {
+        if ( Auth::id() === intval( $id ) ) {
+            throw new CoreException([
+                'message'   =>  __( 'You cannot delete your own account.' ),
+                'status'    =>  'failed'
+            ]);
+        }
+
+        User::find( $id )->delete();
+        OptionModel::where( 'user_id', $id )->delete();
+        
+        return [
+            'status'    =>  'success',
+            'message'   =>  __( 'The user has been deleted.' )
+        ];
     }
 
     /**

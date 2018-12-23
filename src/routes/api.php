@@ -19,6 +19,7 @@ Route::middleware([ 'tendoo.cors', 'tendoo.prevent.flood', 'tendoo.auth' ])->gro
     Route::post( '/tendoo/modules/disable', 'Dashboard\ModulesController@disableModule' );
     Route::get( '/tendoo/tables/{namespace}', 'Dashboard\TablesController@tableColumn' );
     Route::get( '/tendoo/users/{id?}', 'Dashboard\UsersController@getUsers' );
+    Route::delete( '/tendoo/users/{id?}', 'Dashboard\UsersController@deleteUser' )->name( 'delete.user' );
 });
 
 Route::middleware([ 'tendoo.cors', 'tendoo.prevent.flood', 'tendoo.prevent.installed' ])->group( function() {

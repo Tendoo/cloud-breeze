@@ -69,6 +69,12 @@ import { PreventAppNotInstalledGuard } from "src/app/guards/check-app-installed.
                         path: 'users',
                         component: UsersComponent
                     }, {
+                        path: 'users/edit/:id',
+                        component: UsersComponent
+                    }, {
+                        path: 'users/create',
+                        component: UsersComponent
+                    }, {
                         path: 'modules',
                         component: ModulesComponent
                     }, {
