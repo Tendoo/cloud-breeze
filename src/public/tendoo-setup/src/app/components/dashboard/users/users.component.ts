@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { TendooUsersService } from 'src/app/services/tendoo-users.service';
 import { TendooService } from 'src/app/services/tendoo.service';
 import { Observable, forkJoin } from 'rxjs';
+import { TableColumnInterface } from 'src/app/interfaces/table-column.interface';
+import { TableEntryInterface } from 'src/app/interfaces/table-entry.interface';
 
 export interface PeriodicElement {
     id: number;
@@ -11,39 +13,16 @@ export interface PeriodicElement {
     symbol: string;
 }
 
-const ELEMENT_DATA: PeriodicElement[] = [
-    {id: 1, position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-    {id: 1, position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-    {id: 1, position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-    {id: 1, position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-    {id: 1, position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-    {id: 1, position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-    {id: 1, position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-    {id: 1, position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-    {id: 1, position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-    {id: 1, position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-    {id: 1, position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-    {id: 1, position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-    {id: 1, position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-    {id: 1, position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-    {id: 1, position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-    {id: 1, position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-    {id: 1, position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-    {id: 1, position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
-    {id: 1, position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-    {id: 1, position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
-    {id: 1, position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
-    {id: 1, position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
-];
-
 @Component({
     selector: 'app-users',
     templateUrl: './users.component.html',
     styleUrls: ['./users.component.css']
 })
 export class UsersComponent implements OnInit {
-    displayedColumns: string[] = [];
-    dataSource = ELEMENT_DATA;
+    columns: string[]                       =   [];
+    rawColumns: TableColumnInterface        =   {};
+    source:TableEntryInterface[]            =   [];
+
     constructor(
         public tendoo: TendooService
     ) { }
@@ -54,7 +33,9 @@ export class UsersComponent implements OnInit {
             this.tendoo.tables.getColumns( 'dashboard.users' )
         )
         .subscribe( ( response ) => {
-            console.log( response );
+            this.rawColumns     =   <TableColumnInterface>response[1];
+            this.columns        =   Object.keys( this.rawColumns );
+            this.source         =   <TableEntryInterface[]>response[0];
         })
     }
 

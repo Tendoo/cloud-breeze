@@ -4,7 +4,7 @@ namespace Tendoo\Core\Http\Controllers\Dashboard;
 use Tendoo\Core\Http\Controllers\DashboardController;
 use Illuminate\Http\Request;
 
-class tablesController extends DashboardController 
+class TablesController extends DashboardController 
 {
     public function tableColumn( $namespace ) 
     {
@@ -21,6 +21,19 @@ class tablesController extends DashboardController
      */
     private function __dashboardUsers()
     {
-        return [ 'id', 'username', 'email' ];
+        return [
+            'id'    =>  [
+                'label' =>  __( 'ID' ),
+            ],
+            'username'  =>  [
+                'label' =>  __( 'Username' )
+            ],
+            'email'     =>  [
+                'label' =>  __( 'Email' )
+            ],
+            'created_at'    =>  [
+                'label' =>  __( 'Joined On' )
+            ]
+        ];
     }
 }
