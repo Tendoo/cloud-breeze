@@ -18,6 +18,7 @@ import { DashboardComponent } from "src/app/components/dashboard/dashboard.compo
 import { RequireLoggedGuard } from "src/app/guards/require-logged.guard";
 import { ModulesUploadComponent } from "src/app/components/dashboard/modules-upload/modules-upload.component";
 import { PreventAppNotInstalledGuard } from "src/app/guards/check-app-installed.guard";
+import { UsersCreateComponent } from "src/app/components/dashboard/users-create/users-create.component";
 
 @NgModule({
     imports: [
@@ -73,7 +74,7 @@ import { PreventAppNotInstalledGuard } from "src/app/guards/check-app-installed.
                         component: UsersComponent
                     }, {
                         path: 'users/create',
-                        component: UsersComponent
+                        component: UsersCreateComponent
                     }, {
                         path: 'modules',
                         component: ModulesComponent

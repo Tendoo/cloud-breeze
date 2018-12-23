@@ -27,6 +27,7 @@ import { HomeComponent } from './components/home/home.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ModulesUploadComponent } from './components/dashboard/modules-upload/modules-upload.component';
 import { ConfirmDialogComponent } from './shared/confirm-dialog/confirm-dialog.component';
+import { UsersCreateComponent } from './components/dashboard/users-create/users-create.component';
 
 @NgModule({
     declarations: [
@@ -48,6 +49,7 @@ import { ConfirmDialogComponent } from './shared/confirm-dialog/confirm-dialog.c
         DashboardComponent,
         ModulesUploadComponent,
         ConfirmDialogComponent,
+        UsersCreateComponent,
     ],
     imports: [
         BrowserModule,

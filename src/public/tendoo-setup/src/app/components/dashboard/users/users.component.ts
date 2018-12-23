@@ -116,7 +116,7 @@ export class UsersComponent implements OnInit {
                 })
             break;
             case 'GET':
-                this.tendoo.get( url )
+                this.tendoo.getFields( url )
             break;
             case 'GOTO':
                 this.router.navigateByUrl( url );

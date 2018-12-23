@@ -63,7 +63,7 @@ export class LoaderService {
      * @param {string} url to access
      * @param data data to submit
      */
-    get( url ) {
+    getFields( url ) {
         return new Observable( ( observer ) => {
             this.isLoading  =   true;
             return this.http.get( url, {

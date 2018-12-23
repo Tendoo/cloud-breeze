@@ -8,7 +8,7 @@ return [
      */
     'flood'             =>  [
         'prevent'       =>  true,
-        'limit'         =>  5,
+        'limit'         =>  30,
         'expiration'    =>  60
     ],
 
