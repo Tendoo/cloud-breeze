@@ -5,31 +5,56 @@ import { Field } from 'src/app/interfaces/field';
 import { FormUrl } from 'src/app/interfaces/form-url';
 import { ValidationGenerator } from 'src/app/classes/validation-generator.class';
 import { FormGroup } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { MatSnackBar } from '@angular/material';
+import { AsyncResponse } from 'src/app/interfaces/async-response';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
     selector: 'app-users-edit',
     templateUrl: './users-edit.component.html',
     styleUrls: ['./users-edit.component.css']
 })
-export class UsersEditComponentE implements OnInit {
+export class UsersEditComponent implements OnInit {
     
-    // fields: Field[]     =   [];
-    // formConfig: FormUrl;   
-    // form: FormGroup;
+    id: number;
+    fields: Field[]     =   [];
+    formConfig: FormUrl;   
+    form: FormGroup;
 
     constructor(
-        public tendoo: TendooService
+        public tendoo: TendooService,
+        private activeRoute: ActivatedRoute,
+        private snackbar: MatSnackBar
     ) { }
     
     ngOnInit() {
-        // forkJoin(
-        //     this.tendoo.forms.getForm( 'dashboard.users.edit' ),
-        // ).subscribe( forkResult => {
-        //     this.fields         =   <Field[]>forkResult[0][ 'fields' ];
-        //     this.formConfig     =   <FormUrl>forkResult[0][ 'url' ]
-        //     const fields        =   ValidationGenerator.buildFormControls( this.fields );
-        //     this.form           =   new FormGroup( fields );
-        // })
+        this.id    =   +this.activeRoute.snapshot.paramMap.get( 'id' );
+        forkJoin(
+            this.tendoo.forms.getForm( 'dashboard.users.edit', this.id ),
+        ).subscribe( forkResult => {
+            this.fields         =   <Field[]>forkResult[0][ 'fields' ];
+            this.formConfig     =   <FormUrl>forkResult[0][ 'url' ]
+            const fields        =   ValidationGenerator.buildFormControls( this.fields );
+            this.form           =   new FormGroup( fields );
+        })
     }
     
+    submit() {
+        ValidationGenerator.touchAllFields( this.form );
+
+        if ( ! this.form.valid ) {
+            this.snackbar.open( 'The form has some errors, please check it and try again ! ', 'OK', {
+                duration: 4000
+            });
+        }
+
+        this.tendoo.users.edit( this.id, this.form.value ).subscribe( (result:AsyncResponse) => {
+            this.snackbar.open( result.message, 'OK', {
+                duration: 3000
+            });
+        }, ( response: HttpErrorResponse ) => {
+            this.snackbar.open( response.error.message );
+        });
+    }
 }

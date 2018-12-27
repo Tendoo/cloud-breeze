@@ -11,6 +11,8 @@ class User extends Authenticatable
 {
     use Notifiable;
 
+    protected $table  =   'tendoo_users';
+
     /** @var */
     public $user_id;
 

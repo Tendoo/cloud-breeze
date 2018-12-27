@@ -33,9 +33,9 @@ class FieldsController extends DashboardController
     {
         switch( $namespace ) {
             case 'dashboard.users.create':
-                return $this->fields->createUserFields( $index );
+            case 'dashboard.users.edit':
+                return Field::setupUserFields( $index );
             break;
         }
-
     }
 }

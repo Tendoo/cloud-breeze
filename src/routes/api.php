@@ -10,7 +10,7 @@ Route::middleware([ 'tendoo.cors', 'tendoo.prevent.flood', 'tendoo.prevent.not-i
     Route::post( '/tendoo/auth/registration', 'OauthControllers@postRegistration' );
 });
 
-Route::middleware([ 'tendoo.cors', 'tendoo.prevent.flood', 'tendoo.auth' ])->group( function() {    
+Route::middleware([ 'tendoo.cors', 'tendoo.prevent.not-installed', 'tendoo.prevent.flood', 'tendoo.auth' ])->group( function() {    
     Route::get( '/tendoo/permissions', 'OauthController@permissions' );
     Route::get( '/tendoo/tables/{namespace}', 'Dashboard\TablesController@tableColumn' );
     include_once( dirname( __FILE__ ) . '/api-routes/users.php' );

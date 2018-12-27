@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { LoaderService } from './loader.service';
+import { AsyncResponse } from '../interfaces/async-response';
+import { Observable } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
@@ -19,7 +21,7 @@ export class SetupService extends LoaderService {
         return this.post( this.baseUrl + 'tendoo/do-setup/application', fields );
     }
 
-    ping() {
-        return this.get( this.baseUrl + 'tendoo/ping' );
+    ping(): Observable<AsyncResponse> {
+        return <Observable<AsyncResponse>>this.get( this.baseUrl + 'tendoo/ping' );
     }
 }

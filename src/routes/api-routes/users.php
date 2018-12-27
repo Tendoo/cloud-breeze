@@ -1,5 +1,5 @@
 <?php
 Route::get( '/tendoo/users/{id?}', 'Dashboard\UsersController@getUsers' );
 Route::post( '/tendoo/users', 'Dashboard\UsersController@postUser' )->name( 'dashboard.post.user' );
-Route::put( '/tendoo/users/{id}', 'Dashboard\UsersController@editUser' )->name( 'dashboard.put.user' );
+Route::put( '/tendoo/users/{user}', 'Dashboard\UsersController@editUser' )->name( 'dashboard.put.user' );
 Route::delete( '/tendoo/users/{id?}', 'Dashboard\UsersController@deleteUser' )->name( 'delete.user' );

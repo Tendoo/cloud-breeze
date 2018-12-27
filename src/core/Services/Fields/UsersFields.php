@@ -1,13 +1,14 @@
 <?php
 namespace Tendoo\Core\Services\Fields;
 use Tendoo\Core\Models\Role;
+use Tendoo\Core\Models\User;
 use Tendoo\Core\Services\Helper;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
 trait UsersFields
 {
-    public function createUserFields( $user = false )
+    static function setupUserFields( $user = false )
     {
         $request                =   app()->make( Request::class );
 
@@ -32,6 +33,7 @@ trait UsersFields
         $active->type               =   'select';
         $active->placeholder        =   __( 'Active' );
         $active->validation         =   'required';
+        $active->description        =   __( 'The user will be able to login without validating his account.' );
         $active->options            =   [ 
             [
                 'value'     =>  0,
@@ -41,7 +43,6 @@ trait UsersFields
                 'label'     =>  __( 'Yes' )
             ]
         ];
-        $active->description        =   __( 'The user will be able to login without validating his account.' );
         
         $password                  =   new \stdClass;
         $password->name            =   'password';
@@ -70,17 +71,17 @@ trait UsersFields
          * The validation should be unique according
          * to the operation
          */
-        if ( is_object( $user ) ) {
+        if ( $user instanceof User ) {
             $email->validation      =   [
                 'required',
                 'email',
-                Rule::unique('users')->ignore( $user->id )
+                Rule::unique('tendoo_users')->ignore( $user->email, 'email' ),
             ];
 
             $username->validation   =   [ 
                 'required', 
                 'min:5', 
-                Rule::unique('users')->ignore( $user->id ),
+                Rule::unique('tendoo_users')->ignore( $user->username, 'username' ),
             ];
 
             $password->validation       =   'sometimes|nullable|min:6';
@@ -92,7 +93,7 @@ trait UsersFields
         /**
          * populate fields when required
          */
-        if ( $user ) {
+        if ( $user instanceof User ) {
             foreach ( $fields as &$field ) {
                 /**
                  * Field the field when provided
@@ -100,8 +101,19 @@ trait UsersFields
                 if ( $field->name != 'password' ) {
                     $field->value       =   @$user->{$field->name};
                 }
+
+                if ( $field->type === 'select' && $field->name === 'active' ) {
+                    foreach( $field->options as &$data ) {
+                        if ( @$user->{$field->name} === true && intval( $data[ 'value' ] ) === 1 ) {
+                            $field->value           =   1;
+                        } else if ( @$user->{$field->name} === false && intval( $data[ 'value' ] ) === 0 ) {
+                            $field->value           =   0;
+                        }
+                    }
+                }
             }
         }
+
         return $fields;
     }
 }

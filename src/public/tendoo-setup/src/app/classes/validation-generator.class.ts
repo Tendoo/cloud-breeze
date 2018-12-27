@@ -9,11 +9,24 @@ export class ValidationGenerator {
      * @param string validation string;
      * @return array of validaiton
      */
-    static from( validation: string ): ValidatorFn[] | null {
+    static from( validation: string | any[] ): ValidatorFn[] | null {
+
+        
         if ( validation ) {
 
+            /**
+             * make sure to skip 
+             * validation of object
+             */
+            if ( typeof validation !== 'string' ) {
+                validation  =   (<any[]>validation).filter( rule => {
+                    return typeof rule === 'string'; 
+                });
+                validation  =   (<any[]>validation).join( '|' );
+            }
+
             let finalRules          =   [];
-            const rules             =   validation.split( '|' );
+            const rules             =   (<string>validation).split( '|' );
             const minRule 			=	/(min)\:([0-9])+/g;
             const maxRule 			=	/(max)\:([0-9])+/g;
             const matchRule         =   /(matches):(\w+)/g;

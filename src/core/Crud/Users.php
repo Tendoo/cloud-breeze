@@ -69,8 +69,7 @@ class Users extends Crud
      */
     public function getFields( $entry = null ) 
     {
-        $fields     =   app()->make( Field::class );
-        return $fields->createUserFields( $entry );
+        return Field::setupUserFields( $entry );
     }
 
     /**

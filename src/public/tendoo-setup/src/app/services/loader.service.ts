@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { HttpResponseParserService } from './http-response-parser.service';
+import { AsyncResponse } from '../interfaces/async-response';
 
 declare const tendoo;
 
@@ -13,7 +15,8 @@ export class LoaderService {
     static headers  =   {};
 
     constructor(
-        protected http: HttpClient
+        protected http: HttpClient,
+        private httpParser: HttpResponseParserService
     ) {}
 
     /**
@@ -24,16 +27,38 @@ export class LoaderService {
     post( url:string, data: { [ key:string] : any } ) {
         return new Observable( ( observer ) => {
             this.isLoading  =   true;
-            return this.http.post( url, data, {
+            return this.__formDataResponse( <Observable<AsyncResponse>>this.http.post( url, data, {
                 headers: LoaderService.headers
-            }).subscribe( result => {
+            }), observer )
+        });
+    }
+
+    private __formDataResponse( http: Observable<AsyncResponse>, observer ) {
+        return http.subscribe( (result: AsyncResponse) => {
+            this.httpParser.parse( result ).then( () => {
                 this.isLoading  =   false;
                 observer.next( result );
                 observer.complete();
-            }, error => {
-                this.isLoading  =   false;
-                observer.error( error );
             })
+        }, (result: HttpErrorResponse ) => {
+            this.httpParser.parse( result.error ).then( () => {
+                this.isLoading  =   false;
+                observer.error( result );
+            });
+        })
+    }
+
+    /**
+     * Submit put request
+     * @param {string} url to access
+     * @param data data to submit
+     */
+    put( url:string, data: { [ key:string] : any } ) {
+        return new Observable( ( observer ) => {
+            this.isLoading  =   true;
+            return this.__formDataResponse( <Observable<AsyncResponse>>this.http.put( url, data, {
+                headers: LoaderService.headers
+            }), observer )
         });
     }
     
@@ -51,9 +76,11 @@ export class LoaderService {
                 this.isLoading  =   false;
                 observer.next( result );
                 observer.complete();
-            }, error => {
-                this.isLoading  =   false;
-                observer.error( error );
+            }, (result: HttpErrorResponse ) => {
+                this.httpParser.parse( result.error ).then( () => {
+                    this.isLoading  =   false;
+                    observer.error( result );
+                });
             })
         });
     }
@@ -68,13 +95,17 @@ export class LoaderService {
             this.isLoading  =   true;
             return this.http.get( url, {
                 headers: LoaderService.headers
-            }).subscribe( result => {
-                this.isLoading  =   false;
-                observer.next( result );
-                observer.complete();
-            }, error => {
-                this.isLoading  =   false;
-                observer.error( error );
+            }).subscribe( (result: AsyncResponse ) => {
+                this.httpParser.parse( result ).then( () => {
+                    this.isLoading  =   false;
+                    observer.next( result );
+                    observer.complete();
+                })
+            }, (result: HttpErrorResponse ) => {
+                this.httpParser.parse( result.error ).then( () => {
+                    this.isLoading  =   false;
+                    observer.error( result );
+                });
             })
         });
     }

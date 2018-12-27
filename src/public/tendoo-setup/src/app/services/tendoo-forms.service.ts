@@ -5,7 +5,13 @@ import { LoaderService } from './loader.service';
     providedIn: 'root'
 })
 export class TendooFormsService extends LoaderService {
-    getForm( namespace:string ) {
-        return this.get( this.baseUrl + '/tendoo/forms/' + namespace );
+    getForm( namespace:string, index?: number ) {
+        let url   =   this.baseUrl + '/tendoo/forms/' + namespace;
+
+        if ( index !== undefined ) {
+            url     +=  '/' + index
+        }
+
+        return this.get( url );
     }
 }

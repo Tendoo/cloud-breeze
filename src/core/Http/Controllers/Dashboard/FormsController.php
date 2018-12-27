@@ -33,6 +33,7 @@ class FormsController extends DashboardController
     {
         switch( $namespace ) {
             case 'dashboard.users.create':
+            case 'dashboard.users.edit':
                 return [
                     'url'   =>  [
                         'post'  =>  route( 'dashboard.post.user' ),
@@ -40,7 +41,7 @@ class FormsController extends DashboardController
                             'id'    =>  $index
                         ]),
                     ],
-                    'fields'    =>  $this->fields->createUserFields( $index )
+                    'fields'    =>  Field::setupUserFields( User::find( $index ) )
                 ];
             break;
         }

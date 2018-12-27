@@ -13,8 +13,8 @@ class CreateTendooUsersTable extends Migration
      */
     public function up()
     {
-        Schema::dropIfExists('users');
-        Schema::create('users', function (Blueprint $table) {
+        Schema::dropIfExists('tendoo_users');
+        Schema::create('tendoo_users', function (Blueprint $table) {
             $table->increments('id');
             $table->string( 'username' );
             $table->boolean( 'active' )->default( false );
@@ -33,6 +33,6 @@ class CreateTendooUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('tendoo_users');
     }
 }

@@ -22,7 +22,7 @@ class Field
      * Accept Trait method name which must return an array of fields
      * @return array
      */
-    static function buildValidation( $method )
+    static function buildValidation( $method, $params = [] )
     {
         /**
          * check if we're submitting various field methods
@@ -43,12 +43,13 @@ class Field
         } else {
 
             /**
-             * We're here dealing with string only
+             * We do call the validation method with a parameter
+             * provided
              */
-            $fields         =   self::$method();
+            $fields         =   call_user_func_array([ Field::class, $method ], $params );
             $validation     =   [];
             if ( $fields ) {
-                foreach( self::$method() as $field ) {
+                foreach( $fields as $field ) {
                     // if field provide validation
                     if ( @$field->validation ) {
                         $validation[ $field->name ]     =   $field->validation;

@@ -1,28 +1,28 @@
 <div fxLayout="column" fxFlex="100%" style="overflow-y:auto">
-  <div fxFlex="150px" fxLayout="row" class="bg-primary p-1">
-      <div fxFlex>
-          <h1 class="mat-display-1 mb-0">Users</h1>
-          <span class="mat-title">create new users</span>
-      </div>
-      <div fxFlex="200px" fxLayoutAlign="end start">
-          <button routerLink="/dashboard/users" mat-button color="warn">Back to users</button>
-      </div>
-  </div>
-  <mat-progress-bar color="warn" style="height: 1px" *ngIf="tendoo.isLoading" mode="indeterminate"></mat-progress-bar>
-  <div class="p-2 bg-content" fxLayout="row" fxFlex="1 0 auto" fxLayout="row">
-      <mat-card fxFlex>
-          <mat-card-title>
-              Create a new user
-          </mat-card-title>
-          <mat-card-content>
-              <form [formGroup]="form" *ngIf="form">
-                  <app-fields *ngFor="let field of fields" [field]="field" [group]="form"></app-fields>
-              </form>
-          </mat-card-content>
-          <mat-divider></mat-divider>
-          <mat-card-actions>
-              <button [disabled]="tendoo.isLoading" mat-button (click)="submit()" color="primary">Submit</button>
-          </mat-card-actions>
-      </mat-card>
-  </div>
+    <div fxFlex="150px" fxLayout="row" class="bg-primary p-1">
+        <div fxFlex>
+            <h1 class="mat-display-1 mb-0">Users</h1>
+            <span class="mat-title">create new users</span>
+        </div>
+        <div fxFlex="200px" fxLayoutAlign="end start">
+            <button routerLink="/dashboard/users" mat-button color="warn">Back to users</button>
+        </div>
+    </div>
+    <mat-progress-bar color="warn" style="height: 1px" *ngIf="tendoo.isLoading" mode="indeterminate"></mat-progress-bar>
+    <div class="p-2 bg-content" fxLayout="row" fxFlex="1 0 auto" fxLayout="row">
+        <mat-card fxFlex>
+            <mat-card-title>
+                Edit a user
+            </mat-card-title>
+            <mat-card-content>
+                <form [formGroup]="form" *ngIf="form">
+                    <app-fields *ngFor="let field of fields" [field]="field" [group]="form"></app-fields>
+                </form>
+            </mat-card-content>
+            <mat-divider></mat-divider>
+            <mat-card-actions>
+                <button [disabled]="tendoo.isLoading" mat-button (click)="submit()" color="primary">Submit</button>
+            </mat-card-actions>
+        </mat-card>
+    </div>
 </div>

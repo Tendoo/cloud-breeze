@@ -10,6 +10,7 @@ use Tendoo\Core\Http\Controllers\DashboardController;
 use Tendoo\Core\Http\Requests\UserProfileRequest;
 use Tendoo\Core\Http\Requests\PostUserSecurityRequest;
 use Tendoo\Core\Http\Requests\PostRegisterRequest;
+use Tendoo\Core\Http\Requests\PutUserRequest;
 use Tendoo\Core\Models\User;
 use Tendoo\Core\Models\Oauth;
 use Tendoo\Core\Models\Option as OptionModel;
@@ -91,7 +92,7 @@ class UsersController extends DashboardController
      * @param int user id
      * @return view
      */
-    public function editUser( User $entry )
+    public function editUser( User $user, PutUserRequest $request )
     {
         $this->checkPermission( 'update.users' );
 
@@ -100,12 +101,26 @@ class UsersController extends DashboardController
          * We should redirect him to his profile
          * where he can't edit his role
          */
-        if ( Auth::id() == $entry->id ) {
-            return redirect()->route( 'dashboard.users.profile.general' );
+        if ( Auth::id() == $user->id ) {
+            throw new CoreException([
+                'message'   =>  __( 'Editing your own profile using that gateway is forbidden !' )
+            ]);
         }
 
-        $this->setTitle( __( 'Edit a user' ) );
-        return view( 'tendoo::components.backend.edit-user' );
+        $fields     =   $request->only([ 'active', 'password', 'role_id', 'username', 'email' ]);
+
+        foreach( $fields as $attribute => $value ) {
+            if ( $value !== null ) {
+                $user->$attribute  =   $value;
+            }
+        }
+
+        $user->save();
+
+        return [
+            'status'    =>  'success',
+            'message'   =>  __( 'The user has been successfully updated' )
+        ];
     }
 
     /**
