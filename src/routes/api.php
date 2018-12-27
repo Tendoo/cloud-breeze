@@ -10,16 +10,12 @@ Route::middleware([ 'tendoo.cors', 'tendoo.prevent.flood', 'tendoo.prevent.not-i
     Route::post( '/tendoo/auth/registration', 'OauthControllers@postRegistration' );
 });
 
-Route::middleware([ 'tendoo.cors', 'tendoo.prevent.flood', 'tendoo.auth' ])->group( function() {
+Route::middleware([ 'tendoo.cors', 'tendoo.prevent.flood', 'tendoo.auth' ])->group( function() {    
     Route::get( '/tendoo/permissions', 'OauthController@permissions' );
-    Route::get( '/tendoo/modules', 'Dashboard\ModulesController@modules' );
-    Route::post( '/tendoo/modules/upload', 'Dashboard\ModulesController@postModule' );
-    Route::delete( '/tendoo/modules/{namespace}', 'Dashboard\ModulesController@deleteModule' );
-    Route::post( '/tendoo/modules/enable', 'Dashboard\ModulesController@enableModule' );
-    Route::post( '/tendoo/modules/disable', 'Dashboard\ModulesController@disableModule' );
     Route::get( '/tendoo/tables/{namespace}', 'Dashboard\TablesController@tableColumn' );
-    Route::get( '/tendoo/users/{id?}', 'Dashboard\UsersController@getUsers' );
-    Route::delete( '/tendoo/users/{id?}', 'Dashboard\UsersController@deleteUser' )->name( 'delete.user' );
+    include_once( dirname( __FILE__ ) . '/api-routes/users.php' );
+    include_once( dirname( __FILE__ ) . '/api-routes/modules.php' );
+    include_once( dirname( __FILE__ ) . '/api-routes/forms.php' );
 });
 
 Route::middleware([ 'tendoo.cors', 'tendoo.prevent.flood', 'tendoo.prevent.installed' ])->group( function() {

@@ -66,6 +66,7 @@ export class UsersComponent implements OnInit {
         const url   =   menu.url.replace( "#", row[ menu.index || 'id' ] );
 
         if ( menu.confirm !== undefined ) {
+            console.log( menu.namespace );
             this.dialog.open( ConfirmDialogComponent, {
                 id: menu.namespace,
                 data: <ConfirmDialogObject>{
@@ -116,7 +117,7 @@ export class UsersComponent implements OnInit {
                 })
             break;
             case 'GET':
-                this.tendoo.getFields( url )
+                this.tendoo.get( url )
             break;
             case 'GOTO':
                 this.router.navigateByUrl( url );

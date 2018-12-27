@@ -28,6 +28,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ModulesUploadComponent } from './components/dashboard/modules-upload/modules-upload.component';
 import { ConfirmDialogComponent } from './shared/confirm-dialog/confirm-dialog.component';
 import { UsersCreateComponent } from './components/dashboard/users-create/users-create.component';
+import { UsersEditComponent } from './components/Dashboard/users-edit/users-edit.component';
 
 @NgModule({
     declarations: [
@@ -50,6 +51,7 @@ import { UsersCreateComponent } from './components/dashboard/users-create/users-
         ModulesUploadComponent,
         ConfirmDialogComponent,
         UsersCreateComponent,
+        UsersEditComponent,
     ],
     imports: [
         BrowserModule,

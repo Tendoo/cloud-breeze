@@ -6,7 +6,13 @@ import { TendooAuthService } from './tendoo-auth.service';
     providedIn: 'root'
 })
 export class TendooFieldsService extends TendooAuthService {
-    get( namespace ): Observable<{}> {
+    
+    /**
+     * Get fieds for a specific namespace
+     * @param string field namespace
+     * @return Objservable.
+     */
+    getFields( namespace:string ): Observable<{}> {
         return this.get( this.baseUrl + 'tendoo/fields/' + namespace );
     }
 }

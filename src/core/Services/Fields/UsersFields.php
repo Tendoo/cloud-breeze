@@ -32,7 +32,15 @@ trait UsersFields
         $active->type               =   'select';
         $active->placeholder        =   __( 'Active' );
         $active->validation         =   'required';
-        $active->options            =   [ __( 'No' ), __( 'Yes' ) ];
+        $active->options            =   [ 
+            [
+                'value'     =>  0,
+                'label'     =>  __( 'No' )
+            ], [
+                'value'     =>  1,
+                'label'     =>  __( 'Yes' )
+            ]
+        ];
         $active->description        =   __( 'The user will be able to login without validating his account.' );
         
         $password                  =   new \stdClass;
@@ -55,7 +63,7 @@ trait UsersFields
         $role->type                 =   'select';
         $role->placeholder          =   __( 'Role' );
         $role->validation           =   'required';
-        $role->options              =   Helper::toOptions( Role::all(), [ 'id', 'name' ]);
+        $role->options              =   Helper::toJsOptions( Role::all(), [ 'id', 'name' ]);
         $role->description          =   __( 'Make sure to know all permission allowed per roles.' );
 
         /**

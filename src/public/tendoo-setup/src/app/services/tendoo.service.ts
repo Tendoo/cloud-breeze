@@ -6,6 +6,7 @@ import { TendooFieldsService } from './tendoo-fields.service';
 import { TendooModulesService } from './tendoo-modules.service';
 import { TendooUsersService } from './tendoo-users.service';
 import { TendooTableService } from './tendoo-table.service';
+import { TendooFormsService } from './tendoo-forms.service';
 
 @Injectable({
     providedIn: 'root'
@@ -18,7 +19,8 @@ export class TendooService extends LoaderService {
         public fields: TendooFieldsService,
         public modules: TendooModulesService,
         public users: TendooUsersService,
-        public tables: TendooTableService
+        public tables: TendooTableService,
+        public forms: TendooFormsService
     ) {
         super( http );
     }

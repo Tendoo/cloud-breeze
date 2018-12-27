@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use Tendoo\Core\Http\Controllers\DashboardController;
 use Tendoo\Core\Http\Requests\UserProfileRequest;
 use Tendoo\Core\Http\Requests\PostUserSecurityRequest;
+use Tendoo\Core\Http\Requests\PostRegisterRequest;
 use Tendoo\Core\Models\User;
 use Tendoo\Core\Models\Oauth;
 use Tendoo\Core\Models\Option as OptionModel;
@@ -38,7 +39,7 @@ class UsersController extends DashboardController
 
         return User::all()->map( function( $user ) use ( $id ) {
             $actions                =   '$actions';
-            $isAuthenticated        =   Auth::id() !== intval( $id );
+            $isAuthenticated        =   Auth::id() === $user->id;
             $user->{$actions}       =   [
                 [
                     'label'     =>  $isAuthenticated ? __( 'Profile' ) : __( 'Edit' ),
@@ -138,41 +139,37 @@ class UsersController extends DashboardController
             'message'   =>  __( 'Your password has been updated.' )
         ]);
     }
-    
-    /**
-     * Show current logged user profile
-     * @param void
-     * @return view
-     */
-    public function showGeneral()
-    {
-        $this->checkPermission( 'read.profile' );
-        $this->setTitle( __( 'My Profile' ) );
-        
-        $view_path  =   'tendoo::components.backend.user.general';
-
-        return view( 'tendoo::components.backend.user', [
-            'tab'           =>  'general',
-            'view_path'     =>  $view_path
-        ]);
-    }
 
     /**
-     * Show profile security tab
-     * @param void
-     * @return view
+     * Create a user
+     * @param Request
+     * @return AsyncResponse
      */
-    public function showSecurity()
+    public function postUser( PostRegisterRequest $request ) 
     {
-        $this->checkPermission( 'read.profile' );
-        $this->setTitle( __( 'My Profile' ) );
-        
-        $view_path  =   'tendoo::components.backend.user.security';
+        $fields     =   $request->only([ 'active', 'password', 'role_id', 'username', 'email' ]);
 
-        return view( 'tendoo::components.backend.user', [
-            'tab'           =>  'security',
-            'view_path'     =>  $view_path
-        ]);
+        if ( $fields ) {
+            $user   =   new User;
+            foreach( $fields as $field => $value ) {
+                $user->$field   =   $value;
+            }
+
+            /**
+             * might need to perform some extra task here
+             */
+            $user->save();
+
+            return [
+                'status'    =>  'success',
+                'message'   =>  __( 'The user has been created' )
+            ];
+        }
+        
+        return response()->json([
+            'status'    =>  'failed',
+            'message'   =>  __( 'Unable to proceed. The Request is not valid' )
+        ], 403 );
     }
 
     /**

@@ -19,6 +19,7 @@ import { RequireLoggedGuard } from "src/app/guards/require-logged.guard";
 import { ModulesUploadComponent } from "src/app/components/dashboard/modules-upload/modules-upload.component";
 import { PreventAppNotInstalledGuard } from "src/app/guards/check-app-installed.guard";
 import { UsersCreateComponent } from "src/app/components/dashboard/users-create/users-create.component";
+import { UsersEditComponent } from "src/app/components/dashboard/users-edit/users-edit.component";
 
 @NgModule({
     imports: [
@@ -71,7 +72,7 @@ import { UsersCreateComponent } from "src/app/components/dashboard/users-create/
                         component: UsersComponent
                     }, {
                         path: 'users/edit/:id',
-                        component: UsersComponent
+                        component: UsersEditComponent
                     }, {
                         path: 'users/create',
                         component: UsersCreateComponent

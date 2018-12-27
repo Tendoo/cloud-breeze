@@ -51,4 +51,26 @@ trait ArrayHelper {
         }
         return [];
     }
+
+    /**
+     * to JS options
+     * @param array
+     * @return an array of options
+     */
+    static function toJsOptions( $collections, $config ) 
+    {
+        $result         =   [];
+        if ( $collections ) {
+            foreach ( $collections as $collection ) {
+                $id     =   $config[0];
+                $name   =   $config[1];
+                $result[]   =  [
+                    'label'     =>  $collection->$name,
+                    'value'     =>  $collection->$id
+                ];
+            }
+            return $result;
+        }
+        return [];
+    }
 }

@@ -20,6 +20,6 @@ export class SetupService extends LoaderService {
     }
 
     ping() {
-        return this.getFields( this.baseUrl + 'tendoo/ping' );
+        return this.get( this.baseUrl + 'tendoo/ping' );
     }
 }
