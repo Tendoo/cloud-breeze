@@ -63,7 +63,7 @@ export class LoginComponent implements OnInit {
             this.snackbar.open( result.message, null, {
                 duration: 3000
             });
-            this.router.navigateByUrl( 'dashboard/users/create' );
+            this.router.navigateByUrl( 'dashboard/users' );
 
             /**
              * delay redirecting

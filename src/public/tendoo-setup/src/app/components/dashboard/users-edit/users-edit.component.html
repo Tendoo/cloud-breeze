@@ -21,7 +21,8 @@
             </mat-card-content>
             <mat-divider></mat-divider>
             <mat-card-actions>
-                <button [disabled]="tendoo.isLoading" mat-button (click)="submit()" color="primary">Submit</button>
+                <button [disabled]="tendoo.users.isLoading" mat-button (click)="submit()" color="primary">Update</button>
+                <button [disabled]="tendoo.users.isLoading" mat-button (click)="submit( true )" color="primary">Update & Return</button>
             </mat-card-actions>
         </mat-card>
     </div>

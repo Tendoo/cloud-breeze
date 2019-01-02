@@ -5,7 +5,7 @@ import { Field } from 'src/app/interfaces/field';
 import { FormUrl } from 'src/app/interfaces/form-url';
 import { ValidationGenerator } from 'src/app/classes/validation-generator.class';
 import { FormGroup } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
 import { AsyncResponse } from 'src/app/interfaces/async-response';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -25,7 +25,8 @@ export class UsersEditComponent implements OnInit {
     constructor(
         public tendoo: TendooService,
         private activeRoute: ActivatedRoute,
-        private snackbar: MatSnackBar
+        private snackbar: MatSnackBar,
+        private route: Router
     ) { }
     
     ngOnInit() {
@@ -40,7 +41,7 @@ export class UsersEditComponent implements OnInit {
         })
     }
     
-    submit() {
+    submit( shouldReturn: boolean ) {
         ValidationGenerator.touchAllFields( this.form );
 
         if ( ! this.form.valid ) {
@@ -53,8 +54,29 @@ export class UsersEditComponent implements OnInit {
             this.snackbar.open( result.message, 'OK', {
                 duration: 3000
             });
+
+            /**
+             * if the user has requested, let's take him back where he has been
+             */
+            if ( shouldReturn ) {
+                this.route.navigateByUrl( '/dashboard/users' );
+            }
         }, ( response: HttpErrorResponse ) => {
             this.snackbar.open( response.error.message );
+
+            /**
+             * make sure to hightlight 
+             * the fields which has a problem
+             */
+            const errors     =   response.error.errors;
+            for( let error in errors ) {
+                this.form.get( error ).setErrors({ error: true });
+                this.fields.forEach( field => {
+                    if ( field.name === error ) {
+                        field.errors    =   errors[ field.name ];
+                    }
+                })
+            }
         });
     }
 }

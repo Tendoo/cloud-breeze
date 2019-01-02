@@ -64,7 +64,7 @@ trait AuthFields {
         $Field->type            =   'email';
         $Field->label           =   __( 'Email' );
         $Field->placeholder     =   __( 'Email' );
-        $Field->validation      =   'required|email|unique:users';
+        $Field->validation      =   'required|email|unique:tendoo_users';
         return $Field;
     }
 
@@ -111,7 +111,7 @@ trait AuthFields {
         $Field->type            =   'text';
         $Field->label           =   __( 'Username' );
         $Field->placeholder     =   __( 'Username' );
-        $Field->validation      =   'required|min:5|unique:users';
+        $Field->validation      =   'required|min:5|unique:tendoo_users';
         return $Field;
     }
 

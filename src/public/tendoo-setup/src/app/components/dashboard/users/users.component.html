@@ -24,7 +24,7 @@
                         </td>
                     </ng-container>
                     <ng-container *ngIf="column === '$actions'">
-                        <th mat-header-cell *matHeaderCellDef>{{ rawColumns[ column ].label }}</th>
+                        <th mat-header-cell *matHeaderCellDef width="80">{{ rawColumns[ column ].label }}</th>
                         <td mat-cell *matCellDef="let element">
                             <mat-menu #tableEntryMenu="matMenu">
                                 <button (click)="triggerMenu( menu, element )" *ngFor="let menu of element.$actions" mat-menu-item>{{ menu.label }}</button>

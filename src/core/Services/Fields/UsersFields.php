@@ -18,14 +18,14 @@ trait UsersFields
         $username->type         =   'text';
         $username->placeholder  =   __( 'Username' );
         $username->description  =   __( 'Please choose a unique username' );
-        $username->validation   =   'required|min:5|unique:users';
+        $username->validation   =   'required|min:5|unique:tendoo_users';
         
         $email                  =   new \stdClass;
         $email->name            =   'email';
         $email->label           =   __( 'Email' );
         $email->type            =   'text';
         $email->placeholder     =   __( 'Email' );
-        $email->validation      =   'required|email|unique:users';
+        $email->validation      =   'required|email|unique:tendoo_users';
         
         $active                     =   new \stdClass;
         $active->name               =   'active';
@@ -75,13 +75,13 @@ trait UsersFields
             $email->validation      =   [
                 'required',
                 'email',
-                Rule::unique('tendoo_users')->ignore( $user->email, 'email' ),
+                Rule::unique('tendoo_users')->ignore( $user->id ),
             ];
 
             $username->validation   =   [ 
                 'required', 
                 'min:5', 
-                Rule::unique('tendoo_users')->ignore( $user->username, 'username' ),
+                Rule::unique('tendoo_users')->ignore( $user->id ),
             ];
 
             $password->validation       =   'sometimes|nullable|min:6';

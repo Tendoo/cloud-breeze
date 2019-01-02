@@ -106,6 +106,7 @@ export class UsersComponent implements OnInit {
             case 'DELETE':
                 this.tendoo.delete( url ).subscribe( (result: AsyncResponse ) => {
                     this.ngOnInit();
+                    this.dialog.getDialogById( menu.namespace ).close();
                     return this.snackbar.open( result.message, 'OK', {
                         duration: 4000 
                     });

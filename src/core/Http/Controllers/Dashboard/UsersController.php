@@ -92,9 +92,11 @@ class UsersController extends DashboardController
      * @param int user id
      * @return view
      */
-    public function editUser( User $user, PutUserRequest $request )
+    public function editUser( $id, PutUserRequest $request )
     {
         $this->checkPermission( 'update.users' );
+
+        $user   =   User::findOrFail( $id );
 
         /**
          * If the user who attempt to edit is the currently logged user.
@@ -111,7 +113,9 @@ class UsersController extends DashboardController
 
         foreach( $fields as $attribute => $value ) {
             if ( $value !== null ) {
-                $user->$attribute  =   $value;
+                $attribute === 'password' ? 
+                    $user->$attribute   =   bcrypt( $value ) : 
+                    $user->$attribute  =   $value;
             }
         }
 
@@ -166,8 +170,11 @@ class UsersController extends DashboardController
 
         if ( $fields ) {
             $user   =   new User;
+
             foreach( $fields as $field => $value ) {
-                $user->$field   =   $value;
+                $field  === 'password' ? 
+                    $user->$field   =   bcrypt( $value ) : 
+                    $user->$field   =   $value;
             }
 
             /**
