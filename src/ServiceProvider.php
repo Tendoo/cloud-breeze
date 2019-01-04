@@ -51,7 +51,22 @@ class ServiceProvider extends CoreServiceProvider
      * boot method
      */
     public function boot( Router $router )
-    {
+    {        
+        /**
+         * Register DotEnv Editor
+         */
+        $this->app->bind( 'dotenv-editor', 'Jackiedo\DotenvEditor\DotenvEditor');
+        $this->app->bind( 'tendoo.doteditor', 'Jackiedo\DotenvEditor\DotenvEditor');
+        $this->app->bind( 'tendoo.hook', 'TorMorten\Eventy\Events');
+    
+        /**
+         * register CURL
+         */
+        $this->app->bind( 'tendoo.curl', 'Ixudra\Curl\CurlService' );
+        $this->app->bind( 'tendoo.page', 'Tendoo\Core\Services\Page' );
+        $this->app->bind( 'tendoo.helper', 'Tendoo\Core\Services\Helper' );
+        $this->app->bind( 'tendoo.field', 'Tendoo\Core\Services\Field' );
+        $this->app->bind( 'tendoo.modules', 'Tendoo\Core\Services\Modules' );
         
         /**
          * Register the route provider 
@@ -65,22 +80,6 @@ class ServiceProvider extends CoreServiceProvider
         $this->app->register( \Tendoo\Core\Providers\TendooRouteServiceProvider::class );
         $this->app->register( 'TorMorten\Eventy\EventServiceProvider' );
         $this->app->register( 'TorMorten\Eventy\EventBladeServiceProvider' );
-        
-        /**
-         * Register DotEnv Editor
-         */
-        $this->app->bind('dotenv-editor', 'Jackiedo\DotenvEditor\DotenvEditor');
-        $this->app->bind('tendoo.doteditor', 'Jackiedo\DotenvEditor\DotenvEditor');
-        $this->app->bind( 'tendoo.hook', 'TorMorten\Eventy\Events');
-
-        /**
-         * register CURL
-         */
-        $this->app->bind( 'tendoo.curl', 'Ixudra\Curl\CurlService' );
-        $this->app->bind( 'tendoo.page', 'Tendoo\Core\Services\Page' );
-        $this->app->bind( 'tendoo.helper', 'Tendoo\Core\Services\Helper' );
-        $this->app->bind( 'tendoo.field', 'Tendoo\Core\Services\Field' );
-        $this->app->bind( 'tendoo.modules', 'Tendoo\Core\Services\Modules' );
 
         /**
          * Register Middleware

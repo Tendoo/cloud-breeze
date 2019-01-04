@@ -1,3 +1,4 @@
 export interface TableEntryInterface {
-    [ key: string] : any
+    [ key: string] : any,
+    $checked: boolean;
 }

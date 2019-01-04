@@ -3,6 +3,7 @@ namespace Tendoo\Core\Services\Helpers;
 
 use Jackiedo\DotenvEditor\Facades\DotenvEditor;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Log;
 
 trait App {
     /**
@@ -11,7 +12,8 @@ trait App {
      */
     static function AppIsInstalled()
     {
-        return env( 'TENDOO_VERSION', false ) && ! in_array( env( 'TENDOO_VERSION', false ), [ '', null, false ]);
+        $env    =   DotenvEditor::getKeys();
+        return @$env[ 'TENDOO_VERSION' ][ 'value' ] !== null;
     }
 
     /**

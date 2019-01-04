@@ -29,6 +29,7 @@ export class UsersComponent implements OnInit {
     rawColumns: TableColumnInterface        =   {};
     source:TableEntryInterface[]            =   [];
     reservedColumns: string[]               =   [ '$actions' ];
+    checkAll: any;
 
     constructor(
         public tendoo: TendooService,
@@ -124,5 +125,17 @@ export class UsersComponent implements OnInit {
                 this.router.navigateByUrl( url );
             break;
         }
+    }
+
+    /**
+     * Make sure to toggle all
+     * checkboxes when the main checkbox
+     * is clicked
+     * @return void
+     */
+    checkAllCheckboxes() {
+        this.source.forEach( checkbox => {
+            checkbox.$checked       =   this.checkAll;
+        })
     }
 }

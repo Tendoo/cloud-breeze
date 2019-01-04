@@ -28,6 +28,15 @@ class TablesController extends DashboardController
             'username'  =>  [
                 'label' =>  __( 'Username' )
             ],
+            'active'        =>  [
+                'label'     =>  __( 'Active' ),
+                'type'      =>  'boolean',
+                'replace'   =>  [
+                    true            =>  __( 'Yes' ),
+                    false           =>  __( 'No' ),
+                    '$default'      =>  __( 'Undefined' )
+                ]
+            ],
             'email'     =>  [
                 'label' =>  __( 'Email' )
             ],
