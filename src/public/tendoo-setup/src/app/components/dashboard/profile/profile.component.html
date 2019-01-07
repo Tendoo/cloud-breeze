@@ -1,0 +1,39 @@
+<div fxLayout="column" fxFlex="100%" style="overflow-y:auto">
+    <div fxFlex="200px" fxLayout="row" class="bg-primary p-3">
+        <div fxFlex fxLayout="row">
+            <div style="margin-right: 20px">
+                <img class="avatar-image" src="http://laravel-5703.go/tendoo/assets/images/avatar.png" alt="">
+            </div>
+            <div>
+                <h1 class="mat-display-1 mb-0">{{ auth.getUser().username }}</h1>
+                <span class="mat-title">{{ auth.getUser().role.name }}</span>
+            </div>
+        </div>
+        <div fxFlex="200px" fxLayoutAlign="end start">
+        </div>
+    </div>
+    <div fxFlex fxLayout="row" class="profile-background" fxFill fxLayoutAlign="center">
+        <div fxFlex="97%" class="profile-container">
+            <mat-card class="p-0" *ngIf="tabs">
+                <mat-card-title class="p-1 mb-0">Profile Settings</mat-card-title>
+                <mat-divider></mat-divider>
+                <mat-card-content class="p-0">
+                    <ng-container *ngFor="let tab of tabs">
+                        <form [formGroup]="tab.form"></form>
+                        <mat-tab-group>
+                            <mat-tab label="Security" (click)="setTabActive( tab )">
+                                <div class="p-2">
+                                    <app-fields *ngFor="let field of tab.fields" [field]="field" [group]="tab.form"></app-fields>
+                                </div>
+                            </mat-tab>
+                        </mat-tab-group>
+                    </ng-container>
+                </mat-card-content>
+                <mat-divider></mat-divider>
+                <mat-card-actions class="p-1 m-0">
+                    <button mat-button (click)="saveTabSettings( activeTab )" color="primary">Save</button>
+                </mat-card-actions>
+            </mat-card>
+        </div>
+    </div>
+</div>

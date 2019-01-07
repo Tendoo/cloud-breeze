@@ -8,6 +8,7 @@ import { TendooUsersService } from './tendoo-users.service';
 import { TendooTableService } from './tendoo-table.service';
 import { TendooFormsService } from './tendoo-forms.service';
 import { HttpResponseParserService } from './http-response-parser.service';
+import { TendooTabsService } from './tendoo-tabs.service';
 
 @Injectable({
     providedIn: 'root'
@@ -23,6 +24,7 @@ export class TendooService extends LoaderService {
         public users: TendooUsersService,
         public tables: TendooTableService,
         public forms: TendooFormsService,
+        public tabs: TendooTabsService,
     ) {
         super( http, httpParser );
     }

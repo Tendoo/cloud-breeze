@@ -10,6 +10,7 @@ use Tendoo\Core\Services\AuthService;
 use Tendoo\Core\Models\Oauth as OauthModel;
 use Illuminate\Support\Facades\Auth;
 use Tendoo\Core\Models\Application;
+use Tendoo\Core\Models\User;
 use Carbon\Carbon;
 use Exception;
 use Tendoo\Core\Exceptions\OauthDeniedException;
@@ -128,7 +129,8 @@ class OauthControllers extends BaseController
     public function postLogin( Request $request )
     {
         if ( Auth::attempt( $request->only( 'username', 'password' ) ) ) {
-            $user           =   Auth::user();
+            $user           =   User::find( Auth::user()->id );
+            $user->role     =   $user->role;
             return [
                 'status'    =>  'success',
                 'message'   =>  __( 'The user has been successfully connected' ),

@@ -1,0 +1,11 @@
+.avatar-image {
+    width: 100px;
+    border-radius: 50px;
+}
+.profile-container {
+    position: relative;
+    top: -53px;
+}
+.profile-background {
+    background: #EEE;
+}

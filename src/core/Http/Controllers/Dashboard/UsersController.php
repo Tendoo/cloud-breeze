@@ -47,7 +47,7 @@ class UsersController extends DashboardController
                     'namespace' =>  $isAuthenticated ? 'profil' : 'edit',
                     'type'      =>  'GOTO',
                     'index'     =>  'id',
-                    'url'       =>  $isAuthenticated ? 'dashboard/profile' : '/dashboard/users/edit/#'
+                    'url'       =>  $isAuthenticated ? '/dashboard/profile' : '/dashboard/users/edit/#'
                 ], [
                     'label'     =>  __( 'Delete' ),
                     'namespace' =>  'delete',

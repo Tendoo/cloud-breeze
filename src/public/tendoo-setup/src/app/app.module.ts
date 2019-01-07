@@ -29,6 +29,7 @@ import { ModulesUploadComponent } from './components/dashboard/modules-upload/mo
 import { ConfirmDialogComponent } from './shared/confirm-dialog/confirm-dialog.component';
 import { UsersEditComponent } from './components/dashboard/users-edit/users-edit.component';
 import { UsersCreateComponent } from './components/dashboard/users-create/users-create.component';
+import { ProfileComponent } from './components/dashboard/profile/profile.component';
 
 @NgModule({
     declarations: [
@@ -51,7 +52,8 @@ import { UsersCreateComponent } from './components/dashboard/users-create/users-
         ModulesUploadComponent,
         ConfirmDialogComponent,
         UsersEditComponent,
-        UsersCreateComponent
+        UsersCreateComponent,
+        ProfileComponent
     ],
     imports: [
         BrowserModule,

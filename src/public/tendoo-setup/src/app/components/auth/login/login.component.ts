@@ -41,7 +41,7 @@ export class LoginComponent implements OnInit {
 
         const fields    =   ValidationGenerator.buildFormControls( this.fields );
         this.loginForm  =   new FormGroup( fields );
-        this.login();
+        // this.login();
     }
 
     login() {
@@ -59,18 +59,21 @@ export class LoginComponent implements OnInit {
              * let's save the credential on 
              * each outgoing request
              */
-            this.tendoo.auth.setCredentials( result.user.id, result.token );
+            this.tendoo.auth.setCredentials( result.user, result.token );
             this.snackbar.open( result.message, null, {
                 duration: 3000
             });
-            this.router.navigateByUrl( 'dashboard/users' );
 
             /**
-             * delay redirecting
+             * if the intented has been defined. 
+             * let's redirect the user to that location
              */
-            setTimeout( () => {
-                
-            }, 100 );
+            let path    =   this.tendoo.auth.intented;
+            if ( path  !== undefined ) {
+                return this.router.navigateByUrl( path );
+            }
+
+            this.router.navigateByUrl( 'dashboard/users' );
 
         }, (result: HttpErrorResponse ) => {
             this.snackbar.open( result.error.message );

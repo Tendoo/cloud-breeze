@@ -156,12 +156,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./components/dashboard/dashboard.component */ "./src/app/components/dashboard/dashboard.component.ts");
 /* harmony import */ var _components_dashboard_modules_upload_modules_upload_component__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./components/dashboard/modules-upload/modules-upload.component */ "./src/app/components/dashboard/modules-upload/modules-upload.component.ts");
 /* harmony import */ var _shared_confirm_dialog_confirm_dialog_component__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./shared/confirm-dialog/confirm-dialog.component */ "./src/app/shared/confirm-dialog/confirm-dialog.component.ts");
+/* harmony import */ var _components_dashboard_users_edit_users_edit_component__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./components/dashboard/users-edit/users-edit.component */ "./src/app/components/dashboard/users-edit/users-edit.component.ts");
+/* harmony import */ var _components_dashboard_users_create_users_create_component__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./components/dashboard/users-create/users-create.component */ "./src/app/components/dashboard/users-create/users-create.component.ts");
+/* harmony import */ var _components_dashboard_profile_profile_component__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./components/dashboard/profile/profile.component */ "./src/app/components/dashboard/profile/profile.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
+
+
 
 
 
@@ -214,6 +220,9 @@ var AppModule = /** @class */ (function () {
                 _components_dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_25__["DashboardComponent"],
                 _components_dashboard_modules_upload_modules_upload_component__WEBPACK_IMPORTED_MODULE_26__["ModulesUploadComponent"],
                 _shared_confirm_dialog_confirm_dialog_component__WEBPACK_IMPORTED_MODULE_27__["ConfirmDialogComponent"],
+                _components_dashboard_users_edit_users_edit_component__WEBPACK_IMPORTED_MODULE_28__["UsersEditComponent"],
+                _components_dashboard_users_create_users_create_component__WEBPACK_IMPORTED_MODULE_29__["UsersCreateComponent"],
+                _components_dashboard_profile_profile_component__WEBPACK_IMPORTED_MODULE_30__["ProfileComponent"]
             ],
             imports: [
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"],
@@ -268,11 +277,21 @@ var ValidationGenerator = /** @class */ (function () {
      */
     ValidationGenerator.from = function (validation) {
         if (validation) {
+            /**
+             * make sure to skip
+             * validation of object
+             */
+            if (typeof validation !== 'string') {
+                validation = validation.filter(function (rule) {
+                    return typeof rule === 'string';
+                });
+                validation = validation.join('|');
+            }
             var finalRules_1 = [];
             var rules = validation.split('|');
             var minRule_1 = /(min)\:([0-9])+/g;
             var maxRule_1 = /(max)\:([0-9])+/g;
-            var matchRule_1 = /(matches):(\w+)/g;
+            var matchRule_1 = /(same):(\w+)/g;
             var result_1;
             /**
              * Loop and parses the rules
@@ -345,8 +364,8 @@ var ValidationGenerator = /** @class */ (function () {
         return this.extractControls(fields);
     };
     /**
-     * Build FormControl from Field object
-     * create FormControl if it's not defined and call
+     * Build FormControl from Field object.
+     * Create FormControl if it's not defined and call
      * extractControls to build the FormControl
      * @param Field object
      * @return FormControl
@@ -386,6 +405,56 @@ var ValidationGenerator = /** @class */ (function () {
             fields: fields,
             formGroup: new _angular_forms__WEBPACK_IMPORTED_MODULE_0__["FormGroup"](ValidationGenerator.extractControls(fields))
         };
+    };
+    /**
+     * Disable all fields
+     * @param array Field[]
+     * @return void
+     */
+    ValidationGenerator.deactivateFields = function (fields) {
+        fields.forEach(function (field) { return field.control.disable(); });
+    };
+    /**
+     * Enable all fields
+     * @param array Field[]
+     * @return void
+     */
+    ValidationGenerator.enableFields = function (fields) {
+        fields.forEach(function (field) { return field.control.enable(); });
+    };
+    /**
+     * Throw custom errors on fields and FormGroup
+     * @param array Field[]
+     * @param error FieldError
+     * @return void
+     */
+    ValidationGenerator.throwFieldsError = function (group, fields, errors) {
+        var _loop_1 = function (error) {
+            group.get(error).setErrors({ error: true });
+            fields.forEach(function (field) {
+                if (field.name === error) {
+                    field.errors = errors[field.name];
+                }
+            });
+        };
+        for (var error in errors) {
+            _loop_1(error);
+        }
+    };
+    /**
+     * Get valid value from FromGroup.
+     * This skip null value from the final object
+     * @param object FormGroup value
+     * @return object result
+     */
+    ValidationGenerator.noNullValue = function (group) {
+        var finalData = {};
+        for (var key in group.value) {
+            if (group.value[key] !== null) {
+                finalData[key] = group.value[key];
+            }
+        }
+        return finalData;
     };
     return ValidationGenerator;
 }());
@@ -535,7 +604,7 @@ var LoginComponent = /** @class */ (function () {
         ];
         var fields = src_app_classes_validation_generator_class__WEBPACK_IMPORTED_MODULE_2__["ValidationGenerator"].buildFormControls(this.fields);
         this.loginForm = new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormGroup"](fields);
-        this.login();
+        // this.login();
     };
     LoginComponent.prototype.login = function () {
         var _this = this;
@@ -551,16 +620,19 @@ var LoginComponent = /** @class */ (function () {
              * let's save the credential on
              * each outgoing request
              */
-            _this.tendoo.auth.setCredentials(result.user.id, result.token);
+            _this.tendoo.auth.setCredentials(result.user, result.token);
             _this.snackbar.open(result.message, null, {
                 duration: 3000
             });
-            _this.router.navigateByUrl('dashboard/modules');
             /**
-             * delay redirecting
+             * if the intented has been defined.
+             * let's redirect the user to that location
              */
-            setTimeout(function () {
-            }, 100);
+            var path = _this.tendoo.auth.intented;
+            if (path !== undefined) {
+                return _this.router.navigateByUrl(path);
+            }
+            _this.router.navigateByUrl('dashboard/users');
         }, function (result) {
             _this.snackbar.open(result.error.message);
         });
@@ -615,6 +687,8 @@ module.exports = "<p>\r\n  logout works!\r\n</p>\r\n"
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LogoutComponent", function() { return LogoutComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var src_app_services_tendoo_auth_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/services/tendoo-auth.service */ "./src/app/services/tendoo-auth.service.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -625,10 +699,16 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
+
+
 var LogoutComponent = /** @class */ (function () {
-    function LogoutComponent() {
+    function LogoutComponent(auth, route) {
+        this.auth = auth;
+        this.route = route;
     }
     LogoutComponent.prototype.ngOnInit = function () {
+        this.auth.logout();
+        this.route.navigateByUrl('/auth/login');
     };
     LogoutComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -636,7 +716,8 @@ var LogoutComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./logout.component.html */ "./src/app/components/auth/logout/logout.component.html"),
             styles: [__webpack_require__(/*! ./logout.component.css */ "./src/app/components/auth/logout/logout.component.css")]
         }),
-        __metadata("design:paramtypes", [])
+        __metadata("design:paramtypes", [src_app_services_tendoo_auth_service__WEBPACK_IMPORTED_MODULE_1__["TendooAuthService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]])
     ], LogoutComponent);
     return LogoutComponent;
 }());
@@ -726,7 +807,7 @@ module.exports = "#aside-nav-list {\r\n    padding: 0%;\r\n}\r\n/*# sourceMappin
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div fxLayout=\"column\" fxFill>\r\n    <div>\r\n        <mat-toolbar color=\"primary\">\r\n            <span>Tendoo CMS</span>\r\n        </mat-toolbar>\r\n    </div>\r\n    \r\n    <div fxFlex fxLayout=\"row\">\r\n        <div fxFlex=\"250px\"  fxLayout=\"column\" class=\"aside-menu\">\r\n            <div fxFlex>\r\n                <mat-nav-list id=\"aside-nav-list\">\r\n                    <mat-list-item [routerLink]=\"link.href\" *ngFor=\"let link of asideLink\">\r\n                        <a matLine >{{ link.label }}</a>\r\n                    </mat-list-item>\r\n                </mat-nav-list>\r\n            </div>    \r\n        </div>\r\n        <mat-divider [vertical]=\"true\"></mat-divider>\r\n        <div fxFlex=\"auto\" fxLayout=\"column\">\r\n            <router-outlet></router-outlet>\r\n        </div>\r\n    </div>\r\n</div>"
+module.exports = "<div fxLayout=\"column\" fxFill>\r\n    <div>\r\n        <mat-toolbar color=\"primary\" fxFlex fxLayoutAlign=\"space-between center\">\r\n            <span>Tendoo CMS</span>\r\n            <div>\r\n                <button mat-icon-button [matMenuTriggerFor]=\"profileMenu\">\r\n                    <mat-icon aria-label=\"Example icon-button with a heart icon\">person</mat-icon>\r\n                </button>\r\n                <mat-menu #profileMenu=\"matMenu\">\r\n                    <button routerLink=\"/dashboard/profile\" mat-menu-item>Profile</button>\r\n                    <button routerLink=\"/auth/logout\" mat-menu-item>Logout</button>\r\n                </mat-menu>\r\n            </div>\r\n        </mat-toolbar>\r\n    </div>\r\n    \r\n    <div fxFlex fxLayout=\"row\">\r\n        <div fxFlex=\"250px\"  fxLayout=\"column\" class=\"aside-menu\">\r\n            <div fxFlex>\r\n                <mat-nav-list id=\"aside-nav-list\">\r\n                    <mat-list-item [routerLink]=\"link.href\" *ngFor=\"let link of asideLink\">\r\n                        <a matLine >{{ link.label }}</a>\r\n                    </mat-list-item>\r\n                </mat-nav-list>\r\n            </div>    \r\n        </div>\r\n        <mat-divider [vertical]=\"true\"></mat-divider>\r\n        <div fxFlex=\"auto\" fxLayout=\"column\">\r\n            <router-outlet></router-outlet>\r\n        </div>\r\n    </div>\r\n</div>"
 
 /***/ }),
 
@@ -868,7 +949,7 @@ module.exports = ":host {\r\n    height: 100%;\r\n}\r\n/*# sourceMappingURL=data
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div fxLayout=\"column\" fxFlex=\"100%\">\n    <div fxFlex=\"150px\" fxLayout=\"row\" class=\"bg-primary p-1\">\n        <div fxFlex>\n            <h1 class=\"mat-display-1 mb-0\">Upload a module</h1>\n            <span class=\"mat-headline\">upload a new module to extend Tendoo CMS features</span>\n        </div>\n        <div fxFlex=\"200px\" fxLayoutAlign=\"end start\">\n            <button routerLink=\"/dashboard/modules\" mat-button color=\"warn\">List of modules</button>\n        </div>\n    </div>\n    <mat-progress-bar color=\"warn\" style=\"height: 1px\" *ngIf=\"tendoo.modules.isLoading\" mode=\"indeterminate\"></mat-progress-bar>\n    <mat-divider *ngIf=\"!tendoo.modules.isLoading\"></mat-divider>\n    <div class=\"p-2 bg-content\" fxFlex>\n        <mat-card>\n            <mat-card-title>Upload a file</mat-card-title>\n            <mat-card-content>\n                <p>choose the file you would like to upload on Tendoo CMS</p>\n                <input (change)=\"handleFileInput($event.target.files)\" type=\"file\" name=\"\" id=\"\">\n            </mat-card-content>\n            <mat-card-actions>\n                <button [disabled]=\"tendoo.modules.isLoading\" (click)=\"upload()\" mat-button color=\"primary\">Upload</button>\n            </mat-card-actions>\n        </mat-card>\n    </div>\n</div>"
+module.exports = "<div fxLayout=\"column\" fxFlex=\"100%\">\r\n    <div fxFlex=\"150px\" fxLayout=\"row\" class=\"bg-primary p-3\">\r\n        <div fxFlex>\r\n            <h1 class=\"mat-display-1 mb-0\">Upload a module</h1>\r\n            <span class=\"mat-headline\">upload a new module to extend Tendoo CMS features</span>\r\n        </div>\r\n        <div fxFlex=\"200px\" fxLayoutAlign=\"end start\">\r\n            <button routerLink=\"/dashboard/modules\" mat-button color=\"warn\">List of modules</button>\r\n        </div>\r\n    </div>\r\n    <mat-progress-bar color=\"warn\" style=\"height: 1px\" *ngIf=\"tendoo.modules.isLoading\" mode=\"indeterminate\"></mat-progress-bar>\r\n    <mat-divider *ngIf=\"!tendoo.modules.isLoading\"></mat-divider>\r\n    <div class=\"p-2 bg-content\" fxFlex>\r\n        <mat-card>\r\n            <mat-card-title>Upload a file</mat-card-title>\r\n            <mat-card-content>\r\n                <p>choose the file you would like to upload on Tendoo CMS</p>\r\n                <input (change)=\"handleFileInput($event.target.files)\" type=\"file\" name=\"\" id=\"\">\r\n            </mat-card-content>\r\n            <mat-card-actions>\r\n                <button [disabled]=\"tendoo.modules.isLoading\" (click)=\"upload()\" mat-button color=\"primary\">Upload</button>\r\n            </mat-card-actions>\r\n        </mat-card>\r\n    </div>\r\n</div>"
 
 /***/ }),
 
@@ -1030,7 +1111,7 @@ module.exports = ":host {\r\n    height: 100%;\r\n}\r\n/*# sourceMappingURL=data
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div fxLayout=\"column\" fxFlex=\"100%\">\r\n    <div fxFlex=\"150px\" fxLayout=\"row\" class=\"bg-primary p-1\">\r\n        <div fxFlex>\r\n            <h1 class=\"mat-display-1 mb-0\">Modules</h1>\r\n            <span class=\"mat-headline\">Display and manage all available modules</span>\r\n        </div>\r\n        <div fxFlex=\"200px\" fxLayoutAlign=\"end start\">\r\n            <button routerLink=\"/dashboard/modules/upload\" mat-button color=\"warn\">Upload a module</button>\r\n        </div>\r\n    </div>\r\n    <mat-progress-bar color=\"warn\" style=\"height: 1px\" *ngIf=\"tendoo.modules.isLoading\" mode=\"indeterminate\"></mat-progress-bar>\r\n    <mat-divider  *ngIf=\"!tendoo.modules.isLoading\"></mat-divider>\r\n    <div class=\"p-2 bg-content\" fxFlex fxLayoutGap=\"3em\">\r\n        <div \r\n            style=\"height:200px\"\r\n            *ngFor=\"let module of modules\"\r\n            fxFlex.xs=\"100%\" \r\n            fxFlex.sm=\"50%\" \r\n            fxFlex.md=\"50%\" \r\n            fxFlex.lg=\"25%\" \r\n            fxFlex.xl=\"20%\">\r\n            <mat-card fxFill fxLayout=\"column\">\r\n                <mat-card-title>{{ module.name }}</mat-card-title>\r\n                <mat-card-content fxFlex>{{ module.description }}</mat-card-content>\r\n                <mat-card-actions fxLayoutAlign=\"space-between\">\r\n                    <button [disabled]=\"tendoo.modules.isLoading\" (click)=\"loadModules()\" mat-button color=\"primary\">Details</button>\r\n                    <button [disabled]=\"tendoo.modules.isLoading\" *ngIf=\"module.enabled\" (click)=\"setStatus( module, 'disable' )\"  mat-button color=\"primary\">Disable</button>\r\n                    <button [disabled]=\"tendoo.modules.isLoading\" *ngIf=\"! module.enabled\" (click)=\"setStatus( module, 'enable' )\"  mat-button color=\"accent\">Enable</button>\r\n                    <button [disabled]=\"tendoo.modules.isLoading\" (click)=\"delete( module )\" mat-button color=\"warn\">Delete</button>\r\n                </mat-card-actions>\r\n            </mat-card>\r\n        </div>\r\n        <div>\r\n            <mat-card *ngIf=\"modules.length === 0\">\r\n                <mat-card-title>No module has been yet uploaded</mat-card-title>\r\n            </mat-card>\r\n        </div>\r\n    </div>\r\n</div>"
+module.exports = "<div fxLayout=\"column\" fxFlex=\"100%\">\r\n    <div fxFlex=\"150px\" fxLayout=\"row\" class=\"bg-primary p-3\">\r\n        <div fxFlex>\r\n            <h1 class=\"mat-display-1 mb-0\">Modules</h1>\r\n            <span class=\"mat-headline\">Display and manage all available modules</span>\r\n        </div>\r\n        <div fxFlex=\"200px\" fxLayoutAlign=\"end start\">\r\n            <button routerLink=\"/dashboard/modules/upload\" mat-button color=\"warn\">Upload a module</button>\r\n        </div>\r\n    </div>\r\n    <mat-progress-bar color=\"warn\" style=\"height: 1px\" *ngIf=\"tendoo.modules.isLoading\" mode=\"indeterminate\"></mat-progress-bar>\r\n    <mat-divider  *ngIf=\"!tendoo.modules.isLoading\"></mat-divider>\r\n    <div class=\"p-2 bg-content\" fxFlex fxLayoutGap=\"3em\">\r\n        <div \r\n            style=\"height:200px\"\r\n            *ngFor=\"let module of modules\"\r\n            fxFlex.xs=\"100%\" \r\n            fxFlex.sm=\"50%\" \r\n            fxFlex.md=\"50%\" \r\n            fxFlex.lg=\"25%\" \r\n            fxFlex.xl=\"20%\">\r\n            <mat-card fxFill fxLayout=\"column\">\r\n                <mat-card-title>{{ module.name }}</mat-card-title>\r\n                <mat-card-content fxFlex>{{ module.description }}</mat-card-content>\r\n                <mat-card-actions fxLayoutAlign=\"space-between\">\r\n                    <button [disabled]=\"tendoo.modules.isLoading\" (click)=\"loadModules()\" mat-button color=\"primary\">Details</button>\r\n                    <button [disabled]=\"tendoo.modules.isLoading\" *ngIf=\"module.enabled\" (click)=\"setStatus( module, 'disable' )\"  mat-button color=\"primary\">Disable</button>\r\n                    <button [disabled]=\"tendoo.modules.isLoading\" *ngIf=\"! module.enabled\" (click)=\"setStatus( module, 'enable' )\"  mat-button color=\"accent\">Enable</button>\r\n                    <button [disabled]=\"tendoo.modules.isLoading\" (click)=\"delete( module )\" mat-button color=\"warn\">Delete</button>\r\n                </mat-card-actions>\r\n            </mat-card>\r\n        </div>\r\n        <div>\r\n            <mat-card *ngIf=\"modules.length === 0\">\r\n                <mat-card-title>No module has been yet uploaded</mat-card-title>\r\n            </mat-card>\r\n        </div>\r\n    </div>\r\n</div>"
 
 /***/ }),
 
@@ -1271,6 +1352,144 @@ var ModulesComponent = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/components/dashboard/profile/profile.component.css":
+/*!********************************************************************!*\
+  !*** ./src/app/components/dashboard/profile/profile.component.css ***!
+  \********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ".avatar-image {\r\n    width: 100px;\r\n    border-radius: 50px;\r\n}\r\n.profile-container {\r\n    position: relative;\r\n    top: -53px;\r\n}\r\n.profile-background {\r\n    background: #EEE;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvcHJvZmlsZS9wcm9maWxlLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSxhQUFhO0lBQ2Isb0JBQW9CO0NBQ3ZCO0FBQ0Q7SUFDSSxtQkFBbUI7SUFDbkIsV0FBVztDQUNkO0FBQ0Q7SUFDSSxpQkFBaUI7Q0FDcEIiLCJmaWxlIjoic3JjL2FwcC9jb21wb25lbnRzL2Rhc2hib2FyZC9wcm9maWxlL3Byb2ZpbGUuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIi5hdmF0YXItaW1hZ2Uge1xyXG4gICAgd2lkdGg6IDEwMHB4O1xyXG4gICAgYm9yZGVyLXJhZGl1czogNTBweDtcclxufVxyXG4ucHJvZmlsZS1jb250YWluZXIge1xyXG4gICAgcG9zaXRpb246IHJlbGF0aXZlO1xyXG4gICAgdG9wOiAtNTNweDtcclxufVxyXG4ucHJvZmlsZS1iYWNrZ3JvdW5kIHtcclxuICAgIGJhY2tncm91bmQ6ICNFRUU7XHJcbn0iXX0= */"
+
+/***/ }),
+
+/***/ "./src/app/components/dashboard/profile/profile.component.html":
+/*!*********************************************************************!*\
+  !*** ./src/app/components/dashboard/profile/profile.component.html ***!
+  \*********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div fxLayout=\"column\" fxFlex=\"100%\" style=\"overflow-y:auto\">\n    <div fxFlex=\"200px\" fxLayout=\"row\" class=\"bg-primary p-3\">\n        <div fxFlex fxLayout=\"row\">\n            <div style=\"margin-right: 20px\">\n                <img class=\"avatar-image\" src=\"http://laravel-5703.go/tendoo/assets/images/avatar.png\" alt=\"\">\n            </div>\n            <div>\n                <h1 class=\"mat-display-1 mb-0\">{{ auth.getUser().username }}</h1>\n                <span class=\"mat-title\">{{ auth.getUser().role.name }}</span>\n            </div>\n        </div>\n        <div fxFlex=\"200px\" fxLayoutAlign=\"end start\">\n        </div>\n    </div>\n    <div fxFlex fxLayout=\"row\" class=\"profile-background\" fxFill fxLayoutAlign=\"center\">\n        <div fxFlex=\"97%\" class=\"profile-container\">\n            <mat-card class=\"p-0\" *ngIf=\"tabs\">\n                <mat-card-title class=\"p-1 mb-0\">Profile Settings</mat-card-title>\n                <mat-divider></mat-divider>\n                <mat-card-content class=\"p-0\">\n                    <ng-container *ngFor=\"let tab of tabs\">\n                        <form [formGroup]=\"tab.form\"></form>\n                        <mat-tab-group>\n                            <mat-tab label=\"Security\" (click)=\"setTabActive( tab )\">\n                                <div class=\"p-2\">\n                                    <app-fields *ngFor=\"let field of tab.fields\" [field]=\"field\" [group]=\"tab.form\"></app-fields>\n                                </div>\n                            </mat-tab>\n                        </mat-tab-group>\n                    </ng-container>\n                </mat-card-content>\n                <mat-divider></mat-divider>\n                <mat-card-actions class=\"p-1 m-0\">\n                    <button mat-button (click)=\"saveTabSettings( activeTab )\" color=\"primary\">Save</button>\n                </mat-card-actions>\n            </mat-card>\n        </div>\n    </div>\n</div>"
+
+/***/ }),
+
+/***/ "./src/app/components/dashboard/profile/profile.component.ts":
+/*!*******************************************************************!*\
+  !*** ./src/app/components/dashboard/profile/profile.component.ts ***!
+  \*******************************************************************/
+/*! exports provided: ProfileComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ProfileComponent", function() { return ProfileComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var src_app_services_tendoo_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/services/tendoo.service */ "./src/app/services/tendoo.service.ts");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var src_app_classes_validation_generator_class__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/classes/validation-generator.class */ "./src/app/classes/validation-generator.class.ts");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+var ProfileComponent = /** @class */ (function () {
+    function ProfileComponent(tendoo, snackbar) {
+        this.tendoo = tendoo;
+        this.snackbar = snackbar;
+        this.auth = this.tendoo.auth;
+    }
+    ProfileComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["forkJoin"])(this.tendoo.tabs.getTabs('dashboard.profile')).subscribe(function (results) {
+            _this.tabs = results[0];
+            _this.tabs.forEach(function (tab, index) {
+                index === 0 ? tab.active = true : tab.active = false;
+                var fields = src_app_classes_validation_generator_class__WEBPACK_IMPORTED_MODULE_4__["ValidationGenerator"].buildFormControls(tab.fields);
+                tab.form = new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormGroup"](fields);
+            });
+        });
+    };
+    /**
+     * set a tab as active
+     * @param tab Tab Object
+     * @return void
+     */
+    ProfileComponent.prototype.setTabActive = function (tab) {
+        tab.active = tab.active === undefined ? true : !tab.active;
+    };
+    ProfileComponent.prototype.saveTabSettings = function (tab) {
+        var _this = this;
+        src_app_classes_validation_generator_class__WEBPACK_IMPORTED_MODULE_4__["ValidationGenerator"].touchAllFields(tab.form);
+        if (!tab.form.valid) {
+            return this.snackbar.open('Unable to proceed the form is not valid.', 'OK', {
+                duration: 3000
+            });
+        }
+        /**
+         * Save the settings to the database
+         */
+        src_app_classes_validation_generator_class__WEBPACK_IMPORTED_MODULE_4__["ValidationGenerator"].deactivateFields(tab.fields);
+        this.tendoo.forms
+            .saveForm('dashboard.profile', src_app_classes_validation_generator_class__WEBPACK_IMPORTED_MODULE_4__["ValidationGenerator"].noNullValue(tab.form)).subscribe(function (response) {
+            /**
+             * Enable back field and show success
+             * message
+             */
+            src_app_classes_validation_generator_class__WEBPACK_IMPORTED_MODULE_4__["ValidationGenerator"].enableFields(tab.fields);
+            _this.snackbar.open(response.message, 'OK', {
+                duration: 3000
+            });
+        }, function (result) {
+            src_app_classes_validation_generator_class__WEBPACK_IMPORTED_MODULE_4__["ValidationGenerator"].enableFields(tab.fields);
+            src_app_classes_validation_generator_class__WEBPACK_IMPORTED_MODULE_4__["ValidationGenerator"].throwFieldsError(tab.form, tab.fields, result.error.errors);
+            _this.snackbar.open(result.error.message, 'OK', {
+                duration: 3000
+            });
+        });
+    };
+    Object.defineProperty(ProfileComponent.prototype, "activeTab", {
+        /**
+         * get active tab
+         * @return object;
+         */
+        get: function () {
+            return this.tabs.filter(function (tab) { return tab.active; })[0];
+        },
+        enumerable: true,
+        configurable: true
+    });
+    ProfileComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-profile',
+            template: __webpack_require__(/*! ./profile.component.html */ "./src/app/components/dashboard/profile/profile.component.html"),
+            styles: [__webpack_require__(/*! ./profile.component.css */ "./src/app/components/dashboard/profile/profile.component.css")],
+            host: {
+                style: "height: 100%"
+            }
+        }),
+        __metadata("design:paramtypes", [src_app_services_tendoo_service__WEBPACK_IMPORTED_MODULE_1__["TendooService"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_5__["MatSnackBar"]])
+    ], ProfileComponent);
+    return ProfileComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/components/dashboard/settings/settings.component.css":
 /*!**********************************************************************!*\
   !*** ./src/app/components/dashboard/settings/settings.component.css ***!
@@ -1334,6 +1553,260 @@ var SettingsComponent = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/components/dashboard/users-create/users-create.component.css":
+/*!******************************************************************************!*\
+  !*** ./src/app/components/dashboard/users-create/users-create.component.css ***!
+  \******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2NvbXBvbmVudHMvZGFzaGJvYXJkL3VzZXJzLWNyZWF0ZS91c2Vycy1jcmVhdGUuY29tcG9uZW50LmNzcyJ9 */"
+
+/***/ }),
+
+/***/ "./src/app/components/dashboard/users-create/users-create.component.html":
+/*!*******************************************************************************!*\
+  !*** ./src/app/components/dashboard/users-create/users-create.component.html ***!
+  \*******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div fxLayout=\"column\" fxFlex=\"100%\" style=\"overflow-y:auto\">\r\n    <div fxFlex=\"150px\" fxLayout=\"row\" class=\"bg-primary p-3\">\r\n        <div fxFlex>\r\n            <h1 class=\"mat-display-1 mb-0\">Users</h1>\r\n            <span class=\"mat-title\">create new users</span>\r\n        </div>\r\n        <div fxFlex=\"200px\" fxLayoutAlign=\"end start\">\r\n            <button routerLink=\"/dashboard/users\" mat-button color=\"warn\">Back to users</button>\r\n        </div>\r\n    </div>\r\n    <mat-progress-bar color=\"warn\" style=\"height: 1px\" *ngIf=\"tendoo.isLoading\" mode=\"indeterminate\"></mat-progress-bar>\r\n    <div class=\"p-2 bg-content\" fxLayout=\"row\" fxFlex=\"1 0 auto\" fxLayout=\"row\">\r\n        <mat-card fxFlex>\r\n            <mat-card-title>\r\n                Create a new user\r\n            </mat-card-title>\r\n            <mat-card-content>\r\n                <form [formGroup]=\"form\" *ngIf=\"form\">\r\n                    <app-fields *ngFor=\"let field of fields\" [field]=\"field\" [group]=\"form\"></app-fields>\r\n                </form>\r\n            </mat-card-content>\r\n            <mat-divider></mat-divider>\r\n            <mat-card-actions>\r\n                <button [disabled]=\"tendoo.isLoading\" mat-button (click)=\"submit()\" color=\"primary\">Submit</button>\r\n            </mat-card-actions>\r\n        </mat-card>\r\n    </div>\r\n</div>"
+
+/***/ }),
+
+/***/ "./src/app/components/dashboard/users-create/users-create.component.ts":
+/*!*****************************************************************************!*\
+  !*** ./src/app/components/dashboard/users-create/users-create.component.ts ***!
+  \*****************************************************************************/
+/*! exports provided: UsersCreateComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UsersCreateComponent", function() { return UsersCreateComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var src_app_services_tendoo_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/services/tendoo.service */ "./src/app/services/tendoo.service.ts");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var src_app_classes_validation_generator_class__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/classes/validation-generator.class */ "./src/app/classes/validation-generator.class.ts");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+
+var UsersCreateComponent = /** @class */ (function () {
+    function UsersCreateComponent(tendoo, snackbar, router) {
+        this.tendoo = tendoo;
+        this.snackbar = snackbar;
+        this.router = router;
+        this.fields = [];
+    }
+    UsersCreateComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["forkJoin"])(this.tendoo.forms.getForm('dashboard.users.create')).subscribe(function (forkResult) {
+            _this.fields = forkResult[0]['fields'];
+            _this.formConfig = forkResult[0]['url'];
+            var fields = src_app_classes_validation_generator_class__WEBPACK_IMPORTED_MODULE_3__["ValidationGenerator"].buildFormControls(_this.fields);
+            _this.form = new _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormGroup"](fields);
+        });
+    };
+    /**
+     * Submit the current form
+     * @return void
+     */
+    UsersCreateComponent.prototype.submit = function () {
+        var _this = this;
+        src_app_classes_validation_generator_class__WEBPACK_IMPORTED_MODULE_3__["ValidationGenerator"].touchAllFields(this.form);
+        if (!this.form.valid) {
+            this.snackbar.open('The form has some error(s). Please check the form and try again.');
+        }
+        this.tendoo.post(this.formConfig.post, this.form.value).subscribe(function (result) {
+            _this.snackbar.open(result.message, 'OK', {
+                duration: 4000
+            });
+            _this.router.navigateByUrl('dashboard/users');
+        }, function (result) {
+            _this.snackbar.open(result.error.message, 'OK', {
+                duration: 4000
+            });
+            /**
+             * make sure to hightlight
+             * the fields which has a problem
+             */
+            var errors = result.error.errors;
+            var _loop_1 = function (error) {
+                _this.form.get(error).setErrors({ error: true });
+                _this.fields.forEach(function (field) {
+                    if (field.name === error) {
+                        field.errors = errors[field.name];
+                    }
+                });
+            };
+            for (var error in errors) {
+                _loop_1(error);
+            }
+        });
+    };
+    UsersCreateComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-users-create',
+            template: __webpack_require__(/*! ./users-create.component.html */ "./src/app/components/dashboard/users-create/users-create.component.html"),
+            styles: [__webpack_require__(/*! ./users-create.component.css */ "./src/app/components/dashboard/users-create/users-create.component.css")]
+        }),
+        __metadata("design:paramtypes", [src_app_services_tendoo_service__WEBPACK_IMPORTED_MODULE_1__["TendooService"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_5__["MatSnackBar"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_6__["Router"]])
+    ], UsersCreateComponent);
+    return UsersCreateComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/components/dashboard/users-edit/users-edit.component.css":
+/*!**************************************************************************!*\
+  !*** ./src/app/components/dashboard/users-edit/users-edit.component.css ***!
+  \**************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2NvbXBvbmVudHMvZGFzaGJvYXJkL3VzZXJzLWVkaXQvdXNlcnMtZWRpdC5jb21wb25lbnQuY3NzIn0= */"
+
+/***/ }),
+
+/***/ "./src/app/components/dashboard/users-edit/users-edit.component.html":
+/*!***************************************************************************!*\
+  !*** ./src/app/components/dashboard/users-edit/users-edit.component.html ***!
+  \***************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div fxLayout=\"column\" fxFlex=\"100%\" style=\"overflow-y:auto\">\r\n    <div fxFlex=\"150px\" fxLayout=\"row\" class=\"bg-primary p-3\">\r\n        <div fxFlex>\r\n            <h1 class=\"mat-display-1 mb-0\">Users</h1>\r\n            <span class=\"mat-title\">create new users</span>\r\n        </div>\r\n        <div fxFlex=\"200px\" fxLayoutAlign=\"end start\">\r\n            <button routerLink=\"/dashboard/users\" mat-button color=\"warn\">Back to users</button>\r\n        </div>\r\n    </div>\r\n    <mat-progress-bar color=\"warn\" style=\"height: 1px\" *ngIf=\"tendoo.isLoading\" mode=\"indeterminate\"></mat-progress-bar>\r\n    <div class=\"p-2 bg-content\" fxLayout=\"row\" fxFlex=\"1 0 auto\" fxLayout=\"row\">\r\n        <mat-card fxFlex>\r\n            <mat-card-title>\r\n                Edit a user\r\n            </mat-card-title>\r\n            <mat-card-content>\r\n                <form [formGroup]=\"form\" *ngIf=\"form\">\r\n                    <app-fields *ngFor=\"let field of fields\" [field]=\"field\" [group]=\"form\"></app-fields>\r\n                </form>\r\n            </mat-card-content>\r\n            <mat-divider></mat-divider>\r\n            <mat-card-actions>\r\n                <button [disabled]=\"tendoo.users.isLoading\" mat-button (click)=\"submit()\" color=\"primary\">Update</button>\r\n                <button [disabled]=\"tendoo.users.isLoading\" mat-button (click)=\"submit( true )\" color=\"primary\">Update & Return</button>\r\n            </mat-card-actions>\r\n        </mat-card>\r\n    </div>\r\n</div>"
+
+/***/ }),
+
+/***/ "./src/app/components/dashboard/users-edit/users-edit.component.ts":
+/*!*************************************************************************!*\
+  !*** ./src/app/components/dashboard/users-edit/users-edit.component.ts ***!
+  \*************************************************************************/
+/*! exports provided: UsersEditComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UsersEditComponent", function() { return UsersEditComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var src_app_services_tendoo_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/services/tendoo.service */ "./src/app/services/tendoo.service.ts");
+/* harmony import */ var src_app_classes_validation_generator_class__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/classes/validation-generator.class */ "./src/app/classes/validation-generator.class.ts");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+
+var UsersEditComponent = /** @class */ (function () {
+    function UsersEditComponent(tendoo, activeRoute, snackbar, route) {
+        this.tendoo = tendoo;
+        this.activeRoute = activeRoute;
+        this.snackbar = snackbar;
+        this.route = route;
+        this.fields = [];
+    }
+    UsersEditComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.id = +this.activeRoute.snapshot.paramMap.get('id');
+        Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["forkJoin"])(this.tendoo.forms.getForm('dashboard.users.edit', this.id)).subscribe(function (forkResult) {
+            _this.fields = forkResult[0]['fields'];
+            _this.formConfig = forkResult[0]['url'];
+            var fields = src_app_classes_validation_generator_class__WEBPACK_IMPORTED_MODULE_3__["ValidationGenerator"].buildFormControls(_this.fields);
+            _this.form = new _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormGroup"](fields);
+        });
+    };
+    UsersEditComponent.prototype.submit = function (shouldReturn) {
+        var _this = this;
+        src_app_classes_validation_generator_class__WEBPACK_IMPORTED_MODULE_3__["ValidationGenerator"].touchAllFields(this.form);
+        if (!this.form.valid) {
+            this.snackbar.open('The form has some errors, please check it and try again ! ', 'OK', {
+                duration: 4000
+            });
+        }
+        this.tendoo.users.edit(this.id, this.form.value).subscribe(function (result) {
+            _this.snackbar.open(result.message, 'OK', {
+                duration: 3000
+            });
+            /**
+             * if the user has requested, let's take him back where he has been
+             */
+            if (shouldReturn) {
+                _this.route.navigateByUrl('/dashboard/users');
+            }
+        }, function (response) {
+            _this.snackbar.open(response.error.message);
+            /**
+             * make sure to hightlight
+             * the fields which has a problem
+             */
+            var errors = response.error.errors;
+            var _loop_1 = function (error) {
+                _this.form.get(error).setErrors({ error: true });
+                _this.fields.forEach(function (field) {
+                    if (field.name === error) {
+                        field.errors = errors[field.name];
+                    }
+                });
+            };
+            for (var error in errors) {
+                _loop_1(error);
+            }
+        });
+    };
+    UsersEditComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-users-edit',
+            template: __webpack_require__(/*! ./users-edit.component.html */ "./src/app/components/dashboard/users-edit/users-edit.component.html"),
+            styles: [__webpack_require__(/*! ./users-edit.component.css */ "./src/app/components/dashboard/users-edit/users-edit.component.css")]
+        }),
+        __metadata("design:paramtypes", [src_app_services_tendoo_service__WEBPACK_IMPORTED_MODULE_2__["TendooService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_5__["ActivatedRoute"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_6__["MatSnackBar"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"]])
+    ], UsersEditComponent);
+    return UsersEditComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/components/dashboard/users/users.component.css":
 /*!****************************************************************!*\
   !*** ./src/app/components/dashboard/users/users.component.css ***!
@@ -1352,7 +1825,7 @@ module.exports = ":host {\r\n    height: 100%;\r\n}\r\n/*# sourceMappingURL=data
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div fxLayout=\"column\" fxFlex=\"100%\" style=\"overflow-y:auto\">\r\n    <div fxFlex=\"150px\" fxLayout=\"row\" class=\"bg-primary p-1\">\r\n        <div fxFlex>\r\n            <h1 class=\"mat-display-1 mb-0\">Users</h1>\r\n            <span class=\"mat-title\">Displays and manage all registered users</span>\r\n        </div>\r\n        <div fxFlex=\"200px\" fxLayoutAlign=\"end start\">\r\n            <button routerLink=\"/dashboard/modules/upload\" mat-button color=\"warn\">Create a user</button>\r\n        </div>\r\n    </div>\r\n    <mat-progress-bar color=\"warn\" style=\"height: 1px\" *ngIf=\"tendoo.users.isLoading\" mode=\"indeterminate\"></mat-progress-bar>\r\n    <mat-divider  *ngIf=\"!tendoo.modules.isLoading\"></mat-divider>\r\n    <div class=\"p-2 bg-content\" fxFlex=\"1 0 auto\" fxLayout=\"row\">\r\n        <table matSort (matSortChange)=\"sortData($event)\" mat-table [dataSource]=\"dataSource\" class=\"mat-elevation-z8\" fxFlex>\r\n            <!--- Note that these columns can be defined in any order.\r\n                The actual rendered columns are set as a property on the row definition\" -->\r\n                \r\n                <!-- Position Column -->\r\n                <ng-container matColumnDef=\"id\">\r\n                    <th mat-sort-header=\"name\" mat-header-cell *matHeaderCellDef style=\"width: 40px\">\r\n                        <mat-checkbox class=\"example-margin\" [(ngModel)]=\"indeterminate\"></mat-checkbox>\r\n                    </th>\r\n                    <td mat-cell *matCellDef=\"let element\" style=\"width: 40px\">\r\n                        <mat-checkbox class=\"example-margin\" [(ngModel)]=\"element.checked\">{{ element.checked }}</mat-checkbox>\r\n                    </td>\r\n                </ng-container>\r\n                \r\n                <ng-container matColumnDef=\"position\">\r\n                    <th mat-sort-header=\"position\" mat-header-cell *matHeaderCellDef> No. </th>\r\n                    <td mat-cell *matCellDef=\"let element\"> {{element.position}} </td>\r\n                </ng-container>\r\n                \r\n                <!-- Name Column -->\r\n                <ng-container matColumnDef=\"name\">\r\n                    <th mat-sort-header=\"name\" mat-header-cell *matHeaderCellDef> Name </th>\r\n                    <td mat-cell *matCellDef=\"let element\"> {{element.name}} </td>\r\n                </ng-container>\r\n                \r\n                <!-- Weight Column -->\r\n                <ng-container matColumnDef=\"weight\">\r\n                    <th mat-sort-header=\"weight\" mat-header-cell *matHeaderCellDef> Weight </th>\r\n                    <td mat-cell *matCellDef=\"let element\"> {{element.weight}} </td>\r\n                </ng-container>\r\n                \r\n                <!-- Symbol Column -->\r\n                <ng-container matColumnDef=\"symbol\">\r\n                    <th [mat-sort-header]=\"symbol\" mat-header-cell *matHeaderCellDef> Symbol </th>\r\n                    <td mat-cell *matCellDef=\"let element\"> {{element.symbol}} </td>\r\n                </ng-container>\r\n                \r\n                <tr mat-header-row *matHeaderRowDef=\"displayedColumns\"></tr>\r\n                <tr mat-row *matRowDef=\"let row; columns: displayedColumns;\"></tr>\r\n            </table>\r\n        </div>\r\n    </div>"
+module.exports = "<div fxLayout=\"column\" fxFlex=\"100%\" style=\"overflow-y:auto\">\r\n    <div fxFlex=\"150px\" fxLayout=\"row\" class=\"bg-primary p-3\">\r\n        <div fxFlex>\r\n            <h1 class=\"mat-display-1 mb-0\">Users</h1>\r\n            <span class=\"mat-title\">Displays and manage all registered users</span>\r\n        </div>\r\n        <div fxFlex=\"200px\" fxLayoutAlign=\"end start\">\r\n            <button routerLink=\"/dashboard/users/create\" mat-button color=\"warn\">Create a user</button>\r\n        </div>\r\n    </div>\r\n    <mat-progress-bar color=\"warn\" style=\"height: 1px\" *ngIf=\"tendoo.users.isLoading\" mode=\"indeterminate\"></mat-progress-bar>\r\n    <mat-divider  *ngIf=\"!tendoo.modules.isLoading\"></mat-divider>\r\n    <div class=\"p-2 bg-content\" fxFlex=\"1 0 auto\" fxLayout=\"row\">\r\n        <table matSort (matSortChange)=\"sortData($event)\" mat-table [dataSource]=\"source\" class=\"mat-elevation-z8\" fxFlex>\r\n            <!--- Note that these columns can be defined in any order.\r\n                The actual rendered columns are set as a property on the row definition\" -->\r\n                <ng-container *ngFor=\"let column of columns\" [matColumnDef]=\"column\">\r\n                    <ng-container  *ngIf=\"column === 'id'\">\r\n                        <th mat-header-cell *matHeaderCellDef style=\"width: 40px\">\r\n                            <mat-checkbox class=\"example-margin\" (change)=\"checkAllCheckboxes()\" [(ngModel)]=\"checkAll\"></mat-checkbox>\r\n                        </th>\r\n                        <td mat-cell *matCellDef=\"let element\" style=\"width: 40px\">\r\n                            <mat-checkbox class=\"example-margin\" [(ngModel)]=\"element.$checked\"></mat-checkbox>\r\n                        </td>\r\n                    </ng-container>\r\n                    <ng-container *ngIf=\"column === '$actions'\">\r\n                        <th mat-header-cell *matHeaderCellDef width=\"80\">{{ rawColumns[ column ].label }}</th>\r\n                        <td mat-cell *matCellDef=\"let element\">\r\n                            <mat-menu #tableEntryMenu=\"matMenu\">\r\n                                <button (click)=\"triggerMenu( menu, element )\" *ngFor=\"let menu of element.$actions\" mat-menu-item>{{ menu.label }}</button>\r\n                            </mat-menu>\r\n                            \r\n                            <button mat-icon-button [matMenuTriggerFor]=\"tableEntryMenu\">\r\n                                <mat-icon>more_vert</mat-icon>\r\n                            </button>\r\n                        </td>\r\n                    </ng-container>    \r\n                    <ng-container *ngIf=\"reservedColumns.indexOf( column ) === -1\">\r\n                        <th [mat-sort-header]=\"column\" mat-header-cell *matHeaderCellDef>{{ rawColumns[ column ].label }}</th>\r\n                        <td mat-cell *matCellDef=\"let element\"> \r\n                            <!--\r\n                                this help to replace the provided value with a replace value\r\n                                provided on the column definition\r\n                            -->\r\n                            <ng-container *ngIf=\"rawColumns[ column ].replace !== undefined\">\r\n                                <ng-container *ngIf=\"rawColumns[ column ].type === 'boolean'\">\r\n                                    <ng-container *ngIf=\"element[ column ] === false\">\r\n                                        {{ rawColumns[ column ].replace[0] }}\r\n                                    </ng-container>\r\n                                    <ng-container *ngIf=\"element[ column ] === true\">\r\n                                        {{ rawColumns[ column ].replace[1] }}\r\n                                    </ng-container>\r\n                                    <ng-container *ngIf=\"element[ column ] !== true && element[ column ] !== false\">\r\n                                        {{ rawColumns[ column ].replace[ '$default' ] ? rawColumns[ column ].replace[ '$default' ] : 'N/A' }}\r\n                                    </ng-container>\r\n                                </ng-container>\r\n                            </ng-container>\r\n                            <ng-container *ngIf=\"rawColumns[ column ].replace === undefined\">\r\n                                {{ element[ column ] }} \r\n                            </ng-container>\r\n                        </td>\r\n                    </ng-container>\r\n                </ng-container>\r\n                \r\n                <tr mat-header-row *matHeaderRowDef=\"columns\"></tr>\r\n                <tr mat-row *matRowDef=\"let row; columns: columns;\"></tr>\r\n            </table>\r\n        </div>\r\n    </div>"
 
 /***/ }),
 
@@ -1369,6 +1842,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var src_app_services_tendoo_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/services/tendoo.service */ "./src/app/services/tendoo.service.ts");
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var src_app_shared_confirm_dialog_confirm_dialog_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/shared/confirm-dialog/confirm-dialog.component */ "./src/app/shared/confirm-dialog/confirm-dialog.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1381,44 +1857,116 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
-var ELEMENT_DATA = [
-    { id: 1, position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H' },
-    { id: 1, position: 2, name: 'Helium', weight: 4.0026, symbol: 'He' },
-    { id: 1, position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li' },
-    { id: 1, position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' },
-    { id: 1, position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' },
-    { id: 1, position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' },
-    { id: 1, position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' },
-    { id: 1, position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' },
-    { id: 1, position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' },
-    { id: 1, position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' },
-    { id: 1, position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' },
-    { id: 1, position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' },
-    { id: 1, position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' },
-    { id: 1, position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' },
-    { id: 1, position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' },
-    { id: 1, position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' },
-    { id: 1, position: 5, name: 'Boron', weight: 10.811, symbol: 'B' },
-    { id: 1, position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C' },
-    { id: 1, position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N' },
-    { id: 1, position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O' },
-    { id: 1, position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F' },
-    { id: 1, position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne' },
-];
+
+
+
 var UsersComponent = /** @class */ (function () {
-    function UsersComponent(tendoo) {
+    function UsersComponent(tendoo, router, dialog, snackbar) {
         this.tendoo = tendoo;
-        this.displayedColumns = [];
-        this.dataSource = ELEMENT_DATA;
+        this.router = router;
+        this.dialog = dialog;
+        this.snackbar = snackbar;
+        this.columns = [];
+        this.rawColumns = {};
+        this.source = [];
+        this.reservedColumns = ['$actions'];
     }
     UsersComponent.prototype.ngOnInit = function () {
+        var _this = this;
         Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["forkJoin"])(this.tendoo.users.getUsers(), this.tendoo.tables.getColumns('dashboard.users'))
             .subscribe(function (response) {
-            console.log(response);
+            _this.rawColumns = response[1];
+            _this.columns = Object.keys(_this.rawColumns);
+            _this.source = response[0];
         });
     };
     UsersComponent.prototype.sortData = function (event) {
         console.log(event);
+    };
+    /**
+     * trigger menu
+     * @param object menu
+     * @return void
+     */
+    UsersComponent.prototype.triggerMenu = function (menu, row) {
+        var _this = this;
+        /**
+         * build the url based on the
+         * configuration.
+         */
+        var url = menu.url.replace("#", row[menu.index || 'id']);
+        if (menu.confirm !== undefined) {
+            console.log(menu.namespace);
+            this.dialog.open(src_app_shared_confirm_dialog_confirm_dialog_component__WEBPACK_IMPORTED_MODULE_5__["ConfirmDialogComponent"], {
+                id: menu.namespace,
+                data: {
+                    title: menu.confirm.title,
+                    message: menu.confirm.message,
+                    buttons: [
+                        {
+                            label: 'Ok',
+                            namespace: 'ok',
+                            onClick: function () {
+                                _this.__proceedAction(menu, url);
+                            }
+                        }, {
+                            label: 'Cancel',
+                            namespace: 'cancel',
+                            onClick: function () {
+                                _this.dialog.getDialogById(menu.namespace)
+                                    .close();
+                            }
+                        }
+                    ]
+                }
+            });
+        }
+        else {
+            this.__proceedAction(menu, url);
+        }
+    };
+    /**
+     * Proceed action after having
+     * checked if that action require a confirmation
+     * @param object menu
+     * @return void
+     */
+    UsersComponent.prototype.__proceedAction = function (menu, url) {
+        var _this = this;
+        switch (menu.type) {
+            case 'DELETE':
+                this.tendoo.delete(url).subscribe(function (result) {
+                    _this.ngOnInit();
+                    _this.dialog.getDialogById(menu.namespace).close();
+                    return _this.snackbar.open(result.message, 'OK', {
+                        duration: 4000
+                    });
+                }, function (result) {
+                    _this.dialog.getDialogById(menu.namespace).close();
+                    return _this.snackbar.open(result.error.message, 'OK', {
+                        duration: 4000
+                    });
+                });
+                break;
+            case 'GET':
+                this.tendoo.get(url);
+                break;
+            case 'GOTO':
+                this.router.navigateByUrl(url);
+                break;
+        }
+    };
+    /**
+     * Make sure to toggle all
+     * checkboxes when the main checkbox
+     * is clicked
+     * @return void
+     */
+    UsersComponent.prototype.checkAllCheckboxes = function () {
+        var _this = this;
+        this.source.forEach(function (checkbox) {
+            checkbox.$checked = _this.checkAll;
+        });
     };
     UsersComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -1426,7 +1974,10 @@ var UsersComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./users.component.html */ "./src/app/components/dashboard/users/users.component.html"),
             styles: [__webpack_require__(/*! ./users.component.css */ "./src/app/components/dashboard/users/users.component.css")]
         }),
-        __metadata("design:paramtypes", [src_app_services_tendoo_service__WEBPACK_IMPORTED_MODULE_1__["TendooService"]])
+        __metadata("design:paramtypes", [src_app_services_tendoo_service__WEBPACK_IMPORTED_MODULE_1__["TendooService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_4__["MatDialog"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_4__["MatSnackBar"]])
     ], UsersComponent);
     return UsersComponent;
 }());
@@ -2015,7 +2566,6 @@ var PreventAppNotInstalledGuard = /** @class */ (function () {
     }
     PreventAppNotInstalledGuard.prototype.canActivate = function (next, state) {
         var _this = this;
-        // return true;
         return new Promise(function (resolve, reject) {
             _this.setup.ping().subscribe(function (result) {
             }, function (result) {
@@ -2059,6 +2609,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _services_loader_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../services/loader.service */ "./src/app/services/loader.service.ts");
+/* harmony import */ var _services_tendoo_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../services/tendoo.service */ "./src/app/services/tendoo.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2071,14 +2622,17 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var RequireLoggedGuard = /** @class */ (function () {
-    function RequireLoggedGuard(router) {
+    function RequireLoggedGuard(router, tendoo) {
         this.router = router;
+        this.tendoo = tendoo;
     }
     RequireLoggedGuard.prototype.canActivate = function (next, state) {
         if (Object.values(_services_loader_service__WEBPACK_IMPORTED_MODULE_2__["LoaderService"].headers).length === 0) {
+            this.tendoo.auth.intented = state.url;
             this.router.navigateByUrl('auth/login?notice=login-required');
-            return false;
+            return true;
         }
         return true;
     };
@@ -2086,9 +2640,134 @@ var RequireLoggedGuard = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
             providedIn: 'root'
         }),
-        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]])
+        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"],
+            _services_tendoo_service__WEBPACK_IMPORTED_MODULE_3__["TendooService"]])
     ], RequireLoggedGuard);
     return RequireLoggedGuard;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/services/http-response-parser.service.ts":
+/*!**********************************************************!*\
+  !*** ./src/app/services/http-response-parser.service.ts ***!
+  \**********************************************************/
+/*! exports provided: HttpResponseParserService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HttpResponseParserService", function() { return HttpResponseParserService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (undefined && undefined.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
+
+
+
+var HttpResponseParserService = /** @class */ (function () {
+    function HttpResponseParserService(route, activeRoute, snackbar) {
+        var _this = this;
+        this.route = route;
+        this.activeRoute = activeRoute;
+        this.snackbar = snackbar;
+        this.pipes = [];
+        this.pipes.push(function (response) {
+            return new Promise(function (resolve) {
+                if ([
+                    'Tendoo/Core/Exceptions/TendooNotInstalledException',
+                    'Tendoo/Core/Exceptions/TendooInstalledException',
+                ].indexOf(response.class) !== -1) {
+                    _this.snackbar.open(response.message, 'OK', {
+                        duration: 4000
+                    });
+                }
+                return resolve(response);
+            });
+        });
+    }
+    /**
+     * Parse Http Response
+     * @param http: AsyncResponse
+     */
+    HttpResponseParserService.prototype.parse = function (response) {
+        var _this = this;
+        return new Promise(function (resolve) {
+            _this.pipes.forEach(function (parser) { return __awaiter(_this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, parser(response)];
+                        case 1:
+                            response = _a.sent();
+                            return [2 /*return*/];
+                    }
+                });
+            }); });
+            resolve(response);
+        });
+    };
+    /**
+     * push http response parser
+     * @param any
+     * @return void
+     */
+    HttpResponseParserService.prototype.pushParser = function (parser) {
+        this.pipes.push(parser);
+    };
+    HttpResponseParserService = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
+            providedIn: 'root'
+        }),
+        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_1__["ActivatedRoute"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_2__["MatSnackBar"]])
+    ], HttpResponseParserService);
+    return HttpResponseParserService;
 }());
 
 
@@ -2108,6 +2787,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var _http_response_parser_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./http-response-parser.service */ "./src/app/services/http-response-parser.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2120,9 +2800,11 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var LoaderService = /** @class */ (function () {
-    function LoaderService(http) {
+    function LoaderService(http, httpParser) {
         this.http = http;
+        this.httpParser = httpParser;
         this.isLoading = false;
         this.baseUrl = tendoo.base_url;
     }
@@ -2136,16 +2818,38 @@ var LoaderService = /** @class */ (function () {
         var _this = this;
         return new rxjs__WEBPACK_IMPORTED_MODULE_2__["Observable"](function (observer) {
             _this.isLoading = true;
-            return _this.http.post(url, data, {
+            return _this.__formDataResponse(_this.http.post(url, data, {
                 headers: LoaderService_1.headers
-            }).subscribe(function (result) {
+            }), observer);
+        });
+    };
+    LoaderService.prototype.__formDataResponse = function (http, observer) {
+        var _this = this;
+        return http.subscribe(function (result) {
+            _this.httpParser.parse(result).then(function () {
                 _this.isLoading = false;
                 observer.next(result);
                 observer.complete();
-            }, function (error) {
-                _this.isLoading = false;
-                observer.error(error);
             });
+        }, function (result) {
+            _this.httpParser.parse(result.error).then(function () {
+                _this.isLoading = false;
+                observer.error(result);
+            });
+        });
+    };
+    /**
+     * Submit put request
+     * @param {string} url to access
+     * @param data data to submit
+     */
+    LoaderService.prototype.put = function (url, data) {
+        var _this = this;
+        return new rxjs__WEBPACK_IMPORTED_MODULE_2__["Observable"](function (observer) {
+            _this.isLoading = true;
+            return _this.__formDataResponse(_this.http.put(url, data, {
+                headers: LoaderService_1.headers
+            }), observer);
         });
     };
     /**
@@ -2163,9 +2867,11 @@ var LoaderService = /** @class */ (function () {
                 _this.isLoading = false;
                 observer.next(result);
                 observer.complete();
-            }, function (error) {
-                _this.isLoading = false;
-                observer.error(error);
+            }, function (result) {
+                _this.httpParser.parse(result.error).then(function () {
+                    _this.isLoading = false;
+                    observer.error(result);
+                });
             });
         });
     };
@@ -2181,12 +2887,16 @@ var LoaderService = /** @class */ (function () {
             return _this.http.get(url, {
                 headers: LoaderService_1.headers
             }).subscribe(function (result) {
-                _this.isLoading = false;
-                observer.next(result);
-                observer.complete();
-            }, function (error) {
-                _this.isLoading = false;
-                observer.error(error);
+                _this.httpParser.parse(result).then(function () {
+                    _this.isLoading = false;
+                    observer.next(result);
+                    observer.complete();
+                });
+            }, function (result) {
+                _this.httpParser.parse(result.error).then(function () {
+                    _this.isLoading = false;
+                    observer.error(result);
+                });
             });
         });
     };
@@ -2196,7 +2906,8 @@ var LoaderService = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
             providedIn: 'root'
         }),
-        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"]])
+        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"],
+            _http_response_parser_service__WEBPACK_IMPORTED_MODULE_3__["HttpResponseParserService"]])
     ], LoaderService);
     return LoaderService;
 }());
@@ -2397,13 +3108,38 @@ var TendooAuthService = /** @class */ (function (_super) {
     function TendooAuthService() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
+    /**
+     * attempt to log the user.
+     * @param credentials object user credentials
+     */
     TendooAuthService.prototype.login = function (credentials) {
         return this.post(this.baseUrl + 'tendoo/auth/login', credentials);
     };
-    TendooAuthService.prototype.setCredentials = function (id, token) {
+    /**
+     * Store the user credentials
+     * @param user User Object
+     * @param token session token
+     */
+    TendooAuthService.prototype.setCredentials = function (user, token) {
         _loader_service__WEBPACK_IMPORTED_MODULE_1__["LoaderService"].headers = {
             'X-AUTH-TOKEN': token
         };
+        this.user = user;
+    };
+    /**
+     * Logout the logged user
+     * @return void
+     */
+    TendooAuthService.prototype.logout = function () {
+        this.user = undefined;
+        _loader_service__WEBPACK_IMPORTED_MODULE_1__["LoaderService"].headers = {};
+    };
+    /**
+     * return the logged user
+     * @return User
+     */
+    TendooAuthService.prototype.getUser = function () {
+        return this.user;
     };
     TendooAuthService = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
@@ -2455,7 +3191,12 @@ var TendooFieldsService = /** @class */ (function (_super) {
     function TendooFieldsService() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    TendooFieldsService.prototype.get = function (namespace) {
+    /**
+     * Get fieds for a specific namespace
+     * @param string field namespace
+     * @return Objservable.
+     */
+    TendooFieldsService.prototype.getFields = function (namespace) {
         return this.get(this.baseUrl + 'tendoo/fields/' + namespace);
     };
     TendooFieldsService = __decorate([
@@ -2465,6 +3206,75 @@ var TendooFieldsService = /** @class */ (function (_super) {
     ], TendooFieldsService);
     return TendooFieldsService;
 }(_tendoo_auth_service__WEBPACK_IMPORTED_MODULE_1__["TendooAuthService"]));
+
+
+
+/***/ }),
+
+/***/ "./src/app/services/tendoo-forms.service.ts":
+/*!**************************************************!*\
+  !*** ./src/app/services/tendoo-forms.service.ts ***!
+  \**************************************************/
+/*! exports provided: TendooFormsService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TendooFormsService", function() { return TendooFormsService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _loader_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./loader.service */ "./src/app/services/loader.service.ts");
+var __extends = (undefined && undefined.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    }
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+
+var TendooFormsService = /** @class */ (function (_super) {
+    __extends(TendooFormsService, _super);
+    function TendooFormsService() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    /**
+     * get a form
+     * @param namespace form namespace
+     * @param index entry index
+     */
+    TendooFormsService.prototype.getForm = function (namespace, index) {
+        var url = this.baseUrl + 'tendoo/forms/' + namespace;
+        if (index !== undefined) {
+            url += '/' + index;
+        }
+        return this.get(url);
+    };
+    /**
+     * save a form
+     */
+    TendooFormsService.prototype.saveForm = function (namespace, data, index) {
+        var url = this.baseUrl + 'tendoo/forms/' + namespace;
+        return this.post(url, data);
+    };
+    TendooFormsService = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
+            providedIn: 'root'
+        })
+    ], TendooFormsService);
+    return TendooFormsService;
+}(_loader_service__WEBPACK_IMPORTED_MODULE_1__["LoaderService"]));
 
 
 
@@ -2612,6 +3422,61 @@ var TendooTableService = /** @class */ (function (_super) {
 
 /***/ }),
 
+/***/ "./src/app/services/tendoo-tabs.service.ts":
+/*!*************************************************!*\
+  !*** ./src/app/services/tendoo-tabs.service.ts ***!
+  \*************************************************/
+/*! exports provided: TendooTabsService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TendooTabsService", function() { return TendooTabsService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _loader_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./loader.service */ "./src/app/services/loader.service.ts");
+var __extends = (undefined && undefined.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    }
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+
+var TendooTabsService = /** @class */ (function (_super) {
+    __extends(TendooTabsService, _super);
+    function TendooTabsService() {
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.slug = 'tendoo/tabs';
+        return _this;
+    }
+    TendooTabsService.prototype.getTabs = function (name) {
+        return this.get("" + this.baseUrl + this.slug + "/" + name);
+    };
+    TendooTabsService = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
+            providedIn: 'root'
+        })
+    ], TendooTabsService);
+    return TendooTabsService;
+}(_loader_service__WEBPACK_IMPORTED_MODULE_1__["LoaderService"]));
+
+
+
+/***/ }),
+
 /***/ "./src/app/services/tendoo-users.service.ts":
 /*!**************************************************!*\
   !*** ./src/app/services/tendoo-users.service.ts ***!
@@ -2657,6 +3522,15 @@ var TendooUsersService = /** @class */ (function (_super) {
     TendooUsersService.prototype.getUsers = function () {
         return this.get(this.baseUrl + 'tendoo/users');
     };
+    /**
+     * edit a user using a provided id
+     * @param int user id
+     * @param object data to update
+     * @return Objservable of AsyncResponse
+     */
+    TendooUsersService.prototype.edit = function (id, data) {
+        return this.put(this.baseUrl + 'tendoo/users/' + id, data);
+    };
     TendooUsersService = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
             providedIn: 'root'
@@ -2687,6 +3561,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _tendoo_modules_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./tendoo-modules.service */ "./src/app/services/tendoo-modules.service.ts");
 /* harmony import */ var _tendoo_users_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./tendoo-users.service */ "./src/app/services/tendoo-users.service.ts");
 /* harmony import */ var _tendoo_table_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./tendoo-table.service */ "./src/app/services/tendoo-table.service.ts");
+/* harmony import */ var _tendoo_forms_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./tendoo-forms.service */ "./src/app/services/tendoo-forms.service.ts");
+/* harmony import */ var _http_response_parser_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./http-response-parser.service */ "./src/app/services/http-response-parser.service.ts");
+/* harmony import */ var _tendoo_tabs_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./tendoo-tabs.service */ "./src/app/services/tendoo-tabs.service.ts");
 var __extends = (undefined && undefined.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
@@ -2717,15 +3594,20 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
+
+
 var TendooService = /** @class */ (function (_super) {
     __extends(TendooService, _super);
-    function TendooService(http, auth, fields, modules, users, tables) {
-        var _this = _super.call(this, http) || this;
+    function TendooService(http, httpParser, auth, fields, modules, users, tables, forms, tabs) {
+        var _this = _super.call(this, http, httpParser) || this;
         _this.auth = auth;
         _this.fields = fields;
         _this.modules = modules;
         _this.users = users;
         _this.tables = tables;
+        _this.forms = forms;
+        _this.tabs = tabs;
         return _this;
     }
     TendooService = __decorate([
@@ -2733,11 +3615,14 @@ var TendooService = /** @class */ (function (_super) {
             providedIn: 'root'
         }),
         __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"],
+            _http_response_parser_service__WEBPACK_IMPORTED_MODULE_9__["HttpResponseParserService"],
             _tendoo_auth_service__WEBPACK_IMPORTED_MODULE_3__["TendooAuthService"],
             _tendoo_fields_service__WEBPACK_IMPORTED_MODULE_4__["TendooFieldsService"],
             _tendoo_modules_service__WEBPACK_IMPORTED_MODULE_5__["TendooModulesService"],
             _tendoo_users_service__WEBPACK_IMPORTED_MODULE_6__["TendooUsersService"],
-            _tendoo_table_service__WEBPACK_IMPORTED_MODULE_7__["TendooTableService"]])
+            _tendoo_table_service__WEBPACK_IMPORTED_MODULE_7__["TendooTableService"],
+            _tendoo_forms_service__WEBPACK_IMPORTED_MODULE_8__["TendooFormsService"],
+            _tendoo_tabs_service__WEBPACK_IMPORTED_MODULE_10__["TendooTabsService"]])
     ], TendooService);
     return TendooService;
 }(_loader_service__WEBPACK_IMPORTED_MODULE_1__["LoaderService"]));
@@ -2764,7 +3649,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div fxFlex=\"auto\" FxLayout=\"column\" fxLayoutAlign=\"center center\">\n\t<div class=\"text-center\" fxFlex.lg=\"80%\" fxFlex.md=\"80%\" fxFlex.xs=\"100%\" fxFlex.sm=\"100%\">\n\t\t<p class=\"mat-display-1 m-0 py-3\">\n\t\t\t{{ data.title }}\n\t\t</p>\n\t\t<p class=\"mat-title\">{{ data.message }}</p>\n\t</div>\n</div>\n<mat-divider></mat-divider>\n<div fxLayout=\"row\" fxFlex=\"50px\" fxLayoutAlign=\"stretch stretch\">\n\t<ng-container *ngFor=\"let button of data.buttons\">\n\t\t<button (click)=\"handle( button )\" fxFlex=\"auto\" mat-button=\"\">\n\t\t\t<span  class=\"mat-subheading-2\">{{ button.label }}</span>\n\t\t</button>\n\t\t<mat-divider [vertical]=\"true\"></mat-divider>\n\t</ng-container>\n</div>"
+module.exports = "<div fxFlex=\"auto\" FxLayout=\"column\" fxLayoutAlign=\"center center\">\r\n\t<div class=\"text-center\" fxFlex.lg=\"80%\" fxFlex.md=\"80%\" fxFlex.xs=\"100%\" fxFlex.sm=\"100%\">\r\n\t\t<p class=\"mat-display-1 m-0 py-3\">\r\n\t\t\t{{ data.title }}\r\n\t\t</p>\r\n\t\t<p class=\"mat-title\">{{ data.message }}</p>\r\n\t</div>\r\n</div>\r\n<mat-divider></mat-divider>\r\n<div fxLayout=\"row\" fxFlex=\"50px\" fxLayoutAlign=\"stretch stretch\">\r\n\t<ng-container *ngFor=\"let button of data.buttons\">\r\n\t\t<button (click)=\"handle( button )\" fxFlex=\"auto\" mat-button=\"\">\r\n\t\t\t<span  class=\"mat-subheading-2\">{{ button.label }}</span>\r\n\t\t</button>\r\n\t\t<mat-divider [vertical]=\"true\"></mat-divider>\r\n\t</ng-container>\r\n</div>"
 
 /***/ }),
 
@@ -3121,12 +4006,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var src_app_guards_require_logged_guard__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! src/app/guards/require-logged.guard */ "./src/app/guards/require-logged.guard.ts");
 /* harmony import */ var src_app_components_dashboard_modules_upload_modules_upload_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! src/app/components/dashboard/modules-upload/modules-upload.component */ "./src/app/components/dashboard/modules-upload/modules-upload.component.ts");
 /* harmony import */ var src_app_guards_check_app_installed_guard__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! src/app/guards/check-app-installed.guard */ "./src/app/guards/check-app-installed.guard.ts");
+/* harmony import */ var src_app_components_dashboard_users_create_users_create_component__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! src/app/components/dashboard/users-create/users-create.component */ "./src/app/components/dashboard/users-create/users-create.component.ts");
+/* harmony import */ var src_app_components_dashboard_users_edit_users_edit_component__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! src/app/components/dashboard/users-edit/users-edit.component */ "./src/app/components/dashboard/users-edit/users-edit.component.ts");
+/* harmony import */ var src_app_components_dashboard_profile_profile_component__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! src/app/components/dashboard/profile/profile.component */ "./src/app/components/dashboard/profile/profile.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
+
+
 
 
 
@@ -3200,6 +4091,15 @@ var RoutesModule = /** @class */ (function () {
                             }, {
                                 path: 'users',
                                 component: src_app_components_dashboard_users_users_component__WEBPACK_IMPORTED_MODULE_9__["UsersComponent"]
+                            }, {
+                                path: 'users/edit/:id',
+                                component: src_app_components_dashboard_users_edit_users_edit_component__WEBPACK_IMPORTED_MODULE_21__["UsersEditComponent"]
+                            }, {
+                                path: 'users/create',
+                                component: src_app_components_dashboard_users_create_users_create_component__WEBPACK_IMPORTED_MODULE_20__["UsersCreateComponent"]
+                            }, {
+                                path: 'profile',
+                                component: src_app_components_dashboard_profile_profile_component__WEBPACK_IMPORTED_MODULE_22__["ProfileComponent"]
                             }, {
                                 path: 'modules',
                                 component: src_app_components_dashboard_modules_modules_component__WEBPACK_IMPORTED_MODULE_10__["ModulesComponent"]

@@ -12,7 +12,7 @@
         @each $variation in (0, 1, 2, 3, 4) {
             @each $space, $space-name in (m: margin, p: padding ) {
                 .#{$space}-#{$variation} {
-                    #{$space-name}: $default-margin * ($variation/2);
+                    #{$space-name}: $default-margin * ($variation/6) !important;
                 }
                 @each $corner, $direction in $directions {
                     .#{$space}#{$corner}-#{$variation} {

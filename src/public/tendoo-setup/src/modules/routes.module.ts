@@ -20,6 +20,7 @@ import { ModulesUploadComponent } from "src/app/components/dashboard/modules-upl
 import { PreventAppNotInstalledGuard } from "src/app/guards/check-app-installed.guard";
 import { UsersCreateComponent } from "src/app/components/dashboard/users-create/users-create.component";
 import { UsersEditComponent } from "src/app/components/dashboard/users-edit/users-edit.component";
+import { ProfileComponent } from "src/app/components/dashboard/profile/profile.component";
 
 @NgModule({
     imports: [
@@ -76,6 +77,9 @@ import { UsersEditComponent } from "src/app/components/dashboard/users-edit/user
                     }, {
                         path: 'users/create',
                         component: UsersCreateComponent
+                    }, {
+                        path: 'profile',
+                        component: ProfileComponent
                     }, {
                         path: 'modules',
                         component: ModulesComponent

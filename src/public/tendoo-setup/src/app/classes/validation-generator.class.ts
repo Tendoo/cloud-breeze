@@ -29,7 +29,7 @@ export class ValidationGenerator {
             const rules             =   (<string>validation).split( '|' );
             const minRule 			=	/(min)\:([0-9])+/g;
             const maxRule 			=	/(max)\:([0-9])+/g;
-            const matchRule         =   /(matches):(\w+)/g;
+            const matchRule         =   /(same):(\w+)/g;
             let result;
             
             /**
@@ -103,8 +103,8 @@ export class ValidationGenerator {
     }
 
     /**
-     * Build FormControl from Field object
-     * create FormControl if it's not defined and call 
+     * Build FormControl from Field object.
+     * Create FormControl if it's not defined and call 
      * extractControls to build the FormControl
      * @param Field object
      * @return FormControl
@@ -147,5 +147,57 @@ export class ValidationGenerator {
             fields,
             formGroup   :   new FormGroup( ValidationGenerator.extractControls( fields ) )
         };
+    }
+
+    /**
+     * Disable all fields
+     * @param array Field[]
+     * @return void
+     */
+    static deactivateFields( fields: Field[] ) {
+        fields.forEach( field =>  field.control.disable() );
+    }
+
+    /**
+     * Enable all fields
+     * @param array Field[]
+     * @return void
+     */
+    static enableFields( fields: Field[] ) {
+        fields.forEach( field => field.control.enable() );
+    }
+
+    /**
+     * Throw custom errors on fields and FormGroup
+     * @param array Field[]
+     * @param error FieldError
+     * @return void
+     */
+    static throwFieldsError( group: FormGroup, fields: Field[], errors ) {
+        for( let error in errors ) {
+            group.get( error ).setErrors({ error: true });
+            fields.forEach( field => {
+                if ( field.name === error ) {
+                    field.errors    =   errors[ field.name ];
+                }
+            })
+        }
+    }
+
+    /**
+     * Get valid value from FromGroup.
+     * This skip null value from the final object
+     * @param object FormGroup value
+     * @return object result
+     */
+    static noNullValue( group: FormGroup ) {
+        let finalData   =   {};
+        for( let key in group.value ) {
+            if ( group.value[ key ] !== null ) {
+                finalData[ key ]    =   group.value[ key ];
+            }
+        }
+
+        return finalData;
     }
 }

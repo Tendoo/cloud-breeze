@@ -1,7 +1,16 @@
 <div fxLayout="column" fxFill>
     <div>
-        <mat-toolbar color="primary">
+        <mat-toolbar color="primary" fxFlex fxLayoutAlign="space-between center">
             <span>Tendoo CMS</span>
+            <div>
+                <button mat-icon-button [matMenuTriggerFor]="profileMenu">
+                    <mat-icon aria-label="Example icon-button with a heart icon">person</mat-icon>
+                </button>
+                <mat-menu #profileMenu="matMenu">
+                    <button routerLink="/dashboard/profile" mat-menu-item>Profile</button>
+                    <button routerLink="/auth/logout" mat-menu-item>Logout</button>
+                </mat-menu>
+            </div>
         </mat-toolbar>
     </div>
     
