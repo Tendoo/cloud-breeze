@@ -1,6 +1,8 @@
 <?php
 namespace Tendoo\Core\Services\Fields;
 
+use Illuminate\Support\Facades\Auth;
+
 trait ProfileFields 
 {
     /**
@@ -41,21 +43,13 @@ trait ProfileFields
     {
         $userOptions            =   app()->make( 'Tendoo\Core\Services\UserOptions' );
         
-        $theme                  =   new \stdClass;
-        $theme->name            =   'theme_class';
-        $theme->label           =   __( 'Theme' );
-        $theme->type            =   'md-select';
-        $theme->value           =   $userOptions->get( 'theme_class' );
-        $theme->description     =   __( 'Change the dashboard theme.' );
-        $theme->validation      =   'sometimes|required|min:3';
-        $theme->options         =   [
-            'dark-theme'      =>  __( 'Dark' ),
-            'red-theme'       =>  __( 'Red' ),
-            'green-theme'     =>  __( 'Green' ),
-            'blue-theme'      =>  __( 'Blue' ),
-            'white-theme'     =>  __( 'White' ),
-        ];
+        $email              =   new \stdClass;
+        $email->type        =   'email';
+        $email->name        =   'email';
+        $email->label       =   __( 'Email' );
+        $email->validation  =   'sometimes|email';
+        $email->value       =   Auth::user()->email;
 
-        return [ $theme ];
+        return [ $email ];
     }
 }

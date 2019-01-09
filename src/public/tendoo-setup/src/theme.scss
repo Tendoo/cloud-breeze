@@ -23,6 +23,7 @@ $custom-theme: mat-light-theme( $custom-primary, $custom-accent );
     }
     .bg-content {
         background-color: mat-color( $custom-background, 200 );
+        color: #333;
     }
 }
 

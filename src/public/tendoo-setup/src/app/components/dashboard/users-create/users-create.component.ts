@@ -49,12 +49,25 @@ export class UsersCreateComponent implements OnInit {
             this.snackbar.open( 'The form has some error(s). Please check the form and try again.' );
         }
 
-        this.tendoo.post( this.formConfig.post, this.form.value ).subscribe( (result:AsyncResponse ) => {
+        ValidationGenerator.deactivateFields( this.fields );
+
+        this.tendoo.users.create( this.form.value ).subscribe( (result:AsyncResponse ) => {
+            /**
+             * enable back fields since they might be edited
+             */
+            ValidationGenerator.enableFields( this.fields );
+
             this.snackbar.open( result.message, 'OK', {
                 duration: 4000
             });
             this.router.navigateByUrl( 'dashboard/users' );
+
         }, ( result: HttpErrorResponse ) => {
+            /**
+             * enable back fields since they might be edited
+             */
+            ValidationGenerator.enableFields( this.fields );
+
             this.snackbar.open( result.error.message, 'OK', {
                 duration: 4000
             });

@@ -47,8 +47,13 @@ export class ProfileComponent implements OnInit {
      * @param tab Tab Object
      * @return void
      */
-    setTabActive( tab ) {
-        tab.active  =   tab.active === undefined ? true : ! tab.active;
+    setTabActive( index ) {
+        this.tabs.forEach( (_tab, _index ) => {
+            _tab.active         =   false;
+            if ( index === _index ) {
+                _tab.active     =   true;
+            } 
+        });
     }
 
     saveTabSettings( tab: Tab ) {
@@ -67,7 +72,7 @@ export class ProfileComponent implements OnInit {
 
         this.tendoo.forms
             .saveForm( 
-                'dashboard.profile', 
+                this.activeTab.namespace, 
                 ValidationGenerator.noNullValue( tab.form ) 
             ).subscribe( (response: AsyncResponse ) => {
 

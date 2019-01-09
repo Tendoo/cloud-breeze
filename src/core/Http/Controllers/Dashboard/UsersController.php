@@ -128,38 +128,6 @@ class UsersController extends DashboardController
     }
 
     /**
-     * Post User Security
-     * @return void
-     */
-    public function postUserSecurity( PostUserSecurityRequest $request )
-    {
-        $user               =   Auth::user();
-
-        if ( ! Hash::check( $request->input( 'old_password' ), $user->password ) ) {
-            return redirect()->route( 'dashboard.users.profile.security' )->withErrors([
-                'status'    =>  'danger',
-                'message'   =>  __( 'The old password is not correct !' )
-            ]);
-        }
-
-        $user->password     =   Hash::make( $request->input( 'new_password' ) );
-        $user->save();
-
-        /**
-         * @todo send an email to the user saying that his password
-         * has been changed.
-         */
-
-        /**
-         * Redirect to the security tag
-         */
-        return redirect()->route( 'dashboard.users.profile.security' )->with([
-            'status'    =>  'success',
-            'message'   =>  __( 'Your password has been updated.' )
-        ]);
-    }
-
-    /**
      * Create a user
      * @param Request
      * @return AsyncResponse
@@ -196,6 +164,7 @@ class UsersController extends DashboardController
 
     /**
      * Post user profile
+     * @todo review
      * @return void
      */
     public function postUserProfile( UserProfileRequest $request ) 
@@ -262,40 +231,53 @@ class UsersController extends DashboardController
     }
 
     /**
-     * Show Oauth
-     * @return view
+     * Delete Selected users
+     * @return AsyncResponse
      */
-    public function showOauth()
+    public function deleteSelected( Request $request ) 
     {
-        $this->checkPermission( 'read.profile' );
-        $this->setTitle( __( 'My authorized oauth connexions' ) );
+        $this->checkPermission( 'delete.users' );
 
-        $oauth      =   Oauth::where( 'user_id', Auth::id() )->get();
-        $view_path  =   'tendoo::components.backend.user.oauth';
+        if ( $request->input( 'ids' ) ) {
 
-        return view( 'tendoo::components.backend.user', [
-            'tab'           =>  'oauth',
-            'view_path'     =>  $view_path,
-            'oauth'         =>  $oauth
+            $errors     =   [];      
+            $success    =   [];
+
+            foreach( $request->input( 'ids' ) as $id ) {
+                if ( $id === Auth::user()->id ) {
+                    $errors[]   =   __( 'You cannot delete your own account' );
+                } else {
+                    /**
+                     * let's find the user and delete thim
+                     */
+                    $user   =   User::find( $id );
+                    if ( $user instanceof User ) {
+                        /**
+                         * @todo trigger delete for current id event
+                         */
+                        $success[]  =   $user;
+                        $user->delete();
+                    } else {
+                        $errors[]   =   sprintf( __( 'Unable to find and delete the user with the id %s' ), $user->username );
+                    }
+                }
+            }
+
+            return [
+                'status'    =>  'success',
+                'message'   =>  sprintf( 
+                    __( '%s users deleted. %s has not been deleted.' ),
+                    count( $success ),
+                    count( $errors )
+                ),
+                'errors'    =>  $errors,
+                'success'   =>  $success
+            ];
+        }
+
+        throw CoreException([
+            'status'    =>  'failed',
+            'message'   =>  __( 'Unable to proceed, a required parameter is missing : "ids"' )
         ]);
-    }
-
-    /**
-     * Post User Oauth
-     * @return json
-     */
-    public function postUserOauth( Request $request )
-    {
-        $token  =   $request->input( 'token' );
-        
-        /**
-         * Delete a key
-         */
-        Oauth::find( $token[ 'id' ] )->delete();
-        
-        return [
-            'status'    =>  'success',
-            'message'   =>  __( 'The access key has been revoked' )
-        ];
     }
 }

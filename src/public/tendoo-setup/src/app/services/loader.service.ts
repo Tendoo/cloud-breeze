@@ -10,6 +10,7 @@ declare const tendoo;
     providedIn: 'root'
 })
 export class LoaderService {
+    bulkDeletePath;
     isLoading   =   false;
     baseUrl     =   tendoo.base_url; 
     static headers  =   {};
@@ -108,5 +109,20 @@ export class LoaderService {
                 });
             })
         });
+    }
+
+    /**
+     * delete Selected entries
+     * @param array of id
+     * @return AyncResponse
+     */
+    deleteSelected( ids: number[] ) {
+        console.log( this.bulkDeletePath );
+        if ( this.bulkDeletePath !== undefined ) {
+            return this.post( this.baseUrl + this.bulkDeletePath, {
+                ids
+            });
+        }
+        return false;
     }
 }

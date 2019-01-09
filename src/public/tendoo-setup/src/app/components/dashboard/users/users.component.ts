@@ -39,6 +39,14 @@ export class UsersComponent implements OnInit {
     ) { }
     
     ngOnInit() {
+        this.loadUsers();
+    }
+    
+    /**
+     * init the users component
+     * and load all data
+     */
+    loadUsers() {
         forkJoin(
             this.tendoo.users.getUsers(),
             this.tendoo.tables.getColumns( 'dashboard.users' )
@@ -137,5 +145,87 @@ export class UsersComponent implements OnInit {
         this.source.forEach( checkbox => {
             checkbox.$checked       =   this.checkAll;
         })
+    }
+
+    /**
+     * delete selected entries
+     * @param entries
+     * @return void
+     */
+    deleteSelectedEntries( entries ) {
+        this.dialog.open( ConfirmDialogComponent, {
+            id: 'delete.all.popup',
+            data: <ConfirmDialogObject>{
+                title: 'Please Confirm Your Action',
+                message: 'Would you like to delete all the selected users ? This action can\'t be canceled !',
+                buttons: [
+                    {
+                        label: 'Delete',
+                        namespace: 'delete.all',
+                        onClick: () => {
+                            this.dialog.getDialogById( 'delete.all.popup' ).close();
+                            const result    =   <Observable<AsyncResponse>>this.confirmDeleteSelected();
+
+                            /**
+                             * if no error has been thrown
+                             */
+                            if ( result instanceof Observable ) {
+                                result.subscribe( response => {
+                                    /**
+                                     * reload the users to 
+                                     * reflect the changes
+                                     */
+                                    this.loadUsers();
+                                    
+                                    this.snackbar.open( response.message, 'OK', {
+                                        duration: 3000
+                                    });
+                                }, (result: HttpErrorResponse ) => {
+                                    this.snackbar.open( result.error.message );
+                                })
+                            } else {
+                                /**
+                                 * this happen when there is a misconfiguration 
+                                 * of an entity, for instance TendooUsersService.
+                                 */
+                                this.snackbar.open( 'A misconfiguration of an entity has occured ! ', 'OK', {
+                                    duration: 10000
+                                });
+                            }
+                        }
+                    }, {
+                        label: 'Cancel',
+                        namespace: 'cancel',
+                        onClick: () => {
+                            this.dialog.getDialogById( 'delete.all.popup' ).close();
+                        }
+                    }
+                ]
+            }
+        })
+    }
+
+    /**
+     * Confirm delete all selected entries
+     * @return void
+     */
+    confirmDeleteSelected() {
+        return this.tendoo.users.deleteSelected( this.selectedEntries.map( entry => entry.id ) )
+    }
+
+    /**
+     * get if it has a selected entries
+     * @return boolean
+     */
+    get hasSelectedEntries(): boolean {
+        return this.source.filter( entry => entry.$checked ).length > 0;
+    }
+
+    /**
+     * return selected entries
+     * @return array
+     */
+    get selectedEntries() {
+        return this.source.filter( entry => entry.$checked );
     }
 }

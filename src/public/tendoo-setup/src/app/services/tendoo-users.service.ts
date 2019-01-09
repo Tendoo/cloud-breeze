@@ -6,6 +6,11 @@ import { TendooAuthService } from './tendoo-auth.service';
 })
 export class TendooUsersService extends TendooAuthService {
     /**
+     * bulk delete path
+     */
+    bulkDeletePath      =   'tendoo/users/delete-selected';
+
+    /**
      * get users
      * @return json
      */
@@ -21,5 +26,14 @@ export class TendooUsersService extends TendooAuthService {
      */
     edit( id, data ) {
         return this.put( this.baseUrl + 'tendoo/users/' + id, data );
+    }
+
+    /**
+     * create a users using provided data
+     * @param data
+     * @return Observable<AsyncReponse>
+     */
+    create( data: { [ key: string ] : any } ) {
+        return this.post( this.baseUrl + 'tendoo/users', data );
     }
 }

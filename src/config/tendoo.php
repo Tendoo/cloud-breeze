@@ -7,7 +7,7 @@ return [
      * users using the client IP address
      */
     'flood'             =>  [
-        'prevent'       =>  true,
+        'prevent'       =>  false, // should be enabled
         'limit'         =>  30,
         'expiration'    =>  60
     ],

@@ -45,31 +45,11 @@ class FormsController extends DashboardController
                     'fields'    =>  Field::setupUserFields( User::find( $index ) )
                 ];
             break;
-            case 'dashboard.profile': 
-                return [
-                    [
-                        'type'          =>  'text',
-                        'name'          =>  'email',
-                        'label'         =>  __( 'Email' ),
-                        'validation'    =>  'sometimes|email',
-                        'value'         =>  Auth::user()->email
-                    ], [
-                        'type'          =>  'password',
-                        'name'          =>  'old_password',
-                        'label'         =>  __( 'Old Password' ),
-                        'validation'    =>  'sometimes|min:6'
-                    ], [
-                        'type'          =>  'password',
-                        'name'          =>  'password',
-                        'label'         =>  __( 'New Password' ),
-                        'validation'    =>  'sometimes|min:6'
-                    ], [
-                        'type'          =>  'password',
-                        'name'          =>  'confirm_password',
-                        'label'         =>  __( 'Confirm Password' ),
-                        'validation'    =>  'sometimes|min:6|same:password'
-                    ]
-                    ];
+            case 'dashboard.profile.security': 
+                return Field::userSecurityFields();
+            break;
+            case 'dashboard.profile.general': 
+                return Field::userGeneralFields();
             break;
         }
     }
@@ -91,7 +71,7 @@ class FormsController extends DashboardController
          */
         $validation     =   [];
         foreach( $fields as $field ) {
-            $validation[ $field[ 'name' ] ]     =   $field[ 'validation' ];
+            $validation[ $field->name ]     =   $field->validation;
         }
 
         $validationResult   =   Validator::make( $request->all(), $validation );
@@ -108,7 +88,8 @@ class FormsController extends DashboardController
          * proceed to saving the form
          */
         switch( $namespace ) {
-            case 'dashboard.profile':  
+            case 'dashboard.profile.general':  
+            case 'dashboard.profile.security':  
                 /**
                  * this should actually be save separately 
                  * on a specific service

@@ -1,5 +1,6 @@
-<div fxLayout="column" fxFlex="100%" style="overflow-y:auto">
-    <div fxFlex="150px" fxLayout="row" class="bg-primary p-3">
+<div fxLayout="column" class="bg-content" fxFlex="100%" style="overflow-y:auto">
+    <mat-progress-bar color="warn" style="height: 2px; position: absolute" *ngIf="tendoo.users.isLoading" mode="indeterminate"></mat-progress-bar>
+    <div fxLayout="row" class="p-3">
         <div fxFlex>
             <h1 class="mat-display-1 mb-0">Users</h1>
             <span class="mat-title">create new users</span>
@@ -8,9 +9,8 @@
             <button routerLink="/dashboard/users" mat-button color="warn">Back to users</button>
         </div>
     </div>
-    <mat-progress-bar color="warn" style="height: 1px" *ngIf="tendoo.isLoading" mode="indeterminate"></mat-progress-bar>
-    <div class="p-2 bg-content" fxLayout="row" fxFlex="1 0 auto" fxLayout="row">
-        <mat-card fxFlex>
+    <div class="p-3" fxLayout="row" fxFlex="1 0 auto" fxLayout="column">
+        <mat-card>
             <mat-card-title>
                 Create a new user
             </mat-card-title>

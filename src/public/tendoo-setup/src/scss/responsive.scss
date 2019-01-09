@@ -11,17 +11,17 @@
     @include breakpoint( $breakpoint ) {
         @each $variation in (0, 1, 2, 3, 4) {
             @each $space, $space-name in (m: margin, p: padding ) {
-                .#{$space}-#{$variation} {
-                    #{$space-name}: $default-margin * ($variation/6) !important;
-                }
                 @each $corner, $direction in $directions {
                     .#{$space}#{$corner}-#{$variation} {
                         @if $variation != 0 {
-                            #{$space-name}-#{$direction}: $default-margin * ($variation/2) !important;
+                            #{$space-name}-#{$direction}: $default-margin * ($variation*0.15) !important;
                         } @else {
-                            #{$space-name}-#{$direction}: 0 !important;
+                            #{$space-name}-#{$direction}: 0em !important;
                         }
                     }
+                }
+                .#{$space}-#{$variation} {
+                    #{$space-name}: $default-margin * ($variation*0.15) !important;
                 }
             }
         }

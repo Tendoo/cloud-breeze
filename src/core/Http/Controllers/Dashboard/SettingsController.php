@@ -20,19 +20,9 @@ class SettingsController extends DashboardController
     }
 
     /**
-     * Dashboard Settings
-     * those settings includes tabs
-     * @return view
-     */
-    public function dashboardSettings( $tab = 'general' )
-    {
-        $this->setTitle( __( 'Registration Settings' ) );
-        return view( 'tendoo::components.backend.settings', compact( 'tab' ) );
-    }
-
-    /**
      * Post Options
      * receive and treat options send
+     * @todo review
      * @param void
      * @return void
      */

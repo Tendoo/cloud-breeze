@@ -112,6 +112,7 @@ class ModulesController extends DashboardController
     /**
      * Extract module
      * @param string module namespace
+     * @todo review
      * @return void
      */
     public function extractModule( $module )
@@ -190,6 +191,7 @@ class ModulesController extends DashboardController
     /**
      * Run migration for a specific module 
      * @param string namespace
+     * @todo review
      * @return view
      */
     public function migrateModule( $namespace )
@@ -221,6 +223,7 @@ class ModulesController extends DashboardController
     /**
      * Run Migration
      * @param string namespace
+     * @todo review
      * @return string json
      */
     public function runMigration( $namespace, Request $request )

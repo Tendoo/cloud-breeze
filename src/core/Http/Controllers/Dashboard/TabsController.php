@@ -38,9 +38,13 @@ class TabsController extends DashboardController
     {
         return [
             [
+                'label'     =>  __( 'General' ),
+                'namespace' =>  'dashboard.profile.general',
+                'fields'    =>  (new FormsController)->getForm( 'dashboard.profile.general' )
+            ], [
                 'label'     =>  __( 'Security' ),
                 'namespace' =>  'dashboard.profile.security',
-                'fields'    =>  (new FormsController)->getForm( 'dashboard.profile' )
+                'fields'    =>  (new FormsController)->getForm( 'dashboard.profile.security' )
             ]
         ];
     }

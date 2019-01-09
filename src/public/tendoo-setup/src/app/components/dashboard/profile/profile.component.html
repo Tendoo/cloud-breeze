@@ -18,16 +18,15 @@
                 <mat-card-title class="p-1 mb-0">Profile Settings</mat-card-title>
                 <mat-divider></mat-divider>
                 <mat-card-content class="p-0">
-                    <ng-container *ngFor="let tab of tabs">
-                        <form [formGroup]="tab.form"></form>
-                        <mat-tab-group>
-                            <mat-tab label="Security" (click)="setTabActive( tab )">
+                    <mat-tab-group (selectedIndexChange)="setTabActive($event)">
+                        <mat-tab *ngFor="let tab of tabs" [label]="tab.label">
+                            <form [formGroup]="tab.form">
                                 <div class="p-2">
                                     <app-fields *ngFor="let field of tab.fields" [field]="field" [group]="tab.form"></app-fields>
                                 </div>
-                            </mat-tab>
-                        </mat-tab-group>
-                    </ng-container>
+                            </form>
+                        </mat-tab>
+                    </mat-tab-group>
                 </mat-card-content>
                 <mat-divider></mat-divider>
                 <mat-card-actions class="p-1 m-0">

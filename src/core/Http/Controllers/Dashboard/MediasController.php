@@ -1,4 +1,7 @@
 <?php
+/**
+ * @todo review for api-server
+ */
 namespace Tendoo\Core\Http\Controllers\Dashboard;
 
 use Tendoo\Core\Http\Controllers\DashboardController;
