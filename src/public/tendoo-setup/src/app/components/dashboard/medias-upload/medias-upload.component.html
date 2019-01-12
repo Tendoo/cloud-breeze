@@ -1,0 +1,25 @@
+<div fxLayout="column" fxFlex="100%" style="overflow-y:auto">
+    <!-- <mat-progress-bar color="warn" style="height: 2px; position: absolute" *ngIf="tendoo.users.isLoading" mode="indeterminate"></mat-progress-bar> -->
+    <div fxLayout="row" class="bg-content p-3 pb-0">
+        <div fxFlex>
+            <h1 class="mat-display-1 mb-0">Media</h1>
+            <small class="mat-title">upload a new file</small>
+        </div>
+        <div fxFlex fxLayoutAlign="end start">
+            <div>
+                <button mat-button [routerLink]="'/dashboard/medias'">Back</button>
+            </div>
+        </div>    
+    </div>
+    <div fxFlex class="bg-content p-3" fxFlexLayout="row" fxLayoutAlign="center center">
+        <div fxFlex.lg="40%" fxFlex.md="40%" fxFlex.xl="40%" 
+            (drop)="handleDrop( $event )"
+            (drag)="setDragState( 'start' )">
+            <mat-card>
+                <mat-card-content>
+                    <h3>{{ dragMessage }}</h3>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
+</div>

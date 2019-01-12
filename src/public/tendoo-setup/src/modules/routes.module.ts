@@ -21,6 +21,8 @@ import { PreventAppNotInstalledGuard } from "src/app/guards/check-app-installed.
 import { UsersCreateComponent } from "src/app/components/dashboard/users-create/users-create.component";
 import { UsersEditComponent } from "src/app/components/dashboard/users-edit/users-edit.component";
 import { ProfileComponent } from "src/app/components/dashboard/profile/profile.component";
+import { MediasComponent } from "src/app/components/dashboard/medias/medias.component";
+import { MediasUploadComponent } from "src/app/components/dashboard/medias-upload/medias-upload.component";
 
 @NgModule({
     imports: [
@@ -89,6 +91,12 @@ import { ProfileComponent } from "src/app/components/dashboard/profile/profile.c
                     }, {
                         path: 'settings',
                         component: SettingsComponent
+                    }, {
+                        path: 'medias',
+                        component: MediasComponent
+                    }, {
+                        path: 'medias/upload',
+                        component: MediasUploadComponent
                     }, 
                 ]
             }

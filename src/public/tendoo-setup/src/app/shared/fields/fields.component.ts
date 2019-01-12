@@ -22,7 +22,7 @@ export class FieldsComponent implements OnInit {
 	}
 	
 	ngOnInit() {
-		if ( [ 'text', 'email', 'select', 'password', 'textarea', 'datetime', 'number', 'multiple_select', 'button' ].indexOf( this.field.type ) === -1 ) {
+		if ( [ 'text', 'email', 'select', 'password', 'textarea', 'datetime', 'number', 'multiple_select', 'button', 'switch' ].indexOf( this.field.type ) === -1 ) {
 			throw( `Unable to render the field '${this.field.name}' with the field type : '${this.field.type}'. This type is not supported.`);
 		}
 
@@ -31,6 +31,5 @@ export class FieldsComponent implements OnInit {
 		}
 
 		this[ this.field.name ] 	=	this.field.control;
-	}
-	
+	}	
 }

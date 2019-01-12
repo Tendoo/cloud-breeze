@@ -2,8 +2,8 @@
 @import './scss/responsive.scss';
 @include mat-core();
 
-$custom-primary: mat-palette( $mat-lime );
-$custom-accent: mat-palette( $mat-deep-orange );
+$custom-primary: mat-palette( $mat-purple );
+$custom-accent: mat-palette( $mat-teal );
 $custom-background: mat-palette( $mat-grey );
 $custom-theme: mat-light-theme( $custom-primary, $custom-accent );
 
@@ -14,12 +14,9 @@ $custom-theme: mat-light-theme( $custom-primary, $custom-accent );
     $accent: map-get($theme, accent);
     $background: map-get( $theme, background );
     
-    // Define any styles affected by the theme.
-    .aside-menu {
-        
-    }
     .bg-primary {
-        background-color: mat-color( $primary, 200 );
+        background-color: mat-color( $primary, 400 );
+        color: #FFF;
     }
     .bg-content {
         background-color: mat-color( $custom-background, 200 );

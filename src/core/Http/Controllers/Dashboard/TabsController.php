@@ -15,6 +15,7 @@ use Tendoo\Core\Models\User;
 use Tendoo\Core\Models\Oauth;
 use Tendoo\Core\Models\Option as OptionModel;
 use Tendoo\Core\Exceptions\CoreException;
+use Tendoo\Core\Services\Field;
 
 class TabsController extends DashboardController
 {
@@ -27,7 +28,35 @@ class TabsController extends DashboardController
             case 'dashboard.profile':
                 return $this->__getUserProfileTabs();
             break;
+            case 'dashboard.settings':
+                return $this->__getDashbardSettingsTabs();
+            break;
+            default:
+                throw new CoreException([
+                    'status'    =>  'failed',
+                    'message'   =>  sprintf( __( 'Unable to load the tab with the namespace "%s."' ), $namespace )
+                ]);
+            break;
         }
+    }
+
+    private function __getDashbardSettingsTabs()
+    {
+        return [
+            [
+                'label'     =>  __( 'General' ),
+                'namespace' =>  'dashboard.settings.general',
+                'fields'    =>  Field::generalSettings()
+            ], [
+                'label'     =>  __( 'Registration' ),
+                'namespace' =>  'dashboard.settings.registration',
+                'fields'    =>  Field::registration()
+            ], [
+                'label'     =>  __( 'Email' ),
+                'namespace' =>  'dashboard.settings.email',
+                'fields'    =>  Field::emailSettingsFields()
+            ]
+        ];
     }
 
     /**

@@ -30,6 +30,8 @@ import { ConfirmDialogComponent } from './shared/confirm-dialog/confirm-dialog.c
 import { UsersEditComponent } from './components/dashboard/users-edit/users-edit.component';
 import { UsersCreateComponent } from './components/dashboard/users-create/users-create.component';
 import { ProfileComponent } from './components/dashboard/profile/profile.component';
+import { MediasComponent } from './components/dashboard/medias/medias.component';
+import { MediasUploadComponent } from './components/dashboard/medias-upload/medias-upload.component';
 
 @NgModule({
     declarations: [
@@ -53,7 +55,9 @@ import { ProfileComponent } from './components/dashboard/profile/profile.compone
         ConfirmDialogComponent,
         UsersEditComponent,
         UsersCreateComponent,
-        ProfileComponent
+        ProfileComponent,
+        MediasComponent,
+        MediasUploadComponent
     ],
     imports: [
         BrowserModule,

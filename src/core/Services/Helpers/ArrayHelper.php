@@ -73,4 +73,35 @@ trait ArrayHelper {
         }
         return [];
     }
+
+    /**
+     * KVToJsOptions
+     * @param array
+     * @return array of options
+     */
+    static function kvToJsOptions( $array )
+    {
+        $final  =   [];
+        foreach( $array as $value => $label ) {
+            $final[]    =   compact( 'label', 'value' );
+        }
+        return $final;
+    }
+
+    /**
+     * True or False Option Select
+     * @return array of true/false 
+     */
+    static function booleanToggle() 
+    {
+        return [
+            [
+                'label' =>  __( 'Yes' ),
+                'value' =>  true
+            ], [
+                'label' =>  __( 'No' ),
+                'value' =>  false
+            ]
+        ];
+    }
 }

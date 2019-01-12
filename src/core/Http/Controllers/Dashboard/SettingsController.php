@@ -63,15 +63,10 @@ class SettingsController extends DashboardController
          * to the option table
          */
         foreach ( $inputs as $key => $value ) {
-            /**
-             * Saving/updating new value to the database
-             */
-            if ( ! is_array( $value ) ) {
-                $this->options->set( $key, $value );
+            if ( is_bool( $value ) ) {
+                $value === true ? $this->options->set( $key, $value ) : $this->options->delete( $key );
             } else {
-                foreach ( $value as $_optionName => $_optionValue ) {
-                    $this->options->set( $key . "[{$_optionName}]", $_optionValue, true ); // set as array
-                }
+                $this->options->set( $key, $value );
             }
         }
 

@@ -150,7 +150,7 @@ export class ValidationGenerator {
     }
 
     /**
-     * Disable all fields
+     * Disable all field provided as an array of Field.
      * @param array Field[]
      * @return void
      */
@@ -159,7 +159,7 @@ export class ValidationGenerator {
     }
 
     /**
-     * Enable all fields
+     * Enable all field provided as an array of Field.
      * @param array Field[]
      * @return void
      */

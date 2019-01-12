@@ -22,26 +22,26 @@ trait GeneralSettingsFields
         $timezone->name             =   'app_timezone';
         $timezone->label            =   __( 'TimeZone' );
         $timezone->type             =   'select';
+        $timezone->validation       =   'required';
         $timezone->description      =   __( 'This will see the default time used over the application.' );
-        $timezone->options          =   generate_timezone_list();
+        $timezone->options          =   Helper::kvToJsOptions( generate_timezone_list() );
         $timezone->value            =   $options->get( $timezone->name );
 
         $multisite                  =   new \StdClass;
         $multisite->name            =   'multisite_enabled';
         $multisite->label           =   __( 'Enable the multisite' );
-        $multisite->type            =   'select';
+        $multisite->type            =   'switch';
+        $multisite->validation      =   'required';
         $multisite->description     =   __( 'Enable a multi site feature which let you have multiple instance of the application with on database.' );
-        $multisite->options         =   [ 'no' => __( 'No' ), 'yes' => __( 'Yes' ) ];
-        $multisite->value           =   $options->get( $multisite->name );        
+        $multisite->options         =   Helper::booleanToggle();
+        $multisite->value           =   ( bool ) intval( $options->get( $multisite->name ) );        
         
         $enable_maintenance                  =   new \StdClass;
         $enable_maintenance->name            =   'enable_maintenance';
         $enable_maintenance->label           =   __( 'Maintenance Status' );
         $enable_maintenance->type            =   'switch';
-        $enable_maintenance->value           =   $options->get( $enable_maintenance->name );
-        $enable_maintenance->options         =   [
-            'true'   =>  __( 'Enabled' )
-        ];
+        $enable_maintenance->value           =   ( bool ) intval( $options->get( $enable_maintenance->name ) );
+        $enable_maintenance->options         =   Helper::booleanToggle();
         $enable_maintenance->description  =   __( 'Only Administrator will be allowed to login and registration will be disabled.' );
 
         return [ $app_name, $timezone, $multisite, $enable_maintenance ];
@@ -51,84 +51,69 @@ trait GeneralSettingsFields
     {
         $options    =   app()->make( 'Tendoo\Core\Services\Options' );
 
-        $allow_registration                  =   new \StdClass;
-        $allow_registration->name            =   'allow_registration';
-        $allow_registration->label           =   __( 'Open Registration' );
-        $allow_registration->type            =   'switch';
-        $allow_registration->value           =   $options->get( $allow_registration->name );
-        $allow_registration->description     =   __( 'Let anyone sees the registration page and register an account' );
-        $allow_registration->options         =   [
-            'true'   =>  __( 'Allow registration' )
-        ];
+        $allow_registration                         =   new \StdClass;
+        $allow_registration->name                   =   'allow_registration';
+        $allow_registration->label                  =   __( 'Open Registration' );
+        $allow_registration->type                   =   'switch';
+        $allow_registration->value                  =   $options->get( $allow_registration->name );
+        $allow_registration->description            =   __( 'Let anyone sees the registration page and register an account' );
+        $allow_registration->options                =   Helper::booleanToggle();
         
-        $app_restricted_login                  =   new \StdClass;
-        $app_restricted_login->name            =   'app_restricted_login';
-        $app_restricted_login->label           =   __( 'Restrict Login For Admins' );
-        $app_restricted_login->type            =   'switch';
-        $app_restricted_login->value           =   $options->get( $app_restricted_login->name );
-        $app_restricted_login->description     =   __( 'Allow login for only administrators.' );
-        $app_restricted_login->options         =   [
-            'true'   =>  __( 'Allow' )
-        ];
+        $app_restricted_login                       =   new \StdClass;
+        $app_restricted_login->name                 =   'app_restricted_login';
+        $app_restricted_login->label                =   __( 'Restrict Login For Admins' );
+        $app_restricted_login->type                 =   'switch';
+        $app_restricted_login->value                =   $options->get( $app_restricted_login->name );
+        $app_restricted_login->description          =   __( 'Allow login for only administrators.' );
+        $app_restricted_login->options              =   Helper::booleanToggle();
         
-        $notify_password_reset                  =   new \StdClass;
-        $notify_password_reset->name            =   'app_notify_password_reset';
-        $notify_password_reset->label           =   __( 'Notify Password Reset' );
-        $notify_password_reset->type            =   'switch';
-        $notify_password_reset->value           =   $options->get( $notify_password_reset->name );
-        $notify_password_reset->description     =   __( 'Notify administrators when somebody attempt to reset his account.' );
-        $notify_password_reset->options         =   [
-            'true'   =>  __( 'Allow' )
-        ];
+        $notify_password_reset                      =   new \StdClass;
+        $notify_password_reset->name                =   'app_notify_password_reset';
+        $notify_password_reset->label               =   __( 'Notify Password Reset' );
+        $notify_password_reset->type                =   'switch';
+        $notify_password_reset->value               =   $options->get( $notify_password_reset->name );
+        $notify_password_reset->description         =   __( 'Notify administrators when somebody attempt to reset his account.' );
+        $notify_password_reset->options             =   Helper::booleanToggle();
 
-        $allow_password_recovery                  =   new \StdClass;
-        $allow_password_recovery->name            =   'allow_recovery';
-        $allow_password_recovery->label           =   __( 'Allow Password Recovery' );
-        $allow_password_recovery->type            =   'switch';
-        $allow_password_recovery->value           =   $options->get( $allow_password_recovery->name );
-        $allow_password_recovery->options         =   [
-            'enable_recovery'        =>  __( 'Enable Password Recovery' )
-        ];
+        $allow_password_recovery                    =   new \StdClass;
+        $allow_password_recovery->name              =   'allow_recovery';
+        $allow_password_recovery->label             =   __( 'Allow Password Recovery' );
+        $allow_password_recovery->type              =   'switch';
+        $allow_password_recovery->value             =   $options->get( $allow_password_recovery->name );
+        $allow_password_recovery->options           =   Helper::booleanToggle();
+        $allow_password_recovery->description       =   __( 'Let user reset their password in case the lost it, from the login page.' );
 
-        $allow_password_recovery->description  =   __( 'Let user reset their password in case the lost it, from the login page.' );
-
-        $validate_users                  =   new \StdClass;
-        $validate_users->name            =   'validate_users';
-        $validate_users->label           =   __( 'Validate Users' );
-        $validate_users->type            =   'switch';
-        $validate_users->value           =   $options->get( $validate_users->name );
-        $validate_users->options         =   [
-            'true'   =>  __( 'Set all users as active after registration' )
-        ];
-        $validate_users->description  =   __( 'Everytime a user will register, his account will be set as active immediately' );
+        $validate_users                             =   new \StdClass;
+        $validate_users->name                       =   'validate_users';
+        $validate_users->label                      =   __( 'Validate Users' );
+        $validate_users->type                       =   'switch';
+        $validate_users->value                      =   $options->get( $validate_users->name );
+        $validate_users->options                    =   Helper::booleanToggle();
+        $validate_users->description                =   __( 'Everytime a user will register, his account will be set as active immediately' );
         
-        $reset_activation_link                  =   new \StdClass;
-        $reset_activation_link->name            =   'reset_activation_link';
-        $reset_activation_link->label           =   __( 'Resend Activation Link' );
-        $reset_activation_link->type            =   'switch';
-        $reset_activation_link->value           =   $options->get( $reset_activation_link->name );
-        $reset_activation_link->options         =   [
-            'true'   =>  __( 'Display a link to receive the activation email.' )
-        ];
-        $reset_activation_link->description  =   __( 'If the user didn\'t get the email, he\'ll be able to receive another email if his account is not activated.' );
+        $reset_activation_link                      =   new \StdClass;
+        $reset_activation_link->name                =   'reset_activation_link';
+        $reset_activation_link->label               =   __( 'Resend Activation Link' );
+        $reset_activation_link->type                =   'switch';
+        $reset_activation_link->value               =   $options->get( $reset_activation_link->name );
+        $reset_activation_link->options             =   Helper::booleanToggle();
+        $reset_activation_link->description         =   __( 'If the user didn\'t get the email, he\'ll be able to receive another email if his account is not activated.' );
 
-        $register_as                    =   new \StdClass;
-        $register_as->name              =   'register_as';
-        $register_as->label             =   __( 'Register As' );
-        $register_as->type              =   'select';
-        $register_as->desccription      =   __( 'Define the default role when user register' );
-        $register_as->options           =   Helper::toOptions( Role::all(), [ 'id', 'name' ]);
-        $register_as->value             =   $options->get( $register_as->name );
+        $register_as                                =   new \StdClass;
+        $register_as->name                          =   'register_as';
+        $register_as->label                         =   __( 'Register As' );
+        $register_as->type                          =   'select';
+        $register_as->desccription                  =   __( 'Define the default role when user register' );
+        $register_as->options                       =   Helper::toJsOptions( Role::all(), [ 'id', 'name' ]);
+        $register_as->value                         =   $options->get( $register_as->name );
         
         $notifyAfterRegistration                    =   new \StdClass;
         $notifyAfterRegistration->name              =   'registration_notification';
         $notifyAfterRegistration->label             =   __( 'Registration Notification' );
-        $notifyAfterRegistration->type              =   'select';
+        $notifyAfterRegistration->type              =   'switch';
+        $notifyAfterRegistration->validation        =   'sometimes';
         $notifyAfterRegistration->desccription      =   __( 'Notify the administrator each time a new user is registering.' );
-        $notifyAfterRegistration->options           =   [
-            'no'    =>  __( 'No' ),
-            'yes'   =>  __( 'Yes' )
-        ];
+        $notifyAfterRegistration->options           =   Helper::booleanToggle();
         $notifyAfterRegistration->value             =   $options->get( $notifyAfterRegistration->name );
 
         return [ 
@@ -156,15 +141,42 @@ trait GeneralSettingsFields
         $mail_driver->label          =   __( 'Email Driver' );
         $mail_driver->type           =   'select';
         $mail_driver->options        =   [
-            'disable'       =>  __( 'Disable' ),
-            'mail'          =>  __( 'Default PHP Mail' ),
-            'log'           =>  __( 'Log' ),
-            'smtp'          =>  __( 'SMTP' ),
-            'mandrill'      =>  __( 'Mandrill' ),
-            'mailgun'       =>  __( 'Mailgun' ),
-            'sendmail'      =>  __( 'Sendmail' ),
-            'ses'           =>  __( 'SES' ),
-            'sparkpost'     =>  __( 'Sparkpost' ),
+            [
+                'value'     =>  'disable',
+                'label'     =>  __( 'Disable' )
+            ],
+            [
+                'value'     =>  'mail',
+                'label'     =>  __( 'Default PHP Mail' )
+            ],
+            [
+                'value'     =>  'log',
+                'label'     =>  __( 'Log' )
+            ],
+            [
+                'value'     =>  'smtp',
+                'label'     =>  __( 'SMTP' )
+            ],
+            [
+                'value'     =>  'mandrill',
+                'label'     =>  __( 'Mandrill' )
+            ],
+            [
+                'value'     =>  'mailgun',
+                'label'     =>  __( 'Mailgun' )
+            ],
+            [
+                'value'     =>  'sendmail',
+                'label'     =>  __( 'Sendmail' )
+            ],
+            [
+                'value'     =>  'ses',
+                'label'     =>  __( 'SES' )
+            ],
+            [
+                'value'     =>  'sparkpost',
+                'label'     =>  __( 'Sparkpost' )
+            ],
         ];
 
         

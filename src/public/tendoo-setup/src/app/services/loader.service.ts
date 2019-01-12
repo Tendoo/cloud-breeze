@@ -3,6 +3,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { HttpResponseParserService } from './http-response-parser.service';
 import { AsyncResponse } from '../interfaces/async-response';
+import { MatSnackBar } from '@angular/material';
 
 declare const tendoo;
 
@@ -17,7 +18,8 @@ export class LoaderService {
 
     constructor(
         protected http: HttpClient,
-        private httpParser: HttpResponseParserService
+        private httpParser: HttpResponseParserService,
+        protected snackbar: MatSnackBar
     ) {}
 
     /**

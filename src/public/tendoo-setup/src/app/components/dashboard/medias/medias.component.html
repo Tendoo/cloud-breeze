@@ -1,0 +1,20 @@
+<div fxLayout="column" fxFlex="100%" style="overflow-y:auto">
+    <!-- <mat-progress-bar color="warn" style="height: 2px; position: absolute" *ngIf="tendoo.users.isLoading" mode="indeterminate"></mat-progress-bar> -->
+    <div fxLayout="row" class="bg-content p-3 pb-0">
+        <div fxFlex>
+            <h1 class="mat-display-1 mb-0">Media</h1>
+            <small class="mat-title">display all the medias by type</small>
+        </div>
+        <div fxFlex fxLayoutAlign="end start">
+            <div>
+                <button mat-button [routerLink]="'/dashboard/medias/upload'">Upload</button>
+            </div>
+        </div>    
+    </div>
+    <div fxFlex *ngIf="medias.length === 0" class="p-3 bg-content" fxLayoutAlign="center center">
+        <span>It seems quite empty right here. <a routerLink="/dashboard/medias/upload">Upload new content ?</a></span>
+    </div>
+    <div fxFlex *ngIf="medias.length > 0" class="p-3 bg-content" fxLayoutGap="3em">
+        
+    </div>
+</div>

@@ -9,6 +9,8 @@ import { TendooTableService } from './tendoo-table.service';
 import { TendooFormsService } from './tendoo-forms.service';
 import { HttpResponseParserService } from './http-response-parser.service';
 import { TendooTabsService } from './tendoo-tabs.service';
+import { TendooMenusService } from './tendoo-menu.service';
+import { MatSnackBar } from '@angular/material';
 
 @Injectable({
     providedIn: 'root'
@@ -18,6 +20,7 @@ export class TendooService extends LoaderService {
     constructor( 
         http: HttpClient,
         httpParser: HttpResponseParserService,
+        snackbar: MatSnackBar,
         public auth: TendooAuthService,
         public fields: TendooFieldsService,
         public modules: TendooModulesService,
@@ -25,7 +28,8 @@ export class TendooService extends LoaderService {
         public tables: TendooTableService,
         public forms: TendooFormsService,
         public tabs: TendooTabsService,
+        public menus: TendooMenusService,
     ) {
-        super( http, httpParser );
+        super( http, httpParser, snackbar );
     }
 }

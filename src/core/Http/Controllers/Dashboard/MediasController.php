@@ -56,49 +56,6 @@ class MediasController extends DashboardController
     }
 
     /**
-     * list all media on the system
-     */
-    public function list()
-    {
-        Page::setTitle( 'Media' );
-
-        /**
-         * Define used tabs
-         */
-        $tabs   =   [
-            [
-                'namespace' =>  'list',
-                'text'      =>  __( 'Media' ),
-                'active'    =>  true
-            ],
-            [
-                'namespace' =>  'upload',
-                'text'      =>  __( 'Upload' ),
-                'active'    =>  false
-            ]
-        ];
-
-        /**
-         * Text Domain
-         */
-        $lang   =   [
-            'bulkDelete'    =>  __( 'Would you like to delete all selected entries ?' ),
-            'singleDelete'  =>  __( 'Would you like to delete this entry ?' )
-        ];
-
-        /**
-         * define upload url
-         */
-        $upload         =   route( 'dashboard.medias.upload' );
-        $load           =   route( 'dashboard.medias.load' );
-        $delete         =   route( 'dashboard.medias.delete' );
-        $bulkDelete     =   route( 'dashboard.medias.bulk-delete' );
-        $url            =   compact( 'upload', 'load', 'delete', 'bulkDelete' );
-        
-        return view( 'tendoo::components.backend.media', compact( 'tabs', 'lang', 'url' ) );
-    }
-
-    /**
      * handle uploaded file
      * @param void
      */

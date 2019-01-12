@@ -51,6 +51,15 @@ class FormsController extends DashboardController
             case 'dashboard.profile.general': 
                 return Field::userGeneralFields();
             break;
+            case 'dashboard.settings.general': 
+                return Field::generalSettings();
+            break;
+            case 'dashboard.settings.registration': 
+                return Field::registration();
+            break;
+            case 'dashboard.settings.email': 
+                return Field::emailSettingsFields();
+            break;
         }
     }
 
@@ -71,7 +80,9 @@ class FormsController extends DashboardController
          */
         $validation     =   [];
         foreach( $fields as $field ) {
-            $validation[ $field->name ]     =   $field->validation;
+            if ( isset( $field->validation ) ) {
+                $validation[ $field->name ]     =   $field->validation;
+            }
         }
 
         $validationResult   =   Validator::make( $request->all(), $validation );
@@ -96,7 +107,70 @@ class FormsController extends DashboardController
                  */
                 return $this->__saveProfile( $request->only([ 'email', 'password', 'old_password' ]) );
             break;
+            case 'dashboard.settings.general':  
+            case 'dashboard.settings.registration':  
+            case 'dashboard.settings.email':  
+                /**
+                 * this should actually be save separately 
+                 * on a specific service
+                 */
+                return $this->__saveSettings( $request );
+            break;
         }
+    }
+
+    /**
+     * Save settings
+     * @return json
+     */
+    private function __saveSettings( Request $request )
+    {
+        $inputs     =   $request->except([ '_token', '_route', '_radio', '_checkbox', '_previous' ]);
+
+        /**
+         * Before ssaving an option
+         * we might trigger an even so that 
+         * it can be cauth
+         */
+        // $inputs     =   Hook::filter( 'before.update.options', $inputs );
+        
+        /**
+         * If the field is defined as a radio or  checkbox field, then
+         * it's deleted from the db to define new options. 
+         * This is performed specially in case where the user 
+         * disable a switch field or checkbox
+         */
+
+        // deleting _checkbox field
+        foreach( ( array )  $request->input( '_checkbox' ) as $key ) {
+            if ( in_array( $key, ( array ) $request->input( '_radio' ) ) || in_array( $key, ( array ) $request->input( '_checkbox' ) ) ) {
+                $this->options->delete( $key );
+            }
+        }
+
+        // deleting _radio field
+        foreach( ( array ) $request->input( '_radio' ) as $key ) {
+            if ( in_array( $key, ( array ) $request->input( '_radio' ) ) ) {
+                $this->options->delete( $key );
+            }
+        }
+
+        /**
+         * Loop options and saved it
+         * to the option table
+         */
+        foreach ( $inputs as $key => $value ) {
+            if ( is_bool( $value ) ) {
+                $value === true ? $this->options->set( $key, $value ) : $this->options->delete( $key );
+            } else {
+                $this->options->set( $key, $value );
+            }
+        }
+
+        return $response   =   [
+            'status'    =>  'success',
+            'message'   =>  __( 'The options has been saved.' )
+        ];
     }
 
     /**

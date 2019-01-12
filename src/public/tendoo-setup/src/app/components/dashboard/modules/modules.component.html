@@ -1,5 +1,6 @@
 <div fxLayout="column" fxFlex="100%">
-    <div fxFlex="150px" fxLayout="row" class="bg-primary p-3">
+    <mat-progress-bar color="warn" style="height: 2px; position: relative;margin-bottom: -2px" *ngIf="tendoo.modules.isLoading" mode="indeterminate"></mat-progress-bar>
+    <div fxLayout="row" class="bg-content p-3">
         <div fxFlex>
             <h1 class="mat-display-1 mb-0">Modules</h1>
             <span class="mat-headline">Display and manage all available modules</span>
@@ -8,9 +9,7 @@
             <button routerLink="/dashboard/modules/upload" mat-button color="warn">Upload a module</button>
         </div>
     </div>
-    <mat-progress-bar color="warn" style="height: 1px" *ngIf="tendoo.modules.isLoading" mode="indeterminate"></mat-progress-bar>
-    <mat-divider  *ngIf="!tendoo.modules.isLoading"></mat-divider>
-    <div class="p-2 bg-content" fxFlex fxLayoutGap="3em">
+    <div class="p-3 bg-content" fxFlex fxLayoutGap="3em">
         <div 
             style="height:200px"
             *ngFor="let module of modules"
