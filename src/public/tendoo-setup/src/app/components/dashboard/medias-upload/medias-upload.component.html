@@ -12,10 +12,8 @@
         </div>    
     </div>
     <div fxFlex class="bg-content p-3" fxFlexLayout="row" fxLayoutAlign="center center">
-        <div fxFlex.lg="40%" fxFlex.md="40%" fxFlex.xl="40%" 
-            (drop)="handleDrop( $event )"
-            (drag)="setDragState( 'start' )">
-            <mat-card>
+        <div fxLayout="column" fxFlex.lg="40%" fxFlex.md="40%" fxFlex.xl="40%" id="drag-zone">
+            <mat-card [fxFlex]="dragState === 'over' ? '100px': 'auto'">
                 <mat-card-content>
                     <h3>{{ dragMessage }}</h3>
                 </mat-card-content>

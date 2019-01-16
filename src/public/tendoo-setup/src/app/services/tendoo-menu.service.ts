@@ -10,6 +10,7 @@ export class TendooMenusService extends LoaderService {
 
     /**
      * get menu
+     * @return observable of link
      */
     getMenus( namespace: string ): Observable<Link[]> {
         return <Observable<Link[]>>this.get( this.baseUrl + 'tendoo/menus/dashboard.aside' );

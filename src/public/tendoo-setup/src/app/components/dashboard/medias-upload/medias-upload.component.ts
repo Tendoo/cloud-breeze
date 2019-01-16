@@ -9,22 +9,52 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MediasUploadComponent implements OnInit {
     dragMessage;
+    dragState: string;
     constructor() { }
     
     ngOnInit() {
         this.setDragState();
+
+        document.addEventListener( 'drag', ( e ) => {
+            e.preventDefault();
+            e.stopPropagation();
+            this.setDragState( 'over' );
+        });
+        
+        // document.getElementById( 'drag-zone' ).addEventListener( 'dragover', ( e ) => {
+        //     e.preventDefault();
+        //     e.stopPropagation();
+        //     this.setDragState( 'over' );
+        // });
+
+        // document.getElementById( 'drag-zone' ).addEventListener( 'dragleave', ( e ) => {
+        //     e.preventDefault();
+        //     e.stopPropagation();
+        //     this.setDragState( 'default' );
+        // });
     }
     
 
     setDragState( state?: string ) {
-        console.log( state );
         switch( state ) {
-            case 'start':
-                this.dragMessage    =   'Drop that file right here...';
+            case 'over':
+                this.dragMessage    =   'Drop the file to upload it...';
             break;
             default:
                 this.dragMessage    =   'Click here if you want to select a file';
             break;
         }
+
+        this.dragState      =   state;
+    }
+
+    preventDefault( e ) {
+        e.preventDefault();
+        e.stopPropagation();
+        this.setDragState( 'over' );
+    }
+
+    handleDrop( event ) {
+        event.preventDefault();
     }
 }
