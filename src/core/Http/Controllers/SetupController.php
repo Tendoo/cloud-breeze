@@ -50,13 +50,4 @@ class SetupController extends Controller
         $result     =   $this->setup->runMigration( $request );
         return $result;
     }
-
-    /**
-     * return a ping state over the application
-     * @return void
-     */
-    public function ping()
-    {
-        
-    }
 }

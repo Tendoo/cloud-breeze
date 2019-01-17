@@ -15,15 +15,4 @@ class UpdateController extends DashboardController
             return $next( $request );
         });
     }
-
-    /**
-     * Refresh Installation
-     * Pull content from github
-     * @return view
-     */
-    public function update()
-    {
-        $this->setTitle( __( 'Update Tendoo CMS' ) );
-        return view( 'tendoo::components.backend.update' );
-    }
 }

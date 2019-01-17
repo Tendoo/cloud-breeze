@@ -16,6 +16,14 @@ export class HttpResponseParserService {
         private snackbar: MatSnackBar
     ) {
         this.pipes.push( ( response: AsyncResponse ) => {
+            return new Promise( ( resolve ) => {
+                if ( resolve instanceof ProgressEvent ) {
+                    this.snackbar.open( 'Unable to reach the server right now.' );
+                }
+                resolve( response );
+            })
+        })
+        this.pipes.push( ( response: AsyncResponse ) => {
             return new Promise( resolve => {
                 if ([
                     'Tendoo/Core/Exceptions/TendooNotInstalledException',                            
@@ -27,7 +35,7 @@ export class HttpResponseParserService {
                 }
                 return resolve( response );
             })
-        })
+        });
     }
 
     /**
