@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { DropzoneConfigInterface } from 'ngx-dropzone-wrapper';
+import { TendooService } from 'src/app/services/tendoo.service';
+import { LoaderService } from 'src/app/services/loader.service';
 
 
 
@@ -10,28 +13,20 @@ import { Component, OnInit } from '@angular/core';
 export class MediasUploadComponent implements OnInit {
     dragMessage;
     dragState: string;
-    constructor() { }
+    dropzoneConfig: DropzoneConfigInterface;
+
+    constructor(
+        public tendoo: TendooService
+    ) { }
     
     ngOnInit() {
+        this.dropzoneConfig     =   {
+            url: this.tendoo.medias.baseUrl + `tendoo/medias`,
+            maxFilesize: 50,
+            headers: LoaderService.headers
+        }
+
         this.setDragState();
-
-        document.addEventListener( 'drag', ( e ) => {
-            e.preventDefault();
-            e.stopPropagation();
-            this.setDragState( 'over' );
-        });
-        
-        // document.getElementById( 'drag-zone' ).addEventListener( 'dragover', ( e ) => {
-        //     e.preventDefault();
-        //     e.stopPropagation();
-        //     this.setDragState( 'over' );
-        // });
-
-        // document.getElementById( 'drag-zone' ).addEventListener( 'dragleave', ( e ) => {
-        //     e.preventDefault();
-        //     e.stopPropagation();
-        //     this.setDragState( 'default' );
-        // });
     }
     
 

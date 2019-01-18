@@ -5,7 +5,6 @@
 namespace Tendoo\Core\Http\Controllers\Dashboard;
 
 use Tendoo\Core\Http\Controllers\DashboardController;
-use Tendoo\Core\Services\Page;
 use Illuminate\Http\Request;
 use Tendoo\Core\Models\Media;
 use Illuminate\Support\Facades\Auth;
@@ -40,7 +39,7 @@ class MediasController extends DashboardController
          * Supported file extension
          * @var array<String>
          */
-        $this->extensions     =   [ 'jpeg', 'png'  ];
+        $this->extensions     =   [ 'jpeg', 'png', 'gif', 'zip', 'mp4', 'mp3' ];
 
         $this->middleware( function( $request, $next ) {
             
@@ -65,7 +64,20 @@ class MediasController extends DashboardController
          * uploading a file
          */
         $file = $request->file('file');
-        $this->mediaService->upload( $file );
+        $response   =   $this->mediaService->upload( $file );
+
+        if( $response !== false ) {
+            return [
+                'status'    =>  'success',
+                'message'   =>  __( 'The file has been uploaded' ),
+                'size'      =>  $response
+            ];
+        }
+
+        return response()->json([
+            'status'    =>  'failed',
+            'message'   =>  __( 'An error occured while uploading the file' )
+        ], 403 );
     }
 
     /**

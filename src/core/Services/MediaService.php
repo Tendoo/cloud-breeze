@@ -56,6 +56,18 @@ class MediaService
             $fileName       =   ( $customName == null ? $fileName : $customName );
             $fullFileName   =   $fileName . '.' . strtolower( $file->getClientOriginalExtension() );
 
+            /**
+             * let's get if an existing file 
+             * already exists. If that exists, let's adjust the file
+             * fullname
+             */
+            $media          =   Media::where( 'name', $fullFileName )->first();
+
+            if ( $media instanceof Medias ) {
+                $fileName       =   $fileName . str_slug( $this->date->toDateTimeString() );    
+                $fullFileName   =   $fileName . '.' . strtolower( $file->getClientOriginalExtension() );
+            }
+
             $year           =   $this->date->year;
             $month          =   sprintf( "%02d", $this->date->month );
             $folderPath     =   $year . DIRECTORY_SEPARATOR . $month . DIRECTORY_SEPARATOR;

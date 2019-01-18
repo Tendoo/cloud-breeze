@@ -11,6 +11,7 @@ import { HttpResponseParserService } from './http-response-parser.service';
 import { TendooTabsService } from './tendoo-tabs.service';
 import { TendooMenusService } from './tendoo-menu.service';
 import { MatSnackBar } from '@angular/material';
+import { TendooMediasService } from './tendoo-medias.service';
 
 @Injectable({
     providedIn: 'root'
@@ -29,6 +30,7 @@ export class TendooService extends LoaderService {
         public forms: TendooFormsService,
         public tabs: TendooTabsService,
         public menus: TendooMenusService,
+        public medias: TendooMediasService
     ) {
         super( http, httpParser, snackbar );
     }

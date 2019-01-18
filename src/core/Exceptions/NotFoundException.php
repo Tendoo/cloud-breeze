@@ -1,7 +1,6 @@
 <?php
 namespace Tendoo\Core\Exceptions;
 use Exception;
-use Tendoo\Core\Services\Page;
 
 class NotFoundException extends Exception
 {

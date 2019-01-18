@@ -16,6 +16,7 @@
             <mat-card [fxFlex]="dragState === 'over' ? '100px': 'auto'">
                 <mat-card-content>
                     <h3>{{ dragMessage }}</h3>
+                    <dropzone [config]="dropzoneConfig" [message]="dragMessage"></dropzone>
                 </mat-card-content>
             </mat-card>
         </div>
