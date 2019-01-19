@@ -7,6 +7,7 @@
         </div>
         <div fxFlex fxLayoutAlign="end start">
             <div>
+                <button mat-button>Bulk Select</button>
                 <button mat-button [routerLink]="'/dashboard/medias/upload'">Upload</button>
             </div>
         </div>    
@@ -14,7 +15,30 @@
     <div fxFlex *ngIf="medias.length === 0" class="p-3 bg-content" fxLayoutAlign="center center">
         <span>It seems quite empty right here. <a routerLink="/dashboard/medias/upload">Upload new content ?</a></span>
     </div>
-    <div fxFlex *ngIf="medias.length > 0" class="p-3 bg-content" fxLayoutGap="3em">
-        
+    <div fxFlex *ngIf="medias.length > 0" class="p-3 bg-content">
+        <mat-card class="p-0">
+            <mat-card-title class="p-1 mb-0">
+                <button mat-button="">Bulk Select</button>
+            </mat-card-title>
+            <mat-divider></mat-divider>
+            <div class="p-2">
+                <mat-grid-list cols="8" gutterSize="1em" rowHeight="140px">
+                    <mat-grid-tile
+                        (click)="handle( media )"
+                        *ngFor="let media of medias"
+                        [colspan]="1"
+                        [rowspan]="1">
+                        <div class="">
+                            <img [src]="media.sizes.thumb" [alt]="media.name">
+                        </div>
+                        <div class="overlay" fxLayoutAlign="end start" *ngIf="media.selected">
+                            <i class="material-icons m-1" style="color: white">
+                            check_circle
+                            </i>
+                        </div>
+                    </mat-grid-tile>
+                </mat-grid-list>
+            </div>
+        </mat-card>
     </div>
 </div>

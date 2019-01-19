@@ -16,7 +16,7 @@
                         @if $variation != 0 {
                             #{$space-name}-#{$direction}: $default-margin * ($variation*0.15) !important;
                         } @else {
-                            #{$space-name}-#{$direction}: 0em !important;
+                            #{$space-name}-#{$direction}: 0rem !important;
                         }
                     }
                 }

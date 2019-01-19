@@ -12,6 +12,9 @@ import { PaginatedResponse } from 'src/app/interfaces/paginated-response';
 export class MediasComponent implements OnInit {
     medias: Media[]         =   [];
     pagination: PaginatedResponse;
+    bulkSelectTimeout;
+    bulkSelectEnabled       =   false;
+
     constructor(
         private mediaService: TendooMediasService
     ) { }
@@ -21,8 +24,25 @@ export class MediasComponent implements OnInit {
             this.mediaService.getMedias()
         ]).subscribe( ( results ) => {
             this.pagination     =   (<PaginatedResponse>results[0]);
-            this.medias         =  this.pagination.data;
+            this.medias         =  (<Media[]>this.pagination.data).map( media => {
+                media.selected  =   false;
+                return media;
+            });
         });
     }
     
+    /**
+     * watch bulk select or open media
+     * @param Media object to select
+     * @return void
+     */
+    handle( media:Media ) {
+        setTimeout( () => {
+            this.bulkSelectEnabled  =   true;
+        }, 1000 );
+    }
+
+    /**
+     * select item
+     */
 }

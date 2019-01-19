@@ -4,4 +4,5 @@ export interface Media {
     description: string;
     author: string;
     created_on: string;
+    selected?: boolean;
 }
