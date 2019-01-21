@@ -8,17 +8,46 @@
     </div>
     <div class="p-3 bg-content" fxFlex="1 0 auto" fxLayout="column">
         <mat-card class="p-0">
-            <mat-card-title class="p-1 mb-0">
-                <button routerLink="/dashboard/users/create" mat-button color="primary">Create a user</button>
-                <button mat-button color="primary">
-                    <span *ngIf="hasSelectedEntries">Export Selected</span>
-                    <span *ngIf="! hasSelectedEntries">Export</span>
-                </button>
-                <button (click)="deleteSelectedEntries()" *ngIf="hasSelectedEntries" mat-button color="warn">Delete All</button>
+            <mat-card-title class="p-2 mb-0" *ngIf="searchEnabled" color="warn">
+                <div fxFlex="100%" fxLayout="row" fxLayoutAlign="space-between center">
+                    <button (click)="toggleSearch( false )" mat-icon-button>
+                        <mat-icon>close</mat-icon>
+                    </button>
+                    <input id="search-field" [placeholder]="tableConfig.search.placeholder" type="text" #searchField>
+                    <button (click)="search( searchField )" mat-icon-button>
+                        <mat-icon>search</mat-icon>
+                    </button>
+                </div>
+            </mat-card-title>
+            <mat-card-title class="p-2 mb-0" *ngIf="! searchEnabled" fxLayoutAlign="space-between">
+                <div fxFlex="100%" *ngIf="! hasSelectedEntries" fxLayout="row" fxLayoutAlign="space-between center">
+                    <button mat-icon-button routerLink="/dashboard/users/create" mat-button color="primary">
+                        <mat-icon>add</mat-icon>
+                    </button>
+                    <button mat-icon-button (click)="toggleSearch( true )">
+                        <mat-icon>search</mat-icon>
+                    </button>
+                </div>
+                <div fxFlex="100%" *ngIf="hasSelectedEntries" fxLayout="row" fxLayoutAlign="space-between center">
+                    <div fxLayoutAlign="start center" fxLayout="row">
+                        <button (click)="cancel()" mat-icon-button>
+                            <mat-icon>arrow_back</mat-icon>
+                        </button>
+                        <span style="padding: 5px 10px">{{ selectedEntries.length }} selected</span>
+                    </div>
+                    <div>
+                        <button mat-icon-button color="primary">
+                            <mat-icon>import_export</mat-icon>
+                        </button>
+                        <button (click)="deleteSelectedEntries()" *ngIf="hasSelectedEntries" mat-icon-button color="warn">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </div>
+                </div>
             </mat-card-title>
             <mat-divider></mat-divider>
             <mat-card-content>
-                <table matSort (matSortChange)="sortData($event)" mat-table [dataSource]="source" fxFlex>
+                <table matSort (matSortChange)="sortData($event)" mat-table [dataSource]="crudResult[ 'data' ]" fxFlex>
                     <!--- Note that these columns can be defined in any order.
                         The actual rendered columns are set as a property on the row definition" -->
                     <ng-container *ngFor="let column of columns" [matColumnDef]="column">

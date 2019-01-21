@@ -12,6 +12,7 @@ use Tendoo\Core\Facades\Hook;
 use Illuminate\Support\Facades\Event;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Tendoo\Core\Exceptions\CrudException;
+use Tendoo\Core\Events\CrudInit;
 
 class CrudController extends DashboardController
 {
@@ -278,36 +279,31 @@ class CrudController extends DashboardController
          * Check if an entry is selected, 
          * else throw an error
          */
-        if ( $request->input( 'entry_id' ) == null ) {
-            // return redirect()->route( $resource->getMainRoute() )->with();
-            return [
-                'status'    =>  'danger',
-                'message'   =>  __( 'You must select an entry.' )
-            ];
+        if ( $request->input( 'entries_id' ) == null ) {
+            throw new CrudException([
+                'status'    =>  'failed',
+                'message'   =>  __( 'You need to select at least one item to delete' )
+            ]);
         }
 
         if ( $request->input( 'action' ) == null ) {
-            return [
-                'status'    =>  'danger',
-                'message'   =>  __( 'You must select an action to perform.' )
-            ];
+            throw new CrudException([
+                'status'    =>  'failed',
+                'message'   =>  __( 'You need to define which action to perform' )
+            ]);
         }
 
+        /**
+         * assuming we're bulk deleting
+         * but the action might be different later
+         */
         $response           =   $resource->bulkDelete( $request );
-        $errors             =   [];
 
-        if ( $response[ 'success' ] > 0 ) {
-            $errors[ 'success' ]    =   sprintf( $resource->bulkDeleteSuccessMessage, $response[ 'success' ]);
-        } 
-        
-        if ( $response[ 'danger' ] > 0 ) {
-            $errors[ 'danger' ]     =   sprintf( $resource->bulkDeleteDangerMessage, $response[ 'danger' ]);
-        }
-
-        if ( $request->expectsJson() ) {
-            return $errors;
-        }
-        return redirect()->route( $resource->getMainRoute() )->with( $errors );
+        return [
+            'status'    =>  'success',
+            'message'   =>  sprintf( __( '%s has been deleted, %s has not been deleted.' ), count( $response[ 'success' ]), count( $response[ 'error' ]) ),
+            'data'      =>  $response
+        ];
     }
 
     /**
@@ -332,5 +328,25 @@ class CrudController extends DashboardController
                 'status'    =>  'danger'
             ]);
         }
+    }
+
+    /**
+     * get column for a specific namespace
+     * @param string CRUD resource namespace
+     * @return TableConfig
+     */
+    public function getColumns( string $namespace )
+    {
+        $crudClass          =   Hook::filter( 'register.crud', $namespace );
+        $resource           =   new $crudClass;
+
+        if ( method_exists( $resource, 'getEntries' ) ) {
+            return $resource->getColumns();
+        } 
+
+        return response()->json([
+            'status'    =>  'failed',
+            'message'   =>  __( 'Unable to proceed. No matching CRUD resource has been found.' )
+        ], 403 );
     }
 }

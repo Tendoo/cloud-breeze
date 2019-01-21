@@ -180,10 +180,10 @@ class Crud
         /**
          * Order the current result, according to the mentionned columns
          */
-        if ( $request->query( 'order' ) && $request->query( 'column' ) ) {
+        if ( $request->query( 'direction' ) && $request->query( 'active' ) ) {
             $query->orderBy( 
-                $request->query( 'column' ),
-                $request->query( 'order' )
+                $request->query( 'active' ),
+                $request->query( 'direction' )
             );
         }
 

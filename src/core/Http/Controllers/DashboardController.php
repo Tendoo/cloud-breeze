@@ -29,23 +29,23 @@ class DashboardController extends BaseController
         parent::__construct();
 
         // register a singleton a menu
-        // app()->singleton( 'Tendoo\Core\Services\Menus', function( $app ) {
-        //     return new Menus();
-        // });
+        app()->singleton( 'Tendoo\Core\Services\Menus', function( $app ) {
+            return new Menus();
+        });
 
-        // // register dashboard menu singleton
-        // app()->singleton( 'Tendoo\Core\Services\Dashboard\MenusConfig', function( $app ) {
-        //     return new MenusConfig( $app->make( Menus::class ) );
-        // });
+        // register dashboard menu singleton
+        app()->singleton( 'Tendoo\Core\Services\Dashboard\MenusConfig', function( $app ) {
+            return new MenusConfig( $app->make( Menus::class ) );
+        });
 
-        // $this->middleware( function( $request, $next ){
+        $this->middleware( function( $request, $next ){
 
-        //     /**
-        //      * Registering stuff from middleware
-        //      */
-        //     $this->menus        =   app()->make( MenusConfig::class );
+            /**
+             * Registering stuff from middleware
+             */
+            $this->menus        =   app()->make( MenusConfig::class );
 
-        //     return $next($request);
-        // });
+            return $next($request);
+        });
     }
 }

@@ -14,8 +14,8 @@ export class TendooUsersService extends TendooAuthService {
      * get users
      * @return json
      */
-    getUsers() {
-        return this.get( this.baseUrl + 'tendoo/users' );
+    getUsers( param: string = '' ) {
+        return this.get( this.baseUrl + 'tendoo/users?' + param );
     }
 
     /**

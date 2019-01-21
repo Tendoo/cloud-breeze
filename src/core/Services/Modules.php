@@ -778,7 +778,12 @@ class Modules
          * if module exists
          */
         if ( $module ) {
-            $lastVersion        =   $this->options->get( strtolower( $module[ 'namespace' ] ) . '_last_migration' );
+            /**
+             * If the last migration is not defined
+             * that means we're running it for the first time
+             * we'll set the migration to 0.0 then.
+             */
+            $lastVersion        =   $this->options->get( strtolower( $module[ 'namespace' ] ) . '_last_migration', '0.0.0' );
             $currentVersion     =   $module[ 'version' ];
             $directories        =   Storage::disk( 'modules' )->directories( ucwords( $module[ 'namespace' ] ) . DIRECTORY_SEPARATOR . 'Migrations' . DIRECTORY_SEPARATOR );
             $version_names      =   [];

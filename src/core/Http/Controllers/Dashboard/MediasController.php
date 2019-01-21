@@ -107,6 +107,41 @@ class MediasController extends DashboardController
     }
 
     /**
+     * delete bulk medias
+     * @param Request form
+     * @return json
+     */
+    public function deleteBulkMedias( Request $request )
+    {
+        if ( $request->input( 'medias' ) ) {
+            $response           =   [
+                'success'       =>  [],
+                'failed'        =>  []
+            ];
+
+            foreach( $request->input( 'medias' ) as $media ) {
+                
+                $result   =   $this->mediaService->deleteMedia( $media[ 'id' ] );
+
+                switch( $result[ 'status' ] ) {
+                    case 'success' :
+                        $response[ 'success' ][]    =   $media;
+                    break;
+                    default:
+                        $response[ 'failed' ][]    =   $media;
+                    break;
+                }
+            }
+
+            return [
+                'status'    =>  'success',
+                'message'   =>  sprintf( __( '%s medias has been deleted, %s has not been deleted.' ), count( $response[ 'success' ] ), count( $response[ 'failed' ]) ),
+                'data'      =>  $response
+            ];
+        }
+    }
+
+    /**
      * Delete bulk items
      * @param Request
      * @return json

@@ -9,7 +9,7 @@
             <button routerLink="/dashboard/modules/upload" mat-button color="warn">Upload a module</button>
         </div>
     </div>
-    <div class="p-3 bg-content" fxFlex fxLayoutGap="3em">
+    <div class="p-3 pt-0 bg-content" fxFlex fxLayoutGap="3em">
         <div 
             style="height:200px"
             *ngFor="let module of modules"
@@ -29,10 +29,8 @@
                 </mat-card-actions>
             </mat-card>
         </div>
-        <div>
-            <mat-card *ngIf="modules.length === 0">
-                <mat-card-title>No module has been yet uploaded</mat-card-title>
-            </mat-card>
+        <div *ngIf="modules.length === 0" fxFlex fxFill fxLayoutAlign="center center">
+            <span>No module has been added yet. <a routerLink="/dashboard/modules/upload"   >Upload a module ?</a></span>
         </div>
     </div>
 </div>

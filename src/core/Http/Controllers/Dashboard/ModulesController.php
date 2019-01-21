@@ -48,6 +48,7 @@ class ModulesController extends DashboardController
          * if a migration exist, then we'll return to the migration page
          */
         $migration  =   $this->modules->getMigrations( $namespace );
+        var_dump( $migration );die;
 
         if ( $migration ) {
             return response()->json([

@@ -13,9 +13,19 @@ use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
 use Tendoo\Core\Services\DateService;
 use Tendoo\Core\Services\MediaService;
+use Tendoo\Core\Services\Menus;
 
 class MenusController extends DashboardController
 {
+    protected $menuServices;
+    
+    public function __construct() {
+        $this->middleware( function( $req, $next ) {
+            $this->menuService  =   app()->make( Menus::class );
+            return $next( $req );
+        });
+    }
+
     /**
      * get defined menus
      * @return array of menus
@@ -36,6 +46,8 @@ class MenusController extends DashboardController
      */
     private function __dashboardAside()
     {
+        var_dump( $this->menuService->get() );die;
+        return $this->menuService->get();
         return [
             [
                 'label' =>  __( 'Dashboard' ),

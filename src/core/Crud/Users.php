@@ -14,7 +14,7 @@ class Users extends Crud
     /**
      * define the base table
      */
-    protected $table      =   'users';
+    protected $table      =   'tendoo_users';
 
     /**
      * base route name
@@ -25,7 +25,7 @@ class Users extends Crud
      * Define namespace
      * @param string
      */
-    protected $namespace  =   'users';
+    protected $namespace  =   'dashboard.tendoo.users';
 
     /**
      * Model Used
@@ -36,7 +36,7 @@ class Users extends Crud
      * Adding relation
      */
     public $relations   =  [
-        [ 'tendoo_roles', 'users.role_id', '=', 'tendoo_roles.id' ]
+        [ 'tendoo_roles', 'tendoo_users.role_id', '=', 'tendoo_roles.id' ]
     ];
 
     /**
@@ -119,7 +119,7 @@ class Users extends Crud
          */
         $fields     =   $this->getFields( $user );
 
-        if ( $request->route( 'namespace' ) == 'users' ) {
+        if ( $request->route( 'namespace' ) == 'dashboard.tendoo.users' ) {
 
             /**
              * Use UserFieldsValidation and add assign it to "crud" validation array
@@ -135,7 +135,7 @@ class Users extends Crud
      * @return void
      */
     public function beforeDelete( $namespace, $id ) {
-        if ( $namespace == 'users' ) {
+        if ( $namespace == 'dashboard.tendoo.users' ) {
             /**
              * @todo we might check if the 
              * user has the right to delete
@@ -174,26 +174,32 @@ class Users extends Crud
      */
     public function getColumns() {
         return [
+            'id'    =>  [
+                'label' =>  __( 'ID' ),
+            ],
             'username'  =>  [
-                'text'  =>  __( 'Username' )
+                'label' =>  __( 'Username' )
             ],
-            'email'  =>  [
-                'text'  =>  __( 'Email' )
+            'tendoo_roles_name' =>  [
+                'label' =>   __( 'Role' )
             ],
-            'tendoo_roles_name'    =>  [
-                'text'      =>  __( 'Role' )
+            'active'        =>  [
+                'label'     =>  __( 'Active' ),
+                'type'      =>  'boolean',
+                'replace'   =>  [
+                    '1'            =>  __( 'Yes' ),
+                    '0'           =>  __( 'No' ),
+                    '$default'      =>  __( 'Undefined' )
+                ]
             ],
-            'created_at'  =>  [
-                'text'  =>  __( 'Member Since' )
+            'email'     =>  [
+                'label' =>  __( 'Email' )
             ],
-            'active'    =>  [
-                'text'  =>  __( 'Active' ),
-                'filter'    =>  function( $value ) {
-                    if ( ( int ) $value ) {
-                        return __( 'Active' );
-                    }
-                    return __( 'Unactive' );
-                }
+            'created_at'    =>  [
+                'label' =>  __( 'Joined On' )
+            ],
+            '$actions'      =>  [
+                'label' =>  __( 'Actions' )
             ]
         ];
     }
@@ -203,33 +209,27 @@ class Users extends Crud
      */
     public function setActions( $entry, $namespace )
     {
-        if ( Auth::id() == $entry->id ) {
-            $entry->{'$actions'}    =   [
-                'profile'      =>  [
-                    'type'  =>  'GET',
-                    'url'   =>  route( 'dashboard.users.profile.general' ),
-                    'text'  =>  __( 'My Profile' )
+        $actions                =   '$actions';
+        $isAuthenticated        =   Auth::id() === $entry->id;
+        $entry->{$actions}      =   [
+            [
+                'label'     =>  $isAuthenticated ? __( 'Profile' ) : __( 'Edit' ),
+                'namespace' =>  $isAuthenticated ? 'profil' : 'edit',
+                'type'      =>  'GOTO',
+                'index'     =>  'id',
+                'url'       =>  $isAuthenticated ? '/dashboard/profile' : '/dashboard/users/edit/#'
+            ], [
+                'label'     =>  __( 'Delete' ),
+                'namespace' =>  'delete',
+                'type'      =>  'DELETE',
+                'index'     =>  'id',
+                'url'       =>  route( 'delete.user' ) . '/#',
+                'confirm'   =>  [
+                    'message'  =>  __( 'Would you like to delete this account ?' ),
+                    'title'     =>  __( 'Delete a user' )
                 ]
-            ];
-        } else {
-            $entry->{'$actions'}    =   [
-                'edit'      =>  [
-                    'type'  =>  'GET',
-                    'url'   =>  route( 'dashboard.users.edit', [
-                        'entry'     =>  $entry->id
-                    ]),
-                    'text'  =>  __( 'Edit' )
-                ], 
-                'delete'      =>  [
-                    'type'  =>  'DELETE',
-                    'url'   =>  route( 'dashboard.crud.delete', [
-                        'namespace' =>  'users',
-                        'entry'     =>  $entry->id
-                    ]),
-                    'text'  =>  __( 'Delete' )
-                ]
-            ];
-        }
+            ]
+        ];
         return $entry;
     }
 
@@ -240,52 +240,35 @@ class Users extends Crud
      */
     public function bulkDelete( Request $request ) 
     {
-        if ( $request->input( 'action' ) == 'delete_selected' ) {
+        if ( $request->input( 'action' ) == 'bulk-delete' ) {
             $status     =   [
-                'success'   =>  0,
-                'danger'    =>  0
+                'success'   =>  [],
+                'error'    =>  []
             ];
 
-            foreach ( $request->input( 'entry_id' ) as $id ) {
+            foreach ( $request->input( 'entries_id' ) as $id ) {
                 if ( ( int ) $id == Auth::id() ) {
-                    $status[ 'danger' ]++;
+                    $status[ 'error' ][]    =   __( 'You cannot delete your own account' );
                 } else {
                     /**
                      * This filter might block the
                      * deletion
                      */
                     if ( Hook::filter( 'delete.user', true, $id ) ) {
-                        $user   =   $this->model::find( $id );
+                        $user       =   $this->model::find( $id );
+                        $message    =   '';
                         if ( $user instanceof User ) {
+                            $message    =   sprintf( __( '%s has been deleted' ), $user->username );
                             $user->delete();
                             $this->deleteOptions( $id );
                         }
-                        $status[ 'success' ]++;
+                        $status[ 'success' ][]  =   $message;
                     }
                 }
             }
             return $status;
         }
         return false;
-    }
-
-    /**
-     * get Links
-     * @return array of links
-     */
-    public function getLinks()
-    {
-        return  [
-            'list'  =>  [
-                [ 'href'    =>  route( 'dashboard.users.create' ), 'text' => __( 'Add a user' ) ]
-            ],
-            'create'    =>  [
-                [ 'href'    =>  route( 'dashboard.users.list' ), 'text' => __( 'Return' ), 'class' => 'btn btn-raised btn-secondary' ]
-            ],
-            'edit'      =>  [
-                [ 'href'    =>  route( 'dashboard.users.list' ), 'text' => __( 'Return' ), 'class' => 'btn btn-raised btn-secondary' ]
-            ]
-        ];
     }
 
     /**

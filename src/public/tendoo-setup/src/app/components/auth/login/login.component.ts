@@ -41,7 +41,7 @@ export class LoginComponent implements OnInit {
 
         const fields    =   ValidationGenerator.buildFormControls( this.fields );
         this.loginForm  =   new FormGroup( fields );
-        this.login();
+        // this.login();
     }
 
     login() {

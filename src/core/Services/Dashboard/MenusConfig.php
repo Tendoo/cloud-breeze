@@ -13,36 +13,19 @@ class MenusConfig
 
         $dashboard              =   new \stdClass;
         $dashboard->text        =   __( 'Dashboard' );
-        $dashboard->href        =   url( '/dashboard' );
+        $dashboard->href        =   '/dashboard';
         $dashboard->label       =   10;
         $dashboard->namespace   =   'dashboard';
         $dashboard->icon        =   'dashboard';
 
         $this->menus            =   $menus;
         $this->menus->add( $dashboard );
+
         $this->registerMediaMenu();
-        $this->registerBuilderMenu();
         $this->registerModulesMenu();
         $this->registerSettingsMenu();
         $this->registerUserMenu();
         $this->registerApplicationsMenu();
-    }
-
-    /**
-     * Register Builder Menu
-     * @return void
-     */
-    public function registerBuilderMenu()
-    {
-        if ( $this->user->is([ 'admin', 'supervisor' ]) ) {
-            $builder              =   new \stdClass;
-            $builder->text        =   __( 'Pages' );
-            $builder->namespace   =   'builder';
-            $builder->icon        =   'web';
-            $builder->href        =   route( 'dashboard.builder.list' );
-
-            $this->menus->add( $builder );
-        }
     }
 
     /**
@@ -58,7 +41,7 @@ class MenusConfig
             $media->text        =   __( 'Media' );
             $media->namespace   =   'media';
             $media->icon        =   'collections';
-            $media->href        =   route( 'dashboard.medias.list' );
+            $media->href        =   '/dashboard/medias';
 
             $this->menus->add( $media );
         }
@@ -83,13 +66,13 @@ class MenusConfig
             
             $list                  =   new \stdClass;
             $list->text            =   __( 'List of users' );
-            $list->href            =   route( 'dashboard.users.list' );
+            $list->href            =   '/dashboard/users';
             $list->label           =   10;
             $list->namespace       =   'users.list';
             
             $create                  =   new \stdClass;
             $create->text            =   __( 'Create a new user' );
-            $create->href            =   route( 'dashboard.users.create' );
+            $create->href            =   '/dashboard/users/create';
             $create->label           =   10;
             $create->namespace       =   'users.create';
 
@@ -118,25 +101,19 @@ class MenusConfig
             $general->text         =   __( 'General' );
             $general->label        =   10;
             $general->namespace    =   'settings.general';
-            $general->href         =   route( 'dashboard.settings', [
-                'tab'   =>  'general'
-            ]);
+            $general->href         =   '/dashboard/settings?tab=general';
 
             $registration                   =   new \stdClass;
             $registration->text             =   __( 'Registration' );
             $registration->label            =   0;
             $registration->namespace        =   'settings.registration';
-            $registration->href             =   route( 'dashboard.settings', [
-                'tab'   =>  'registration'
-            ]);
+            $registration->href             =   '/dashboard/settings?tab=registration';
 
             $email                   =   new \stdClass;
             $email->text             =   __( 'Mail' );
             $email->label            =   0;
             $email->namespace        =   'settings.email';
-            $email->href             =   route( 'dashboard.settings', [
-                'tab'   =>  'email'
-            ]);
+            $email->href             =   '/dashboard/settings?tab=email';
 
             $this->menus->addTo( 'settings', [ $general, $registration, $email ]);
         }
@@ -161,13 +138,13 @@ class MenusConfig
 
             $list                =   new \stdClass;
             $list->text          =   __( 'List of modules' );
-            $list->href          =   route( 'dashboard.modules.list' );
+            $list->href          =   '/dashboard/modules';
             $list->label         =   10;
             $list->namespace     =   'modules.list';
 
             $upload                =   new \stdClass;
             $upload->text          =   __( 'Upload' );
-            $upload->href          =   route( 'dashboard.modules.upload' );
+            $upload->href          =   '/dashboard/modules/upload';
             $upload->label         =   10;
             $upload->namespace     =   'modules.upload';
 
@@ -194,13 +171,13 @@ class MenusConfig
     
             $applicationList                =   new \stdClass;
             $applicationList->text          =   __( 'All applications' );
-            $applicationList->href          =   route( 'dashboard.applications.list' );
+            $applicationList->href          =   '/dashboard/applications';
             $applicationList->label         =   10;
             $applicationList->namespace     =   'applications.list';
     
             $applicationRegister                =   new \stdClass;
             $applicationRegister->text          =   __( 'Register a new' );
-            $applicationRegister->href          =   route( 'dashboard.applications.create' );
+            $applicationRegister->href          =   '/dashboard/application/create';
             $applicationRegister->label         =   10;
             $applicationRegister->namespace     =   'applications.create';
     

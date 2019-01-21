@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { TendooUsersService } from 'src/app/services/tendoo-users.service';
 import { TendooService } from 'src/app/services/tendoo.service';
 import { Observable, forkJoin } from 'rxjs';
@@ -10,6 +10,7 @@ import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-di
 import { ConfirmDialogObject } from 'src/app/interfaces/confirm-dialog';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AsyncResponse } from 'src/app/interfaces/async-response';
+import { TableConfig } from 'src/app/interfaces/table-config.interface';
 
 export interface PeriodicElement {
     id: number;
@@ -27,9 +28,13 @@ export interface PeriodicElement {
 export class UsersComponent implements OnInit {
     columns: string[]                       =   [];
     rawColumns: TableColumnInterface        =   {};
-    source:TableEntryInterface[]            =   [];
+    crudResult                              =   {};
+    searchEnabled                           =   false;
     reservedColumns: string[]               =   [ '$actions' ];
+    searchValue                             =   '';
+    tableConfig: TableConfig;
     checkAll: any;
+    @ViewChild( 'searchField' ) searchField: ElementRef;
 
     constructor(
         public tendoo: TendooService,
@@ -39,7 +44,33 @@ export class UsersComponent implements OnInit {
     ) { }
     
     ngOnInit() {
+        this.tableConfig        =   {
+            search: {
+                placeholder: 'Search a user'
+            }
+        }
         this.loadUsers();
+    }
+
+    serialize( obj ) {
+        var str = [];
+        for ( var p in obj ) {
+            if (obj.hasOwnProperty(p)) {
+                str.push( encodeURIComponent( p ) + "=" + encodeURIComponent( obj[p] ) );
+            }
+        }
+        return str.join( '&' );
+    }
+
+    search( field: HTMLInputElement ) {
+        if ( field.value.length !== 0 ) {
+            return this.tendoo.crud.getEntries( 'tendoo.dashboard.users', {
+                search : field.value
+            }).subscribe( ( entries: any ) => {
+                this.crudResult     =   entries;
+            });
+        } 
+        return this.snackbar.open( 'You need to input something to search.', 'OK', { duration: 3000 });
     }
     
     /**
@@ -48,18 +79,23 @@ export class UsersComponent implements OnInit {
      */
     loadUsers() {
         forkJoin(
-            this.tendoo.users.getUsers(),
-            this.tendoo.tables.getColumns( 'dashboard.users' )
+            this.tendoo.crud.getEntries( 'tendoo.dashboard.users' ),
+            this.tendoo.crud.getColumns( 'tendoo.dashboard.users' )
         )
         .subscribe( ( response ) => {
             this.rawColumns     =   <TableColumnInterface>response[1];
             this.columns        =   Object.keys( this.rawColumns );
-            this.source         =   <TableEntryInterface[]>response[0];
+            this.crudResult     =   <TableEntryInterface[]>response[0];
         })
     }
 
     sortData( event ) {
-        console.log( event );
+        this.tendoo
+            .crud
+            .getEntries( 'tendoo.dashboard.users', event )
+            .subscribe( ( response: TableEntryInterface[] ) => {
+            this.crudResult         =   response;
+        })
     }
 
     /**
@@ -142,7 +178,7 @@ export class UsersComponent implements OnInit {
      * @return void
      */
     checkAllCheckboxes() {
-        this.source.forEach( checkbox => {
+        this.crudResult[ 'data' ].forEach( checkbox => {
             checkbox.$checked       =   this.checkAll;
         })
     }
@@ -210,7 +246,7 @@ export class UsersComponent implements OnInit {
      * @return void
      */
     confirmDeleteSelected() {
-        return this.tendoo.users.deleteSelected( this.selectedEntries.map( entry => entry.id ) )
+        return this.tendoo.crud.deleteBulkEntries( 'tendoo.dashboard.users', this.selectedEntries.map( entry => entry.id ) )
     }
 
     /**
@@ -218,7 +254,7 @@ export class UsersComponent implements OnInit {
      * @return boolean
      */
     get hasSelectedEntries(): boolean {
-        return this.source.filter( entry => entry.$checked ).length > 0;
+        return this.selectedEntries.length > 0;
     }
 
     /**
@@ -226,6 +262,32 @@ export class UsersComponent implements OnInit {
      * @return array
      */
     get selectedEntries() {
-        return this.source.filter( entry => entry.$checked );
+        return this.crudResult[ 'data' ] !== undefined ? this.crudResult[ 'data' ].filter( entry => entry.$checked ) : [];
+    }
+
+    /**
+     * canceled all selected entries
+     * @return void
+     */
+    cancel() {
+        this.crudResult[ 'data' ].forEach( entry => entry.$checked = false );
+        this.checkAll   =   false;
+    }
+
+    /**
+     * toggle search. Enable /disable according
+     * to the provided parameter
+     * @return void
+     */
+    toggleSearch( param: boolean ) {
+        if ( param ) {
+            this.searchEnabled = true;
+            setTimeout( () => {
+                document.getElementById( 'search-field' ).focus();
+            }, 100 );
+        } else {
+            this.searchEnabled  =   false;
+            this.searchValue    =   '';
+        }
     }
 }

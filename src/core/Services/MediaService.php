@@ -163,7 +163,7 @@ class MediaService
         }
 
         return [
-            'status'    =>  'danger',
+            'status'    =>  'failed',
             'message'   =>  __( 'Unable to find the media.' )
         ];
     }

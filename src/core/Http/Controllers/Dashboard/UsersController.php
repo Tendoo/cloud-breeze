@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Schema;
 use Tendoo\Core\Http\Controllers\DashboardController;
 use Tendoo\Core\Http\Requests\UserProfileRequest;
 use Tendoo\Core\Http\Requests\PostUserSecurityRequest;
@@ -38,7 +39,31 @@ class UsersController extends DashboardController
             return User::find( $id );
         }
 
-        return User::all()->map( function( $user ) use ( $id ) {
+        /**
+         * let's detect if a search is enabled.
+         * Then we pull the table columns and 
+         * make a comparision with what is send.
+         */
+        if ( ! empty( request()->query( 'search' ) ) ) {
+            $users          =   User::where( function( $query ) {
+                $columns    =   Schema::getColumnListing( ( new User )->getTable() );
+                foreach( $columns as $column ) {
+                    $query->orWhere( $column, 'like', '%' . request()->query( 'search' ) . '%' );
+                }
+            });
+        } 
+        
+        if ( ! empty( $column = request()->query( 'active' ) ) && ! empty( $direction = request()->query( 'direction' ) ) ) {
+            if ( ! isset( $users ) ) {
+                $users      =   User::orderBy( $column, $direction )->paginate(10);
+            } else {
+                $users      =   $users->orderBy( $column, $direction )->paginate(10);
+            }
+        } else {
+            $users      =   User::paginate(10);
+        }
+
+        return $users->map( function( $user ) use ( $id ) {
             $actions                =   '$actions';
             $isAuthenticated        =   Auth::id() === $user->id;
             $user->{$actions}       =   [

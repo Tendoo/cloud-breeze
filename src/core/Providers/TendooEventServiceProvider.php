@@ -16,13 +16,9 @@ class TendooEventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        'Tendoo\Core\Events\Event' => [
-            'Tendoo\Core\Listeners\EventListener',
-        ]
     ];
 
     protected $subscribe    =   [
-        // 'Tendoo\Core\Listeners\UsersListeners'
     ];
 
     /**
@@ -97,7 +93,7 @@ class TendooEventServiceProvider extends ServiceProvider
          * Register Crud definition
          */
         Hook::addFilter( 'register.crud', function( $namespace ) {
-            if ( $namespace == 'users' ) {
+            if ( $namespace == 'tendoo.dashboard.users' ) {
                 return \Tendoo\Core\Crud\Users::class;
             }
 
