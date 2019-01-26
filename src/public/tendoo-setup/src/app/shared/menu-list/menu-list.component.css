@@ -1,6 +1,6 @@
-#aside-nav-list {
-    padding: 0%;
-}
 mat-list-item div > div > i {
     margin-right: 16px;
+}
+mat-nav-list {
+    padding-top: 0;
 }

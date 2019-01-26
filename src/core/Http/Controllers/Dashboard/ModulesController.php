@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Log;
 use Tendoo\Core\Http\Requests\PostModuleRequest;
 use Tendoo\Core\Exceptions\CoreException;
+use Tendoo\Core\Facades\Hook;
 
 class ModulesController extends DashboardController
 {
@@ -48,7 +49,6 @@ class ModulesController extends DashboardController
          * if a migration exist, then we'll return to the migration page
          */
         $migration  =   $this->modules->getMigrations( $namespace );
-        var_dump( $migration );die;
 
         if ( $migration ) {
             return response()->json([
@@ -59,13 +59,13 @@ class ModulesController extends DashboardController
         }
 
         // @todo check if the user has the right to perform this action.
-        Event::fire( 'before.enabling.module', $namespace );
+        Hook::action( 'before.enabling.module', $namespace );
 
         $result     =   $this->modules->enable( $namespace );
 
         if ( $result[ 'status' ] == 'success' ) {
             // when the module has been enabled
-            Event::fire( 'after.enabling.module', $result[ 'module' ] );
+            Hook::action( 'after.enabling.module', $result[ 'module' ] );
 
             return [
                 'status'    =>  'success',
@@ -93,13 +93,13 @@ class ModulesController extends DashboardController
         $namespace = $request->input( 'module' );
 
         // @todo check if the user has the right to perform this action.
-        Event::fire( 'before.disabling.module', $namespace );
+        Hook::action( 'before.disabling.module', $namespace );
 
         $result     =   $this->modules->disable( $namespace );
 
         if ( $result[ 'code' ] == 'module_disabled' ) {
             // when the module has been enabled
-            Event::fire( 'after.disabling.module', $result[ 'module' ] );
+            Hook::action( 'after.disabling.module', $result[ 'module' ] );
 
             return [
                 'status'    =>  'success',
@@ -144,7 +144,7 @@ class ModulesController extends DashboardController
      */
     public function postModule( PostModuleRequest $request )
     {
-        Event::fire( 'before.uploading.module', $request );
+        Hook::action( 'before.uploading.module', $request );
 
         $result     =   $this->modules->upload( $request->file( 'module' ) );
 
@@ -153,26 +153,26 @@ class ModulesController extends DashboardController
          */
         switch ( $result[ 'code' ] ) {
             case 'invalid_module' :
-                Event::fire( 'after.uploading.module', $result );
+                Hook::action( 'after.uploading.module', $result );
                 throw new CoreException([
                     'message'   =>  __( 'The zip file is not a valid module.' )
                 ]);
             break;
             case 'old_module' : 
-                Event::fire( 'after.uploading.module', $result );
+                Hook::action( 'after.uploading.module', $result );
                 throw new CoreException([
                     'message'    =>  __( 'The similar module found is up-to-date. Please remove this module before proceeding' )
                 ]);
             break;
             case 'valid_module':
-                Event::fire( 'after.uploading.module', $result );
+                Hook::action( 'after.uploading.module', $result );
                 return [
                     'status'    =>  'success',
                     'message'   =>  __( 'The module has been installed' )
                 ];
             break;
             case 'check_for_migration':
-                Event::fire( 'after.uploading.module', $result );
+                Hook::action( 'after.uploading.module', $result );
                 return [
                     'status'    =>  'success',
                     'message'   =>  __( 'the module has been installed.' ),
@@ -181,7 +181,7 @@ class ModulesController extends DashboardController
                 ];
             break;
             default:
-                Event::fire( 'after.uploading.module', $result );
+                Hook::action( 'after.uploading.module', $result );
                 throw new CoreException([
                     'message'   =>  __( 'An unexpected error has occured' )
                 ]);
@@ -256,7 +256,7 @@ class ModulesController extends DashboardController
         /**
          * @todo check if the user can delete a module
          */
-        Event::fire( 'before.deletingModule', $namespace );
+        Hook::action( 'before.deletingModule', $namespace );
 
         $result     =   $this->modules->delete( $namespace );
 

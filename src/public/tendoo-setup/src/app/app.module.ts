@@ -33,6 +33,15 @@ import { UsersCreateComponent } from './components/dashboard/users-create/users-
 import { ProfileComponent } from './components/dashboard/profile/profile.component';
 import { MediasComponent } from './components/dashboard/medias/medias.component';
 import { MediasUploadComponent } from './components/dashboard/medias-upload/medias-upload.component';
+import { MenuListComponent } from './shared/menu-list/menu-list.component';
+import { SubMenuListComponent } from './shared/sub-menu-list/sub-menu-list.component';
+import { CoreEvent } from './classes/core-event.class';
+import { EventEmitter } from 'protractor';
+import { NotFoundComponent } from './components/dashboard/not-found/not-found.component';
+import { CrudComponent } from './components/dashboard/crud/crud.component';
+import { CrudTableComponent } from './shared/crud-table/crud-table.component';
+import { CrudCreateComponent } from './components/dashboard/crud-create/crud-create.component';
+import { CrudEditComponent } from './components/dashboard/crud-edit/crud-edit.component';
 
 @NgModule({
     declarations: [
@@ -58,7 +67,14 @@ import { MediasUploadComponent } from './components/dashboard/medias-upload/medi
         UsersCreateComponent,
         ProfileComponent,
         MediasComponent,
-        MediasUploadComponent
+        MediasUploadComponent,
+        MenuListComponent,
+        SubMenuListComponent,
+        NotFoundComponent,
+        CrudComponent,
+        CrudTableComponent,
+        CrudCreateComponent,
+        CrudEditComponent
     ],
     imports: [
         BrowserModule,
@@ -76,7 +92,11 @@ import { MediasUploadComponent } from './components/dashboard/medias-upload/medi
         ConfirmDialogComponent
     ],
     providers: [
-        LoaderService
+        LoaderService,
+        {
+            provide: CoreEvent,
+            useValue: new CoreEvent
+        }
     ],
     bootstrap: [AppComponent]
 })

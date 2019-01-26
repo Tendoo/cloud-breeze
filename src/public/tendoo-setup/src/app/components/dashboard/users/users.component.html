@@ -1,5 +1,4 @@
 <div fxLayout="column" fxFlex="100%" style="overflow-y:auto">
-    <mat-progress-bar color="warn" style="height: 2px; position: relative;margin-bottom: -2px" *ngIf="tendoo.users.isLoading" mode="indeterminate"></mat-progress-bar>
     <div fxLayout="row" class="bg-content p-3 pb-0">
         <div fxFlex>
             <h1 class="mat-display-1 mb-0">Users</h1>
@@ -45,7 +44,8 @@
                     </div>
                 </div>
             </mat-card-title>
-            <mat-divider></mat-divider>
+            <mat-divider *ngIf="! tendoo.crud.isLoading"></mat-divider>
+            <mat-progress-bar color="warn" style="height: 1px;position: absolute;left: 0;" *ngIf="tendoo.crud.isLoading" mode="indeterminate"></mat-progress-bar>
             <mat-card-content>
                 <table matSort (matSortChange)="sortData($event)" mat-table [dataSource]="crudResult[ 'data' ]" fxFlex>
                     <!--- Note that these columns can be defined in any order.

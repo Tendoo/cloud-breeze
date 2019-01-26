@@ -7,6 +7,7 @@ import { ResponsiveService } from 'src/app/services/responsive.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AsyncResponse } from 'src/app/interfaces/async-response';
 import { TendooModule } from 'src/app/interfaces/module.interface';
+import { CoreEvent } from 'src/app/classes/core-event.class';
 
 @Component({
     selector: 'app-modules',
@@ -19,7 +20,8 @@ export class ModulesComponent implements OnInit {
         public tendoo: TendooService,
         private snackbar: MatSnackBar,
         public dialog: MatDialog,
-        private responsive: ResponsiveService
+        private responsive: ResponsiveService,
+        private coreEvent: CoreEvent
     ) { }
     
     ngOnInit() {
@@ -35,6 +37,16 @@ export class ModulesComponent implements OnInit {
     private __deleteModule( module ) {
         this.tendoo.modules.deleteModule( module.namespace ).subscribe( (result:AsyncResponse ) => {
             this.snackbar.open( result.message );
+
+            /**
+             * emit a new event when a module
+             * is deleted
+             */
+            this.coreEvent.emit({
+                type: 'module.deleted',
+                data: module
+            });
+
             this.loadModules();
         }, ( result:HttpErrorResponse ) => {
             console.log( result );
@@ -172,6 +184,16 @@ export class ModulesComponent implements OnInit {
     private __enableModule( module:TendooModule )
     {
         this.tendoo.modules.enable( module.namespace ).subscribe( response => {
+
+            /**
+             * emit a new event when a module
+             * is enabled
+             */
+            this.coreEvent.emit({
+                type: 'module.enabled',
+                data: module
+            });
+
             this.loadModules();
             this.dialog
                 .getDialogById( 'confirm-enable-module' )
@@ -194,6 +216,16 @@ export class ModulesComponent implements OnInit {
     private __disableModule( module )
     {
         this.tendoo.modules.disable( module.namespace ).subscribe( response => {
+
+            /**
+             * emit a new event when a module
+             * is disabled
+             */
+            this.coreEvent.emit({
+                type: 'module.disabled',
+                data: module
+            });
+
             this.loadModules();
             this.dialog
                 .getDialogById( 'disable-enable-module' )

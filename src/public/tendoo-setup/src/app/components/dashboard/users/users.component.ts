@@ -12,14 +12,6 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { AsyncResponse } from 'src/app/interfaces/async-response';
 import { TableConfig } from 'src/app/interfaces/table-config.interface';
 
-export interface PeriodicElement {
-    id: number;
-    name: string;
-    position: number;
-    weight: number;
-    symbol: string;
-}
-
 @Component({
     selector: 'app-users',
     templateUrl: './users.component.html',

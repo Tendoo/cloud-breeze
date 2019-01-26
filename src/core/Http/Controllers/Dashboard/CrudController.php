@@ -349,4 +349,54 @@ class CrudController extends DashboardController
             'message'   =>  __( 'Unable to proceed. No matching CRUD resource has been found.' )
         ], 403 );
     }
+
+    /**
+     * return an entre crud configuration
+     * @return array
+     */
+    public function getConfig( string $namespace ) 
+    {
+        $crudClass          =   Hook::filter( 'register.crud', $namespace );
+        $resource           =   new $crudClass;
+
+        if ( method_exists( $resource, 'getEntries' ) ) {
+            return [
+                'columns'               =>  $resource->getColumns(),
+                'labels'                 => $resource->getLabels(),
+                'links'                 =>  @$resource->getLinks(),
+                'results'               =>  $resource->getEntries(),
+                'namespace'             =>  $namespace,
+            ];
+        } 
+
+        return response()->json([
+            'status'    =>  'failed',
+            'message'   =>  __( 'Unable to proceed. No matching CRUD resource has been found.' )
+        ], 403 );
+    }
+
+    /**
+     * get create form config
+     * @param namespace
+     * @return array | AsyncResponse
+     */
+    public function createConfig( string $namespace )
+    {
+        $crudClass          =   Hook::filter( 'register.crud', $namespace );
+        $resource           =   new $crudClass;
+
+        if ( method_exists( $resource, 'getEntries' ) ) {
+            return [
+                'fields'                =>  $resource->getFields(),
+                'labels'                =>  $resource->getLabels(),
+                'links'                 =>  @$resource->getLinks(),
+                'namespace'             =>  $namespace,
+            ];
+        } 
+
+        return response()->json([
+            'status'    =>  'failed',
+            'message'   =>  __( 'Unable to proceed. No matching CRUD resource has been found.' )
+        ], 403 );
+    }
 }

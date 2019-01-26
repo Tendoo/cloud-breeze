@@ -3,12 +3,14 @@ namespace Tendoo\Core\Services\Dashboard;
 
 use Tendoo\Core\Services\Menus;
 
-class MenusConfig 
+class MenusConfig extends Menus
 {
     private $user;
 
-    public function __construct( Menus $menus )
-    {        
+    public function __construct()
+    {
+        parent::__construct();
+
         $this->user             =   app()->make( \Tendoo\Core\Services\Users::class );
 
         $dashboard              =   new \stdClass;
@@ -18,8 +20,7 @@ class MenusConfig
         $dashboard->namespace   =   'dashboard';
         $dashboard->icon        =   'dashboard';
 
-        $this->menus            =   $menus;
-        $this->menus->add( $dashboard );
+        $this->add( $dashboard );
 
         $this->registerMediaMenu();
         $this->registerModulesMenu();
@@ -43,7 +44,7 @@ class MenusConfig
             $media->icon        =   'collections';
             $media->href        =   '/dashboard/medias';
 
-            $this->menus->add( $media );
+            $this->add( $media );
         }
     }
 
@@ -62,7 +63,7 @@ class MenusConfig
             $users->namespace       =   'users';
             $users->icon            =   'people';
 
-            $this->menus->add( $users );
+            $this->add( $users );
             
             $list                  =   new \stdClass;
             $list->text            =   __( 'List of users' );
@@ -76,7 +77,7 @@ class MenusConfig
             $create->label           =   10;
             $create->namespace       =   'users.create';
 
-            $this->menus->addTo( 'users', [ $list, $create ]);
+            $this->addTo( 'users', [ $list, $create ]);
         }
     }
 
@@ -95,7 +96,7 @@ class MenusConfig
             $settings->namespace    =   'settings';
             $settings->icon         =   'settings';
 
-            $this->menus->add( $settings );
+            $this->add( $settings );
 
             $general               =   new \stdClass;
             $general->text         =   __( 'General' );
@@ -115,7 +116,7 @@ class MenusConfig
             $email->namespace        =   'settings.email';
             $email->href             =   '/dashboard/settings?tab=email';
 
-            $this->menus->addTo( 'settings', [ $general, $registration, $email ]);
+            $this->addTo( 'settings', [ $general, $registration, $email ]);
         }
     }
 
@@ -134,7 +135,7 @@ class MenusConfig
             $modules->namespace     =   'modules';
             $modules->icon          =   'input';
 
-            $this->menus->add( $modules );
+            $this->add( $modules );
 
             $list                =   new \stdClass;
             $list->text          =   __( 'List of modules' );
@@ -148,7 +149,7 @@ class MenusConfig
             $upload->label         =   10;
             $upload->namespace     =   'modules.upload';
 
-            $this->menus->addTo( 'modules', [ $list, $upload ]);
+            $this->addTo( 'modules', [ $list, $upload ]);
         }
     }
 
@@ -167,7 +168,7 @@ class MenusConfig
             $applications->namespace     =   'applications';
             $applications->icon          =   'apps';
     
-            $this->menus->add( $applications );
+            $this->add( $applications );
     
             $applicationList                =   new \stdClass;
             $applicationList->text          =   __( 'All applications' );
@@ -181,7 +182,7 @@ class MenusConfig
             $applicationRegister->label         =   10;
             $applicationRegister->namespace     =   'applications.create';
     
-            $this->menus->addTo( 'applications', [ $applicationList, $applicationRegister ]);
+            $this->addTo( 'applications', [ $applicationList, $applicationRegister ]);
         }
     }
 }

@@ -1,0 +1,30 @@
+<div *ngIf="crud" class="bg-content" fxLayout="column" fxFlex="100%" style="overflow-y:auto">
+    <div fxLayout="row" class="p-3 pb-0">
+        <div fxFlex>
+            <h1 class="mat-display-1 mb-0">{{ crud.labels.list_title }}</h1>
+            <span class="mat-title">{{ crud.labels.list_description }}</span>
+        </div>
+    </div>
+    <div fxFlex class="p-3">
+        <app-crud-table
+            *ngIf="crud.results.data.length > 0"
+            [crud]="crud"
+
+            (sort)="sortData( $event )"
+            (delete)="deleteEntries( $event )"
+            (action)="doAction( $event )"
+            (search)="searh( $event )"
+        ></app-crud-table>
+        <div *ngIf="crud.results.data.length === 0" fxFlex fxFill fxLayoutAlign="center center">
+            <div fxFlex="400px">
+                <h3 style="text-align: center">
+                    {{ crud.labels.no_entry ? crud.labels.no_entry : 'Hum... it\'s quite empty here.' }}. 
+                    <a [routerLink]="crud?.links.create">{{ crud.labels.create_new ? crud.labels.create_new : 'Create a new entry?' }}</a>
+                </h3>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="bg-content"  *ngIf="! crud" fxFlex fxFill fxLayoutAlign="center center">
+    <mat-spinner [diameter]="50"></mat-spinner>
+</div>

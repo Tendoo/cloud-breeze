@@ -1,0 +1,14 @@
+:host {
+    height: 100%;
+}
+#search-field {
+    height: 35px;
+    border-radius: 5px;
+    border: solid 1px #DDD;
+    background: #FFF;
+    width: 100%;
+    font-size: 18px;
+    padding: 0 10px;
+    margin-right: 10px;
+    margin-left: 10px;
+}

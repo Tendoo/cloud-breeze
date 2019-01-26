@@ -11,7 +11,7 @@
     </div>
     <div class="p-3 pt-0 bg-content" fxFlex fxLayoutGap="3em">
         <div 
-            style="height:200px"
+            style="height:150px"
             *ngFor="let module of modules"
             fxFlex.xs="100%" 
             fxFlex.sm="50%" 
@@ -25,7 +25,6 @@
                     <button [disabled]="tendoo.modules.isLoading" (click)="loadModules()" mat-button color="primary">Details</button>
                     <button [disabled]="tendoo.modules.isLoading" *ngIf="module.enabled" (click)="setStatus( module, 'disable' )"  mat-button color="primary">Disable</button>
                     <button [disabled]="tendoo.modules.isLoading" *ngIf="! module.enabled" (click)="setStatus( module, 'enable' )"  mat-button color="accent">Enable</button>
-                    <button [disabled]="tendoo.modules.isLoading" (click)="delete( module )" mat-button color="warn">Delete</button>
                 </mat-card-actions>
             </mat-card>
         </div>

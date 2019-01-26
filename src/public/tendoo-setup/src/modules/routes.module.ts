@@ -23,6 +23,10 @@ import { UsersEditComponent } from "src/app/components/dashboard/users-edit/user
 import { ProfileComponent } from "src/app/components/dashboard/profile/profile.component";
 import { MediasComponent } from "src/app/components/dashboard/medias/medias.component";
 import { MediasUploadComponent } from "src/app/components/dashboard/medias-upload/medias-upload.component";
+import { NotFoundComponent } from "src/app/components/dashboard/not-found/not-found.component";
+import { CrudComponent } from "src/app/components/dashboard/crud/crud.component";
+import { CrudCreateComponent } from "src/app/components/dashboard/crud-create/crud-create.component";
+import { CrudEditComponent } from "src/app/components/dashboard/crud-edit/crud-edit.component";
 
 @NgModule({
     imports: [
@@ -97,7 +101,19 @@ import { MediasUploadComponent } from "src/app/components/dashboard/medias-uploa
                     }, {
                         path: 'medias/upload',
                         component: MediasUploadComponent
-                    }, 
+                    }, {
+                        path: 'crud/:namespace',
+                        component: CrudComponent
+                    }, {
+                        path: 'crud/:namespace/create',
+                        component: CrudCreateComponent
+                    }, {
+                        path: 'crud/:namespace/edit/:id',
+                        component: CrudEditComponent
+                    }, {
+                        path: '**',
+                        component: NotFoundComponent
+                    }
                 ]
             }
         ])
