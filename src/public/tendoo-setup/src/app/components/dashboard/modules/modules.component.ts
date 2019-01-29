@@ -8,6 +8,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { AsyncResponse } from 'src/app/interfaces/async-response';
 import { TendooModule } from 'src/app/interfaces/module.interface';
 import { CoreEvent } from 'src/app/classes/core-event.class';
+import { MigrationDialogComponent } from '../../migration-dialog/migration-dialog.component';
 
 @Component({
     selector: 'app-modules',
@@ -199,9 +200,21 @@ export class ModulesComponent implements OnInit {
                 .getDialogById( 'confirm-enable-module' )
                 .close();
         }, ( result: HttpErrorResponse ) => {
-            this.snackbar.open( result.error.message, null, {
-                duration: 4000
-            });
+            console.log( result );
+            if ( result.error.class === 'Tendoo/Core/Exceptions/ModuleMigrationRequiredException' ) {
+                this.dialog.open( MigrationDialogComponent, {
+                    id: 'migration-dialog',
+                    data: {
+                        migration: result.error.migration
+                    },
+                    closeOnNavigation: false,
+                    disableClose: true,
+                })
+            } else {
+                this.snackbar.open( result.error.message, null, {
+                    duration: 4000
+                });
+            }
             this.dialog
                 .getDialogById( 'confirm-enable-module' )
                 .close();

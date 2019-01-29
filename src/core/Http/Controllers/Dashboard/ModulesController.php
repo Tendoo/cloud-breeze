@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Log;
 use Tendoo\Core\Http\Requests\PostModuleRequest;
 use Tendoo\Core\Exceptions\CoreException;
+use Tendoo\Core\Exceptions\ModuleMigrationRequiredException;
 use Tendoo\Core\Facades\Hook;
 
 class ModulesController extends DashboardController
@@ -51,11 +52,7 @@ class ModulesController extends DashboardController
         $migration  =   $this->modules->getMigrations( $namespace );
 
         if ( $migration ) {
-            return response()->json([
-                'message'   =>  __( 'Should redirect to the migration page' ),
-                'migration' =>  $migration,
-                'status'    =>  'failed',
-            ], 401 );
+            throw new ModuleMigrationRequiredException( $migration );
         }
 
         // @todo check if the user has the right to perform this action.

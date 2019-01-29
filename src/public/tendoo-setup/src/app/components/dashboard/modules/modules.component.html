@@ -2,8 +2,8 @@
     <mat-progress-bar color="warn" style="height: 2px; position: relative;margin-bottom: -2px" *ngIf="tendoo.modules.isLoading" mode="indeterminate"></mat-progress-bar>
     <div fxLayout="row" class="bg-content p-3">
         <div fxFlex>
-            <h1 class="mat-display-1 mb-0">Modules</h1>
-            <span class="mat-headline">Display and manage all available modules</span>
+            <h1 class="mat-h1 mb-0">Modules</h1>
+            <span>Display and manage all available modules</span>
         </div>
         <div fxFlex="200px" fxLayoutAlign="end start">
             <button routerLink="/dashboard/modules/upload" mat-button color="warn">Upload a module</button>
@@ -18,13 +18,18 @@
             fxFlex.md="50%" 
             fxFlex.lg="25%" 
             fxFlex.xl="20%">
-            <mat-card fxFill fxLayout="column">
-                <mat-card-title>{{ module.name }}</mat-card-title>
-                <mat-card-content fxFlex>{{ module.description }}</mat-card-content>
-                <mat-card-actions fxLayoutAlign="space-between">
-                    <button [disabled]="tendoo.modules.isLoading" (click)="loadModules()" mat-button color="primary">Details</button>
-                    <button [disabled]="tendoo.modules.isLoading" *ngIf="module.enabled" (click)="setStatus( module, 'disable' )"  mat-button color="primary">Disable</button>
-                    <button [disabled]="tendoo.modules.isLoading" *ngIf="! module.enabled" (click)="setStatus( module, 'enable' )"  mat-button color="accent">Enable</button>
+            <mat-card>
+                <mat-card-title>
+                    <h2 class="mat-h2">{{ module.name }}</h2>
+                </mat-card-title>
+                <mat-card-content style="height: 50px;">{{ module.description }}</mat-card-content>
+                <mat-divider></mat-divider>
+                <mat-card-actions>
+                    <div fxFill fxLayout="row" fxLayoutAlign="space-between" fxFlex="0 0 auto">
+                        <button class="m-0" [disabled]="tendoo.modules.isLoading" (click)="loadModules()" mat-button color="primary">Details</button>
+                        <button class="m-0" [disabled]="tendoo.modules.isLoading" *ngIf="module.enabled" (click)="setStatus( module, 'disable' )"  mat-button color="primary">Disable</button>
+                        <button class="m-0" [disabled]="tendoo.modules.isLoading" *ngIf="! module.enabled" (click)="setStatus( module, 'enable' )"  mat-button color="accent">Enable</button>
+                    </div>
                 </mat-card-actions>
             </mat-card>
         </div>

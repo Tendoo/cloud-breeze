@@ -76,6 +76,15 @@ class TendooHandler extends ExceptionHandler
                 ], 401 );
             }
 
+            if ( $exception instanceof ModuleMigrationRequiredException ) {
+                return response()->json([
+                    'status'    =>  'failed',
+                    'class'     =>  str_replace( '\\', '/', get_class( $exception ) ),
+                    'message'   =>  $exception->getMessage(),
+                    'migration' =>  $exception->getMigration()
+                ], 401 );
+            }
+
             if (
                 $exception instanceof NotFoundException
             ) {

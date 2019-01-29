@@ -42,6 +42,7 @@ import { CrudComponent } from './components/dashboard/crud/crud.component';
 import { CrudTableComponent } from './shared/crud-table/crud-table.component';
 import { CrudCreateComponent } from './components/dashboard/crud-create/crud-create.component';
 import { CrudEditComponent } from './components/dashboard/crud-edit/crud-edit.component';
+import { MigrationDialogComponent } from './components/migration-dialog/migration-dialog.component';
 
 @NgModule({
     declarations: [
@@ -74,7 +75,8 @@ import { CrudEditComponent } from './components/dashboard/crud-edit/crud-edit.co
         CrudComponent,
         CrudTableComponent,
         CrudCreateComponent,
-        CrudEditComponent
+        CrudEditComponent,
+        MigrationDialogComponent
     ],
     imports: [
         BrowserModule,
@@ -89,7 +91,8 @@ import { CrudEditComponent } from './components/dashboard/crud-edit/crud-edit.co
         DropzoneModule
     ],
     entryComponents: [
-        ConfirmDialogComponent
+        ConfirmDialogComponent,
+        MigrationDialogComponent
     ],
     providers: [
         LoaderService,
