@@ -27,6 +27,10 @@ import { NotFoundComponent } from "src/app/components/dashboard/not-found/not-fo
 import { CrudComponent } from "src/app/components/dashboard/crud/crud.component";
 import { CrudCreateComponent } from "src/app/components/dashboard/crud-create/crud-create.component";
 import { CrudEditComponent } from "src/app/components/dashboard/crud-edit/crud-edit.component";
+import { CrudCreateGuard } from "src/app/guards/crud-create.guard";
+import { AccessDeniedComponent } from "src/app/components/dashboard/access-denied/access-denied.component";
+import { CrudListGuard } from "src/app/guards/crud-list.guard";
+import { CrudEditGuard } from "src/app/guards/crud-edit.guard";
 
 @NgModule({
     imports: [
@@ -103,13 +107,25 @@ import { CrudEditComponent } from "src/app/components/dashboard/crud-edit/crud-e
                         component: MediasUploadComponent
                     }, {
                         path: 'crud/:namespace',
-                        component: CrudComponent
+                        component: CrudComponent,
+                        canActivate: [
+                            CrudListGuard
+                        ]
                     }, {
                         path: 'crud/:namespace/create',
-                        component: CrudCreateComponent
+                        component: CrudCreateComponent,
+                        canActivate: [
+                            CrudCreateGuard
+                        ]
                     }, {
                         path: 'crud/:namespace/edit/:id',
-                        component: CrudEditComponent
+                        component: CrudEditComponent,
+                        canActivate: [
+                            CrudEditGuard
+                        ]
+                    }, {
+                        path: 'access-denied',
+                        component: AccessDeniedComponent
                     }, {
                         path: '**',
                         component: NotFoundComponent

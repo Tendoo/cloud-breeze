@@ -399,4 +399,35 @@ class CrudController extends DashboardController
             'message'   =>  __( 'Unable to proceed. No matching CRUD resource has been found.' )
         ], 403 );
     }
+
+    /**
+     * Can Access
+     * Check wether the logged user has
+     * the right to access to the requested resource
+     * @return AsyncResponse
+     */
+    public function canAccess( $namespace, Request $request ) 
+    {
+        $crudClass          =   Hook::filter( 'register.crud', $namespace );
+        $resource           =   new $crudClass;
+
+        if ( method_exists( $resource, 'canAccess' ) ) {
+            if ( $resource->canAccess( $request->input( 'type' ) ) ) {
+                return response()->json([
+                    'status'    =>  'success',
+                    'message'   =>  __( 'You\'re allowed to access to that page' )
+                ]);
+            }
+
+            return response()->json([
+                'status'    =>  'failed',
+                'message'   =>  __( 'You don\'t have the right to access to the requested page.' )
+            ], 403 );
+        } 
+
+        return response()->json([
+            'status'    =>  'success',
+            'message'   =>  __( 'This resource is not protected. The access is granted.' )
+        ]);
+    }
 }

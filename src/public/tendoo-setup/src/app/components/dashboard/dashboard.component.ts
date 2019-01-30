@@ -16,6 +16,7 @@ import { CoreAction } from 'src/app/interfaces/core-action';
 export class DashboardComponent implements OnInit {
     asideMenus: Menu[]   =   [];
     showDefaultAside    =   true;
+    logoWidth           =   0;
     
     constructor(
         private tendoo: TendooService,
@@ -29,9 +30,11 @@ export class DashboardComponent implements OnInit {
                 case 'xs':
                 case 'sm':
                     this.showDefaultAside   =   false;
+                    this.logoWidth          =   80;
                 break;
                 default:
                     this.showDefaultAside   =   true;
+                    this.logoWidth          =   (250 - (16*2));
                 break;
             }
         });

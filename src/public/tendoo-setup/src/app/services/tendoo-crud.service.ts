@@ -67,4 +67,14 @@ export class TendooCrudService extends LoaderService {
     postForm( namespace: string, data: {[ key:string]: string | boolean | number }) {
         return this.post( `${this.baseUrl}tendoo/crud/${namespace}`, data );
     }
+
+    /**
+     * act as a guard to proceed a crud instance
+     * @param object {type: string, namespace: string }
+     * @return Observable<AsyncResponse>
+     */
+    canAccess( data ) {
+        const { namespace, type }   =   data;
+        return this.post( `${this.baseUrl}tendoo/crud/${namespace}/can-access`, { type });
+    }
 }

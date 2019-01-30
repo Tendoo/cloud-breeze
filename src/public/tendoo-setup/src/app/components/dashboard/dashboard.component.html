@@ -1,7 +1,13 @@
 <div fxLayout="column" fxFill>
     <div>
         <mat-toolbar color="primary" fxFlex fxLayoutAlign="space-between center">
-            <span>Tendoo CMS</span>
+            <div [fxFlex]="logoWidth + 'px'" fxLayout="row" 
+                fxLayoutAlign.xl="center center"
+                fxLayoutAlign.lg="center center"
+                >
+                <span *ngIf="showDefaultAside">TRex Server</span>
+                <span *ngIf="! showDefaultAside">TRex</span>
+            </div>
             <div>
                 <button mat-icon-button [matMenuTriggerFor]="profileMenu">
                     <mat-icon aria-label="Example icon-button with a heart icon">person</mat-icon>
