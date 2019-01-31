@@ -14,6 +14,7 @@ use Tendoo\Core\Models\User;
 use Carbon\Carbon;
 use Exception;
 use Tendoo\Core\Exceptions\OauthDeniedException;
+use Tendoo\Core\Exceptions\CoreException;
 use Tendoo\Core\Exceptions\WrongCredentialException;
 use Tendoo\Core\Exceptions\WrongOauthScopeException;
 use Tendoo\Core\Http\Requests\PostRegisterRequest;
@@ -253,6 +254,13 @@ class OauthControllers extends BaseController
      */
     public function postRegistration( PostRegisterRequest $request )
     {
+        if ( $this->options->get( 'allow_registration' ) === null ) {
+            throw new CoreException([
+                'status'    =>  'failed',
+                'message'   =>  __( 'Unable to proceed, the registration are closed on this website' )
+            ]);
+        }
+
         $this->authService->register( $request );
 
         return response()->json([

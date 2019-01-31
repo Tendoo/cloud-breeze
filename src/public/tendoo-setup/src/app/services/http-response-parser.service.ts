@@ -25,7 +25,7 @@ export class HttpResponseParserService {
         })
         this.pipes.push( ( response: AsyncResponse ) => {
             return new Promise( resolve => {
-                if ([
+                if ( response.class !== undefined && [
                     'Tendoo/Core/Exceptions/TendooNotInstalledException',                            
                     'Tendoo/Core/Exceptions/TendooInstalledException',                                
                 ].indexOf( response.class ) !== -1 ) {

@@ -9,6 +9,14 @@ export class TendooAuthService extends LoaderService {
 
     private user: User;
     intented: string;
+    
+    /**
+     * register a new user from the register UI
+     * @param data form data
+     */
+    register( data ) {
+        return this.post( `${this.baseUrl}tendoo/auth/registration`, data );
+    }
 
     /**
      * attempt to log the user.

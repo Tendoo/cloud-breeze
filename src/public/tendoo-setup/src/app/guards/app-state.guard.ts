@@ -24,7 +24,9 @@ export class PreventAppInstalledGuard implements CanActivate {
             }, result => {
                 switch( result.error.class ) {
                     case 'Tendoo/Core/Exceptions/TendooInstalledException':
-                        this.router.navigateByUrl( '' );
+                        
+                        this.router.navigateByUrl( 'auth/login' );
+
                         this.snackbar.open( result.error.message, null, {
                             duration: 3000
                         });

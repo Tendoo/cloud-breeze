@@ -31,13 +31,16 @@ import { CrudCreateGuard } from "src/app/guards/crud-create.guard";
 import { AccessDeniedComponent } from "src/app/components/dashboard/access-denied/access-denied.component";
 import { CrudListGuard } from "src/app/guards/crud-list.guard";
 import { CrudEditGuard } from "src/app/guards/crud-edit.guard";
+import { CheckRegistrationStatusGuard } from "src/app/guards/check-registration-status.guard";
 
 @NgModule({
     imports: [
         RouterModule.forRoot([
             {
                 path: '',
-                component: HomeComponent
+                redirectTo: 'auth/login',
+                pathMatch: 'full',
+                // component: HomeComponent
             }, {
                 path: 'do-setup',
                 component: DoSetupComponent,
@@ -64,7 +67,8 @@ import { CrudEditGuard } from "src/app/guards/crud-edit.guard";
                         component: LogoutComponent
                     }, {
                         path: 'register',
-                        component: RegisterComponent
+                        component: RegisterComponent,
+                        canActivate: [ CheckRegistrationStatusGuard ]
                     }, {
                         path: 'login',
                         component: LoginComponent

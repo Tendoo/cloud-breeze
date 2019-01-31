@@ -13,6 +13,7 @@ class SettingsController extends DashboardController
     public function __construct()
     {
         parent::__construct();
+        
         $this->middleware( function( $request, $next ) {
             $this->checkPermission( 'manage.options' );
             return $next( $request );

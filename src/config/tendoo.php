@@ -38,5 +38,23 @@ return [
     ],
     'archive'       =>  [
         'master'    =>  'https://github.com/Tendoo/cms/archive/master.zip',
+    ],
+
+    'options'       =>  [
+
+        /**
+         * this is the list of options allowed to be 
+         * retreived from an api request.
+         */
+        'disclosed' =>  [ 
+            'allow_registration',
+            'app_restricted_login',
+            'app_notify_password_reset',
+            'allow_recovery',
+            'validate_users',
+            'reset_activation_link',
+            'register_as',
+            'registration_notification',
+        ]
     ]
 ];

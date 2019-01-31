@@ -138,20 +138,23 @@ class Modules
                         /**
                          * @todo run service provider
                          */
-                        include_once( $modulesPath . $service );
-                        $fileInfo       =   pathinfo( $service );
-                        $className      =   ucwords( $fileInfo[ 'filename' ] );
-                        $fullClassName  =   'Modules\\' . $config[ 'namespace' ] . '\\Providers\\' . $className;
-
-                        if ( class_exists( $fullClassName ) ) {
+                        if ( is_file( $modulesPath . $service ) ) {
+                            include_once( $modulesPath . $service );
     
-                            $config[ 'providers' ][ $className ]   =   new $fullClassName( app() );
-                            
-                            /**
-                             * If a register method exists
-                             */
-                            if ( method_exists( $config[ 'providers' ][ $className ], 'register' ) ) {
-                                call_user_func([ $config[ 'providers' ][ $className ], 'register' ]);
+                            $fileInfo       =   pathinfo( $service );
+                            $className      =   ucwords( $fileInfo[ 'filename' ] );
+                            $fullClassName  =   'Modules\\' . $config[ 'namespace' ] . '\\Providers\\' . $className;
+    
+                            if ( class_exists( $fullClassName ) ) {
+        
+                                $config[ 'providers' ][ $className ]   =   new $fullClassName( app() );
+                                
+                                /**
+                                 * If a register method exists
+                                 */
+                                if ( method_exists( $config[ 'providers' ][ $className ], 'register' ) ) {
+                                    call_user_func([ $config[ 'providers' ][ $className ], 'register' ]);
+                                }
                             }
                         }
                     }

@@ -13,6 +13,7 @@ import { TendooMenusService } from './tendoo-menu.service';
 import { MatSnackBar } from '@angular/material';
 import { TendooMediasService } from './tendoo-medias.service';
 import { TendooCrudService } from './tendoo-crud.service';
+import { TendooOptionsService } from './tendoo-options.service';
 
 @Injectable({
     providedIn: 'root'
@@ -32,7 +33,8 @@ export class TendooService extends LoaderService {
         public tabs: TendooTabsService,
         public menus: TendooMenusService,
         public medias: TendooMediasService,
-        public crud: TendooCrudService
+        public crud: TendooCrudService,
+        public options: TendooOptionsService
     ) {
         super( http, httpParser, snackbar );
     }

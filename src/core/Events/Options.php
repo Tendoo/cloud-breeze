@@ -3,6 +3,7 @@ namespace Tendoo\Core\Events;
 
 use Tendoo\Core\Http\Requests\OptionsRequest;
 use Tendoo\Core\Services\Field;
+use Tendoo\Core\Facades\Hook;
 use Tendoo\Core\Services\Options as OptionsService;
 
 class Options {
@@ -26,5 +27,18 @@ class Options {
         }
 
         return $inputs;
+    }
+
+    /**
+     * Let some keys to be available for fetch on the server
+     * @param string the option key
+     * @return boolean
+     */
+    public function discloseOptions( $status, $key ) 
+    {
+        if ( in_array( $key, Hook::filter( 'disclosable.options', config( 'tendoo.options.disclosed' ) ?? [] ) ) ) {
+            return true;
+        }
+        return $status;
     }
 }

@@ -15,4 +15,14 @@ export class TendooFieldsService extends TendooAuthService {
     getFields( namespace:string ): Observable<{}> {
         return this.get( this.baseUrl + 'tendoo/fields/' + namespace );
     }
+
+    /**
+     * get public fields using the 
+     * provided namespace
+     * @param string fields namespace
+     * @return {Objservable<Field[]>} fields
+     */
+    getPublicFields( namespace) {
+        return this.get( this.baseUrl + 'tendoo/public/fields/' + namespace );
+    }
 }

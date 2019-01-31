@@ -18,6 +18,7 @@ trait AuthFields {
         $Field->type            =   'password';
         $Field->label           =   __( 'Password' );
         $Field->placeholder     =   __( 'Password' );
+        $Field->description     =   __( 'Provide your unique password.' );
         $Field->validation      =   'required|min:6';
         return $Field;
     }
@@ -49,6 +50,7 @@ trait AuthFields {
         $Field->type            =   'password';
         $Field->label           =   __( 'Confirm Password' );
         $Field->placeholder     =   __( 'Confirm Password' );
+        $Field->description     =   __( 'This field should be similar to the password.' );
         $Field->validation      =   'same:password';
         return $Field;
     }
@@ -64,6 +66,7 @@ trait AuthFields {
         $Field->type            =   'email';
         $Field->label           =   __( 'Email' );
         $Field->placeholder     =   __( 'Email' );
+        $Field->description     =   __( 'Provide a unique email that will be used along with your account.' );
         $Field->validation      =   'required|email|unique:tendoo_users';
         return $Field;
     }
@@ -111,6 +114,7 @@ trait AuthFields {
         $Field->type            =   'text';
         $Field->label           =   __( 'Username' );
         $Field->placeholder     =   __( 'Username' );
+        $Field->description     =   __( 'Provide a unique username for your account.' );
         $Field->validation      =   'required|min:5|unique:tendoo_users';
         return $Field;
     }
@@ -154,10 +158,10 @@ trait AuthFields {
     public static function register()
     {
         $fields                 =   [
-            'username'          =>  self::username(),
-            'email'             =>  self::email(),
-            'password'          =>  self::password(),
-            'password_confirm'  =>  self::passwordConfirm(),
+            self::username(),
+            self::email(),
+            self::password(),
+            self::passwordConfirm(),
         ];
 
         /**
