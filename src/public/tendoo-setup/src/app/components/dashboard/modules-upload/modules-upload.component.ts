@@ -24,6 +24,7 @@ export class ModulesUploadComponent implements OnInit {
     ) { }
     
     ngOnInit() {
+        this.tendoo.dashboardTitle( 'Upload a module' );
     }
 
     handleFileInput( file ) {

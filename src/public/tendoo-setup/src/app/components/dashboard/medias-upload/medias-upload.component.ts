@@ -20,6 +20,9 @@ export class MediasUploadComponent implements OnInit {
     ) { }
     
     ngOnInit() {
+
+        this.tendoo.dashboardTitle( 'Upload a media' );
+
         this.dropzoneConfig     =   {
             url: this.tendoo.medias.baseUrl + `tendoo/medias`,
             maxFilesize: 50,

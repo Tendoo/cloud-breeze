@@ -33,7 +33,9 @@ export class UsersComponent implements OnInit {
         public router: Router,
         public dialog: MatDialog,
         public snackbar: MatSnackBar
-    ) { }
+    ) { 
+        this.tendoo.dashboardTitle( 'Users' );
+    }
     
     ngOnInit() {
         this.tableConfig        =   {

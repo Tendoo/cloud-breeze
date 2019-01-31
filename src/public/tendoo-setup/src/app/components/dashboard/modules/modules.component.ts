@@ -26,6 +26,7 @@ export class ModulesComponent implements OnInit {
     ) { }
     
     ngOnInit() {
+        this.tendoo.dashboardTitle( 'Modules List' );
         this.loadModules();
     }
     

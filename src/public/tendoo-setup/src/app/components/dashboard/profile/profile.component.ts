@@ -26,6 +26,7 @@ export class ProfileComponent implements OnInit {
         public tendoo: TendooService,
         private snackbar: MatSnackBar
     ) { 
+        this.tendoo.dashboardTitle( 'User Profile' );
         this.auth   =   this.tendoo.auth;
     }
     

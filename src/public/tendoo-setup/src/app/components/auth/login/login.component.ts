@@ -6,6 +6,7 @@ import { FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 
 @Component({
     selector: 'app-login',
@@ -19,8 +20,10 @@ export class LoginComponent implements OnInit {
     constructor(
         public tendoo: TendooService,
         private snackbar: MatSnackBar,
-        private router: Router
-    ) { }
+        private router: Router,
+    ) { 
+        this.tendoo.setTitle( 'Login' );
+    }
     
     ngOnInit() {
         this.fields     =   [

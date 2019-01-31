@@ -25,7 +25,9 @@ export class UsersCreateComponent implements OnInit {
         public tendoo: TendooService,
         public snackbar: MatSnackBar,
         private router: Router
-    ) {}
+    ) {
+        this.tendoo.dashboardTitle( 'Create a new user' );
+    }
     
     ngOnInit() {
         forkJoin(

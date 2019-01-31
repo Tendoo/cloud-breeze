@@ -8,6 +8,8 @@ import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-di
 import { ConfirmDialogObject } from 'src/app/interfaces/confirm-dialog';
 import { AsyncResponse } from 'src/app/interfaces/async-response';
 import { MediaObserver } from '@angular/flex-layout';
+import { Title } from '@angular/platform-browser';
+import { TendooService } from 'src/app/services/tendoo.service';
 
 @Component({
     selector: 'app-medias',
@@ -26,10 +28,13 @@ export class MediasComponent implements OnInit {
         private mediaService: TendooMediasService,
         private dialog: MatDialog,
         private snackbar: MatSnackBar,
-        private mediaObserver: MediaObserver
+        private mediaObserver: MediaObserver,
+        public tendoo: TendooService
     ) { }
     
     ngOnInit() {
+        this.tendoo.dashboardTitle( 'Medias' );
+
         this.loadMedias();
         this.mediaObserver.media$.subscribe( result => {
             console.log( result.mqAlias );

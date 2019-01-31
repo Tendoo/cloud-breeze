@@ -27,7 +27,9 @@ export class UsersEditComponent implements OnInit {
         private activeRoute: ActivatedRoute,
         private snackbar: MatSnackBar,
         private route: Router
-    ) { }
+    ) { 
+        this.tendoo.dashboardTitle( 'Edit a user' );
+    }
     
     ngOnInit() {
         this.id    =   +this.activeRoute.snapshot.paramMap.get( 'id' );

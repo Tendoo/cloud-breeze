@@ -7,6 +7,7 @@ import { MatSnackBar } from '@angular/material';
 import { AsyncResponse } from 'src/app/interfaces/async-response';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 
 @Component({
     selector: 'app-register',
@@ -20,8 +21,10 @@ export class RegisterComponent implements OnInit {
     constructor(
         public tendoo: TendooService,
         public snackbar: MatSnackBar,
-        public router: Router
-    ) { }
+        public router: Router,
+    ) { 
+        this.tendoo.setTitle( 'Create a new account' );
+    }
     
     ngOnInit() {
         this.tendoo.fields.getPublicFields( 'auth.register' ).subscribe( (fields: Field[]) => {

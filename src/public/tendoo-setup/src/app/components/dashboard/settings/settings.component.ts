@@ -17,7 +17,9 @@ export class SettingsComponent implements OnInit {
     constructor(
         public tendoo: TendooService,
         public snackbar: MatSnackBar
-    ) { }
+    ) { 
+        this.tendoo.dashboardTitle( 'Application Settings' );
+    }
     
     ngOnInit() {
         this.tendoo.tabs.getTabs( 'dashboard.settings' ).subscribe( tabs => {

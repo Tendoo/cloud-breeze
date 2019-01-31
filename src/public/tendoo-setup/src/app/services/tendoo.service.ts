@@ -14,6 +14,7 @@ import { MatSnackBar } from '@angular/material';
 import { TendooMediasService } from './tendoo-medias.service';
 import { TendooCrudService } from './tendoo-crud.service';
 import { TendooOptionsService } from './tendoo-options.service';
+import { Title } from '@angular/platform-browser';
 
 @Injectable({
     providedIn: 'root'
@@ -34,8 +35,21 @@ export class TendooService extends LoaderService {
         public menus: TendooMenusService,
         public medias: TendooMediasService,
         public crud: TendooCrudService,
-        public options: TendooOptionsService
+        public options: TendooOptionsService,
+        public title: Title
     ) {
         super( http, httpParser, snackbar );
+    }
+
+    dashboardTitle( title: string ) {
+        this.title.setTitle( `${title} - Dashboard` );
+    }
+
+    /**
+     * 
+     * @param string title
+     */
+    setTitle( title: string ) {
+        this.title.setTitle( `${title}` );
     }
 }
