@@ -28,8 +28,6 @@ class TendooRouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
-        
         parent::boot();
     }
 
@@ -39,11 +37,13 @@ class TendooRouteServiceProvider extends ServiceProvider
      * @return void
      */
     public function map()
-    {
-        Route::middleware( 'web' ) // <= watch this out
+    {        
+        app()->booted( function() {
+            Route::middleware( 'web' ) // <= watch this out
             ->namespace( $this->namespace )
             ->group( TENDOO_ROUTES_PATH . DIRECTORY_SEPARATOR . 'web.php' );
-        
+        });
+
         Route::middleware( 'tendoo.cors' )->namespace( $this->namespace )
             ->group( TENDOO_ROUTES_PATH . DIRECTORY_SEPARATOR . 'api.php' );
 

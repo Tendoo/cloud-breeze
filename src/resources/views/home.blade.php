@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>TendooSetup</title>
+    <title>Tendoo CMS</title>
     <base href="{{ str_finish( url( '/' ), '/' ) }}">
 
     <meta name="viewport" content="width=device-width, initial-scale=1">

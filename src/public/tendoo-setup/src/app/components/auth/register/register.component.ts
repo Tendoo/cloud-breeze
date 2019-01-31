@@ -52,7 +52,6 @@ export class RegisterComponent implements OnInit {
         }, (result: HttpErrorResponse ) => {
 
             this.snackbar.open( result.error.message, 'OK', { duration: 5000 });
-
             ValidationGenerator.enableFields( this.fields );
 
             /**
