@@ -1,5 +1,7 @@
-<div fxLayout="column" fxFlex="100%" style="overflow-y:auto">
-    <!-- <mat-progress-bar color="warn" style="height: 2px; position: absolute" *ngIf="tendoo.users.isLoading" mode="indeterminate"></mat-progress-bar> -->
+<div fxLayout="column" fxFlex="100%" fxLayoutAlign="center center" class="bg-content" style="overflow-y:auto" *ngIf="! tabs">
+    <mat-spinner [diameter]="50"></mat-spinner>
+</div>
+<div fxLayout="column" fxFlex="100%" style="overflow-y:auto" *ngIf="tabs">
     <div fxLayout="row" fxFlex="0 0 auto" class="bg-content p-3 pb-0">
         <div fxFlex>
             <h1 class="mat-display-1 mb-0">Settings</h1>

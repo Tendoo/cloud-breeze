@@ -5,7 +5,7 @@ import { ValidationGenerator } from 'src/app/classes/validation-generator.class'
 import { FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { Router, ActivatedRouteSnapshot, ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 
 @Component({
@@ -16,16 +16,23 @@ import { Title } from '@angular/platform-browser';
 export class LoginComponent implements OnInit {
     fields: Field[]     =   [];
     loginForm: FormGroup;
+    fromRegistration: string;
 
     constructor(
         public tendoo: TendooService,
         private snackbar: MatSnackBar,
         private router: Router,
+        public routeSnapshot: ActivatedRoute
     ) { 
         this.tendoo.setTitle( 'Login' );
     }
     
     ngOnInit() {
+
+        this.routeSnapshot.queryParamMap.subscribe( query => {
+            this.fromRegistration   =   query.get( 'notice' );
+        });
+
         this.fields     =   [
             {
                 label: 'Username',
@@ -44,7 +51,7 @@ export class LoginComponent implements OnInit {
 
         const fields    =   ValidationGenerator.buildFormControls( this.fields );
         this.loginForm  =   new FormGroup( fields );
-        // this.login();
+        this.login();
     }
 
     login() {
@@ -76,7 +83,7 @@ export class LoginComponent implements OnInit {
                 return this.router.navigateByUrl( path );
             }
 
-            this.router.navigateByUrl( 'dashboard/users' );
+            this.router.navigateByUrl( 'dashboard/modules/details/EnvatoChecker' );
 
         }, (result: HttpErrorResponse ) => {
             this.snackbar.open( result.error.message );

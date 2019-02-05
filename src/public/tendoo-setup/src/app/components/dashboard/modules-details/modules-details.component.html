@@ -1,0 +1,34 @@
+<div fxLayout="column" class="bg-content" fxFill *ngIf="module">
+    <div fxLayout="row" class="p-3 pb-0">
+        <div fxFlex fxLayout="column">
+            <h1 class="mat-h1 mb-0">{{ module.name }}</h1>
+            <span>{{ module.description }}</span>
+        </div>
+        <div fxFlex=""></div>        
+    </div>
+    <div fxLayoutAlign="center start" fxFlex="auto" class="p-3">
+        <div fxFlex="100%" class="mat-elevation-z2 bg-white" fxLayout="row" fxFill>
+            <div fxFlex="250px" class="module-details"></div>
+            <mat-divider [vertical]="true"></mat-divider>
+            <div fxFlex fxLayout="column">
+                <div fxLayout="row">
+                    <ng-container *ngFor="let tab of tabs">
+                        <div class="p-2 text-center cursor-pointer" matRipple>{{ tab.label }}</div>
+                        <mat-divider [vertical]="true"></mat-divider>
+                    </ng-container>
+                </div>
+                <mat-divider></mat-divider>
+                <div fxFlex="auto" style="overflow-y: auto"></div>
+                <mat-divider></mat-divider>
+                <div fxLayoutAlign="space-between center" class="p-1">
+                    <button [disabled]="tendoo.modules.isLoading" (click)="toggleModule( 'disable' )" *ngIf="module.enabled" mat-button="">Disable</button>
+                    <button [disabled]="tendoo.modules.isLoading" (click)="toggleModule( 'enable' )" *ngIf="! module.enabled" mat-button="">Enable</button>
+                    <button [disabled]="tendoo.modules.isLoading" (click)="removeModule()" mat-button="">Remove</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div fxLayout="column" class="bg-content" fxLayoutAlign="center center" fxFill *ngIf="! module">
+    <mat-spinner></mat-spinner>
+</div>

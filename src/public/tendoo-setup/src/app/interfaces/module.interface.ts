@@ -15,4 +15,5 @@ export interface TendooModule {
     'routes-file': string;
     version: string;
     'view-path': string;
+    name: string;
 }

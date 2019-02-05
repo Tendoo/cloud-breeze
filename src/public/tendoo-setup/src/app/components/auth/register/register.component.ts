@@ -49,7 +49,7 @@ export class RegisterComponent implements OnInit {
              * when the registration is successful
              * let's redirect back to the login page.
              */
-            this.router.navigateByUrl( 'auth/login' );
+            this.router.navigateByUrl( 'auth/login?notice=from-registration' );
             this.snackbar.open( result.message, 'OK', { duration: 5000 });
 
         }, (result: HttpErrorResponse ) => {

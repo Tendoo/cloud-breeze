@@ -22,7 +22,7 @@ export class ModulesComponent implements OnInit {
         private snackbar: MatSnackBar,
         public dialog: MatDialog,
         private responsive: ResponsiveService,
-        private coreEvent: CoreEvent
+        private coreEvent: CoreEvent,
     ) { }
     
     ngOnInit() {
@@ -38,7 +38,7 @@ export class ModulesComponent implements OnInit {
 
     private __deleteModule( module ) {
         this.tendoo.modules.deleteModule( module.namespace ).subscribe( (result:AsyncResponse ) => {
-            this.snackbar.open( result.message );
+            this.snackbar.open( result.message, null, { duration: 3000 });
 
             /**
              * emit a new event when a module
@@ -60,6 +60,7 @@ export class ModulesComponent implements OnInit {
      * @return void
      */
     delete( module ) {
+        console.log( module );
         this.dialog.open( ConfirmDialogComponent, {
             id: 'delete.module',
             data: <ConfirmDialogObject>{

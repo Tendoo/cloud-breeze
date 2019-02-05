@@ -269,4 +269,14 @@ class ModulesController extends DashboardController
             'message'   =>  __( 'unable to locate the module.' )
         ]);
     }
+
+    /**
+     * Get a single module
+     * @param string module namespace
+     * @return Module
+     */
+    public function getModule( $namespace )
+    {
+        return $this->modules->get( $namespace );
+    }
 }

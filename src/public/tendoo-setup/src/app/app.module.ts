@@ -44,6 +44,7 @@ import { CrudCreateComponent } from './components/dashboard/crud-create/crud-cre
 import { CrudEditComponent } from './components/dashboard/crud-edit/crud-edit.component';
 import { MigrationDialogComponent } from './components/migration-dialog/migration-dialog.component';
 import { AccessDeniedComponent } from './components/dashboard/access-denied/access-denied.component';
+import { ModulesDetailsComponent } from './components/dashboard/modules-details/modules-details.component';
 
 @NgModule({
     declarations: [
@@ -78,7 +79,8 @@ import { AccessDeniedComponent } from './components/dashboard/access-denied/acce
         CrudCreateComponent,
         CrudEditComponent,
         MigrationDialogComponent,
-        AccessDeniedComponent
+        AccessDeniedComponent,
+        ModulesDetailsComponent
     ],
     imports: [
         BrowserModule,

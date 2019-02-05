@@ -3,6 +3,7 @@
         <mat-card-title>Authenticating</mat-card-title>
         <mat-card-content>
             <app-fields [field]="field" [group]="loginForm" *ngFor="let field of fields"></app-fields>
+            <p *ngIf="notice === 'from-registration'" class="registration-notice">Your account has been created, but require activation, please consider checking your email to proceed with the validation.</p>
         </mat-card-content>
         <mat-divider *ngIf="!tendoo.isLoading"></mat-divider>
         <mat-progress-bar *ngIf="tendoo.auth.isLoading" mode="indeterminate" style="height: 1px;position: absolute;left: 0;"></mat-progress-bar>

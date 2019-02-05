@@ -48,4 +48,13 @@ export class TendooModulesService extends TendooAuthService {
     disable( module: string ) {
         return this.post( this.baseUrl + 'tendoo/modules/disable', { module });
     }
+
+    /**
+     * get a single module details
+     * @param string module namespace
+     * @return {Obserable} TendooModule
+     */
+    getModule( namespace: string ) {
+        return this.get( `${this.baseUrl}tendoo/modules/${namespace}`);
+    }
 }

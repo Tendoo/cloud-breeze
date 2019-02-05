@@ -26,7 +26,13 @@
                 <mat-divider></mat-divider>
                 <mat-card-actions>
                     <div fxFill fxLayout="row" fxLayoutAlign="space-between" fxFlex="0 0 auto">
-                        <button class="m-0" [disabled]="tendoo.modules.isLoading" (click)="loadModules()" mat-button color="primary">Details</button>
+                        <ng-container>
+                            <button class="m-0" [disabled]="tendoo.modules.isLoading" [matMenuTriggerFor]="moduleMenu" mat-button color="primary">Options</button>
+                            <mat-menu #moduleMenu="matMenu">
+                                <button [routerLink]="'/dashboard/modules/details/' + module.namespace" mat-menu-item>Details</button>
+                                <button (click)="delete( module )" mat-menu-item>Delete</button>
+                            </mat-menu>
+                        </ng-container>
                         <button class="m-0" [disabled]="tendoo.modules.isLoading" *ngIf="module.enabled" (click)="setStatus( module, 'disable' )"  mat-button color="primary">Disable</button>
                         <button class="m-0" [disabled]="tendoo.modules.isLoading" *ngIf="! module.enabled" (click)="setStatus( module, 'enable' )"  mat-button color="accent">Enable</button>
                     </div>

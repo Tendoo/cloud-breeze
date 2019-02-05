@@ -32,6 +32,7 @@ import { AccessDeniedComponent } from "src/app/components/dashboard/access-denie
 import { CrudListGuard } from "src/app/guards/crud-list.guard";
 import { CrudEditGuard } from "src/app/guards/crud-edit.guard";
 import { CheckRegistrationStatusGuard } from "src/app/guards/check-registration-status.guard";
+import { ModulesDetailsComponent } from "src/app/components/dashboard/modules-details/modules-details.component";
 
 @NgModule({
     imports: [
@@ -97,6 +98,9 @@ import { CheckRegistrationStatusGuard } from "src/app/guards/check-registration-
                     }, {
                         path: 'modules',
                         component: ModulesComponent
+                    }, {
+                        path: 'modules/details/:namespace',
+                        component: ModulesDetailsComponent
                     }, {
                         path: 'modules/upload',
                         component: ModulesUploadComponent

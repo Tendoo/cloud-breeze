@@ -66,21 +66,7 @@ export class ModulesUploadComponent implements OnInit {
 							.close();
 					}
 				}]
-            }, 
-            height 	:	this.responsive.define({
-				lg 	: 	'60%',
-				xl  : 	'60%',
-				md 	: 	'70%',
-				sm 	:	'70%',
-				xs 	:	'70%'
-			}),
-			width 	:	this.responsive.define({
-				lg 	: 	'60%',
-				xl  : 	'60%',
-				md 	: 	'70%',
-				sm 	:	'70%',
-				xs 	:	'70%'
-			}),
+            }
         });
     }
     

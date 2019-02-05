@@ -1,10 +1,12 @@
-<div fxLayout="column">
+<div fxLayout="column" fxFill>
 	<div fxFlex="auto" fxLayout="column" fxLayoutAlign="start start">
-		<div class="dialog-text p-2" fxFlex.lg="80%" fxFlex.md="80%" fxFlex.xs="100%" fxFlex.sm="100%">
-			<p class="mat-display-1 m-0 py-3">
-				{{ data.title }}
-			</p>
-			<p class="mat-title">{{ data.message }}</p>
+		<div class="dialog-text p-2" fxLayoutAlign="center center" fxFill>
+			<div>
+				<p class="mat-display-1 m-0 py-3">
+					{{ data.title }}
+				</p>
+				<p class="mat-title">{{ data.message }}</p>
+			</div>
 		</div>
 	</div>
 	<mat-divider></mat-divider>
