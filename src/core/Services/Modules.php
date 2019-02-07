@@ -835,6 +835,7 @@ class Modules
     public function runMigration( $namespace, $version, $file )
     {
         $module     =   $this->get( $namespace );
+        $this->options->set( strtolower( $namespace ) . '_last_migration', $version );
         return $this->__runSingleFile( 'up', $module, $file );
     }
 

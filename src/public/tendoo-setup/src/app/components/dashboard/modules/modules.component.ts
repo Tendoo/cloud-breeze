@@ -202,16 +202,22 @@ export class ModulesComponent implements OnInit {
                 .getDialogById( 'confirm-enable-module' )
                 .close();
         }, ( result: HttpErrorResponse ) => {
-            console.log( result );
+
             if ( result.error.class === 'Tendoo/Core/Exceptions/ModuleMigrationRequiredException' ) {
                 this.dialog.open( MigrationDialogComponent, {
                     id: 'migration-dialog',
                     data: {
-                        migration: result.error.migration
+                        migrations: result.error.migration,
+                        module
                     },
                     closeOnNavigation: false,
                     disableClose: true,
                 })
+                .afterClosed()
+                .subscribe( result => {
+                    this.__enableModule( module );
+                })
+
             } else {
                 this.snackbar.open( result.error.message, null, {
                     duration: 4000

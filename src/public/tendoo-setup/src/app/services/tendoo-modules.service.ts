@@ -57,4 +57,22 @@ export class TendooModulesService extends TendooAuthService {
     getModule( namespace: string ) {
         return this.get( `${this.baseUrl}tendoo/modules/${namespace}`);
     }
+
+    /**
+     * Run a specific migration for thie provided module
+     * @param {string} module namespace
+     * @param {string} file path to run
+     * @return {Obserable<AsyncReponse>}
+     */
+    runMigration( namespace, file, version ) {
+        return new Promise( ( resolve, reject ) => {
+            this.post( `${this.baseUrl}tendoo/modules/${namespace}/migration`, {
+                namespace, file, version
+            }).subscribe( result => {
+                resolve( result );
+            }, error => {
+                reject( error );
+            })
+        });
+    }
 }
