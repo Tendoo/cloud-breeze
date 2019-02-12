@@ -70,7 +70,7 @@ export class ModulesDetailsComponent implements OnInit {
             id: 'toggle-module',
             data: <ConfirmDialogObject>{
                 title: 'Confirm your action',
-                message: action === 'enabled' ? 'Would you enable this module ?' : 'If you disable this module, some feature migth be disabled. Proceed ?',
+                message: action === 'enable' ? 'Would you enable this module ?' : 'If you disable this module, some feature migth be disabled. Proceed ?',
                 buttons: [
                     {
                         label: 'Yes',
@@ -100,7 +100,7 @@ export class ModulesDetailsComponent implements OnInit {
                  * emit a new event when a module
                  * has his status changed
                  */
-                const status    =   action === 'enabled' ? 'module.enabled' : 'module.disabled';
+                const status    =   action === 'enable' ? 'module.enabled' : 'module.disabled';
     
                 this.coreEvent.emit({
                     type: status,

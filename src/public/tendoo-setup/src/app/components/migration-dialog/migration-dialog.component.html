@@ -1,3 +1,9 @@
-<p>
-  migration-dialog works!
-</p>
+<div fxLayout="row" fxLayoutAlign="center center" class="p-4">
+	<div class="loader-section" fxFlex="100px">
+		<mat-spinner [diameter]="30"></mat-spinner>
+	</div>
+	<div class="loader-details" fxFlex="auto" fxFlex="300px">
+		<h3 class="mat-h3 m-0">Migrating...</h3>
+		<small>{{ version }} : {{ file }}</small>
+	</div>
+</div>
