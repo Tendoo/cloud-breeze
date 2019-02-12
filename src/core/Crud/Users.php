@@ -187,8 +187,8 @@ class Users extends Crud
                 'label'     =>  __( 'Active' ),
                 'type'      =>  'boolean',
                 'replace'   =>  [
-                    '1'            =>  __( 'Yes' ),
-                    '0'           =>  __( 'No' ),
+                    '1'             =>  __( 'Yes' ),
+                    '0'             =>  __( 'No' ),
                     '$default'      =>  __( 'Undefined' )
                 ]
             ],

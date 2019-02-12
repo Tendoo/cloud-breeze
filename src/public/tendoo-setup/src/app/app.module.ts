@@ -45,6 +45,7 @@ import { CrudEditComponent } from './components/dashboard/crud-edit/crud-edit.co
 import { MigrationDialogComponent } from './components/migration-dialog/migration-dialog.component';
 import { AccessDeniedComponent } from './components/dashboard/access-denied/access-denied.component';
 import { ModulesDetailsComponent } from './components/dashboard/modules-details/modules-details.component';
+import { MAT_DATE_LOCALE } from '@angular/material';
 
 @NgModule({
     declarations: [
@@ -103,7 +104,10 @@ import { ModulesDetailsComponent } from './components/dashboard/modules-details/
         {
             provide: CoreEvent,
             useValue: new CoreEvent
-        }
+        }, {
+            provide: MAT_DATE_LOCALE, 
+            useValue: 'en-US'
+        },
     ],
     bootstrap: [AppComponent]
 })

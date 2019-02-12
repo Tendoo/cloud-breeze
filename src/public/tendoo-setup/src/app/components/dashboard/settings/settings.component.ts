@@ -6,6 +6,7 @@ import { FormGroup } from '@angular/forms';
 import { ValidationGenerator } from 'src/app/classes/validation-generator.class';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AsyncResponse } from 'src/app/interfaces/async-response';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'app-settings',
@@ -16,9 +17,13 @@ export class SettingsComponent implements OnInit {
     tabs: Tab[];
     constructor(
         public tendoo: TendooService,
-        public snackbar: MatSnackBar
+        public snackbar: MatSnackBar,
+        private routeSnapshot: ActivatedRoute
     ) { 
         this.tendoo.dashboardTitle( 'Application Settings' );
+        this.routeSnapshot.queryParamMap.subscribe( result => {
+            
+        })
     }
     
     ngOnInit() {

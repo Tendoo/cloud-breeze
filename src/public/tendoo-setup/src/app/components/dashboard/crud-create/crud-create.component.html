@@ -1,6 +1,5 @@
 <div fxLayout="column" class="bg-content" fxFlex="100%" style="overflow-y:auto">
     <ng-container *ngIf="crudConfig">
-        <mat-progress-bar color="warn" style="height: 2px; position: absolute" *ngIf="tendoo.crud.isLoading" mode="indeterminate"></mat-progress-bar>
         <div fxLayout="row" class="p-3 pb-0">
             <div fxFlex>
                 <h1 class="mat-display-1 mb-0">{{ crudConfig.labels.create_title }}</h1>
@@ -20,7 +19,8 @@
                         <app-fields *ngFor="let field of crudConfig.fields" [field]="field" [group]="crudForm"></app-fields>
                     </form>
                 </mat-card-content>
-                <mat-divider></mat-divider>
+                <mat-divider *ngIf="! tendoo.crud.isLoading"></mat-divider>
+                <mat-progress-bar color="warn" style="height: 1px;" *ngIf="tendoo.crud.isLoading" mode="indeterminate"></mat-progress-bar>
                 <mat-card-actions>
                     <button [disabled]="tendoo.crud.isLoading" mat-button (click)="submit()" color="primary">Submit</button>
                 </mat-card-actions>

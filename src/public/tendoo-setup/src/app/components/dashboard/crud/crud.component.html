@@ -17,10 +17,10 @@
         ></app-crud-table>
         <div *ngIf="crud.results.data.length === 0" fxFlex fxFill fxLayoutAlign="center center">
             <div fxFlex="400px">
-                <h3 style="text-align: center">
+                <p style="text-align: center">
                     {{ crud.labels.no_entry ? crud.labels.no_entry : 'Hum... it\'s quite empty here.' }}. 
                     <a [routerLink]="crud?.links.create">{{ crud.labels.create_new ? crud.labels.create_new : 'Create a new entry?' }}</a>
-                </h3>
+                </p>
             </div>
         </div>
     </div>
