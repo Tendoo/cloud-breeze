@@ -165,24 +165,24 @@ class MenusConfig extends Menus
             $applications                =   new \stdClass;
             $applications->text          =   __( 'Applications' );
             $applications->label         =   10;
-            $applications->namespace     =   'applications';
+            $applications->namespace     =   'tendoo-apps';
             $applications->icon          =   'apps';
     
             $this->add( $applications );
     
             $applicationList                =   new \stdClass;
             $applicationList->text          =   __( 'All applications' );
-            $applicationList->href          =   '/dashboard/applications';
+            $applicationList->href          =   '/dashboard/crud/tendoo-apps';
             $applicationList->label         =   10;
-            $applicationList->namespace     =   'applications.list';
+            $applicationList->namespace     =   'tendoo-apps.list';
     
             $applicationRegister                =   new \stdClass;
             $applicationRegister->text          =   __( 'Register a new' );
-            $applicationRegister->href          =   '/dashboard/application/create';
+            $applicationRegister->href          =   '/dashboard/crud/tendoo-apps/create';
             $applicationRegister->label         =   10;
-            $applicationRegister->namespace     =   'applications.create';
+            $applicationRegister->namespace     =   'tendoo-apps.create';
     
-            $this->addTo( 'applications', [ $applicationList, $applicationRegister ]);
+            $this->addTo( 'tendoo-apps', [ $applicationList, $applicationRegister ]);
         }
     }
 }

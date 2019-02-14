@@ -21,19 +21,13 @@ export class PreventAppInstalledGuard implements CanActivate {
         return new Promise( ( resolve, reject ) => {
             // return resolve( true );
             this.setup.ping().subscribe( result => {
-            }, result => {
-                switch( result.error.class ) {
-                    case 'Tendoo/Core/Exceptions/TendooInstalledException':
-                        
-                        this.router.navigateByUrl( 'auth/login' );
-
-                        this.snackbar.open( result.error.message, null, {
-                            duration: 3000
-                        });
-                        return resolve( false );
+                switch( result.status ) {
+                    case 'not-installed':
+                        this.router.navigateByUrl( 'auth/login?notice=app-installed' );
+                    return resolve( false );
                 }
                 return resolve( true );
-            })
+            });
         })
     }
 }

@@ -35,8 +35,13 @@ trait ApplicationsFields {
         $Field->label           =   __( 'Status' );
         $Field->validation      =   'required';
         $Field->options         =   [
-            '1'     =>  __( 'Active' ),
-            '0'     =>  __( 'Not Active' ),
+            [
+                'label'     =>  __( 'Active' ),
+                'value'     =>  1
+            ], [
+                'label'     =>  __( 'Not Active' ),
+                'value'     =>  0
+            ]
         ];
         $Field->description     =   __( 'If an application is not active it won\'t be available on Oauth Service' );
         return $Field;

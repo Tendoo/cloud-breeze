@@ -1,0 +1,40 @@
+<div fxLayout="column" class="bg-content" fxFlex="100%" style="overflow-y:auto">
+    <!-- <mat-progress-bar color="warn" style="height: 2px; position: absolute" *ngIf="tendoo.users.isLoading" mode="indeterminate"></mat-progress-bar> -->
+    <!-- <div fxLayout="row" fxFlex="0 0 auto" class="p-3 pb-0">
+        <div fxFlex>
+            <h1 class="mat-display-1 mb-0">Edit a media</h1>
+            <span>modify a media</span>
+        </div>
+        <div fxFlex fxLayoutAlign="end start">
+            <div>
+                <button mat-button [routerLink]="'/dashboard/medias'">List</button>
+            </div>
+        </div>    
+    </div> -->
+    <div *ngIf="!media" class="p-3" fxFlex fxLayout="column" fxLayoutAlign="center center">
+        <mat-spinner [diameter]="50"></mat-spinner>
+    </div>
+    <div *ngIf="media" fxFlex="100%" fxLayout="column" style="background: #111" fxLayoutAlign="center center">
+        <div fxFlex="60px" fxLayoutAlign="space-between center" class="p-1 toolbar">
+            <div>
+                <button routerLink="/dashboard/medias" mat-icon-button>
+                    <mat-icon>keyboard_backspace</mat-icon>
+                </button>
+            </div>
+            <div>
+                <button mat-icon-button class="ml-1">
+                    <mat-icon>crop</mat-icon>
+                </button>
+                <button mat-icon-button class="ml-1">
+                    <mat-icon>rotate_left</mat-icon>
+                </button>
+                <button mat-icon-button class="ml-1">
+                    <mat-icon>rotate_right</mat-icon>
+                </button>
+            </div>
+        </div>
+        <div style="height: 100%" fxLayoutAlign="center center">
+            <img class="media-preview" *ngIf="[ 'jpeg', 'png', 'jpg', 'gif' ].includes( media.extension )" [src]="media.sizes.original" [alt]="media.name">
+        </div>
+    </div>
+</div>

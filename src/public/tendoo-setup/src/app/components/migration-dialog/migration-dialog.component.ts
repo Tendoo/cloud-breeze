@@ -18,7 +18,7 @@ export class MigrationDialogComponent implements OnInit {
 	constructor(
 		private dialog: MatDialog,
 		public tendoo: TendooService,
-		private snackbar: MatSnackBar
+		private snackbar: MatSnackBar,
 		@Inject( MAT_DIALOG_DATA ) public data,
 	) { 
 		console.log( this.data );
@@ -26,7 +26,7 @@ export class MigrationDialogComponent implements OnInit {
 	
 	async ngOnInit() {
 		const response 	=	await this.runVersionMigration();
-		this.snackbar.open( response.message, null, { duration: 3000 });
+		this.snackbar.open( response.message, 'OK', { duration: 3000 });
 		this.dialog.getDialogById( 'migration-dialog' ).close( response );
 	}
 

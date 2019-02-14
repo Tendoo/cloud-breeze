@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
 import { LoaderService } from './loader.service';
+import { CrudEntryAction } from '../interfaces/crud-config.interface';
+import { AsyncResponse } from '../interfaces/async-response';
+import { Observable } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
@@ -50,12 +53,33 @@ export class TendooCrudService extends LoaderService {
     }
 
     /**
+     * Performa a specific action to the server
+     * @param namespace crud namespace
+     * @param entry data
+     */
+    performAction( namespace: string, entry: CrudEntryAction ) :Observable<AsyncResponse> | null {
+        const method  =   entry.menu.type.toLowerCase();
+
+        return <Observable<AsyncResponse>>this[ method ]( `${this.baseUrl}${entry.url}`, entry.menu );
+    }
+
+    /**
+     * Proceed to a bulk action
+     * @param namespace crud namespace
+     * @param config config object
+     */
+    performBulkAction( namespace: string, config ) {
+        return this.post( `${this.baseUrl}tendoo/crud/${namespace}/bulk-actions`, config );
+    }
+
+    /**
      * Get form create config
      * @param string namespace
      * @return observable
      */
-    getCreateConfig( namespace: string ) {
-        return this.get( `${this.baseUrl}tendoo/crud/${namespace}/create-config` );
+    getFormConfig( namespace: string, id: number = null ) {
+        const param = id === null ? '' : `/${id}`;
+        return this.get( `${this.baseUrl}tendoo/crud/${namespace}/form-config${param}` );
     }
 
     /**
@@ -67,6 +91,16 @@ export class TendooCrudService extends LoaderService {
     postForm( namespace: string, data: {[ key:string]: string | boolean | number }) {
         return this.post( `${this.baseUrl}tendoo/crud/${namespace}`, data );
     }
+    
+    /**
+     * Put a form request to a crud instance.
+     * @param namespace crud resource namespace
+     * @param id of the current entity
+     * @param data form data
+     */
+    putForm( namespace: string, id: number, data ) {
+        return this.put( `${this.baseUrl}tendoo/crud/${namespace}/${id}`, data );
+    }
 
     /**
      * act as a guard to proceed a crud instance
@@ -75,6 +109,6 @@ export class TendooCrudService extends LoaderService {
      */
     canAccess( data ) {
         const { namespace, type }   =   data;
-        return this.post( `${this.baseUrl}tendoo/crud/${namespace}/can-access`, { type });
+        return this.post( `${this.baseUrl}tendoo/crud/${namespace}/can-access`, data );
     }
 }

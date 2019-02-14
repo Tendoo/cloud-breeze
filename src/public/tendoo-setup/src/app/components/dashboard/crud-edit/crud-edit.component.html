@@ -1,3 +1,33 @@
-<p>
-  crud-edit works!
-</p>
+<div fxLayout="column" class="bg-content" fxFlex="100%" style="overflow-y:auto">
+    <ng-container *ngIf="crudConfig">
+        <div fxLayout="row" class="p-3 pb-0">
+            <div fxFlex>
+                <h1 class="mat-display-1 mb-0">{{ crudConfig.labels.edit_title }}</h1>
+                <span>{{ crudConfig.labels.edit_description }}</span>
+            </div>
+            <div fxFlex="200px" fxLayoutAlign="end start">
+                <button [routerLink]="crudConfig.links.list" mat-button color="warn">{{ crudConfig.labels.back_to_list }}</button>
+            </div>
+        </div>
+        <div class="p-3" fxLayout="row" fxFlex="1 0 auto" fxLayout="column">
+            <mat-card>
+                <mat-card-title>
+                    {{ crudConfig.labels.edit_title }}
+                </mat-card-title>
+                <mat-card-content>
+                    <form [formGroup]="crudForm" *ngIf="crudForm">
+                        <app-fields *ngFor="let field of crudConfig.fields" [field]="field" [group]="crudForm"></app-fields>
+                    </form>
+                </mat-card-content>
+                <mat-divider *ngIf="! tendoo.crud.isLoading"></mat-divider>
+                <mat-progress-bar color="warn" style="height: 1px;position: absolute;left: 0" *ngIf="tendoo.crud.isLoading" mode="indeterminate"></mat-progress-bar>
+                <mat-card-actions>
+                    <button [disabled]="tendoo.crud.isLoading" mat-button (click)="submit()" color="primary">Edit</button>
+                </mat-card-actions>
+            </mat-card>
+        </div>
+    </ng-container>
+    <div fxFlex fxFill *ngIf="! crudForm" fxLayoutAlign="center center">
+        <mat-spinner [diameter]="50"></mat-spinner>
+    </div>
+</div>

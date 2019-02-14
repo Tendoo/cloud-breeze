@@ -1,0 +1,14 @@
+:host {
+    height: 100%;
+}
+.media-preview {
+    max-width: 98%;
+    max-height: 98%;
+}
+.toolbar {
+    background: linear-gradient(to bottom, rgba(0,0,0,1) 0%,rgba(255,255,255,0) 100%);
+    color:#EEE; 
+    width: 100%; 
+    position: relative; 
+    margin-bottom: -60px;
+}

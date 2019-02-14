@@ -1,0 +1,25 @@
+<div fxLayout="column" fxFlex="100%">
+    <div fxFlex="100%" *ngIf="hasInvalid">
+        <h2 class="mat-h2 text-center">Wrong Request</h2>
+        <p class="text-center">Unable to proceed the request. The request could'nt been understood by the server.</p>
+    </div>
+    <div fxFlex="100%" *ngIf="! hasInvalid && hasInvalid !== undefined">
+        <div class="bg-white mat-elevation-z2 rounded-2" fxLayout="column">
+            <div class="title p-2">
+                <h1 class="mat-h1 m-0 text-center">Authorization</h1>
+                <p class="mb-0">An authorization is request to have access to the following resources.</p>
+            </div>
+            <ng-container>
+                <mat-divider></mat-divider>
+                <div class="permission-action p-2" matRipple>
+                    Plugins Management
+                </div>
+            </ng-container>
+            <mat-divider></mat-divider>
+            <div class="p-1" fxLayout="row" fxLayoutAlign="space-between center">
+                <button mat-button>Grant</button>
+                <button mat-button>Deny</button>
+            </div>
+        </div>
+    </div>
+</div>

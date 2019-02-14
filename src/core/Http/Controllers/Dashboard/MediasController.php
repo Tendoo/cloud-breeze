@@ -4,14 +4,15 @@
  */
 namespace Tendoo\Core\Http\Controllers\Dashboard;
 
-use Tendoo\Core\Http\Controllers\DashboardController;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Tendoo\Core\Models\Media;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
-use Carbon\Carbon;
+use Tendoo\Core\Exceptions\NotFoundException;
+use Tendoo\Core\Models\Media;
 use Tendoo\Core\Services\DateService;
 use Tendoo\Core\Services\MediaService;
+use Tendoo\Core\Http\Controllers\DashboardController;
 
 class MediasController extends DashboardController
 {
@@ -39,7 +40,7 @@ class MediasController extends DashboardController
          * Supported file extension
          * @var array<String>
          */
-        $this->extensions     =   [ 'jpeg', 'png', 'gif', 'zip', 'mp4', 'mp3' ];
+        $this->extensions     =   [ 'jpeg', 'png', 'gif', 'zip', 'mp4', 'mp3', 'jpg' ];
 
         $this->middleware( function( $request, $next ) {
             
@@ -76,7 +77,7 @@ class MediasController extends DashboardController
 
         return response()->json([
             'status'    =>  'failed',
-            'message'   =>  __( 'An error occured while uploading the file' )
+            'message'   =>  __( 'Unable to proceed to the upload. The file seems to have an unsupported extension.' )
         ], 403 );
     }
 
@@ -159,5 +160,22 @@ class MediasController extends DashboardController
             'bulk'      =>  $bulkResponse,
             'message'   =>  __( 'Selected entries has been deleted.' )
         ];
+    }
+
+    /**
+     * get a single media
+     * @param int media id
+     * @return Array|NotFoundException
+     */
+    public function getMedia( $id )
+    {
+        $media  =   $this->mediaService->find( $id );
+        if ( $media ) {
+            return $media;
+        }
+
+        throw new NotFoundException([
+            'message'   =>  __( 'Unable to find the media using the provided id' )
+        ]);
     }
 }

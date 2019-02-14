@@ -2,24 +2,26 @@
 namespace Tendoo\Core\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
+use Exception;
 use Tendoo\Core\Services\Page;
 use Tendoo\Core\Services\Oauth;
 use Tendoo\Core\Facades\Hook;
 use Tendoo\Core\Services\UserOptions;
 use Tendoo\Core\Services\AuthService;
 use Tendoo\Core\Models\Oauth as OauthModel;
-use Illuminate\Support\Facades\Auth;
 use Tendoo\Core\Models\Application;
 use Tendoo\Core\Models\User;
-use Carbon\Carbon;
-use Exception;
 use Tendoo\Core\Exceptions\OauthDeniedException;
+use Tendoo\Core\Exceptions\AccessDeniedException;
 use Tendoo\Core\Exceptions\CoreException;
 use Tendoo\Core\Exceptions\WrongCredentialException;
 use Tendoo\Core\Exceptions\WrongOauthScopeException;
 use Tendoo\Core\Http\Requests\PostRegisterRequest;
 
-class OauthControllers extends BaseController
+class OauthController extends BaseController
 {
     private $oauth;
     protected $userOptions;
@@ -144,15 +146,6 @@ class OauthControllers extends BaseController
     }
 
     /**
-     * Get the user permissions
-     * @return array
-     */
-    public function permissions()
-    {
-        
-    }
-
-    /**
      * was called by self::postLogin
      */
     private function __oauthLogin( Request $request )
@@ -267,5 +260,32 @@ class OauthControllers extends BaseController
             'status'    =>  'success',
             'message'   =>  __( 'The registration was successful' )
         ]);
+    }
+
+    /**
+     * Lazy Authentication. this help to extend authentication
+     * to application outside of PWA
+     * @return void
+     */
+    public function usingToken()
+    {
+        $token      =   request()->get( 'key' );
+        $forward    =   request()->get( 'forward' );
+
+        if ( ! empty( $token ) && ! empty( $forward ) ) {
+            $Auth   =   Cache::get( 'Auth-Token::' . $token );
+            if ( isset( $Auth[ 'user_id' ] ) ) {
+                
+                $user   =   User::find( $Auth[ 'user_id' ] );
+
+                if ( $user instanceof User ) {
+                    Auth::loginUsingId( $Auth[ 'user_id' ] );
+                    return redirect( urldecode( $forward ) );
+                }
+                throw new AccessDeniedException( __( 'Unable to authenticate the user using the provided tokens.' ) );
+            }
+            throw new Exception( __( 'Unable to authenticate the request' ) );
+        }
+        throw new Exception( __( 'Invalid request send to the server' ) );
     }
 }

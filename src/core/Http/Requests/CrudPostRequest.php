@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Event;
 use Tendoo\Core\Services\Helper;
 use Tendoo\Core\Facades\Hook;
 use Tendoo\Core\Crud\Applications;
+use Tendoo\Core\Exceptions\CoreException;
 
 class CrudPostRequest extends FormRequest
 {
@@ -36,7 +37,9 @@ class CrudPostRequest extends FormRequest
          * In case nothing handle this crud
          */
         if ( ! class_exists( $crudClass ) ) {
-            return redirect()->route( 'errors', [ 'code' => 'unhandled-crud-resource' ]);
+            throw new CoreException([
+                'message'   =>  __( 'Unhandled Crud resource' )
+            ]);
         }
 
         $resource   =   new $crudClass;

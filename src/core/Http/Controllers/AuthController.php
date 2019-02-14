@@ -390,4 +390,13 @@ class AuthController extends BaseController
             );
         }
     }
+
+    /**
+     * get scopes
+     * @return array of scopes
+     */
+    public function getScopes( $application, Request $request )
+    {
+        
+    }
 }

@@ -29,6 +29,7 @@
     "install": "^0.12.2",
     "material-design-icons": "^3.0.1",
     "moment": "^2.24.0",
+    "ngx-cookie-service": "^2.1.0",
     "ngx-dropzone-wrapper": "^7.2.1",
     "placeholder-loading": "^0.1.5",
     "rxjs": "~6.3.3",

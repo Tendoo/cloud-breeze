@@ -12,11 +12,10 @@
         </div>    
     </div>
     <div fxFlex class="bg-content p-3" fxFlexLayout="row" fxLayoutAlign="center center">
-        <div fxLayout="column" fxFlex.lg="40%" fxFlex.md="40%" fxFlex.xl="40%" id="drag-zone">
+        <div fxLayout="column" fxFlex fxFill id="drag-zone">
             <mat-card [fxFlex]="dragState === 'over' ? '100px': 'auto'">
-                <mat-card-content>
-                    <h3>{{ dragMessage }}</h3>
-                    <dropzone [config]="dropzoneConfig" [message]="dragMessage"></dropzone>
+                <mat-card-content fxFlex fxLayout="column">
+                    <dropzone fxFlex [config]="dropzoneConfig" [message]="dragMessage"></dropzone>
                 </mat-card-content>
             </mat-card>
         </div>

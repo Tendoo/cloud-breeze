@@ -47,7 +47,8 @@ class MediaService
         /**
          * getting file extension
          */
-        $extension  =   $file->extension();
+        // $extension  =   $file->extension();
+        $extension  =   strtolower( $file->getClientOriginalExtension() );
 
         if ( in_array( $extension, $this->extensions ) ) {
 

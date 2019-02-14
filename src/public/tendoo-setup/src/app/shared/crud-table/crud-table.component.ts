@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output } from '@angular/core';
+import { Component, OnInit, Input, Output, OnDestroy } from '@angular/core';
 import { TableConfig } from 'src/app/interfaces/table-config.interface';
 import { TableColumnInterface } from 'src/app/interfaces/table-column.interface';
 import { TableEntryInterface } from 'src/app/interfaces/table-entry.interface';
@@ -11,14 +11,15 @@ import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AsyncResponse } from 'src/app/interfaces/async-response';
 import { TendooService } from 'src/app/services/tendoo.service';
-import { CrudConfig } from 'src/app/interfaces/crud-config.interface';
+import { CrudConfig, CrudTableColumn } from 'src/app/interfaces/crud-config.interface';
+import { CoreEvent } from 'src/app/classes/core-event.class';
 
 @Component({
     selector: 'app-crud-table',
     templateUrl: './crud-table.component.html',
     styleUrls: ['./crud-table.component.css']
 })
-export class CrudTableComponent implements OnInit {
+export class CrudTableComponent implements OnInit, OnDestroy {
     @Input( 'crud' ) crud: CrudConfig;
     
     @Output( 'sort' ) sort              =   new EventEmitter();
@@ -31,17 +32,53 @@ export class CrudTableComponent implements OnInit {
     reservedColumns: string[]               =   [ '$actions' ];
     searchValue                             =   '';
     checkAll: any;
+    columns: CrudTableColumn;
+    noResponseMsg: string                   =   'The action has returned no response';
     
     constructor(
         private dialog: MatDialog,
         private router: Router,
         private snackbar: MatSnackBar,
-        public tendoo: TendooService
+        public tendoo: TendooService,
+        private coreEvent: CoreEvent,
     ) { }
     
     ngOnInit() {
-        this.columnsNames    =   Object.keys( this.crud.columns );
-        console.log( this.columnsNames );
+        this.columnsNames       =   Object.keys( this.crud.columns );
+        this.columns            =   this.crud.columns;
+
+        this.coreEvent.subscribe( (action: CoreAction ) => {
+            if ([ 'crud.action.success', 'crud.action.failed'].includes( action.type ) ) {
+                this.snackbar.open( 
+                    action.data.message ? action.data.message : this.noResponseMsg, 
+                    'OK', 
+                    { duration: 5000 }
+                );
+
+                /**
+                 * the menu namespace should be 
+                 * provided on the action data under the "menu" key
+                 */
+                this.dialog.getDialogById( action.data.menu.namespace ).close();
+            } 
+
+            if([ 'crud.bulk.success', 'crud.bulk.failed' ].includes( action.type ) ) {
+                this.snackbar.open( 
+                    action.data.message ? action.data.message : this.noResponseMsg, 
+                    'OK', 
+                    { duration: 3000 }
+                );
+
+                /**
+                 * the menu namespace should be 
+                 * provided on the action data under the "menu" key
+                 */
+                this.dialog.getDialogById( 'bulk.action' ).close();
+            }
+        })
+    }
+
+    ngOnDestroy() {
     }
 
     sortData( event ) {
@@ -70,7 +107,6 @@ export class CrudTableComponent implements OnInit {
         const url   =   menu.url.replace( "#", row[ menu.index || 'id' ] );
 
         if ( menu.confirm !== undefined ) {
-            console.log( menu.namespace );
             this.dialog.open( ConfirmDialogComponent, {
                 id: menu.namespace,
                 data: <ConfirmDialogObject>{
@@ -128,7 +164,7 @@ export class CrudTableComponent implements OnInit {
      */
     deleteSelectedEntries( entries ) {
         this.dialog.open( ConfirmDialogComponent, {
-            id: 'delete.all.popup',
+            id: 'bulk.action',
             data: <ConfirmDialogObject>{
                 title: 'Please Confirm Your Action',
                 message: 'Would you like to delete all the selected users ? This action can\'t be canceled !',
@@ -139,14 +175,16 @@ export class CrudTableComponent implements OnInit {
                         onClick: () => {
                             this.delete.emit({
                                 entries: this.selectedEntries,
-                                dialog: 'delete.all.popup'
+                                dialog: { 
+                                    id: 'bulk.action'
+                                }
                             });
                         }
                     }, {
                         label: 'Cancel',
                         namespace: 'cancel',
                         onClick: () => {
-                            this.dialog.getDialogById( 'delete.all.popup' ).close();
+                            this.dialog.getDialogById( 'bulk.action' ).close();
                         }
                     }
                 ]

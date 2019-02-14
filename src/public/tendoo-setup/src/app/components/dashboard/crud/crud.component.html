@@ -5,7 +5,7 @@
             <span class="mat-title">{{ crud.labels.list_description }}</span>
         </div>
     </div>
-    <div fxFlex class="p-3">
+    <div fxFlex class="p-3" fxLayout="column">
         <app-crud-table
             *ngIf="crud.results.data.length > 0"
             [crud]="crud"
@@ -18,7 +18,7 @@
         <div *ngIf="crud.results.data.length === 0" fxFlex fxFill fxLayoutAlign="center center">
             <div fxFlex="400px">
                 <p style="text-align: center">
-                    {{ crud.labels.no_entry ? crud.labels.no_entry : 'Hum... it\'s quite empty here.' }}. 
+                    {{ crud.labels.no_entry ? crud.labels.no_entry : 'Hum... it\'s quite empty here.' }}. <br>
                     <a [routerLink]="crud?.links.create">{{ crud.labels.create_new ? crud.labels.create_new : 'Create a new entry?' }}</a>
                 </p>
             </div>

@@ -7,6 +7,8 @@ import { MatSnackBar } from '@angular/material';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router, ActivatedRouteSnapshot, ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
+import { CookieService } from 'ngx-cookie-service';
+import * as moment from 'moment';
 
 @Component({
     selector: 'app-login',
@@ -22,7 +24,8 @@ export class LoginComponent implements OnInit {
         public tendoo: TendooService,
         private snackbar: MatSnackBar,
         private router: Router,
-        public routeSnapshot: ActivatedRoute
+        public routeSnapshot: ActivatedRoute,
+        private cookie: CookieService
     ) { 
         this.tendoo.setTitle( 'Login' );
     }
@@ -70,6 +73,8 @@ export class LoginComponent implements OnInit {
              * each outgoing request
              */
             this.tendoo.auth.setCredentials( result.user, result.token );
+            const now   =   moment.now();
+            this.cookie.set( 'auth.user', result.token, moment( now ).add( 7, 'days' ).toDate(), '/' );
             this.snackbar.open( result.message, null, {
                 duration: 3000
             });

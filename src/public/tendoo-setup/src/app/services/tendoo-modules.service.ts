@@ -75,4 +75,8 @@ export class TendooModulesService extends TendooAuthService {
             })
         });
     }
+
+    download( namespace: string ) {
+        return this.get( `${this.baseUrl}tendoo/modules/${namespace}/download` );
+    }
 }

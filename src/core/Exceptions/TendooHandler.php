@@ -85,31 +85,24 @@ class TendooHandler extends ExceptionHandler
                 ], 401 );
             }
 
+            if ( $exception instanceof RedirectException ) {
+                return response()->json([
+                    'status'        =>  'failed',
+                    'class'         =>  str_replace( '\\', '/', get_class( $exception ) ),
+                    'message'       =>  $exception->getMessage(),
+                    'redirectTo'    =>  $exception->getRedirection()
+                ], 401 );
+            }
+
             if (
                 $exception instanceof NotFoundException
             ) {
                 return response()->json([
-                    'status'    =>  'danger',
+                    'status'    =>  'failed',
                     'message'   =>  $exception->getMessage()
                 ], 404 );
             }
             
-        } else {
-            if( $exception instanceof QueryException ) {
-                return response()->view( 'tendoo::errors.db-error', [ 'e' => $exception ] );
-            } else if ( 
-                $exception instanceof AccessDeniedException ||
-                $exception instanceof RecoveryExpiredException ||
-                $exception instanceof FeatureDisabledException ||
-                $exception instanceof CrudException ||
-                $exception instanceof OauthDeniedException ||
-                $exception instanceof RoleDeniedException ||
-                $exception instanceof WrongCredentialException ||
-                $exception instanceof WrongOauthScopeException ||
-                $exception instanceof NotFoundException
-            ) {
-                return response()->view( 'tendoo::errors.common', [ 'e' => $exception ] );
-            }
         }
         return parent::render($request, $exception);
     }

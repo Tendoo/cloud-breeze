@@ -29,7 +29,7 @@ export class CrudCreateComponent implements OnInit {
         this.route.paramMap.subscribe( params => {
             const namespace         =   params.get( 'namespace' );
 
-            this.tendoo.crud.getCreateConfig( namespace ).subscribe( (config: CrudConfig ) => {
+            this.tendoo.crud.getFormConfig( namespace ).subscribe( (config: CrudConfig ) => {
                 this.crudConfig     =   config;
                 const formControls  =   ValidationGenerator.buildFormControls( this.crudConfig.fields );
                 this.crudForm       =   new FormGroup( formControls );

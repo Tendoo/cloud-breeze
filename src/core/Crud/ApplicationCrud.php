@@ -7,13 +7,15 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Http\Request;
 use Tendoo\Core\Services\Field;
 use Tendoo\Core\Services\Helper;
+use Tendoo\Core\Services\Users;
 use Tendoo\Core\Models\User;
 use Tendoo\Core\Models\Application;
 use Tendoo\Core\Facades\Hook;
 use Tendoo\Core\Exceptions\CrudException;
+use Tendoo\Core\Exceptions\AccessDeniedException;
 use Tendoo\Core\Models\Option as OptionModel;
 
-class Applications extends Crud
+class ApplicationCrud extends Crud
 {
     /**
      * define the base table
@@ -29,7 +31,7 @@ class Applications extends Crud
      * Define namespace
      * @param string
      */
-    protected $namespace  =   'applications';
+    protected $namespace  =   'tendoo-apps';
 
     /**
      * Model Used
@@ -56,21 +58,7 @@ class Applications extends Crud
     {
         parent::__construct();
 
-        $this->list_title           =   __( 'Applications List' );
-        $this->list_description     =   __( 'List all applications' );  
-        $this->edit_title           =   __( 'Edit an application' );
-        $this->edit_description     =   __( 'Edit an application details.' );  
-        $this->create_title         =   __( 'Create an application' );
-        $this->create_description   =   __( 'Create a new application which can use the Oauth Services.' );
-
         Hook::addFilter( 'crud.entry', [ $this, 'setActions' ], 10, 2 );
-
-        if ( ! Schema::hasTable( $this->table ) ) {
-            throw new CrudException([
-                'status'    =>  'failed',
-                'message'   =>  __( 'Unable to locate the table : "' . $this->table . '"' )
-            ]);
-        }
     }
 
     /**
@@ -141,14 +129,6 @@ class Applications extends Crud
          */
         $fields     =   $this->getFields( $application );
 
-        if ( $request->route( 'namespace' ) == 'applications' ) {
-
-            /**
-             * Use UserFieldsValidation and add assign it to "crud" validation array
-             * the user object is send to perform validation and ignoring the current edited
-             * user
-             */
-        }
         return Helper::getFieldsValidation( $fields );
     }
 
@@ -172,6 +152,33 @@ class Applications extends Crud
         }
     }
 
+    public function getLabels()
+    {
+        return [
+            'list_title'            =>  __( 'Applications List' ),
+            'list_description'      =>  __( 'Display all registered applications.' ),
+            'no_entry'              =>  __( 'No applications has been registered' ),
+            'create_new'            =>  __( 'Add a new application' ),
+            'create_title'          =>  __( 'Register a new application' ),
+            'create_description'    =>  __( 'Applications has access to the application.' ),
+            'edit_title'            =>  __( 'Edit an application' ),
+            'edit_description'      =>  __( 'Rename or change the scope of an existing application.' ),
+            'back_to_list'          =>  __( 'Return to the applications' ),
+        ];
+    }
+
+    public function canAccess( $data )
+    {
+        $users      =   app()->make( Users::class );
+        if ( $users->is([ 'admin' ]) ) {
+            return [
+                'status'    =>  'success',
+                'message'   =>  __( 'Access Granted.' )
+            ];
+        }
+        throw new AccessDeniedException( __( 'You don\'t have access to this resource' ) );
+    }
+
     /**
      * Define Columns
      * @return array of columns configuration
@@ -179,31 +186,25 @@ class Applications extends Crud
     public function getColumns() {
         return [
             'name'  =>  [
-                'text'  =>  __( 'Name' )
+                'label'  =>  __( 'Name' )
             ],
             'client_secret'  =>  [
-                'text'  =>  __( 'Client Secret' )
+                'label'  =>  __( 'Client Secret' )
             ],
             'client_key'    =>  [
-                'text'      =>  __( 'Client Key' )
+                'label'      =>  __( 'Client Key' )
             ],
             'callback_url'  =>[
-                'text'      =>  __( 'Callback' )
+                'label'      =>  __( 'Callback' )
             ],
             'users_username'    =>  [
-                'text'      =>  __( 'Author' )
+                'label'      =>  __( 'Author' )
             ],
-            'created_at'  =>  [
-                'text'  =>  __( 'Created On' )
+            'created_at'    =>  [
+                'label'     =>  __( 'Created On' )
             ],
-            'active'    =>  [
-                'text'  =>  __( 'Active' ),
-                'filter'    =>  function( $value ) {
-                    if ( ( int ) $value ) {
-                        return __( 'Active' );
-                    }
-                    return __( 'Unactive' );
-                }
+            'active'        =>  [
+                'label'     =>  __( 'Active' )
             ]
         ];
     }
@@ -214,21 +215,22 @@ class Applications extends Crud
     public function setActions( $entry, $namespace )
     {
         $entry->{'$actions'}    =   [
-            'edit'      =>  [
-                'type'  =>  'GET',
-                'url'   =>  route( 'dashboard.applications.edit', [
-                    'entry'     =>  $entry->id,
-                    'namespace' =>  $this->namespace
-                ]),
-                'text'  =>  __( 'Edit' )
-            ], 
-            'delete'      =>  [
-                'type'  =>  'DELETE',
-                'url'   =>  route( 'dashboard.crud.delete', [
-                    'entry'     =>  $entry->id,
-                    'namespace' =>  $this->namespace
-                ]),
-                'text'  =>  __( 'Delete' )
+            [
+                'label'         =>      __( 'Edit' ),
+                'namespace'     =>      'edit.application',
+                'type'          =>      'GOTO',
+                'index'         =>      'id',
+                'url'           =>      '/dashboard/crud/applications/edit/' . $entry->id
+            ], [
+                'label'     =>  __( 'Delete' ),
+                'namespace' =>  'delete',
+                'type'      =>  'DELETE',
+                'index'     =>  'id',
+                'url'       =>  'tendoo/crud/applications' . $entry->id,
+                'confirm'   =>  [
+                    'message'  =>  __( 'Would you like to delete this application ?' ),
+                    'title'     =>  __( 'Delete an application' )
+                ]
             ]
         ];
         return $entry;
@@ -274,15 +276,9 @@ class Applications extends Crud
     public function getLinks()
     {
         return  [
-            'list'  =>  [
-                [ 'href'    =>  route( 'dashboard.applications.create' ), 'text' => __( 'Add an application' ) ]
-            ],
-            'create'    =>  [
-                [ 'href'    =>  route( 'dashboard.applications.list' ), 'text' => __( 'Return' ), 'class' => 'btn btn-raised btn-secondary' ]
-            ],
-            'edit'      =>  [
-                [ 'href'    =>  route( 'dashboard.applications.list' ), 'text' => __( 'Return' ), 'class' => 'btn btn-raised btn-secondary' ]
-            ]
+            'create'    =>  '/dashboard/crud/tendoo-apps/create',
+            'list'    =>  '/dashboard/crud/tendoo-apps',
+            'edit'    =>  '/dashboard/crud/tendoo-apps/edit/#',
         ];
     }
 }

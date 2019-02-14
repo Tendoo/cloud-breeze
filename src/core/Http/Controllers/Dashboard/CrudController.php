@@ -86,9 +86,12 @@ class CrudController extends DashboardController
          * In case nothing handle this crud
          */
         if ( ! class_exists( $crudClass ) ) {
-            return redirect()->route( 'errors', [ 'code' => 'unhandled-crud-resource' ]);
+            throw new CoreException([
+                'status'    =>  'failed',
+                'message'   =>  __( 'Unhandled crud resource' )
+            ]);
         }
-        
+
         $resource   =   new $crudClass;
         $model      =   $resource->getModel();
         $entry      =   new $model;
@@ -98,16 +101,9 @@ class CrudController extends DashboardController
          * check if on the CRUD resource the filter exists
          */
         $inputs         =   $request->all();
+
         if ( method_exists( $resource, 'filterPostInputs' ) ) {
             $inputs     =   $resource->filterPostInputs( $request->all() );
-
-            /**
-             * if a redirect response is returned
-             * the execution should stop immediately
-             */
-            if ( $inputs instanceof RedirectResponse ) {
-                return $inputs;
-            }
         }
 
         foreach ( $inputs as $name => $value ) {
@@ -141,15 +137,11 @@ class CrudController extends DashboardController
         /**
          * @todo adding a link to edit the new entry
          */
-        return redirect()->route( $resource->getMainRoute() )->with([
+        return [
             'status'    =>  'success',
+            'entry'     =>  $entry,
             'message'   =>  __( 'A new entry has been successfully created.' )
-        ]);
-
-        // return [
-        //     'status'    =>  'success',
-        //     'message'   =>  __( 'A new entry has been successfully created' )
-        // ];
+        ];
     }
 
     /**
@@ -168,7 +160,10 @@ class CrudController extends DashboardController
          * In case nothing handle this crud
          */
         if ( ! class_exists( $crudClass ) ) {
-            return redirect()->route( 'errors', [ 'code' => 'unhandled-crud-resource' ]);
+            throw new CoreException([
+                'status'    =>  'failed',
+                'message'   =>  __( 'Unhandled crud resource' )
+            ]);
         }
         
         $resource   =   new $crudClass;
@@ -224,14 +219,11 @@ class CrudController extends DashboardController
         /**
          * @todo adding a link to edit the new entry
          */
-        return redirect()->route( $resource->getMainRoute() )->with([
-            'status'    =>  'success',
-            'message'   =>  __( 'An new entry has been successfully updated.' )
-        ]);
-        // return [
-        //     'status'    =>  'success',
-        //     'message'   =>  __( 'An new entry has been successfully updated.' )
-        // ];
+        return [
+            'status'    =>   'success',
+            'message'   =>  __( 'the entry has been updated' ),
+            'entyr'     =>  $entry
+        ];
     }
 
     /**
@@ -270,7 +262,10 @@ class CrudController extends DashboardController
          * In case nothing handle this crud
          */
         if ( ! class_exists( $crudClass ) ) {
-            return redirect()->route( 'errors', [ 'code' => 'unhandled-crud-resource' ]);
+            throw new CoreException([
+                'status'    =>  'failed',
+                'message'   =>  __( 'Unhandled crud resource' )
+            ]);
         }
         
         $resource   =   new $crudClass;
@@ -301,7 +296,7 @@ class CrudController extends DashboardController
 
         return [
             'status'    =>  'success',
-            'message'   =>  sprintf( __( '%s has been deleted, %s has not been deleted.' ), count( $response[ 'success' ]), count( $response[ 'error' ]) ),
+            'message'   =>  sprintf( __( '%s has been deleted, %s has not been deleted.' ), $response[ 'success' ], $response[ 'failed' ]),
             'data'      =>  $response
         ];
     }
@@ -380,18 +375,21 @@ class CrudController extends DashboardController
      * @param namespace
      * @return array | AsyncResponse
      */
-    public function createConfig( string $namespace )
+    public function getFormConfig( string $namespace, $id = null )
     {
         $crudClass          =   Hook::filter( 'register.crud', $namespace );
         $resource           =   new $crudClass;
 
         if ( method_exists( $resource, 'getEntries' ) ) {
-            return [
-                'fields'                =>  $resource->getFields(),
+            $model          =   $resource->get( 'model' );
+            $config         =   [
+                'fields'                =>  $id === null ? $resource->getFields() : $resource->getFields( $model::find( $id ) ),
                 'labels'                =>  $resource->getLabels(),
                 'links'                 =>  @$resource->getLinks(),
                 'namespace'             =>  $namespace,
             ];
+
+            return $config;
         } 
 
         return response()->json([
@@ -412,7 +410,11 @@ class CrudController extends DashboardController
         $resource           =   new $crudClass;
 
         if ( method_exists( $resource, 'canAccess' ) ) {
-            if ( $resource->canAccess( $request->input( 'type' ) ) ) {
+            if ( $resource->canAccess([
+                'type'          =>  $request->input( 'type' ),
+                'namespace'     =>  $request->input( 'namespace' ),
+                'id'            =>  $request->input( 'id' ),
+            ]) ) {
                 return response()->json([
                     'status'    =>  'success',
                     'message'   =>  __( 'You\'re allowed to access to that page' )

@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { DropzoneModule } from 'ngx-dropzone-wrapper';
+import { CookieService } from 'ngx-cookie-service';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -46,6 +47,8 @@ import { MigrationDialogComponent } from './components/migration-dialog/migratio
 import { AccessDeniedComponent } from './components/dashboard/access-denied/access-denied.component';
 import { ModulesDetailsComponent } from './components/dashboard/modules-details/modules-details.component';
 import { MAT_DATE_LOCALE } from '@angular/material';
+import { MediasDetailsComponent } from './components/dashboard/medias-details/medias-details.component';
+import { OauthComponent } from './components/auth/oauth/oauth.component';
 
 @NgModule({
     declarations: [
@@ -81,7 +84,9 @@ import { MAT_DATE_LOCALE } from '@angular/material';
         CrudEditComponent,
         MigrationDialogComponent,
         AccessDeniedComponent,
-        ModulesDetailsComponent
+        ModulesDetailsComponent,
+        MediasDetailsComponent,
+        OauthComponent,
     ],
     imports: [
         BrowserModule,
@@ -100,6 +105,7 @@ import { MAT_DATE_LOCALE } from '@angular/material';
         MigrationDialogComponent
     ],
     providers: [
+        CookieService,
         LoaderService,
         {
             provide: CoreEvent,

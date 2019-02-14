@@ -96,7 +96,7 @@ class AuthService
         Cache::put( $tokenKey, [
             'key'       =>  $tokenKey,
             'user_id'   =>  $user->id,
-            'expire'    =>  $dateService
+            'expires'   =>  $dateService
                 ->copy()
                 ->addMinutes(60)
                 ->toDateTimestring(),

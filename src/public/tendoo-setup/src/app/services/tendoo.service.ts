@@ -15,6 +15,8 @@ import { TendooMediasService } from './tendoo-medias.service';
 import { TendooCrudService } from './tendoo-crud.service';
 import { TendooOptionsService } from './tendoo-options.service';
 import { Title } from '@angular/platform-browser';
+import { TendooLinkService } from './tendoo-link.service';
+import { TendooOauthService } from './tendoo-oauth.service';
 
 @Injectable({
     providedIn: 'root'
@@ -35,7 +37,9 @@ export class TendooService extends LoaderService {
         public menus: TendooMenusService,
         public medias: TendooMediasService,
         public crud: TendooCrudService,
+        public links: TendooLinkService,
         public options: TendooOptionsService,
+        public oauth: TendooOauthService,
         public title: Title
     ) {
         super( http, httpParser, snackbar );

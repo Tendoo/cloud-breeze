@@ -18,4 +18,13 @@ export class TendooMediasService extends LoaderService {
     deleteMedia( medias: Media[] ) {
         return this.post( this.baseUrl + 'tendoo/medias/delete', { medias });
     }
+
+    /**
+     * get a single medias
+     * @param int media id
+     * @return observable<Media>
+     */
+    getMedia( id ) {
+        return this.get( `${this.baseUrl}tendoo/medias/${id}` );
+    }
 }

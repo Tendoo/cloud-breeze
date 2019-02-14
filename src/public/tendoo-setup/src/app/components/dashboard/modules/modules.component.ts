@@ -51,7 +51,7 @@ export class ModulesComponent implements OnInit {
 
             this.loadModules();
         }, ( result:HttpErrorResponse ) => {
-            console.log( result );
+            this.snackbar.open( result.error.message, 'OK' );
         })
     }
 
@@ -259,5 +259,26 @@ export class ModulesComponent implements OnInit {
                 .getDialogById( 'disable-enable-module' )
                 .close();
         })
+    }
+
+    /**
+     * Download a module
+     * @param {object} module
+     * @return void
+     */
+    download( module ) {
+        this.tendoo.links.signed( 'extract.module', {
+            namespace: module.namespace
+        }).subscribe( (result: any) => {
+            this.tendoo.post( result.url, {
+                'token'         : result.token
+            }).subscribe( result => {
+                console.log( result );
+            })
+        })        
+    }
+
+    get isLoading() {
+        return this.tendoo.links.isLoading || this.tendoo.modules.isLoading;
     }
 }

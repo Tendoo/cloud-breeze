@@ -217,13 +217,13 @@ class Users extends Crud
                 'namespace' =>  $isAuthenticated ? 'profil' : 'edit',
                 'type'      =>  'GOTO',
                 'index'     =>  'id',
-                'url'       =>  $isAuthenticated ? '/dashboard/profile' : '/dashboard/users/edit/#'
+                'url'       =>  $isAuthenticated ? '/dashboard/profile' : '/dashboard/users/edit/' . $entry->id
             ], [
                 'label'     =>  __( 'Delete' ),
                 'namespace' =>  'delete',
                 'type'      =>  'DELETE',
                 'index'     =>  'id',
-                'url'       =>  route( 'delete.user' ) . '/#',
+                'url'       =>  route( 'delete.user' ) . $entry->id,
                 'confirm'   =>  [
                     'message'  =>  __( 'Would you like to delete this account ?' ),
                     'title'     =>  __( 'Delete a user' )

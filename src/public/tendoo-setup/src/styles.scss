@@ -20,3 +20,6 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .cursor-pointer:hover {
     cursor: pointer;
 }
+dropzone[fxflex] > .dropzone.dz-wrapper {
+    display: flex;
+}

@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Log;
 use Tendoo\Core\Http\Requests\PostModuleRequest;
 use Tendoo\Core\Exceptions\CoreException;
 use Tendoo\Core\Exceptions\ModuleMigrationRequiredException;
+use Tendoo\Core\Exceptions\AccessDeniedException;
 use Tendoo\Core\Facades\Hook;
 
 class ModulesController extends DashboardController
@@ -115,6 +116,13 @@ class ModulesController extends DashboardController
      */
     public function extractModule( $module )
     {
+        /**
+         * let's make sure the url is valid
+         */
+        if ( ! request()->hasValidSignature() ) {
+            throw new AccessDeniedException( __( 'This url is not valid or has expired.' ) );
+        }
+
         $moduleDetails     =   $this->modules->extract( $module );
         
         return response()->download( 

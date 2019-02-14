@@ -10,6 +10,7 @@ import { AsyncResponse } from 'src/app/interfaces/async-response';
 import { MediaObserver } from '@angular/flex-layout';
 import { Title } from '@angular/platform-browser';
 import { TendooService } from 'src/app/services/tendoo.service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-medias',
@@ -29,7 +30,8 @@ export class MediasComponent implements OnInit {
         private dialog: MatDialog,
         private snackbar: MatSnackBar,
         private mediaObserver: MediaObserver,
-        public tendoo: TendooService
+        private router: Router,
+        public tendoo: TendooService,
     ) { }
     
     ngOnInit() {
@@ -121,7 +123,7 @@ export class MediasComponent implements OnInit {
      */
     openSingle( media: Media ) {
         if ( ! this.bulkSelectEnabled ) {
-            console.log( 'should redirect' );
+            this.router.navigateByUrl( `/dashboard/medias/details/${media.id}` );
         } else if ( ! this.hasJustEnabled ) {
             this.toggleSelected( media );
         }

@@ -23,6 +23,7 @@ import { UsersEditComponent } from "src/app/components/dashboard/users-edit/user
 import { ProfileComponent } from "src/app/components/dashboard/profile/profile.component";
 import { MediasComponent } from "src/app/components/dashboard/medias/medias.component";
 import { MediasUploadComponent } from "src/app/components/dashboard/medias-upload/medias-upload.component";
+import { MediasDetailsComponent } from "src/app/components/dashboard/medias-details/medias-details.component";
 import { NotFoundComponent } from "src/app/components/dashboard/not-found/not-found.component";
 import { CrudComponent } from "src/app/components/dashboard/crud/crud.component";
 import { CrudCreateComponent } from "src/app/components/dashboard/crud-create/crud-create.component";
@@ -33,6 +34,7 @@ import { CrudListGuard } from "src/app/guards/crud-list.guard";
 import { CrudEditGuard } from "src/app/guards/crud-edit.guard";
 import { CheckRegistrationStatusGuard } from "src/app/guards/check-registration-status.guard";
 import { ModulesDetailsComponent } from "src/app/components/dashboard/modules-details/modules-details.component";
+import { OauthComponent } from "src/app/components/auth/oauth/oauth.component";
 
 @NgModule({
     imports: [
@@ -73,6 +75,9 @@ import { ModulesDetailsComponent } from "src/app/components/dashboard/modules-de
                     }, {
                         path: 'login',
                         component: LoginComponent
+                    }, {
+                        path: '',
+                        component: OauthComponent
                     }
                 ]
             }, {
@@ -113,6 +118,9 @@ import { ModulesDetailsComponent } from "src/app/components/dashboard/modules-de
                     }, {
                         path: 'medias/upload',
                         component: MediasUploadComponent
+                    }, {
+                        path: 'medias/details/:id',
+                        component: MediasDetailsComponent
                     }, {
                         path: 'crud/:namespace',
                         component: CrudComponent,

@@ -97,8 +97,8 @@ class TendooEventServiceProvider extends ServiceProvider
                 return \Tendoo\Core\Crud\Users::class;
             }
 
-            if( $namespace == 'applications' ) {
-                return \Tendoo\Core\Crud\Applications::class;
+            if( $namespace == 'tendoo-apps' ) {
+                return \Tendoo\Core\Crud\ApplicationCrud::class;
             }
             return $namespace;
         });
@@ -119,5 +119,6 @@ class TendooEventServiceProvider extends ServiceProvider
          * on api request
          */
         Hook::addFilter( 'disclose.options', 'Tendoo\Core\Events\Options@discloseOptions', 10, 2 );
+        Hook::addFilter( 'signed.url', 'Tendoo\Core\Events\Url@generate', 10, 2 );
     }
 }

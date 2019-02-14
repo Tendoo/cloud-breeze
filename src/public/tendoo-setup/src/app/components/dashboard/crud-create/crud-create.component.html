@@ -3,7 +3,7 @@
         <div fxLayout="row" class="p-3 pb-0">
             <div fxFlex>
                 <h1 class="mat-display-1 mb-0">{{ crudConfig.labels.create_title }}</h1>
-                <span class="mat-title">{{ crudConfig.labels.create_description }}</span>
+                <span>{{ crudConfig.labels.create_description }}</span>
             </div>
             <div fxFlex="200px" fxLayoutAlign="end start">
                 <button [routerLink]="crudConfig.links.list" mat-button color="warn">{{ crudConfig.labels.back_to_list }}</button>
@@ -20,7 +20,7 @@
                     </form>
                 </mat-card-content>
                 <mat-divider *ngIf="! tendoo.crud.isLoading"></mat-divider>
-                <mat-progress-bar color="warn" style="height: 1px;" *ngIf="tendoo.crud.isLoading" mode="indeterminate"></mat-progress-bar>
+                <mat-progress-bar color="warn" style="height: 1px;position: absolute;left: 0" *ngIf="tendoo.crud.isLoading" mode="indeterminate"></mat-progress-bar>
                 <mat-card-actions>
                     <button [disabled]="tendoo.crud.isLoading" mat-button (click)="submit()" color="primary">Submit</button>
                 </mat-card-actions>
