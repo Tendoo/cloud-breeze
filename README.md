@@ -7,4 +7,8 @@
 We do believe in PWA (Progressive Web Application). The purpose of this application, is to create a ready to use API server. It has been build as a laravel package and ship a basic UI for managing the data. The frontend has been build with Angular & Angular Material.
 
 # Getting Started
-All you have to know about how to get started is located on the [wiki page](https://github.com/Tendoo/cms/wiki).
+The project can be installed as any regular laravel package. You can run the following command to start quickly.
+`composer require tendoo/cms:dev-api-server`
+This should install the application along with the angular version. Not, you need to publish the access. By assets you should understand the necessary js, css and html files.
+`php artisan tendoo:publish`
+The final step is to access to the application and proceed to the installation. 
