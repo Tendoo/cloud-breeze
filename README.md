@@ -4,7 +4,7 @@
 <a href="https://packagist.org/packages/tendoo/cms"><img src="https://poser.pugx.org/tendoo/cms/license.svg" alt="License"></a>
 
 # Tendoo Api Server
-I do believe in PWA (Progressive Web Application). The purpose of this application, is to create a ready to use API server. It has been build as a laravel package and ship a basic UI for managing the data. The frontend has been build with Angular & Angular Material.
+We do believe in PWA (Progressive Web Application). The purpose of this application, is to create a ready to use API server. It has been build as a laravel package and ship a basic UI for managing the data. The frontend has been build with Angular & Angular Material.
 
 # Getting Started
 The project can be installed as any regular laravel package. You can run the following command to start quickly.
