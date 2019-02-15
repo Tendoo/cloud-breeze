@@ -21,7 +21,8 @@
             "assets": [
               "src/favicon.ico",
               "src/assets",
-              "src/app/assets/images/egg.svg"
+              "src/app/assets/images/egg.svg",
+              "src/app/assets/images/park.svg"
             ],
             "styles": [
               "src/styles.scss",
