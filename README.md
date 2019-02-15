@@ -8,7 +8,11 @@ We do believe in PWA (Progressive Web Application). The purpose of this applicat
 
 # Getting Started
 The project can be installed as any regular laravel package. You can run the following command to start quickly.
+
 `composer require tendoo/cms:dev-api-server`
+
 This should install the application along with the angular version. Not, you need to publish the access. By assets you should understand the necessary js, css and html files.
+
 `php artisan tendoo:publish`
+
 The final step is to access to the application and proceed to the installation. 
