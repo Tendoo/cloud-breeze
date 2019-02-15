@@ -16,3 +16,7 @@ This should install the application along with the angular version. Not, you nee
 `php artisan tendoo:publish`
 
 The final step is to access to the application and proceed to the installation. 
+
+# installation
+Tendoo CMS only works now with MySQL or equivalent database. You need to create a database and have the credentials ready. Once on the application (while it's not yet installed), you'll see a snackbar notification inviting you to install it. Just click on `INSTALL` and proceed.
+
