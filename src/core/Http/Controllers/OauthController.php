@@ -34,83 +34,15 @@ class OauthController extends BaseController
             $this->authService      =   app()->make( AuthService::class );
             return $next( $request );
         });
+        
+        $this->middleware( 'tendoo.guest' );
 
         $this->oauth        =   new Oauth;
     }
 
     /**
-     * index
-     */
-    public function index()
-    {
-        $request    =   app()->make( Request::class );
-
-        /**
-         * @hook:before.loading.api
-         * trigger an action while loading the API.
-         */
-        Hook::action( 'load.oauth', $request );
-
-        /**
-         * Having Scope is required
-         */
-        if ( ! $scope = $request->query( 'scopes' ) ) {
-            throw new WrongOauthScopeException;
-        }
-        
-        if ( 
-            empty( $request->query( 'callback_url' ) ) ||
-            ! isUrl( $request->input( 'callback_url' ) )
-        ) {
-            throw new Exception( __( 'Wrong callback provided for the Oauth resource.' ) );
-        }
-
-        /**
-         * Authenticating the application
-         */
-        $application    =   Application::where([
-            [ 'client_key',     '=', $request->query( 'client_key' )],
-            [ 'client_secret',  '=', $request->query( 'client_secret' )]
-        ])->first();
-
-        if( $application === null ) {
-            throw new Exception( 'Wrong application credentials are provided' );
-        }
-
-        /**
-         * get the required parameters from the URL
-         */
-        $callback_url   = $request->query( 'callback_url' );
-
-        /**
-         * @hook:api.scope
-         * return the list of scope available
-         */
-        $scopes     =   Hook::filter( 'api.scopes', $this->oauth->getScopes() );
-
-        /**
-         * Explode scopes
-         */
-        $namespaces  =  explode( ',', $scope );
-
-        foreach( $namespaces as $namespace ) {
-            if ( @$scopes[ $namespace ] == null ) {
-                throw new WrongOauthScopeException;
-            }
-        }
-
-        Page::setTitle( 'Authentication Page' );
-
-        return view( 'tendoo::components.frontend.auth.oauth', compact( 
-            'scopes', 
-            'namespaces', 
-            'callback_url', 
-            'application' 
-        ) );
-    }
-
-    /**
      * post Oauth Action
+     * @deprecated probably
      */
     public function post( Request $request )
     {
@@ -147,6 +79,7 @@ class OauthController extends BaseController
 
     /**
      * was called by self::postLogin
+     * @deprecated might be
      */
     private function __oauthLogin( Request $request )
     {

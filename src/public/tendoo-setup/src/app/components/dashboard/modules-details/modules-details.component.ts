@@ -9,6 +9,7 @@ import { CoreEvent } from 'src/app/classes/core-event.class';
 import { Observable } from 'rxjs';
 import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
 import { ConfirmDialogObject } from 'src/app/interfaces/confirm-dialog';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
     selector: 'app-modules-details',
@@ -55,6 +56,14 @@ export class ModulesDetailsComponent implements OnInit {
                         this.module     =   appModule;
                         observer.next( appModule );
                         observer.complete();
+                    }, ( result: HttpErrorResponse ) => {
+                        this.snackbar.open( result.error.message || 'Unexpected error occured.', 'RETURN' )
+                            .afterDismissed()
+                            .subscribe( observer => {
+                                if ( observer.dismissedByAction ) {
+                                    this.router.navigateByUrl( '/dashboard/modules' );
+                                }
+                            })
                     })
                 }
             })

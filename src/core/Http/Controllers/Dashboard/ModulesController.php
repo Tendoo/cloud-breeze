@@ -9,6 +9,7 @@ use Tendoo\Core\Http\Requests\PostModuleRequest;
 use Tendoo\Core\Exceptions\CoreException;
 use Tendoo\Core\Exceptions\ModuleMigrationRequiredException;
 use Tendoo\Core\Exceptions\AccessDeniedException;
+use Tendoo\Core\Exceptions\NotFoundException;
 use Tendoo\Core\Facades\Hook;
 
 class ModulesController extends DashboardController
@@ -285,6 +286,14 @@ class ModulesController extends DashboardController
      */
     public function getModule( $namespace )
     {
-        return $this->modules->get( $namespace );
+        $module     =    $this->modules->get( $namespace );
+
+        if ( empty( $module ) ) {
+            throw new NotFoundException([
+                'message'   =>  __( 'Unable to find the module using the provided namespace' )
+            ]);
+        }
+        
+        return $module;
     }
 }

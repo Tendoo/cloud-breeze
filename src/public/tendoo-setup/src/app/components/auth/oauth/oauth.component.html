@@ -1,24 +1,36 @@
 <div fxLayout="column" fxFlex="100%">
-    <div fxFlex="100%" *ngIf="hasInvalid">
+    <div fxFlex="100%" *ngIf="hasInvalid && ! isLoading">
         <h2 class="mat-h2 text-center">Wrong Request</h2>
         <p class="text-center">Unable to proceed the request. The request could'nt been understood by the server.</p>
     </div>
-    <div fxFlex="100%" *ngIf="! hasInvalid && hasInvalid !== undefined">
+    <div fxFlex="100%" fxLayoutAlign="center center" *ngIf="isLoading">
+        <mat-spinner diameter="50"></mat-spinner>
+    </div>
+    <div fxFlex="100%" fxLayoutAlign="center center" *ngIf="! isLoading && hasError">
+        <div fxLayout="column" fxLayoutAlign="center center">
+            <img src="assets/images/egg.svg" alt="" fxFlex.lg="120px">
+            <h1 class="mat-display-1 m-0 mt-2">An error occured</h1>
+            <p class="text-center">{{ response.message }}</p>
+        </div>
+    </div>
+    <div fxFlex="100%" *ngIf="itsOkay">
         <div class="bg-white mat-elevation-z2 rounded-2" fxLayout="column">
             <div class="title p-2">
-                <h1 class="mat-h1 m-0 text-center">Authorization</h1>
-                <p class="mb-0">An authorization is request to have access to the following resources.</p>
+                <h1 class="mat-h1 m-0 text-center">{{ response.data.application.name }}</h1>
+                <p class="mb-0">This application request an authorization to the following elements.</p>
             </div>
-            <ng-container>
+            <ng-container *ngFor="let scope of response.data.scopes">
                 <mat-divider></mat-divider>
-                <div class="permission-action p-2" matRipple>
-                    Plugins Management
+                <div class="permission-action p-2">
+                    <h3 class="mat-h3 m-0" style="font-weight: 400">{{ scope.label }}</h3>
+                    <p class="m-0 mat-body">{{ scope.description }}</p>
                 </div>
             </ng-container>
-            <mat-divider></mat-divider>
+            <mat-divider  *ngIf="! tendoo.oauth.isLoading"></mat-divider>
+            <mat-progress-bar *ngIf="tendoo.oauth.isLoading" mode="indeterminate" style="height: 1px"></mat-progress-bar>
             <div class="p-1" fxLayout="row" fxLayoutAlign="space-between center">
-                <button mat-button>Grant</button>
-                <button mat-button>Deny</button>
+                <button [disabled]="tendoo.oauth.isLoading" (click)="grantRequest()" mat-button>Grant</button>
+                <button [disabled]="tendoo.oauth.isLoading" (click)="denyRequest()" mat-button>Deny</button>
             </div>
         </div>
     </div>

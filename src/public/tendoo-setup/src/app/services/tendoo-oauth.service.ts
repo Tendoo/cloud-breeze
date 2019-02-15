@@ -21,7 +21,21 @@ export class TendooOauthService extends LoaderService {
         });
     }
 
+    /**
+     * Authenticate an application in order to 
+     * authorize a oauth request.
+     * @param data applicatoin data
+     */
     authenticateApplication( data ) {
-        return this.post( `${this.baseUrl}tendoo/application/authentication`, data );
+        return this.post( `${this.baseUrl}tendoo/auth/application`, data );
+    }
+
+    /**
+     * Send an Oauth request to the server
+     * to authorize incoming Api request
+     * @param request 
+     */
+    grantRequest( request ) {
+        return this.post( `${this.baseUrl}tendoo/auth/request`, request );
     }
 }

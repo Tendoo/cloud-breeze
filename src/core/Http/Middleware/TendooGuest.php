@@ -25,7 +25,7 @@ class TendooGuest
         $token  =   $request->header( 'X-AUTH-TOKEN' );
         
         if ( $token !== null ) {
-            throw new AccessDeniedException( __( 'You don\'t have access to this resource.' ) );
+            throw new AccessDeniedException( __( 'You don\'t have access to this resource. The request embed token while it\'s not required.' ) );
         }
 
         return $next( $request );

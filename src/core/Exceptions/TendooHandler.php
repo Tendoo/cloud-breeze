@@ -27,7 +27,9 @@ class TendooHandler extends ExceptionHandler
                 return response()->json([
                     'status'    =>  'failed',
                     'message'   =>  __( 'Page Not Found' ),
-                    'code'      =>  $exception->getStatusCode()
+                    'code'      =>  $exception->getStatusCode(),
+                    'line'      =>  $exception->getLine(),
+                    'file'      =>  $exception->getFile(),
                 ], 401 );
             }
 
@@ -35,7 +37,9 @@ class TendooHandler extends ExceptionHandler
                 return response()->json([
                     'status'    =>  'failed',
                     'message'   =>  __( 'Token Error Mismatch' ),
-                    'code'      =>  'token-error'
+                    'code'      =>  'token-error',
+                    'line'      =>  $exception->getLine(),
+                    'file'      =>  $exception->getFile(),
                 ], 401 );            
             }
 
@@ -43,7 +47,9 @@ class TendooHandler extends ExceptionHandler
                 return response()->json([
                     'status'    =>  'failed',
                     'message'   =>  $exception->getMessage(),
-                    'code'      =>  'db-error'
+                    'code'      =>  'db-error',
+                    'line'      =>  $exception->getLine(),
+                    'file'      =>  $exception->getFile(),
                 ], 401 );
             }
 
@@ -59,7 +65,9 @@ class TendooHandler extends ExceptionHandler
                 $exception instanceof ApiAmbiguousTokenException ||
                 $exception instanceof ApiForbiddenScopeException ||
                 $exception instanceof ApiMissingTokenException || 
-                $exception instanceof ApiUnknowEndpointException ||
+                $exception instanceof ApiUnknowScopeException || 
+                $exception instanceof BadRequestException || 
+                $exception instanceof ApiUnknowEndpointException || // this might be deprecated
                 $exception instanceof ApiUnknowTokenException || 
                 $exception instanceof OauthDeniedException ||
                 $exception instanceof WrongCredentialException ||
@@ -72,7 +80,9 @@ class TendooHandler extends ExceptionHandler
                 return response()->json([
                     'status'    =>  'failed',
                     'class'     =>  str_replace( '\\', '/', get_class( $exception ) ),
-                    'message'   =>  $exception->getMessage()
+                    'message'   =>  $exception->getMessage(),
+                    'line'      =>  $exception->getLine(),
+                    'file'      =>  $exception->getFile(),
                 ], 401 );
             }
 
@@ -81,7 +91,9 @@ class TendooHandler extends ExceptionHandler
                     'status'    =>  'failed',
                     'class'     =>  str_replace( '\\', '/', get_class( $exception ) ),
                     'message'   =>  $exception->getMessage(),
-                    'migration' =>  $exception->getMigration()
+                    'migration' =>  $exception->getMigration(),
+                    'line'      =>  $exception->getLine(),
+                    'file'      =>  $exception->getFile(),
                 ], 401 );
             }
 
@@ -90,7 +102,9 @@ class TendooHandler extends ExceptionHandler
                     'status'        =>  'failed',
                     'class'         =>  str_replace( '\\', '/', get_class( $exception ) ),
                     'message'       =>  $exception->getMessage(),
-                    'redirectTo'    =>  $exception->getRedirection()
+                    'redirectTo'    =>  $exception->getRedirection(),
+                    'line'      =>  $exception->getLine(),
+                    'file'      =>  $exception->getFile(),
                 ], 401 );
             }
 
@@ -99,7 +113,9 @@ class TendooHandler extends ExceptionHandler
             ) {
                 return response()->json([
                     'status'    =>  'failed',
-                    'message'   =>  $exception->getMessage()
+                    'message'   =>  $exception->getMessage(),
+                    'line'      =>  $exception->getLine(),
+                    'file'      =>  $exception->getFile(),
                 ], 404 );
             }
             

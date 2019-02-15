@@ -464,12 +464,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_46__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
 /* harmony import */ var _components_dashboard_medias_details_medias_details_component__WEBPACK_IMPORTED_MODULE_47__ = __webpack_require__(/*! ./components/dashboard/medias-details/medias-details.component */ "./src/app/components/dashboard/medias-details/medias-details.component.ts");
 /* harmony import */ var _components_auth_oauth_oauth_component__WEBPACK_IMPORTED_MODULE_48__ = __webpack_require__(/*! ./components/auth/oauth/oauth.component */ "./src/app/components/auth/oauth/oauth.component.ts");
+/* harmony import */ var _pipes_truncate_pipe__WEBPACK_IMPORTED_MODULE_49__ = __webpack_require__(/*! ./pipes/truncate.pipe */ "./src/app/pipes/truncate.pipe.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -560,6 +562,7 @@ var AppModule = /** @class */ (function () {
                 _components_dashboard_modules_details_modules_details_component__WEBPACK_IMPORTED_MODULE_45__["ModulesDetailsComponent"],
                 _components_dashboard_medias_details_medias_details_component__WEBPACK_IMPORTED_MODULE_47__["MediasDetailsComponent"],
                 _components_auth_oauth_oauth_component__WEBPACK_IMPORTED_MODULE_48__["OauthComponent"],
+                _pipes_truncate_pipe__WEBPACK_IMPORTED_MODULE_49__["TruncatePipe"],
             ],
             imports: [
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"],
@@ -1159,7 +1162,7 @@ module.exports = ":host {\r\n    height: 100%;\r\n    width: 100%;\r\n}\r\n/*# s
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div fxLayout=\"column\" fxFlex=\"100%\">\r\n    <div fxFlex=\"100%\" *ngIf=\"hasInvalid\">\r\n        <h2 class=\"mat-h2 text-center\">Wrong Request</h2>\r\n        <p class=\"text-center\">Unable to proceed the request. The request could'nt been understood by the server.</p>\r\n    </div>\r\n    <div fxFlex=\"100%\" *ngIf=\"! hasInvalid && hasInvalid !== undefined\">\r\n        <div class=\"bg-white mat-elevation-z2 rounded-2\" fxLayout=\"column\">\r\n            <div class=\"title p-2\">\r\n                <h1 class=\"mat-h1 m-0 text-center\">Authorization</h1>\r\n                <p class=\"mb-0\">An authorization is request to have access to the following resources.</p>\r\n            </div>\r\n            <ng-container>\r\n                <mat-divider></mat-divider>\r\n                <div class=\"permission-action p-2\" matRipple>\r\n                    Plugins Management\r\n                </div>\r\n            </ng-container>\r\n            <mat-divider></mat-divider>\r\n            <div class=\"p-1\" fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n                <button mat-button>Grant</button>\r\n                <button mat-button>Deny</button>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>"
+module.exports = "<div fxLayout=\"column\" fxFlex=\"100%\">\r\n    <div fxFlex=\"100%\" *ngIf=\"hasInvalid && ! isLoading\">\r\n        <h2 class=\"mat-h2 text-center\">Wrong Request</h2>\r\n        <p class=\"text-center\">Unable to proceed the request. The request could'nt been understood by the server.</p>\r\n    </div>\r\n    <div fxFlex=\"100%\" fxLayoutAlign=\"center center\" *ngIf=\"isLoading\">\r\n        <mat-spinner diameter=\"50\"></mat-spinner>\r\n    </div>\r\n    <div fxFlex=\"100%\" fxLayoutAlign=\"center center\" *ngIf=\"! isLoading && hasError\">\r\n        <div fxLayout=\"column\" fxLayoutAlign=\"center center\">\r\n            <img src=\"assets/images/egg.svg\" alt=\"\" fxFlex.lg=\"120px\">\r\n            <h1 class=\"mat-display-1 m-0 mt-2\">An error occured</h1>\r\n            <p class=\"text-center\">{{ response.message }}</p>\r\n        </div>\r\n    </div>\r\n    <div fxFlex=\"100%\" *ngIf=\"itsOkay\">\r\n        <div class=\"bg-white mat-elevation-z2 rounded-2\" fxLayout=\"column\">\r\n            <div class=\"title p-2\">\r\n                <h1 class=\"mat-h1 m-0 text-center\">{{ response.data.application.name }}</h1>\r\n                <p class=\"mb-0\">This application request an authorization to the following elements.</p>\r\n            </div>\r\n            <ng-container *ngFor=\"let scope of response.data.scopes\">\r\n                <mat-divider></mat-divider>\r\n                <div class=\"permission-action p-2\">\r\n                    <h3 class=\"mat-h3 m-0\" style=\"font-weight: 400\">{{ scope.label }}</h3>\r\n                    <p class=\"m-0 mat-body\">{{ scope.description }}</p>\r\n                </div>\r\n            </ng-container>\r\n            <mat-divider  *ngIf=\"! tendoo.oauth.isLoading\"></mat-divider>\r\n            <mat-progress-bar *ngIf=\"tendoo.oauth.isLoading\" mode=\"indeterminate\" style=\"height: 1px\"></mat-progress-bar>\r\n            <div class=\"p-1\" fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n                <button [disabled]=\"tendoo.oauth.isLoading\" (click)=\"grantRequest()\" mat-button>Grant</button>\r\n                <button [disabled]=\"tendoo.oauth.isLoading\" (click)=\"denyRequest()\" mat-button>Deny</button>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>"
 
 /***/ }),
 
@@ -1176,6 +1179,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var src_app_services_tendoo_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/services/tendoo.service */ "./src/app/services/tendoo.service.ts");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1188,27 +1192,69 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var OauthComponent = /** @class */ (function () {
-    function OauthComponent(tendoo, activeRoute) {
+    function OauthComponent(tendoo, activeRoute, snackbar) {
         this.tendoo = tendoo;
         this.activeRoute = activeRoute;
+        this.snackbar = snackbar;
         this.hasInvalid = false;
+        this.isLoading = true;
+        this.hasError = false;
+        this.data = {};
     }
     OauthComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.tendoo.setTitle('Requesting Authorization - Tendoo');
         this.activeRoute.queryParamMap.subscribe(function (query) {
-            var data = {};
-            data['id'] = query.get('id');
-            data['scopes'] = query.get('scopes');
-            data['forward'] = query.get('forward');
-            _this.hasInvalid = Object.values(data).filter(function (value) {
+            _this.data['client_key'] = query.get('client_key');
+            _this.data['scopes'] = query.get('scopes').split(',');
+            _this.data['forward'] = query.get('forward');
+            _this.hasInvalid = Object.values(_this.data).filter(function (value) {
                 return value === null;
             }).length > 0;
-            var _a = data, id = _a.id, scopes = _a.scopes, forward = _a.forward;
-            _this.tendoo.oauth.authenticateApplication(data).subscribe(function (result) {
+            var _a = _this.data, id = _a.id, scopes = _a.scopes, forward = _a.forward;
+            _this.tendoo.oauth.authenticateApplication(_this.data).subscribe(function (result) {
+                _this.isLoading = false;
+                _this.hasError = false;
+                _this.response = result;
+            }, function (result) {
+                _this.isLoading = false;
+                _this.hasError = true;
+                _this.response = result.error;
             });
         });
     };
+    /**
+     * the request has just simply rejected
+     */
+    OauthComponent.prototype.denyRequest = function () {
+        window.location.href = this.data.forward + '?statut=denied';
+    };
+    /**
+     * send a request to the server
+     */
+    OauthComponent.prototype.grantRequest = function () {
+        var _this = this;
+        this.tendoo.oauth.grantRequest(this.response).subscribe(function (response) {
+            _this.snackbar.open(response.message);
+            setTimeout(function () {
+                window.location.href = response.data['forward'];
+            }, 1000);
+        }, function (result) {
+            _this.snackbar.open(result.error.message || 'Unexpected error occured', 'OK');
+        });
+    };
+    Object.defineProperty(OauthComponent.prototype, "itsOkay", {
+        get: function () {
+            return !this.hasInvalid &&
+                this.hasInvalid !== undefined &&
+                !this.isLoading &&
+                !this.hasError;
+        },
+        enumerable: true,
+        configurable: true
+    });
     OauthComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-oauth',
@@ -1216,7 +1262,8 @@ var OauthComponent = /** @class */ (function () {
             styles: [__webpack_require__(/*! ./oauth.component.css */ "./src/app/components/auth/oauth/oauth.component.css")]
         }),
         __metadata("design:paramtypes", [src_app_services_tendoo_service__WEBPACK_IMPORTED_MODULE_1__["TendooService"],
-            _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"]])
+            _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatSnackBar"]])
     ], OauthComponent);
     return OauthComponent;
 }());
@@ -1693,7 +1740,7 @@ module.exports = ":host {\r\n    height: 100%;\r\n}\r\n/*# sourceMappingURL=data
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div *ngIf=\"crud\" class=\"bg-content\" fxLayout=\"column\" fxFlex=\"100%\" style=\"overflow-y:auto\">\r\n    <div fxLayout=\"row\" class=\"p-3 pb-0\">\r\n        <div fxFlex>\r\n            <h1 class=\"mat-display-1 mb-0\">{{ crud.labels.list_title }}</h1>\r\n            <span class=\"mat-title\">{{ crud.labels.list_description }}</span>\r\n        </div>\r\n    </div>\r\n    <div fxFlex class=\"p-3\" fxLayout=\"column\">\r\n        <app-crud-table\r\n            *ngIf=\"crud.results.data.length > 0\"\r\n            [crud]=\"crud\"\r\n\r\n            (sort)=\"sortData( $event )\"\r\n            (delete)=\"deleteEntries( $event )\"\r\n            (action)=\"doAction( $event )\"\r\n            (search)=\"searh( $event )\"\r\n        ></app-crud-table>\r\n        <div *ngIf=\"crud.results.data.length === 0\" fxFlex fxFill fxLayoutAlign=\"center center\">\r\n            <div fxFlex=\"400px\">\r\n                <p style=\"text-align: center\">\r\n                    {{ crud.labels.no_entry ? crud.labels.no_entry : 'Hum... it\\'s quite empty here.' }}. <br>\r\n                    <a [routerLink]=\"crud?.links.create\">{{ crud.labels.create_new ? crud.labels.create_new : 'Create a new entry?' }}</a>\r\n                </p>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>\r\n<div class=\"bg-content\"  *ngIf=\"! crud\" fxFlex fxFill fxLayoutAlign=\"center center\">\r\n    <mat-spinner [diameter]=\"50\"></mat-spinner>\r\n</div>"
+module.exports = "<div *ngIf=\"crud\" class=\"bg-content\" fxLayout=\"column\" fxFlex=\"100%\" style=\"overflow-y:auto\">\r\n    <div fxLayout=\"row\" class=\"p-3 pb-0\">\r\n        <div fxFlex>\r\n            <h1 class=\"mat-display-1 mb-0\">{{ crud.labels.list_title }}</h1>\r\n            <span>{{ crud.labels.list_description }}</span>\r\n        </div>\r\n    </div>\r\n    <div fxFlex class=\"p-3\" fxLayout=\"column\">\r\n        <app-crud-table\r\n            *ngIf=\"crud.results.data.length > 0\"\r\n            [crud]=\"crud\"\r\n\r\n            (sort)=\"sortData( $event )\"\r\n            (delete)=\"deleteEntries( $event )\"\r\n            (action)=\"doAction( $event )\"\r\n            (search)=\"searh( $event )\"\r\n        ></app-crud-table>\r\n        <div *ngIf=\"crud.results.data.length === 0\" fxFlex fxFill fxLayoutAlign=\"center center\">\r\n            <div fxFlex=\"400px\">\r\n                <p style=\"text-align: center\">\r\n                    {{ crud.labels.no_entry ? crud.labels.no_entry : 'Hum... it\\'s quite empty here.' }}. <br>\r\n                    <a [routerLink]=\"crud?.links.create\">{{ crud.labels.create_new ? crud.labels.create_new : 'Create a new entry?' }}</a>\r\n                </p>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>\r\n<div class=\"bg-content\"  *ngIf=\"! crud\" fxFlex fxFill fxLayoutAlign=\"center center\">\r\n    <mat-spinner [diameter]=\"50\"></mat-spinner>\r\n</div>"
 
 /***/ }),
 
@@ -1870,7 +1917,7 @@ module.exports = "#aside-nav-list {\r\n    padding: 0%;\r\n}\r\nmat-list-item di
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div fxLayout=\"column\" fxFill>\r\n    <div>\r\n        <mat-toolbar color=\"primary\" fxFlex fxLayoutAlign=\"space-between center\">\r\n            <div [fxFlex]=\"logoWidth + 'px'\" fxLayout=\"row\" \r\n                fxLayoutAlign.xl=\"center center\"\r\n                fxLayoutAlign.lg=\"center center\"\r\n                >\r\n                <span *ngIf=\"showDefaultAside\">TRex Server</span>\r\n                <span *ngIf=\"! showDefaultAside\">TRex</span>\r\n            </div>\r\n            <div>\r\n                <button mat-icon-button [matMenuTriggerFor]=\"profileMenu\">\r\n                    <mat-icon aria-label=\"Example icon-button with a heart icon\">person</mat-icon>\r\n                </button>\r\n                <mat-menu #profileMenu=\"matMenu\">\r\n                    <button routerLink=\"/dashboard/profile\" mat-menu-item>Profile</button>\r\n                    <button routerLink=\"/auth/logout\" mat-menu-item>Logout</button>\r\n                </mat-menu>\r\n            </div>\r\n        </mat-toolbar>\r\n    </div>\r\n    \r\n    <div fxFlex fxLayout=\"row\">\r\n        <ng-container *ngIf=\"showDefaultAside\">\r\n            <div fxFlex=\"250px\"  fxLayout=\"column\" class=\"aside-menu\">\r\n                <div fxFlex>\r\n                    <app-menu-list [menus]=\"asideMenus\"></app-menu-list>\r\n                </div>    \r\n            </div>\r\n            <mat-divider [vertical]=\"true\"></mat-divider>\r\n        </ng-container>\r\n        <div fxFlex=\"1 1 auto\" class=\"body-container\" fxLayout=\"column\">\r\n            <router-outlet></router-outlet>\r\n        </div>\r\n    </div>\r\n</div>"
+module.exports = "<div fxLayout=\"column\" fxFill>\r\n    <div>\r\n        <mat-toolbar color=\"primary\" fxFlex fxLayoutAlign=\"space-between center\">\r\n            <div [fxFlex]=\"logoWidth + 'px'\" fxLayout=\"row\" \r\n                fxLayoutAlign.xl=\"center center\"\r\n                fxLayoutAlign.lg=\"center center\"\r\n                >\r\n                <span *ngIf=\"showDefaultAside\">Tendoo Server</span>\r\n                <span *ngIf=\"! showDefaultAside\">TS</span>\r\n            </div>\r\n            <div>\r\n                <button mat-icon-button [matMenuTriggerFor]=\"profileMenu\">\r\n                    <mat-icon aria-label=\"Example icon-button with a heart icon\">person</mat-icon>\r\n                </button>\r\n                <mat-menu #profileMenu=\"matMenu\">\r\n                    <button routerLink=\"/dashboard/profile\" mat-menu-item>Profile</button>\r\n                    <button routerLink=\"/auth/logout\" mat-menu-item>Logout</button>\r\n                </mat-menu>\r\n            </div>\r\n        </mat-toolbar>\r\n    </div>\r\n    \r\n    <div fxFlex fxLayout=\"row\">\r\n        <ng-container *ngIf=\"showDefaultAside\">\r\n            <div fxFlex=\"250px\"  fxLayout=\"column\" class=\"aside-menu\">\r\n                <div fxFlex>\r\n                    <app-menu-list [menus]=\"asideMenus\"></app-menu-list>\r\n                </div>    \r\n            </div>\r\n            <mat-divider [vertical]=\"true\"></mat-divider>\r\n        </ng-container>\r\n        <div fxFlex=\"1 1 auto\" class=\"body-container\" fxLayout=\"column\">\r\n            <router-outlet></router-outlet>\r\n        </div>\r\n    </div>\r\n</div>"
 
 /***/ }),
 
@@ -2582,6 +2629,14 @@ var ModulesDetailsComponent = /** @class */ (function () {
                         _this.module = appModule;
                         observer.next(appModule);
                         observer.complete();
+                    }, function (result) {
+                        _this.snackbar.open(result.error.message || 'Unexpected error occured.', 'RETURN')
+                            .afterDismissed()
+                            .subscribe(function (observer) {
+                            if (observer.dismissedByAction) {
+                                _this.router.navigateByUrl('/dashboard/modules');
+                            }
+                        });
                     });
                 }
             });
@@ -5277,6 +5332,43 @@ var RequireLoggedGuard = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/pipes/truncate.pipe.ts":
+/*!****************************************!*\
+  !*** ./src/app/pipes/truncate.pipe.ts ***!
+  \****************************************/
+/*! exports provided: TruncatePipe */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TruncatePipe", function() { return TruncatePipe; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+var TruncatePipe = /** @class */ (function () {
+    function TruncatePipe() {
+    }
+    TruncatePipe.prototype.transform = function (value, args) {
+        var limit = args.limit === undefined ? 20 : parseInt(args.limit);
+        return value.length > limit ? value.substr(0, limit) + '...' : value;
+    };
+    TruncatePipe = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Pipe"])({
+            name: 'truncate'
+        })
+    ], TruncatePipe);
+    return TruncatePipe;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/services/http-response-parser.service.ts":
 /*!**********************************************************!*\
   !*** ./src/app/services/http-response-parser.service.ts ***!
@@ -6459,8 +6551,21 @@ var TendooOauthService = /** @class */ (function (_super) {
             scopes: scopes
         });
     };
+    /**
+     * Authenticate an application in order to
+     * authorize a oauth request.
+     * @param data applicatoin data
+     */
     TendooOauthService.prototype.authenticateApplication = function (data) {
-        return this.post(this.baseUrl + "tendoo/application/authentication", data);
+        return this.post(this.baseUrl + "tendoo/auth/application", data);
+    };
+    /**
+     * Send an Oauth request to the server
+     * to authorize incoming Api request
+     * @param request
+     */
+    TendooOauthService.prototype.grantRequest = function (request) {
+        return this.post(this.baseUrl + "tendoo/auth/request", request);
     };
     TendooOauthService = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
@@ -6956,7 +7061,7 @@ module.exports = ":host {\r\n    height: 100%;\r\n}\r\n#search-field {\r\n    he
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<mat-card class=\"p-0\">\r\n    <mat-card-title class=\"p-2 mb-0\" *ngIf=\"searchEnabled\" color=\"warn\">\r\n        <div fxFlex=\"100%\" fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n            <button (click)=\"toggleSearch( false )\" mat-icon-button>\r\n                <mat-icon>close</mat-icon>\r\n            </button>\r\n            <input id=\"search-field\" [placeholder]=\"labels.search\" type=\"text\" #searchField>\r\n            <button (click)=\"search( searchField )\" mat-icon-button>\r\n                <mat-icon>search</mat-icon>\r\n            </button>\r\n        </div>\r\n    </mat-card-title>\r\n    <mat-card-title class=\"p-2 mb-0\" *ngIf=\"! searchEnabled\" fxLayoutAlign=\"space-between\">\r\n        <div fxFlex=\"100%\" *ngIf=\"! hasSelectedEntries\" fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n            <button mat-icon-button [routerLink]=\"crud.links.create\" mat-button color=\"primary\">\r\n                <mat-icon>add</mat-icon>\r\n            </button>\r\n            <button mat-icon-button (click)=\"toggleSearch( true )\">\r\n                <mat-icon>search</mat-icon>\r\n            </button>\r\n        </div>\r\n        <div fxFlex=\"100%\" *ngIf=\"hasSelectedEntries\" fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n            <div fxLayoutAlign=\"start center\" fxLayout=\"row\">\r\n                <button (click)=\"cancel()\" mat-icon-button>\r\n                    <mat-icon>arrow_back</mat-icon>\r\n                </button>\r\n                <span style=\"padding: 5px 10px\">{{ selectedEntries.length }} selected</span>\r\n            </div>\r\n            <div>\r\n                <button mat-icon-button color=\"primary\">\r\n                    <mat-icon>import_export</mat-icon>\r\n                </button>\r\n                <button (click)=\"deleteSelectedEntries()\" *ngIf=\"hasSelectedEntries\" mat-icon-button color=\"warn\">\r\n                    <mat-icon>delete</mat-icon>\r\n                </button>\r\n            </div>\r\n        </div>\r\n    </mat-card-title>\r\n    <mat-divider *ngIf=\"! tendoo.crud.isLoading\"></mat-divider>\r\n    <mat-progress-bar color=\"warn\" style=\"height: 1px;position: absolute;left: 0;\" *ngIf=\"tendoo.crud.isLoading\" mode=\"indeterminate\"></mat-progress-bar>\r\n    <mat-card-content>\r\n        <table matSort (matSortChange)=\"sortData($event)\" mat-table [dataSource]=\"crud.results[ 'data' ]\" fxFlex>\r\n            <!--- Note that these columns can be defined in any order.\r\n                The actual rendered columns are set as a property on the row definition\" -->\r\n            <ng-container *ngFor=\"let column of columnsNames\" [matColumnDef]=\"column\">\r\n                <ng-container  *ngIf=\"column === 'id'\">\r\n                    <th mat-header-cell *matHeaderCellDef style=\"width: 40px\">\r\n                        <mat-checkbox class=\"example-margin\" (change)=\"checkAllCheckboxes()\" [(ngModel)]=\"checkAll\"></mat-checkbox>\r\n                    </th>\r\n                    <td mat-cell *matCellDef=\"let element\" style=\"width: 40px\">\r\n                        <mat-checkbox class=\"example-margin\" [(ngModel)]=\"element.$checked\"></mat-checkbox>\r\n                    </td>\r\n                </ng-container>\r\n                <ng-container *ngIf=\"column === '$actions'\">\r\n                    <th mat-header-cell *matHeaderCellDef width=\"80\">{{ columns[ column ].label }}</th>\r\n                    <td mat-cell *matCellDef=\"let element\">\r\n                        <mat-menu #tableEntryMenu=\"matMenu\">\r\n                            <button (click)=\"triggerMenu( menu, element )\" *ngFor=\"let menu of element.$actions\" mat-menu-item>{{ menu.label }}</button>\r\n                        </mat-menu>\r\n                        \r\n                        <button mat-icon-button [matMenuTriggerFor]=\"tableEntryMenu\">\r\n                            <mat-icon>more_vert</mat-icon>\r\n                        </button>\r\n                    </td>\r\n                </ng-container>    \r\n                <ng-container *ngIf=\"reservedColumns.indexOf( column ) === -1\">\r\n                    <th [mat-sort-header]=\"column\" mat-header-cell *matHeaderCellDef>{{ columns[ column ].label }}</th>\r\n                    <td mat-cell *matCellDef=\"let element\"> \r\n                        <!--\r\n                            this help to replace the provided value with a replace value\r\n                            provided on the column definition\r\n                        -->\r\n                        <ng-container *ngIf=\"columns[ column ].replace !== undefined\">\r\n                            <ng-container *ngIf=\"columns[ column ].type === 'boolean'\">\r\n                                <ng-container *ngIf=\"element[ column ] === false\">\r\n                                    {{ columns[ column ].replace[0] }}\r\n                                </ng-container>\r\n                                <ng-container *ngIf=\"element[ column ] === true\">\r\n                                    {{ columns[ column ].replace[1] }}\r\n                                </ng-container>\r\n                                <ng-container *ngIf=\"element[ column ] !== true && element[ column ] !== false\">\r\n                                    {{ columns[ column ].replace[ '$default' ] ? columns[ column ].replace[ '$default' ] : 'N/A' }}\r\n                                </ng-container>\r\n                            </ng-container>\r\n                        </ng-container>\r\n                        <ng-container *ngIf=\"columns[ column ].replace === undefined\">\r\n                            {{ element[ column ] }} \r\n                        </ng-container>\r\n                    </td>\r\n                </ng-container>\r\n            </ng-container>\r\n            \r\n            <tr mat-header-row *matHeaderRowDef=\"columnsNames\"></tr>\r\n            <tr mat-row *matRowDef=\"let row; columns: columnsNames;\"></tr>\r\n        </table>\r\n    </mat-card-content>\r\n</mat-card>"
+module.exports = "<mat-card class=\"p-0\">\r\n    <mat-card-title class=\"p-2 mb-0\" *ngIf=\"searchEnabled\" color=\"warn\">\r\n        <div fxFlex=\"100%\" fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n            <button (click)=\"toggleSearch( false )\" mat-icon-button>\r\n                <mat-icon>close</mat-icon>\r\n            </button>\r\n            <input id=\"search-field\" [placeholder]=\"labels.search\" type=\"text\" #searchField>\r\n            <button (click)=\"search( searchField )\" mat-icon-button>\r\n                <mat-icon>search</mat-icon>\r\n            </button>\r\n        </div>\r\n    </mat-card-title>\r\n    <mat-card-title class=\"p-2 mb-0\" *ngIf=\"! searchEnabled\" fxLayoutAlign=\"space-between\">\r\n        <div fxFlex=\"100%\" *ngIf=\"! hasSelectedEntries\" fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n            <button mat-icon-button [routerLink]=\"crud.links.create\" mat-button color=\"primary\">\r\n                <mat-icon>add</mat-icon>\r\n            </button>\r\n            <button mat-icon-button (click)=\"toggleSearch( true )\">\r\n                <mat-icon>search</mat-icon>\r\n            </button>\r\n        </div>\r\n        <div fxFlex=\"100%\" *ngIf=\"hasSelectedEntries\" fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n            <div fxLayoutAlign=\"start center\" fxLayout=\"row\">\r\n                <button (click)=\"cancel()\" mat-icon-button>\r\n                    <mat-icon>arrow_back</mat-icon>\r\n                </button>\r\n                <span style=\"padding: 5px 10px\">{{ selectedEntries.length }} selected</span>\r\n            </div>\r\n            <div>\r\n                <button mat-icon-button color=\"primary\">\r\n                    <mat-icon>import_export</mat-icon>\r\n                </button>\r\n                <button (click)=\"deleteSelectedEntries()\" *ngIf=\"hasSelectedEntries\" mat-icon-button color=\"warn\">\r\n                    <mat-icon>delete</mat-icon>\r\n                </button>\r\n            </div>\r\n        </div>\r\n    </mat-card-title>\r\n    <mat-divider *ngIf=\"! tendoo.crud.isLoading\"></mat-divider>\r\n    <mat-progress-bar color=\"warn\" style=\"height: 1px;position: absolute;left: 0;\" *ngIf=\"tendoo.crud.isLoading\" mode=\"indeterminate\"></mat-progress-bar>\r\n    <mat-card-content>\r\n        <table matSort (matSortChange)=\"sortData($event)\" mat-table [dataSource]=\"crud.results[ 'data' ]\" fxFlex>\r\n            <!--- Note that these columns can be defined in any order.\r\n                The actual rendered columns are set as a property on the row definition\" -->\r\n            <ng-container *ngFor=\"let column of columnsNames\" [matColumnDef]=\"column\">\r\n                <ng-container  *ngIf=\"column === 'id'\">\r\n                    <th mat-header-cell *matHeaderCellDef style=\"width: 40px\">\r\n                        <mat-checkbox class=\"example-margin\" (change)=\"checkAllCheckboxes()\" [(ngModel)]=\"checkAll\"></mat-checkbox>\r\n                    </th>\r\n                    <td mat-cell *matCellDef=\"let element\" style=\"width: 40px\">\r\n                        <mat-checkbox class=\"example-margin\" [(ngModel)]=\"element.$checked\"></mat-checkbox>\r\n                    </td>\r\n                </ng-container>\r\n                <ng-container *ngIf=\"column === '$actions'\">\r\n                    <th mat-header-cell *matHeaderCellDef width=\"80\">{{ columns[ column ].label }}</th>\r\n                    <td mat-cell *matCellDef=\"let element\">\r\n                        <mat-menu #tableEntryMenu=\"matMenu\">\r\n                            <button (click)=\"triggerMenu( menu, element )\" *ngFor=\"let menu of element.$actions\" mat-menu-item>{{ menu.label }}</button>\r\n                        </mat-menu>\r\n                        \r\n                        <button mat-icon-button [matMenuTriggerFor]=\"tableEntryMenu\">\r\n                            <mat-icon>more_vert</mat-icon>\r\n                        </button>\r\n                    </td>\r\n                </ng-container>    \r\n                <ng-container *ngIf=\"reservedColumns.indexOf( column ) === -1\">\r\n                    <th [mat-sort-header]=\"column\" mat-header-cell *matHeaderCellDef>\r\n                        {{ columns[ column ].label }}\r\n                    </th>\r\n                    <td mat-cell *matCellDef=\"let element\"> \r\n                        <!--\r\n                            this help to replace the provided value with a replace value\r\n                            provided on the column definition\r\n                        -->\r\n                        <ng-container *ngIf=\"columns[ column ].replace !== undefined\">\r\n                            <ng-container *ngIf=\"columns[ column ].type === 'boolean'\">\r\n                                <ng-container *ngIf=\"element[ column ] === false\">\r\n                                    {{ columns[ column ].replace[0] }}\r\n                                </ng-container>\r\n                                <ng-container *ngIf=\"element[ column ] === true\">\r\n                                    {{ columns[ column ].replace[1] }}\r\n                                </ng-container>\r\n                                <ng-container *ngIf=\"element[ column ] !== true && element[ column ] !== false\">\r\n                                    {{ columns[ column ].replace[ '$default' ] ? columns[ column ].replace[ '$default' ] : 'N/A' }}\r\n                                </ng-container>\r\n                            </ng-container>\r\n                        </ng-container>\r\n                        <ng-container *ngIf=\"columns[ column ].replace === undefined\">\r\n                            <span *ngIf=\"columns[ column ].truncate\">\r\n                                {{ element[ column ] | truncate: columns[ column ].truncate }}\r\n                            </span>\r\n                            <span *ngIf=\"! columns[ column ].truncate\">\r\n                                {{ element[ column ] }}\r\n                            </span>\r\n                        </ng-container>\r\n                    </td>\r\n                </ng-container>\r\n            </ng-container>\r\n            \r\n            <tr mat-header-row *matHeaderRowDef=\"columnsNames\"></tr>\r\n            <tr mat-row *matRowDef=\"let row; columns: columnsNames;\"></tr>\r\n        </table>\r\n    </mat-card-content>\r\n</mat-card>"
 
 /***/ }),
 
@@ -7800,6 +7905,7 @@ var RoutesModule = /** @class */ (function () {
                                 component: src_app_components_auth_login_login_component__WEBPACK_IMPORTED_MODULE_5__["LoginComponent"]
                             }, {
                                 path: '',
+                                canActivate: [src_app_guards_require_logged_guard__WEBPACK_IMPORTED_MODULE_16__["RequireLoggedGuard"]],
                                 component: src_app_components_auth_oauth_oauth_component__WEBPACK_IMPORTED_MODULE_35__["OauthComponent"]
                             }
                         ]
@@ -7872,7 +7978,7 @@ var RoutesModule = /** @class */ (function () {
                         ]
                     }
                 ], {
-                    enableTracing: true
+                    enableTracing: false
                 })
             ]
         })

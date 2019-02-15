@@ -42,7 +42,7 @@ class ApplicationCrud extends Crud
      * Adding relation
      */
     public $relations   =  [
-        [ 'users', 'users.id', '=', 'tendoo_apps.user_id' ]
+        [ 'tendoo_users', 'tendoo_users.id', '=', 'tendoo_apps.user_id' ]
     ];
 
     /**
@@ -185,26 +185,34 @@ class ApplicationCrud extends Crud
      */
     public function getColumns() {
         return [
-            'name'  =>  [
-                'label'  =>  __( 'Name' )
+            'id'                =>  [
+                'label'         =>  __( 'ID' ),
             ],
-            'client_secret'  =>  [
-                'label'  =>  __( 'Client Secret' )
+            'name'              =>  [
+                'label'         =>  __( 'Name' )
             ],
-            'client_key'    =>  [
-                'label'      =>  __( 'Client Key' )
+            'client_secret'     =>  [
+                'label'         =>  __( 'Client Secret' ),
+                'truncate'      =>  10,
             ],
-            'callback_url'  =>[
-                'label'      =>  __( 'Callback' )
+            'client_key'        =>  [
+                'label'         =>  __( 'Client Key' ),
+                'truncate'      =>  10,
             ],
-            'users_username'    =>  [
-                'label'      =>  __( 'Author' )
+            'callback_url'      =>  [
+                'label'         =>  __( 'Callback' )
             ],
-            'created_at'    =>  [
-                'label'     =>  __( 'Created On' )
+            'tendoo_users_username'    =>  [
+                'label'         =>  __( 'Author' )
+            ],
+            'created_at'        =>  [
+                'label'         =>  __( 'Created On' )
             ],
             'active'        =>  [
                 'label'     =>  __( 'Active' )
+            ],
+            '$actions'      =>  [
+                'label'     =>  __( 'Actions' )
             ]
         ];
     }
@@ -220,13 +228,13 @@ class ApplicationCrud extends Crud
                 'namespace'     =>      'edit.application',
                 'type'          =>      'GOTO',
                 'index'         =>      'id',
-                'url'           =>      '/dashboard/crud/applications/edit/' . $entry->id
+                'url'           =>      '/dashboard/crud/tendoo-apps/edit/' . $entry->id
             ], [
                 'label'     =>  __( 'Delete' ),
                 'namespace' =>  'delete',
                 'type'      =>  'DELETE',
                 'index'     =>  'id',
-                'url'       =>  'tendoo/crud/applications' . $entry->id,
+                'url'       =>  'tendoo/crud/tendoo-apps/' . $entry->id,
                 'confirm'   =>  [
                     'message'  =>  __( 'Would you like to delete this application ?' ),
                     'title'     =>  __( 'Delete an application' )

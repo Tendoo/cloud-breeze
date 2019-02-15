@@ -15,7 +15,7 @@ trait ApplicationsFields {
     private static function name()
     {
         $Field  =   new \StdClass;
-        $Field->name            =   'application_name';
+        $Field->name            =   'name';
         $Field->type            =   'text';
         $Field->label           =   __( 'Name' );
         $Field->placeholder     =   __( 'Application Name' );
@@ -62,9 +62,9 @@ trait ApplicationsFields {
         $Field->description     =   __( 'Leave Empty and the system will generate a random client key.' );
 
         if ( $entry == null ) {
-            $Field->validation      =   'unique:applications';
+            $Field->validation      =   'unique:tendoo_apps';
         } else {
-            $Field->validation      =   [ Rule::unique( 'applications' )->ignore( $entry->id ) ];
+            $Field->validation      =   [ Rule::unique( 'tendoo_apps' )->ignore( $entry->id ) ];
         }
 
         return $Field;
@@ -83,7 +83,7 @@ trait ApplicationsFields {
         $Field->label           =   __( 'Callback' );
         $Field->placeholder     =   __( 'Callback URL' );
         $Field->description     =   __( 'Where the Auth Request should redirect once approuved.' );
-        $Field->validation      =   'url';
+        $Field->validation      =   'url|required';
         return $Field;
     }
 
@@ -101,9 +101,9 @@ trait ApplicationsFields {
         $Field->description     =   __( 'Leave Empty and the system will generate a random secret key.' );
 
         if ( $entry == null ) {
-            $Field->validation      =   'unique:applications';
+            $Field->validation      =   'unique:tendoo_apps';
         } else {
-            $Field->validation      =   [ Rule::unique( 'applications' )->ignore( $entry->id ) ];
+            $Field->validation      =   [ Rule::unique( 'tendoo_apps' )->ignore( $entry->id ) ];
         }
 
         return $Field;

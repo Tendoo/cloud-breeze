@@ -77,6 +77,7 @@ import { OauthComponent } from "src/app/components/auth/oauth/oauth.component";
                         component: LoginComponent
                     }, {
                         path: '',
+                        canActivate: [ RequireLoggedGuard ],
                         component: OauthComponent
                     }
                 ]
@@ -149,7 +150,7 @@ import { OauthComponent } from "src/app/components/auth/oauth/oauth.component";
                 ]
             }
         ], {
-            enableTracing: true
+            enableTracing: false
         })
     ]
 })
