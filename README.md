@@ -22,7 +22,7 @@ Tendoo CMS only works now with MySQL or equivalent database. You need to create 
 
 # How doest that looks like ?
 ## 1 - Installation Welcome page
-![Installation](https://user-images.githubusercontent.com/5265663/52855417-9f6e5280-3121-11e9-9db5-9851e552500d.png)
+![Installation](https://user-images.githubusercontent.com/5265663/52858180-b749d480-3129-11e9-950a-c9216eacf0dc.png)
 
 ## 2 - Database Setup
 ![Database Setup](https://user-images.githubusercontent.com/5265663/52856253-34724b00-3124-11e9-8cb0-c27db5267d82.png)
