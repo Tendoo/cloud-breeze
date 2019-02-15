@@ -3226,7 +3226,7 @@ var ModulesComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ":host {\r\n    height: 100%;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvbm90LWZvdW5kL25vdC1mb3VuZC5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0lBQ0ksWUFBWTtBQUNoQiIsImZpbGUiOiJzcmMvYXBwL2NvbXBvbmVudHMvZGFzaGJvYXJkL25vdC1mb3VuZC9ub3QtZm91bmQuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIjpob3N0IHtcclxuICAgIGhlaWdodDogMTAwJTtcclxufSJdfQ== */"
+module.exports = ":host {\r\n    height: 100%;\r\n    overflow-y: auto;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvbm90LWZvdW5kL25vdC1mb3VuZC5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0lBQ0ksWUFBWTtJQUNaLGdCQUFnQjtBQUNwQiIsImZpbGUiOiJzcmMvYXBwL2NvbXBvbmVudHMvZGFzaGJvYXJkL25vdC1mb3VuZC9ub3QtZm91bmQuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIjpob3N0IHtcclxuICAgIGhlaWdodDogMTAwJTtcclxuICAgIG92ZXJmbG93LXk6IGF1dG87XHJcbn0iXX0= */"
 
 /***/ }),
 
@@ -3237,7 +3237,7 @@ module.exports = ":host {\r\n    height: 100%;\r\n}\r\n/*# sourceMappingURL=data
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div fxFlex fxFill fxLayoutAlign=\"center center\" class=\"bg-content\">\r\n    <div fxFlex=\"400px\" class=\"text-center\">\r\n        <h1>You're Lost !</h1>\r\n        <p>The page you're looking for doesn't exists or is not handled by the system. Please call the police or the FBI, the earth is in danger.</p>\r\n    </div>\r\n</div>"
+module.exports = "<div fxFlex fxFill fxLayoutAlign=\"center center\" class=\"bg-content\">\r\n    <div fxFlex=\"400px\" class=\"text-center\">\r\n        <img style=\"width: 215px\" src=\"assets/images/park.svg\" alt=\"\">\r\n        <h1 class=\"mt-0\">You're Lost !</h1>\r\n        <p>The page you're looking for doesn't exists or is not handled by the system. Please call the police or the FBI, the earth is in danger.</p>\r\n    </div>\r\n</div>"
 
 /***/ }),
 
