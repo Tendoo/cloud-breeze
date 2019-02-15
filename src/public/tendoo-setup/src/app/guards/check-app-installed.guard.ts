@@ -20,9 +20,10 @@ export class PreventAppNotInstalledGuard implements CanActivate {
             return new Promise( ( resolve, reject ) => {
                 this.setup.ping().subscribe( result => {
                     if ( result.status === 'not-installed' ) {
-                        this.router.navigateByUrl( 'do-setup' );
-                        this.snackbar.open( result.message, null, {
-                            duration: 3000
+                        this.snackbar.open( result.message, 'INSTALL' ).afterDismissed().subscribe( action => {
+                            if ( action.dismissedByAction ) {
+                                this.router.navigateByUrl( 'do-setup' );
+                            }
                         });
                         return resolve( false );
                     }

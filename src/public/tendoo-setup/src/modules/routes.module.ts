@@ -148,7 +148,9 @@ import { OauthComponent } from "src/app/components/auth/oauth/oauth.component";
                     }
                 ]
             }
-        ])
+        ], {
+            enableTracing: true
+        })
     ]
 })
 export class RoutesModule{}

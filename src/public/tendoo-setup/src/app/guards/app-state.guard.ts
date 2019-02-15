@@ -22,7 +22,7 @@ export class PreventAppInstalledGuard implements CanActivate {
             // return resolve( true );
             this.setup.ping().subscribe( result => {
                 switch( result.status ) {
-                    case 'not-installed':
+                    case 'installed':
                         this.router.navigateByUrl( 'auth/login?notice=app-installed' );
                     return resolve( false );
                 }
