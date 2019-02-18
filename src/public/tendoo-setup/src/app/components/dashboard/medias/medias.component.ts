@@ -24,6 +24,7 @@ export class MediasComponent implements OnInit {
     bulkSelectEnabled       =   false;
     hasJustEnabled          =   false;
     gridCols                =   5;
+    wantsToDrop             =   false;
 
     constructor(
         private mediaService: TendooMediasService,
@@ -33,6 +34,14 @@ export class MediasComponent implements OnInit {
         private router: Router,
         public tendoo: TendooService,
     ) { }
+
+    hasDraggedOver( event ) {
+        this.wantsToDrop    =   true;
+    }
+
+    hasDraggedOut( event ) {
+        this.wantsToDrop    =   false;
+    }
     
     ngOnInit() {
         this.tendoo.dashboardTitle( 'Medias' );

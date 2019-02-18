@@ -38,4 +38,21 @@ export class TendooOauthService extends LoaderService {
     grantRequest( request ) {
         return this.post( `${this.baseUrl}tendoo/auth/request`, request );
     }
+
+    /**
+     * get authorized applications
+     * @return Observable<data>
+     */
+    getAuthorizedApplication() {
+        return this.get( `${this.baseUrl}tendoo/applications/authorized` );
+    }
+
+    /**
+     * Revoque Applications
+     * @param number application id
+     * @reutrn Observable<AsyncResponse>
+     */
+    revoqueApp( id: number ) {
+        return this.get( `${this.baseUrl}tendoo/applications/revoke/${id}` );
+    }
 }

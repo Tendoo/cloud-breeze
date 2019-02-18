@@ -51,6 +51,7 @@ import { MediasDetailsComponent } from './components/dashboard/medias-details/me
 import { OauthComponent } from './components/auth/oauth/oauth.component';
 import { TruncatePipe } from './pipes/truncate.pipe';
 import { ProfileAppsComponent } from './components/dashboard/profile-apps/profile-apps.component';
+import { DroppableDirective } from './directives/droppable.directive';
 
 @NgModule({
     declarations: [
@@ -91,6 +92,7 @@ import { ProfileAppsComponent } from './components/dashboard/profile-apps/profil
         OauthComponent,
         TruncatePipe,
         ProfileAppsComponent,
+        DroppableDirective,
     ],
     imports: [
         BrowserModule,
