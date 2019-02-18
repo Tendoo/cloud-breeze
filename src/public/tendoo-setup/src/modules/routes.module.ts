@@ -35,6 +35,8 @@ import { CrudEditGuard } from "src/app/guards/crud-edit.guard";
 import { CheckRegistrationStatusGuard } from "src/app/guards/check-registration-status.guard";
 import { ModulesDetailsComponent } from "src/app/components/dashboard/modules-details/modules-details.component";
 import { OauthComponent } from "src/app/components/auth/oauth/oauth.component";
+import { QuickAuthenticationGuard } from "src/app/guards/quick-authentication.guard";
+import { ProfileAppsComponent } from "src/app/components/dashboard/profile-apps/profile-apps.component";
 
 @NgModule({
     imports: [
@@ -74,6 +76,7 @@ import { OauthComponent } from "src/app/components/auth/oauth/oauth.component";
                         canActivate: [ CheckRegistrationStatusGuard ]
                     }, {
                         path: 'login',
+                        canActivate: [ QuickAuthenticationGuard ],
                         component: LoginComponent
                     }, {
                         path: '',
@@ -101,6 +104,9 @@ import { OauthComponent } from "src/app/components/auth/oauth/oauth.component";
                     }, {
                         path: 'profile',
                         component: ProfileComponent
+                    }, {
+                        path: 'profile/apps',
+                        component: ProfileAppsComponent
                     }, {
                         path: 'modules',
                         component: ModulesComponent

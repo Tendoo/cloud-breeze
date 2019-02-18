@@ -1,15 +1,10 @@
 <div fxLayout="column" fxFlex="100%" style="overflow-y:auto">
-    <div fxFlex="200px" fxLayout="row" class="bg-primary p-3">
+    <div fxLayout="row" class="bg-content p-3">
         <div fxFlex fxLayout="row">
-            <div style="margin-right: 20px">
-                <img class="avatar-image" src="http://laravel-5703.go/tendoo/assets/images/avatar.png" alt="">
-            </div>
             <div>
                 <h1 class="mat-display-1 mb-0">{{ auth.getUser().username }}</h1>
                 <span class="mat-title">{{ auth.getUser().role.name }}</span>
             </div>
-        </div>
-        <div fxFlex="200px" fxLayoutAlign="end start">
         </div>
     </div>
     <div fxFlex fxLayout="row" class="profile-background" fxFill fxLayoutAlign="center">

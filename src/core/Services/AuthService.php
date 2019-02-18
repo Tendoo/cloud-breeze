@@ -16,6 +16,7 @@ use Tendoo\Core\Facades\Hook;
 use Tendoo\Core\Mail\PasswordReset;
 use Tendoo\Core\Mail\PasswordUpdated;
 use Tendoo\Core\Mail\UserRegistrationMail;
+use Tendoo\Core\Exceptions\SessionExpiredException;
 
 class AuthService 
 {
@@ -96,6 +97,7 @@ class AuthService
         Cache::put( $tokenKey, [
             'key'       =>  $tokenKey,
             'user_id'   =>  $user->id,
+            'browser'   =>  request()->header( 'User-Agent' ),
             'expires'   =>  $dateService
                 ->copy()
                 ->addMinutes(60)
@@ -103,6 +105,40 @@ class AuthService
         ], 3600 ); // expire in one hour.
 
         return $newKey;
+    }
+
+    /**
+     * Authenticate the request
+     * @param string token
+     * @return AsyncResponse
+     */
+    public function authToken( $token )
+    {
+        $dateService    =   app()->make( DateService::class );
+        $tokenKey       =   'Auth-Token::' . $token;
+
+        if ( Cache::has( $tokenKey ) ) {
+            $cached            =   Cache::get( $tokenKey );
+
+            if ( @$cached[ 'browser' ] === request()->header( 'User-Agent' ) ) {
+                Cache::forget( $tokenKey );
+                Cache::put( $tokenKey, [
+                    'key'       =>  $newKey,
+                    'user_id'   =>  $user->id,
+                    'browser'   =>  request()->header( 'User-Agent' ),
+                    'expire'    =>  $dateService
+                        ->copy()
+                        ->addMinutes(60)
+                        ->toDateTimestring(),
+                ], 3600 );
+                
+                return [
+                    'status'    =>  'success',
+                    'message'   =>  __( 'You are successfully authenticated' )
+                ];
+            }
+        }
+        throw new SessionExpiredException( __( 'Unable to proceed your session has expired.' ) );
     }
 
     /**
@@ -126,6 +162,7 @@ class AuthService
                 Cache::put( $tokenKey, [
                     'key'       =>  $newKey,
                     'user_id'   =>  $user->id,
+                    'browser'   =>  request()->header( 'User-Agent' ),
                     'expire'    =>  $dateService
                         ->copy()
                         ->addMinutes(60)

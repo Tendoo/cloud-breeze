@@ -50,6 +50,7 @@ import { MAT_DATE_LOCALE } from '@angular/material';
 import { MediasDetailsComponent } from './components/dashboard/medias-details/medias-details.component';
 import { OauthComponent } from './components/auth/oauth/oauth.component';
 import { TruncatePipe } from './pipes/truncate.pipe';
+import { ProfileAppsComponent } from './components/dashboard/profile-apps/profile-apps.component';
 
 @NgModule({
     declarations: [
@@ -89,6 +90,7 @@ import { TruncatePipe } from './pipes/truncate.pipe';
         MediasDetailsComponent,
         OauthComponent,
         TruncatePipe,
+        ProfileAppsComponent,
     ],
     imports: [
         BrowserModule,

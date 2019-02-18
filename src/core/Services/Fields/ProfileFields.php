@@ -19,7 +19,7 @@ trait ProfileFields
         $oldPassword->description           =   __( 'Provide the previous password.' );
 
         $password                           =   new \stdClass;
-        $password->name                     =   'new_password';
+        $password->name                     =   'password';
         $password->label                    =   __( 'New Password' );
         $password->type                     =   'password';
         $password->validation               =   'sometimes|required|min:6|different:old_password';
@@ -29,7 +29,7 @@ trait ProfileFields
         $passwordConfirm->name              =   'password_confirm';
         $passwordConfirm->label             =   __( 'Confirm the Password' );
         $passwordConfirm->type              =   'password';
-        $passwordConfirm->validation        =   'sometimes|required|same:new_password';
+        $passwordConfirm->validation        =   'sometimes|required|same:password';
         $passwordConfirm->description       =   __( 'Confirm the new password.' );
 
         return [ $oldPassword, $password, $passwordConfirm ];

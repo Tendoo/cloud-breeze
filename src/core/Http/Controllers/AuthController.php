@@ -111,10 +111,10 @@ class AuthController extends BaseController
             ) {
                 Auth::logout();
 
-                return redirect()->route( 'login.index' )->with([
+                return [
                     'status'    =>  'danger',
-                    'message'   =>  __( 'Unable to login, the registration has been locked for users.')
-                ]);
+                    'message'   =>  __( 'Unable to login, Your role is not allowed to login.')
+                ];
             }
 
             /**
@@ -127,18 +127,21 @@ class AuthController extends BaseController
                 Auth::logout();
 
                 if( $this->options->get( 'reset_activation_link' ) == 'true' ) {
-                    return redirect()->route( 'login.index' )->with([
+                    return [
                         'status'    =>  'danger',
-                        'message'   =>  sprintf( __( 'Your account hasn\'t yet been activated. If you didn\'t get the activation mail, <a href="%s">click here</a> to receive another one.' ), url()->route( 'register.send-activation', [
-                            'user'  =>  $userId
-                        ]) )
-                    ]);
+                        'message'   =>  __( 'Your account hasn\'t yet been activated.' ),
+                        'data'      =>  [
+                            'url'   =>  url()->route( 'register.send-activation', [
+                                'user'  =>  $userId
+                            ])
+                        ]
+                    ];
                 }
 
-                return redirect()->route( 'login.index' )->with([
+                return [
                     'status'    =>  'danger',
                     'message'   =>  __( 'Your account hasn\'t yet been activated. You might need to check your email to activate it or contact the administrator.' )
-                ]);
+                ];
             }
             
             /**
@@ -151,13 +154,13 @@ class AuthController extends BaseController
              */
             $loginRoute     =   route( Hook::filter( 'after.login.route', config( 'tendoo.redirect.authenticated' ), Auth::user() ) );
             
-            return redirect()->intended( $loginRoute );
+            return $loginRoute;
         }
 
-        return redirect()->route( 'login.index' )->withErrors([
+        return [
             'status'    =>  'danger',
             'message'   =>  __( 'Wrong username or password.' )
-        ]);
+        ];
     }
 
     /**

@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { LoaderService } from './loader.service';
 import { User } from '../interfaces/user-interface';
+import { AsyncResponse } from '../interfaces/async-response';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root'
@@ -54,5 +57,20 @@ export class TendooAuthService extends LoaderService {
      */
     getUser() {
         return this.user;
+    }
+
+    /**
+     * token login
+     * @param string token
+     * @return Observable<AsyncResponse>
+     */
+    tokenLogin( token ) {
+        const observable    =    <Observable<AsyncResponse>>this.post( `${this.baseUrl}tendoo/auth/token`, { token });
+        return observable.pipe( map( entry => {
+            if ( entry.status === 'success' ) {
+                this.setCredentials( entry.data[ 'user' ], entry.data[ 'token' ] );
+            }
+            return entry;   
+        }))
     }
 }

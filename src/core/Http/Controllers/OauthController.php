@@ -63,9 +63,28 @@ class OauthController extends BaseController
 
     public function postLogin( Request $request )
     {
-        if ( Auth::attempt( $request->only( 'username', 'password' ) ) ) {
+        $attempt    =   Auth::attempt( $request->only( 'username', 'password' ) );
+
+        if ( $attempt ) {
+
+            /**
+             * If users is not admin and if the login is disabled
+             * then he's redirected to the login with an error
+             */
+            if ( $this->options->get( 'app_restricted_login', false ) &&  
+                ! in_array( 
+                    Auth::user()->role->namespace,
+                    Hook::filter( 'login.roles.allowed', [ 'admin' ])
+                )
+            ) {
+                Auth::logout();
+
+                throw new AccessDeniedException( __( 'Your role is not allowed to login.' ) );
+            }
+
             $user           =   User::find( Auth::user()->id );
             $user->role     =   $user->role;
+            
             return [
                 'status'    =>  'success',
                 'message'   =>  __( 'The user has been successfully connected' ),
@@ -220,5 +239,11 @@ class OauthController extends BaseController
             throw new Exception( __( 'Unable to authenticate the request' ) );
         }
         throw new Exception( __( 'Invalid request send to the server' ) );
+    }
+
+    public function authToken( Request $request )
+    {
+        return app()->make( AuthService::class )
+            ->authToken( $request->input( 'token' ) );
     }
 }
