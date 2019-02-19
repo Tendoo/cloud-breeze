@@ -22,7 +22,7 @@ class ApplicationsController extends Controller
         $this->middleware( 'tendoo.auth' );
     }
 
-    public function getApplication( $appId ) 
+    private function getApplication( $appId ) 
     {
         $application    =   Application::where( 'client_key', $appId )->first();
 
@@ -200,6 +200,30 @@ class ApplicationsController extends Controller
             'status'        =>  'success',
             'data'          =>  compact( 'forward', 'access_token', 'user' ),
             'message'       =>  __( 'The access has been successfully granted.' ),
+        ];
+    }
+
+    /**
+     * return all the authorized application
+     * on the user profile
+     * @return array of applications
+     */
+    public function myAuthorizedApplications()
+    {
+        return Oauth::where( 'user_id', Auth::id() )
+            ->get();
+    }
+
+    /**
+     * Revoke application
+     * @return array
+     */
+    public function revokeApplication( $id )
+    {
+        Oauth::findOrFail( $id )->delete();
+        return [ 
+            'status'    =>  'success',
+            'message'   =>  __( 'The application access has been revoked !' )
         ];
     }
 }   

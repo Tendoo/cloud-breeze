@@ -1,14 +1,19 @@
 <div fxLayout="column" fxFlex="100%" style="overflow-y:auto">
     <div fxLayout="row" class="bg-content p-3">
         <div fxFlex fxLayout="row">
-            <div>
+            <div fxFlex>
                 <h1 class="mat-display-1 mb-0">{{ auth.getUser().username }}</h1>
                 <span class="mat-title">{{ auth.getUser().role.name }}</span>
             </div>
+            <div fxFlex fxLayoutAlign="end start">
+                <div>
+                    <button mat-button [routerLink]="'/dashboard/profile/apps'">Applications</button>
+                </div>
+            </div>    
         </div>
     </div>
-    <div fxFlex fxLayout="row" class="profile-background" fxFill fxLayoutAlign="center">
-        <div fxFlex="97%" class="profile-container">
+    <div fxFlex fxLayout="row" class="profile-background p-3 pt-0" fxFill fxLayoutAlign="center">
+        <div fxFlex class="profile-container">
             <mat-card class="p-0" *ngIf="tabs">
                 <mat-card-title class="p-1 mb-0">Profile Settings</mat-card-title>
                 <mat-divider></mat-divider>

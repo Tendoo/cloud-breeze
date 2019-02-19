@@ -1,65 +1,70 @@
-<div fxLayout="column" fxFlex="100%" style="overflow-y:auto">
-    <!-- <mat-progress-bar color="warn" style="height: 2px; position: absolute" *ngIf="tendoo.users.isLoading" mode="indeterminate"></mat-progress-bar> -->
-    <div fxLayout="row" fxFlex="0 0 auto" class="bg-content p-3 pb-0">
-        <div fxFlex>
-            <h1 class="mat-display-1 mb-0">Media</h1>
-            <small class="mat-title">display all the medias by type</small>
-        </div>
-        <div fxFlex fxLayoutAlign="end start">
-            <div>
-                <button mat-button [routerLink]="'/dashboard/medias/upload'">Upload</button>
+<div fxFlex fxLayout="column">
+    <div fxLayout="column" class="upload-placeholder" (drop)="hasDropped( $event )" (dragOut)="hasDraggedOut( $event )" appDroppable *ngIf="wantsToDrop" fxFlex="100%" style="overflow-y:auto" fxLayoutAlign="center center">
+        <h3>Drop your file here to upload</h3>
+    </div>
+    <div fxLayout="column" fxFlex="100%" style="overflow-y:auto"  (dragOver)="hasDraggedOver( $event )" *ngIf="! wantsToDrop" appDroppable>
+        <!-- <mat-progress-bar color="warn" style="height: 2px; position: absolute" *ngIf="tendoo.users.isLoading" mode="indeterminate"></mat-progress-bar> -->
+        <div fxLayout="row" fxFlex="0 0 auto" class="bg-content p-3 pb-0">
+            <div fxFlex>
+                <h1 class="mat-display-1 mb-0">Media</h1>
+                <span>display all the medias by type</span>
             </div>
-        </div>    
-    </div>
-    <div fxFlex *ngIf="medias.length === 0" class="p-3 bg-content" fxLayoutAlign="center center">
-        <span>It seems quite empty right here. <a routerLink="/dashboard/medias/upload">Upload new content ?</a></span>
-    </div>
-    <div fxFlex *ngIf="medias.length > 0" class="p-3 bg-content">
-        <mat-card class="p-0">
-            <mat-card-title class="p-1 mb-0">
-                <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
-                    <div fxLayoutAlign="start center">
-                        <button *ngIf="selectedMediasCount > 0" (click)="reset()" mat-icon-button color="warn">
-                            <mat-icon>arrow_back</mat-icon>
-                        </button>
-                        <span *ngIf="selectedMediasCount > 0">
-                            {{ selectedMediasCount }} <span>selected</span>
-                        </span>
-                    </div>
-                    <div>
-                        <button *ngIf="selectedMediasCount > 0" (click)="deleteSelected()" mat-icon-button color="warn">
-                            <mat-icon>delete</mat-icon>
-                        </button>
-                        <button (click)="selectAll()" mat-icon-button color="primary">
-                            <mat-icon>check</mat-icon>
-                        </button>
-                    </div>
+            <div fxFlex fxLayoutAlign="end start">
+                <div>
+                    <button mat-button [routerLink]="'/dashboard/medias/upload'">Upload</button>
                 </div>
-            </mat-card-title>
-            <mat-divider></mat-divider>
-            <div class="p-2">
-                <mat-grid-list [cols]="gridCols" gutterSize="1em" rowHeight="140px">
-                    <mat-grid-tile
-                        (mousedown)="handle( media )"
-                        (mouseup)="cancelBulkSelect()"
-                        (click)="openSingle( media )"
-                        *ngFor="let media of medias"
-                        [colspan]="1"
-                        [rowspan]="1">
-                        <div *ngIf="[ 'zip' ].indexOf( media.extension ) === -1">
-                            <img [src]="media.sizes.thumb" [alt]="media.name">
+            </div>    
+        </div>
+        <div fxFlex *ngIf="medias.length === 0" class="p-3 bg-content" fxLayoutAlign="center center">
+            <span>It seems quite empty right here. <a routerLink="/dashboard/medias/upload">Upload new content ?</a></span>
+        </div>
+        <div fxFlex *ngIf="medias.length > 0" class="p-3 bg-content">
+            <mat-card class="p-0">
+                <mat-card-title class="p-1 mb-0">
+                    <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+                        <div fxLayoutAlign="start center">
+                            <button *ngIf="selectedMediasCount > 0" (click)="reset()" mat-icon-button color="warn">
+                                <mat-icon>arrow_back</mat-icon>
+                            </button>
+                            <span *ngIf="selectedMediasCount > 0">
+                                {{ selectedMediasCount }} <span>selected</span>
+                            </span>
                         </div>
-                        <div *ngIf="[ 'zip' ].indexOf( media.extension ) !== -1">
-                            <mat-icon>archive</mat-icon>
+                        <div>
+                            <button *ngIf="selectedMediasCount > 0" (click)="deleteSelected()" mat-icon-button color="warn">
+                                <mat-icon>delete</mat-icon>
+                            </button>
+                            <button (click)="selectAll()" mat-icon-button color="primary">
+                                <mat-icon>check</mat-icon>
+                            </button>
                         </div>
-                        <div class="overlay" fxLayoutAlign="end start" *ngIf="media.selected">
-                            <i class="material-icons m-1" style="color: white">
-                            check_circle
-                            </i>
-                        </div>
-                    </mat-grid-tile>
-                </mat-grid-list>
-            </div>
-        </mat-card>
+                    </div>
+                </mat-card-title>
+                <mat-divider></mat-divider>
+                <div class="p-2">
+                    <mat-grid-list [cols]="gridCols" gutterSize="1em" rowHeight="140px">
+                        <mat-grid-tile
+                            (mousedown)="handle( media )"
+                            (mouseup)="cancelBulkSelect()"
+                            (click)="openSingle( media )"
+                            *ngFor="let media of medias"
+                            [colspan]="1"
+                            [rowspan]="1">
+                            <div *ngIf="[ 'zip' ].indexOf( media.extension ) === -1">
+                                <img [src]="media.sizes.thumb" [alt]="media.name">
+                            </div>
+                            <div *ngIf="[ 'zip' ].indexOf( media.extension ) !== -1">
+                                <mat-icon>archive</mat-icon>
+                            </div>
+                            <div class="overlay" fxLayoutAlign="end start" *ngIf="media.selected">
+                                <i class="material-icons m-1" style="color: white">
+                                check_circle
+                                </i>
+                            </div>
+                        </mat-grid-tile>
+                    </mat-grid-list>
+                </div>
+            </mat-card>
+        </div>
     </div>
 </div>

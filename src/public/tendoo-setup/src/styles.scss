@@ -23,3 +23,15 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 dropzone[fxflex] > .dropzone.dz-wrapper {
     display: flex;
 }
+
+placeholder {
+    border: dashed 4px #333;
+    margin: 10px;
+}
+.dropping::after {
+    content: '';
+    width: 100%;
+    height: 100%; 
+    position: absolute;
+    background: #EEE;
+}
