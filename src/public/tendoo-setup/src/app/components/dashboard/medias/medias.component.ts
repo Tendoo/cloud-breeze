@@ -42,6 +42,10 @@ export class MediasComponent implements OnInit {
     hasDraggedOut( event ) {
         this.wantsToDrop    =   false;
     }
+
+    hasDropped( event ) {
+        // console.log( event.dataTransfer );
+    }
     
     ngOnInit() {
         this.tendoo.dashboardTitle( 'Medias' );

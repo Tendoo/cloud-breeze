@@ -1,8 +1,8 @@
 <div fxFlex fxLayout="column">
-    <div fxLayout="column" class="upload-placeholder" *ngIf="wantsToDrop" fxFlex="100%" style="overflow-y:auto" fxLayoutAlign="center center">
+    <div fxLayout="column" class="upload-placeholder" (drop)="hasDropped( $event )" (dragOut)="hasDraggedOut( $event )" appDroppable *ngIf="wantsToDrop" fxFlex="100%" style="overflow-y:auto" fxLayoutAlign="center center">
         <h3>Drop your file here to upload</h3>
     </div>
-    <div fxLayout="column" fxFlex="100%" style="overflow-y:auto" (dragOut)="hasDraggedOut( $event )" (dragOver)="hasDraggedOver( $event )" appDroppable>
+    <div fxLayout="column" fxFlex="100%" style="overflow-y:auto"  (dragOver)="hasDraggedOver( $event )" *ngIf="! wantsToDrop" appDroppable>
         <!-- <mat-progress-bar color="warn" style="height: 2px; position: absolute" *ngIf="tendoo.users.isLoading" mode="indeterminate"></mat-progress-bar> -->
         <div fxLayout="row" fxFlex="0 0 auto" class="bg-content p-3 pb-0">
             <div fxFlex>
