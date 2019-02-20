@@ -27,12 +27,12 @@ export class LoaderService {
      * @param {string} url to access
      * @param data data to submit
      */
-    post( url:string, data: { [ key:string] : any } ) {
+    post( url:string, data: { [ key:string] : any }, config = {}) {
         return new Observable( ( observer ) => {
             this.isLoading  =   true;
-            return this.__formDataResponse( <Observable<AsyncResponse>>this.http.post( url, data, {
+            return this.__formDataResponse( <Observable<AsyncResponse>>this.http.post( url, data, Object.assign({
                 headers: LoaderService.headers
-            }), observer )
+            }, config )), observer )
         });
     }
 
