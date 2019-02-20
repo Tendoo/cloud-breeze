@@ -100,6 +100,11 @@ export class ModulesDetailsComponent implements OnInit {
         })
     }
 
+    toggleTab( tab: Tab ) {
+        this.tabs.forEach( (_tab: Tab ) => _tab.active = false );
+        tab.active  =   true;
+    }
+
     private __toggleModule( action ) {
         this.tendoo.modules[ action ]( this.module.namespace ).subscribe( (result: AsyncResponse ) => {
             this.snackbar.open( result.message, null, { duration: 3000 });

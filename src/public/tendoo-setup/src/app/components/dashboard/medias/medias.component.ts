@@ -19,6 +19,7 @@ import { Router } from '@angular/router';
 })
 export class MediasComponent implements OnInit {
     medias: Media[]         =   [];
+    uploadQueue: File[]     =   [];
     pagination: PaginatedResponse;
     bulkSelectTimeout;
     bulkSelectEnabled       =   false;
@@ -44,7 +45,30 @@ export class MediasComponent implements OnInit {
     }
 
     hasDropped( event ) {
-        // console.log( event.dataTransfer );
+        this.wantsToDrop    =   false;
+        
+        /**
+         * set uploaded as false by
+         * default for each new items
+         */
+        const files     =   [];
+        for( let i = 0; i < event.dataTransfer.files.length; i++ ) {
+            event.dataTransfer.files[i].uploaded    =   false;
+            event.dataTransfer.files[i].progress    =   0;
+            files.push( event.dataTransfer.files[i] );
+        }
+
+        /**
+         * push the new items to the 
+         * items queue
+         */
+        this.uploadQueue.push( ...files );
+
+        /**
+         * proceed the queue and watch
+         * uploaded item to remove from the queue
+         */
+        this.tendoo.medias.uploadFiles( this.uploadQueue );
     }
     
     ngOnInit() {

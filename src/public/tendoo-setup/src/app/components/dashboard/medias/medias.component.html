@@ -1,5 +1,5 @@
 <div fxFlex fxLayout="column">
-    <div fxLayout="column" class="upload-placeholder" (drop)="hasDropped( $event )" (dragOut)="hasDraggedOut( $event )" appDroppable *ngIf="wantsToDrop" fxFlex="100%" style="overflow-y:auto" fxLayoutAlign="center center">
+    <div fxLayout="column" class="upload-placeholder" (dropOver)="hasDropped( $event )" (dragOut)="hasDraggedOut( $event )" appDroppable *ngIf="wantsToDrop" fxFlex="100%" style="overflow-y:auto" fxLayoutAlign="center center">
         <h3>Drop your file here to upload</h3>
     </div>
     <div fxLayout="column" fxFlex="100%" style="overflow-y:auto"  (dragOver)="hasDraggedOver( $event )" *ngIf="! wantsToDrop" appDroppable>
@@ -15,6 +15,7 @@
                 </div>
             </div>    
         </div>
+        {{ uploadQueue | json }}
         <div fxFlex *ngIf="medias.length === 0" class="p-3 bg-content" fxLayoutAlign="center center">
             <span>It seems quite empty right here. <a routerLink="/dashboard/medias/upload">Upload new content ?</a></span>
         </div>

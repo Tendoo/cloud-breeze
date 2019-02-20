@@ -4,3 +4,7 @@
 .module-details {
     background: #f9f9f9;
 }
+.active-tab {
+    background: #FFF;
+    margin-bottom: -1px;
+}

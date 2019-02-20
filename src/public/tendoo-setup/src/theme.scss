@@ -1,5 +1,5 @@
 @import '~@angular/material/theming';
-@import './scss/responsive.scss';
+@import './scss/bootstrap.scss';
 @include mat-core();
 
 $custom-primary: mat-palette( $mat-purple );

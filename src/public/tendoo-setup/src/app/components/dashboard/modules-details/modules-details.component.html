@@ -11,9 +11,9 @@
             <div fxFlex="250px" class="module-details"></div>
             <mat-divider [vertical]="true"></mat-divider>
             <div fxFlex fxLayout="column">
-                <div fxLayout="row">
+                <div fxLayout="row" style="background: #f9f9f9">
                     <ng-container *ngFor="let tab of tabs">
-                        <div class="p-2 text-center cursor-pointer" matRipple>{{ tab.label }}</div>
+                        <div class="p-3 text-center cursor-pointer" (click)="toggleTab( tab )" [ngClass]="{ 'active-tab' : tab.active }" matRipple>{{ tab.label }}</div>
                         <mat-divider [vertical]="true"></mat-divider>
                     </ng-container>
                 </div>

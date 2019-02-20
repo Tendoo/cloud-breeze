@@ -55,6 +55,7 @@ class MediaService
             $uploadedInfo   =   pathinfo( $file->getClientOriginalName() );
             $fileName       =   str_slug( $uploadedInfo[ 'filename' ], '-' );
             $fileName       =   ( $customName == null ? $fileName : $customName );
+            $fileName       =   $this->__preventDuplicate( $fileName );
             $fullFileName   =   $fileName . '.' . strtolower( $file->getClientOriginalExtension() );
 
             /**
@@ -104,6 +105,24 @@ class MediaService
         }
         
         return false;
+    }
+
+    /**
+     * prevent duplicated
+     * @param string
+     * @return string
+     */
+    public function __preventDuplicate( $filename )
+    {
+        $date   =   app()->make( DateService::class );
+        $media  =   Media::where( 'name', $filename )
+            ->first();
+
+        if ( $media instanceof Media ) {
+            return $filename . $date->micro;
+        }
+
+        return $filename;
     }
 
     /**
