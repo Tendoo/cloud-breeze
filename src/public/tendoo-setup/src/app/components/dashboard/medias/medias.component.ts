@@ -11,6 +11,7 @@ import { MediaObserver } from '@angular/flex-layout';
 import { Title } from '@angular/platform-browser';
 import { TendooService } from 'src/app/services/tendoo.service';
 import { Router } from '@angular/router';
+import { FileUploadComponent } from 'src/app/shared/file-upload/file-upload.component';
 
 @Component({
     selector: 'app-medias',
@@ -44,7 +45,7 @@ export class MediasComponent implements OnInit {
         this.wantsToDrop    =   false;
     }
 
-    hasDropped( event ) {
+    async hasDropped( event ) {
         this.wantsToDrop    =   false;
         
         /**
@@ -64,11 +65,41 @@ export class MediasComponent implements OnInit {
          */
         this.uploadQueue.push( ...files );
 
+        this.dialog.open( FileUploadComponent, {
+            id: 'upload-dialog',
+            data: { files: this.uploadQueue, index: 0 },
+            height: '120px',
+            width: '400px',
+            position: {
+                bottom: '10px',
+                right: '10px'
+            },
+            disableClose: true,
+            hasBackdrop: false,
+        });
+
         /**
          * proceed the queue and watch
          * uploaded item to remove from the queue
          */
-        this.tendoo.medias.uploadFiles( this.uploadQueue );
+        for( let index in this.uploadQueue ) {
+            const response          =   await this.tendoo.medias.uploadFile( this.uploadQueue[ index ] );
+            const dialog            =   this.dialog.getDialogById( 'upload-dialog' );
+            const dialogComponent   =   (<FileUploadComponent>dialog.componentInstance);
+            dialogComponent.setProcessing({ files: this.uploadQueue, index });
+
+            if ( this.hasCompletedUpload() ) {
+                setTimeout( () => {
+                    this.loadMedias();
+                    this.dialog.getDialogById( 'upload-dialog' ).close();
+                    this.uploadQueue    =   [];
+                }, 1000 );
+            } 
+        }
+    }
+
+    hasCompletedUpload() {
+        return this.uploadQueue.filter( file => file[ 'uploaded' ] ).length === this.uploadQueue.length;
     }
     
     ngOnInit() {
@@ -101,9 +132,9 @@ export class MediasComponent implements OnInit {
      * init by loading the medias
      * @return void
      */
-    loadMedias() {
+    loadMedias( url = null ) {
         forkJoin([
-            this.mediaService.getMedias()
+            this.mediaService.getMedias( url )
         ]).subscribe( ( results ) => {
             this.pagination     =   (<PaginatedResponse>results[0]);
             this.medias         =  (<Media[]>this.pagination.data).map( media => {

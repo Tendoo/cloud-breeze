@@ -3256,10 +3256,10 @@ Zone.__load_patch('ZoneAwarePromise', function (global, Zone, api) {
                 reject = rej;
             });
             function onResolve(value) {
-                promise && (promise =  false || resolve(value));
+                promise && (promise = null || resolve(value));
             }
             function onReject(error) {
-                promise && (promise =  false || reject(error));
+                promise && (promise = null || reject(error));
             }
             for (var _i = 0, values_1 = values; _i < values_1.length; _i++) {
                 var value = values_1[_i];
@@ -5497,8 +5497,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\xampp\htdocs\packages\tendoo\cms\src\public\tendoo-setup\src\polyfills.ts */"./src/polyfills.ts");
-module.exports = __webpack_require__(/*! D:\xampp\htdocs\packages\tendoo\cms\src\public\tendoo-setup\node_modules\@angular-devkit\build-angular\src\angular-cli-files\models\jit-polyfills.js */"./node_modules/@angular-devkit/build-angular/src/angular-cli-files/models/jit-polyfills.js");
+__webpack_require__(/*! D:\public_html\cms\src\public\tendoo-setup\src\polyfills.ts */"./src/polyfills.ts");
+module.exports = __webpack_require__(/*! D:\public_html\cms\src\public\tendoo-setup\node_modules\@angular-devkit\build-angular\src\angular-cli-files\models\jit-polyfills.js */"./node_modules/@angular-devkit/build-angular/src/angular-cli-files/models/jit-polyfills.js");
 
 
 /***/ })

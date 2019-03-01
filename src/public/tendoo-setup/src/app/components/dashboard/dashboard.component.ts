@@ -50,7 +50,11 @@ export class DashboardComponent implements OnInit {
         this.tendoo.menus.getMenus( 'dashboard.aside' ).subscribe( menus => {
             this.asideMenus  =   menus;
         }, error => {
-            this.snackbar.open( 'Unable to load the dashboard aside bar' );
+            this.snackbar.open( 'Unable to load the dashboard aside bar', 'TRY AGAIN' ).afterDismissed().subscribe( action => {
+                if ( action.dismissedByAction ) {
+                    this.ngOnInit();
+                }
+            })
         })
     }
 

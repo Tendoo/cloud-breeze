@@ -52,6 +52,8 @@ import { OauthComponent } from './components/auth/oauth/oauth.component';
 import { TruncatePipe } from './pipes/truncate.pipe';
 import { ProfileAppsComponent } from './components/dashboard/profile-apps/profile-apps.component';
 import { DroppableDirective } from './directives/droppable.directive';
+import { FileUploadComponent } from './shared/file-upload/file-upload.component';
+import { TruncateMiddlePipe } from './pipes/truncate-middle.pipe';
 
 @NgModule({
     declarations: [
@@ -93,6 +95,8 @@ import { DroppableDirective } from './directives/droppable.directive';
         TruncatePipe,
         ProfileAppsComponent,
         DroppableDirective,
+        FileUploadComponent,
+        TruncateMiddlePipe,
     ],
     imports: [
         BrowserModule,
@@ -108,7 +112,8 @@ import { DroppableDirective } from './directives/droppable.directive';
     ],
     entryComponents: [
         ConfirmDialogComponent,
-        MigrationDialogComponent
+        MigrationDialogComponent,
+        FileUploadComponent
     ],
     providers: [
         CookieService,

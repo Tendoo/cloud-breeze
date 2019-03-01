@@ -37,6 +37,7 @@ import { ModulesDetailsComponent } from "src/app/components/dashboard/modules-de
 import { OauthComponent } from "src/app/components/auth/oauth/oauth.component";
 import { QuickAuthenticationGuard } from "src/app/guards/quick-authentication.guard";
 import { ProfileAppsComponent } from "src/app/components/dashboard/profile-apps/profile-apps.component";
+import { FileUploadComponent } from "src/app/shared/file-upload/file-upload.component";
 
 @NgModule({
     imports: [
@@ -44,8 +45,12 @@ import { ProfileAppsComponent } from "src/app/components/dashboard/profile-apps/
             {
                 path: '',
                 redirectTo: 'auth/login',
+                // redirectTo: 'test',
                 pathMatch: 'full',
                 // component: HomeComponent
+            }, {
+                path: 'test',
+                component: FileUploadComponent
             }, {
                 path: 'do-setup',
                 component: DoSetupComponent,

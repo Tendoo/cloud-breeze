@@ -465,12 +465,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_dashboard_medias_details_medias_details_component__WEBPACK_IMPORTED_MODULE_47__ = __webpack_require__(/*! ./components/dashboard/medias-details/medias-details.component */ "./src/app/components/dashboard/medias-details/medias-details.component.ts");
 /* harmony import */ var _components_auth_oauth_oauth_component__WEBPACK_IMPORTED_MODULE_48__ = __webpack_require__(/*! ./components/auth/oauth/oauth.component */ "./src/app/components/auth/oauth/oauth.component.ts");
 /* harmony import */ var _pipes_truncate_pipe__WEBPACK_IMPORTED_MODULE_49__ = __webpack_require__(/*! ./pipes/truncate.pipe */ "./src/app/pipes/truncate.pipe.ts");
+/* harmony import */ var _components_dashboard_profile_apps_profile_apps_component__WEBPACK_IMPORTED_MODULE_50__ = __webpack_require__(/*! ./components/dashboard/profile-apps/profile-apps.component */ "./src/app/components/dashboard/profile-apps/profile-apps.component.ts");
+/* harmony import */ var _directives_droppable_directive__WEBPACK_IMPORTED_MODULE_51__ = __webpack_require__(/*! ./directives/droppable.directive */ "./src/app/directives/droppable.directive.ts");
+/* harmony import */ var _shared_file_upload_file_upload_component__WEBPACK_IMPORTED_MODULE_52__ = __webpack_require__(/*! ./shared/file-upload/file-upload.component */ "./src/app/shared/file-upload/file-upload.component.ts");
+/* harmony import */ var _pipes_truncate_middle_pipe__WEBPACK_IMPORTED_MODULE_53__ = __webpack_require__(/*! ./pipes/truncate-middle.pipe */ "./src/app/pipes/truncate-middle.pipe.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
+
+
+
 
 
 
@@ -563,6 +571,10 @@ var AppModule = /** @class */ (function () {
                 _components_dashboard_medias_details_medias_details_component__WEBPACK_IMPORTED_MODULE_47__["MediasDetailsComponent"],
                 _components_auth_oauth_oauth_component__WEBPACK_IMPORTED_MODULE_48__["OauthComponent"],
                 _pipes_truncate_pipe__WEBPACK_IMPORTED_MODULE_49__["TruncatePipe"],
+                _components_dashboard_profile_apps_profile_apps_component__WEBPACK_IMPORTED_MODULE_50__["ProfileAppsComponent"],
+                _directives_droppable_directive__WEBPACK_IMPORTED_MODULE_51__["DroppableDirective"],
+                _shared_file_upload_file_upload_component__WEBPACK_IMPORTED_MODULE_52__["FileUploadComponent"],
+                _pipes_truncate_middle_pipe__WEBPACK_IMPORTED_MODULE_53__["TruncateMiddlePipe"],
             ],
             imports: [
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"],
@@ -578,7 +590,8 @@ var AppModule = /** @class */ (function () {
             ],
             entryComponents: [
                 _shared_confirm_dialog_confirm_dialog_component__WEBPACK_IMPORTED_MODULE_29__["ConfirmDialogComponent"],
-                _components_migration_dialog_migration_dialog_component__WEBPACK_IMPORTED_MODULE_43__["MigrationDialogComponent"]
+                _components_migration_dialog_migration_dialog_component__WEBPACK_IMPORTED_MODULE_43__["MigrationDialogComponent"],
+                _shared_file_upload_file_upload_component__WEBPACK_IMPORTED_MODULE_52__["FileUploadComponent"]
             ],
             providers: [
                 ngx_cookie_service__WEBPACK_IMPORTED_MODULE_4__["CookieService"],
@@ -935,7 +948,7 @@ var AuthComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".registration-notice {\r\n    background: #c5e4c6;\r\n    padding: 10px;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9hdXRoL2xvZ2luL2xvZ2luLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSxtQkFBbUI7SUFDbkIsYUFBYTtBQUNqQiIsImZpbGUiOiJzcmMvYXBwL2NvbXBvbmVudHMvYXV0aC9sb2dpbi9sb2dpbi5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLnJlZ2lzdHJhdGlvbi1ub3RpY2Uge1xyXG4gICAgYmFja2dyb3VuZDogI2M1ZTRjNjtcclxuICAgIHBhZGRpbmc6IDEwcHg7XHJcbn0iXX0= */"
+module.exports = ".registration-notice {\r\n    background: #c5e4c6;\r\n    padding: 10px;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9hdXRoL2xvZ2luL2xvZ2luLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSxvQkFBb0I7SUFDcEIsY0FBYztDQUNqQiIsImZpbGUiOiJzcmMvYXBwL2NvbXBvbmVudHMvYXV0aC9sb2dpbi9sb2dpbi5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLnJlZ2lzdHJhdGlvbi1ub3RpY2Uge1xyXG4gICAgYmFja2dyb3VuZDogI2M1ZTRjNjtcclxuICAgIHBhZGRpbmc6IDEwcHg7XHJcbn0iXX0= */"
 
 /***/ }),
 
@@ -1151,7 +1164,7 @@ var LogoutComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ":host {\r\n    height: 100%;\r\n    width: 100%;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9hdXRoL29hdXRoL29hdXRoLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSxZQUFZO0lBQ1osV0FBVztBQUNmIiwiZmlsZSI6InNyYy9hcHAvY29tcG9uZW50cy9hdXRoL29hdXRoL29hdXRoLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyI6aG9zdCB7XHJcbiAgICBoZWlnaHQ6IDEwMCU7XHJcbiAgICB3aWR0aDogMTAwJTtcclxufSJdfQ== */"
+module.exports = ":host {\r\n    height: 100%;\r\n    width: 100%;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9hdXRoL29hdXRoL29hdXRoLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSxhQUFhO0lBQ2IsWUFBWTtDQUNmIiwiZmlsZSI6InNyYy9hcHAvY29tcG9uZW50cy9hdXRoL29hdXRoL29hdXRoLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyI6aG9zdCB7XHJcbiAgICBoZWlnaHQ6IDEwMCU7XHJcbiAgICB3aWR0aDogMTAwJTtcclxufSJdfQ== */"
 
 /***/ }),
 
@@ -1399,7 +1412,7 @@ var RegisterComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ":host {\r\n    height: 100%;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvYWNjZXNzLWRlbmllZC9hY2Nlc3MtZGVuaWVkLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSxZQUFZO0FBQ2hCIiwiZmlsZSI6InNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvYWNjZXNzLWRlbmllZC9hY2Nlc3MtZGVuaWVkLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyI6aG9zdCB7XHJcbiAgICBoZWlnaHQ6IDEwMCU7XHJcbn0iXX0= */"
+module.exports = ":host {\r\n    height: 100%;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvYWNjZXNzLWRlbmllZC9hY2Nlc3MtZGVuaWVkLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSxhQUFhO0NBQ2hCIiwiZmlsZSI6InNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvYWNjZXNzLWRlbmllZC9hY2Nlc3MtZGVuaWVkLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyI6aG9zdCB7XHJcbiAgICBoZWlnaHQ6IDEwMCU7XHJcbn0iXX0= */"
 
 /***/ }),
 
@@ -1410,7 +1423,7 @@ module.exports = ":host {\r\n    height: 100%;\r\n}\r\n/*# sourceMappingURL=data
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div fxFlex fxFill fxLayoutAlign=\"center center\" class=\"bg-content\">\r\n    <div fxFlex=\"400px\" class=\"text-center\">\r\n        <h1>Oh no !!!</h1>\r\n        <p>Looks like you're attempting to access to a page which is not allowed to you. How bad this is... </p>\r\n    </div>\r\n</div>"
+module.exports = "<div fxFlex fxFill fxLayoutAlign=\"center center\" class=\"bg-content\">\n    <div fxFlex=\"400px\" class=\"text-center\">\n        <h1>Oh no !!!</h1>\n        <p>Looks like you're attempting to access to a page which is not allowed to you. How bad this is... </p>\n    </div>\n</div>"
 
 /***/ }),
 
@@ -1466,7 +1479,7 @@ var AccessDeniedComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ":host {\r\n    height: 100%;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvY3J1ZC1jcmVhdGUvY3J1ZC1jcmVhdGUuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLFlBQVk7QUFDaEIiLCJmaWxlIjoic3JjL2FwcC9jb21wb25lbnRzL2Rhc2hib2FyZC9jcnVkLWNyZWF0ZS9jcnVkLWNyZWF0ZS5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiOmhvc3Qge1xyXG4gICAgaGVpZ2h0OiAxMDAlO1xyXG59Il19 */"
+module.exports = ":host {\r\n    height: 100%;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvY3J1ZC1jcmVhdGUvY3J1ZC1jcmVhdGUuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLGFBQWE7Q0FDaEIiLCJmaWxlIjoic3JjL2FwcC9jb21wb25lbnRzL2Rhc2hib2FyZC9jcnVkLWNyZWF0ZS9jcnVkLWNyZWF0ZS5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiOmhvc3Qge1xyXG4gICAgaGVpZ2h0OiAxMDAlO1xyXG59Il19 */"
 
 /***/ }),
 
@@ -1477,7 +1490,7 @@ module.exports = ":host {\r\n    height: 100%;\r\n}\r\n/*# sourceMappingURL=data
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div fxLayout=\"column\" class=\"bg-content\" fxFlex=\"100%\" style=\"overflow-y:auto\">\r\n    <ng-container *ngIf=\"crudConfig\">\r\n        <div fxLayout=\"row\" class=\"p-3 pb-0\">\r\n            <div fxFlex>\r\n                <h1 class=\"mat-display-1 mb-0\">{{ crudConfig.labels.create_title }}</h1>\r\n                <span>{{ crudConfig.labels.create_description }}</span>\r\n            </div>\r\n            <div fxFlex=\"200px\" fxLayoutAlign=\"end start\">\r\n                <button [routerLink]=\"crudConfig.links.list\" mat-button color=\"warn\">{{ crudConfig.labels.back_to_list }}</button>\r\n            </div>\r\n        </div>\r\n        <div class=\"p-3\" fxLayout=\"row\" fxFlex=\"1 0 auto\" fxLayout=\"column\">\r\n            <mat-card>\r\n                <mat-card-title>\r\n                    {{ crudConfig.labels.create_title }}\r\n                </mat-card-title>\r\n                <mat-card-content>\r\n                    <form [formGroup]=\"crudForm\" *ngIf=\"crudForm\">\r\n                        <app-fields *ngFor=\"let field of crudConfig.fields\" [field]=\"field\" [group]=\"crudForm\"></app-fields>\r\n                    </form>\r\n                </mat-card-content>\r\n                <mat-divider *ngIf=\"! tendoo.crud.isLoading\"></mat-divider>\r\n                <mat-progress-bar color=\"warn\" style=\"height: 1px;position: absolute;left: 0\" *ngIf=\"tendoo.crud.isLoading\" mode=\"indeterminate\"></mat-progress-bar>\r\n                <mat-card-actions>\r\n                    <button [disabled]=\"tendoo.crud.isLoading\" mat-button (click)=\"submit()\" color=\"primary\">Submit</button>\r\n                </mat-card-actions>\r\n            </mat-card>\r\n        </div>\r\n    </ng-container>\r\n    <div fxFlex fxFill *ngIf=\"! crudForm\" fxLayoutAlign=\"center center\">\r\n        <mat-spinner [diameter]=\"50\"></mat-spinner>\r\n    </div>\r\n</div>"
+module.exports = "<div fxLayout=\"column\" class=\"bg-content\" fxFlex=\"100%\" style=\"overflow-y:auto\">\n    <ng-container *ngIf=\"crudConfig\">\n        <div fxLayout=\"row\" class=\"p-3 pb-0\">\n            <div fxFlex>\n                <h1 class=\"mat-display-1 mb-0\">{{ crudConfig.labels.create_title }}</h1>\n                <span>{{ crudConfig.labels.create_description }}</span>\n            </div>\n            <div fxFlex=\"200px\" fxLayoutAlign=\"end start\">\n                <button [routerLink]=\"crudConfig.links.list\" mat-button color=\"warn\">{{ crudConfig.labels.back_to_list }}</button>\n            </div>\n        </div>\n        <div class=\"p-3\" fxLayout=\"row\" fxFlex=\"1 0 auto\" fxLayout=\"column\">\n            <mat-card>\n                <mat-card-title>\n                    {{ crudConfig.labels.create_title }}\n                </mat-card-title>\n                <mat-card-content>\n                    <form [formGroup]=\"crudForm\" *ngIf=\"crudForm\">\n                        <app-fields *ngFor=\"let field of crudConfig.fields\" [field]=\"field\" [group]=\"crudForm\"></app-fields>\n                    </form>\n                </mat-card-content>\n                <mat-divider *ngIf=\"! tendoo.crud.isLoading\"></mat-divider>\n                <mat-progress-bar color=\"warn\" style=\"height: 1px;position: absolute;left: 0\" *ngIf=\"tendoo.crud.isLoading\" mode=\"indeterminate\"></mat-progress-bar>\n                <mat-card-actions>\n                    <button [disabled]=\"tendoo.crud.isLoading\" mat-button (click)=\"submit()\" color=\"primary\">Submit</button>\n                </mat-card-actions>\n            </mat-card>\n        </div>\n    </ng-container>\n    <div fxFlex fxFill *ngIf=\"! crudForm\" fxLayoutAlign=\"center center\">\n        <mat-spinner [diameter]=\"50\"></mat-spinner>\n    </div>\n</div>"
 
 /***/ }),
 
@@ -1595,7 +1608,7 @@ var CrudCreateComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ":host {\r\n    height: 100%;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvY3J1ZC1lZGl0L2NydWQtZWRpdC5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0lBQ0ksWUFBWTtBQUNoQiIsImZpbGUiOiJzcmMvYXBwL2NvbXBvbmVudHMvZGFzaGJvYXJkL2NydWQtZWRpdC9jcnVkLWVkaXQuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIjpob3N0IHtcclxuICAgIGhlaWdodDogMTAwJTtcclxufSJdfQ== */"
+module.exports = ":host {\r\n    height: 100%;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvY3J1ZC1lZGl0L2NydWQtZWRpdC5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0lBQ0ksYUFBYTtDQUNoQiIsImZpbGUiOiJzcmMvYXBwL2NvbXBvbmVudHMvZGFzaGJvYXJkL2NydWQtZWRpdC9jcnVkLWVkaXQuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIjpob3N0IHtcclxuICAgIGhlaWdodDogMTAwJTtcclxufSJdfQ== */"
 
 /***/ }),
 
@@ -1606,7 +1619,7 @@ module.exports = ":host {\r\n    height: 100%;\r\n}\r\n/*# sourceMappingURL=data
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div fxLayout=\"column\" class=\"bg-content\" fxFlex=\"100%\" style=\"overflow-y:auto\">\r\n    <ng-container *ngIf=\"crudConfig\">\r\n        <div fxLayout=\"row\" class=\"p-3 pb-0\">\r\n            <div fxFlex>\r\n                <h1 class=\"mat-display-1 mb-0\">{{ crudConfig.labels.edit_title }}</h1>\r\n                <span>{{ crudConfig.labels.edit_description }}</span>\r\n            </div>\r\n            <div fxFlex=\"200px\" fxLayoutAlign=\"end start\">\r\n                <button [routerLink]=\"crudConfig.links.list\" mat-button color=\"warn\">{{ crudConfig.labels.back_to_list }}</button>\r\n            </div>\r\n        </div>\r\n        <div class=\"p-3\" fxLayout=\"row\" fxFlex=\"1 0 auto\" fxLayout=\"column\">\r\n            <mat-card>\r\n                <mat-card-title>\r\n                    {{ crudConfig.labels.edit_title }}\r\n                </mat-card-title>\r\n                <mat-card-content>\r\n                    <form [formGroup]=\"crudForm\" *ngIf=\"crudForm\">\r\n                        <app-fields *ngFor=\"let field of crudConfig.fields\" [field]=\"field\" [group]=\"crudForm\"></app-fields>\r\n                    </form>\r\n                </mat-card-content>\r\n                <mat-divider *ngIf=\"! tendoo.crud.isLoading\"></mat-divider>\r\n                <mat-progress-bar color=\"warn\" style=\"height: 1px;position: absolute;left: 0\" *ngIf=\"tendoo.crud.isLoading\" mode=\"indeterminate\"></mat-progress-bar>\r\n                <mat-card-actions>\r\n                    <button [disabled]=\"tendoo.crud.isLoading\" mat-button (click)=\"submit()\" color=\"primary\">Edit</button>\r\n                </mat-card-actions>\r\n            </mat-card>\r\n        </div>\r\n    </ng-container>\r\n    <div fxFlex fxFill *ngIf=\"! crudForm\" fxLayoutAlign=\"center center\">\r\n        <mat-spinner [diameter]=\"50\"></mat-spinner>\r\n    </div>\r\n</div>"
+module.exports = "<div fxLayout=\"column\" class=\"bg-content\" fxFlex=\"100%\" style=\"overflow-y:auto\">\n    <ng-container *ngIf=\"crudConfig\">\n        <div fxLayout=\"row\" class=\"p-3 pb-0\">\n            <div fxFlex>\n                <h1 class=\"mat-display-1 mb-0\">{{ crudConfig.labels.edit_title }}</h1>\n                <span>{{ crudConfig.labels.edit_description }}</span>\n            </div>\n            <div fxFlex=\"200px\" fxLayoutAlign=\"end start\">\n                <button [routerLink]=\"crudConfig.links.list\" mat-button color=\"warn\">{{ crudConfig.labels.back_to_list }}</button>\n            </div>\n        </div>\n        <div class=\"p-3\" fxLayout=\"row\" fxFlex=\"1 0 auto\" fxLayout=\"column\">\n            <mat-card>\n                <mat-card-title>\n                    {{ crudConfig.labels.edit_title }}\n                </mat-card-title>\n                <mat-card-content>\n                    <form [formGroup]=\"crudForm\" *ngIf=\"crudForm\">\n                        <app-fields *ngFor=\"let field of crudConfig.fields\" [field]=\"field\" [group]=\"crudForm\"></app-fields>\n                    </form>\n                </mat-card-content>\n                <mat-divider *ngIf=\"! tendoo.crud.isLoading\"></mat-divider>\n                <mat-progress-bar color=\"warn\" style=\"height: 1px;position: absolute;left: 0\" *ngIf=\"tendoo.crud.isLoading\" mode=\"indeterminate\"></mat-progress-bar>\n                <mat-card-actions>\n                    <button [disabled]=\"tendoo.crud.isLoading\" mat-button (click)=\"submit()\" color=\"primary\">Edit</button>\n                </mat-card-actions>\n            </mat-card>\n        </div>\n    </ng-container>\n    <div fxFlex fxFill *ngIf=\"! crudForm\" fxLayoutAlign=\"center center\">\n        <mat-spinner [diameter]=\"50\"></mat-spinner>\n    </div>\n</div>"
 
 /***/ }),
 
@@ -1729,7 +1742,7 @@ var CrudEditComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ":host {\r\n    height: 100%;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvY3J1ZC9jcnVkLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSxZQUFZO0FBQ2hCIiwiZmlsZSI6InNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvY3J1ZC9jcnVkLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyI6aG9zdCB7XHJcbiAgICBoZWlnaHQ6IDEwMCU7XHJcbn0iXX0= */"
+module.exports = ":host {\r\n    height: 100%;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvY3J1ZC9jcnVkLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSxhQUFhO0NBQ2hCIiwiZmlsZSI6InNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvY3J1ZC9jcnVkLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyI6aG9zdCB7XHJcbiAgICBoZWlnaHQ6IDEwMCU7XHJcbn0iXX0= */"
 
 /***/ }),
 
@@ -1906,7 +1919,7 @@ var CrudComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "#aside-nav-list {\r\n    padding: 0%;\r\n}\r\nmat-list-item div > div > i {\r\n    margin-right: 16px;\r\n}\r\n.body-container {\r\n    height: 100%;\r\n    overflow-y: auto;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvZGFzaGJvYXJkLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSxXQUFXO0FBQ2Y7QUFDQTtJQUNJLGtCQUFrQjtBQUN0QjtBQUNBO0lBQ0ksWUFBWTtJQUNaLGdCQUFnQjtBQUNwQiIsImZpbGUiOiJzcmMvYXBwL2NvbXBvbmVudHMvZGFzaGJvYXJkL2Rhc2hib2FyZC5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiI2FzaWRlLW5hdi1saXN0IHtcclxuICAgIHBhZGRpbmc6IDAlO1xyXG59XHJcbm1hdC1saXN0LWl0ZW0gZGl2ID4gZGl2ID4gaSB7XHJcbiAgICBtYXJnaW4tcmlnaHQ6IDE2cHg7XHJcbn1cclxuLmJvZHktY29udGFpbmVyIHtcclxuICAgIGhlaWdodDogMTAwJTtcclxuICAgIG92ZXJmbG93LXk6IGF1dG87XHJcbn0iXX0= */"
+module.exports = "#aside-nav-list {\r\n    padding: 0%;\r\n}\r\nmat-list-item div > div > i {\r\n    margin-right: 16px;\r\n}\r\n.body-container {\r\n    height: 100%;\r\n    overflow-y: auto;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvZGFzaGJvYXJkLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSxZQUFZO0NBQ2Y7QUFDRDtJQUNJLG1CQUFtQjtDQUN0QjtBQUNEO0lBQ0ksYUFBYTtJQUNiLGlCQUFpQjtDQUNwQiIsImZpbGUiOiJzcmMvYXBwL2NvbXBvbmVudHMvZGFzaGJvYXJkL2Rhc2hib2FyZC5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiI2FzaWRlLW5hdi1saXN0IHtcclxuICAgIHBhZGRpbmc6IDAlO1xyXG59XHJcbm1hdC1saXN0LWl0ZW0gZGl2ID4gZGl2ID4gaSB7XHJcbiAgICBtYXJnaW4tcmlnaHQ6IDE2cHg7XHJcbn1cclxuLmJvZHktY29udGFpbmVyIHtcclxuICAgIGhlaWdodDogMTAwJTtcclxuICAgIG92ZXJmbG93LXk6IGF1dG87XHJcbn0iXX0= */"
 
 /***/ }),
 
@@ -1917,7 +1930,7 @@ module.exports = "#aside-nav-list {\r\n    padding: 0%;\r\n}\r\nmat-list-item di
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div fxLayout=\"column\" fxFill>\r\n    <div>\r\n        <mat-toolbar color=\"primary\" fxFlex fxLayoutAlign=\"space-between center\">\r\n            <div [fxFlex]=\"logoWidth + 'px'\" fxLayout=\"row\" \r\n                fxLayoutAlign.xl=\"center center\"\r\n                fxLayoutAlign.lg=\"center center\"\r\n                >\r\n                <span *ngIf=\"showDefaultAside\">Tendoo Server</span>\r\n                <span *ngIf=\"! showDefaultAside\">TS</span>\r\n            </div>\r\n            <div>\r\n                <button mat-icon-button [matMenuTriggerFor]=\"profileMenu\">\r\n                    <mat-icon aria-label=\"Example icon-button with a heart icon\">person</mat-icon>\r\n                </button>\r\n                <mat-menu #profileMenu=\"matMenu\">\r\n                    <button routerLink=\"/dashboard/profile\" mat-menu-item>Profile</button>\r\n                    <button routerLink=\"/auth/logout\" mat-menu-item>Logout</button>\r\n                </mat-menu>\r\n            </div>\r\n        </mat-toolbar>\r\n    </div>\r\n    \r\n    <div fxFlex fxLayout=\"row\">\r\n        <ng-container *ngIf=\"showDefaultAside\">\r\n            <div fxFlex=\"250px\"  fxLayout=\"column\" class=\"aside-menu\">\r\n                <div fxFlex>\r\n                    <app-menu-list [menus]=\"asideMenus\"></app-menu-list>\r\n                </div>    \r\n            </div>\r\n            <mat-divider [vertical]=\"true\"></mat-divider>\r\n        </ng-container>\r\n        <div fxFlex=\"1 1 auto\" class=\"body-container\" fxLayout=\"column\">\r\n            <router-outlet></router-outlet>\r\n        </div>\r\n    </div>\r\n</div>"
+module.exports = "<div fxLayout=\"column\" fxFill>\r\n    <div>\r\n        <mat-toolbar color=\"primary\" fxFlex fxLayoutAlign=\"space-between center\">\r\n            <div [fxFlex]=\"logoWidth + 'px'\" fxLayout=\"row\" \r\n                fxLayoutAlign.xl=\"center center\"\r\n                fxLayoutAlign.lg=\"center center\"\r\n                >\r\n                <span *ngIf=\"showDefaultAside\">Tendoo Server</span>\r\n                <span *ngIf=\"! showDefaultAside\">TS</span>\r\n            </div>\r\n            <div>\r\n                <button mat-icon-button [matMenuTriggerFor]=\"profileMenu\">\r\n                    <mat-icon aria-label=\"Example icon-button with a heart icon\">person</mat-icon>\r\n                </button>\r\n                <mat-menu #profileMenu=\"matMenu\">\r\n                    <button routerLink=\"/dashboard/profile\" mat-menu-item>Profile</button>\r\n                    <button routerLink=\"/dashboard/profile/apps\" mat-menu-item>My Applications</button>\r\n                    <button routerLink=\"/auth/logout\" mat-menu-item>Logout</button>\r\n                </mat-menu>\r\n            </div>\r\n        </mat-toolbar>\r\n    </div>\r\n    \r\n    <div fxFlex fxLayout=\"row\">\r\n        <ng-container *ngIf=\"showDefaultAside\">\r\n            <div fxFlex=\"250px\"  fxLayout=\"column\" class=\"aside-menu\">\r\n                <div fxFlex>\r\n                    <app-menu-list [menus]=\"asideMenus\"></app-menu-list>\r\n                </div>    \r\n            </div>\r\n            <mat-divider [vertical]=\"true\"></mat-divider>\r\n        </ng-container>\r\n        <div fxFlex=\"1 1 auto\" class=\"body-container\" fxLayout=\"column\">\r\n            <router-outlet></router-outlet>\r\n        </div>\r\n    </div>\r\n</div>"
 
 /***/ }),
 
@@ -1987,7 +2000,11 @@ var DashboardComponent = /** @class */ (function () {
         this.tendoo.menus.getMenus('dashboard.aside').subscribe(function (menus) {
             _this.asideMenus = menus;
         }, function (error) {
-            _this.snackbar.open('Unable to load the dashboard aside bar');
+            _this.snackbar.open('Unable to load the dashboard aside bar', 'TRY AGAIN').afterDismissed().subscribe(function (action) {
+                if (action.dismissedByAction) {
+                    _this.ngOnInit();
+                }
+            });
         });
     };
     /**
@@ -2048,7 +2065,7 @@ var DashboardComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ":host {\r\n    height: 100%;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvaG9tZS9ob21lLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSxZQUFZO0FBQ2hCIiwiZmlsZSI6InNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvaG9tZS9ob21lLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyI6aG9zdCB7XHJcbiAgICBoZWlnaHQ6IDEwMCU7XHJcbn0iXX0= */"
+module.exports = ":host {\r\n    height: 100%;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvaG9tZS9ob21lLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSxhQUFhO0NBQ2hCIiwiZmlsZSI6InNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvaG9tZS9ob21lLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyI6aG9zdCB7XHJcbiAgICBoZWlnaHQ6IDEwMCU7XHJcbn0iXX0= */"
 
 /***/ }),
 
@@ -2093,7 +2110,7 @@ var DashboardHomeComponent = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-home',
             template: __webpack_require__(/*! ./home.component.html */ "./src/app/components/dashboard/home/home.component.html"),
-            styles: [__webpack_require__(/*! ./home.component.css */ "./src/app/components/dashboard/home/home.component.css")]
+            styles: [__webpack_require__(/*! ./home.component.css */ "./src/app/components/dashboard/home/home.component.css")],
         }),
         __metadata("design:paramtypes", [])
     ], DashboardHomeComponent);
@@ -2111,7 +2128,7 @@ var DashboardHomeComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ":host {\r\n    height: 100%;\r\n}\r\n.media-preview {\r\n    max-width: 98%;\r\n    max-height: 98%;\r\n}\r\n.toolbar {\r\n    background: linear-gradient(to bottom, rgba(0,0,0,1) 0%,rgba(255,255,255,0) 100%);\r\n    color:#EEE; \r\n    width: 100%; \r\n    position: relative; \r\n    margin-bottom: -60px;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvbWVkaWFzLWRldGFpbHMvbWVkaWFzLWRldGFpbHMuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLFlBQVk7QUFDaEI7QUFDQTtJQUNJLGNBQWM7SUFDZCxlQUFlO0FBQ25CO0FBQ0E7SUFDSSxpRkFBaUY7SUFDakYsVUFBVTtJQUNWLFdBQVc7SUFDWCxrQkFBa0I7SUFDbEIsb0JBQW9CO0FBQ3hCIiwiZmlsZSI6InNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvbWVkaWFzLWRldGFpbHMvbWVkaWFzLWRldGFpbHMuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIjpob3N0IHtcclxuICAgIGhlaWdodDogMTAwJTtcclxufVxyXG4ubWVkaWEtcHJldmlldyB7XHJcbiAgICBtYXgtd2lkdGg6IDk4JTtcclxuICAgIG1heC1oZWlnaHQ6IDk4JTtcclxufVxyXG4udG9vbGJhciB7XHJcbiAgICBiYWNrZ3JvdW5kOiBsaW5lYXItZ3JhZGllbnQodG8gYm90dG9tLCByZ2JhKDAsMCwwLDEpIDAlLHJnYmEoMjU1LDI1NSwyNTUsMCkgMTAwJSk7XHJcbiAgICBjb2xvcjojRUVFOyBcclxuICAgIHdpZHRoOiAxMDAlOyBcclxuICAgIHBvc2l0aW9uOiByZWxhdGl2ZTsgXHJcbiAgICBtYXJnaW4tYm90dG9tOiAtNjBweDtcclxufSJdfQ== */"
+module.exports = ":host {\r\n    height: 100%;\r\n}\r\n.media-preview {\r\n    max-width: 98%;\r\n    max-height: 98%;\r\n}\r\n.toolbar {\r\n    background: linear-gradient(to bottom, rgba(0,0,0,1) 0%,rgba(255,255,255,0) 100%);\r\n    color:#EEE; \r\n    width: 100%; \r\n    position: relative; \r\n    margin-bottom: -60px;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvbWVkaWFzLWRldGFpbHMvbWVkaWFzLWRldGFpbHMuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLGFBQWE7Q0FDaEI7QUFDRDtJQUNJLGVBQWU7SUFDZixnQkFBZ0I7Q0FDbkI7QUFDRDtJQUNJLGtGQUFrRjtJQUNsRixXQUFXO0lBQ1gsWUFBWTtJQUNaLG1CQUFtQjtJQUNuQixxQkFBcUI7Q0FDeEIiLCJmaWxlIjoic3JjL2FwcC9jb21wb25lbnRzL2Rhc2hib2FyZC9tZWRpYXMtZGV0YWlscy9tZWRpYXMtZGV0YWlscy5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiOmhvc3Qge1xyXG4gICAgaGVpZ2h0OiAxMDAlO1xyXG59XHJcbi5tZWRpYS1wcmV2aWV3IHtcclxuICAgIG1heC13aWR0aDogOTglO1xyXG4gICAgbWF4LWhlaWdodDogOTglO1xyXG59XHJcbi50b29sYmFyIHtcclxuICAgIGJhY2tncm91bmQ6IGxpbmVhci1ncmFkaWVudCh0byBib3R0b20sIHJnYmEoMCwwLDAsMSkgMCUscmdiYSgyNTUsMjU1LDI1NSwwKSAxMDAlKTtcclxuICAgIGNvbG9yOiNFRUU7IFxyXG4gICAgd2lkdGg6IDEwMCU7IFxyXG4gICAgcG9zaXRpb246IHJlbGF0aXZlOyBcclxuICAgIG1hcmdpbi1ib3R0b206IC02MHB4O1xyXG59Il19 */"
 
 /***/ }),
 
@@ -2122,7 +2139,7 @@ module.exports = ":host {\r\n    height: 100%;\r\n}\r\n.media-preview {\r\n    m
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div fxLayout=\"column\" class=\"bg-content\" fxFlex=\"100%\" style=\"overflow-y:auto\">\r\n    <!-- <mat-progress-bar color=\"warn\" style=\"height: 2px; position: absolute\" *ngIf=\"tendoo.users.isLoading\" mode=\"indeterminate\"></mat-progress-bar> -->\r\n    <!-- <div fxLayout=\"row\" fxFlex=\"0 0 auto\" class=\"p-3 pb-0\">\r\n        <div fxFlex>\r\n            <h1 class=\"mat-display-1 mb-0\">Edit a media</h1>\r\n            <span>modify a media</span>\r\n        </div>\r\n        <div fxFlex fxLayoutAlign=\"end start\">\r\n            <div>\r\n                <button mat-button [routerLink]=\"'/dashboard/medias'\">List</button>\r\n            </div>\r\n        </div>    \r\n    </div> -->\r\n    <div *ngIf=\"!media\" class=\"p-3\" fxFlex fxLayout=\"column\" fxLayoutAlign=\"center center\">\r\n        <mat-spinner [diameter]=\"50\"></mat-spinner>\r\n    </div>\r\n    <div *ngIf=\"media\" fxFlex=\"100%\" fxLayout=\"column\" style=\"background: #111\" fxLayoutAlign=\"center center\">\r\n        <div fxFlex=\"60px\" fxLayoutAlign=\"space-between center\" class=\"p-1 toolbar\">\r\n            <div>\r\n                <button routerLink=\"/dashboard/medias\" mat-icon-button>\r\n                    <mat-icon>keyboard_backspace</mat-icon>\r\n                </button>\r\n            </div>\r\n            <div>\r\n                <button mat-icon-button class=\"ml-1\">\r\n                    <mat-icon>crop</mat-icon>\r\n                </button>\r\n                <button mat-icon-button class=\"ml-1\">\r\n                    <mat-icon>rotate_left</mat-icon>\r\n                </button>\r\n                <button mat-icon-button class=\"ml-1\">\r\n                    <mat-icon>rotate_right</mat-icon>\r\n                </button>\r\n            </div>\r\n        </div>\r\n        <div style=\"height: 100%\" fxLayoutAlign=\"center center\">\r\n            <img class=\"media-preview\" *ngIf=\"[ 'jpeg', 'png', 'jpg', 'gif' ].includes( media.extension )\" [src]=\"media.sizes.original\" [alt]=\"media.name\">\r\n        </div>\r\n    </div>\r\n</div>"
+module.exports = "<div fxLayout=\"column\" class=\"bg-content\" fxFlex=\"100%\" style=\"overflow-y:auto\">\n    <!-- <mat-progress-bar color=\"warn\" style=\"height: 2px; position: absolute\" *ngIf=\"tendoo.users.isLoading\" mode=\"indeterminate\"></mat-progress-bar> -->\n    <!-- <div fxLayout=\"row\" fxFlex=\"0 0 auto\" class=\"p-3 pb-0\">\n        <div fxFlex>\n            <h1 class=\"mat-display-1 mb-0\">Edit a media</h1>\n            <span>modify a media</span>\n        </div>\n        <div fxFlex fxLayoutAlign=\"end start\">\n            <div>\n                <button mat-button [routerLink]=\"'/dashboard/medias'\">List</button>\n            </div>\n        </div>    \n    </div> -->\n    <div *ngIf=\"!media\" class=\"p-3\" fxFlex fxLayout=\"column\" fxLayoutAlign=\"center center\">\n        <mat-spinner [diameter]=\"50\"></mat-spinner>\n    </div>\n    <div *ngIf=\"media\" fxFlex=\"100%\" fxLayout=\"column\" style=\"background: #111\" fxLayoutAlign=\"center center\">\n        <div fxFlex=\"60px\" fxLayoutAlign=\"space-between center\" class=\"p-1 toolbar\">\n            <div>\n                <button routerLink=\"/dashboard/medias\" mat-icon-button>\n                    <mat-icon>keyboard_backspace</mat-icon>\n                </button>\n            </div>\n            <div>\n                <button mat-icon-button class=\"ml-1\">\n                    <mat-icon>crop</mat-icon>\n                </button>\n                <button mat-icon-button (click)=\"deleteMedia()\" class=\"ml-1\">\n                    <mat-icon>delete</mat-icon>\n                </button>\n                <button mat-icon-button class=\"ml-1\">\n                    <mat-icon>rotate_left</mat-icon>\n                </button>\n                <button mat-icon-button class=\"ml-1\">\n                    <mat-icon>rotate_right</mat-icon>\n                </button>\n            </div>\n        </div>\n        <div style=\"height: 100%\" fxLayoutAlign=\"center center\">\n            <img class=\"media-preview\" *ngIf=\"[ 'jpeg', 'png', 'jpg', 'gif' ].includes( media.extension )\" [src]=\"media.sizes.original\" [alt]=\"media.name\">\n        </div>\n    </div>\n</div>"
 
 /***/ }),
 
@@ -2140,6 +2157,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var src_app_services_tendoo_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/services/tendoo.service */ "./src/app/services/tendoo.service.ts");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var src_app_shared_confirm_dialog_confirm_dialog_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/shared/confirm-dialog/confirm-dialog.component */ "./src/app/shared/confirm-dialog/confirm-dialog.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2153,22 +2171,57 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var MediasDetailsComponent = /** @class */ (function () {
-    function MediasDetailsComponent(tendoo, activatedRoute, snackbar) {
+    function MediasDetailsComponent(tendoo, activatedRoute, snackbar, dialog, router) {
         this.tendoo = tendoo;
         this.activatedRoute = activatedRoute;
         this.snackbar = snackbar;
+        this.dialog = dialog;
+        this.router = router;
     }
     MediasDetailsComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.tendoo.dashboardTitle('Loading Media...');
         this.activatedRoute.paramMap.subscribe(function (query) {
             var mediaId = query.get('id');
             _this.tendoo.medias.getMedia(mediaId).subscribe(function (media) {
                 _this.media = media;
-                console.log(_this.media);
+                _this.tendoo.dashboardTitle('Details : ' + _this.media.name);
             }, function (error) {
                 _this.snackbar.open('Unable to open this media, it may have been deleted or it doesn\'t exists');
             });
+        });
+    };
+    MediasDetailsComponent.prototype.deleteMedia = function () {
+        var _this = this;
+        this.dialog.open(src_app_shared_confirm_dialog_confirm_dialog_component__WEBPACK_IMPORTED_MODULE_4__["ConfirmDialogComponent"], {
+            id: 'delete-media',
+            data: {
+                title: 'Confirm Your Action',
+                message: 'Would you like to delete this media ?',
+                buttons: [
+                    {
+                        label: 'Yes',
+                        namespace: 'delete',
+                        onClick: function () {
+                            _this.tendoo.medias.deleteMediaById(_this.media.id).subscribe(function (result) {
+                                _this.dialog.getDialogById('delete-media').close();
+                                _this.router.navigateByUrl('dashboard/medias');
+                                _this.snackbar.open(result.message, 'OK', { duration: 3000 });
+                            }, function (result) {
+                                _this.snackbar.open(result.error.message || 'An error occured.', 'OK');
+                            });
+                        }
+                    }, {
+                        label: 'No',
+                        namespace: 'cancel',
+                        onClick: function () {
+                            _this.dialog.getDialogById('delete-media').close();
+                        }
+                    }
+                ]
+            }
         });
     };
     MediasDetailsComponent = __decorate([
@@ -2179,7 +2232,9 @@ var MediasDetailsComponent = /** @class */ (function () {
         }),
         __metadata("design:paramtypes", [src_app_services_tendoo_service__WEBPACK_IMPORTED_MODULE_1__["TendooService"],
             _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"],
-            _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatSnackBar"]])
+            _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatSnackBar"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatDialog"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]])
     ], MediasDetailsComponent);
     return MediasDetailsComponent;
 }());
@@ -2195,7 +2250,7 @@ var MediasDetailsComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ":host {\r\n    height: 100%;\r\n}\r\n\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvbWVkaWFzLXVwbG9hZC9tZWRpYXMtdXBsb2FkLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSxZQUFZO0FBQ2hCIiwiZmlsZSI6InNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvbWVkaWFzLXVwbG9hZC9tZWRpYXMtdXBsb2FkLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyI6aG9zdCB7XHJcbiAgICBoZWlnaHQ6IDEwMCU7XHJcbn1cclxuIl19 */"
+module.exports = ":host {\r\n    height: 100%;\r\n}\r\n\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvbWVkaWFzLXVwbG9hZC9tZWRpYXMtdXBsb2FkLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSxhQUFhO0NBQ2hCIiwiZmlsZSI6InNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvbWVkaWFzLXVwbG9hZC9tZWRpYXMtdXBsb2FkLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyI6aG9zdCB7XHJcbiAgICBoZWlnaHQ6IDEwMCU7XHJcbn1cclxuIl19 */"
 
 /***/ }),
 
@@ -2206,7 +2261,7 @@ module.exports = ":host {\r\n    height: 100%;\r\n}\r\n\r\n/*# sourceMappingURL=
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div fxLayout=\"column\" fxFlex=\"100%\" style=\"overflow-y:auto\">\r\n    <!-- <mat-progress-bar color=\"warn\" style=\"height: 2px; position: absolute\" *ngIf=\"tendoo.users.isLoading\" mode=\"indeterminate\"></mat-progress-bar> -->\r\n    <div fxLayout=\"row\" class=\"bg-content p-3 pb-0\">\r\n        <div fxFlex>\r\n            <h1 class=\"mat-display-1 mb-0\">Media</h1>\r\n            <small class=\"mat-title\">upload a new file</small>\r\n        </div>\r\n        <div fxFlex fxLayoutAlign=\"end start\">\r\n            <div>\r\n                <button mat-button [routerLink]=\"'/dashboard/medias'\">Back</button>\r\n            </div>\r\n        </div>    \r\n    </div>\r\n    <div fxFlex class=\"bg-content p-3\" fxFlexLayout=\"row\" fxLayoutAlign=\"center center\">\r\n        <div fxLayout=\"column\" fxFlex fxFill id=\"drag-zone\">\r\n            <mat-card [fxFlex]=\"dragState === 'over' ? '100px': 'auto'\">\r\n                <mat-card-content fxFlex fxLayout=\"column\">\r\n                    <dropzone fxFlex [config]=\"dropzoneConfig\" [message]=\"dragMessage\"></dropzone>\r\n                </mat-card-content>\r\n            </mat-card>\r\n        </div>\r\n    </div>\r\n</div>"
+module.exports = "<div fxLayout=\"column\" fxFlex=\"100%\" style=\"overflow-y:auto\">\n    <!-- <mat-progress-bar color=\"warn\" style=\"height: 2px; position: absolute\" *ngIf=\"tendoo.users.isLoading\" mode=\"indeterminate\"></mat-progress-bar> -->\n    <div fxLayout=\"row\" class=\"bg-content p-3 pb-0\">\n        <div fxFlex>\n            <h1 class=\"mat-display-1 mb-0\">Media</h1>\n            <small class=\"mat-title\">upload a new file</small>\n        </div>\n        <div fxFlex fxLayoutAlign=\"end start\">\n            <div>\n                <button mat-button [routerLink]=\"'/dashboard/medias'\">Back</button>\n            </div>\n        </div>    \n    </div>\n    <div fxFlex class=\"bg-content p-3\" fxFlexLayout=\"row\" fxLayoutAlign=\"center center\">\n        <div fxLayout=\"column\" fxFlex fxFill id=\"drag-zone\">\n            <mat-card [fxFlex]=\"dragState === 'over' ? '100px': 'auto'\">\n                <mat-card-content fxFlex fxLayout=\"column\">\n                    <dropzone fxFlex [config]=\"dropzoneConfig\" [message]=\"dragMessage\"></dropzone>\n                </mat-card-content>\n            </mat-card>\n        </div>\n    </div>\n</div>"
 
 /***/ }),
 
@@ -2289,7 +2344,7 @@ var MediasUploadComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ":host {\r\n    height: 100%;\r\n}\r\n\r\n.mat-grid-tile {\r\n    border: solid 1px #EFEFEF;\r\n    background: #EFEFEF;\r\n}\r\n\r\n.overlay {\r\n    width: 100%;\r\n    height: 100%;\r\n    position: absolute;\r\n    background: rgba(51, 51, 51, 0.29);\r\n    top: 0;\r\n    left: 0;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvbWVkaWFzL21lZGlhcy5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0lBQ0ksWUFBWTtBQUNoQjs7QUFFQTtJQUNJLHlCQUF5QjtJQUN6QixtQkFBbUI7QUFDdkI7O0FBRUE7SUFDSSxXQUFXO0lBQ1gsWUFBWTtJQUNaLGtCQUFrQjtJQUNsQixrQ0FBa0M7SUFDbEMsTUFBTTtJQUNOLE9BQU87QUFDWCIsImZpbGUiOiJzcmMvYXBwL2NvbXBvbmVudHMvZGFzaGJvYXJkL21lZGlhcy9tZWRpYXMuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIjpob3N0IHtcclxuICAgIGhlaWdodDogMTAwJTtcclxufVxyXG5cclxuLm1hdC1ncmlkLXRpbGUge1xyXG4gICAgYm9yZGVyOiBzb2xpZCAxcHggI0VGRUZFRjtcclxuICAgIGJhY2tncm91bmQ6ICNFRkVGRUY7XHJcbn1cclxuXHJcbi5vdmVybGF5IHtcclxuICAgIHdpZHRoOiAxMDAlO1xyXG4gICAgaGVpZ2h0OiAxMDAlO1xyXG4gICAgcG9zaXRpb246IGFic29sdXRlO1xyXG4gICAgYmFja2dyb3VuZDogcmdiYSg1MSwgNTEsIDUxLCAwLjI5KTtcclxuICAgIHRvcDogMDtcclxuICAgIGxlZnQ6IDA7XHJcbn0iXX0= */"
+module.exports = ":host {\r\n    height: 100%;\r\n}\r\n\r\n.mat-grid-tile {\r\n    border: solid 1px #EFEFEF;\r\n    background: #EFEFEF;\r\n}\r\n\r\n.overlay {\r\n    width: 100%;\r\n    height: 100%;\r\n    position: absolute;\r\n    background: rgba(51, 51, 51, 0.29);\r\n    top: 0;\r\n    left: 0;\r\n}\r\n\r\n.upload-placeholder {\r\n    border: dashed 5px #888;\r\n    margin: 10px;\r\n    background: rgba(51, 51, 51, 0.11);\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvbWVkaWFzL21lZGlhcy5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0lBQ0ksYUFBYTtDQUNoQjs7QUFFRDtJQUNJLDBCQUEwQjtJQUMxQixvQkFBb0I7Q0FDdkI7O0FBRUQ7SUFDSSxZQUFZO0lBQ1osYUFBYTtJQUNiLG1CQUFtQjtJQUNuQixtQ0FBbUM7SUFDbkMsT0FBTztJQUNQLFFBQVE7Q0FDWDs7QUFDRDtJQUNJLHdCQUF3QjtJQUN4QixhQUFhO0lBQ2IsbUNBQW1DO0NBQ3RDIiwiZmlsZSI6InNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvbWVkaWFzL21lZGlhcy5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiOmhvc3Qge1xyXG4gICAgaGVpZ2h0OiAxMDAlO1xyXG59XHJcblxyXG4ubWF0LWdyaWQtdGlsZSB7XHJcbiAgICBib3JkZXI6IHNvbGlkIDFweCAjRUZFRkVGO1xyXG4gICAgYmFja2dyb3VuZDogI0VGRUZFRjtcclxufVxyXG5cclxuLm92ZXJsYXkge1xyXG4gICAgd2lkdGg6IDEwMCU7XHJcbiAgICBoZWlnaHQ6IDEwMCU7XHJcbiAgICBwb3NpdGlvbjogYWJzb2x1dGU7XHJcbiAgICBiYWNrZ3JvdW5kOiByZ2JhKDUxLCA1MSwgNTEsIDAuMjkpO1xyXG4gICAgdG9wOiAwO1xyXG4gICAgbGVmdDogMDtcclxufVxyXG4udXBsb2FkLXBsYWNlaG9sZGVyIHtcclxuICAgIGJvcmRlcjogZGFzaGVkIDVweCAjODg4O1xyXG4gICAgbWFyZ2luOiAxMHB4O1xyXG4gICAgYmFja2dyb3VuZDogcmdiYSg1MSwgNTEsIDUxLCAwLjExKTtcclxufSJdfQ== */"
 
 /***/ }),
 
@@ -2300,7 +2355,7 @@ module.exports = ":host {\r\n    height: 100%;\r\n}\r\n\r\n.mat-grid-tile {\r\n 
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div fxLayout=\"column\" fxFlex=\"100%\" style=\"overflow-y:auto\">\r\n    <!-- <mat-progress-bar color=\"warn\" style=\"height: 2px; position: absolute\" *ngIf=\"tendoo.users.isLoading\" mode=\"indeterminate\"></mat-progress-bar> -->\r\n    <div fxLayout=\"row\" fxFlex=\"0 0 auto\" class=\"bg-content p-3 pb-0\">\r\n        <div fxFlex>\r\n            <h1 class=\"mat-display-1 mb-0\">Media</h1>\r\n            <small class=\"mat-title\">display all the medias by type</small>\r\n        </div>\r\n        <div fxFlex fxLayoutAlign=\"end start\">\r\n            <div>\r\n                <button mat-button [routerLink]=\"'/dashboard/medias/upload'\">Upload</button>\r\n            </div>\r\n        </div>    \r\n    </div>\r\n    <div fxFlex *ngIf=\"medias.length === 0\" class=\"p-3 bg-content\" fxLayoutAlign=\"center center\">\r\n        <span>It seems quite empty right here. <a routerLink=\"/dashboard/medias/upload\">Upload new content ?</a></span>\r\n    </div>\r\n    <div fxFlex *ngIf=\"medias.length > 0\" class=\"p-3 bg-content\">\r\n        <mat-card class=\"p-0\">\r\n            <mat-card-title class=\"p-1 mb-0\">\r\n                <div fxFlex fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n                    <div fxLayoutAlign=\"start center\">\r\n                        <button *ngIf=\"selectedMediasCount > 0\" (click)=\"reset()\" mat-icon-button color=\"warn\">\r\n                            <mat-icon>arrow_back</mat-icon>\r\n                        </button>\r\n                        <span *ngIf=\"selectedMediasCount > 0\">\r\n                            {{ selectedMediasCount }} <span>selected</span>\r\n                        </span>\r\n                    </div>\r\n                    <div>\r\n                        <button *ngIf=\"selectedMediasCount > 0\" (click)=\"deleteSelected()\" mat-icon-button color=\"warn\">\r\n                            <mat-icon>delete</mat-icon>\r\n                        </button>\r\n                        <button (click)=\"selectAll()\" mat-icon-button color=\"primary\">\r\n                            <mat-icon>check</mat-icon>\r\n                        </button>\r\n                    </div>\r\n                </div>\r\n            </mat-card-title>\r\n            <mat-divider></mat-divider>\r\n            <div class=\"p-2\">\r\n                <mat-grid-list [cols]=\"gridCols\" gutterSize=\"1em\" rowHeight=\"140px\">\r\n                    <mat-grid-tile\r\n                        (mousedown)=\"handle( media )\"\r\n                        (mouseup)=\"cancelBulkSelect()\"\r\n                        (click)=\"openSingle( media )\"\r\n                        *ngFor=\"let media of medias\"\r\n                        [colspan]=\"1\"\r\n                        [rowspan]=\"1\">\r\n                        <div *ngIf=\"[ 'zip' ].indexOf( media.extension ) === -1\">\r\n                            <img [src]=\"media.sizes.thumb\" [alt]=\"media.name\">\r\n                        </div>\r\n                        <div *ngIf=\"[ 'zip' ].indexOf( media.extension ) !== -1\">\r\n                            <mat-icon>archive</mat-icon>\r\n                        </div>\r\n                        <div class=\"overlay\" fxLayoutAlign=\"end start\" *ngIf=\"media.selected\">\r\n                            <i class=\"material-icons m-1\" style=\"color: white\">\r\n                            check_circle\r\n                            </i>\r\n                        </div>\r\n                    </mat-grid-tile>\r\n                </mat-grid-list>\r\n            </div>\r\n        </mat-card>\r\n    </div>\r\n</div>"
+module.exports = "<div fxFlex fxLayout=\"column\">\n    <div fxLayout=\"column\" class=\"upload-placeholder\" (dropOver)=\"hasDropped( $event )\" (dragOut)=\"hasDraggedOut( $event )\" appDroppable *ngIf=\"wantsToDrop\" fxFlex=\"100%\" style=\"overflow-y:auto\" fxLayoutAlign=\"center center\">\n        <h3>Drop your file here to upload</h3>\n    </div>\n    <div fxLayout=\"column\" fxFlex=\"100%\" style=\"overflow-y:auto\"  (dragOver)=\"hasDraggedOver( $event )\" *ngIf=\"! wantsToDrop\" appDroppable>\n        <!-- <mat-progress-bar color=\"warn\" style=\"height: 2px; position: absolute\" *ngIf=\"tendoo.users.isLoading\" mode=\"indeterminate\"></mat-progress-bar> -->\n        <div fxLayout=\"row\" fxFlex=\"0 0 auto\" class=\"bg-content p-3 pb-0\">\n            <div fxFlex>\n                <h1 class=\"mat-display-1 mb-0\">Media</h1>\n                <span>display all the medias by type</span>\n            </div>\n            <div fxFlex fxLayoutAlign=\"end start\">\n            </div>    \n        </div>\n        <div fxFlex *ngIf=\"medias.length === 0\" class=\"p-3 bg-content\" fxLayoutAlign=\"center center\">\n            <span>It seems quite empty right here. Drop files to upload them.</span>\n        </div>\n        <div fxFlex *ngIf=\"medias.length > 0\" class=\"p-3 bg-content\">\n            <mat-card class=\"p-0\">\n                <mat-card-title class=\"p-1 mb-0\">\n                    <div fxFlex fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\n                        <div fxLayoutAlign=\"start center\">\n                            <button *ngIf=\"selectedMediasCount === 0\" [disabled]=\"pagination.prev_page_url === null\" (click)=\"loadMedias( pagination.prev_page_url )\" mat-icon-button color=\"warn\">\n                                <mat-icon>arrow_back</mat-icon>\n                            </button>\n                            <button *ngIf=\"selectedMediasCount === 0\" [disabled]=\"pagination.next_page_url === null\" (click)=\"loadMedias( pagination.next_page_url )\" mat-icon-button color=\"warn\">\n                                <mat-icon>arrow_forward</mat-icon>\n                            </button>\n                            <button *ngIf=\"selectedMediasCount > 0\" (click)=\"reset()\" mat-icon-button color=\"warn\">\n                                <mat-icon>cancel</mat-icon>\n                            </button>\n                            <span *ngIf=\"selectedMediasCount > 0\">\n                                {{ selectedMediasCount }} <span>selected</span>\n                            </span>\n                        </div>\n                        <div>\n                            <button *ngIf=\"selectedMediasCount > 0\" (click)=\"deleteSelected()\" mat-icon-button color=\"warn\">\n                                <mat-icon>delete</mat-icon>\n                            </button>\n                            <button (click)=\"selectAll()\" mat-icon-button color=\"primary\">\n                                <mat-icon>check</mat-icon>\n                            </button>\n                        </div>\n                    </div>\n                </mat-card-title>\n                <mat-divider></mat-divider>\n                <div class=\"p-2\">\n                    <mat-grid-list [cols]=\"gridCols\" gutterSize=\"1em\" rowHeight=\"140px\">\n                        <mat-grid-tile\n                            (mousedown)=\"handle( media )\"\n                            (mouseup)=\"cancelBulkSelect()\"\n                            (click)=\"openSingle( media )\"\n                            *ngFor=\"let media of medias\"\n                            [colspan]=\"1\"\n                            [rowspan]=\"1\">\n                            <div *ngIf=\"[ 'zip' ].indexOf( media.extension ) === -1\">\n                                <img [src]=\"media.sizes.thumb\" [alt]=\"media.name\">\n                            </div>\n                            <div *ngIf=\"[ 'zip' ].indexOf( media.extension ) !== -1\">\n                                <mat-icon>archive</mat-icon>\n                            </div>\n                            <div class=\"overlay\" fxLayoutAlign=\"end start\" *ngIf=\"media.selected\">\n                                <i class=\"material-icons m-1\" style=\"color: white\">\n                                check_circle\n                                </i>\n                            </div>\n                        </mat-grid-tile>\n                    </mat-grid-list>\n                </div>\n            </mat-card>\n        </div>\n    </div>\n</div>"
 
 /***/ }),
 
@@ -2322,6 +2377,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_flex_layout__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/flex-layout */ "./node_modules/@angular/flex-layout/esm5/flex-layout.es5.js");
 /* harmony import */ var src_app_services_tendoo_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/services/tendoo.service */ "./src/app/services/tendoo.service.ts");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var src_app_shared_file_upload_file_upload_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/shared/file-upload/file-upload.component */ "./src/app/shared/file-upload/file-upload.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2331,6 +2387,42 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 var __metadata = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (undefined && undefined.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
+
 
 
 
@@ -2348,10 +2440,82 @@ var MediasComponent = /** @class */ (function () {
         this.router = router;
         this.tendoo = tendoo;
         this.medias = [];
+        this.uploadQueue = [];
         this.bulkSelectEnabled = false;
         this.hasJustEnabled = false;
         this.gridCols = 5;
+        this.wantsToDrop = false;
     }
+    MediasComponent.prototype.hasDraggedOver = function (event) {
+        this.wantsToDrop = true;
+    };
+    MediasComponent.prototype.hasDraggedOut = function (event) {
+        this.wantsToDrop = false;
+    };
+    MediasComponent.prototype.hasDropped = function (event) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _a, files, i, _b, _c, _i, index, response, dialog, dialogComponent;
+            var _this = this;
+            return __generator(this, function (_d) {
+                switch (_d.label) {
+                    case 0:
+                        this.wantsToDrop = false;
+                        files = [];
+                        for (i = 0; i < event.dataTransfer.files.length; i++) {
+                            event.dataTransfer.files[i].uploaded = false;
+                            event.dataTransfer.files[i].progress = 0;
+                            files.push(event.dataTransfer.files[i]);
+                        }
+                        /**
+                         * push the new items to the
+                         * items queue
+                         */
+                        (_a = this.uploadQueue).push.apply(_a, files);
+                        this.dialog.open(src_app_shared_file_upload_file_upload_component__WEBPACK_IMPORTED_MODULE_8__["FileUploadComponent"], {
+                            id: 'upload-dialog',
+                            data: { files: this.uploadQueue, index: 0 },
+                            height: '120px',
+                            width: '400px',
+                            position: {
+                                bottom: '10px',
+                                right: '10px'
+                            },
+                            disableClose: true,
+                            hasBackdrop: false,
+                        });
+                        _b = [];
+                        for (_c in this.uploadQueue)
+                            _b.push(_c);
+                        _i = 0;
+                        _d.label = 1;
+                    case 1:
+                        if (!(_i < _b.length)) return [3 /*break*/, 4];
+                        index = _b[_i];
+                        return [4 /*yield*/, this.tendoo.medias.uploadFile(this.uploadQueue[index])];
+                    case 2:
+                        response = _d.sent();
+                        dialog = this.dialog.getDialogById('upload-dialog');
+                        dialogComponent = dialog.componentInstance;
+                        dialogComponent.setProcessing({ files: this.uploadQueue, index: index });
+                        if (this.hasCompletedUpload()) {
+                            setTimeout(function () {
+                                _this.loadMedias();
+                                _this.dialog.getDialogById('upload-dialog').close();
+                                _this.uploadQueue = [];
+                            }, 1000);
+                        }
+                        _d.label = 3;
+                    case 3:
+                        _i++;
+                        return [3 /*break*/, 1];
+                    case 4: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    MediasComponent.prototype.hasCompletedUpload = function () {
+        return this.uploadQueue.filter(function (file) { return file['uploaded']; }).length === this.uploadQueue.length;
+    };
     MediasComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.tendoo.dashboardTitle('Medias');
@@ -2381,10 +2545,11 @@ var MediasComponent = /** @class */ (function () {
      * init by loading the medias
      * @return void
      */
-    MediasComponent.prototype.loadMedias = function () {
+    MediasComponent.prototype.loadMedias = function (url) {
         var _this = this;
+        if (url === void 0) { url = null; }
         Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["forkJoin"])([
-            this.mediaService.getMedias()
+            this.mediaService.getMedias(url)
         ]).subscribe(function (results) {
             _this.pagination = results[0];
             _this.medias = _this.pagination.data.map(function (media) {
@@ -2543,7 +2708,7 @@ var MediasComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ":host {\r\n    height: 100%;\r\n}\r\n.module-details {\r\n    background: #f9f9f9;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvbW9kdWxlcy1kZXRhaWxzL21vZHVsZXMtZGV0YWlscy5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0lBQ0ksWUFBWTtBQUNoQjtBQUNBO0lBQ0ksbUJBQW1CO0FBQ3ZCIiwiZmlsZSI6InNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvbW9kdWxlcy1kZXRhaWxzL21vZHVsZXMtZGV0YWlscy5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiOmhvc3Qge1xyXG4gICAgaGVpZ2h0OiAxMDAlO1xyXG59XHJcbi5tb2R1bGUtZGV0YWlscyB7XHJcbiAgICBiYWNrZ3JvdW5kOiAjZjlmOWY5O1xyXG59Il19 */"
+module.exports = ":host {\r\n    height: 100%;\r\n}\r\n.module-details {\r\n    background: #f9f9f9;\r\n}\r\n.active-tab {\r\n    background: #FFF;\r\n    margin-bottom: -1px;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvbW9kdWxlcy1kZXRhaWxzL21vZHVsZXMtZGV0YWlscy5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0lBQ0ksYUFBYTtDQUNoQjtBQUNEO0lBQ0ksb0JBQW9CO0NBQ3ZCO0FBQ0Q7SUFDSSxpQkFBaUI7SUFDakIsb0JBQW9CO0NBQ3ZCIiwiZmlsZSI6InNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvbW9kdWxlcy1kZXRhaWxzL21vZHVsZXMtZGV0YWlscy5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiOmhvc3Qge1xyXG4gICAgaGVpZ2h0OiAxMDAlO1xyXG59XHJcbi5tb2R1bGUtZGV0YWlscyB7XHJcbiAgICBiYWNrZ3JvdW5kOiAjZjlmOWY5O1xyXG59XHJcbi5hY3RpdmUtdGFiIHtcclxuICAgIGJhY2tncm91bmQ6ICNGRkY7XHJcbiAgICBtYXJnaW4tYm90dG9tOiAtMXB4O1xyXG59Il19 */"
 
 /***/ }),
 
@@ -2554,7 +2719,7 @@ module.exports = ":host {\r\n    height: 100%;\r\n}\r\n.module-details {\r\n    
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div fxLayout=\"column\" class=\"bg-content\" fxFill *ngIf=\"module\">\r\n    <div fxLayout=\"row\" class=\"p-3 pb-0\">\r\n        <div fxFlex fxLayout=\"column\">\r\n            <h1 class=\"mat-h1 mb-0\">{{ module.name }}</h1>\r\n            <span>{{ module.description }}</span>\r\n        </div>\r\n        <div fxFlex=\"\"></div>        \r\n    </div>\r\n    <div fxLayoutAlign=\"center start\" fxFlex=\"auto\" class=\"p-3\">\r\n        <div fxFlex=\"100%\" class=\"mat-elevation-z2 bg-white rounded-2\" fxLayout=\"row\" fxFill>\r\n            <div fxFlex=\"250px\" class=\"module-details\"></div>\r\n            <mat-divider [vertical]=\"true\"></mat-divider>\r\n            <div fxFlex fxLayout=\"column\">\r\n                <div fxLayout=\"row\">\r\n                    <ng-container *ngFor=\"let tab of tabs\">\r\n                        <div class=\"p-2 text-center cursor-pointer\" matRipple>{{ tab.label }}</div>\r\n                        <mat-divider [vertical]=\"true\"></mat-divider>\r\n                    </ng-container>\r\n                </div>\r\n                <mat-divider></mat-divider>\r\n                <div fxFlex=\"auto\" style=\"overflow-y: auto\"></div>\r\n                <mat-divider></mat-divider>\r\n                <div fxLayoutAlign=\"space-between center\" class=\"p-1\">\r\n                    <button [disabled]=\"tendoo.modules.isLoading\" (click)=\"toggleModule( 'disable' )\" *ngIf=\"module.enabled\" mat-button=\"\">Disable</button>\r\n                    <button [disabled]=\"tendoo.modules.isLoading\" (click)=\"toggleModule( 'enable' )\" *ngIf=\"! module.enabled\" mat-button=\"\">Enable</button>\r\n                    <button [disabled]=\"tendoo.modules.isLoading\" (click)=\"removeModule()\" mat-button=\"\">Remove</button>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>\r\n<div fxLayout=\"column\" class=\"bg-content\" fxLayoutAlign=\"center center\" fxFill *ngIf=\"! module\">\r\n    <mat-spinner [diameter]=\"50\"></mat-spinner>\r\n</div>"
+module.exports = "<div fxLayout=\"column\" class=\"bg-content\" fxFill *ngIf=\"module\">\r\n    <div fxLayout=\"row\" class=\"p-3 pb-0\">\r\n        <div fxFlex fxLayout=\"column\">\r\n            <h1 class=\"mat-h1 mb-0\">{{ module.name }}</h1>\r\n            <span>{{ module.description }}</span>\r\n        </div>\r\n        <div fxFlex=\"\"></div>        \r\n    </div>\r\n    <div fxLayoutAlign=\"center start\" fxFlex=\"auto\" class=\"p-3\">\r\n        <div fxFlex=\"100%\" class=\"mat-elevation-z2 bg-white rounded-2\" fxLayout=\"row\" fxFill>\r\n            <div fxFlex=\"250px\" class=\"module-details\"></div>\r\n            <mat-divider [vertical]=\"true\"></mat-divider>\r\n            <div fxFlex fxLayout=\"column\">\r\n                <div fxLayout=\"row\" style=\"background: #f9f9f9\">\r\n                    <ng-container *ngFor=\"let tab of tabs\">\r\n                        <div class=\"p-3 text-center cursor-pointer\" (click)=\"toggleTab( tab )\" [ngClass]=\"{ 'active-tab' : tab.active }\" matRipple>{{ tab.label }}</div>\r\n                        <mat-divider [vertical]=\"true\"></mat-divider>\r\n                    </ng-container>\r\n                </div>\r\n                <mat-divider></mat-divider>\r\n                <div fxFlex=\"auto\" style=\"overflow-y: auto\"></div>\r\n                <mat-divider></mat-divider>\r\n                <div fxLayoutAlign=\"space-between center\" class=\"p-1\">\r\n                    <button [disabled]=\"tendoo.modules.isLoading\" (click)=\"toggleModule( 'disable' )\" *ngIf=\"module.enabled\" mat-button=\"\">Disable</button>\r\n                    <button [disabled]=\"tendoo.modules.isLoading\" (click)=\"toggleModule( 'enable' )\" *ngIf=\"! module.enabled\" mat-button=\"\">Enable</button>\r\n                    <button [disabled]=\"tendoo.modules.isLoading\" (click)=\"removeModule()\" mat-button=\"\">Remove</button>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>\r\n<div fxLayout=\"column\" class=\"bg-content\" fxLayoutAlign=\"center center\" fxFill *ngIf=\"! module\">\r\n    <mat-spinner [diameter]=\"50\"></mat-spinner>\r\n</div>"
 
 /***/ }),
 
@@ -2672,6 +2837,10 @@ var ModulesDetailsComponent = /** @class */ (function () {
             }
         });
     };
+    ModulesDetailsComponent.prototype.toggleTab = function (tab) {
+        this.tabs.forEach(function (_tab) { return _tab.active = false; });
+        tab.active = true;
+    };
     ModulesDetailsComponent.prototype.__toggleModule = function (action) {
         var _this = this;
         this.tendoo.modules[action](this.module.namespace).subscribe(function (result) {
@@ -2745,7 +2914,7 @@ var ModulesDetailsComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ":host {\r\n    height: 100%;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvbW9kdWxlcy11cGxvYWQvbW9kdWxlcy11cGxvYWQuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLFlBQVk7QUFDaEIiLCJmaWxlIjoic3JjL2FwcC9jb21wb25lbnRzL2Rhc2hib2FyZC9tb2R1bGVzLXVwbG9hZC9tb2R1bGVzLXVwbG9hZC5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiOmhvc3Qge1xyXG4gICAgaGVpZ2h0OiAxMDAlO1xyXG59Il19 */"
+module.exports = ":host {\r\n    height: 100%;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvbW9kdWxlcy11cGxvYWQvbW9kdWxlcy11cGxvYWQuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLGFBQWE7Q0FDaEIiLCJmaWxlIjoic3JjL2FwcC9jb21wb25lbnRzL2Rhc2hib2FyZC9tb2R1bGVzLXVwbG9hZC9tb2R1bGVzLXVwbG9hZC5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiOmhvc3Qge1xyXG4gICAgaGVpZ2h0OiAxMDAlO1xyXG59Il19 */"
 
 /***/ }),
 
@@ -2894,7 +3063,7 @@ var ModulesUploadComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ":host {\r\n    height: 100%;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvbW9kdWxlcy9tb2R1bGVzLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSxZQUFZO0FBQ2hCIiwiZmlsZSI6InNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvbW9kdWxlcy9tb2R1bGVzLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyI6aG9zdCB7XHJcbiAgICBoZWlnaHQ6IDEwMCU7XHJcbn0iXX0= */"
+module.exports = ":host {\r\n    height: 100%;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvbW9kdWxlcy9tb2R1bGVzLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSxhQUFhO0NBQ2hCIiwiZmlsZSI6InNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvbW9kdWxlcy9tb2R1bGVzLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyI6aG9zdCB7XHJcbiAgICBoZWlnaHQ6IDEwMCU7XHJcbn0iXX0= */"
 
 /***/ }),
 
@@ -3226,7 +3395,7 @@ var ModulesComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ":host {\r\n    height: 100%;\r\n    overflow-y: auto;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvbm90LWZvdW5kL25vdC1mb3VuZC5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0lBQ0ksWUFBWTtJQUNaLGdCQUFnQjtBQUNwQiIsImZpbGUiOiJzcmMvYXBwL2NvbXBvbmVudHMvZGFzaGJvYXJkL25vdC1mb3VuZC9ub3QtZm91bmQuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIjpob3N0IHtcclxuICAgIGhlaWdodDogMTAwJTtcclxuICAgIG92ZXJmbG93LXk6IGF1dG87XHJcbn0iXX0= */"
+module.exports = ":host {\r\n    height: 100%;\r\n    overflow-y: auto;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvbm90LWZvdW5kL25vdC1mb3VuZC5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0lBQ0ksYUFBYTtJQUNiLGlCQUFpQjtDQUNwQiIsImZpbGUiOiJzcmMvYXBwL2NvbXBvbmVudHMvZGFzaGJvYXJkL25vdC1mb3VuZC9ub3QtZm91bmQuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIjpob3N0IHtcclxuICAgIGhlaWdodDogMTAwJTtcclxuICAgIG92ZXJmbG93LXk6IGF1dG87XHJcbn0iXX0= */"
 
 /***/ }),
 
@@ -3282,6 +3451,144 @@ var NotFoundComponent = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/components/dashboard/profile-apps/profile-apps.component.css":
+/*!******************************************************************************!*\
+  !*** ./src/app/components/dashboard/profile-apps/profile-apps.component.css ***!
+  \******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ":host {\r\n    height: 100%;\r\n    overflow-y: auto;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvcHJvZmlsZS1hcHBzL3Byb2ZpbGUtYXBwcy5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0lBQ0ksYUFBYTtJQUNiLGlCQUFpQjtDQUNwQiIsImZpbGUiOiJzcmMvYXBwL2NvbXBvbmVudHMvZGFzaGJvYXJkL3Byb2ZpbGUtYXBwcy9wcm9maWxlLWFwcHMuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIjpob3N0IHtcclxuICAgIGhlaWdodDogMTAwJTtcclxuICAgIG92ZXJmbG93LXk6IGF1dG87XHJcbn0iXX0= */"
+
+/***/ }),
+
+/***/ "./src/app/components/dashboard/profile-apps/profile-apps.component.html":
+/*!*******************************************************************************!*\
+  !*** ./src/app/components/dashboard/profile-apps/profile-apps.component.html ***!
+  \*******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div fxLayout=\"column\" fxFlex=\"100%\" style=\"overflow-y:auto\">\r\n    <!-- <mat-progress-bar color=\"warn\" style=\"height: 2px; position: absolute\" *ngIf=\"tendoo.users.isLoading\" mode=\"indeterminate\"></mat-progress-bar> -->\r\n    <div fxLayout=\"row\" fxFlex=\"0 0 auto\" class=\"bg-content p-3 pb-0\">\r\n        <div fxFlex>\r\n            <h1 class=\"mat-display-1 mb-0\">Applications</h1>\r\n            <span>manage all the applications connected to your account.</span>\r\n        </div>\r\n        <div fxFlex fxLayoutAlign=\"end start\">\r\n            <div>\r\n                <button mat-button [routerLink]=\"'/dashboard/profile'\">Profile</button>\r\n            </div>\r\n        </div>    \r\n    </div>\r\n    <div fxFlex fxLayoutAlign=\"center center\" class=\"bg-content\" *ngIf=\"dataSource.length === 0\">\r\n        <h3 class=\"mat-h1\">Not applications has yet been allowed on your account.</h3>\r\n    </div>\r\n    <div fxFlex class=\"p-3 bg-content\" *ngIf=\"dataSource.length > 0\">\r\n        <mat-card class=\"p-0\">\r\n            <mat-card-content>\r\n                <table mat-table [dataSource]=\"dataSource\" fxFill>\r\n                    \r\n                <!--- Note that these columns can be defined in any order.\r\n                    The actual rendered columns are set as a property on the row definition\" -->\r\n                    \r\n                    <!-- Position Column -->\r\n                    <ng-container matColumnDef=\"app_name\">\r\n                        <th mat-header-cell *matHeaderCellDef> Application </th>\r\n                        <td mat-cell *matCellDef=\"let app\"> {{app.app_name}} </td>\r\n                    </ng-container>\r\n\r\n                    <!-- Position Column -->\r\n                    <ng-container matColumnDef=\"domain\">\r\n                        <th mat-header-cell *matHeaderCellDef> Domain </th>\r\n                        <td mat-cell *matCellDef=\"let app\"> {{app.domain}} </td>\r\n                    </ng-container>\r\n\r\n                    <!-- Position Column -->\r\n                    <ng-container matColumnDef=\"scopes\">\r\n                        <th mat-header-cell *matHeaderCellDef> Scopes </th>\r\n                        <td mat-cell *matCellDef=\"let app\"> {{app.scopes}} </td>\r\n                    </ng-container>\r\n\r\n                    <!-- Position Column -->\r\n                    <ng-container matColumnDef=\"expires_at\">\r\n                        <th mat-header-cell *matHeaderCellDef> Expires </th>\r\n                        <td mat-cell *matCellDef=\"let app\"> {{app.expires_at}} </td>\r\n                    </ng-container>\r\n\r\n                    <!-- Symbol Column -->\r\n                    <ng-container matColumnDef=\"actions\">\r\n                        <th style=\"width: 60px\" mat-header-cell *matHeaderCellDef> Action </th>\r\n                        <td mat-cell *matCellDef=\"let app\">\r\n                            <button (click)=\"revoke( app )\" color=\"warn\" mat-icon-button>\r\n                                <mat-icon>delete_forever</mat-icon>\r\n                            </button>\r\n                        </td>\r\n                    </ng-container>\r\n                    \r\n                    <tr mat-header-row *matHeaderRowDef=\"displayedColumns\"></tr>\r\n                    <tr mat-row *matRowDef=\"let row; columns: displayedColumns;\"></tr>\r\n                </table>\r\n            </mat-card-content>\r\n        </mat-card>\r\n    </div>\r\n</div>"
+
+/***/ }),
+
+/***/ "./src/app/components/dashboard/profile-apps/profile-apps.component.ts":
+/*!*****************************************************************************!*\
+  !*** ./src/app/components/dashboard/profile-apps/profile-apps.component.ts ***!
+  \*****************************************************************************/
+/*! exports provided: ProfileAppsComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ProfileAppsComponent", function() { return ProfileAppsComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var src_app_services_tendoo_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/services/tendoo.service */ "./src/app/services/tendoo.service.ts");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var src_app_shared_confirm_dialog_confirm_dialog_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/shared/confirm-dialog/confirm-dialog.component */ "./src/app/shared/confirm-dialog/confirm-dialog.component.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var ELEMENT_DATA = [
+    { url: 'http://url.com', name: 'Hydrogen', permissions: 1.0079, actions: 'H' },
+    { url: 'http://url.com', name: 'Helium', permissions: 4.0026, actions: 'He' },
+    { url: 'http://url.com', name: 'Lithium', permissions: 6.941, actions: 'Li' },
+    { url: 'http://url.com', name: 'Beryllium', permissions: 9.0122, actions: 'Be' },
+    { url: 'http://url.com', name: 'Boron', permissions: 10.811, actions: 'B' },
+    { url: 'http://url.com', name: 'Carbon', permissions: 12.0107, actions: 'C' },
+    { url: 'http://url.com', name: 'Nitrogen', permissions: 14.0067, actions: 'N' },
+    { url: 'http://url.com', name: 'Oxygen', permissions: 15.9994, actions: 'O' },
+    { url: 'http://url.com', name: 'Oxygen', permissions: 15.9994, actions: 'O' },
+    { url: 'http://url.com', name: 'Oxygen', permissions: 15.9994, actions: 'O' },
+    { url: 'http://url.com', name: 'Oxygen', permissions: 15.9994, actions: 'O' },
+    { url: 'http://url.com', name: 'Oxygen', permissions: 15.9994, actions: 'O' },
+    { url: 'http://url.com', name: 'Oxygen', permissions: 15.9994, actions: 'O' },
+    { url: 'http://url.com', name: 'Oxygen', permissions: 15.9994, actions: 'O' },
+    { url: 'http://url.com', name: 'Oxygen', permissions: 15.9994, actions: 'O' },
+    { url: 'http://url.com', name: 'Oxygen', permissions: 15.9994, actions: 'O' },
+    { url: 'http://url.com', name: 'Oxygen', permissions: 15.9994, actions: 'O' },
+    { url: 'http://url.com', name: 'Oxygen', permissions: 15.9994, actions: 'O' },
+    { url: 'http://url.com', name: 'Oxygen', permissions: 15.9994, actions: 'O' },
+    { url: 'http://url.com', name: 'Oxygen', permissions: 15.9994, actions: 'O' },
+    { url: 'http://url.com', name: 'Oxygen', permissions: 15.9994, actions: 'O' },
+    { url: 'http://url.com', name: 'Oxygen', permissions: 15.9994, actions: 'O' },
+    { url: 'http://url.com', name: 'Fluorine', permissions: 18.9984, actions: 'F' },
+    { url: 'http://url.com', name: 'Neon', permissions: 20.1797, actions: 'Ne' },
+];
+var ProfileAppsComponent = /** @class */ (function () {
+    function ProfileAppsComponent(tendoo, dialog, snackbar) {
+        this.tendoo = tendoo;
+        this.dialog = dialog;
+        this.snackbar = snackbar;
+        this.displayedColumns = ['app_name', 'domain', 'expires_at', 'scopes', 'actions'];
+        this.dataSource = [];
+    }
+    ProfileAppsComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.tendoo.dashboardTitle('Authenticated Applications');
+        this.tendoo.oauth.getAuthorizedApplication().subscribe(function (applications) {
+            _this.dataSource = applications;
+        });
+    };
+    ProfileAppsComponent.prototype.revoke = function (app) {
+        var _this = this;
+        this.dialog.open(src_app_shared_confirm_dialog_confirm_dialog_component__WEBPACK_IMPORTED_MODULE_3__["ConfirmDialogComponent"], {
+            id: 'confirm-dialog',
+            data: {
+                title: "Confirm Your Action",
+                message: "Would you like to revoke this application ?",
+                buttons: [
+                    {
+                        label: 'Yes',
+                        onClick: function () {
+                            _this.tendoo.oauth.revoqueApp(app.id).subscribe(function (result) {
+                                _this.snackbar.open(result.message, 'OK', { duration: 3000 });
+                                _this.dialog.getDialogById('confirm-dialog').close();
+                            }, function (error) {
+                                _this.snackbar.open('Unable to find the application access on the server', 'OK', { duration: 4000 });
+                                _this.dialog.getDialogById('confirm-dialog').close();
+                            });
+                        }
+                    }, {
+                        label: 'No',
+                        onClick: function () {
+                            _this.dialog.getDialogById('confirm-dialog').close();
+                        }
+                    }
+                ]
+            }
+        }).afterClosed().subscribe(function (closing) {
+            _this.ngOnInit();
+        });
+    };
+    ProfileAppsComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-profile-apps',
+            template: __webpack_require__(/*! ./profile-apps.component.html */ "./src/app/components/dashboard/profile-apps/profile-apps.component.html"),
+            styles: [__webpack_require__(/*! ./profile-apps.component.css */ "./src/app/components/dashboard/profile-apps/profile-apps.component.css")]
+        }),
+        __metadata("design:paramtypes", [src_app_services_tendoo_service__WEBPACK_IMPORTED_MODULE_1__["TendooService"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_2__["MatDialog"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_2__["MatSnackBar"]])
+    ], ProfileAppsComponent);
+    return ProfileAppsComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/components/dashboard/profile/profile.component.css":
 /*!********************************************************************!*\
   !*** ./src/app/components/dashboard/profile/profile.component.css ***!
@@ -3289,7 +3596,7 @@ var NotFoundComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".avatar-image {\r\n    width: 100px;\r\n    border-radius: 50px;\r\n}\r\n.profile-container {\r\n    position: relative;\r\n    top: -53px;\r\n}\r\n.profile-background {\r\n    background: #EEE;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvcHJvZmlsZS9wcm9maWxlLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSxZQUFZO0lBQ1osbUJBQW1CO0FBQ3ZCO0FBQ0E7SUFDSSxrQkFBa0I7SUFDbEIsVUFBVTtBQUNkO0FBQ0E7SUFDSSxnQkFBZ0I7QUFDcEIiLCJmaWxlIjoic3JjL2FwcC9jb21wb25lbnRzL2Rhc2hib2FyZC9wcm9maWxlL3Byb2ZpbGUuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIi5hdmF0YXItaW1hZ2Uge1xyXG4gICAgd2lkdGg6IDEwMHB4O1xyXG4gICAgYm9yZGVyLXJhZGl1czogNTBweDtcclxufVxyXG4ucHJvZmlsZS1jb250YWluZXIge1xyXG4gICAgcG9zaXRpb246IHJlbGF0aXZlO1xyXG4gICAgdG9wOiAtNTNweDtcclxufVxyXG4ucHJvZmlsZS1iYWNrZ3JvdW5kIHtcclxuICAgIGJhY2tncm91bmQ6ICNFRUU7XHJcbn0iXX0= */"
+module.exports = ".avatar-image {\r\n    width: 100px;\r\n    border-radius: 50px;\r\n}\r\n.profile-background {\r\n    background: #EEE;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvcHJvZmlsZS9wcm9maWxlLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSxhQUFhO0lBQ2Isb0JBQW9CO0NBQ3ZCO0FBQ0Q7SUFDSSxpQkFBaUI7Q0FDcEIiLCJmaWxlIjoic3JjL2FwcC9jb21wb25lbnRzL2Rhc2hib2FyZC9wcm9maWxlL3Byb2ZpbGUuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIi5hdmF0YXItaW1hZ2Uge1xyXG4gICAgd2lkdGg6IDEwMHB4O1xyXG4gICAgYm9yZGVyLXJhZGl1czogNTBweDtcclxufVxyXG4ucHJvZmlsZS1iYWNrZ3JvdW5kIHtcclxuICAgIGJhY2tncm91bmQ6ICNFRUU7XHJcbn0iXX0= */"
 
 /***/ }),
 
@@ -3300,7 +3607,7 @@ module.exports = ".avatar-image {\r\n    width: 100px;\r\n    border-radius: 50p
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div fxLayout=\"column\" fxFlex=\"100%\" style=\"overflow-y:auto\">\r\n    <div fxFlex=\"200px\" fxLayout=\"row\" class=\"bg-primary p-3\">\r\n        <div fxFlex fxLayout=\"row\">\r\n            <div style=\"margin-right: 20px\">\r\n                <img class=\"avatar-image\" src=\"http://laravel-5703.go/tendoo/assets/images/avatar.png\" alt=\"\">\r\n            </div>\r\n            <div>\r\n                <h1 class=\"mat-display-1 mb-0\">{{ auth.getUser().username }}</h1>\r\n                <span class=\"mat-title\">{{ auth.getUser().role.name }}</span>\r\n            </div>\r\n        </div>\r\n        <div fxFlex=\"200px\" fxLayoutAlign=\"end start\">\r\n        </div>\r\n    </div>\r\n    <div fxFlex fxLayout=\"row\" class=\"profile-background\" fxFill fxLayoutAlign=\"center\">\r\n        <div fxFlex=\"97%\" class=\"profile-container\">\r\n            <mat-card class=\"p-0\" *ngIf=\"tabs\">\r\n                <mat-card-title class=\"p-1 mb-0\">Profile Settings</mat-card-title>\r\n                <mat-divider></mat-divider>\r\n                <mat-card-content class=\"p-0\">\r\n                    <mat-tab-group (selectedIndexChange)=\"setTabActive($event)\">\r\n                        <mat-tab *ngFor=\"let tab of tabs\" [label]=\"tab.label\">\r\n                            <form [formGroup]=\"tab.form\">\r\n                                <div class=\"p-2\">\r\n                                    <app-fields *ngFor=\"let field of tab.fields\" [field]=\"field\" [group]=\"tab.form\"></app-fields>\r\n                                </div>\r\n                            </form>\r\n                        </mat-tab>\r\n                    </mat-tab-group>\r\n                </mat-card-content>\r\n                <mat-divider></mat-divider>\r\n                <mat-card-actions class=\"p-1 m-0\">\r\n                    <button mat-button (click)=\"saveTabSettings( activeTab )\" color=\"primary\">Save</button>\r\n                </mat-card-actions>\r\n            </mat-card>\r\n        </div>\r\n    </div>\r\n</div>"
+module.exports = "<div fxLayout=\"column\" fxFlex=\"100%\" style=\"overflow-y:auto\">\r\n    <div fxLayout=\"row\" class=\"bg-content p-3\">\r\n        <div fxFlex fxLayout=\"row\">\r\n            <div fxFlex>\r\n                <h1 class=\"mat-display-1 mb-0\">{{ auth.getUser().username }}</h1>\r\n                <span>{{ auth.getUser().role.name }}</span>\r\n            </div>\r\n            <div fxFlex fxLayoutAlign=\"end start\">\r\n                <div>\r\n                    <button mat-button [routerLink]=\"'/dashboard/profile/apps'\">Applications</button>\r\n                </div>\r\n            </div>    \r\n        </div>\r\n    </div>\r\n    <div fxFlex fxLayout=\"row\" class=\"profile-background p-3 pt-0\" fxFill fxLayoutAlign=\"center\">\r\n        <div fxFlex class=\"profile-container\">\r\n            <mat-card class=\"p-0\" *ngIf=\"tabs\">\r\n                <mat-card-title class=\"p-2 mb-0\">Profile Settings</mat-card-title>\r\n                <mat-divider></mat-divider>\r\n                <mat-card-content class=\"p-0\">\r\n                    <mat-tab-group (selectedIndexChange)=\"setTabActive($event)\">\r\n                        <mat-tab *ngFor=\"let tab of tabs\" [label]=\"tab.label\">\r\n                            <form [formGroup]=\"tab.form\">\r\n                                <div class=\"p-2\">\r\n                                    <app-fields *ngFor=\"let field of tab.fields\" [field]=\"field\" [group]=\"tab.form\"></app-fields>\r\n                                </div>\r\n                            </form>\r\n                        </mat-tab>\r\n                    </mat-tab-group>\r\n                </mat-card-content>\r\n                <mat-divider></mat-divider>\r\n                <mat-card-actions class=\"p-1 m-0\">\r\n                    <button mat-button (click)=\"saveTabSettings( activeTab )\" color=\"primary\">Save</button>\r\n                </mat-card-actions>\r\n            </mat-card>\r\n        </div>\r\n    </div>\r\n</div>"
 
 /***/ }),
 
@@ -3411,10 +3718,10 @@ var ProfileComponent = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-profile',
             template: __webpack_require__(/*! ./profile.component.html */ "./src/app/components/dashboard/profile/profile.component.html"),
+            styles: [__webpack_require__(/*! ./profile.component.css */ "./src/app/components/dashboard/profile/profile.component.css")],
             host: {
                 style: "height: 100%"
-            },
-            styles: [__webpack_require__(/*! ./profile.component.css */ "./src/app/components/dashboard/profile/profile.component.css")]
+            }
         }),
         __metadata("design:paramtypes", [src_app_services_tendoo_service__WEBPACK_IMPORTED_MODULE_1__["TendooService"],
             _angular_material__WEBPACK_IMPORTED_MODULE_5__["MatSnackBar"]])
@@ -3433,7 +3740,7 @@ var ProfileComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ":host {\r\n    height: 100%;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvc2V0dGluZ3Mvc2V0dGluZ3MuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLFlBQVk7QUFDaEIiLCJmaWxlIjoic3JjL2FwcC9jb21wb25lbnRzL2Rhc2hib2FyZC9zZXR0aW5ncy9zZXR0aW5ncy5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiOmhvc3Qge1xyXG4gICAgaGVpZ2h0OiAxMDAlO1xyXG59Il19 */"
+module.exports = ":host {\r\n    height: 100%;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvc2V0dGluZ3Mvc2V0dGluZ3MuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLGFBQWE7Q0FDaEIiLCJmaWxlIjoic3JjL2FwcC9jb21wb25lbnRzL2Rhc2hib2FyZC9zZXR0aW5ncy9zZXR0aW5ncy5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiOmhvc3Qge1xyXG4gICAgaGVpZ2h0OiAxMDAlO1xyXG59Il19 */"
 
 /***/ }),
 
@@ -3576,7 +3883,7 @@ var SettingsComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ":host {\r\n    height: 100%;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvdXNlcnMtY3JlYXRlL3VzZXJzLWNyZWF0ZS5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0lBQ0ksWUFBWTtBQUNoQiIsImZpbGUiOiJzcmMvYXBwL2NvbXBvbmVudHMvZGFzaGJvYXJkL3VzZXJzLWNyZWF0ZS91c2Vycy1jcmVhdGUuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIjpob3N0IHtcclxuICAgIGhlaWdodDogMTAwJTtcclxufSJdfQ== */"
+module.exports = ":host {\r\n    height: 100%;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvdXNlcnMtY3JlYXRlL3VzZXJzLWNyZWF0ZS5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0lBQ0ksYUFBYTtDQUNoQiIsImZpbGUiOiJzcmMvYXBwL2NvbXBvbmVudHMvZGFzaGJvYXJkL3VzZXJzLWNyZWF0ZS91c2Vycy1jcmVhdGUuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIjpob3N0IHtcclxuICAgIGhlaWdodDogMTAwJTtcclxufSJdfQ== */"
 
 /***/ }),
 
@@ -3841,7 +4148,7 @@ var UsersEditComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ":host {\r\n    height: 100%;\r\n}\r\n#search-field {\r\n    height: 35px;\r\n    border-radius: 5px;\r\n    border: solid 1px #DDD;\r\n    background: #FFF;\r\n    width: 100%;\r\n    font-size: 18px;\r\n    padding: 0 10px;\r\n    margin-right: 10px;\r\n    margin-left: 10px;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvdXNlcnMvdXNlcnMuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLFlBQVk7QUFDaEI7QUFDQTtJQUNJLFlBQVk7SUFDWixrQkFBa0I7SUFDbEIsc0JBQXNCO0lBQ3RCLGdCQUFnQjtJQUNoQixXQUFXO0lBQ1gsZUFBZTtJQUNmLGVBQWU7SUFDZixrQkFBa0I7SUFDbEIsaUJBQWlCO0FBQ3JCIiwiZmlsZSI6InNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvdXNlcnMvdXNlcnMuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIjpob3N0IHtcclxuICAgIGhlaWdodDogMTAwJTtcclxufVxyXG4jc2VhcmNoLWZpZWxkIHtcclxuICAgIGhlaWdodDogMzVweDtcclxuICAgIGJvcmRlci1yYWRpdXM6IDVweDtcclxuICAgIGJvcmRlcjogc29saWQgMXB4ICNEREQ7XHJcbiAgICBiYWNrZ3JvdW5kOiAjRkZGO1xyXG4gICAgd2lkdGg6IDEwMCU7XHJcbiAgICBmb250LXNpemU6IDE4cHg7XHJcbiAgICBwYWRkaW5nOiAwIDEwcHg7XHJcbiAgICBtYXJnaW4tcmlnaHQ6IDEwcHg7XHJcbiAgICBtYXJnaW4tbGVmdDogMTBweDtcclxufSJdfQ== */"
+module.exports = ":host {\r\n    height: 100%;\r\n}\r\n#search-field {\r\n    height: 35px;\r\n    border-radius: 5px;\r\n    border: solid 1px #DDD;\r\n    background: #FFF;\r\n    width: 100%;\r\n    font-size: 18px;\r\n    padding: 0 10px;\r\n    margin-right: 10px;\r\n    margin-left: 10px;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvdXNlcnMvdXNlcnMuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLGFBQWE7Q0FDaEI7QUFDRDtJQUNJLGFBQWE7SUFDYixtQkFBbUI7SUFDbkIsdUJBQXVCO0lBQ3ZCLGlCQUFpQjtJQUNqQixZQUFZO0lBQ1osZ0JBQWdCO0lBQ2hCLGdCQUFnQjtJQUNoQixtQkFBbUI7SUFDbkIsa0JBQWtCO0NBQ3JCIiwiZmlsZSI6InNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvdXNlcnMvdXNlcnMuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIjpob3N0IHtcclxuICAgIGhlaWdodDogMTAwJTtcclxufVxyXG4jc2VhcmNoLWZpZWxkIHtcclxuICAgIGhlaWdodDogMzVweDtcclxuICAgIGJvcmRlci1yYWRpdXM6IDVweDtcclxuICAgIGJvcmRlcjogc29saWQgMXB4ICNEREQ7XHJcbiAgICBiYWNrZ3JvdW5kOiAjRkZGO1xyXG4gICAgd2lkdGg6IDEwMCU7XHJcbiAgICBmb250LXNpemU6IDE4cHg7XHJcbiAgICBwYWRkaW5nOiAwIDEwcHg7XHJcbiAgICBtYXJnaW4tcmlnaHQ6IDEwcHg7XHJcbiAgICBtYXJnaW4tbGVmdDogMTBweDtcclxufSJdfQ== */"
 
 /***/ }),
 
@@ -4655,7 +4962,7 @@ var HomeComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ":host {\r\n    height: 100%;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9taWdyYXRpb24tZGlhbG9nL21pZ3JhdGlvbi1kaWFsb2cuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLFlBQVk7QUFDaEIiLCJmaWxlIjoic3JjL2FwcC9jb21wb25lbnRzL21pZ3JhdGlvbi1kaWFsb2cvbWlncmF0aW9uLWRpYWxvZy5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiOmhvc3Qge1xyXG4gICAgaGVpZ2h0OiAxMDAlO1xyXG59Il19 */"
+module.exports = ":host {\r\n    height: 100%;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9taWdyYXRpb24tZGlhbG9nL21pZ3JhdGlvbi1kaWFsb2cuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLGFBQWE7Q0FDaEIiLCJmaWxlIjoic3JjL2FwcC9jb21wb25lbnRzL21pZ3JhdGlvbi1kaWFsb2cvbWlncmF0aW9uLWRpYWxvZy5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiOmhvc3Qge1xyXG4gICAgaGVpZ2h0OiAxMDAlO1xyXG59Il19 */"
 
 /***/ }),
 
@@ -4666,7 +4973,7 @@ module.exports = ":host {\r\n    height: 100%;\r\n}\r\n/*# sourceMappingURL=data
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div fxLayout=\"row\" fxLayoutAlign=\"center center\" class=\"p-4\">\n\t<div class=\"loader-section\" fxFlex=\"100px\">\n\t\t<mat-spinner [diameter]=\"30\"></mat-spinner>\n\t</div>\n\t<div class=\"loader-details\" fxFlex=\"auto\" fxFlex=\"300px\">\n\t\t<h3 class=\"mat-h3 m-0\">Migrating...</h3>\n\t\t<small>{{ version }} : {{ file }}</small>\n\t</div>\n</div>"
+module.exports = "<div fxLayout=\"row\" fxLayoutAlign=\"center center\" class=\"p-4\">\r\n\t<div class=\"loader-section\" fxFlex=\"100px\">\r\n\t\t<mat-spinner [diameter]=\"30\"></mat-spinner>\r\n\t</div>\r\n\t<div class=\"loader-details\" fxFlex=\"auto\" fxFlex=\"300px\">\r\n\t\t<h3 class=\"mat-h3 m-0\">Migrating...</h3>\r\n\t\t<small>{{ version }} : {{ file }}</small>\r\n\t</div>\r\n</div>"
 
 /***/ }),
 
@@ -4844,6 +5151,99 @@ var MigrationDialogComponent = /** @class */ (function () {
             _angular_material__WEBPACK_IMPORTED_MODULE_1__["MatSnackBar"], Object])
     ], MigrationDialogComponent);
     return MigrationDialogComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/directives/droppable.directive.ts":
+/*!***************************************************!*\
+  !*** ./src/app/directives/droppable.directive.ts ***!
+  \***************************************************/
+/*! exports provided: DroppableDirective */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DroppableDirective", function() { return DroppableDirective; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var DroppableDirective = /** @class */ (function () {
+    function DroppableDirective(_elementRef) {
+        this._elementRef = _elementRef;
+        this.dropped = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
+        this.dragOver = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
+        this.dragOut = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
+        this.drop = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
+    }
+    DroppableDirective.prototype.ngOnInit = function () {
+    };
+    DroppableDirective.prototype.handleDragEnter = function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        this.dragOver.emit(e);
+    };
+    DroppableDirective.prototype.handleDragOut = function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        this.dragOut.emit(e);
+    };
+    DroppableDirective.prototype.handleDrop = function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+        this.drop.emit(event);
+    };
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"])(),
+        __metadata("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"])
+    ], DroppableDirective.prototype, "dropped", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"])('dragOver'),
+        __metadata("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"])
+    ], DroppableDirective.prototype, "dragOver", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"])('dragOut'),
+        __metadata("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"])
+    ], DroppableDirective.prototype, "dragOut", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"])('dropOver'),
+        __metadata("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"])
+    ], DroppableDirective.prototype, "drop", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["HostListener"])('dragover', ['$event']),
+        __metadata("design:type", Function),
+        __metadata("design:paramtypes", [Object]),
+        __metadata("design:returntype", void 0)
+    ], DroppableDirective.prototype, "handleDragEnter", null);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["HostListener"])('dragleave', ['$event']),
+        __metadata("design:type", Function),
+        __metadata("design:paramtypes", [Object]),
+        __metadata("design:returntype", void 0)
+    ], DroppableDirective.prototype, "handleDragOut", null);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["HostListener"])('drop', ['$event']),
+        __metadata("design:type", Function),
+        __metadata("design:paramtypes", [MouseEvent]),
+        __metadata("design:returntype", void 0)
+    ], DroppableDirective.prototype, "handleDrop", null);
+    DroppableDirective = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Directive"])({
+            selector: '[appDroppable]'
+        }),
+        __metadata("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"]])
+    ], DroppableDirective);
+    return DroppableDirective;
 }());
 
 
@@ -5278,6 +5678,81 @@ var CrudListGuard = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/guards/quick-authentication.guard.ts":
+/*!******************************************************!*\
+  !*** ./src/app/guards/quick-authentication.guard.ts ***!
+  \******************************************************/
+/*! exports provided: QuickAuthenticationGuard */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "QuickAuthenticationGuard", function() { return QuickAuthenticationGuard; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var ngx_cookie_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ngx-cookie-service */ "./node_modules/ngx-cookie-service/index.js");
+/* harmony import */ var _services_tendoo_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../services/tendoo.service */ "./src/app/services/tendoo.service.ts");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+var QuickAuthenticationGuard = /** @class */ (function () {
+    function QuickAuthenticationGuard(cookie, tendoo, snackbar, router) {
+        this.cookie = cookie;
+        this.tendoo = tendoo;
+        this.snackbar = snackbar;
+        this.router = router;
+    }
+    QuickAuthenticationGuard.prototype.canActivate = function (next, state) {
+        var _this = this;
+        return new rxjs__WEBPACK_IMPORTED_MODULE_2__["Observable"](function (observer) {
+            var token = _this.cookie.get('auth.user');
+            if (token) {
+                _this.tendoo.auth.tokenLogin(token).subscribe(function (result) {
+                    observer.next(false);
+                    observer.complete();
+                    _this.snackbar.open(result.message, 'OK', { duration: 3000 });
+                    _this.router.navigateByUrl(_this.tendoo.auth.intented || '/dashbaord/');
+                }, function (error) {
+                    observer.next(true);
+                    observer.complete();
+                });
+            }
+            else {
+                observer.next(true);
+                observer.complete();
+            }
+        });
+    };
+    QuickAuthenticationGuard = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
+            providedIn: 'root'
+        }),
+        __metadata("design:paramtypes", [ngx_cookie_service__WEBPACK_IMPORTED_MODULE_3__["CookieService"],
+            _services_tendoo_service__WEBPACK_IMPORTED_MODULE_4__["TendooService"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_5__["MatSnackBar"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]])
+    ], QuickAuthenticationGuard);
+    return QuickAuthenticationGuard;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/guards/require-logged.guard.ts":
 /*!************************************************!*\
   !*** ./src/app/guards/require-logged.guard.ts ***!
@@ -5326,6 +5801,49 @@ var RequireLoggedGuard = /** @class */ (function () {
             _services_tendoo_service__WEBPACK_IMPORTED_MODULE_3__["TendooService"]])
     ], RequireLoggedGuard);
     return RequireLoggedGuard;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/pipes/truncate-middle.pipe.ts":
+/*!***********************************************!*\
+  !*** ./src/app/pipes/truncate-middle.pipe.ts ***!
+  \***********************************************/
+/*! exports provided: TruncateMiddlePipe */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TruncateMiddlePipe", function() { return TruncateMiddlePipe; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+var TruncateMiddlePipe = /** @class */ (function () {
+    function TruncateMiddlePipe() {
+    }
+    TruncateMiddlePipe.prototype.transform = function (fullStr, limit, separator) {
+        if (limit === void 0) { limit = 20; }
+        if (separator === void 0) { separator = '...'; }
+        if (fullStr.length <= limit)
+            return fullStr;
+        var sepLen = separator.length, charsToShow = limit - sepLen, frontChars = Math.ceil(charsToShow / 2), backChars = Math.floor(charsToShow / 2);
+        return fullStr.substr(0, frontChars) +
+            separator +
+            fullStr.substr(fullStr.length - backChars);
+    };
+    TruncateMiddlePipe = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Pipe"])({
+            name: 'truncateMiddle'
+        })
+    ], TruncateMiddlePipe);
+    return TruncateMiddlePipe;
 }());
 
 
@@ -5544,13 +6062,14 @@ var LoaderService = /** @class */ (function () {
      * @param {string} url to access
      * @param data data to submit
      */
-    LoaderService.prototype.post = function (url, data) {
+    LoaderService.prototype.post = function (url, data, config) {
         var _this = this;
+        if (config === void 0) { config = {}; }
         return new rxjs__WEBPACK_IMPORTED_MODULE_2__["Observable"](function (observer) {
             _this.isLoading = true;
-            return _this.__formDataResponse(_this.http.post(url, data, {
+            return _this.__formDataResponse(_this.http.post(url, data, Object.assign({
                 headers: LoaderService_1.headers
-            }), observer);
+            }, config)), observer);
         });
     };
     LoaderService.prototype.__formDataResponse = function (http, observer) {
@@ -5827,6 +6346,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TendooAuthService", function() { return TendooAuthService; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _loader_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./loader.service */ "./src/app/services/loader.service.ts");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
 var __extends = (undefined && undefined.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
@@ -5846,6 +6366,7 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 var TendooAuthService = /** @class */ (function (_super) {
@@ -5892,6 +6413,21 @@ var TendooAuthService = /** @class */ (function (_super) {
      */
     TendooAuthService.prototype.getUser = function () {
         return this.user;
+    };
+    /**
+     * token login
+     * @param string token
+     * @return Observable<AsyncResponse>
+     */
+    TendooAuthService.prototype.tokenLogin = function (token) {
+        var _this = this;
+        var observable = this.post(this.baseUrl + "tendoo/auth/token", { token: token });
+        return observable.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (entry) {
+            if (entry.status === 'success') {
+                _this.setCredentials(entry.data['user'], entry.data['token']);
+            }
+            return entry;
+        }));
     };
     TendooAuthService = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
@@ -6241,7 +6777,11 @@ var TendooLinkService = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     TendooLinkService.prototype.signed = function (namespace, data) {
-        return this.post(this.baseUrl + "tendoo/url/signed/" + namespace, data);
+        return this.post(this.baseUrl + "tendoo/url/signed/" + namespace, data, {
+            headers: Object.assign({
+                'Content-Type': 'application/zip'
+            }, _loader_service__WEBPACK_IMPORTED_MODULE_1__["LoaderService"].headers),
+        });
     };
     TendooLinkService = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
@@ -6267,6 +6807,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TendooMediasService", function() { return TendooMediasService; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _loader_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./loader.service */ "./src/app/services/loader.service.ts");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
 var __extends = (undefined && undefined.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
@@ -6288,13 +6830,20 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 };
 
 
+
+
 var TendooMediasService = /** @class */ (function (_super) {
     __extends(TendooMediasService, _super);
     function TendooMediasService() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    TendooMediasService.prototype.getMedias = function () {
-        return this.get(this.baseUrl + 'tendoo/medias');
+    /**
+     * load medias as saved on the media manager.
+     * @param {string} url to the media endpoint. let you override the loading URL
+     */
+    TendooMediasService.prototype.getMedias = function (url) {
+        if (url === void 0) { url = null; }
+        return this.get(url || this.baseUrl + 'tendoo/medias');
     };
     /**
      * delete a specific media provided
@@ -6311,6 +6860,60 @@ var TendooMediasService = /** @class */ (function (_super) {
      */
     TendooMediasService.prototype.getMedia = function (id) {
         return this.get(this.baseUrl + "tendoo/medias/" + id);
+    };
+    /**
+     * Delete single media using a provided id
+     * @param id media id to delete
+     */
+    TendooMediasService.prototype.deleteMediaById = function (id) {
+        return this.delete(this.baseUrl + 'tendoo/medias/' + id);
+    };
+    /**
+     * Upload a single file
+     * @param file object
+     */
+    TendooMediasService.prototype.uploadFile = function (file) {
+        var _this = this;
+        return new Promise(function (resolve, reject) {
+            var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"](_loader_service__WEBPACK_IMPORTED_MODULE_1__["LoaderService"].headers);
+            var form = new FormData;
+            form.append('file', file);
+            var httpRequest = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpRequest"]('POST', _this.baseUrl + "tendoo/medias", form, {
+                headers: headers,
+                reportProgress: true
+            });
+            _this.http.request(httpRequest).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (event) {
+                switch (event.type) {
+                    case _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpEventType"].Sent:
+                        file['progress'] = 0;
+                        file['uploaded'] = false;
+                        file['error'] = false;
+                        break;
+                    case _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpEventType"].UploadProgress:
+                        file['progress'] = Math.round(100 * event.loaded / event.total);
+                        file['uploaded'] = false;
+                        file['error'] = false;
+                        break;
+                    case _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpEventType"].ResponseHeader:
+                        file['progress'] = 0;
+                        file['uploaded'] = false;
+                        file['error'] = true;
+                        break;
+                    case _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpEventType"].Response:
+                        file['progress'] = 100;
+                        file['uploaded'] = true;
+                        file['error'] = false;
+                        break;
+                }
+                return event;
+            })).subscribe(function (upload) {
+                if (upload instanceof _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpResponse"]) {
+                    resolve(file);
+                }
+            }, function (error) {
+                reject(file);
+            });
+        });
     };
     TendooMediasService = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
@@ -6566,6 +7169,21 @@ var TendooOauthService = /** @class */ (function (_super) {
      */
     TendooOauthService.prototype.grantRequest = function (request) {
         return this.post(this.baseUrl + "tendoo/auth/request", request);
+    };
+    /**
+     * get authorized applications
+     * @return Observable<data>
+     */
+    TendooOauthService.prototype.getAuthorizedApplication = function () {
+        return this.get(this.baseUrl + "tendoo/applications/authorized");
+    };
+    /**
+     * Revoque Applications
+     * @param number application id
+     * @reutrn Observable<AsyncResponse>
+     */
+    TendooOauthService.prototype.revoqueApp = function (id) {
+        return this.get(this.baseUrl + "tendoo/applications/revoke/" + id);
     };
     TendooOauthService = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
@@ -6964,7 +7582,7 @@ var TendooService = /** @class */ (function (_super) {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".dialog-text {\r\n    text-align: center;\r\n}\r\n:host {\r\n    width: 100%;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvc2hhcmVkL2NvbmZpcm0tZGlhbG9nL2NvbmZpcm0tZGlhbG9nLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSxrQkFBa0I7QUFDdEI7QUFDQTtJQUNJLFdBQVc7QUFDZiIsImZpbGUiOiJzcmMvYXBwL3NoYXJlZC9jb25maXJtLWRpYWxvZy9jb25maXJtLWRpYWxvZy5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLmRpYWxvZy10ZXh0IHtcclxuICAgIHRleHQtYWxpZ246IGNlbnRlcjtcclxufVxyXG46aG9zdCB7XHJcbiAgICB3aWR0aDogMTAwJTtcclxufSJdfQ== */"
+module.exports = ".dialog-text {\r\n    text-align: center;\r\n}\r\n:host {\r\n    width: 100%;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvc2hhcmVkL2NvbmZpcm0tZGlhbG9nL2NvbmZpcm0tZGlhbG9nLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSxtQkFBbUI7Q0FDdEI7QUFDRDtJQUNJLFlBQVk7Q0FDZiIsImZpbGUiOiJzcmMvYXBwL3NoYXJlZC9jb25maXJtLWRpYWxvZy9jb25maXJtLWRpYWxvZy5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLmRpYWxvZy10ZXh0IHtcclxuICAgIHRleHQtYWxpZ246IGNlbnRlcjtcclxufVxyXG46aG9zdCB7XHJcbiAgICB3aWR0aDogMTAwJTtcclxufSJdfQ== */"
 
 /***/ }),
 
@@ -7027,11 +7645,11 @@ var ConfirmDialogComponent = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-confirm-dialog',
             template: __webpack_require__(/*! ./confirm-dialog.component.html */ "./src/app/shared/confirm-dialog/confirm-dialog.component.html"),
+            styles: [__webpack_require__(/*! ./confirm-dialog.component.css */ "./src/app/shared/confirm-dialog/confirm-dialog.component.css")],
             encapsulation: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewEncapsulation"].None,
             host: {
                 style: 'flex-direction: column; box-sizing: border-box; display: flex; height: 100%;',
-            },
-            styles: [__webpack_require__(/*! ./confirm-dialog.component.css */ "./src/app/shared/confirm-dialog/confirm-dialog.component.css")]
+            }
         }),
         __param(1, Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Inject"])(_angular_material__WEBPACK_IMPORTED_MODULE_1__["MAT_DIALOG_DATA"])),
         __metadata("design:paramtypes", [_angular_material__WEBPACK_IMPORTED_MODULE_1__["MatDialogRef"], Object, _angular_material__WEBPACK_IMPORTED_MODULE_1__["MatSnackBar"]])
@@ -7050,7 +7668,7 @@ var ConfirmDialogComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ":host {\r\n    height: 100%;\r\n}\r\n#search-field {\r\n    height: 35px;\r\n    border-radius: 5px;\r\n    border: solid 1px #DDD;\r\n    background: #FFF;\r\n    width: 100%;\r\n    font-size: 18px;\r\n    padding: 0 10px;\r\n    margin-right: 10px;\r\n    margin-left: 10px;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvc2hhcmVkL2NydWQtdGFibGUvY3J1ZC10YWJsZS5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0lBQ0ksWUFBWTtBQUNoQjtBQUNBO0lBQ0ksWUFBWTtJQUNaLGtCQUFrQjtJQUNsQixzQkFBc0I7SUFDdEIsZ0JBQWdCO0lBQ2hCLFdBQVc7SUFDWCxlQUFlO0lBQ2YsZUFBZTtJQUNmLGtCQUFrQjtJQUNsQixpQkFBaUI7QUFDckIiLCJmaWxlIjoic3JjL2FwcC9zaGFyZWQvY3J1ZC10YWJsZS9jcnVkLXRhYmxlLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyI6aG9zdCB7XHJcbiAgICBoZWlnaHQ6IDEwMCU7XHJcbn1cclxuI3NlYXJjaC1maWVsZCB7XHJcbiAgICBoZWlnaHQ6IDM1cHg7XHJcbiAgICBib3JkZXItcmFkaXVzOiA1cHg7XHJcbiAgICBib3JkZXI6IHNvbGlkIDFweCAjREREO1xyXG4gICAgYmFja2dyb3VuZDogI0ZGRjtcclxuICAgIHdpZHRoOiAxMDAlO1xyXG4gICAgZm9udC1zaXplOiAxOHB4O1xyXG4gICAgcGFkZGluZzogMCAxMHB4O1xyXG4gICAgbWFyZ2luLXJpZ2h0OiAxMHB4O1xyXG4gICAgbWFyZ2luLWxlZnQ6IDEwcHg7XHJcbn0iXX0= */"
+module.exports = ":host {\r\n    height: 100%;\r\n}\r\n#search-field {\r\n    height: 35px;\r\n    border-radius: 5px;\r\n    border: solid 1px #DDD;\r\n    background: #FFF;\r\n    width: 100%;\r\n    font-size: 18px;\r\n    padding: 0 10px;\r\n    margin-right: 10px;\r\n    margin-left: 10px;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvc2hhcmVkL2NydWQtdGFibGUvY3J1ZC10YWJsZS5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0lBQ0ksYUFBYTtDQUNoQjtBQUNEO0lBQ0ksYUFBYTtJQUNiLG1CQUFtQjtJQUNuQix1QkFBdUI7SUFDdkIsaUJBQWlCO0lBQ2pCLFlBQVk7SUFDWixnQkFBZ0I7SUFDaEIsZ0JBQWdCO0lBQ2hCLG1CQUFtQjtJQUNuQixrQkFBa0I7Q0FDckIiLCJmaWxlIjoic3JjL2FwcC9zaGFyZWQvY3J1ZC10YWJsZS9jcnVkLXRhYmxlLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyI6aG9zdCB7XHJcbiAgICBoZWlnaHQ6IDEwMCU7XHJcbn1cclxuI3NlYXJjaC1maWVsZCB7XHJcbiAgICBoZWlnaHQ6IDM1cHg7XHJcbiAgICBib3JkZXItcmFkaXVzOiA1cHg7XHJcbiAgICBib3JkZXI6IHNvbGlkIDFweCAjREREO1xyXG4gICAgYmFja2dyb3VuZDogI0ZGRjtcclxuICAgIHdpZHRoOiAxMDAlO1xyXG4gICAgZm9udC1zaXplOiAxOHB4O1xyXG4gICAgcGFkZGluZzogMCAxMHB4O1xyXG4gICAgbWFyZ2luLXJpZ2h0OiAxMHB4O1xyXG4gICAgbWFyZ2luLWxlZnQ6IDEwcHg7XHJcbn0iXX0= */"
 
 /***/ }),
 
@@ -7338,7 +7956,7 @@ var CrudTableComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "mat-form-field {\r\n    margin-bottom: 10px;\r\n    width: 100%;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvc2hhcmVkL2ZpZWxkcy9maWVsZHMuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLG1CQUFtQjtJQUNuQixXQUFXO0FBQ2YiLCJmaWxlIjoic3JjL2FwcC9zaGFyZWQvZmllbGRzL2ZpZWxkcy5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsibWF0LWZvcm0tZmllbGQge1xyXG4gICAgbWFyZ2luLWJvdHRvbTogMTBweDtcclxuICAgIHdpZHRoOiAxMDAlO1xyXG59Il19 */"
+module.exports = "mat-form-field {\r\n    margin-bottom: 10px;\r\n    width: 100%;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvc2hhcmVkL2ZpZWxkcy9maWVsZHMuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLG9CQUFvQjtJQUNwQixZQUFZO0NBQ2YiLCJmaWxlIjoic3JjL2FwcC9zaGFyZWQvZmllbGRzL2ZpZWxkcy5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsibWF0LWZvcm0tZmllbGQge1xyXG4gICAgbWFyZ2luLWJvdHRvbTogMTBweDtcclxuICAgIHdpZHRoOiAxMDAlO1xyXG59Il19 */"
 
 /***/ }),
 
@@ -7417,6 +8035,92 @@ var FieldsComponent = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/shared/file-upload/file-upload.component.css":
+/*!**************************************************************!*\
+  !*** ./src/app/shared/file-upload/file-upload.component.css ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ":host {\r\n    height: 100%;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvc2hhcmVkL2ZpbGUtdXBsb2FkL2ZpbGUtdXBsb2FkLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSxhQUFhO0NBQ2hCIiwiZmlsZSI6InNyYy9hcHAvc2hhcmVkL2ZpbGUtdXBsb2FkL2ZpbGUtdXBsb2FkLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyI6aG9zdCB7XHJcbiAgICBoZWlnaHQ6IDEwMCU7XHJcbn0iXX0= */"
+
+/***/ }),
+
+/***/ "./src/app/shared/file-upload/file-upload.component.html":
+/*!***************************************************************!*\
+  !*** ./src/app/shared/file-upload/file-upload.component.html ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<mat-card class=\"p-0\" fxFlex>\n    <mat-card-content fxLayout=\"row\" fxFill>\n        <div fxFlex=\"100px\" fxLayoutAlign=\"center center\" class=\"bg-content\">\n            <h1 class=\"mat-display-1 m-0\">{{ currentProgress }}%</h1>\n        </div>\n        <div fxFlex=\"auto\" fxLayout=\"column\">\n            <div class=\"p-2\">\n                <h2 class=\"mat-h2 m-0 mb-1\">Uploading</h2>\n            </div>\n            <mat-divider [inset]=\"true\" style=\"height: 1px\"></mat-divider>\n            <div class=\"p-2\" fxFlex>\n                <h4 class=\"mat-h4 m-0 mb-1\">Progress {{ processedFiles }}/{{ totalFiles }}</h4>\n                <span class=\"mat-body\">Processing : {{ processing.name | truncateMiddle }}</span>\n            </div>\n            <mat-progress-bar mode=\"determinate\" [value]=\"currentProgress\"></mat-progress-bar>\n        </div>\n    </mat-card-content>\n</mat-card>"
+
+/***/ }),
+
+/***/ "./src/app/shared/file-upload/file-upload.component.ts":
+/*!*************************************************************!*\
+  !*** ./src/app/shared/file-upload/file-upload.component.ts ***!
+  \*************************************************************/
+/*! exports provided: FileUploadComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FileUploadComponent", function() { return FileUploadComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (undefined && undefined.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+
+
+var FileUploadComponent = /** @class */ (function () {
+    function FileUploadComponent(data) {
+        this.data = data;
+        this.currentProgress = 0;
+        this.processedFiles = 0;
+        this.totalFiles = 0;
+    }
+    FileUploadComponent.prototype.ngOnInit = function () {
+        this.totalFiles = this.data.files.length;
+        this.processing = this.data.files[this.data.index];
+    };
+    FileUploadComponent.prototype.setProcessing = function (_a) {
+        var files = _a.files, index = _a.index;
+        this.processing = files[index];
+        this.computeProcessedFiles(files);
+    };
+    FileUploadComponent.prototype.computeProcessedFiles = function (files) {
+        this.processedFiles = this.data.files.filter(function (file) {
+            return file['uploaded'];
+        }).length;
+        this.currentProgress = Math.round((this.processedFiles * 100) / this.totalFiles);
+    };
+    FileUploadComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-file-upload',
+            template: __webpack_require__(/*! ./file-upload.component.html */ "./src/app/shared/file-upload/file-upload.component.html"),
+            styles: [__webpack_require__(/*! ./file-upload.component.css */ "./src/app/shared/file-upload/file-upload.component.css")]
+        }),
+        __param(0, Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Inject"])(_angular_material__WEBPACK_IMPORTED_MODULE_1__["MAT_DIALOG_DATA"])),
+        __metadata("design:paramtypes", [Object])
+    ], FileUploadComponent);
+    return FileUploadComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/shared/menu-list/menu-list.component.css":
 /*!**********************************************************!*\
   !*** ./src/app/shared/menu-list/menu-list.component.css ***!
@@ -7424,7 +8128,7 @@ var FieldsComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "mat-list-item div > div > i {\r\n    margin-right: 16px;\r\n}\r\nmat-nav-list {\r\n    padding-top: 0;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvc2hhcmVkL21lbnUtbGlzdC9tZW51LWxpc3QuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLGtCQUFrQjtBQUN0QjtBQUNBO0lBQ0ksY0FBYztBQUNsQiIsImZpbGUiOiJzcmMvYXBwL3NoYXJlZC9tZW51LWxpc3QvbWVudS1saXN0LmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyJtYXQtbGlzdC1pdGVtIGRpdiA+IGRpdiA+IGkge1xyXG4gICAgbWFyZ2luLXJpZ2h0OiAxNnB4O1xyXG59XHJcbm1hdC1uYXYtbGlzdCB7XHJcbiAgICBwYWRkaW5nLXRvcDogMDtcclxufSJdfQ== */"
+module.exports = "mat-list-item div > div > i {\r\n    margin-right: 16px;\r\n}\r\nmat-nav-list {\r\n    padding-top: 0;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvc2hhcmVkL21lbnUtbGlzdC9tZW51LWxpc3QuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLG1CQUFtQjtDQUN0QjtBQUNEO0lBQ0ksZUFBZTtDQUNsQiIsImZpbGUiOiJzcmMvYXBwL3NoYXJlZC9tZW51LWxpc3QvbWVudS1saXN0LmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyJtYXQtbGlzdC1pdGVtIGRpdiA+IGRpdiA+IGkge1xyXG4gICAgbWFyZ2luLXJpZ2h0OiAxNnB4O1xyXG59XHJcbm1hdC1uYXYtbGlzdCB7XHJcbiAgICBwYWRkaW5nLXRvcDogMDtcclxufSJdfQ== */"
 
 /***/ }),
 
@@ -7435,7 +8139,7 @@ module.exports = "mat-list-item div > div > i {\r\n    margin-right: 16px;\r\n}\
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<mat-nav-list>\r\n\t<ng-container *ngFor=\"let menu of sidebarMenus; index as index\">\r\n\t\t<div *ngIf=\"menu.childrens?.length > 0\" matLine href=\"javascript:void(0)\" (click)=\"toggle( index )\">\r\n\t\t\t<mat-list-item>\r\n\t\t\t\t<div fxLayout=\"row\" fxLayoutAlign=\"space-around center\" fxFill>\r\n\t\t\t\t\t<div fxFlex=\"auto\" fxLayout=\"row\" fxLayoutAlign=\"start center\">\r\n\t\t\t\t\t\t<i class=\"material-icons\">{{ menu.icon ? menu.icon : 'star' }}</i>\r\n\t\t\t\t\t\t<span>{{ menu.text }}</span>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t\t<div fxFlex=\"24px\">\r\n\t\t\t\t\t\t<i *ngIf=\"menu.open\"class=\"material-icons\">arrow_drop_up</i>\r\n\t\t\t\t\t\t<i *ngIf=\"! menu.open\" class=\"material-icons\">arrow_drop_down</i>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t</mat-list-item>\r\n\t\t\t<app-sub-menu-list *ngIf=\"menu.childrens?.length > 0 && menu.open\" [childrens]=\"menu.childrens\"></app-sub-menu-list>\r\n\t\t</div>\r\n\t\t<a *ngIf=\"! menu.childrens\" matLine (click)=\"goTo( menu )\">\r\n\t\t\t<mat-list-item >\r\n\t\t\t\t<div fxLayout=\"row\" fxLayoutAlign=\"space-around center\" class=\"w-100\">\r\n\t\t\t\t\t<div fxFlex=\"auto\" fxLayout=\"row\" fxLayoutAlign=\"start center\">\r\n\t\t\t\t\t\t<i class=\"material-icons\">{{ menu.icon ? menu.icon : 'star' }}</i>\r\n\t\t\t\t\t\t<span>{{ menu.text }}</span>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t</mat-list-item>\r\n\t\t</a>\r\n\t</ng-container>\r\n</mat-nav-list>"
+module.exports = "<mat-nav-list>\n\t<ng-container *ngFor=\"let menu of sidebarMenus; index as index\">\n\t\t<div *ngIf=\"menu.childrens?.length > 0\" matLine href=\"javascript:void(0)\" (click)=\"toggle( index )\">\n\t\t\t<mat-list-item>\n\t\t\t\t<div fxLayout=\"row\" fxLayoutAlign=\"space-around center\" fxFill>\n\t\t\t\t\t<div fxFlex=\"auto\" fxLayout=\"row\" fxLayoutAlign=\"start center\">\n\t\t\t\t\t\t<i class=\"material-icons\">{{ menu.icon ? menu.icon : 'star' }}</i>\n\t\t\t\t\t\t<span>{{ menu.text }}</span>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div fxFlex=\"24px\">\n\t\t\t\t\t\t<i *ngIf=\"menu.open\"class=\"material-icons\">arrow_drop_up</i>\n\t\t\t\t\t\t<i *ngIf=\"! menu.open\" class=\"material-icons\">arrow_drop_down</i>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t</mat-list-item>\n\t\t\t<app-sub-menu-list *ngIf=\"menu.childrens?.length > 0 && menu.open\" [childrens]=\"menu.childrens\"></app-sub-menu-list>\n\t\t</div>\n\t\t<a *ngIf=\"! menu.childrens\" matLine (click)=\"goTo( menu )\">\n\t\t\t<mat-list-item >\n\t\t\t\t<div fxLayout=\"row\" fxLayoutAlign=\"space-around center\" class=\"w-100\">\n\t\t\t\t\t<div fxFlex=\"auto\" fxLayout=\"row\" fxLayoutAlign=\"start center\">\n\t\t\t\t\t\t<i class=\"material-icons\">{{ menu.icon ? menu.icon : 'star' }}</i>\n\t\t\t\t\t\t<span>{{ menu.text }}</span>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t</mat-list-item>\n\t\t</a>\n\t</ng-container>\n</mat-nav-list>"
 
 /***/ }),
 
@@ -7527,7 +8231,7 @@ var MenuListComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "mat-nav-list {\r\n    background: rgba(233, 233, 233, 0.5);\r\n    border-top: solid 1px #e0e0e0;\r\n    border-bottom: solid 1px #e0e0e0;\r\n}\r\n\r\nmat-list-item span {\r\n    padding-left: 40px;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvc2hhcmVkL3N1Yi1tZW51LWxpc3Qvc3ViLW1lbnUtbGlzdC5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0lBQ0ksb0NBQW9DO0lBQ3BDLDZCQUE2QjtJQUM3QixnQ0FBZ0M7QUFDcEM7O0FBRUE7SUFDSSxrQkFBa0I7QUFDdEIiLCJmaWxlIjoic3JjL2FwcC9zaGFyZWQvc3ViLW1lbnUtbGlzdC9zdWItbWVudS1saXN0LmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyJtYXQtbmF2LWxpc3Qge1xyXG4gICAgYmFja2dyb3VuZDogcmdiYSgyMzMsIDIzMywgMjMzLCAwLjUpO1xyXG4gICAgYm9yZGVyLXRvcDogc29saWQgMXB4ICNlMGUwZTA7XHJcbiAgICBib3JkZXItYm90dG9tOiBzb2xpZCAxcHggI2UwZTBlMDtcclxufVxyXG5cclxubWF0LWxpc3QtaXRlbSBzcGFuIHtcclxuICAgIHBhZGRpbmctbGVmdDogNDBweDtcclxufSJdfQ== */"
+module.exports = "mat-nav-list {\r\n    background: rgba(233, 233, 233, 0.5);\r\n    border-top: solid 1px #e0e0e0;\r\n    border-bottom: solid 1px #e0e0e0;\r\n}\r\n\r\nmat-list-item span {\r\n    padding-left: 40px;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvc2hhcmVkL3N1Yi1tZW51LWxpc3Qvc3ViLW1lbnUtbGlzdC5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0lBQ0kscUNBQXFDO0lBQ3JDLDhCQUE4QjtJQUM5QixpQ0FBaUM7Q0FDcEM7O0FBRUQ7SUFDSSxtQkFBbUI7Q0FDdEIiLCJmaWxlIjoic3JjL2FwcC9zaGFyZWQvc3ViLW1lbnUtbGlzdC9zdWItbWVudS1saXN0LmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyJtYXQtbmF2LWxpc3Qge1xyXG4gICAgYmFja2dyb3VuZDogcmdiYSgyMzMsIDIzMywgMjMzLCAwLjUpO1xyXG4gICAgYm9yZGVyLXRvcDogc29saWQgMXB4ICNlMGUwZTA7XHJcbiAgICBib3JkZXItYm90dG9tOiBzb2xpZCAxcHggI2UwZTBlMDtcclxufVxyXG5cclxubWF0LWxpc3QtaXRlbSBzcGFuIHtcclxuICAgIHBhZGRpbmctbGVmdDogNDBweDtcclxufSJdfQ== */"
 
 /***/ }),
 
@@ -7538,7 +8242,7 @@ module.exports = "mat-nav-list {\r\n    background: rgba(233, 233, 233, 0.5);\r\
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<mat-nav-list class=\"pt-0\">\r\n\t<a *ngFor=\"let menu of subMenus\" matLine (click)=\"goTo( menu )\">\r\n\t\t<mat-list-item >\r\n\t\t\t<span>{{ menu.text }}</span>\r\n\t\t</mat-list-item>\r\n\t</a>\r\n</mat-nav-list>"
+module.exports = "<mat-nav-list class=\"pt-0\">\n\t<a *ngFor=\"let menu of subMenus\" matLine (click)=\"goTo( menu )\">\n\t\t<mat-list-item >\n\t\t\t<span>{{ menu.text }}</span>\n\t\t</mat-list-item>\n\t</a>\n</mat-nav-list>"
 
 /***/ }),
 
@@ -7819,12 +8523,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var src_app_guards_check_registration_status_guard__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! src/app/guards/check-registration-status.guard */ "./src/app/guards/check-registration-status.guard.ts");
 /* harmony import */ var src_app_components_dashboard_modules_details_modules_details_component__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! src/app/components/dashboard/modules-details/modules-details.component */ "./src/app/components/dashboard/modules-details/modules-details.component.ts");
 /* harmony import */ var src_app_components_auth_oauth_oauth_component__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! src/app/components/auth/oauth/oauth.component */ "./src/app/components/auth/oauth/oauth.component.ts");
+/* harmony import */ var src_app_guards_quick_authentication_guard__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! src/app/guards/quick-authentication.guard */ "./src/app/guards/quick-authentication.guard.ts");
+/* harmony import */ var src_app_components_dashboard_profile_apps_profile_apps_component__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! src/app/components/dashboard/profile-apps/profile-apps.component */ "./src/app/components/dashboard/profile-apps/profile-apps.component.ts");
+/* harmony import */ var src_app_shared_file_upload_file_upload_component__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! src/app/shared/file-upload/file-upload.component */ "./src/app/shared/file-upload/file-upload.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
+
+
 
 
 
@@ -7871,7 +8581,11 @@ var RoutesModule = /** @class */ (function () {
                     {
                         path: '',
                         redirectTo: 'auth/login',
+                        // redirectTo: 'test',
                         pathMatch: 'full',
+                    }, {
+                        path: 'test',
+                        component: src_app_shared_file_upload_file_upload_component__WEBPACK_IMPORTED_MODULE_38__["FileUploadComponent"]
                     }, {
                         path: 'do-setup',
                         component: src_app_components_do_setup_do_setup_component__WEBPACK_IMPORTED_MODULE_12__["DoSetupComponent"],
@@ -7902,6 +8616,7 @@ var RoutesModule = /** @class */ (function () {
                                 canActivate: [src_app_guards_check_registration_status_guard__WEBPACK_IMPORTED_MODULE_33__["CheckRegistrationStatusGuard"]]
                             }, {
                                 path: 'login',
+                                canActivate: [src_app_guards_quick_authentication_guard__WEBPACK_IMPORTED_MODULE_36__["QuickAuthenticationGuard"]],
                                 component: src_app_components_auth_login_login_component__WEBPACK_IMPORTED_MODULE_5__["LoginComponent"]
                             }, {
                                 path: '',
@@ -7929,6 +8644,9 @@ var RoutesModule = /** @class */ (function () {
                             }, {
                                 path: 'profile',
                                 component: src_app_components_dashboard_profile_profile_component__WEBPACK_IMPORTED_MODULE_21__["ProfileComponent"]
+                            }, {
+                                path: 'profile/apps',
+                                component: src_app_components_dashboard_profile_apps_profile_apps_component__WEBPACK_IMPORTED_MODULE_37__["ProfileAppsComponent"]
                             }, {
                                 path: 'modules',
                                 component: src_app_components_dashboard_modules_modules_component__WEBPACK_IMPORTED_MODULE_10__["ModulesComponent"]
@@ -7997,7 +8715,7 @@ var RoutesModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! D:\xampp\htdocs\packages\tendoo\cms\src\public\tendoo-setup\src\main.ts */"./src/main.ts");
+module.exports = __webpack_require__(/*! D:\public_html\cms\src\public\tendoo-setup\src\main.ts */"./src/main.ts");
 
 
 /***/ })

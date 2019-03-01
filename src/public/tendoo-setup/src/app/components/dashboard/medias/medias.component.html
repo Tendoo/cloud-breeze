@@ -10,22 +10,24 @@
                 <span>display all the medias by type</span>
             </div>
             <div fxFlex fxLayoutAlign="end start">
-                <div>
-                    <button mat-button [routerLink]="'/dashboard/medias/upload'">Upload</button>
-                </div>
             </div>    
         </div>
-        {{ uploadQueue | json }}
         <div fxFlex *ngIf="medias.length === 0" class="p-3 bg-content" fxLayoutAlign="center center">
-            <span>It seems quite empty right here. <a routerLink="/dashboard/medias/upload">Upload new content ?</a></span>
+            <span>It seems quite empty right here. Drop files to upload them.</span>
         </div>
         <div fxFlex *ngIf="medias.length > 0" class="p-3 bg-content">
             <mat-card class="p-0">
                 <mat-card-title class="p-1 mb-0">
                     <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
                         <div fxLayoutAlign="start center">
-                            <button *ngIf="selectedMediasCount > 0" (click)="reset()" mat-icon-button color="warn">
+                            <button *ngIf="selectedMediasCount === 0" [disabled]="pagination.prev_page_url === null" (click)="loadMedias( pagination.prev_page_url )" mat-icon-button color="warn">
                                 <mat-icon>arrow_back</mat-icon>
+                            </button>
+                            <button *ngIf="selectedMediasCount === 0" [disabled]="pagination.next_page_url === null" (click)="loadMedias( pagination.next_page_url )" mat-icon-button color="warn">
+                                <mat-icon>arrow_forward</mat-icon>
+                            </button>
+                            <button *ngIf="selectedMediasCount > 0" (click)="reset()" mat-icon-button color="warn">
+                                <mat-icon>cancel</mat-icon>
                             </button>
                             <span *ngIf="selectedMediasCount > 0">
                                 {{ selectedMediasCount }} <span>selected</span>

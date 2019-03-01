@@ -3,15 +3,21 @@ import { LoaderService } from './loader.service';
 import { Media } from '../interfaces/media';
 import { Observable } from 'rxjs';
 import { AsyncResponse } from '../interfaces/async-response';
-import { HttpRequest, HttpEventType, HttpHeaders } from '@angular/common/http';
+import { HttpRequest, HttpEventType, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { map } from 'rxjs/operators';
+import { MediaUploadStatus } from '../interfaces/media-upload-status';
 
 @Injectable({
     providedIn: 'root'
 })
 export class TendooMediasService extends LoaderService {
-    getMedias() {
-        return this.get( this.baseUrl + 'tendoo/medias' );
+
+    /**
+     * load medias as saved on the media manager.
+     * @param {string} url to the media endpoint. let you override the loading URL
+     */
+    getMedias( url = null ) {
+        return this.get( url || this.baseUrl + 'tendoo/medias' );
     }
 
     /**
@@ -33,40 +39,70 @@ export class TendooMediasService extends LoaderService {
     }
 
     /**
-     * upload a filesList
-     * @param {filesList} object list object
-     * @return Observable<AsyncResponse>
+     * Delete single media using a provided id
+     * @param id media id to delete
      */
-    uploadFiles( files: File[] ): File[] {
-        files.forEach( file => {
-            const form  =  new FormData();
-            form.append( 'file', file, file.name );
-            const httpRequest   =   new HttpRequest( 'POST', `${this.baseUrl}tendoo/medias`, form, {
-                headers: <HttpHeaders>LoaderService.headers,
+    deleteMediaById( id: number ) {
+        return this.delete( this.baseUrl + 'tendoo/medias/' + id );
+    }
+
+    /**
+     * Upload a single file
+     * @param file object
+     */
+    uploadFile( file ): Promise<File> {
+        return new Promise( ( resolve, reject ) => {
+            const headers               =   new HttpHeaders( LoaderService.headers );
+            const form                  =   new FormData;
+            
+            form.append( 'file', file );
+
+            const httpRequest           =   new HttpRequest( 'POST', `${this.baseUrl}tendoo/medias`, form, {
+                headers,
                 reportProgress: true
-            })
+            });
 
             this.http.request( httpRequest ).pipe(
                 map( event => {
                     switch( event.type ) {
+                        case HttpEventType.Sent: 
+
+                            file[ 'progress' ]  =   0
+                            file[ 'uploaded' ]  =   false;
+                            file[ 'error' ]     =   false;
+
+                        break;
                         case HttpEventType.UploadProgress: 
-                        file[ 'progress' ]  =   Math.round( 100 * event.loaded / event.total )
-                        file[ 'uploaded' ]  =   false;
+                        
+                            file[ 'progress' ]  =   Math.round( 100 * event.loaded / event.total )
+                            file[ 'uploaded' ]  =   false;
+                            file[ 'error' ]     =   false;
+
+                        break;
+                        case HttpEventType.ResponseHeader:
+                        
+                            file[ 'progress' ]  =   0;
+                            file[ 'uploaded' ]  =   false;
+                            file[ 'error' ]     =   true;
+
                         break;
                         case HttpEventType.Response: 
-                        file[ 'progress' ]  =   100
-                        file[ 'uploaded' ]  =   true;
-                        break;
-                        case HttpEventType.Sent: 
-                        file[ 'progress' ]  =   0
-                        file[ 'uploaded' ]  =   false;
+
+                            file[ 'progress' ]  =   100
+                            file[ 'uploaded' ]  =   true;
+                            file[ 'error' ]     =   false;
+
                         break;
                     }
+                    return event;
                 }),
-            ).subscribe( request => {
-                console.log( request );
-            });
-        });
-        return files;
+            ).subscribe( upload => {
+                if ( upload instanceof HttpResponse ) {
+                    resolve( file );
+                }
+            }, error => {
+                reject( file );
+            })
+        })
     }
 }
