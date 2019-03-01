@@ -10,7 +10,7 @@ import { AsyncResponse } from 'src/app/interfaces/async-response';
 import { MediaObserver } from '@angular/flex-layout';
 import { Title } from '@angular/platform-browser';
 import { TendooService } from 'src/app/services/tendoo.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { FileUploadComponent } from 'src/app/shared/file-upload/file-upload.component';
 
 @Component({
@@ -26,6 +26,7 @@ export class MediasComponent implements OnInit {
     bulkSelectEnabled       =   false;
     hasJustEnabled          =   false;
     gridCols                =   5;
+    currentPage             =   1;
     wantsToDrop             =   false;
 
     constructor(
@@ -35,6 +36,7 @@ export class MediasComponent implements OnInit {
         private mediaObserver: MediaObserver,
         private router: Router,
         public tendoo: TendooService,
+        private snapshot: ActivatedRoute
     ) { }
 
     hasDraggedOver( event ) {
@@ -105,9 +107,7 @@ export class MediasComponent implements OnInit {
     ngOnInit() {
         this.tendoo.dashboardTitle( 'Medias' );
 
-        this.loadMedias();
         this.mediaObserver.media$.subscribe( result => {
-            console.log( result.mqAlias );
             switch( result.mqAlias ) {
                 case 'xs':
                     this.gridCols    =   2;
@@ -125,6 +125,11 @@ export class MediasComponent implements OnInit {
                     this.gridCols    =   8;
                 break;
             }
+        });
+
+        this.snapshot.paramMap.subscribe( param => {
+            this.currentPage    =   +param.get( 'page' )
+            this.loadMedias( this.currentPage );
         })
     }
 
@@ -132,9 +137,9 @@ export class MediasComponent implements OnInit {
      * init by loading the medias
      * @return void
      */
-    loadMedias( url = null ) {
+    loadMedias( page = 1 ) {
         forkJoin([
-            this.mediaService.getMedias( url )
+            this.mediaService.getMedias( page )
         ]).subscribe( ( results ) => {
             this.pagination     =   (<PaginatedResponse>results[0]);
             this.medias         =  (<Media[]>this.pagination.data).map( media => {
@@ -142,6 +147,14 @@ export class MediasComponent implements OnInit {
                 return media;
             });
         });
+    }
+
+    /**
+     * Proceed to a navigation
+     * @param index Navigate to a specific page
+     */
+    goToPage( index: number ) {
+        this.router.navigateByUrl( '/dashboard/medias/page/' + Math.abs( index ) );
     }
     
     /**
@@ -240,7 +253,9 @@ export class MediasComponent implements OnInit {
         this.mediaService.deleteMedia( this.selectedMedias ).subscribe( (result: AsyncResponse ) => {
             this.snackbar.open( result.message, 'OK', { duration : 3000 });
             this.dialog.getDialogById( 'delete.medias' ).close();
-            this.loadMedias();
+
+            // let's force a refresh on this page.
+            this.loadMedias( this.currentPage );
         }, ( error ) => {
             this.snackbar.open( 'An error has occured', null, { duration: 4000 });
             this.dialog.getDialogById( 'delete.medias' ).close();

@@ -50,7 +50,7 @@ export class MediasDetailsComponent implements OnInit {
                         onClick: () => {
                             this.tendoo.medias.deleteMediaById( this.media.id ).subscribe( (result: AsyncResponse ) => {
                                 this.dialog.getDialogById( 'delete-media' ).close();
-                                this.router.navigateByUrl( 'dashboard/medias' );
+                                this.router.navigateByUrl( 'dashboard/medias/page/1' );
                                 this.snackbar.open( result.message, 'OK', { duration: 3000 });
                             }, (result: HttpErrorResponse) => {
                                 this.snackbar.open( result.error.message || 'An error occured.', 'OK' );

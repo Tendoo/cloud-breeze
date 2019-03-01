@@ -9,6 +9,7 @@ use Tendoo\Core\Exceptions\WrongCredentialException;
 use Tendoo\Core\Exceptions\AccessDeniedException;
 use Tendoo\Core\Models\User;
 use Tendoo\Core\Services\DateService;
+use Tendoo\Core\Services\AuthService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 
@@ -25,48 +26,18 @@ class TendooAuth
     {
         $token  =   $request->header( 'X-AUTH-TOKEN' ) ?? $request->input( 'token' );
         $date   =   app()->make( DateService::class );
+        $auth   =   app()->make( AuthService::class );
         
         if ( $token === null ) {
             throw new WrongCredentialException;
         }
 
-        $Auth   =   Cache::get( 'Auth-Token::' . $token );
-
-        if ( isset( $Auth[ 'user_id' ] ) ) {
-
-            /**
-             * check if the token has expired
-             */
-            if ( $date->gt( $Auth[ 'expires' ] ) ) {
-                Cache::forget( 'Auth-Token::' . $token );
-                throw new AccessDeniedException( __( 'Your session has expired' ) );
-            }
-            
-            $user   =   User::find( $Auth[ 'user_id' ] );
-
-            if ( $user instanceof User ) {
-
-                /**
-                 * login the user according to what has been
-                 * retrieved.
-                 */
-                Auth::loginUsingId( $Auth[ 'user_id' ] );
-
-                /**
-                 * let's update the token key
-                 */
-                Cache::put( 'Auth-Token::' . $token, [
-                    'user_id'   =>  $Auth[ 'user_id' ],
-                    'expires'   =>  $date->copy()->addHour(1),
-                    'key'       =>  'Auth-Token::' . $token
-                ], $date->copy()->addHour(1) );
-
-                return $next($request);
-            }
-
-            throw new AccessDeniedException( __( 'Unable to authenticate the user using the provided tokens.' ) );
+        /**
+         * if it's not trusty, the service 
+         * should throw an error
+         */
+        if ( $auth->authToken( $token ) ) {
+            return $next( $request );
         }
-
-        throw new AccessDeniedException( __( 'Unable to retreive the auth token from the request.' ) );
     }
 }

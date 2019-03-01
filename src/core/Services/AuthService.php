@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use Tendoo\Core\Models\Role;
 use Tendoo\Core\Models\User;
@@ -17,6 +19,7 @@ use Tendoo\Core\Mail\PasswordReset;
 use Tendoo\Core\Mail\PasswordUpdated;
 use Tendoo\Core\Mail\UserRegistrationMail;
 use Tendoo\Core\Exceptions\SessionExpiredException;
+use Tendoo\Core\Exceptions\AccessDeniedException;
 
 class AuthService 
 {
@@ -92,9 +95,7 @@ class AuthService
         $dateService    =   app()->make( DateService::class );
         $newKey         =   str_random(40);
         $tokenKey       =   'Auth-Token::' . $newKey;
-        
-        Cache::forget( $tokenKey );
-        Cache::put( $tokenKey, [
+        $config         =   [
             'key'       =>  $tokenKey,
             'user_id'   =>  $user->id,
             'browser'   =>  request()->header( 'User-Agent' ),
@@ -102,7 +103,11 @@ class AuthService
                 ->copy()
                 ->addMinutes(60)
                 ->toDateTimestring(),
-        ], 3600 ); // expire in one hour.
+        ];
+        
+        Cache::forget( $tokenKey );
+        Cache::put( $tokenKey, $config, 3600 ); // expire in one hour.
+        Log::info( json_encode( $config ) );
 
         return $newKey;
     }
@@ -120,13 +125,19 @@ class AuthService
         if ( Cache::has( $tokenKey ) ) {
             $cached            =   Cache::get( $tokenKey );
 
+            Log::debug( json_encode( $cached ) );// return response()->json( $cached );die;
+            // Cache::forget( $tokenKey );
+
             if ( @$cached[ 'browser' ] === request()->header( 'User-Agent' ) ) {
                 Cache::forget( $tokenKey );
+
+                Auth::loginUsingId( $cached[ 'user_id' ] );
+
                 Cache::put( $tokenKey, [
-                    'key'       =>  $newKey,
-                    'user_id'   =>  $user->id,
+                    'key'       =>  $tokenKey,
+                    'user_id'   =>  $cached[ 'user_id' ],
                     'browser'   =>  request()->header( 'User-Agent' ),
-                    'expire'    =>  $dateService
+                    'expires'   =>  $dateService
                         ->copy()
                         ->addMinutes(60)
                         ->toDateTimestring(),
@@ -134,10 +145,17 @@ class AuthService
                 
                 return [
                     'status'    =>  'success',
-                    'message'   =>  __( 'You are successfully authenticated' )
+                    'message'   =>  __( 'You are successfully authenticated' ),
+                    'data'      =>  [
+                        'user'      =>  Auth::user(),
+                        'token'     =>  $token
+                    ]
                 ];
             }
+
+            throw new AccessDeniedException( __( 'The current authentication request is invalid' ) );
         }
+
         throw new SessionExpiredException( __( 'Unable to proceed your session has expired.' ) );
     }
 
@@ -163,7 +181,7 @@ class AuthService
                     'key'       =>  $newKey,
                     'user_id'   =>  $user->id,
                     'browser'   =>  request()->header( 'User-Agent' ),
-                    'expire'    =>  $dateService
+                    'expires'   =>  $dateService
                         ->copy()
                         ->addMinutes(60)
                         ->toDateTimestring(),
@@ -171,5 +189,18 @@ class AuthService
             }
         }
         return false;
+    }
+
+    /**
+     * forget a token
+     * @param string token
+     * @return void
+     */
+    public function forget( $token )
+    {
+        $tokenKey       =   'Auth-Token::' . $token;
+        if ( Cache::has( $tokenKey ) ) {
+            Cache::forget( $tokenKey );
+        }
     }
 }

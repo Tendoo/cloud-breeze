@@ -20,10 +20,10 @@
                 <mat-card-title class="p-1 mb-0">
                     <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
                         <div fxLayoutAlign="start center">
-                            <button *ngIf="selectedMediasCount === 0" [disabled]="pagination.prev_page_url === null" (click)="loadMedias( pagination.prev_page_url )" mat-icon-button color="warn">
+                            <button *ngIf="selectedMediasCount === 0" [disabled]="pagination.prev_page_url === null" (click)="goToPage( pagination.current_page - 1 )" mat-icon-button color="warn">
                                 <mat-icon>arrow_back</mat-icon>
                             </button>
-                            <button *ngIf="selectedMediasCount === 0" [disabled]="pagination.next_page_url === null" (click)="loadMedias( pagination.next_page_url )" mat-icon-button color="warn">
+                            <button *ngIf="selectedMediasCount === 0" [disabled]="pagination.next_page_url === null" (click)="goToPage( pagination.current_page + 1 )" mat-icon-button color="warn">
                                 <mat-icon>arrow_forward</mat-icon>
                             </button>
                             <button *ngIf="selectedMediasCount > 0" (click)="reset()" mat-icon-button color="warn">

@@ -41,20 +41,17 @@ export class LoginComponent implements OnInit {
                 label: 'Username',
                 name: 'username',
                 type: 'text',
-                value: 'admin',
                 description: 'Username saved during the registration.',
             }, {
                 label: 'Password',
                 name: 'password',
                 type: 'password',
-                value: 'sanches',
                 description: 'Only you knows what is the password',
             }
         ];
 
         const fields    =   ValidationGenerator.buildFormControls( this.fields );
         this.loginForm  =   new FormGroup( fields );
-        this.login();
     }
 
     login() {
@@ -84,11 +81,8 @@ export class LoginComponent implements OnInit {
              * let's redirect the user to that location
              */
             let path    =   this.tendoo.auth.intented;
-            if ( path  !== undefined ) {
-                return this.router.navigateByUrl( path );
-            }
 
-            this.router.navigateByUrl( 'dashboard/modules/details/EnvatoChecker' );
+            this.router.navigateByUrl( path || 'dashboard' );
 
         }, (result: HttpErrorResponse ) => {
             this.snackbar.open( result.error.message );

@@ -28,7 +28,7 @@ export class QuickAuthenticationGuard implements CanActivate {
 					observer.next( false );
 					observer.complete();
 					this.snackbar.open( result.message, 'OK', { duration: 3000 });
-					this.router.navigateByUrl( this.tendoo.auth.intented || '/dashbaord/' );
+					this.router.navigateByUrl( this.tendoo.auth.intented || '/dashboard' );
 				}, ( error: HttpErrorResponse ) => {
 					observer.next( true );
 					observer.complete();

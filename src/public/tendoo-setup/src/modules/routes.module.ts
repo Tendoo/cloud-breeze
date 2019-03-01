@@ -125,7 +125,7 @@ import { FileUploadComponent } from "src/app/shared/file-upload/file-upload.comp
                         path: 'settings',
                         component: SettingsComponent
                     }, {
-                        path: 'medias',
+                        path: 'medias/page/:page',
                         component: MediasComponent
                     }, {
                         path: 'medias/upload',

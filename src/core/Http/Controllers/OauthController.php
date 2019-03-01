@@ -84,16 +84,33 @@ class OauthController extends BaseController
 
             $user           =   User::find( Auth::user()->id );
             $user->role     =   $user->role;
+            $token          =   $this->authService->generateToken( $user );
             
             return [
                 'status'    =>  'success',
                 'message'   =>  __( 'The user has been successfully connected' ),
                 'user'      =>  $user,
-                'token'     =>  $this->authService->generateToken( $user )
+                'token'     =>  $token
             ];
         }
 
         throw new WrongCredentialException;
+    }
+
+    /**
+     * disconnect the user 
+     * by deleting a reference of the Auth session
+     * @param void
+     * @return AsyncResponse
+     */
+    public function postLogout( Request $request )
+    {
+        $auth   =   app()->make( AuthService::class );
+        $auth->forget( $request->input( 'token' ) );
+        return [
+            'status'    =>  'success',
+            'message'   =>  __( 'The session has been deleted.' )
+        ];
     }
 
     /**

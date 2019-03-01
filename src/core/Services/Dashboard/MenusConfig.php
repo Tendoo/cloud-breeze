@@ -42,7 +42,7 @@ class MenusConfig extends Menus
             $media->text        =   __( 'Media' );
             $media->namespace   =   'media';
             $media->icon        =   'collections';
-            $media->href        =   '/dashboard/medias';
+            $media->href        =   '/dashboard/medias/page/1';
 
             $this->add( $media );
         }

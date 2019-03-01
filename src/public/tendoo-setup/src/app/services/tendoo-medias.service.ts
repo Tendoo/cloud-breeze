@@ -16,8 +16,8 @@ export class TendooMediasService extends LoaderService {
      * load medias as saved on the media manager.
      * @param {string} url to the media endpoint. let you override the loading URL
      */
-    getMedias( url = null ) {
-        return this.get( url || this.baseUrl + 'tendoo/medias' );
+    getMedias( page = null ) {
+        return this.get( this.baseUrl + 'tendoo/medias' + ( page !== null ? '?page=' + page : '' ) );
     }
 
     /**

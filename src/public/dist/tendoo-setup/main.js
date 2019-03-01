@@ -1019,19 +1019,16 @@ var LoginComponent = /** @class */ (function () {
                 label: 'Username',
                 name: 'username',
                 type: 'text',
-                value: 'admin',
                 description: 'Username saved during the registration.',
             }, {
                 label: 'Password',
                 name: 'password',
                 type: 'password',
-                value: 'sanches',
                 description: 'Only you knows what is the password',
             }
         ];
         var fields = src_app_classes_validation_generator_class__WEBPACK_IMPORTED_MODULE_2__["ValidationGenerator"].buildFormControls(this.fields);
         this.loginForm = new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormGroup"](fields);
-        this.login();
     };
     LoginComponent.prototype.login = function () {
         var _this = this;
@@ -1058,10 +1055,7 @@ var LoginComponent = /** @class */ (function () {
              * let's redirect the user to that location
              */
             var path = _this.tendoo.auth.intented;
-            if (path !== undefined) {
-                return _this.router.navigateByUrl(path);
-            }
-            _this.router.navigateByUrl('dashboard/modules/details/EnvatoChecker');
+            _this.router.navigateByUrl(path || 'dashboard');
         }, function (result) {
             _this.snackbar.open(result.error.message);
         });
@@ -1092,7 +1086,7 @@ var LoginComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2NvbXBvbmVudHMvYXV0aC9sb2dvdXQvbG9nb3V0LmNvbXBvbmVudC5jc3MifQ== */"
+module.exports = ":host {\r\n    height: 100%;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9hdXRoL2xvZ291dC9sb2dvdXQuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLGFBQWE7Q0FDaEIiLCJmaWxlIjoic3JjL2FwcC9jb21wb25lbnRzL2F1dGgvbG9nb3V0L2xvZ291dC5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiOmhvc3Qge1xyXG4gICAgaGVpZ2h0OiAxMDAlO1xyXG59Il19 */"
 
 /***/ }),
 
@@ -1103,7 +1097,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<p>\r\n  logout works!\r\n</p>\r\n"
+module.exports = "<div fxFlex fxFill>\r\n    <mat-progress-spinner mode=\"indeterminate\"></mat-progress-spinner>\r\n</div>"
 
 /***/ }),
 
@@ -1120,6 +1114,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var src_app_services_tendoo_auth_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/services/tendoo-auth.service */ "./src/app/services/tendoo-auth.service.ts");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var ngx_cookie_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ngx-cookie-service */ "./node_modules/ngx-cookie-service/index.js");
+/* harmony import */ var src_app_services_tendoo_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/tendoo.service */ "./src/app/services/tendoo.service.ts");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1132,14 +1129,32 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
+
+
 var LogoutComponent = /** @class */ (function () {
-    function LogoutComponent(auth, route) {
+    function LogoutComponent(auth, route, cookie, tendoo, snackbar) {
         this.auth = auth;
         this.route = route;
+        this.cookie = cookie;
+        this.tendoo = tendoo;
+        this.snackbar = snackbar;
     }
     LogoutComponent.prototype.ngOnInit = function () {
-        this.auth.logout();
-        this.route.navigateByUrl('/auth/login');
+        var _this = this;
+        this.tendoo.setTitle('Logging out...');
+        this.auth.logout().subscribe(function (result) {
+            _this.cookie.delete('auth.user');
+            _this.route.navigateByUrl('/auth/login');
+        }, function (error) {
+            _this.snackbar.open('An error occured while logging out.', 'TRY AGAIN')
+                .afterDismissed()
+                .subscribe(function (result) {
+                if (result.dismissedByAction) {
+                    _this.ngOnInit();
+                }
+            });
+        });
     };
     LogoutComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -1148,7 +1163,10 @@ var LogoutComponent = /** @class */ (function () {
             styles: [__webpack_require__(/*! ./logout.component.css */ "./src/app/components/auth/logout/logout.component.css")]
         }),
         __metadata("design:paramtypes", [src_app_services_tendoo_auth_service__WEBPACK_IMPORTED_MODULE_1__["TendooAuthService"],
-            _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]])
+            _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"],
+            ngx_cookie_service__WEBPACK_IMPORTED_MODULE_3__["CookieService"],
+            src_app_services_tendoo_service__WEBPACK_IMPORTED_MODULE_4__["TendooService"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_5__["MatSnackBar"]])
     ], LogoutComponent);
     return LogoutComponent;
 }());
@@ -2139,7 +2157,7 @@ module.exports = ":host {\r\n    height: 100%;\r\n}\r\n.media-preview {\r\n    m
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div fxLayout=\"column\" class=\"bg-content\" fxFlex=\"100%\" style=\"overflow-y:auto\">\n    <!-- <mat-progress-bar color=\"warn\" style=\"height: 2px; position: absolute\" *ngIf=\"tendoo.users.isLoading\" mode=\"indeterminate\"></mat-progress-bar> -->\n    <!-- <div fxLayout=\"row\" fxFlex=\"0 0 auto\" class=\"p-3 pb-0\">\n        <div fxFlex>\n            <h1 class=\"mat-display-1 mb-0\">Edit a media</h1>\n            <span>modify a media</span>\n        </div>\n        <div fxFlex fxLayoutAlign=\"end start\">\n            <div>\n                <button mat-button [routerLink]=\"'/dashboard/medias'\">List</button>\n            </div>\n        </div>    \n    </div> -->\n    <div *ngIf=\"!media\" class=\"p-3\" fxFlex fxLayout=\"column\" fxLayoutAlign=\"center center\">\n        <mat-spinner [diameter]=\"50\"></mat-spinner>\n    </div>\n    <div *ngIf=\"media\" fxFlex=\"100%\" fxLayout=\"column\" style=\"background: #111\" fxLayoutAlign=\"center center\">\n        <div fxFlex=\"60px\" fxLayoutAlign=\"space-between center\" class=\"p-1 toolbar\">\n            <div>\n                <button routerLink=\"/dashboard/medias\" mat-icon-button>\n                    <mat-icon>keyboard_backspace</mat-icon>\n                </button>\n            </div>\n            <div>\n                <button mat-icon-button class=\"ml-1\">\n                    <mat-icon>crop</mat-icon>\n                </button>\n                <button mat-icon-button (click)=\"deleteMedia()\" class=\"ml-1\">\n                    <mat-icon>delete</mat-icon>\n                </button>\n                <button mat-icon-button class=\"ml-1\">\n                    <mat-icon>rotate_left</mat-icon>\n                </button>\n                <button mat-icon-button class=\"ml-1\">\n                    <mat-icon>rotate_right</mat-icon>\n                </button>\n            </div>\n        </div>\n        <div style=\"height: 100%\" fxLayoutAlign=\"center center\">\n            <img class=\"media-preview\" *ngIf=\"[ 'jpeg', 'png', 'jpg', 'gif' ].includes( media.extension )\" [src]=\"media.sizes.original\" [alt]=\"media.name\">\n        </div>\n    </div>\n</div>"
+module.exports = "<div fxLayout=\"column\" class=\"bg-content\" fxFlex=\"100%\" style=\"overflow-y:auto\">\n    <div *ngIf=\"!media\" class=\"p-3\" fxFlex fxLayout=\"column\" fxLayoutAlign=\"center center\">\n        <mat-spinner [diameter]=\"50\"></mat-spinner>\n    </div>\n    <div *ngIf=\"media\" fxFlex=\"100%\" fxLayout=\"column\" style=\"background: #111\" fxLayoutAlign=\"center center\">\n        <div fxFlex=\"60px\" fxLayoutAlign=\"space-between center\" class=\"p-1 toolbar\">\n            <div>\n                <button routerLink=\"/dashboard/medias/page/1\" mat-icon-button>\n                    <mat-icon>keyboard_backspace</mat-icon>\n                </button>\n            </div>\n            <div>\n                <button mat-icon-button class=\"ml-1\">\n                    <mat-icon>crop</mat-icon>\n                </button>\n                <button mat-icon-button (click)=\"deleteMedia()\" class=\"ml-1\">\n                    <mat-icon>delete</mat-icon>\n                </button>\n                <button mat-icon-button class=\"ml-1\">\n                    <mat-icon>rotate_left</mat-icon>\n                </button>\n                <button mat-icon-button class=\"ml-1\">\n                    <mat-icon>rotate_right</mat-icon>\n                </button>\n            </div>\n        </div>\n        <div style=\"height: 100%\" fxLayoutAlign=\"center center\">\n            <img class=\"media-preview\" *ngIf=\"[ 'jpeg', 'png', 'jpg', 'gif' ].includes( media.extension )\" [src]=\"media.sizes.original\" [alt]=\"media.name\">\n        </div>\n    </div>\n</div>"
 
 /***/ }),
 
@@ -2207,7 +2225,7 @@ var MediasDetailsComponent = /** @class */ (function () {
                         onClick: function () {
                             _this.tendoo.medias.deleteMediaById(_this.media.id).subscribe(function (result) {
                                 _this.dialog.getDialogById('delete-media').close();
-                                _this.router.navigateByUrl('dashboard/medias');
+                                _this.router.navigateByUrl('dashboard/medias/page/1');
                                 _this.snackbar.open(result.message, 'OK', { duration: 3000 });
                             }, function (result) {
                                 _this.snackbar.open(result.error.message || 'An error occured.', 'OK');
@@ -2355,7 +2373,7 @@ module.exports = ":host {\r\n    height: 100%;\r\n}\r\n\r\n.mat-grid-tile {\r\n 
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div fxFlex fxLayout=\"column\">\n    <div fxLayout=\"column\" class=\"upload-placeholder\" (dropOver)=\"hasDropped( $event )\" (dragOut)=\"hasDraggedOut( $event )\" appDroppable *ngIf=\"wantsToDrop\" fxFlex=\"100%\" style=\"overflow-y:auto\" fxLayoutAlign=\"center center\">\n        <h3>Drop your file here to upload</h3>\n    </div>\n    <div fxLayout=\"column\" fxFlex=\"100%\" style=\"overflow-y:auto\"  (dragOver)=\"hasDraggedOver( $event )\" *ngIf=\"! wantsToDrop\" appDroppable>\n        <!-- <mat-progress-bar color=\"warn\" style=\"height: 2px; position: absolute\" *ngIf=\"tendoo.users.isLoading\" mode=\"indeterminate\"></mat-progress-bar> -->\n        <div fxLayout=\"row\" fxFlex=\"0 0 auto\" class=\"bg-content p-3 pb-0\">\n            <div fxFlex>\n                <h1 class=\"mat-display-1 mb-0\">Media</h1>\n                <span>display all the medias by type</span>\n            </div>\n            <div fxFlex fxLayoutAlign=\"end start\">\n            </div>    \n        </div>\n        <div fxFlex *ngIf=\"medias.length === 0\" class=\"p-3 bg-content\" fxLayoutAlign=\"center center\">\n            <span>It seems quite empty right here. Drop files to upload them.</span>\n        </div>\n        <div fxFlex *ngIf=\"medias.length > 0\" class=\"p-3 bg-content\">\n            <mat-card class=\"p-0\">\n                <mat-card-title class=\"p-1 mb-0\">\n                    <div fxFlex fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\n                        <div fxLayoutAlign=\"start center\">\n                            <button *ngIf=\"selectedMediasCount === 0\" [disabled]=\"pagination.prev_page_url === null\" (click)=\"loadMedias( pagination.prev_page_url )\" mat-icon-button color=\"warn\">\n                                <mat-icon>arrow_back</mat-icon>\n                            </button>\n                            <button *ngIf=\"selectedMediasCount === 0\" [disabled]=\"pagination.next_page_url === null\" (click)=\"loadMedias( pagination.next_page_url )\" mat-icon-button color=\"warn\">\n                                <mat-icon>arrow_forward</mat-icon>\n                            </button>\n                            <button *ngIf=\"selectedMediasCount > 0\" (click)=\"reset()\" mat-icon-button color=\"warn\">\n                                <mat-icon>cancel</mat-icon>\n                            </button>\n                            <span *ngIf=\"selectedMediasCount > 0\">\n                                {{ selectedMediasCount }} <span>selected</span>\n                            </span>\n                        </div>\n                        <div>\n                            <button *ngIf=\"selectedMediasCount > 0\" (click)=\"deleteSelected()\" mat-icon-button color=\"warn\">\n                                <mat-icon>delete</mat-icon>\n                            </button>\n                            <button (click)=\"selectAll()\" mat-icon-button color=\"primary\">\n                                <mat-icon>check</mat-icon>\n                            </button>\n                        </div>\n                    </div>\n                </mat-card-title>\n                <mat-divider></mat-divider>\n                <div class=\"p-2\">\n                    <mat-grid-list [cols]=\"gridCols\" gutterSize=\"1em\" rowHeight=\"140px\">\n                        <mat-grid-tile\n                            (mousedown)=\"handle( media )\"\n                            (mouseup)=\"cancelBulkSelect()\"\n                            (click)=\"openSingle( media )\"\n                            *ngFor=\"let media of medias\"\n                            [colspan]=\"1\"\n                            [rowspan]=\"1\">\n                            <div *ngIf=\"[ 'zip' ].indexOf( media.extension ) === -1\">\n                                <img [src]=\"media.sizes.thumb\" [alt]=\"media.name\">\n                            </div>\n                            <div *ngIf=\"[ 'zip' ].indexOf( media.extension ) !== -1\">\n                                <mat-icon>archive</mat-icon>\n                            </div>\n                            <div class=\"overlay\" fxLayoutAlign=\"end start\" *ngIf=\"media.selected\">\n                                <i class=\"material-icons m-1\" style=\"color: white\">\n                                check_circle\n                                </i>\n                            </div>\n                        </mat-grid-tile>\n                    </mat-grid-list>\n                </div>\n            </mat-card>\n        </div>\n    </div>\n</div>"
+module.exports = "<div fxFlex fxLayout=\"column\">\n    <div fxLayout=\"column\" class=\"upload-placeholder\" (dropOver)=\"hasDropped( $event )\" (dragOut)=\"hasDraggedOut( $event )\" appDroppable *ngIf=\"wantsToDrop\" fxFlex=\"100%\" style=\"overflow-y:auto\" fxLayoutAlign=\"center center\">\n        <h3>Drop your file here to upload</h3>\n    </div>\n    <div fxLayout=\"column\" fxFlex=\"100%\" style=\"overflow-y:auto\"  (dragOver)=\"hasDraggedOver( $event )\" *ngIf=\"! wantsToDrop\" appDroppable>\n        <!-- <mat-progress-bar color=\"warn\" style=\"height: 2px; position: absolute\" *ngIf=\"tendoo.users.isLoading\" mode=\"indeterminate\"></mat-progress-bar> -->\n        <div fxLayout=\"row\" fxFlex=\"0 0 auto\" class=\"bg-content p-3 pb-0\">\n            <div fxFlex>\n                <h1 class=\"mat-display-1 mb-0\">Media</h1>\n                <span>display all the medias by type</span>\n            </div>\n            <div fxFlex fxLayoutAlign=\"end start\">\n            </div>    \n        </div>\n        <div fxFlex *ngIf=\"medias.length === 0\" class=\"p-3 bg-content\" fxLayoutAlign=\"center center\">\n            <span>It seems quite empty right here. Drop files to upload them.</span>\n        </div>\n        <div fxFlex *ngIf=\"medias.length > 0\" class=\"p-3 bg-content\">\n            <mat-card class=\"p-0\">\n                <mat-card-title class=\"p-1 mb-0\">\n                    <div fxFlex fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\n                        <div fxLayoutAlign=\"start center\">\n                            <button *ngIf=\"selectedMediasCount === 0\" [disabled]=\"pagination.prev_page_url === null\" (click)=\"goToPage( pagination.current_page - 1 )\" mat-icon-button color=\"warn\">\n                                <mat-icon>arrow_back</mat-icon>\n                            </button>\n                            <button *ngIf=\"selectedMediasCount === 0\" [disabled]=\"pagination.next_page_url === null\" (click)=\"goToPage( pagination.current_page + 1 )\" mat-icon-button color=\"warn\">\n                                <mat-icon>arrow_forward</mat-icon>\n                            </button>\n                            <button *ngIf=\"selectedMediasCount > 0\" (click)=\"reset()\" mat-icon-button color=\"warn\">\n                                <mat-icon>cancel</mat-icon>\n                            </button>\n                            <span *ngIf=\"selectedMediasCount > 0\">\n                                {{ selectedMediasCount }} <span>selected</span>\n                            </span>\n                        </div>\n                        <div>\n                            <button *ngIf=\"selectedMediasCount > 0\" (click)=\"deleteSelected()\" mat-icon-button color=\"warn\">\n                                <mat-icon>delete</mat-icon>\n                            </button>\n                            <button (click)=\"selectAll()\" mat-icon-button color=\"primary\">\n                                <mat-icon>check</mat-icon>\n                            </button>\n                        </div>\n                    </div>\n                </mat-card-title>\n                <mat-divider></mat-divider>\n                <div class=\"p-2\">\n                    <mat-grid-list [cols]=\"gridCols\" gutterSize=\"1em\" rowHeight=\"140px\">\n                        <mat-grid-tile\n                            (mousedown)=\"handle( media )\"\n                            (mouseup)=\"cancelBulkSelect()\"\n                            (click)=\"openSingle( media )\"\n                            *ngFor=\"let media of medias\"\n                            [colspan]=\"1\"\n                            [rowspan]=\"1\">\n                            <div *ngIf=\"[ 'zip' ].indexOf( media.extension ) === -1\">\n                                <img [src]=\"media.sizes.thumb\" [alt]=\"media.name\">\n                            </div>\n                            <div *ngIf=\"[ 'zip' ].indexOf( media.extension ) !== -1\">\n                                <mat-icon>archive</mat-icon>\n                            </div>\n                            <div class=\"overlay\" fxLayoutAlign=\"end start\" *ngIf=\"media.selected\">\n                                <i class=\"material-icons m-1\" style=\"color: white\">\n                                check_circle\n                                </i>\n                            </div>\n                        </mat-grid-tile>\n                    </mat-grid-list>\n                </div>\n            </mat-card>\n        </div>\n    </div>\n</div>"
 
 /***/ }),
 
@@ -2432,18 +2450,20 @@ var __generator = (undefined && undefined.__generator) || function (thisArg, bod
 
 
 var MediasComponent = /** @class */ (function () {
-    function MediasComponent(mediaService, dialog, snackbar, mediaObserver, router, tendoo) {
+    function MediasComponent(mediaService, dialog, snackbar, mediaObserver, router, tendoo, snapshot) {
         this.mediaService = mediaService;
         this.dialog = dialog;
         this.snackbar = snackbar;
         this.mediaObserver = mediaObserver;
         this.router = router;
         this.tendoo = tendoo;
+        this.snapshot = snapshot;
         this.medias = [];
         this.uploadQueue = [];
         this.bulkSelectEnabled = false;
         this.hasJustEnabled = false;
         this.gridCols = 5;
+        this.currentPage = 1;
         this.wantsToDrop = false;
     }
     MediasComponent.prototype.hasDraggedOver = function (event) {
@@ -2519,9 +2539,7 @@ var MediasComponent = /** @class */ (function () {
     MediasComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.tendoo.dashboardTitle('Medias');
-        this.loadMedias();
         this.mediaObserver.media$.subscribe(function (result) {
-            console.log(result.mqAlias);
             switch (result.mqAlias) {
                 case 'xs':
                     _this.gridCols = 2;
@@ -2540,16 +2558,20 @@ var MediasComponent = /** @class */ (function () {
                     break;
             }
         });
+        this.snapshot.paramMap.subscribe(function (param) {
+            _this.currentPage = +param.get('page');
+            _this.loadMedias(_this.currentPage);
+        });
     };
     /**
      * init by loading the medias
      * @return void
      */
-    MediasComponent.prototype.loadMedias = function (url) {
+    MediasComponent.prototype.loadMedias = function (page) {
         var _this = this;
-        if (url === void 0) { url = null; }
+        if (page === void 0) { page = 1; }
         Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["forkJoin"])([
-            this.mediaService.getMedias(url)
+            this.mediaService.getMedias(page)
         ]).subscribe(function (results) {
             _this.pagination = results[0];
             _this.medias = _this.pagination.data.map(function (media) {
@@ -2557,6 +2579,13 @@ var MediasComponent = /** @class */ (function () {
                 return media;
             });
         });
+    };
+    /**
+     * Proceed to a navigation
+     * @param index Navigate to a specific page
+     */
+    MediasComponent.prototype.goToPage = function (index) {
+        this.router.navigateByUrl('/dashboard/medias/page/' + Math.abs(index));
     };
     /**
      * watch bulk select or open media
@@ -2651,7 +2680,8 @@ var MediasComponent = /** @class */ (function () {
         this.mediaService.deleteMedia(this.selectedMedias).subscribe(function (result) {
             _this.snackbar.open(result.message, 'OK', { duration: 3000 });
             _this.dialog.getDialogById('delete.medias').close();
-            _this.loadMedias();
+            // let's force a refresh on this page.
+            _this.loadMedias(_this.currentPage);
         }, function (error) {
             _this.snackbar.open('An error has occured', null, { duration: 4000 });
             _this.dialog.getDialogById('delete.medias').close();
@@ -2692,7 +2722,8 @@ var MediasComponent = /** @class */ (function () {
             _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatSnackBar"],
             _angular_flex_layout__WEBPACK_IMPORTED_MODULE_5__["MediaObserver"],
             _angular_router__WEBPACK_IMPORTED_MODULE_7__["Router"],
-            src_app_services_tendoo_service__WEBPACK_IMPORTED_MODULE_6__["TendooService"]])
+            src_app_services_tendoo_service__WEBPACK_IMPORTED_MODULE_6__["TendooService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_7__["ActivatedRoute"]])
     ], MediasComponent);
     return MediasComponent;
 }());
@@ -5725,7 +5756,7 @@ var QuickAuthenticationGuard = /** @class */ (function () {
                     observer.next(false);
                     observer.complete();
                     _this.snackbar.open(result.message, 'OK', { duration: 3000 });
-                    _this.router.navigateByUrl(_this.tendoo.auth.intented || '/dashbaord/');
+                    _this.router.navigateByUrl(_this.tendoo.auth.intented || '/dashboard');
                 }, function (error) {
                     observer.next(true);
                     observer.complete();
@@ -6405,7 +6436,13 @@ var TendooAuthService = /** @class */ (function (_super) {
      */
     TendooAuthService.prototype.logout = function () {
         this.user = undefined;
+        var token = _loader_service__WEBPACK_IMPORTED_MODULE_1__["LoaderService"].headers['X-AUTH-TOKEN'];
         _loader_service__WEBPACK_IMPORTED_MODULE_1__["LoaderService"].headers = {};
+        return this.post(this.baseUrl + "tendoo/auth/logout", {
+            token: _loader_service__WEBPACK_IMPORTED_MODULE_1__["LoaderService"].headers['X-AUTH-TOKEN']
+        }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (value) {
+            return value;
+        }));
     };
     /**
      * return the logged user
@@ -6841,9 +6878,9 @@ var TendooMediasService = /** @class */ (function (_super) {
      * load medias as saved on the media manager.
      * @param {string} url to the media endpoint. let you override the loading URL
      */
-    TendooMediasService.prototype.getMedias = function (url) {
-        if (url === void 0) { url = null; }
-        return this.get(url || this.baseUrl + 'tendoo/medias');
+    TendooMediasService.prototype.getMedias = function (page) {
+        if (page === void 0) { page = null; }
+        return this.get(this.baseUrl + 'tendoo/medias' + (page !== null ? '?page=' + page : ''));
     };
     /**
      * delete a specific media provided
@@ -8660,7 +8697,7 @@ var RoutesModule = /** @class */ (function () {
                                 path: 'settings',
                                 component: src_app_components_dashboard_settings_settings_component__WEBPACK_IMPORTED_MODULE_11__["SettingsComponent"]
                             }, {
-                                path: 'medias',
+                                path: 'medias/page/:page',
                                 component: src_app_components_dashboard_medias_medias_component__WEBPACK_IMPORTED_MODULE_22__["MediasComponent"]
                             }, {
                                 path: 'medias/upload',
