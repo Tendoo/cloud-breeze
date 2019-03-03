@@ -3,6 +3,7 @@
 namespace Tendoo\Core\Console\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use Tendoo\Core\Services\Modules;
 use Tendoo\Core\Services\Setup;
@@ -51,7 +52,7 @@ class ModuleModels extends Command
              * Define Variables
              */
             $modelsPath     =   $module[ 'namespace' ] . DIRECTORY_SEPARATOR . 'Models' . DIRECTORY_SEPARATOR;
-            $name           =   ucwords( camel_case( $this->argument( 'name' ) ) );
+            $name           =   ucwords( Str::camel( $this->argument( 'name' ) ) );
             $fileName       =   $modelsPath . $name;
             $namespace      =   $this->argument( 'namespace' );
 

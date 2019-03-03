@@ -2,6 +2,7 @@
 namespace Tendoo\Core\Console\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Str;
 use Tendoo\Core\Services\Helper;
 use Illuminate\Support\Facades\Storage;
 
@@ -42,7 +43,7 @@ class MakeModuleServiceProvider extends Command
                  * Check if the module exists
                  */
                 if ( $module = $modules->get( $this->argument( 'namespace') ) ) {
-                    $fileName   =   ucwords( camel_case( $this->argument( 'name' ) ) );
+                    $fileName   =   ucwords( Str::camel( $this->argument( 'name' ) ) );
                     $filePath   =   $module[ 'namespace' ] . DIRECTORY_SEPARATOR . 'Providers' . DIRECTORY_SEPARATOR . $fileName . '.php';
                     if ( ! Storage::disk( 'modules' )->exists( $filePath ) ) {
                         Storage::disk( 'modules' )->put( 

@@ -3,6 +3,7 @@ namespace Tendoo\Core\Services;
 
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Arr;
 use Tendoo\Core\Services\Helper;
 use XmlParser;
 use PhpParser\Error;
@@ -190,7 +191,7 @@ class Modules
                         $_config        =   include_once( $modulesPath . $file );
                         $final[ $config[ 'namespace' ] ]    =   [];
                         $final[ $config[ 'namespace' ] ][ $info[ 'filename' ] ]     =   $_config;   
-                        $moduleConfig       =   array_dot( $final );
+                        $moduleConfig       =   Arr::dot( $final );
                     }
 
                     foreach( $moduleConfig as $key => $value ) {

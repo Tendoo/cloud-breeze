@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Arr;
 use Tendoo\Core\Models\Application;
 use Tendoo\Core\Models\Oauth;
 use Tendoo\Core\Facades\Hook;
@@ -68,7 +69,7 @@ class ApplicationsController extends Controller
          */
         $scopes         =   [];
         foreach( $requestedScopes as $reqScope ) {
-            if ( ! in_array( $reqScope, array_pluck( $appScopes, 'namespace' ) ) ) {
+            if ( ! in_array( $reqScope, Arr::pluck( $appScopes, 'namespace' ) ) ) {
                 throw new ApiUnknowScopeException;
             } else {
                 $_scope     =   collect( $appScopes )->filter( function( $scope ) use ( $reqScope ) {
@@ -137,7 +138,7 @@ class ApplicationsController extends Controller
          * -> scopes: { label: string, description: string, namespace }[]
          */
         $url                    =   parse_url( $forward );
-        $scopesNamespaces       =   array_pluck( $scopes, 'namespace' );
+        $scopesNamespaces       =   Arr::pluck( $scopes, 'namespace' );
 
         /**
          * A user can not have the same application connected to his account many time. 

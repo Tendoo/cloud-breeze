@@ -3,6 +3,7 @@
 namespace Tendoo\Core\Console\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use Tendoo\Core\Services\Modules;
 use Tendoo\Core\Services\Setup;
@@ -64,7 +65,7 @@ class ModuleController extends Command
             /**
              * Define the file name
              */
-            $name       =   ucwords( camel_case( $this->argument( 'name' ) ) );
+            $name       =   ucwords( Str::camel( $this->argument( 'name' ) ) );
             $fileName   =   $controllerPath . $name;
             $namespace  =   $this->argument( 'namespace' );
 
