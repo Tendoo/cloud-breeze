@@ -33,6 +33,14 @@ export class CrudCreateComponent implements OnInit {
                 this.crudConfig     =   config;
                 const formControls  =   ValidationGenerator.buildFormControls( this.crudConfig.fields );
                 this.crudForm       =   new FormGroup( formControls );
+            }, (result: HttpErrorResponse ) => {
+                this.snackbar.open( result.error.message || 'An error occured !', 'TRY AGAIN' )
+                    .afterDismissed()
+                    .subscribe( action => {
+                        if ( action.dismissedByAction ) {
+                            this.ngOnInit();
+                        }
+                    })
             });
         })
     }

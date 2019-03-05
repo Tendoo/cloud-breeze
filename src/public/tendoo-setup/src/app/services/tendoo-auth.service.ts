@@ -53,7 +53,7 @@ export class TendooAuthService extends LoaderService {
         LoaderService.headers       =   {};
 
         return this.post( `${this.baseUrl}tendoo/auth/logout`, {
-            token: LoaderService.headers[ 'X-AUTH-TOKEN' ]
+            token
         }).pipe( map( value => {
             return value;
         }))

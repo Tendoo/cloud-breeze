@@ -80,6 +80,14 @@ export class UsersComponent implements OnInit {
             this.rawColumns     =   <TableColumnInterface>response[1];
             this.columns        =   Object.keys( this.rawColumns );
             this.crudResult     =   <TableEntryInterface[]>response[0];
+        }, ( error ) => {
+            this.snackbar.open( 'An error occured while loading the users.', 'TRY AGAIN' )
+                .afterDismissed()
+                .subscribe( action => {
+                    if ( action.dismissedByAction ) {
+                        this.loadUsers();
+                    }
+                })
         })
     }
 
