@@ -13,7 +13,22 @@
 </head>
 
 <body>
-    <app-root></app-root>
+    <style type="text/css">
+        .loader {
+            height: 100%;
+            align-items: center;
+            vertical-align: middle;
+            justify-content: center;
+            width: 100%;
+            flex: auto;
+            display: flex;
+        }
+    </style>
+    <app-root>
+        <div class="loader">
+            <img src="assets/images/logo.png" style="width: 150px" alt="" srcset=""/>
+        </div>
+    </app-root>
     <script>
         const tendoo    =   {
             base_url    :   '{{ url("/") }}/'
