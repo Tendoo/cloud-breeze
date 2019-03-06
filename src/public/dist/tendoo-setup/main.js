@@ -4831,7 +4831,7 @@ var DatabaseComponent = /** @class */ (function () {
     DatabaseComponent.prototype.__submitForm = function () {
         var _this = this;
         this.setup.setupDatabase(this.setupForm.value).subscribe(function (result) {
-            _this.snackbar.open(result.message);
+            _this.snackbar.open(result.message, 'OK', { duration: 3000 });
             _this.router.navigateByUrl('/do-setup/application');
         }, function (response) {
             _this.snackbar.open(response.error.message, null, {
@@ -4863,7 +4863,7 @@ var DatabaseComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2NvbXBvbmVudHMvZG8tc2V0dXAvZG8tc2V0dXAuY29tcG9uZW50LmNzcyJ9 */"
+module.exports = ":host {\r\n    height: 100%;\r\n    overflow-y: auto;\r\n    flex-direction: column;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9kby1zZXR1cC9kby1zZXR1cC5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0lBQ0ksYUFBYTtJQUNiLGlCQUFpQjtJQUNqQix1QkFBdUI7Q0FDMUIiLCJmaWxlIjoic3JjL2FwcC9jb21wb25lbnRzL2RvLXNldHVwL2RvLXNldHVwLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyI6aG9zdCB7XHJcbiAgICBoZWlnaHQ6IDEwMCU7XHJcbiAgICBvdmVyZmxvdy15OiBhdXRvO1xyXG4gICAgZmxleC1kaXJlY3Rpb246IGNvbHVtbjtcclxufSJdfQ== */"
 
 /***/ }),
 
@@ -4874,7 +4874,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div fxFlex fxLayout=\"row\" fxLayoutAlign=\"center center\" style=\"overflow-y: auto; height: auto;\" class=\"bg-content\">\r\n    <div \r\n        fxFlex.xs=\"90%\" \r\n        fxFlex.sm=\"70%\" \r\n        fxFlex.md=\"50%\" \r\n        fxFlex.lg=\"40%\" \r\n        fxFlex.xl=\"40%\">\r\n        <router-outlet></router-outlet>\r\n    </div>\r\n</div>"
+module.exports = "<div fxFlex=\"1 0 auto\" fxLayout=\"row\" fxLayoutAlign=\"center center\" style=\"overflow-y: auto\" class=\"bg-content\">\r\n    <div \r\n        fxLayoutAlign=\"center center\"\r\n        fxFlex.xs=\"90%\" \r\n        fxFlex.sm=\"70%\" \r\n        fxFlex.md=\"50%\" \r\n        fxFlex.lg=\"40%\" \r\n        fxFlex.xl=\"40%\">\r\n        \r\n        <router-outlet></router-outlet>\r\n    </div>\r\n</div>"
 
 /***/ }),
 
