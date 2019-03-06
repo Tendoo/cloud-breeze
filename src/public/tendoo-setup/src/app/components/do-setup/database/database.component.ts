@@ -93,7 +93,7 @@ export class DatabaseComponent implements OnInit {
     private __submitForm() {
 
         this.setup.setupDatabase( this.setupForm.value ).subscribe( (result: AsyncResponse ) => {
-            this.snackbar.open( result.message )
+            this.snackbar.open( result.message, 'OK', { duration: 3000 });
             this.router.navigateByUrl( '/do-setup/application' );
         }, (response: HttpErrorResponse ) => {
             this.snackbar.open( response.error.message, null, {
