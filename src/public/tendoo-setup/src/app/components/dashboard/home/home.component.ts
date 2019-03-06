@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TendooService } from 'src/app/services/tendoo.service';
 
 @Component({
   selector: 'app-home',
@@ -7,7 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardHomeComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    public tendoo: TendooService
+  ) { }
 
   ngOnInit() {
   }

@@ -1,3 +1,40 @@
-<div fxFill fxFlex="row" class="bg-content">
-    Hellow
+<div fxFill fxFlex="column" class="bg-content" fxLayout="row">
+    <div fxFlex class="p-3" fxLayout="row">
+        <!-- Profile Card -->
+        <div fxLayout="column" style="width: 250px; height: 350px;">
+            <mat-card fxFlex class="p-0">
+                <mat-card-content fxFill>
+                    <div fxFlex="auto" fxLayout="column">
+                        <div fxFlex="auto" fxLayoutAlign="center center" fxLayout="column">
+                            <div class="avatar-container" fxLayoutAlign="center center">
+                                <img src="assets/images/avatar-placeholder.png" alt="" srcset="">
+                            </div>
+                            <h1 class="mat-h1 mt-2 mb-0">{{ tendoo.auth.getUser().username | titlecase }}</h1>
+                        </div>
+                        <mat-divider [inset]="true"></mat-divider>
+                        <div fxLayout="row" fxFlex>
+                            <div fxFlex fxLayoutAlign="center center">
+                                <a routerLink="/dashboard/profile">Profile</a>
+                            </div>
+                            <mat-divider [vertical]="true"></mat-divider>
+                            <div fxFlex fxLayoutAlign="center center">
+                                <a routerLink="/dashboard/profile/apps">My Applications</a>
+                            </div>
+                        </div>
+                        <!-- <mat-divider [inset]="true"></mat-divider>
+                        <div fxLayout="row" fxFlex>
+                            <div fxFlex fxLayoutAlign="center center">
+                                <a routerLink="/dashboard/profile/apps">My Applications</a>
+                            </div>
+                            <mat-divider [vertical]="true"></mat-divider>
+                            <div fxFlex fxLayoutAlign="center center">
+                                <a routerLink="/logout">Logout</a>
+                            </div>
+                        </div> -->
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </div>
+        <!-- End Profile Card -->
+    </div>
 </div>

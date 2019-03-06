@@ -1,19 +1,29 @@
 <form [formGroup]="registerForm" *ngIf="registerForm">
-    <mat-card color="primary">
-        <mat-card-title>Register</mat-card-title>
-        <mat-card-content>
-            <app-fields [field]="field" [group]="registerForm" *ngFor="let field of fields"></app-fields>
-        </mat-card-content>
-        <mat-divider *ngIf="!tendoo.isLoading"></mat-divider>
-        <mat-progress-bar *ngIf="tendoo.auth.isLoading" mode="indeterminate" style="height: 1px;position: absolute;left: 0;"></mat-progress-bar>
-        <mat-card-actions fxLayoutAlign="space-between">
-            <button [disabled]="tendoo.auth.isLoading" (click)="register()" mat-button="">
-                Create an account
-            </button>
-            <button [disabled]="tendoo.auth.isLoading" routerLink="/auth/login" mat-button="">
-                Login
-            </button>
-        </mat-card-actions>
-    </mat-card>
+    <div fxLayout="column" fxFlex>
+        <div fxLayoutAlign="center center">
+            <img src="assets/images/logo.png" style="width: 150px" alt="" srcset="">
+        </div>
+        <div>
+            <mat-card color="primary">
+                <mat-card-title>Register</mat-card-title>
+                <mat-card-content>
+                    <app-fields [field]="field" [group]="registerForm" *ngFor="let field of fields"></app-fields>
+                </mat-card-content>
+                <mat-divider *ngIf="!tendoo.isLoading"></mat-divider>
+                <mat-progress-bar *ngIf="tendoo.auth.isLoading" mode="indeterminate" style="height: 1px;position: absolute;left: 0;"></mat-progress-bar>
+                <mat-card-actions fxLayoutAlign="space-between">
+                    <button [disabled]="tendoo.auth.isLoading" (click)="register()" mat-button="">
+                        Create an account
+                    </button>
+                    <button [disabled]="tendoo.auth.isLoading" routerLink="/auth/login" mat-button="">
+                        Login
+                    </button>
+                </mat-card-actions>
+            </mat-card>
+        </div>
+    </div>
 </form>
-<mat-spinner *ngIf="! registerForm"></mat-spinner>
+<div *ngIf="! registerForm" fxLayoutAlign="center center" fxLayout="column">
+    <img src="assets/images/logo.png" style="width: 150px" alt="" srcset="">
+    <mat-spinner diameter="60"></mat-spinner>
+</div>

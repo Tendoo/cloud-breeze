@@ -1,18 +1,35 @@
-<mat-card class="p-0" fxFlex>
-    <mat-card-content fxLayout="row" fxFill>
-        <div fxFlex="100px" fxLayoutAlign="center center" class="bg-content">
-            <h1 class="mat-display-1 m-0">{{ currentProgress }}%</h1>
-        </div>
-        <div fxFlex="auto" fxLayout="column">
-            <div class="p-2">
-                <h2 class="mat-h2 m-0 mb-1">Uploading</h2>
-            </div>
-            <mat-divider [inset]="true" style="height: 1px"></mat-divider>
-            <div class="p-2" fxFlex>
-                <h4 class="mat-h4 m-0 mb-1">Progress {{ processedFiles }}/{{ totalFiles }}</h4>
-                <span class="mat-body">Processing : {{ processing.name | truncateMiddle }}</span>
-            </div>
-            <mat-progress-bar mode="determinate" [value]="currentProgress"></mat-progress-bar>
-        </div>
-    </mat-card-content>
-</mat-card>
+<div fxFill fxLayoutAlign="center center" fxLayout="column" style="background:#333">
+    <div fxFlex="300px" style="width: 250px">
+        <mat-card fxFill class="p-0">
+            <mat-card-content fxFill>
+                <div fxFlex="auto" fxLayout="column">
+                    <div fxFlex="auto" fxLayoutAlign="center center">
+                        <div class="avatar-container" fxLayoutAlign="center center">
+                            <img src="assets/images/avatar-placeholder.png" alt="" srcset="">
+                        </div>
+                    </div>
+                    <mat-divider [inset]="true"></mat-divider>
+                    <div fxLayout="row" fxFlex>
+                        <div fxFlex fxLayoutAlign="center center">
+                            A text here
+                        </div>
+                        <mat-divider [vertical]="true"></mat-divider>
+                        <div fxFlex fxLayoutAlign="center center">
+                            A text here
+                        </div>
+                    </div>
+                    <mat-divider [inset]="true"></mat-divider>
+                    <div fxLayout="row" fxFlex>
+                        <div fxFlex fxLayoutAlign="center center">
+                            A text here
+                        </div>
+                        <mat-divider [vertical]="true"></mat-divider>
+                        <div fxFlex fxLayoutAlign="center center">
+                            A text here
+                        </div>
+                    </div>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>

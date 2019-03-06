@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Link } from 'src/app/interfaces/link';
 import { TendooService } from 'src/app/services/tendoo.service';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar, MatSidenav } from '@angular/material';
 import { MediaObserver } from '@angular/flex-layout';
 import { Menu } from 'src/app/interfaces/menu';
 import { Router } from '@angular/router';
@@ -17,6 +17,7 @@ export class DashboardComponent implements OnInit {
     asideMenus: Menu[]   =   [];
     showDefaultAside    =   true;
     logoWidth           =   0;
+    @ViewChild( 'drawer' ) drawer: MatSidenav;
     
     constructor(
         private tendoo: TendooService,
@@ -37,6 +38,8 @@ export class DashboardComponent implements OnInit {
                     this.logoWidth          =   (250 - (16*2));
                 break;
             }
+
+            console.log( this.showDefaultAside );
         });
 
         this.coreEvent.subscribe( (event: CoreAction) => {
@@ -56,6 +59,10 @@ export class DashboardComponent implements OnInit {
                 }
             })
         })
+    }
+
+    toggleDrawer() {
+        this.drawer.toggle();
     }
 
     /**

@@ -38,7 +38,7 @@
     </mat-card-title>
     <mat-divider *ngIf="! tendoo.crud.isLoading"></mat-divider>
     <mat-progress-bar color="warn" style="height: 1px;position: absolute;left: 0;" *ngIf="tendoo.crud.isLoading" mode="indeterminate"></mat-progress-bar>
-    <mat-card-content>
+    <mat-card-content style="overflow-x: auto;">
         <table matSort (matSortChange)="sortData($event)" mat-table [dataSource]="crud.results[ 'data' ]" fxFlex>
             <!--- Note that these columns can be defined in any order.
                 The actual rendered columns are set as a property on the row definition" -->

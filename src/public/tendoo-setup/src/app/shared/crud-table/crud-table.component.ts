@@ -13,6 +13,7 @@ import { AsyncResponse } from 'src/app/interfaces/async-response';
 import { TendooService } from 'src/app/services/tendoo.service';
 import { CrudConfig, CrudTableColumn } from 'src/app/interfaces/crud-config.interface';
 import { CoreEvent } from 'src/app/classes/core-event.class';
+import { MediaObserver } from '@angular/flex-layout';
 
 @Component({
     selector: 'app-crud-table',
@@ -75,7 +76,7 @@ export class CrudTableComponent implements OnInit, OnDestroy {
                  */
                 this.dialog.getDialogById( 'bulk.action' ).close();
             }
-        })
+        });
     }
 
     ngOnDestroy() {

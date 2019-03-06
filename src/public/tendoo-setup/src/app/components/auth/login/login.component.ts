@@ -85,7 +85,7 @@ export class LoginComponent implements OnInit {
             this.router.navigateByUrl( path || 'dashboard' );
 
         }, (result: HttpErrorResponse ) => {
-            this.snackbar.open( result.error.message );
+            this.snackbar.open( result.error.message, 'OK', { duration: 3000 });
         })
     }
     

@@ -12,3 +12,6 @@
     margin-right: 10px;
     margin-left: 10px;
 }
+th.mat-header-cell, td.mat-cell {
+    padding: 10px;
+}

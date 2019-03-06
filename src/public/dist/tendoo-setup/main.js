@@ -896,7 +896,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div fxFill fxLayout=\"row\" fxLayoutAlign=\"center center\" class=\"bg-content\">\r\n    <div \r\n        fxLayoutAlign=\"center\"\r\n        fxFlex.xs=\"90%\" \r\n        fxFlex.sm=\"70%\" \r\n        fxFlex.md=\"50%\" \r\n        fxFlex.lg=\"30%\" \r\n        fxFlex.xl=\"20%\">\r\n        <router-outlet></router-outlet>\r\n    </div>\r\n</div>"
+module.exports = "<div fxFill fxLayout=\"row\" fxLayoutAlign=\"center center\" class=\"bg-content\" style=\"overflow-y: auto\">\r\n    <div \r\n        fxLayoutAlign=\"center\"\r\n        fxFlex.xs=\"90%\" \r\n        fxFlex.sm=\"70%\" \r\n        fxFlex.md=\"50%\" \r\n        fxFlex.lg=\"30%\" \r\n        fxFlex.xl=\"20%\"\r\n        >\r\n        <router-outlet></router-outlet>\r\n    </div>\r\n</div>"
 
 /***/ }),
 
@@ -959,7 +959,7 @@ module.exports = ".registration-notice {\r\n    background: #c5e4c6;\r\n    padd
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<form [formGroup]=\"loginForm\">\r\n    <mat-card color=\"primary\">\r\n        <mat-card-title>Authenticating</mat-card-title>\r\n        <mat-card-content>\r\n            <app-fields [field]=\"field\" [group]=\"loginForm\" *ngFor=\"let field of fields\"></app-fields>\r\n            <p *ngIf=\"notice === 'from-registration'\" class=\"registration-notice\">Your account has been created, but require activation, please consider checking your email to proceed with the validation.</p>\r\n        </mat-card-content>\r\n        <mat-divider *ngIf=\"!tendoo.isLoading\"></mat-divider>\r\n        <mat-progress-bar *ngIf=\"tendoo.auth.isLoading\" mode=\"indeterminate\" style=\"height: 1px;position: absolute;left: 0;\"></mat-progress-bar>\r\n        <mat-card-actions fxLayoutAlign=\"space-between\">\r\n            <button [disabled]=\"tendoo.auth.isLoading\" (click)=\"login()\" mat-button=\"\">\r\n                Login\r\n            </button>\r\n            <button [disabled]=\"tendoo.auth.isLoading\" routerLink=\"/auth/register\" mat-button=\"\">\r\n                Register\r\n            </button>\r\n        </mat-card-actions>\r\n    </mat-card>\r\n</form>"
+module.exports = "<form [formGroup]=\"loginForm\">\r\n    <div fxLayout=\"column\" fxFlex>\r\n        <div fxLayoutAlign=\"center center\">\r\n            <img src=\"assets/images/logo.png\" style=\"width: 150px\" alt=\"\" srcset=\"\">\r\n        </div>\r\n        <div>\r\n            <mat-card color=\"primary\">\r\n                <mat-card-title>Authenticating</mat-card-title>\r\n                <mat-card-content>\r\n                    <app-fields [field]=\"field\" [group]=\"loginForm\" *ngFor=\"let field of fields\"></app-fields>\r\n                    <p *ngIf=\"notice === 'from-registration'\" class=\"registration-notice\">Your account has been created, but require activation, please consider checking your email to proceed with the validation.</p>\r\n                </mat-card-content>\r\n                <mat-divider *ngIf=\"!tendoo.isLoading\"></mat-divider>\r\n                <mat-progress-bar *ngIf=\"tendoo.auth.isLoading\" mode=\"indeterminate\" style=\"height: 1px;position: absolute;left: 0;\"></mat-progress-bar>\r\n                <mat-card-actions fxLayoutAlign=\"space-between\">\r\n                    <button [disabled]=\"tendoo.auth.isLoading\" (click)=\"login()\" mat-button=\"\">\r\n                        Login\r\n                    </button>\r\n                    <button [disabled]=\"tendoo.auth.isLoading\" routerLink=\"/auth/register\" mat-button=\"\">\r\n                        Register\r\n                    </button>\r\n                </mat-card-actions>\r\n            </mat-card>\r\n        </div>\r\n    </div>\r\n</form>"
 
 /***/ }),
 
@@ -1057,7 +1057,7 @@ var LoginComponent = /** @class */ (function () {
             var path = _this.tendoo.auth.intented;
             _this.router.navigateByUrl(path || 'dashboard');
         }, function (result) {
-            _this.snackbar.open(result.error.message);
+            _this.snackbar.open(result.error.message, 'OK', { duration: 3000 });
         });
     };
     LoginComponent = __decorate([
@@ -1097,7 +1097,7 @@ module.exports = ":host {\r\n    height: 100%;\r\n}\r\n/*# sourceMappingURL=data
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div fxFlex fxFill>\r\n    <mat-progress-spinner mode=\"indeterminate\"></mat-progress-spinner>\r\n</div>"
+module.exports = "<div fxFlex fxFill>\r\n    <div fxLayout=\"column\" fxFlex>\r\n        <div fxLayoutAlign=\"center center\">\r\n            <img src=\"assets/images/logo.png\" style=\"width: 150px\" alt=\"\" srcset=\"\">\r\n        </div>\r\n        <div fxLayoutAlign=\"center center\">\r\n            <mat-progress-spinner mode=\"indeterminate\" diameter=\"60\"></mat-progress-spinner>\r\n        </div>    \r\n    </div>\r\n</div>"
 
 /***/ }),
 
@@ -1310,7 +1310,7 @@ var OauthComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2NvbXBvbmVudHMvYXV0aC9yZWdpc3Rlci9yZWdpc3Rlci5jb21wb25lbnQuY3NzIn0= */"
+module.exports = ":host {\r\n    height: 100%;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9hdXRoL3JlZ2lzdGVyL3JlZ2lzdGVyLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSxhQUFhO0NBQ2hCIiwiZmlsZSI6InNyYy9hcHAvY29tcG9uZW50cy9hdXRoL3JlZ2lzdGVyL3JlZ2lzdGVyLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyI6aG9zdCB7XHJcbiAgICBoZWlnaHQ6IDEwMCU7XHJcbn0iXX0= */"
 
 /***/ }),
 
@@ -1321,7 +1321,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<form [formGroup]=\"registerForm\" *ngIf=\"registerForm\">\r\n    <mat-card color=\"primary\">\r\n        <mat-card-title>Register</mat-card-title>\r\n        <mat-card-content>\r\n            <app-fields [field]=\"field\" [group]=\"registerForm\" *ngFor=\"let field of fields\"></app-fields>\r\n        </mat-card-content>\r\n        <mat-divider *ngIf=\"!tendoo.isLoading\"></mat-divider>\r\n        <mat-progress-bar *ngIf=\"tendoo.auth.isLoading\" mode=\"indeterminate\" style=\"height: 1px;position: absolute;left: 0;\"></mat-progress-bar>\r\n        <mat-card-actions fxLayoutAlign=\"space-between\">\r\n            <button [disabled]=\"tendoo.auth.isLoading\" (click)=\"register()\" mat-button=\"\">\r\n                Create an account\r\n            </button>\r\n            <button [disabled]=\"tendoo.auth.isLoading\" routerLink=\"/auth/login\" mat-button=\"\">\r\n                Login\r\n            </button>\r\n        </mat-card-actions>\r\n    </mat-card>\r\n</form>\r\n<mat-spinner *ngIf=\"! registerForm\"></mat-spinner>"
+module.exports = "<form [formGroup]=\"registerForm\" *ngIf=\"registerForm\">\r\n    <div fxLayout=\"column\" fxFlex>\r\n        <div fxLayoutAlign=\"center center\">\r\n            <img src=\"assets/images/logo.png\" style=\"width: 150px\" alt=\"\" srcset=\"\">\r\n        </div>\r\n        <div>\r\n            <mat-card color=\"primary\">\r\n                <mat-card-title>Register</mat-card-title>\r\n                <mat-card-content>\r\n                    <app-fields [field]=\"field\" [group]=\"registerForm\" *ngFor=\"let field of fields\"></app-fields>\r\n                </mat-card-content>\r\n                <mat-divider *ngIf=\"!tendoo.isLoading\"></mat-divider>\r\n                <mat-progress-bar *ngIf=\"tendoo.auth.isLoading\" mode=\"indeterminate\" style=\"height: 1px;position: absolute;left: 0;\"></mat-progress-bar>\r\n                <mat-card-actions fxLayoutAlign=\"space-between\">\r\n                    <button [disabled]=\"tendoo.auth.isLoading\" (click)=\"register()\" mat-button=\"\">\r\n                        Create an account\r\n                    </button>\r\n                    <button [disabled]=\"tendoo.auth.isLoading\" routerLink=\"/auth/login\" mat-button=\"\">\r\n                        Login\r\n                    </button>\r\n                </mat-card-actions>\r\n            </mat-card>\r\n        </div>\r\n    </div>\r\n</form>\r\n<div *ngIf=\"! registerForm\" fxLayoutAlign=\"center center\" fxLayout=\"column\">\r\n    <img src=\"assets/images/logo.png\" style=\"width: 150px\" alt=\"\" srcset=\"\">\r\n    <mat-spinner diameter=\"60\"></mat-spinner>\r\n</div>"
 
 /***/ }),
 
@@ -1508,7 +1508,7 @@ module.exports = ":host {\r\n    height: 100%;\r\n}\r\n/*# sourceMappingURL=data
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div fxLayout=\"column\" class=\"bg-content\" fxFlex=\"100%\" style=\"overflow-y:auto\">\n    <ng-container *ngIf=\"crudConfig\">\n        <div fxLayout=\"row\" class=\"p-3 pb-0\">\n            <div fxFlex>\n                <h1 class=\"mat-display-1 mb-0\">{{ crudConfig.labels.create_title }}</h1>\n                <span>{{ crudConfig.labels.create_description }}</span>\n            </div>\n            <div fxFlex=\"200px\" fxLayoutAlign=\"end start\">\n                <button [routerLink]=\"crudConfig.links.list\" mat-button color=\"warn\">{{ crudConfig.labels.back_to_list }}</button>\n            </div>\n        </div>\n        <div class=\"p-3\" fxLayout=\"row\" fxFlex=\"1 0 auto\" fxLayout=\"column\">\n            <mat-card>\n                <mat-card-title>\n                    {{ crudConfig.labels.create_title }}\n                </mat-card-title>\n                <mat-card-content>\n                    <form [formGroup]=\"crudForm\" *ngIf=\"crudForm\">\n                        <app-fields *ngFor=\"let field of crudConfig.fields\" [field]=\"field\" [group]=\"crudForm\"></app-fields>\n                    </form>\n                </mat-card-content>\n                <mat-divider *ngIf=\"! tendoo.crud.isLoading\"></mat-divider>\n                <mat-progress-bar color=\"warn\" style=\"height: 1px;position: absolute;left: 0\" *ngIf=\"tendoo.crud.isLoading\" mode=\"indeterminate\"></mat-progress-bar>\n                <mat-card-actions>\n                    <button [disabled]=\"tendoo.crud.isLoading\" mat-button (click)=\"submit()\" color=\"primary\">Submit</button>\n                </mat-card-actions>\n            </mat-card>\n        </div>\n    </ng-container>\n    <div fxFlex fxFill *ngIf=\"! crudForm\" fxLayoutAlign=\"center center\">\n        <mat-spinner [diameter]=\"50\"></mat-spinner>\n    </div>\n</div>"
+module.exports = "<div fxLayout=\"column\" class=\"bg-content\" fxFlex=\"100%\" style=\"overflow-y:auto\">\n    <ng-container *ngIf=\"crudConfig\">\n        <div fxLayout=\"row\" fxFlex=\"0 0 auto\" class=\"p-3 pb-0\">\n            <div fxFlex>\n                <h1 class=\"mat-display-1 mb-0\">{{ crudConfig.labels.create_title }}</h1>\n                <span>{{ crudConfig.labels.create_description }}</span>\n            </div>\n            <div *ngIf=\"! isMobile\" fxFlex=\"200px\" fxLayoutAlign=\"end start\">\n                <button [routerLink]=\"crudConfig.links.list\" mat-button color=\"warn\">{{ crudConfig.labels.back_to_list }}</button>\n            </div>\n            <div *ngIf=\"isMobile\" fxFlex=\"200px\" fxLayoutAlign=\"end start\">\n                <button [routerLink]=\"crudConfig.links.list\" mat-icon-button color=\"warn\">\n                    <mat-icon>arrow_back</mat-icon>\n                </button>\n            </div>\n        </div>\n        <div class=\"p-3\" fxLayout=\"row\" fxFlex=\"1 0 auto\" fxLayout=\"column\">\n            <mat-card>\n                <mat-card-title>\n                    {{ crudConfig.labels.create_title }}\n                </mat-card-title>\n                <mat-card-content>\n                    <form [formGroup]=\"crudForm\" *ngIf=\"crudForm\">\n                        <app-fields *ngFor=\"let field of crudConfig.fields\" [field]=\"field\" [group]=\"crudForm\"></app-fields>\n                    </form>\n                </mat-card-content>\n                <mat-divider *ngIf=\"! tendoo.crud.isLoading\"></mat-divider>\n                <mat-progress-bar color=\"warn\" style=\"height: 1px;position: absolute;left: 0\" *ngIf=\"tendoo.crud.isLoading\" mode=\"indeterminate\"></mat-progress-bar>\n                <mat-card-actions>\n                    <button [disabled]=\"tendoo.crud.isLoading\" mat-button (click)=\"submit()\" color=\"primary\">Submit</button>\n                </mat-card-actions>\n            </mat-card>\n        </div>\n    </ng-container>\n    <div fxFlex fxFill *ngIf=\"! crudForm\" fxLayoutAlign=\"center center\">\n        <mat-spinner [diameter]=\"50\"></mat-spinner>\n    </div>\n</div>"
 
 /***/ }),
 
@@ -1528,6 +1528,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
 /* harmony import */ var src_app_classes_validation_generator_class__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/classes/validation-generator.class */ "./src/app/classes/validation-generator.class.ts");
+/* harmony import */ var _angular_flex_layout__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/flex-layout */ "./node_modules/@angular/flex-layout/esm5/flex-layout.es5.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1543,12 +1544,15 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var CrudCreateComponent = /** @class */ (function () {
-    function CrudCreateComponent(route, tendoo, snackbar, router) {
+    function CrudCreateComponent(route, tendoo, snackbar, router, mediaObserver) {
         this.route = route;
         this.tendoo = tendoo;
         this.snackbar = snackbar;
         this.router = router;
+        this.mediaObserver = mediaObserver;
+        this.isMobile = false;
     }
     CrudCreateComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -1558,7 +1562,26 @@ var CrudCreateComponent = /** @class */ (function () {
                 _this.crudConfig = config;
                 var formControls = src_app_classes_validation_generator_class__WEBPACK_IMPORTED_MODULE_5__["ValidationGenerator"].buildFormControls(_this.crudConfig.fields);
                 _this.crudForm = new _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormGroup"](formControls);
+            }, function (result) {
+                _this.snackbar.open(result.error.message || 'An error occured !', 'TRY AGAIN')
+                    .afterDismissed()
+                    .subscribe(function (action) {
+                    if (action.dismissedByAction) {
+                        _this.ngOnInit();
+                    }
+                });
             });
+        });
+        this.mediaObserver.media$.subscribe(function (media) {
+            switch (media.mqAlias) {
+                case 'xs':
+                case 'sm':
+                    _this.isMobile = true;
+                    break;
+                default:
+                    _this.isMobile = false;
+                    break;
+            }
         });
     };
     CrudCreateComponent.prototype.submit = function () {
@@ -1610,7 +1633,8 @@ var CrudCreateComponent = /** @class */ (function () {
         __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_1__["ActivatedRoute"],
             src_app_services_tendoo_service__WEBPACK_IMPORTED_MODULE_2__["TendooService"],
             _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatSnackBar"],
-            _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]])
+            _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"],
+            _angular_flex_layout__WEBPACK_IMPORTED_MODULE_6__["MediaObserver"]])
     ], CrudCreateComponent);
     return CrudCreateComponent;
 }());
@@ -1637,7 +1661,7 @@ module.exports = ":host {\r\n    height: 100%;\r\n}\r\n/*# sourceMappingURL=data
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div fxLayout=\"column\" class=\"bg-content\" fxFlex=\"100%\" style=\"overflow-y:auto\">\n    <ng-container *ngIf=\"crudConfig\">\n        <div fxLayout=\"row\" class=\"p-3 pb-0\">\n            <div fxFlex>\n                <h1 class=\"mat-display-1 mb-0\">{{ crudConfig.labels.edit_title }}</h1>\n                <span>{{ crudConfig.labels.edit_description }}</span>\n            </div>\n            <div fxFlex=\"200px\" fxLayoutAlign=\"end start\">\n                <button [routerLink]=\"crudConfig.links.list\" mat-button color=\"warn\">{{ crudConfig.labels.back_to_list }}</button>\n            </div>\n        </div>\n        <div class=\"p-3\" fxLayout=\"row\" fxFlex=\"1 0 auto\" fxLayout=\"column\">\n            <mat-card>\n                <mat-card-title>\n                    {{ crudConfig.labels.edit_title }}\n                </mat-card-title>\n                <mat-card-content>\n                    <form [formGroup]=\"crudForm\" *ngIf=\"crudForm\">\n                        <app-fields *ngFor=\"let field of crudConfig.fields\" [field]=\"field\" [group]=\"crudForm\"></app-fields>\n                    </form>\n                </mat-card-content>\n                <mat-divider *ngIf=\"! tendoo.crud.isLoading\"></mat-divider>\n                <mat-progress-bar color=\"warn\" style=\"height: 1px;position: absolute;left: 0\" *ngIf=\"tendoo.crud.isLoading\" mode=\"indeterminate\"></mat-progress-bar>\n                <mat-card-actions>\n                    <button [disabled]=\"tendoo.crud.isLoading\" mat-button (click)=\"submit()\" color=\"primary\">Edit</button>\n                </mat-card-actions>\n            </mat-card>\n        </div>\n    </ng-container>\n    <div fxFlex fxFill *ngIf=\"! crudForm\" fxLayoutAlign=\"center center\">\n        <mat-spinner [diameter]=\"50\"></mat-spinner>\n    </div>\n</div>"
+module.exports = "<div fxLayout=\"column\" class=\"bg-content\" fxFlex=\"100%\" style=\"overflow-y:auto\">\n    <ng-container *ngIf=\"crudConfig\">\n        <div fxLayout=\"row\"  fxFlex=\"0 0 auto\" class=\"p-3 pb-0\">\n            <div fxFlex>\n                <h1 class=\"mat-display-1 mb-0\">{{ crudConfig.labels.edit_title }}</h1>\n                <span>{{ crudConfig.labels.edit_description }}</span>\n            </div>\n            <div *ngIf=\"! isMobile\" fxFlex=\"200px\" fxLayoutAlign=\"end start\">\n                <button [routerLink]=\"crudConfig.links.list\" mat-button color=\"warn\">{{ crudConfig.labels.back_to_list }}</button>\n            </div>\n            <div *ngIf=\"isMobile\" fxFlex=\"200px\" fxLayoutAlign=\"end start\">\n                <button [routerLink]=\"crudConfig.links.list\" mat-icon-button color=\"warn\">\n                    <mat-icon>arrow_back</mat-icon>\n                </button>\n            </div>\n        </div>\n        <div class=\"p-3\" fxLayout=\"row\" fxFlex=\"1 0 auto\" fxLayout=\"column\">\n            <mat-card>\n                <mat-card-title>\n                    {{ crudConfig.labels.edit_title }}\n                </mat-card-title>\n                <mat-card-content>\n                    <form [formGroup]=\"crudForm\" *ngIf=\"crudForm\">\n                        <app-fields *ngFor=\"let field of crudConfig.fields\" [field]=\"field\" [group]=\"crudForm\"></app-fields>\n                    </form>\n                </mat-card-content>\n                <mat-divider *ngIf=\"! tendoo.crud.isLoading\"></mat-divider>\n                <mat-progress-bar color=\"warn\" style=\"height: 1px;position: absolute;left: 0\" *ngIf=\"tendoo.crud.isLoading\" mode=\"indeterminate\"></mat-progress-bar>\n                <mat-card-actions>\n                    <button [disabled]=\"tendoo.crud.isLoading\" mat-button (click)=\"submit()\" color=\"primary\">Edit</button>\n                </mat-card-actions>\n            </mat-card>\n        </div>\n    </ng-container>\n    <div fxFlex fxFill *ngIf=\"! crudForm\" fxLayoutAlign=\"center center\">\n        <mat-spinner [diameter]=\"50\"></mat-spinner>\n    </div>\n</div>"
 
 /***/ }),
 
@@ -1657,6 +1681,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
 /* harmony import */ var src_app_classes_validation_generator_class__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/classes/validation-generator.class */ "./src/app/classes/validation-generator.class.ts");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _angular_flex_layout__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/flex-layout */ "./node_modules/@angular/flex-layout/esm5/flex-layout.es5.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1672,12 +1697,15 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var CrudEditComponent = /** @class */ (function () {
-    function CrudEditComponent(route, tendoo, snackbar, router) {
+    function CrudEditComponent(route, tendoo, snackbar, router, mediaObserver) {
         this.route = route;
         this.tendoo = tendoo;
         this.snackbar = snackbar;
         this.router = router;
+        this.mediaObserver = mediaObserver;
+        this.isMobile = false;
     }
     CrudEditComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -1693,6 +1721,17 @@ var CrudEditComponent = /** @class */ (function () {
             }, function (result) {
                 _this.snackbar.open(result.error.message, 'OK');
             });
+        });
+        this.mediaObserver.media$.subscribe(function (media) {
+            switch (media.mqAlias) {
+                case 'xs':
+                case 'sm':
+                    _this.isMobile = true;
+                    break;
+                default:
+                    _this.isMobile = false;
+                    break;
+            }
         });
     };
     CrudEditComponent.prototype.submit = function () {
@@ -1744,7 +1783,8 @@ var CrudEditComponent = /** @class */ (function () {
         __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_1__["ActivatedRoute"],
             src_app_services_tendoo_service__WEBPACK_IMPORTED_MODULE_2__["TendooService"],
             _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatSnackBar"],
-            _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]])
+            _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"],
+            _angular_flex_layout__WEBPACK_IMPORTED_MODULE_6__["MediaObserver"]])
     ], CrudEditComponent);
     return CrudEditComponent;
 }());
@@ -1948,7 +1988,7 @@ module.exports = "#aside-nav-list {\r\n    padding: 0%;\r\n}\r\nmat-list-item di
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div fxLayout=\"column\" fxFill>\r\n    <div>\r\n        <mat-toolbar color=\"primary\" fxFlex fxLayoutAlign=\"space-between center\">\r\n            <div [fxFlex]=\"logoWidth + 'px'\" fxLayout=\"row\" \r\n                fxLayoutAlign.xl=\"center center\"\r\n                fxLayoutAlign.lg=\"center center\"\r\n                >\r\n                <span *ngIf=\"showDefaultAside\">Tendoo Server</span>\r\n                <span *ngIf=\"! showDefaultAside\">TS</span>\r\n            </div>\r\n            <div>\r\n                <button mat-icon-button [matMenuTriggerFor]=\"profileMenu\">\r\n                    <mat-icon aria-label=\"Example icon-button with a heart icon\">person</mat-icon>\r\n                </button>\r\n                <mat-menu #profileMenu=\"matMenu\">\r\n                    <button routerLink=\"/dashboard/profile\" mat-menu-item>Profile</button>\r\n                    <button routerLink=\"/dashboard/profile/apps\" mat-menu-item>My Applications</button>\r\n                    <button routerLink=\"/auth/logout\" mat-menu-item>Logout</button>\r\n                </mat-menu>\r\n            </div>\r\n        </mat-toolbar>\r\n    </div>\r\n    \r\n    <div fxFlex fxLayout=\"row\">\r\n        <ng-container *ngIf=\"showDefaultAside\">\r\n            <div fxFlex=\"250px\"  fxLayout=\"column\" class=\"aside-menu\">\r\n                <div fxFlex>\r\n                    <app-menu-list [menus]=\"asideMenus\"></app-menu-list>\r\n                </div>    \r\n            </div>\r\n            <mat-divider [vertical]=\"true\"></mat-divider>\r\n        </ng-container>\r\n        <div fxFlex=\"1 1 auto\" class=\"body-container\" fxLayout=\"column\">\r\n            <router-outlet></router-outlet>\r\n        </div>\r\n    </div>\r\n</div>"
+module.exports = "<div fxLayout=\"column\" fxFill>\r\n    <div>\r\n        <mat-toolbar color=\"primary\" fxFlex fxLayoutAlign=\"space-between center\">\r\n            <div [fxFlex]=\"logoWidth + 'px'\" fxLayout=\"row\" \r\n                fxLayoutAlign.xl=\"center center\"\r\n                fxLayoutAlign.lg=\"center center\"\r\n                >\r\n                <span *ngIf=\"showDefaultAside\">Tendoo Server</span>\r\n                <span *ngIf=\"! showDefaultAside\">\r\n                    <button mat-icon-button (click)=\"toggleDrawer()\">\r\n                        <mat-icon aria-label=\"Example icon-button with a heart icon\">menu</mat-icon>\r\n                    </button>\r\n                </span>\r\n            </div>\r\n            <div>\r\n                <button mat-icon-button [matMenuTriggerFor]=\"profileMenu\">\r\n                    <mat-icon aria-label=\"Example icon-button with a heart icon\">person</mat-icon>\r\n                </button>\r\n                <mat-menu #profileMenu=\"matMenu\">\r\n                    <button routerLink=\"/dashboard/profile\" mat-menu-item>Profile</button>\r\n                    <button routerLink=\"/dashboard/profile/apps\" mat-menu-item>My Applications</button>\r\n                    <button routerLink=\"/auth/logout\" mat-menu-item>Logout</button>\r\n                </mat-menu>\r\n            </div>\r\n        </mat-toolbar>\r\n    </div>\r\n    \r\n    <div fxFlex fxLayout=\"row\" *ngIf=\"showDefaultAside\">\r\n        <ng-container>\r\n            <div fxFlex=\"250px\"  fxLayout=\"column\" class=\"aside-menu\">\r\n                <div fxFlex>\r\n                    <app-menu-list [menus]=\"asideMenus\"></app-menu-list>\r\n                </div>    \r\n            </div>\r\n            <mat-divider [vertical]=\"true\"></mat-divider>\r\n        </ng-container>\r\n        <div fxFlex=\"1 1 auto\" class=\"body-container\" fxLayout=\"column\">\r\n            <router-outlet></router-outlet>\r\n        </div>\r\n    </div>\r\n    <mat-drawer-container class=\"example-container\" fxFlex fxLayout=\"row\" *ngIf=\"! showDefaultAside\">\r\n        <mat-drawer fxFlex=\"250px\" #drawer mode=\"over\">\r\n            <ng-container>\r\n                <div fxFlex=\"250px\"  fxLayout=\"column\" class=\"aside-menu\">\r\n                    <div fxFlex>\r\n                        <app-menu-list (navigate)=\"toggleDrawer( $event )\" [menus]=\"asideMenus\"></app-menu-list>\r\n                    </div>    \r\n                </div>\r\n            </ng-container>\r\n        </mat-drawer>\r\n        <mat-drawer-content fxFlex=\"1 1 auto\" class=\"body-container\" fxLayout=\"column\">\r\n            <router-outlet></router-outlet>\r\n        </mat-drawer-content>\r\n    </mat-drawer-container>\r\n</div>"
 
 /***/ }),
 
@@ -2006,6 +2046,7 @@ var DashboardComponent = /** @class */ (function () {
                     _this.logoWidth = (250 - (16 * 2));
                     break;
             }
+            console.log(_this.showDefaultAside);
         });
         this.coreEvent.subscribe(function (event) {
             if (['module.enabled', 'module.deleted', 'module.disabled'].includes(event.type)) {
@@ -2024,6 +2065,9 @@ var DashboardComponent = /** @class */ (function () {
                 }
             });
         });
+    };
+    DashboardComponent.prototype.toggleDrawer = function () {
+        this.drawer.toggle();
     };
     /**
      * Open/close current menu
@@ -2057,6 +2101,10 @@ var DashboardComponent = /** @class */ (function () {
         // navigate to the menu path
         this.router.navigateByUrl(menu.href);
     };
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])('drawer'),
+        __metadata("design:type", _angular_material__WEBPACK_IMPORTED_MODULE_2__["MatSidenav"])
+    ], DashboardComponent.prototype, "drawer", void 0);
     DashboardComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-dashboard',
@@ -2083,7 +2131,7 @@ var DashboardComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ":host {\r\n    height: 100%;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvaG9tZS9ob21lLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSxhQUFhO0NBQ2hCIiwiZmlsZSI6InNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvaG9tZS9ob21lLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyI6aG9zdCB7XHJcbiAgICBoZWlnaHQ6IDEwMCU7XHJcbn0iXX0= */"
+module.exports = ":host {\r\n    height: 100%;\r\n}\r\n.avatar-container {\r\n    border-radius: 679px;\r\n    width: 180px;\r\n    height: 180px;\r\n    overflow: hidden;\r\n    border: solid 1px #333;\r\n}\r\n.avatar-container img {\r\n    width: 250px;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvaG9tZS9ob21lLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSxhQUFhO0NBQ2hCO0FBQ0Q7SUFDSSxxQkFBcUI7SUFDckIsYUFBYTtJQUNiLGNBQWM7SUFDZCxpQkFBaUI7SUFDakIsdUJBQXVCO0NBQzFCO0FBQ0Q7SUFDSSxhQUFhO0NBQ2hCIiwiZmlsZSI6InNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvaG9tZS9ob21lLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyI6aG9zdCB7XHJcbiAgICBoZWlnaHQ6IDEwMCU7XHJcbn1cclxuLmF2YXRhci1jb250YWluZXIge1xyXG4gICAgYm9yZGVyLXJhZGl1czogNjc5cHg7XHJcbiAgICB3aWR0aDogMTgwcHg7XHJcbiAgICBoZWlnaHQ6IDE4MHB4O1xyXG4gICAgb3ZlcmZsb3c6IGhpZGRlbjtcclxuICAgIGJvcmRlcjogc29saWQgMXB4ICMzMzM7XHJcbn1cclxuLmF2YXRhci1jb250YWluZXIgaW1nIHtcclxuICAgIHdpZHRoOiAyNTBweDtcclxufSJdfQ== */"
 
 /***/ }),
 
@@ -2094,7 +2142,7 @@ module.exports = ":host {\r\n    height: 100%;\r\n}\r\n/*# sourceMappingURL=data
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div fxFill fxFlex=\"row\" class=\"bg-content\">\r\n    Hellow\r\n</div>"
+module.exports = "<div fxFill fxFlex=\"column\" class=\"bg-content\" fxLayout=\"row\">\r\n    <div fxFlex class=\"p-3\" fxLayout=\"row\">\r\n        <!-- Profile Card -->\r\n        <div fxLayout=\"column\" style=\"width: 250px; height: 350px;\">\r\n            <mat-card fxFlex class=\"p-0\">\r\n                <mat-card-content fxFill>\r\n                    <div fxFlex=\"auto\" fxLayout=\"column\">\r\n                        <div fxFlex=\"auto\" fxLayoutAlign=\"center center\" fxLayout=\"column\">\r\n                            <div class=\"avatar-container\" fxLayoutAlign=\"center center\">\r\n                                <img src=\"assets/images/avatar-placeholder.png\" alt=\"\" srcset=\"\">\r\n                            </div>\r\n                            <h1 class=\"mat-h1 mt-2 mb-0\">{{ tendoo.auth.getUser().username | titlecase }}</h1>\r\n                        </div>\r\n                        <mat-divider [inset]=\"true\"></mat-divider>\r\n                        <div fxLayout=\"row\" fxFlex>\r\n                            <div fxFlex fxLayoutAlign=\"center center\">\r\n                                <a routerLink=\"/dashboard/profile\">Profile</a>\r\n                            </div>\r\n                            <mat-divider [vertical]=\"true\"></mat-divider>\r\n                            <div fxFlex fxLayoutAlign=\"center center\">\r\n                                <a routerLink=\"/dashboard/profile/apps\">My Applications</a>\r\n                            </div>\r\n                        </div>\r\n                        <!-- <mat-divider [inset]=\"true\"></mat-divider>\r\n                        <div fxLayout=\"row\" fxFlex>\r\n                            <div fxFlex fxLayoutAlign=\"center center\">\r\n                                <a routerLink=\"/dashboard/profile/apps\">My Applications</a>\r\n                            </div>\r\n                            <mat-divider [vertical]=\"true\"></mat-divider>\r\n                            <div fxFlex fxLayoutAlign=\"center center\">\r\n                                <a routerLink=\"/logout\">Logout</a>\r\n                            </div>\r\n                        </div> -->\r\n                    </div>\r\n                </mat-card-content>\r\n            </mat-card>\r\n        </div>\r\n        <!-- End Profile Card -->\r\n    </div>\r\n</div>"
 
 /***/ }),
 
@@ -2109,6 +2157,7 @@ module.exports = "<div fxFill fxFlex=\"row\" class=\"bg-content\">\r\n    Hellow
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DashboardHomeComponent", function() { return DashboardHomeComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var src_app_services_tendoo_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/services/tendoo.service */ "./src/app/services/tendoo.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2119,8 +2168,10 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
+
 var DashboardHomeComponent = /** @class */ (function () {
-    function DashboardHomeComponent() {
+    function DashboardHomeComponent(tendoo) {
+        this.tendoo = tendoo;
     }
     DashboardHomeComponent.prototype.ngOnInit = function () {
     };
@@ -2130,7 +2181,7 @@ var DashboardHomeComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./home.component.html */ "./src/app/components/dashboard/home/home.component.html"),
             styles: [__webpack_require__(/*! ./home.component.css */ "./src/app/components/dashboard/home/home.component.css")],
         }),
-        __metadata("design:paramtypes", [])
+        __metadata("design:paramtypes", [src_app_services_tendoo_service__WEBPACK_IMPORTED_MODULE_1__["TendooService"]])
     ], DashboardHomeComponent);
     return DashboardHomeComponent;
 }());
@@ -3925,7 +3976,7 @@ module.exports = ":host {\r\n    height: 100%;\r\n}\r\n/*# sourceMappingURL=data
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div fxLayout=\"column\" class=\"bg-content\" fxFlex=\"100%\" style=\"overflow-y:auto\">\r\n    <mat-progress-bar color=\"warn\" style=\"height: 2px; position: absolute\" *ngIf=\"tendoo.users.isLoading\" mode=\"indeterminate\"></mat-progress-bar>\r\n    <div fxLayout=\"row\" class=\"p-3 pb-0\">\r\n        <div fxFlex>\r\n            <h1 class=\"mat-display-1 mb-0\">Users</h1>\r\n            <span class=\"mat-title\">create new users</span>\r\n        </div>\r\n        <div fxFlex=\"200px\" fxLayoutAlign=\"end start\">\r\n            <button routerLink=\"/dashboard/users\" mat-button color=\"warn\">Back to users</button>\r\n        </div>\r\n    </div>\r\n    <div class=\"p-3\" fxLayout=\"row\" fxFlex=\"1 0 auto\" fxLayout=\"column\">\r\n        <mat-card>\r\n            <mat-card-title>\r\n                Create a new user\r\n            </mat-card-title>\r\n            <mat-card-content>\r\n                <form [formGroup]=\"form\" *ngIf=\"form\">\r\n                    <app-fields *ngFor=\"let field of fields\" [field]=\"field\" [group]=\"form\"></app-fields>\r\n                </form>\r\n            </mat-card-content>\r\n            <mat-divider></mat-divider>\r\n            <mat-card-actions>\r\n                <button [disabled]=\"tendoo.isLoading\" mat-button (click)=\"submit()\" color=\"primary\">Submit</button>\r\n            </mat-card-actions>\r\n        </mat-card>\r\n    </div>\r\n</div>"
+module.exports = "<div fxLayout=\"column\" class=\"bg-content\" fxFlex style=\"overflow-y:auto\">\r\n    <mat-progress-bar color=\"warn\" style=\"height: 2px; position: absolute\" *ngIf=\"tendoo.users.isLoading\" mode=\"indeterminate\"></mat-progress-bar>\r\n    <div fxLayout=\"row\" fxFlex=\"0 0 auto\" class=\"p-3 pb-0\">\r\n        <div fxFlex>\r\n            <h1 class=\"mat-display-1 mb-0\">Users</h1>\r\n            <span class=\"mat-title\">create new users</span>\r\n        </div>\r\n        <div fxFlex=\"200px\" fxLayoutAlign=\"end start\">\r\n            <button routerLink=\"/dashboard/users\" mat-button color=\"warn\">Back to users</button>\r\n        </div>\r\n    </div>\r\n    <div class=\"p-3\" fxLayout=\"row\" fxFlex=\"1 0 auto\" fxLayout=\"column\">\r\n        <mat-card>\r\n            <mat-card-title>\r\n                Create a new user\r\n            </mat-card-title>\r\n            <mat-card-content>\r\n                <form [formGroup]=\"form\" *ngIf=\"form\">\r\n                    <app-fields *ngFor=\"let field of fields\" [field]=\"field\" [group]=\"form\"></app-fields>\r\n                </form>\r\n            </mat-card-content>\r\n            <mat-divider></mat-divider>\r\n            <mat-card-actions>\r\n                <button [disabled]=\"tendoo.isLoading\" mat-button (click)=\"submit()\" color=\"primary\">Submit</button>\r\n            </mat-card-actions>\r\n        </mat-card>\r\n    </div>\r\n</div>"
 
 /***/ }),
 
@@ -4060,7 +4111,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div fxLayout=\"column\" class=\"bg-content\" fxFlex=\"100%\" style=\"overflow-y:auto\">\r\n    <mat-progress-bar color=\"warn\" style=\"height: 2px; position: absolute\" *ngIf=\"tendoo.isLoading\" mode=\"indeterminate\"></mat-progress-bar>\r\n    <div fxLayout=\"row\" class=\"p-3 pb-0\">\r\n        <div fxFlex>\r\n            <h1 class=\"mat-display-1 mb-0\">Users</h1>\r\n            <span class=\"mat-title\">create new users</span>\r\n        </div>\r\n        <div fxFlex=\"200px\" fxLayoutAlign=\"end start\">\r\n            <button routerLink=\"/dashboard/users\" mat-button color=\"warn\">Back to users</button>\r\n        </div>\r\n    </div>\r\n    <div class=\"p-2\" fxLayout=\"row\" fxFlex=\"1 0 auto\" fxLayout=\"row\">\r\n        <mat-card fxFlex>\r\n            <mat-card-title>\r\n                Edit a user\r\n            </mat-card-title>\r\n            <mat-card-content>\r\n                <form [formGroup]=\"form\" *ngIf=\"form\">\r\n                    <app-fields *ngFor=\"let field of fields\" [field]=\"field\" [group]=\"form\"></app-fields>\r\n                </form>\r\n            </mat-card-content>\r\n            <mat-divider></mat-divider>\r\n            <mat-card-actions>\r\n                <button [disabled]=\"tendoo.users.isLoading\" mat-button (click)=\"submit()\" color=\"primary\">Update</button>\r\n                <button [disabled]=\"tendoo.users.isLoading\" mat-button (click)=\"submit( true )\" color=\"primary\">Update & Return</button>\r\n            </mat-card-actions>\r\n        </mat-card>\r\n    </div>\r\n</div>"
+module.exports = "<div fxLayout=\"column\" class=\"bg-content\" fxFlex=\"100%\" style=\"overflow-y:auto\">\r\n    <mat-progress-bar color=\"warn\" style=\"height: 2px; position: absolute\" *ngIf=\"tendoo.isLoading\" mode=\"indeterminate\"></mat-progress-bar>\r\n    <div fxLayout=\"row\"  fxFlex=\"0 0 auto\" class=\"p-3 pb-0\">\r\n        <div fxFlex>\r\n            <h1 class=\"mat-display-1 mb-0\">Users</h1>\r\n            <span class=\"mat-title\">create new users</span>\r\n        </div>\r\n        <div fxFlex=\"200px\" fxLayoutAlign=\"end start\">\r\n            <button routerLink=\"/dashboard/users\" mat-button color=\"warn\">Back to users</button>\r\n        </div>\r\n    </div>\r\n    <div class=\"p-2\" fxLayout=\"row\" fxFlex=\"1 0 auto\" fxLayout=\"row\">\r\n        <mat-card fxFlex>\r\n            <mat-card-title>\r\n                Edit a user\r\n            </mat-card-title>\r\n            <mat-card-content>\r\n                <form [formGroup]=\"form\" *ngIf=\"form\">\r\n                    <app-fields *ngFor=\"let field of fields\" [field]=\"field\" [group]=\"form\"></app-fields>\r\n                </form>\r\n            </mat-card-content>\r\n            <mat-divider></mat-divider>\r\n            <mat-card-actions>\r\n                <button [disabled]=\"tendoo.users.isLoading\" mat-button (click)=\"submit()\" color=\"primary\">Update</button>\r\n                <button [disabled]=\"tendoo.users.isLoading\" mat-button (click)=\"submit( true )\" color=\"primary\">Update & Return</button>\r\n            </mat-card-actions>\r\n        </mat-card>\r\n    </div>\r\n</div>"
 
 /***/ }),
 
@@ -4179,7 +4230,7 @@ var UsersEditComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ":host {\r\n    height: 100%;\r\n}\r\n#search-field {\r\n    height: 35px;\r\n    border-radius: 5px;\r\n    border: solid 1px #DDD;\r\n    background: #FFF;\r\n    width: 100%;\r\n    font-size: 18px;\r\n    padding: 0 10px;\r\n    margin-right: 10px;\r\n    margin-left: 10px;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvdXNlcnMvdXNlcnMuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLGFBQWE7Q0FDaEI7QUFDRDtJQUNJLGFBQWE7SUFDYixtQkFBbUI7SUFDbkIsdUJBQXVCO0lBQ3ZCLGlCQUFpQjtJQUNqQixZQUFZO0lBQ1osZ0JBQWdCO0lBQ2hCLGdCQUFnQjtJQUNoQixtQkFBbUI7SUFDbkIsa0JBQWtCO0NBQ3JCIiwiZmlsZSI6InNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvdXNlcnMvdXNlcnMuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIjpob3N0IHtcclxuICAgIGhlaWdodDogMTAwJTtcclxufVxyXG4jc2VhcmNoLWZpZWxkIHtcclxuICAgIGhlaWdodDogMzVweDtcclxuICAgIGJvcmRlci1yYWRpdXM6IDVweDtcclxuICAgIGJvcmRlcjogc29saWQgMXB4ICNEREQ7XHJcbiAgICBiYWNrZ3JvdW5kOiAjRkZGO1xyXG4gICAgd2lkdGg6IDEwMCU7XHJcbiAgICBmb250LXNpemU6IDE4cHg7XHJcbiAgICBwYWRkaW5nOiAwIDEwcHg7XHJcbiAgICBtYXJnaW4tcmlnaHQ6IDEwcHg7XHJcbiAgICBtYXJnaW4tbGVmdDogMTBweDtcclxufSJdfQ== */"
+module.exports = ":host {\r\n    height: 100%;\r\n}\r\n#search-field {\r\n    height: 35px;\r\n    border-radius: 5px;\r\n    border: solid 1px #DDD;\r\n    background: #FFF;\r\n    width: 100%;\r\n    font-size: 18px;\r\n    padding: 0 10px;\r\n    margin-right: 10px;\r\n    margin-left: 10px;\r\n}\r\nth.mat-header-cell, td.mat-cell {\r\n    padding: 10px;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvdXNlcnMvdXNlcnMuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLGFBQWE7Q0FDaEI7QUFDRDtJQUNJLGFBQWE7SUFDYixtQkFBbUI7SUFDbkIsdUJBQXVCO0lBQ3ZCLGlCQUFpQjtJQUNqQixZQUFZO0lBQ1osZ0JBQWdCO0lBQ2hCLGdCQUFnQjtJQUNoQixtQkFBbUI7SUFDbkIsa0JBQWtCO0NBQ3JCO0FBQ0Q7SUFDSSxjQUFjO0NBQ2pCIiwiZmlsZSI6InNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvdXNlcnMvdXNlcnMuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIjpob3N0IHtcclxuICAgIGhlaWdodDogMTAwJTtcclxufVxyXG4jc2VhcmNoLWZpZWxkIHtcclxuICAgIGhlaWdodDogMzVweDtcclxuICAgIGJvcmRlci1yYWRpdXM6IDVweDtcclxuICAgIGJvcmRlcjogc29saWQgMXB4ICNEREQ7XHJcbiAgICBiYWNrZ3JvdW5kOiAjRkZGO1xyXG4gICAgd2lkdGg6IDEwMCU7XHJcbiAgICBmb250LXNpemU6IDE4cHg7XHJcbiAgICBwYWRkaW5nOiAwIDEwcHg7XHJcbiAgICBtYXJnaW4tcmlnaHQ6IDEwcHg7XHJcbiAgICBtYXJnaW4tbGVmdDogMTBweDtcclxufVxyXG50aC5tYXQtaGVhZGVyLWNlbGwsIHRkLm1hdC1jZWxsIHtcclxuICAgIHBhZGRpbmc6IDEwcHg7XHJcbn0iXX0= */"
 
 /***/ }),
 
@@ -4190,7 +4241,7 @@ module.exports = ":host {\r\n    height: 100%;\r\n}\r\n#search-field {\r\n    he
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div fxLayout=\"column\" fxFlex=\"100%\" style=\"overflow-y:auto\">\r\n    <div fxLayout=\"row\" class=\"bg-content p-3 pb-0\">\r\n        <div fxFlex>\r\n            <h1 class=\"mat-display-1 mb-0\">Users</h1>\r\n            <span class=\"mat-title\">Displays and manage all registered users</span>\r\n        </div>\r\n    </div>\r\n    <div class=\"p-3 bg-content\" fxFlex=\"1 0 auto\" fxLayout=\"column\">\r\n        <mat-card class=\"p-0\">\r\n            <mat-card-title class=\"p-2 mb-0\" *ngIf=\"searchEnabled\" color=\"warn\">\r\n                <div fxFlex=\"100%\" fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n                    <button (click)=\"toggleSearch( false )\" mat-icon-button>\r\n                        <mat-icon>close</mat-icon>\r\n                    </button>\r\n                    <input id=\"search-field\" [placeholder]=\"tableConfig.search.placeholder\" type=\"text\" #searchField>\r\n                    <button (click)=\"search( searchField )\" mat-icon-button>\r\n                        <mat-icon>search</mat-icon>\r\n                    </button>\r\n                </div>\r\n            </mat-card-title>\r\n            <mat-card-title class=\"p-2 mb-0\" *ngIf=\"! searchEnabled\" fxLayoutAlign=\"space-between\">\r\n                <div fxFlex=\"100%\" *ngIf=\"! hasSelectedEntries\" fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n                    <button mat-icon-button routerLink=\"/dashboard/users/create\" mat-button color=\"primary\">\r\n                        <mat-icon>add</mat-icon>\r\n                    </button>\r\n                    <button mat-icon-button (click)=\"toggleSearch( true )\">\r\n                        <mat-icon>search</mat-icon>\r\n                    </button>\r\n                </div>\r\n                <div fxFlex=\"100%\" *ngIf=\"hasSelectedEntries\" fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n                    <div fxLayoutAlign=\"start center\" fxLayout=\"row\">\r\n                        <button (click)=\"cancel()\" mat-icon-button>\r\n                            <mat-icon>arrow_back</mat-icon>\r\n                        </button>\r\n                        <span style=\"padding: 5px 10px\">{{ selectedEntries.length }} selected</span>\r\n                    </div>\r\n                    <div>\r\n                        <button mat-icon-button color=\"primary\">\r\n                            <mat-icon>import_export</mat-icon>\r\n                        </button>\r\n                        <button (click)=\"deleteSelectedEntries()\" *ngIf=\"hasSelectedEntries\" mat-icon-button color=\"warn\">\r\n                            <mat-icon>delete</mat-icon>\r\n                        </button>\r\n                    </div>\r\n                </div>\r\n            </mat-card-title>\r\n            <mat-divider *ngIf=\"! tendoo.crud.isLoading\"></mat-divider>\r\n            <mat-progress-bar color=\"warn\" style=\"height: 1px;position: absolute;left: 0;\" *ngIf=\"tendoo.crud.isLoading\" mode=\"indeterminate\"></mat-progress-bar>\r\n            <mat-card-content>\r\n                <table matSort (matSortChange)=\"sortData($event)\" mat-table [dataSource]=\"crudResult[ 'data' ]\" fxFlex>\r\n                    <!--- Note that these columns can be defined in any order.\r\n                        The actual rendered columns are set as a property on the row definition\" -->\r\n                    <ng-container *ngFor=\"let column of columns\" [matColumnDef]=\"column\">\r\n                        <ng-container  *ngIf=\"column === 'id'\">\r\n                            <th mat-header-cell *matHeaderCellDef style=\"width: 40px\">\r\n                                <mat-checkbox class=\"example-margin\" (change)=\"checkAllCheckboxes()\" [(ngModel)]=\"checkAll\"></mat-checkbox>\r\n                            </th>\r\n                            <td mat-cell *matCellDef=\"let element\" style=\"width: 40px\">\r\n                                <mat-checkbox class=\"example-margin\" [(ngModel)]=\"element.$checked\"></mat-checkbox>\r\n                            </td>\r\n                        </ng-container>\r\n                        <ng-container *ngIf=\"column === '$actions'\">\r\n                            <th mat-header-cell *matHeaderCellDef width=\"80\">{{ rawColumns[ column ].label }}</th>\r\n                            <td mat-cell *matCellDef=\"let element\">\r\n                                <mat-menu #tableEntryMenu=\"matMenu\">\r\n                                    <button (click)=\"triggerMenu( menu, element )\" *ngFor=\"let menu of element.$actions\" mat-menu-item>{{ menu.label }}</button>\r\n                                </mat-menu>\r\n                                \r\n                                <button mat-icon-button [matMenuTriggerFor]=\"tableEntryMenu\">\r\n                                    <mat-icon>more_vert</mat-icon>\r\n                                </button>\r\n                            </td>\r\n                        </ng-container>    \r\n                        <ng-container *ngIf=\"reservedColumns.indexOf( column ) === -1\">\r\n                            <th [mat-sort-header]=\"column\" mat-header-cell *matHeaderCellDef>{{ rawColumns[ column ].label }}</th>\r\n                            <td mat-cell *matCellDef=\"let element\"> \r\n                                <!--\r\n                                    this help to replace the provided value with a replace value\r\n                                    provided on the column definition\r\n                                -->\r\n                                <ng-container *ngIf=\"rawColumns[ column ].replace !== undefined\">\r\n                                    <ng-container *ngIf=\"rawColumns[ column ].type === 'boolean'\">\r\n                                        <ng-container *ngIf=\"element[ column ] === false\">\r\n                                            {{ rawColumns[ column ].replace[0] }}\r\n                                        </ng-container>\r\n                                        <ng-container *ngIf=\"element[ column ] === true\">\r\n                                            {{ rawColumns[ column ].replace[1] }}\r\n                                        </ng-container>\r\n                                        <ng-container *ngIf=\"element[ column ] !== true && element[ column ] !== false\">\r\n                                            {{ rawColumns[ column ].replace[ '$default' ] ? rawColumns[ column ].replace[ '$default' ] : 'N/A' }}\r\n                                        </ng-container>\r\n                                    </ng-container>\r\n                                </ng-container>\r\n                                <ng-container *ngIf=\"rawColumns[ column ].replace === undefined\">\r\n                                    {{ element[ column ] }} \r\n                                </ng-container>\r\n                            </td>\r\n                        </ng-container>\r\n                    </ng-container>\r\n                    \r\n                    <tr mat-header-row *matHeaderRowDef=\"columns\"></tr>\r\n                    <tr mat-row *matRowDef=\"let row; columns: columns;\"></tr>\r\n                </table>\r\n            </mat-card-content>\r\n        </mat-card>\r\n    </div>\r\n</div>"
+module.exports = "<div fxLayout=\"column\" fxFlex=\"100%\" style=\"overflow-y:auto\">\r\n    <div fxLayout=\"row\" class=\"bg-content p-3 pb-0\">\r\n        <div fxFlex>\r\n            <h1 class=\"mat-display-1 mb-0\">Users</h1>\r\n            <span class=\"mat-title\">Displays and manage all registered users</span>\r\n        </div>\r\n    </div>\r\n    <div class=\"p-3 bg-content\" fxFlex=\"1 0 auto\" fxLayout=\"column\">\r\n        <mat-card class=\"p-0\">\r\n            <mat-card-title class=\"p-2 mb-0\" *ngIf=\"searchEnabled\" color=\"warn\">\r\n                <div fxFlex=\"100%\" fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n                    <button (click)=\"toggleSearch( false )\" mat-icon-button>\r\n                        <mat-icon>close</mat-icon>\r\n                    </button>\r\n                    <input id=\"search-field\" [placeholder]=\"tableConfig.search.placeholder\" type=\"text\" #searchField>\r\n                    <button (click)=\"search( searchField )\" mat-icon-button>\r\n                        <mat-icon>search</mat-icon>\r\n                    </button>\r\n                </div>\r\n            </mat-card-title>\r\n            <mat-card-title class=\"p-2 mb-0\" *ngIf=\"! searchEnabled\" fxLayoutAlign=\"space-between\">\r\n                <div fxFlex=\"100%\" *ngIf=\"! hasSelectedEntries\" fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n                    <button mat-icon-button routerLink=\"/dashboard/users/create\" mat-button color=\"primary\">\r\n                        <mat-icon>add</mat-icon>\r\n                    </button>\r\n                    <button mat-icon-button (click)=\"toggleSearch( true )\">\r\n                        <mat-icon>search</mat-icon>\r\n                    </button>\r\n                </div>\r\n                <div fxFlex=\"100%\" *ngIf=\"hasSelectedEntries\" fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n                    <div fxLayoutAlign=\"start center\" fxLayout=\"row\">\r\n                        <button (click)=\"cancel()\" mat-icon-button>\r\n                            <mat-icon>arrow_back</mat-icon>\r\n                        </button>\r\n                        <span style=\"padding: 5px 10px\">{{ selectedEntries.length }} selected</span>\r\n                    </div>\r\n                    <div>\r\n                        <button mat-icon-button color=\"primary\">\r\n                            <mat-icon>import_export</mat-icon>\r\n                        </button>\r\n                        <button (click)=\"deleteSelectedEntries()\" *ngIf=\"hasSelectedEntries\" mat-icon-button color=\"warn\">\r\n                            <mat-icon>delete</mat-icon>\r\n                        </button>\r\n                    </div>\r\n                </div>\r\n            </mat-card-title>\r\n            <mat-divider *ngIf=\"! tendoo.crud.isLoading\"></mat-divider>\r\n            <mat-progress-bar color=\"warn\" style=\"height: 1px;position: absolute;left: 0;\" *ngIf=\"tendoo.crud.isLoading\" mode=\"indeterminate\"></mat-progress-bar>\r\n            <mat-card-content style=\"overflow-x: auto;\">\r\n                <table matSort (matSortChange)=\"sortData($event)\" mat-table [dataSource]=\"crudResult[ 'data' ]\" fxFlex>\r\n                    <!--- Note that these columns can be defined in any order.\r\n                        The actual rendered columns are set as a property on the row definition\" -->\r\n                    <ng-container *ngFor=\"let column of columns\" [matColumnDef]=\"column\">\r\n                        <ng-container  *ngIf=\"column === 'id'\">\r\n                            <th mat-header-cell *matHeaderCellDef style=\"width: 40px\">\r\n                                <mat-checkbox class=\"example-margin\" (change)=\"checkAllCheckboxes()\" [(ngModel)]=\"checkAll\"></mat-checkbox>\r\n                            </th>\r\n                            <td mat-cell *matCellDef=\"let element\" style=\"width: 40px\">\r\n                                <mat-checkbox class=\"example-margin\" [(ngModel)]=\"element.$checked\"></mat-checkbox>\r\n                            </td>\r\n                        </ng-container>\r\n                        <ng-container *ngIf=\"column === '$actions'\">\r\n                            <th mat-header-cell *matHeaderCellDef width=\"80\">{{ rawColumns[ column ].label }}</th>\r\n                            <td mat-cell *matCellDef=\"let element\">\r\n                                <mat-menu #tableEntryMenu=\"matMenu\">\r\n                                    <button (click)=\"triggerMenu( menu, element )\" *ngFor=\"let menu of element.$actions\" mat-menu-item>{{ menu.label }}</button>\r\n                                </mat-menu>\r\n                                \r\n                                <button mat-icon-button [matMenuTriggerFor]=\"tableEntryMenu\">\r\n                                    <mat-icon>more_vert</mat-icon>\r\n                                </button>\r\n                            </td>\r\n                        </ng-container>    \r\n                        <ng-container *ngIf=\"reservedColumns.indexOf( column ) === -1\">\r\n                            <th [mat-sort-header]=\"column\" mat-header-cell *matHeaderCellDef>{{ rawColumns[ column ].label }}</th>\r\n                            <td mat-cell *matCellDef=\"let element\"> \r\n                                <!--\r\n                                    this help to replace the provided value with a replace value\r\n                                    provided on the column definition\r\n                                -->\r\n                                <ng-container *ngIf=\"rawColumns[ column ].replace !== undefined\">\r\n                                    <ng-container *ngIf=\"rawColumns[ column ].type === 'boolean'\">\r\n                                        <ng-container *ngIf=\"element[ column ] === false\">\r\n                                            {{ rawColumns[ column ].replace[0] }}\r\n                                        </ng-container>\r\n                                        <ng-container *ngIf=\"element[ column ] === true\">\r\n                                            {{ rawColumns[ column ].replace[1] }}\r\n                                        </ng-container>\r\n                                        <ng-container *ngIf=\"element[ column ] !== true && element[ column ] !== false\">\r\n                                            {{ rawColumns[ column ].replace[ '$default' ] ? rawColumns[ column ].replace[ '$default' ] : 'N/A' }}\r\n                                        </ng-container>\r\n                                    </ng-container>\r\n                                </ng-container>\r\n                                <ng-container *ngIf=\"rawColumns[ column ].replace === undefined\">\r\n                                    {{ element[ column ] }} \r\n                                </ng-container>\r\n                            </td>\r\n                        </ng-container>\r\n                    </ng-container>\r\n                    \r\n                    <tr mat-header-row *matHeaderRowDef=\"columns\"></tr>\r\n                    <tr mat-row *matRowDef=\"let row; columns: columns;\"></tr>\r\n                </table>\r\n            </mat-card-content>\r\n        </mat-card>\r\n    </div>\r\n</div>"
 
 /***/ }),
 
@@ -4278,6 +4329,14 @@ var UsersComponent = /** @class */ (function () {
             _this.rawColumns = response[1];
             _this.columns = Object.keys(_this.rawColumns);
             _this.crudResult = response[0];
+        }, function (error) {
+            _this.snackbar.open('An error occured while loading the users.', 'TRY AGAIN')
+                .afterDismissed()
+                .subscribe(function (action) {
+                if (action.dismissedByAction) {
+                    _this.loadUsers();
+                }
+            });
         });
     };
     UsersComponent.prototype.sortData = function (event) {
@@ -4525,7 +4584,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<form [formGroup]=\"applicationForm\">\r\n    <mat-card>\r\n        <mat-card-title>Configuring Application</mat-card-title>\r\n        <mat-divider></mat-divider>\r\n        <mat-card-content>\r\n            <p style=\"margin: 30px 0 20px\">The connexion with the database is successful. Now we need to setup the admin account.</p>\r\n            <app-fields [field]=\"field\" [group]=\"applicationForm\" *ngFor=\"let field of fields\"></app-fields>\r\n        </mat-card-content>\r\n        <mat-divider *ngIf=\"! setup.isLoading\"></mat-divider>\r\n        <mat-progress-bar *ngIf=\"setup.isLoading\" mode=\"indeterminate\" style=\"height: 1px;position: absolute;left: 0;\"></mat-progress-bar>\r\n        <mat-card-actions>\r\n            <button [disabled]=\"setup.isLoading\" (click)=\"setupApplication()\" mat-button>Setup Application</button>\r\n        </mat-card-actions>\r\n    </mat-card>\r\n</form>"
+module.exports = "<form [formGroup]=\"applicationForm\">\r\n    <div fxLayout=\"column\" fxFlex class=\"pb-3 pt-3\">\r\n        <div fxLayoutAlign=\"center center\">\r\n            <img src=\"assets/images/logo.png\" style=\"width: 150px\" alt=\"\" srcset=\"\">\r\n        </div>\r\n        <div>\r\n            <mat-card>\r\n                <mat-card-title>Configuring Application</mat-card-title>\r\n                <mat-divider></mat-divider>\r\n                <mat-card-content>\r\n                    <p style=\"margin: 30px 0 20px\">The connexion with the database is successful. Now we need to setup the admin account.</p>\r\n                    <app-fields [field]=\"field\" [group]=\"applicationForm\" *ngFor=\"let field of fields\"></app-fields>\r\n                </mat-card-content>\r\n                <mat-divider *ngIf=\"! setup.isLoading\"></mat-divider>\r\n                <mat-progress-bar *ngIf=\"setup.isLoading\" mode=\"indeterminate\" style=\"height: 1px;position: absolute;left: 0;\"></mat-progress-bar>\r\n                <mat-card-actions>\r\n                    <button [disabled]=\"setup.isLoading\" (click)=\"setupApplication()\" mat-button>Setup Application</button>\r\n                </mat-card-actions>\r\n            </mat-card>\r\n        </div>\r\n    </div>\r\n</form>"
 
 /***/ }),
 
@@ -4666,7 +4725,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<form [formGroup]=\"setupForm\">\r\n    <mat-card>\r\n        <mat-card-title>Configuring Database</mat-card-title>\r\n        <mat-divider></mat-divider>\r\n        <mat-card-content>\r\n            <p style=\"margin: 30px 0 20px\">In order to install Tendoo CMS, please provide all the informations required to connect to the database.</p>\r\n            <app-fields [field]=\"field\" [group]=\"setupForm\" *ngFor=\"let field of fields\"></app-fields>\r\n        </mat-card-content>\r\n        <mat-divider *ngIf=\"! setup.isLoading\"></mat-divider>\r\n        <mat-progress-bar *ngIf=\"setup.isLoading\" mode=\"indeterminate\" style=\"height: 1px;position: absolute;left: 0;\"></mat-progress-bar>\r\n        <mat-card-actions>\r\n            <button [disabled]=\"setup.isLoading\" (click)=\"setupDatabase()\" mat-button>Setup Database</button>\r\n        </mat-card-actions>\r\n    </mat-card>\r\n</form>"
+module.exports = "<form [formGroup]=\"setupForm\">\r\n    <div fxLayout=\"column\" fxFlex class=\"pb-3 pt-3\">\r\n        <div fxLayoutAlign=\"center center\">\r\n            <img src=\"assets/images/logo.png\" style=\"width: 150px\" alt=\"\" srcset=\"\">\r\n        </div>\r\n        <div>\r\n            <mat-card>\r\n                <mat-card-title>Configuring Database</mat-card-title>\r\n                <mat-divider></mat-divider>\r\n                <mat-card-content>\r\n                    <p style=\"margin: 30px 0 20px\">In order to install Tendoo CMS, please provide all the informations required to connect to the database.</p>\r\n                    <app-fields [field]=\"field\" [group]=\"setupForm\" *ngFor=\"let field of fields\"></app-fields>\r\n                </mat-card-content>\r\n                <mat-divider *ngIf=\"! setup.isLoading\"></mat-divider>\r\n                <mat-progress-bar *ngIf=\"setup.isLoading\" mode=\"indeterminate\" style=\"height: 1px;position: absolute;left: 0;\"></mat-progress-bar>\r\n                <mat-card-actions>\r\n                    <button [disabled]=\"setup.isLoading\" (click)=\"setupDatabase()\" mat-button>Setup Database</button>\r\n                </mat-card-actions>\r\n            </mat-card>\r\n        </div>\r\n    </div>\r\n</form>\r\n"
 
 /***/ }),
 
@@ -4815,7 +4874,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div fxFill fxLayout=\"row\" fxLayoutAlign=\"center center\" class=\"bg-content\">\r\n    <div \r\n        fxFlex.xs=\"90%\" \r\n        fxFlex.sm=\"70%\" \r\n        fxFlex.md=\"50%\" \r\n        fxFlex.lg=\"40%\" \r\n        fxFlex.xl=\"40%\">\r\n        <router-outlet></router-outlet>\r\n    </div>\r\n</div>"
+module.exports = "<div fxFlex fxLayout=\"row\" fxLayoutAlign=\"center center\" style=\"overflow-y: auto; height: auto;\" class=\"bg-content\">\r\n    <div \r\n        fxFlex.xs=\"90%\" \r\n        fxFlex.sm=\"70%\" \r\n        fxFlex.md=\"50%\" \r\n        fxFlex.lg=\"40%\" \r\n        fxFlex.xl=\"40%\">\r\n        <router-outlet></router-outlet>\r\n    </div>\r\n</div>"
 
 /***/ }),
 
@@ -4878,7 +4937,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<mat-card>\r\n    <mat-card-title>Welcome on Tendoo CMS</mat-card-title>\r\n    <mat-card-content>\r\n        Tendoo CMS is ready to be installed. Let's get started\r\n    </mat-card-content>\r\n    <mat-divider></mat-divider>\r\n    <mat-card-actions>\r\n        <a routerLink=\"/do-setup/database\" mat-button>Database Configuration</a>\r\n    </mat-card-actions>\r\n</mat-card>"
+module.exports = "<div fxLayout=\"column\" fxFlex>\r\n    <div fxLayoutAlign=\"center center\">\r\n        <img src=\"assets/images/logo.png\" style=\"width: 150px\" alt=\"\" srcset=\"\">\r\n    </div>\r\n    <div>\r\n        <mat-card>\r\n            <mat-card-title>Welcome on Tendoo CMS</mat-card-title>\r\n            <mat-card-content>\r\n                Tendoo CMS is ready to be installed. Let's get started\r\n            </mat-card-content>\r\n            <mat-divider></mat-divider>\r\n            <mat-card-actions>\r\n                <a routerLink=\"/do-setup/database\" mat-button>Database Configuration</a>\r\n            </mat-card-actions>\r\n        </mat-card>\r\n    </div>\r\n</div>"
 
 /***/ }),
 
@@ -6439,7 +6498,7 @@ var TendooAuthService = /** @class */ (function (_super) {
         var token = _loader_service__WEBPACK_IMPORTED_MODULE_1__["LoaderService"].headers['X-AUTH-TOKEN'];
         _loader_service__WEBPACK_IMPORTED_MODULE_1__["LoaderService"].headers = {};
         return this.post(this.baseUrl + "tendoo/auth/logout", {
-            token: _loader_service__WEBPACK_IMPORTED_MODULE_1__["LoaderService"].headers['X-AUTH-TOKEN']
+            token: token
         }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (value) {
             return value;
         }));
@@ -7705,7 +7764,7 @@ var ConfirmDialogComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ":host {\r\n    height: 100%;\r\n}\r\n#search-field {\r\n    height: 35px;\r\n    border-radius: 5px;\r\n    border: solid 1px #DDD;\r\n    background: #FFF;\r\n    width: 100%;\r\n    font-size: 18px;\r\n    padding: 0 10px;\r\n    margin-right: 10px;\r\n    margin-left: 10px;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvc2hhcmVkL2NydWQtdGFibGUvY3J1ZC10YWJsZS5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0lBQ0ksYUFBYTtDQUNoQjtBQUNEO0lBQ0ksYUFBYTtJQUNiLG1CQUFtQjtJQUNuQix1QkFBdUI7SUFDdkIsaUJBQWlCO0lBQ2pCLFlBQVk7SUFDWixnQkFBZ0I7SUFDaEIsZ0JBQWdCO0lBQ2hCLG1CQUFtQjtJQUNuQixrQkFBa0I7Q0FDckIiLCJmaWxlIjoic3JjL2FwcC9zaGFyZWQvY3J1ZC10YWJsZS9jcnVkLXRhYmxlLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyI6aG9zdCB7XHJcbiAgICBoZWlnaHQ6IDEwMCU7XHJcbn1cclxuI3NlYXJjaC1maWVsZCB7XHJcbiAgICBoZWlnaHQ6IDM1cHg7XHJcbiAgICBib3JkZXItcmFkaXVzOiA1cHg7XHJcbiAgICBib3JkZXI6IHNvbGlkIDFweCAjREREO1xyXG4gICAgYmFja2dyb3VuZDogI0ZGRjtcclxuICAgIHdpZHRoOiAxMDAlO1xyXG4gICAgZm9udC1zaXplOiAxOHB4O1xyXG4gICAgcGFkZGluZzogMCAxMHB4O1xyXG4gICAgbWFyZ2luLXJpZ2h0OiAxMHB4O1xyXG4gICAgbWFyZ2luLWxlZnQ6IDEwcHg7XHJcbn0iXX0= */"
+module.exports = ":host {\r\n    height: 100%;\r\n}\r\n#search-field {\r\n    height: 35px;\r\n    border-radius: 5px;\r\n    border: solid 1px #DDD;\r\n    background: #FFF;\r\n    width: 100%;\r\n    font-size: 18px;\r\n    padding: 0 10px;\r\n    margin-right: 10px;\r\n    margin-left: 10px;\r\n}\r\nth.mat-header-cell, td.mat-cell {\r\n    padding: 10px;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvc2hhcmVkL2NydWQtdGFibGUvY3J1ZC10YWJsZS5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0lBQ0ksYUFBYTtDQUNoQjtBQUNEO0lBQ0ksYUFBYTtJQUNiLG1CQUFtQjtJQUNuQix1QkFBdUI7SUFDdkIsaUJBQWlCO0lBQ2pCLFlBQVk7SUFDWixnQkFBZ0I7SUFDaEIsZ0JBQWdCO0lBQ2hCLG1CQUFtQjtJQUNuQixrQkFBa0I7Q0FDckI7QUFDRDtJQUNJLGNBQWM7Q0FDakIiLCJmaWxlIjoic3JjL2FwcC9zaGFyZWQvY3J1ZC10YWJsZS9jcnVkLXRhYmxlLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyI6aG9zdCB7XHJcbiAgICBoZWlnaHQ6IDEwMCU7XHJcbn1cclxuI3NlYXJjaC1maWVsZCB7XHJcbiAgICBoZWlnaHQ6IDM1cHg7XHJcbiAgICBib3JkZXItcmFkaXVzOiA1cHg7XHJcbiAgICBib3JkZXI6IHNvbGlkIDFweCAjREREO1xyXG4gICAgYmFja2dyb3VuZDogI0ZGRjtcclxuICAgIHdpZHRoOiAxMDAlO1xyXG4gICAgZm9udC1zaXplOiAxOHB4O1xyXG4gICAgcGFkZGluZzogMCAxMHB4O1xyXG4gICAgbWFyZ2luLXJpZ2h0OiAxMHB4O1xyXG4gICAgbWFyZ2luLWxlZnQ6IDEwcHg7XHJcbn1cclxudGgubWF0LWhlYWRlci1jZWxsLCB0ZC5tYXQtY2VsbCB7XHJcbiAgICBwYWRkaW5nOiAxMHB4O1xyXG59Il19 */"
 
 /***/ }),
 
@@ -7716,7 +7775,7 @@ module.exports = ":host {\r\n    height: 100%;\r\n}\r\n#search-field {\r\n    he
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<mat-card class=\"p-0\">\r\n    <mat-card-title class=\"p-2 mb-0\" *ngIf=\"searchEnabled\" color=\"warn\">\r\n        <div fxFlex=\"100%\" fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n            <button (click)=\"toggleSearch( false )\" mat-icon-button>\r\n                <mat-icon>close</mat-icon>\r\n            </button>\r\n            <input id=\"search-field\" [placeholder]=\"labels.search\" type=\"text\" #searchField>\r\n            <button (click)=\"search( searchField )\" mat-icon-button>\r\n                <mat-icon>search</mat-icon>\r\n            </button>\r\n        </div>\r\n    </mat-card-title>\r\n    <mat-card-title class=\"p-2 mb-0\" *ngIf=\"! searchEnabled\" fxLayoutAlign=\"space-between\">\r\n        <div fxFlex=\"100%\" *ngIf=\"! hasSelectedEntries\" fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n            <button mat-icon-button [routerLink]=\"crud.links.create\" mat-button color=\"primary\">\r\n                <mat-icon>add</mat-icon>\r\n            </button>\r\n            <button mat-icon-button (click)=\"toggleSearch( true )\">\r\n                <mat-icon>search</mat-icon>\r\n            </button>\r\n        </div>\r\n        <div fxFlex=\"100%\" *ngIf=\"hasSelectedEntries\" fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n            <div fxLayoutAlign=\"start center\" fxLayout=\"row\">\r\n                <button (click)=\"cancel()\" mat-icon-button>\r\n                    <mat-icon>arrow_back</mat-icon>\r\n                </button>\r\n                <span style=\"padding: 5px 10px\">{{ selectedEntries.length }} selected</span>\r\n            </div>\r\n            <div>\r\n                <button mat-icon-button color=\"primary\">\r\n                    <mat-icon>import_export</mat-icon>\r\n                </button>\r\n                <button (click)=\"deleteSelectedEntries()\" *ngIf=\"hasSelectedEntries\" mat-icon-button color=\"warn\">\r\n                    <mat-icon>delete</mat-icon>\r\n                </button>\r\n            </div>\r\n        </div>\r\n    </mat-card-title>\r\n    <mat-divider *ngIf=\"! tendoo.crud.isLoading\"></mat-divider>\r\n    <mat-progress-bar color=\"warn\" style=\"height: 1px;position: absolute;left: 0;\" *ngIf=\"tendoo.crud.isLoading\" mode=\"indeterminate\"></mat-progress-bar>\r\n    <mat-card-content>\r\n        <table matSort (matSortChange)=\"sortData($event)\" mat-table [dataSource]=\"crud.results[ 'data' ]\" fxFlex>\r\n            <!--- Note that these columns can be defined in any order.\r\n                The actual rendered columns are set as a property on the row definition\" -->\r\n            <ng-container *ngFor=\"let column of columnsNames\" [matColumnDef]=\"column\">\r\n                <ng-container  *ngIf=\"column === 'id'\">\r\n                    <th mat-header-cell *matHeaderCellDef style=\"width: 40px\">\r\n                        <mat-checkbox class=\"example-margin\" (change)=\"checkAllCheckboxes()\" [(ngModel)]=\"checkAll\"></mat-checkbox>\r\n                    </th>\r\n                    <td mat-cell *matCellDef=\"let element\" style=\"width: 40px\">\r\n                        <mat-checkbox class=\"example-margin\" [(ngModel)]=\"element.$checked\"></mat-checkbox>\r\n                    </td>\r\n                </ng-container>\r\n                <ng-container *ngIf=\"column === '$actions'\">\r\n                    <th mat-header-cell *matHeaderCellDef width=\"80\">{{ columns[ column ].label }}</th>\r\n                    <td mat-cell *matCellDef=\"let element\">\r\n                        <mat-menu #tableEntryMenu=\"matMenu\">\r\n                            <button (click)=\"triggerMenu( menu, element )\" *ngFor=\"let menu of element.$actions\" mat-menu-item>{{ menu.label }}</button>\r\n                        </mat-menu>\r\n                        \r\n                        <button mat-icon-button [matMenuTriggerFor]=\"tableEntryMenu\">\r\n                            <mat-icon>more_vert</mat-icon>\r\n                        </button>\r\n                    </td>\r\n                </ng-container>    \r\n                <ng-container *ngIf=\"reservedColumns.indexOf( column ) === -1\">\r\n                    <th [mat-sort-header]=\"column\" mat-header-cell *matHeaderCellDef>\r\n                        {{ columns[ column ].label }}\r\n                    </th>\r\n                    <td mat-cell *matCellDef=\"let element\"> \r\n                        <!--\r\n                            this help to replace the provided value with a replace value\r\n                            provided on the column definition\r\n                        -->\r\n                        <ng-container *ngIf=\"columns[ column ].replace !== undefined\">\r\n                            <ng-container *ngIf=\"columns[ column ].type === 'boolean'\">\r\n                                <ng-container *ngIf=\"element[ column ] === false\">\r\n                                    {{ columns[ column ].replace[0] }}\r\n                                </ng-container>\r\n                                <ng-container *ngIf=\"element[ column ] === true\">\r\n                                    {{ columns[ column ].replace[1] }}\r\n                                </ng-container>\r\n                                <ng-container *ngIf=\"element[ column ] !== true && element[ column ] !== false\">\r\n                                    {{ columns[ column ].replace[ '$default' ] ? columns[ column ].replace[ '$default' ] : 'N/A' }}\r\n                                </ng-container>\r\n                            </ng-container>\r\n                        </ng-container>\r\n                        <ng-container *ngIf=\"columns[ column ].replace === undefined\">\r\n                            <span *ngIf=\"columns[ column ].truncate\">\r\n                                {{ element[ column ] | truncate: columns[ column ].truncate }}\r\n                            </span>\r\n                            <span *ngIf=\"! columns[ column ].truncate\">\r\n                                {{ element[ column ] }}\r\n                            </span>\r\n                        </ng-container>\r\n                    </td>\r\n                </ng-container>\r\n            </ng-container>\r\n            \r\n            <tr mat-header-row *matHeaderRowDef=\"columnsNames\"></tr>\r\n            <tr mat-row *matRowDef=\"let row; columns: columnsNames;\"></tr>\r\n        </table>\r\n    </mat-card-content>\r\n</mat-card>"
+module.exports = "<mat-card class=\"p-0\">\r\n    <mat-card-title class=\"p-2 mb-0\" *ngIf=\"searchEnabled\" color=\"warn\">\r\n        <div fxFlex=\"100%\" fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n            <button (click)=\"toggleSearch( false )\" mat-icon-button>\r\n                <mat-icon>close</mat-icon>\r\n            </button>\r\n            <input id=\"search-field\" [placeholder]=\"labels.search\" type=\"text\" #searchField>\r\n            <button (click)=\"search( searchField )\" mat-icon-button>\r\n                <mat-icon>search</mat-icon>\r\n            </button>\r\n        </div>\r\n    </mat-card-title>\r\n    <mat-card-title class=\"p-2 mb-0\" *ngIf=\"! searchEnabled\" fxLayoutAlign=\"space-between\">\r\n        <div fxFlex=\"100%\" *ngIf=\"! hasSelectedEntries\" fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n            <button mat-icon-button [routerLink]=\"crud.links.create\" mat-button color=\"primary\">\r\n                <mat-icon>add</mat-icon>\r\n            </button>\r\n            <button mat-icon-button (click)=\"toggleSearch( true )\">\r\n                <mat-icon>search</mat-icon>\r\n            </button>\r\n        </div>\r\n        <div fxFlex=\"100%\" *ngIf=\"hasSelectedEntries\" fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n            <div fxLayoutAlign=\"start center\" fxLayout=\"row\">\r\n                <button (click)=\"cancel()\" mat-icon-button>\r\n                    <mat-icon>arrow_back</mat-icon>\r\n                </button>\r\n                <span style=\"padding: 5px 10px\">{{ selectedEntries.length }} selected</span>\r\n            </div>\r\n            <div>\r\n                <button mat-icon-button color=\"primary\">\r\n                    <mat-icon>import_export</mat-icon>\r\n                </button>\r\n                <button (click)=\"deleteSelectedEntries()\" *ngIf=\"hasSelectedEntries\" mat-icon-button color=\"warn\">\r\n                    <mat-icon>delete</mat-icon>\r\n                </button>\r\n            </div>\r\n        </div>\r\n    </mat-card-title>\r\n    <mat-divider *ngIf=\"! tendoo.crud.isLoading\"></mat-divider>\r\n    <mat-progress-bar color=\"warn\" style=\"height: 1px;position: absolute;left: 0;\" *ngIf=\"tendoo.crud.isLoading\" mode=\"indeterminate\"></mat-progress-bar>\r\n    <mat-card-content style=\"overflow-x: auto;\">\r\n        <table matSort (matSortChange)=\"sortData($event)\" mat-table [dataSource]=\"crud.results[ 'data' ]\" fxFlex>\r\n            <!--- Note that these columns can be defined in any order.\r\n                The actual rendered columns are set as a property on the row definition\" -->\r\n            <ng-container *ngFor=\"let column of columnsNames\" [matColumnDef]=\"column\">\r\n                <ng-container  *ngIf=\"column === 'id'\">\r\n                    <th mat-header-cell *matHeaderCellDef style=\"width: 40px\">\r\n                        <mat-checkbox class=\"example-margin\" (change)=\"checkAllCheckboxes()\" [(ngModel)]=\"checkAll\"></mat-checkbox>\r\n                    </th>\r\n                    <td mat-cell *matCellDef=\"let element\" style=\"width: 40px\">\r\n                        <mat-checkbox class=\"example-margin\" [(ngModel)]=\"element.$checked\"></mat-checkbox>\r\n                    </td>\r\n                </ng-container>\r\n                <ng-container *ngIf=\"column === '$actions'\">\r\n                    <th mat-header-cell *matHeaderCellDef width=\"80\">{{ columns[ column ].label }}</th>\r\n                    <td mat-cell *matCellDef=\"let element\">\r\n                        <mat-menu #tableEntryMenu=\"matMenu\">\r\n                            <button (click)=\"triggerMenu( menu, element )\" *ngFor=\"let menu of element.$actions\" mat-menu-item>{{ menu.label }}</button>\r\n                        </mat-menu>\r\n                        \r\n                        <button mat-icon-button [matMenuTriggerFor]=\"tableEntryMenu\">\r\n                            <mat-icon>more_vert</mat-icon>\r\n                        </button>\r\n                    </td>\r\n                </ng-container>    \r\n                <ng-container *ngIf=\"reservedColumns.indexOf( column ) === -1\">\r\n                    <th [mat-sort-header]=\"column\" mat-header-cell *matHeaderCellDef>\r\n                        {{ columns[ column ].label }}\r\n                    </th>\r\n                    <td mat-cell *matCellDef=\"let element\"> \r\n                        <!--\r\n                            this help to replace the provided value with a replace value\r\n                            provided on the column definition\r\n                        -->\r\n                        <ng-container *ngIf=\"columns[ column ].replace !== undefined\">\r\n                            <ng-container *ngIf=\"columns[ column ].type === 'boolean'\">\r\n                                <ng-container *ngIf=\"element[ column ] === false\">\r\n                                    {{ columns[ column ].replace[0] }}\r\n                                </ng-container>\r\n                                <ng-container *ngIf=\"element[ column ] === true\">\r\n                                    {{ columns[ column ].replace[1] }}\r\n                                </ng-container>\r\n                                <ng-container *ngIf=\"element[ column ] !== true && element[ column ] !== false\">\r\n                                    {{ columns[ column ].replace[ '$default' ] ? columns[ column ].replace[ '$default' ] : 'N/A' }}\r\n                                </ng-container>\r\n                            </ng-container>\r\n                        </ng-container>\r\n                        <ng-container *ngIf=\"columns[ column ].replace === undefined\">\r\n                            <span *ngIf=\"columns[ column ].truncate\">\r\n                                {{ element[ column ] | truncate: columns[ column ].truncate }}\r\n                            </span>\r\n                            <span *ngIf=\"! columns[ column ].truncate\">\r\n                                {{ element[ column ] }}\r\n                            </span>\r\n                        </ng-container>\r\n                    </td>\r\n                </ng-container>\r\n            </ng-container>\r\n            \r\n            <tr mat-header-row *matHeaderRowDef=\"columnsNames\"></tr>\r\n            <tr mat-row *matRowDef=\"let row; columns: columnsNames;\"></tr>\r\n        </table>\r\n    </mat-card-content>\r\n</mat-card>"
 
 /***/ }),
 
@@ -8079,7 +8138,7 @@ var FieldsComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ":host {\r\n    height: 100%;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvc2hhcmVkL2ZpbGUtdXBsb2FkL2ZpbGUtdXBsb2FkLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSxhQUFhO0NBQ2hCIiwiZmlsZSI6InNyYy9hcHAvc2hhcmVkL2ZpbGUtdXBsb2FkL2ZpbGUtdXBsb2FkLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyI6aG9zdCB7XHJcbiAgICBoZWlnaHQ6IDEwMCU7XHJcbn0iXX0= */"
+module.exports = ":host {\r\n    height: 100%;\r\n}\r\n.avatar-container {\r\n    border-radius: 679px;\r\n    width: 180px;\r\n    height: 180px;\r\n    overflow: hidden;\r\n    border: solid 1px #333;\r\n}\r\n.avatar-container img {\r\n    width: 250px;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvc2hhcmVkL2ZpbGUtdXBsb2FkL2ZpbGUtdXBsb2FkLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSxhQUFhO0NBQ2hCO0FBQ0Q7SUFDSSxxQkFBcUI7SUFDckIsYUFBYTtJQUNiLGNBQWM7SUFDZCxpQkFBaUI7SUFDakIsdUJBQXVCO0NBQzFCO0FBQ0Q7SUFDSSxhQUFhO0NBQ2hCIiwiZmlsZSI6InNyYy9hcHAvc2hhcmVkL2ZpbGUtdXBsb2FkL2ZpbGUtdXBsb2FkLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyI6aG9zdCB7XHJcbiAgICBoZWlnaHQ6IDEwMCU7XHJcbn1cclxuLmF2YXRhci1jb250YWluZXIge1xyXG4gICAgYm9yZGVyLXJhZGl1czogNjc5cHg7XHJcbiAgICB3aWR0aDogMTgwcHg7XHJcbiAgICBoZWlnaHQ6IDE4MHB4O1xyXG4gICAgb3ZlcmZsb3c6IGhpZGRlbjtcclxuICAgIGJvcmRlcjogc29saWQgMXB4ICMzMzM7XHJcbn1cclxuLmF2YXRhci1jb250YWluZXIgaW1nIHtcclxuICAgIHdpZHRoOiAyNTBweDtcclxufSJdfQ== */"
 
 /***/ }),
 
@@ -8090,7 +8149,7 @@ module.exports = ":host {\r\n    height: 100%;\r\n}\r\n/*# sourceMappingURL=data
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<mat-card class=\"p-0\" fxFlex>\n    <mat-card-content fxLayout=\"row\" fxFill>\n        <div fxFlex=\"100px\" fxLayoutAlign=\"center center\" class=\"bg-content\">\n            <h1 class=\"mat-display-1 m-0\">{{ currentProgress }}%</h1>\n        </div>\n        <div fxFlex=\"auto\" fxLayout=\"column\">\n            <div class=\"p-2\">\n                <h2 class=\"mat-h2 m-0 mb-1\">Uploading</h2>\n            </div>\n            <mat-divider [inset]=\"true\" style=\"height: 1px\"></mat-divider>\n            <div class=\"p-2\" fxFlex>\n                <h4 class=\"mat-h4 m-0 mb-1\">Progress {{ processedFiles }}/{{ totalFiles }}</h4>\n                <span class=\"mat-body\">Processing : {{ processing.name | truncateMiddle }}</span>\n            </div>\n            <mat-progress-bar mode=\"determinate\" [value]=\"currentProgress\"></mat-progress-bar>\n        </div>\n    </mat-card-content>\n</mat-card>"
+module.exports = "<div fxFill fxLayoutAlign=\"center center\" fxLayout=\"column\" style=\"background:#333\">\n    <div fxFlex=\"300px\" style=\"width: 250px\">\n        <mat-card fxFill class=\"p-0\">\n            <mat-card-content fxFill>\n                <div fxFlex=\"auto\" fxLayout=\"column\">\n                    <div fxFlex=\"auto\" fxLayoutAlign=\"center center\">\n                        <div class=\"avatar-container\" fxLayoutAlign=\"center center\">\n                            <img src=\"assets/images/avatar-placeholder.png\" alt=\"\" srcset=\"\">\n                        </div>\n                    </div>\n                    <mat-divider [inset]=\"true\"></mat-divider>\n                    <div fxLayout=\"row\" fxFlex>\n                        <div fxFlex fxLayoutAlign=\"center center\">\n                            A text here\n                        </div>\n                        <mat-divider [vertical]=\"true\"></mat-divider>\n                        <div fxFlex fxLayoutAlign=\"center center\">\n                            A text here\n                        </div>\n                    </div>\n                    <mat-divider [inset]=\"true\"></mat-divider>\n                    <div fxLayout=\"row\" fxFlex>\n                        <div fxFlex fxLayoutAlign=\"center center\">\n                            A text here\n                        </div>\n                        <mat-divider [vertical]=\"true\"></mat-divider>\n                        <div fxFlex fxLayoutAlign=\"center center\">\n                            A text here\n                        </div>\n                    </div>\n                </div>\n            </mat-card-content>\n        </mat-card>\n    </div>\n</div>"
 
 /***/ }),
 
@@ -8105,7 +8164,6 @@ module.exports = "<mat-card class=\"p-0\" fxFlex>\n    <mat-card-content fxLayou
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FileUploadComponent", function() { return FileUploadComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8115,32 +8173,19 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 var __metadata = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var __param = (undefined && undefined.__param) || function (paramIndex, decorator) {
-    return function (target, key) { decorator(target, key, paramIndex); }
-};
-
 
 var FileUploadComponent = /** @class */ (function () {
-    function FileUploadComponent(data) {
-        this.data = data;
+    function FileUploadComponent() {
         this.currentProgress = 0;
         this.processedFiles = 0;
         this.totalFiles = 0;
     }
     FileUploadComponent.prototype.ngOnInit = function () {
-        this.totalFiles = this.data.files.length;
-        this.processing = this.data.files[this.data.index];
     };
     FileUploadComponent.prototype.setProcessing = function (_a) {
         var files = _a.files, index = _a.index;
-        this.processing = files[index];
-        this.computeProcessedFiles(files);
     };
     FileUploadComponent.prototype.computeProcessedFiles = function (files) {
-        this.processedFiles = this.data.files.filter(function (file) {
-            return file['uploaded'];
-        }).length;
-        this.currentProgress = Math.round((this.processedFiles * 100) / this.totalFiles);
     };
     FileUploadComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -8148,8 +8193,7 @@ var FileUploadComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./file-upload.component.html */ "./src/app/shared/file-upload/file-upload.component.html"),
             styles: [__webpack_require__(/*! ./file-upload.component.css */ "./src/app/shared/file-upload/file-upload.component.css")]
         }),
-        __param(0, Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Inject"])(_angular_material__WEBPACK_IMPORTED_MODULE_1__["MAT_DIALOG_DATA"])),
-        __metadata("design:paramtypes", [Object])
+        __metadata("design:paramtypes", [])
     ], FileUploadComponent);
     return FileUploadComponent;
 }());
@@ -8176,7 +8220,7 @@ module.exports = "mat-list-item div > div > i {\r\n    margin-right: 16px;\r\n}\
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<mat-nav-list>\n\t<ng-container *ngFor=\"let menu of sidebarMenus; index as index\">\n\t\t<div *ngIf=\"menu.childrens?.length > 0\" matLine href=\"javascript:void(0)\" (click)=\"toggle( index )\">\n\t\t\t<mat-list-item>\n\t\t\t\t<div fxLayout=\"row\" fxLayoutAlign=\"space-around center\" fxFill>\n\t\t\t\t\t<div fxFlex=\"auto\" fxLayout=\"row\" fxLayoutAlign=\"start center\">\n\t\t\t\t\t\t<i class=\"material-icons\">{{ menu.icon ? menu.icon : 'star' }}</i>\n\t\t\t\t\t\t<span>{{ menu.text }}</span>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div fxFlex=\"24px\">\n\t\t\t\t\t\t<i *ngIf=\"menu.open\"class=\"material-icons\">arrow_drop_up</i>\n\t\t\t\t\t\t<i *ngIf=\"! menu.open\" class=\"material-icons\">arrow_drop_down</i>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t</mat-list-item>\n\t\t\t<app-sub-menu-list *ngIf=\"menu.childrens?.length > 0 && menu.open\" [childrens]=\"menu.childrens\"></app-sub-menu-list>\n\t\t</div>\n\t\t<a *ngIf=\"! menu.childrens\" matLine (click)=\"goTo( menu )\">\n\t\t\t<mat-list-item >\n\t\t\t\t<div fxLayout=\"row\" fxLayoutAlign=\"space-around center\" class=\"w-100\">\n\t\t\t\t\t<div fxFlex=\"auto\" fxLayout=\"row\" fxLayoutAlign=\"start center\">\n\t\t\t\t\t\t<i class=\"material-icons\">{{ menu.icon ? menu.icon : 'star' }}</i>\n\t\t\t\t\t\t<span>{{ menu.text }}</span>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t</mat-list-item>\n\t\t</a>\n\t</ng-container>\n</mat-nav-list>"
+module.exports = "<mat-nav-list>\n\t<ng-container *ngFor=\"let menu of sidebarMenus; index as index\">\n\t\t<div *ngIf=\"menu.childrens?.length > 0\" matLine href=\"javascript:void(0)\" (click)=\"toggle( index )\">\n\t\t\t<mat-list-item>\n\t\t\t\t<div fxLayout=\"row\" fxLayoutAlign=\"space-around center\" fxFill>\n\t\t\t\t\t<div fxFlex=\"auto\" fxLayout=\"row\" fxLayoutAlign=\"start center\">\n\t\t\t\t\t\t<i class=\"material-icons\">{{ menu.icon ? menu.icon : 'star' }}</i>\n\t\t\t\t\t\t<span>{{ menu.text }}</span>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div fxFlex=\"24px\">\n\t\t\t\t\t\t<i *ngIf=\"menu.open\"class=\"material-icons\">arrow_drop_up</i>\n\t\t\t\t\t\t<i *ngIf=\"! menu.open\" class=\"material-icons\">arrow_drop_down</i>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t</mat-list-item>\n\t\t\t<app-sub-menu-list (navigate)=\"navigate.emit( $event )\" *ngIf=\"menu.childrens?.length > 0 && menu.open\" [childrens]=\"menu.childrens\"></app-sub-menu-list>\n\t\t</div>\n\t\t<a *ngIf=\"! menu.childrens\" matLine (click)=\"goTo( menu )\">\n\t\t\t<mat-list-item >\n\t\t\t\t<div fxLayout=\"row\" fxLayoutAlign=\"space-around center\" class=\"w-100\">\n\t\t\t\t\t<div fxFlex=\"auto\" fxLayout=\"row\" fxLayoutAlign=\"start center\">\n\t\t\t\t\t\t<i class=\"material-icons\">{{ menu.icon ? menu.icon : 'star' }}</i>\n\t\t\t\t\t\t<span>{{ menu.text }}</span>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t</mat-list-item>\n\t\t</a>\n\t</ng-container>\n</mat-nav-list>"
 
 /***/ }),
 
@@ -8207,6 +8251,7 @@ var MenuListComponent = /** @class */ (function () {
     function MenuListComponent(router) {
         this.router = router;
         this.sidebarMenus = [];
+        this.navigate = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
     }
     MenuListComponent.prototype.ngOnInit = function () {
     };
@@ -8239,6 +8284,7 @@ var MenuListComponent = /** @class */ (function () {
      * @return void
      */
     MenuListComponent.prototype.goTo = function (menu) {
+        this.navigate.emit(menu);
         // navigate to the menu path
         this.router.navigateByUrl(menu.href);
     };
@@ -8246,6 +8292,10 @@ var MenuListComponent = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])('menus'),
         __metadata("design:type", Array)
     ], MenuListComponent.prototype, "sidebarMenus", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"])('navigate'),
+        __metadata("design:type", Object)
+    ], MenuListComponent.prototype, "navigate", void 0);
     MenuListComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-menu-list',
@@ -8309,6 +8359,7 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 var SubMenuListComponent = /** @class */ (function () {
     function SubMenuListComponent(router) {
         this.router = router;
+        this.navigate = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
     }
     SubMenuListComponent.prototype.ngOnInit = function () {
     };
@@ -8317,12 +8368,17 @@ var SubMenuListComponent = /** @class */ (function () {
      * @return void
      */
     SubMenuListComponent.prototype.goTo = function (menu) {
+        this.navigate.emit(menu);
         this.router.navigateByUrl(menu.href);
     };
     __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])('childrens'),
         __metadata("design:type", Array)
     ], SubMenuListComponent.prototype, "subMenus", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"])('navigate'),
+        __metadata("design:type", Object)
+    ], SubMenuListComponent.prototype, "navigate", void 0);
     SubMenuListComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-sub-menu-list',
@@ -8664,7 +8720,7 @@ var RoutesModule = /** @class */ (function () {
                     }, {
                         path: 'dashboard',
                         component: src_app_components_dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_15__["DashboardComponent"],
-                        canActivate: [src_app_guards_require_logged_guard__WEBPACK_IMPORTED_MODULE_16__["RequireLoggedGuard"]],
+                        canActivate: [src_app_guards_quick_authentication_guard__WEBPACK_IMPORTED_MODULE_36__["QuickAuthenticationGuard"]],
                         children: [
                             {
                                 path: '',

@@ -7,6 +7,7 @@ import { ValidationGenerator } from 'src/app/classes/validation-generator.class'
 import { FormGroup } from '@angular/forms';
 import { AsyncResponse } from 'src/app/interfaces/async-response';
 import { HttpErrorResponse } from '@angular/common/http';
+import { MediaObserver } from '@angular/flex-layout';
 
 @Component({
     selector: 'app-crud-edit',
@@ -17,12 +18,14 @@ export class CrudEditComponent implements OnInit {
     crudConfig: CrudConfig;
     crudForm: FormGroup;
     id: number;
+    isMobile    =   false;
 
     constructor(
         private route: ActivatedRoute,
         public tendoo: TendooService,
         public snackbar: MatSnackBar,
-        public router: Router
+        public router: Router,
+        public mediaObserver: MediaObserver
     ) { }
     
     ngOnInit() {
@@ -40,6 +43,18 @@ export class CrudEditComponent implements OnInit {
             }, (result: HttpErrorResponse) => {
                 this.snackbar.open( result.error.message, 'OK' );
             });
+        });
+
+        this.mediaObserver.media$.subscribe( media => {
+            switch( media.mqAlias ) {
+                case 'xs':
+                case 'sm':
+                    this.isMobile   =   true;
+                break;
+                default:
+                    this.isMobile   =   false;
+                break;
+            }
         })
     }
     

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { Menu } from 'src/app/interfaces/menu';
 
@@ -9,6 +9,7 @@ import { Menu } from 'src/app/interfaces/menu';
 })
 export class SubMenuListComponent implements OnInit {
 	@Input( 'childrens' ) subMenus: Menu[];
+	@Output( 'navigate' ) navigate  	=	new EventEmitter<Menu>();
 	constructor(
 		private router: Router,
 	) { 
@@ -22,7 +23,7 @@ export class SubMenuListComponent implements OnInit {
 	 * @return void
 	 */
 	goTo( menu:Menu ) {
-
+		this.navigate.emit( menu );
 		this.router.navigateByUrl( menu.href );
 	}
 }

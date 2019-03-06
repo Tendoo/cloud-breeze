@@ -6,7 +6,11 @@
                 fxLayoutAlign.lg="center center"
                 >
                 <span *ngIf="showDefaultAside">Tendoo Server</span>
-                <span *ngIf="! showDefaultAside">TS</span>
+                <span *ngIf="! showDefaultAside">
+                    <button mat-icon-button (click)="toggleDrawer()">
+                        <mat-icon aria-label="Example icon-button with a heart icon">menu</mat-icon>
+                    </button>
+                </span>
             </div>
             <div>
                 <button mat-icon-button [matMenuTriggerFor]="profileMenu">
@@ -21,8 +25,8 @@
         </mat-toolbar>
     </div>
     
-    <div fxFlex fxLayout="row">
-        <ng-container *ngIf="showDefaultAside">
+    <div fxFlex fxLayout="row" *ngIf="showDefaultAside">
+        <ng-container>
             <div fxFlex="250px"  fxLayout="column" class="aside-menu">
                 <div fxFlex>
                     <app-menu-list [menus]="asideMenus"></app-menu-list>
@@ -34,4 +38,18 @@
             <router-outlet></router-outlet>
         </div>
     </div>
+    <mat-drawer-container class="example-container" fxFlex fxLayout="row" *ngIf="! showDefaultAside">
+        <mat-drawer fxFlex="250px" #drawer mode="over">
+            <ng-container>
+                <div fxFlex="250px"  fxLayout="column" class="aside-menu">
+                    <div fxFlex>
+                        <app-menu-list (navigate)="toggleDrawer( $event )" [menus]="asideMenus"></app-menu-list>
+                    </div>    
+                </div>
+            </ng-container>
+        </mat-drawer>
+        <mat-drawer-content fxFlex="1 1 auto" class="body-container" fxLayout="column">
+            <router-outlet></router-outlet>
+        </mat-drawer-content>
+    </mat-drawer-container>
 </div>

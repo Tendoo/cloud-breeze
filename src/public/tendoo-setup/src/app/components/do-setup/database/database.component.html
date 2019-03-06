@@ -1,15 +1,22 @@
 <form [formGroup]="setupForm">
-    <mat-card>
-        <mat-card-title>Configuring Database</mat-card-title>
-        <mat-divider></mat-divider>
-        <mat-card-content>
-            <p style="margin: 30px 0 20px">In order to install Tendoo CMS, please provide all the informations required to connect to the database.</p>
-            <app-fields [field]="field" [group]="setupForm" *ngFor="let field of fields"></app-fields>
-        </mat-card-content>
-        <mat-divider *ngIf="! setup.isLoading"></mat-divider>
-        <mat-progress-bar *ngIf="setup.isLoading" mode="indeterminate" style="height: 1px;position: absolute;left: 0;"></mat-progress-bar>
-        <mat-card-actions>
-            <button [disabled]="setup.isLoading" (click)="setupDatabase()" mat-button>Setup Database</button>
-        </mat-card-actions>
-    </mat-card>
+    <div fxLayout="column" fxFlex class="pb-3 pt-3">
+        <div fxLayoutAlign="center center">
+            <img src="assets/images/logo.png" style="width: 150px" alt="" srcset="">
+        </div>
+        <div>
+            <mat-card>
+                <mat-card-title>Configuring Database</mat-card-title>
+                <mat-divider></mat-divider>
+                <mat-card-content>
+                    <p style="margin: 30px 0 20px">In order to install Tendoo CMS, please provide all the informations required to connect to the database.</p>
+                    <app-fields [field]="field" [group]="setupForm" *ngFor="let field of fields"></app-fields>
+                </mat-card-content>
+                <mat-divider *ngIf="! setup.isLoading"></mat-divider>
+                <mat-progress-bar *ngIf="setup.isLoading" mode="indeterminate" style="height: 1px;position: absolute;left: 0;"></mat-progress-bar>
+                <mat-card-actions>
+                    <button [disabled]="setup.isLoading" (click)="setupDatabase()" mat-button>Setup Database</button>
+                </mat-card-actions>
+            </mat-card>
+        </div>
+    </div>
 </form>

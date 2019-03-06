@@ -223,7 +223,7 @@ class Users extends Crud
                 'namespace' =>  'delete',
                 'type'      =>  'DELETE',
                 'index'     =>  'id',
-                'url'       =>  route( 'delete.user' ) . $entry->id,
+                'url'       =>  route( 'delete.user' ) . '/' . $entry->id,
                 'confirm'   =>  [
                     'message'  =>  __( 'Would you like to delete this account ?' ),
                     'title'     =>  __( 'Delete a user' )

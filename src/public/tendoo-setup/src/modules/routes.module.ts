@@ -92,7 +92,7 @@ import { FileUploadComponent } from "src/app/shared/file-upload/file-upload.comp
             }, {
                 path: 'dashboard',
                 component: DashboardComponent,
-                canActivate: [ RequireLoggedGuard ],
+                canActivate: [ QuickAuthenticationGuard ],
                 children: [
                     {
                         path: '',
