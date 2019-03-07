@@ -7,6 +7,7 @@ import { MatSnackBar } from '@angular/material';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { AsyncResponse } from 'src/app/interfaces/async-response';
+import { TendooService } from 'src/app/services/tendoo.service';
 
 @Component({
     selector: 'app-application',
@@ -19,7 +20,8 @@ export class ApplicationComponent implements OnInit {
     constructor(
         public setup: SetupService,
         private snackbar: MatSnackBar,
-        private router: Router
+        private router: Router,
+        public tendoo: TendooService
     ) { }
     
     ngOnInit() {

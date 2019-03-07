@@ -7,6 +7,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { SetupService } from 'src/app/services/setup.service';
 import { AsyncResponse } from 'src/app/interfaces/async-response';
 import { Router } from '@angular/router';
+import { TendooService } from 'src/app/services/tendoo.service';
 
 @Component({
     selector: 'app-database',
@@ -21,7 +22,8 @@ export class DatabaseComponent implements OnInit {
     constructor(
         private snackbar: MatSnackBar,
         public setup: SetupService,
-        private router: Router
+        private router: Router,
+        public tendoo: TendooService
     ) { }
     
     ngOnInit() {

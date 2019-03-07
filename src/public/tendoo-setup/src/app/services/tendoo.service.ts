@@ -56,4 +56,13 @@ export class TendooService extends LoaderService {
     setTitle( title: string ) {
         this.title.setTitle( `${title}` );
     }
+
+    /**
+     * get angular assets
+     * @param string
+     * @return string
+     */
+    getAsset( assetUrl ) {
+        return this.angularAssetsUrl + assetUrl;
+    }
 }

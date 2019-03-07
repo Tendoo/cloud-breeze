@@ -959,7 +959,7 @@ module.exports = ".registration-notice {\r\n    background: #c5e4c6;\r\n    padd
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<form [formGroup]=\"loginForm\">\r\n    <div fxLayout=\"column\" fxFlex>\r\n        <div fxLayoutAlign=\"center center\">\r\n            <img src=\"assets/images/logo.png\" style=\"width: 150px\" alt=\"\" srcset=\"\">\r\n        </div>\r\n        <div>\r\n            <mat-card color=\"primary\">\r\n                <mat-card-title>Authenticating</mat-card-title>\r\n                <mat-card-content>\r\n                    <app-fields [field]=\"field\" [group]=\"loginForm\" *ngFor=\"let field of fields\"></app-fields>\r\n                    <p *ngIf=\"notice === 'from-registration'\" class=\"registration-notice\">Your account has been created, but require activation, please consider checking your email to proceed with the validation.</p>\r\n                </mat-card-content>\r\n                <mat-divider *ngIf=\"!tendoo.isLoading\"></mat-divider>\r\n                <mat-progress-bar *ngIf=\"tendoo.auth.isLoading\" mode=\"indeterminate\" style=\"height: 1px;position: absolute;left: 0;\"></mat-progress-bar>\r\n                <mat-card-actions fxLayoutAlign=\"space-between\">\r\n                    <button [disabled]=\"tendoo.auth.isLoading\" (click)=\"login()\" mat-button=\"\">\r\n                        Login\r\n                    </button>\r\n                    <button [disabled]=\"tendoo.auth.isLoading\" routerLink=\"/auth/register\" mat-button=\"\">\r\n                        Register\r\n                    </button>\r\n                </mat-card-actions>\r\n            </mat-card>\r\n        </div>\r\n    </div>\r\n</form>"
+module.exports = "<form [formGroup]=\"loginForm\">\r\n    <div fxLayout=\"column\" fxFlex>\r\n        <div fxLayoutAlign=\"center center\">\r\n            <img [src]=\"tendoo.getAsset( 'assets/images/logo.png' )\" style=\"width: 150px\" alt=\"\" srcset=\"\">\r\n        </div>\r\n        <div>\r\n            <mat-card color=\"primary\">\r\n                <mat-card-title>Authenticating</mat-card-title>\r\n                <mat-card-content>\r\n                    <app-fields [field]=\"field\" [group]=\"loginForm\" *ngFor=\"let field of fields\"></app-fields>\r\n                    <p *ngIf=\"notice === 'from-registration'\" class=\"registration-notice\">Your account has been created, but require activation, please consider checking your email to proceed with the validation.</p>\r\n                </mat-card-content>\r\n                <mat-divider *ngIf=\"!tendoo.isLoading\"></mat-divider>\r\n                <mat-progress-bar *ngIf=\"tendoo.auth.isLoading\" mode=\"indeterminate\" style=\"height: 1px;position: absolute;left: 0;\"></mat-progress-bar>\r\n                <mat-card-actions fxLayoutAlign=\"space-between\">\r\n                    <button [disabled]=\"tendoo.auth.isLoading\" (click)=\"login()\" mat-button=\"\">\r\n                        Login\r\n                    </button>\r\n                    <button [disabled]=\"tendoo.auth.isLoading\" routerLink=\"/auth/register\" mat-button=\"\">\r\n                        Register\r\n                    </button>\r\n                </mat-card-actions>\r\n            </mat-card>\r\n        </div>\r\n    </div>\r\n</form>"
 
 /***/ }),
 
@@ -1097,7 +1097,7 @@ module.exports = ":host {\r\n    height: 100%;\r\n}\r\n/*# sourceMappingURL=data
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div fxFlex fxFill>\r\n    <div fxLayout=\"column\" fxFlex>\r\n        <div fxLayoutAlign=\"center center\">\r\n            <img src=\"assets/images/logo.png\" style=\"width: 150px\" alt=\"\" srcset=\"\">\r\n        </div>\r\n        <div fxLayoutAlign=\"center center\">\r\n            <mat-progress-spinner mode=\"indeterminate\" diameter=\"60\"></mat-progress-spinner>\r\n        </div>    \r\n    </div>\r\n</div>"
+module.exports = "<div fxFlex fxFill>\r\n    <div fxLayout=\"column\" fxFlex>\r\n        <div fxLayoutAlign=\"center center\">\r\n            <img [src]=\"tendoo.getAsset( 'assets/images/logo.png' )\" style=\"width: 150px\" alt=\"\" srcset=\"\">\r\n        </div>\r\n        <div fxLayoutAlign=\"center center\">\r\n            <mat-progress-spinner mode=\"indeterminate\" diameter=\"60\"></mat-progress-spinner>\r\n        </div>    \r\n    </div>\r\n</div>"
 
 /***/ }),
 
@@ -1193,7 +1193,7 @@ module.exports = ":host {\r\n    height: 100%;\r\n    width: 100%;\r\n}\r\n/*# s
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div fxLayout=\"column\" fxFlex=\"100%\">\r\n    <div fxFlex=\"100%\" *ngIf=\"hasInvalid && ! isLoading\">\r\n        <h2 class=\"mat-h2 text-center\">Wrong Request</h2>\r\n        <p class=\"text-center\">Unable to proceed the request. The request could'nt been understood by the server.</p>\r\n    </div>\r\n    <div fxFlex=\"100%\" fxLayoutAlign=\"center center\" *ngIf=\"isLoading\">\r\n        <mat-spinner diameter=\"50\"></mat-spinner>\r\n    </div>\r\n    <div fxFlex=\"100%\" fxLayoutAlign=\"center center\" *ngIf=\"! isLoading && hasError\">\r\n        <div fxLayout=\"column\" fxLayoutAlign=\"center center\">\r\n            <img src=\"assets/images/egg.svg\" alt=\"\" fxFlex.lg=\"120px\">\r\n            <h1 class=\"mat-display-1 m-0 mt-2\">An error occured</h1>\r\n            <p class=\"text-center\">{{ response.message }}</p>\r\n        </div>\r\n    </div>\r\n    <div fxFlex=\"100%\" *ngIf=\"itsOkay\">\r\n        <div class=\"bg-white mat-elevation-z2 rounded-2\" fxLayout=\"column\">\r\n            <div class=\"title p-2\">\r\n                <h1 class=\"mat-h1 m-0 text-center\">{{ response.data.application.name }}</h1>\r\n                <p class=\"mb-0\">This application request an authorization to the following elements.</p>\r\n            </div>\r\n            <ng-container *ngFor=\"let scope of response.data.scopes\">\r\n                <mat-divider></mat-divider>\r\n                <div class=\"permission-action p-2\">\r\n                    <h3 class=\"mat-h3 m-0\" style=\"font-weight: 400\">{{ scope.label }}</h3>\r\n                    <p class=\"m-0 mat-body\">{{ scope.description }}</p>\r\n                </div>\r\n            </ng-container>\r\n            <mat-divider  *ngIf=\"! tendoo.oauth.isLoading\"></mat-divider>\r\n            <mat-progress-bar *ngIf=\"tendoo.oauth.isLoading\" mode=\"indeterminate\" style=\"height: 1px\"></mat-progress-bar>\r\n            <div class=\"p-1\" fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n                <button [disabled]=\"tendoo.oauth.isLoading\" (click)=\"grantRequest()\" mat-button>Grant</button>\r\n                <button [disabled]=\"tendoo.oauth.isLoading\" (click)=\"denyRequest()\" mat-button>Deny</button>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>"
+module.exports = "<div fxLayout=\"column\" fxFlex=\"100%\">\r\n    <div fxFlex=\"100%\" *ngIf=\"hasInvalid && ! isLoading\">\r\n        <h2 class=\"mat-h2 text-center\">Wrong Request</h2>\r\n        <p class=\"text-center\">Unable to proceed the request. The request could'nt been understood by the server.</p>\r\n    </div>\r\n    <div fxFlex=\"100%\" fxLayoutAlign=\"center center\" *ngIf=\"isLoading\">\r\n        <mat-spinner diameter=\"50\"></mat-spinner>\r\n    </div>\r\n    <div fxFlex=\"100%\" fxLayoutAlign=\"center center\" *ngIf=\"! isLoading && hasError\">\r\n        <div fxLayout=\"column\" fxLayoutAlign=\"center center\">\r\n            <img [src]=\"tendoo.getAsset( 'assets/images/egg.svg' )\" alt=\"\" fxFlex.lg=\"120px\">\r\n            <h1 class=\"mat-display-1 m-0 mt-2\">An error occured</h1>\r\n            <p class=\"text-center\">{{ response.message }}</p>\r\n        </div>\r\n    </div>\r\n    <div fxFlex=\"100%\" *ngIf=\"itsOkay\">\r\n        <div class=\"bg-white mat-elevation-z2 rounded-2\" fxLayout=\"column\">\r\n            <div class=\"title p-2\">\r\n                <h1 class=\"mat-h1 m-0 text-center\">{{ response.data.application.name }}</h1>\r\n                <p class=\"mb-0\">This application request an authorization to the following elements.</p>\r\n            </div>\r\n            <ng-container *ngFor=\"let scope of response.data.scopes\">\r\n                <mat-divider></mat-divider>\r\n                <div class=\"permission-action p-2\">\r\n                    <h3 class=\"mat-h3 m-0\" style=\"font-weight: 400\">{{ scope.label }}</h3>\r\n                    <p class=\"m-0 mat-body\">{{ scope.description }}</p>\r\n                </div>\r\n            </ng-container>\r\n            <mat-divider  *ngIf=\"! tendoo.oauth.isLoading\"></mat-divider>\r\n            <mat-progress-bar *ngIf=\"tendoo.oauth.isLoading\" mode=\"indeterminate\" style=\"height: 1px\"></mat-progress-bar>\r\n            <div class=\"p-1\" fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n                <button [disabled]=\"tendoo.oauth.isLoading\" (click)=\"grantRequest()\" mat-button>Grant</button>\r\n                <button [disabled]=\"tendoo.oauth.isLoading\" (click)=\"denyRequest()\" mat-button>Deny</button>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>"
 
 /***/ }),
 
@@ -1321,7 +1321,7 @@ module.exports = ":host {\r\n    height: 100%;\r\n}\r\n/*# sourceMappingURL=data
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<form [formGroup]=\"registerForm\" *ngIf=\"registerForm\">\r\n    <div fxLayout=\"column\" fxFlex>\r\n        <div fxLayoutAlign=\"center center\">\r\n            <img src=\"assets/images/logo.png\" style=\"width: 150px\" alt=\"\" srcset=\"\">\r\n        </div>\r\n        <div>\r\n            <mat-card color=\"primary\">\r\n                <mat-card-title>Register</mat-card-title>\r\n                <mat-card-content>\r\n                    <app-fields [field]=\"field\" [group]=\"registerForm\" *ngFor=\"let field of fields\"></app-fields>\r\n                </mat-card-content>\r\n                <mat-divider *ngIf=\"!tendoo.isLoading\"></mat-divider>\r\n                <mat-progress-bar *ngIf=\"tendoo.auth.isLoading\" mode=\"indeterminate\" style=\"height: 1px;position: absolute;left: 0;\"></mat-progress-bar>\r\n                <mat-card-actions fxLayoutAlign=\"space-between\">\r\n                    <button [disabled]=\"tendoo.auth.isLoading\" (click)=\"register()\" mat-button=\"\">\r\n                        Create an account\r\n                    </button>\r\n                    <button [disabled]=\"tendoo.auth.isLoading\" routerLink=\"/auth/login\" mat-button=\"\">\r\n                        Login\r\n                    </button>\r\n                </mat-card-actions>\r\n            </mat-card>\r\n        </div>\r\n    </div>\r\n</form>\r\n<div *ngIf=\"! registerForm\" fxLayoutAlign=\"center center\" fxLayout=\"column\">\r\n    <img src=\"assets/images/logo.png\" style=\"width: 150px\" alt=\"\" srcset=\"\">\r\n    <mat-spinner diameter=\"60\"></mat-spinner>\r\n</div>"
+module.exports = "<form [formGroup]=\"registerForm\" *ngIf=\"registerForm\">\r\n    <div fxLayout=\"column\" fxFlex>\r\n        <div fxLayoutAlign=\"center center\">\r\n            <img [src]=\"tendoo.getAsset( 'assets/images/logo.png' )\" style=\"width: 150px\" alt=\"\" srcset=\"\">\r\n        </div>\r\n        <div>\r\n            <mat-card color=\"primary\">\r\n                <mat-card-title>Register</mat-card-title>\r\n                <mat-card-content>\r\n                    <app-fields [field]=\"field\" [group]=\"registerForm\" *ngFor=\"let field of fields\"></app-fields>\r\n                </mat-card-content>\r\n                <mat-divider *ngIf=\"!tendoo.isLoading\"></mat-divider>\r\n                <mat-progress-bar *ngIf=\"tendoo.auth.isLoading\" mode=\"indeterminate\" style=\"height: 1px;position: absolute;left: 0;\"></mat-progress-bar>\r\n                <mat-card-actions fxLayoutAlign=\"space-between\">\r\n                    <button [disabled]=\"tendoo.auth.isLoading\" (click)=\"register()\" mat-button=\"\">\r\n                        Create an account\r\n                    </button>\r\n                    <button [disabled]=\"tendoo.auth.isLoading\" routerLink=\"/auth/login\" mat-button=\"\">\r\n                        Login\r\n                    </button>\r\n                </mat-card-actions>\r\n            </mat-card>\r\n        </div>\r\n    </div>\r\n</form>\r\n<div *ngIf=\"! registerForm\" fxLayoutAlign=\"center center\" fxLayout=\"column\">\r\n    <img src=\"assets/images/logo.png\" style=\"width: 150px\" alt=\"\" srcset=\"\">\r\n    <mat-spinner diameter=\"60\"></mat-spinner>\r\n</div>"
 
 /***/ }),
 
@@ -3488,7 +3488,7 @@ module.exports = ":host {\r\n    height: 100%;\r\n    overflow-y: auto;\r\n}\r\n
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div fxFlex fxFill fxLayoutAlign=\"center center\" class=\"bg-content\">\r\n    <div fxFlex=\"400px\" class=\"text-center\">\r\n        <img style=\"width: 215px\" src=\"assets/images/park.svg\" alt=\"\">\r\n        <h1 class=\"mt-0\">You're Lost !</h1>\r\n        <p>The page you're looking for doesn't exists or is not handled by the system. Please call the police or the FBI, the earth is in danger.</p>\r\n    </div>\r\n</div>"
+module.exports = "<div fxFlex fxFill fxLayoutAlign=\"center center\" class=\"bg-content\">\r\n    <div fxFlex=\"400px\" class=\"text-center\">\r\n        <img style=\"width: 215px\" [src]=\"tendoo.getAsset( 'assets/images/park.svg' )\" alt=\"\">\r\n        <h1 class=\"mt-0\">You're Lost !</h1>\r\n        <p>The page you're looking for doesn't exists or is not handled by the system. Please call the police or the FBI, the earth is in danger.</p>\r\n    </div>\r\n</div>"
 
 /***/ }),
 
@@ -3503,6 +3503,7 @@ module.exports = "<div fxFlex fxFill fxLayoutAlign=\"center center\" class=\"bg-
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NotFoundComponent", function() { return NotFoundComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var src_app_services_tendoo_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/services/tendoo.service */ "./src/app/services/tendoo.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -3513,8 +3514,10 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
+
 var NotFoundComponent = /** @class */ (function () {
-    function NotFoundComponent() {
+    function NotFoundComponent(tendoo) {
+        this.tendoo = tendoo;
     }
     NotFoundComponent.prototype.ngOnInit = function () {
     };
@@ -3524,7 +3527,7 @@ var NotFoundComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./not-found.component.html */ "./src/app/components/dashboard/not-found/not-found.component.html"),
             styles: [__webpack_require__(/*! ./not-found.component.css */ "./src/app/components/dashboard/not-found/not-found.component.css")]
         }),
-        __metadata("design:paramtypes", [])
+        __metadata("design:paramtypes", [src_app_services_tendoo_service__WEBPACK_IMPORTED_MODULE_1__["TendooService"]])
     ], NotFoundComponent);
     return NotFoundComponent;
 }());
@@ -4584,7 +4587,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<form [formGroup]=\"applicationForm\">\r\n    <div fxLayout=\"column\" fxFlex class=\"pb-3 pt-3\">\r\n        <div fxLayoutAlign=\"center center\">\r\n            <img src=\"assets/images/logo.png\" style=\"width: 150px\" alt=\"\" srcset=\"\">\r\n        </div>\r\n        <div>\r\n            <mat-card>\r\n                <mat-card-title>Configuring Application</mat-card-title>\r\n                <mat-divider></mat-divider>\r\n                <mat-card-content>\r\n                    <p style=\"margin: 30px 0 20px\">The connexion with the database is successful. Now we need to setup the admin account.</p>\r\n                    <app-fields [field]=\"field\" [group]=\"applicationForm\" *ngFor=\"let field of fields\"></app-fields>\r\n                </mat-card-content>\r\n                <mat-divider *ngIf=\"! setup.isLoading\"></mat-divider>\r\n                <mat-progress-bar *ngIf=\"setup.isLoading\" mode=\"indeterminate\" style=\"height: 1px;position: absolute;left: 0;\"></mat-progress-bar>\r\n                <mat-card-actions>\r\n                    <button [disabled]=\"setup.isLoading\" (click)=\"setupApplication()\" mat-button>Setup Application</button>\r\n                </mat-card-actions>\r\n            </mat-card>\r\n        </div>\r\n    </div>\r\n</form>"
+module.exports = "<form [formGroup]=\"applicationForm\">\r\n    <div fxLayout=\"column\" fxFlex class=\"pb-3 pt-3\">\r\n        <div fxLayoutAlign=\"center center\">\r\n            <img [src]=\"tendoo.getAsset( 'assets/images/logo.png' )\" style=\"width: 150px\" alt=\"\" srcset=\"\">\r\n        </div>\r\n        <div>\r\n            <mat-card>\r\n                <mat-card-title>Configuring Application</mat-card-title>\r\n                <mat-divider></mat-divider>\r\n                <mat-card-content>\r\n                    <p style=\"margin: 30px 0 20px\">The connexion with the database is successful. Now we need to setup the admin account.</p>\r\n                    <app-fields [field]=\"field\" [group]=\"applicationForm\" *ngFor=\"let field of fields\"></app-fields>\r\n                </mat-card-content>\r\n                <mat-divider *ngIf=\"! setup.isLoading\"></mat-divider>\r\n                <mat-progress-bar *ngIf=\"setup.isLoading\" mode=\"indeterminate\" style=\"height: 1px;position: absolute;left: 0;\"></mat-progress-bar>\r\n                <mat-card-actions>\r\n                    <button [disabled]=\"setup.isLoading\" (click)=\"setupApplication()\" mat-button>Setup Application</button>\r\n                </mat-card-actions>\r\n            </mat-card>\r\n        </div>\r\n    </div>\r\n</form>"
 
 /***/ }),
 
@@ -4604,6 +4607,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var src_app_services_setup_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/services/setup.service */ "./src/app/services/setup.service.ts");
 /* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var src_app_services_tendoo_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/services/tendoo.service */ "./src/app/services/tendoo.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -4619,11 +4623,13 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var ApplicationComponent = /** @class */ (function () {
-    function ApplicationComponent(setup, snackbar, router) {
+    function ApplicationComponent(setup, snackbar, router, tendoo) {
         this.setup = setup;
         this.snackbar = snackbar;
         this.router = router;
+        this.tendoo = tendoo;
         this.fields = [];
     }
     ApplicationComponent.prototype.ngOnInit = function () {
@@ -4698,7 +4704,8 @@ var ApplicationComponent = /** @class */ (function () {
         }),
         __metadata("design:paramtypes", [src_app_services_setup_service__WEBPACK_IMPORTED_MODULE_3__["SetupService"],
             _angular_material__WEBPACK_IMPORTED_MODULE_4__["MatSnackBar"],
-            _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"]])
+            _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"],
+            src_app_services_tendoo_service__WEBPACK_IMPORTED_MODULE_6__["TendooService"]])
     ], ApplicationComponent);
     return ApplicationComponent;
 }());
@@ -4725,7 +4732,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<form [formGroup]=\"setupForm\">\r\n    <div fxLayout=\"column\" fxFlex class=\"pb-3 pt-3\">\r\n        <div fxLayoutAlign=\"center center\">\r\n            <img src=\"assets/images/logo.png\" style=\"width: 150px\" alt=\"\" srcset=\"\">\r\n        </div>\r\n        <div>\r\n            <mat-card>\r\n                <mat-card-title>Configuring Database</mat-card-title>\r\n                <mat-divider></mat-divider>\r\n                <mat-card-content>\r\n                    <p style=\"margin: 30px 0 20px\">In order to install Tendoo CMS, please provide all the informations required to connect to the database.</p>\r\n                    <app-fields [field]=\"field\" [group]=\"setupForm\" *ngFor=\"let field of fields\"></app-fields>\r\n                </mat-card-content>\r\n                <mat-divider *ngIf=\"! setup.isLoading\"></mat-divider>\r\n                <mat-progress-bar *ngIf=\"setup.isLoading\" mode=\"indeterminate\" style=\"height: 1px;position: absolute;left: 0;\"></mat-progress-bar>\r\n                <mat-card-actions>\r\n                    <button [disabled]=\"setup.isLoading\" (click)=\"setupDatabase()\" mat-button>Setup Database</button>\r\n                </mat-card-actions>\r\n            </mat-card>\r\n        </div>\r\n    </div>\r\n</form>\r\n"
+module.exports = "<form [formGroup]=\"setupForm\">\r\n    <div fxLayout=\"column\" fxFlex class=\"pb-3 pt-3\">\r\n        <div fxLayoutAlign=\"center center\">\r\n            <img [src]=\"tendoo.getAsset( 'assets/images/logo.png' )\" style=\"width: 150px\" alt=\"\" srcset=\"\">\r\n        </div>\r\n        <div>\r\n            <mat-card>\r\n                <mat-card-title>Configuring Database</mat-card-title>\r\n                <mat-divider></mat-divider>\r\n                <mat-card-content>\r\n                    <p style=\"margin: 30px 0 20px\">In order to install Tendoo CMS, please provide all the informations required to connect to the database.</p>\r\n                    <app-fields [field]=\"field\" [group]=\"setupForm\" *ngFor=\"let field of fields\"></app-fields>\r\n                </mat-card-content>\r\n                <mat-divider *ngIf=\"! setup.isLoading\"></mat-divider>\r\n                <mat-progress-bar *ngIf=\"setup.isLoading\" mode=\"indeterminate\" style=\"height: 1px;position: absolute;left: 0;\"></mat-progress-bar>\r\n                <mat-card-actions>\r\n                    <button [disabled]=\"setup.isLoading\" (click)=\"setupDatabase()\" mat-button>Setup Database</button>\r\n                </mat-card-actions>\r\n            </mat-card>\r\n        </div>\r\n    </div>\r\n</form>\r\n"
 
 /***/ }),
 
@@ -4745,6 +4752,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
 /* harmony import */ var src_app_services_setup_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/setup.service */ "./src/app/services/setup.service.ts");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var src_app_services_tendoo_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/services/tendoo.service */ "./src/app/services/tendoo.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -4760,11 +4768,13 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var DatabaseComponent = /** @class */ (function () {
-    function DatabaseComponent(snackbar, setup, router) {
+    function DatabaseComponent(snackbar, setup, router, tendoo) {
         this.snackbar = snackbar;
         this.setup = setup;
         this.router = router;
+        this.tendoo = tendoo;
         this.fields = [];
     }
     DatabaseComponent.prototype.ngOnInit = function () {
@@ -4847,7 +4857,8 @@ var DatabaseComponent = /** @class */ (function () {
         }),
         __metadata("design:paramtypes", [_angular_material__WEBPACK_IMPORTED_MODULE_3__["MatSnackBar"],
             src_app_services_setup_service__WEBPACK_IMPORTED_MODULE_4__["SetupService"],
-            _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"]])
+            _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"],
+            src_app_services_tendoo_service__WEBPACK_IMPORTED_MODULE_6__["TendooService"]])
     ], DatabaseComponent);
     return DatabaseComponent;
 }());
@@ -4937,7 +4948,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div fxLayout=\"column\" fxFlex>\r\n    <div fxLayoutAlign=\"center center\">\r\n        <img src=\"assets/images/logo.png\" style=\"width: 150px\" alt=\"\" srcset=\"\">\r\n    </div>\r\n    <div>\r\n        <mat-card>\r\n            <mat-card-title>Welcome on Tendoo CMS</mat-card-title>\r\n            <mat-card-content>\r\n                Tendoo CMS is ready to be installed. Let's get started\r\n            </mat-card-content>\r\n            <mat-divider></mat-divider>\r\n            <mat-card-actions>\r\n                <a routerLink=\"/do-setup/database\" mat-button>Database Configuration</a>\r\n            </mat-card-actions>\r\n        </mat-card>\r\n    </div>\r\n</div>"
+module.exports = "<div fxLayout=\"column\" fxFlex>\r\n    <div fxLayoutAlign=\"center center\">\r\n        <img [src]=\"tendoo.getAsset( 'assets/images/logo.png' )\" style=\"width: 150px\" alt=\"\" srcset=\"\">\r\n    </div>\r\n    <div>\r\n        <mat-card>\r\n            <mat-card-title>Welcome on Tendoo CMS</mat-card-title>\r\n            <mat-card-content>\r\n                Tendoo CMS is ready to be installed. Let's get started\r\n            </mat-card-content>\r\n            <mat-divider></mat-divider>\r\n            <mat-card-actions>\r\n                <a routerLink=\"/do-setup/database\" mat-button>Database Configuration</a>\r\n            </mat-card-actions>\r\n        </mat-card>\r\n    </div>\r\n</div>"
 
 /***/ }),
 
@@ -4952,6 +4963,7 @@ module.exports = "<div fxLayout=\"column\" fxFlex>\r\n    <div fxLayoutAlign=\"c
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SetupHomeComponent", function() { return SetupHomeComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var src_app_services_tendoo_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/services/tendoo.service */ "./src/app/services/tendoo.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -4962,8 +4974,10 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
+
 var SetupHomeComponent = /** @class */ (function () {
-    function SetupHomeComponent() {
+    function SetupHomeComponent(tendoo) {
+        this.tendoo = tendoo;
     }
     SetupHomeComponent.prototype.ngOnInit = function () {
     };
@@ -4973,7 +4987,7 @@ var SetupHomeComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./setup-home.component.html */ "./src/app/components/do-setup/setup-home/setup-home.component.html"),
             styles: [__webpack_require__(/*! ./setup-home.component.css */ "./src/app/components/do-setup/setup-home/setup-home.component.css")]
         }),
-        __metadata("design:paramtypes", [])
+        __metadata("design:paramtypes", [src_app_services_tendoo_service__WEBPACK_IMPORTED_MODULE_1__["TendooService"]])
     ], SetupHomeComponent);
     return SetupHomeComponent;
 }());
@@ -6145,6 +6159,7 @@ var LoaderService = /** @class */ (function () {
         this.snackbar = snackbar;
         this.isLoading = false;
         this.baseUrl = tendoo.base_url;
+        this.angularAssetsUrl = tendoo.angular_assets_url;
     }
     LoaderService_1 = LoaderService;
     /**
@@ -7641,6 +7656,14 @@ var TendooService = /** @class */ (function (_super) {
      */
     TendooService.prototype.setTitle = function (title) {
         this.title.setTitle("" + title);
+    };
+    /**
+     * get angular assets
+     * @param string
+     * @return string
+     */
+    TendooService.prototype.getAsset = function (assetUrl) {
+        return this.angularAssetsUrl + assetUrl;
     };
     TendooService = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({

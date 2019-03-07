@@ -8,7 +8,7 @@
     </div>
     <div fxFlex="100%" fxLayoutAlign="center center" *ngIf="! isLoading && hasError">
         <div fxLayout="column" fxLayoutAlign="center center">
-            <img src="assets/images/egg.svg" alt="" fxFlex.lg="120px">
+            <img [src]="tendoo.getAsset( 'assets/images/egg.svg' )" alt="" fxFlex.lg="120px">
             <h1 class="mat-display-1 m-0 mt-2">An error occured</h1>
             <p class="text-center">{{ response.message }}</p>
         </div>

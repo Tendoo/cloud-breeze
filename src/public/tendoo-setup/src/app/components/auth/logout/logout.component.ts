@@ -16,7 +16,7 @@ export class LogoutComponent implements OnInit {
         private auth: TendooAuthService,
         private route: Router,
         private cookie: CookieService,
-        private tendoo: TendooService,
+        public tendoo: TendooService,
         private snackbar: MatSnackBar
     ) { }
     

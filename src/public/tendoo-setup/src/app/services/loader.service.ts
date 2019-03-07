@@ -12,9 +12,10 @@ declare const tendoo;
 })
 export class LoaderService {
     bulkDeletePath;
-    isLoading   =   false;
-    baseUrl     =   tendoo.base_url; 
-    static headers  =   {};
+    isLoading           =   false;
+    baseUrl             =   tendoo.base_url; 
+    angularAssetsUrl    =   tendoo.angular_assets_url;
+    static headers      =   {};
 
     constructor(
         protected http: HttpClient,

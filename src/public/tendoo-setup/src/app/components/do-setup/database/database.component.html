@@ -1,7 +1,7 @@
 <form [formGroup]="setupForm">
     <div fxLayout="column" fxFlex class="pb-3 pt-3">
         <div fxLayoutAlign="center center">
-            <img src="assets/images/logo.png" style="width: 150px" alt="" srcset="">
+            <img [src]="tendoo.getAsset( 'assets/images/logo.png' )" style="width: 150px" alt="" srcset="">
         </div>
         <div>
             <mat-card>
