@@ -1,0 +1,17 @@
+<div fxFlex fxLayout="row" fxLayoutAlign="center center" class="bg-content">
+	<div fxLayout="column">
+		<div fxLayoutAlign="center center">
+			<img [src]="tendoo.getAsset( 'assets/images/logo.png' )" style="width: 150px" alt="" srcset="">
+		</div>
+		<ng-container [ngSwitch]="errorCode">
+			<div *ngSwitchCase="'not-installed'" fxFlex.xl="50%" fxFlex.lg="50%" fxFlex.md="60%" fxFlex.sm="80%" fxFlex.xs="90%">
+				<h3 class="mat-display-2 text-center mb-1">Not Installed</h3>
+				<h4 class="mat-h4 text-center">Would you like to use Tendoo, you need to <a routerLink="/do-setup">install it</a></h4>
+			</div>
+			<div *ngSwitchDefault fxFlex.xl="50%" fxFlex.lg="50%" fxFlex.md="60%" fxFlex.sm="80%" fxFlex.xs="90%">
+				<h3 class="mat-display-2 text-center mb-1">An Error Occured</h3>
+				<h4 class="mat-h4 text-center">Have you broken the internet ?</h4>
+			</div>
+		</ng-container>
+	</div>
+</div>

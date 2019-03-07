@@ -469,12 +469,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _directives_droppable_directive__WEBPACK_IMPORTED_MODULE_51__ = __webpack_require__(/*! ./directives/droppable.directive */ "./src/app/directives/droppable.directive.ts");
 /* harmony import */ var _shared_file_upload_file_upload_component__WEBPACK_IMPORTED_MODULE_52__ = __webpack_require__(/*! ./shared/file-upload/file-upload.component */ "./src/app/shared/file-upload/file-upload.component.ts");
 /* harmony import */ var _pipes_truncate_middle_pipe__WEBPACK_IMPORTED_MODULE_53__ = __webpack_require__(/*! ./pipes/truncate-middle.pipe */ "./src/app/pipes/truncate-middle.pipe.ts");
+/* harmony import */ var _components_error_error_component__WEBPACK_IMPORTED_MODULE_54__ = __webpack_require__(/*! ./components/error/error.component */ "./src/app/components/error/error.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -575,6 +577,7 @@ var AppModule = /** @class */ (function () {
                 _directives_droppable_directive__WEBPACK_IMPORTED_MODULE_51__["DroppableDirective"],
                 _shared_file_upload_file_upload_component__WEBPACK_IMPORTED_MODULE_52__["FileUploadComponent"],
                 _pipes_truncate_middle_pipe__WEBPACK_IMPORTED_MODULE_53__["TruncateMiddlePipe"],
+                _components_error_error_component__WEBPACK_IMPORTED_MODULE_54__["ErrorComponent"],
             ],
             imports: [
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"],
@@ -948,7 +951,7 @@ var AuthComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".registration-notice {\r\n    background: #c5e4c6;\r\n    padding: 10px;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9hdXRoL2xvZ2luL2xvZ2luLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSxvQkFBb0I7SUFDcEIsY0FBYztDQUNqQiIsImZpbGUiOiJzcmMvYXBwL2NvbXBvbmVudHMvYXV0aC9sb2dpbi9sb2dpbi5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLnJlZ2lzdHJhdGlvbi1ub3RpY2Uge1xyXG4gICAgYmFja2dyb3VuZDogI2M1ZTRjNjtcclxuICAgIHBhZGRpbmc6IDEwcHg7XHJcbn0iXX0= */"
+module.exports = ".registration-notice {\r\n    background: #c5e4c6;\r\n    padding: 10px;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9hdXRoL2xvZ2luL2xvZ2luLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSxtQkFBbUI7SUFDbkIsYUFBYTtBQUNqQiIsImZpbGUiOiJzcmMvYXBwL2NvbXBvbmVudHMvYXV0aC9sb2dpbi9sb2dpbi5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLnJlZ2lzdHJhdGlvbi1ub3RpY2Uge1xyXG4gICAgYmFja2dyb3VuZDogI2M1ZTRjNjtcclxuICAgIHBhZGRpbmc6IDEwcHg7XHJcbn0iXX0= */"
 
 /***/ }),
 
@@ -1086,7 +1089,7 @@ var LoginComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ":host {\r\n    height: 100%;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9hdXRoL2xvZ291dC9sb2dvdXQuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLGFBQWE7Q0FDaEIiLCJmaWxlIjoic3JjL2FwcC9jb21wb25lbnRzL2F1dGgvbG9nb3V0L2xvZ291dC5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiOmhvc3Qge1xyXG4gICAgaGVpZ2h0OiAxMDAlO1xyXG59Il19 */"
+module.exports = ":host {\r\n    height: 100%;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9hdXRoL2xvZ291dC9sb2dvdXQuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLFlBQVk7QUFDaEIiLCJmaWxlIjoic3JjL2FwcC9jb21wb25lbnRzL2F1dGgvbG9nb3V0L2xvZ291dC5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiOmhvc3Qge1xyXG4gICAgaGVpZ2h0OiAxMDAlO1xyXG59Il19 */"
 
 /***/ }),
 
@@ -1182,7 +1185,7 @@ var LogoutComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ":host {\r\n    height: 100%;\r\n    width: 100%;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9hdXRoL29hdXRoL29hdXRoLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSxhQUFhO0lBQ2IsWUFBWTtDQUNmIiwiZmlsZSI6InNyYy9hcHAvY29tcG9uZW50cy9hdXRoL29hdXRoL29hdXRoLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyI6aG9zdCB7XHJcbiAgICBoZWlnaHQ6IDEwMCU7XHJcbiAgICB3aWR0aDogMTAwJTtcclxufSJdfQ== */"
+module.exports = ":host {\r\n    height: 100%;\r\n    width: 100%;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9hdXRoL29hdXRoL29hdXRoLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSxZQUFZO0lBQ1osV0FBVztBQUNmIiwiZmlsZSI6InNyYy9hcHAvY29tcG9uZW50cy9hdXRoL29hdXRoL29hdXRoLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyI6aG9zdCB7XHJcbiAgICBoZWlnaHQ6IDEwMCU7XHJcbiAgICB3aWR0aDogMTAwJTtcclxufSJdfQ== */"
 
 /***/ }),
 
@@ -1310,7 +1313,7 @@ var OauthComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ":host {\r\n    height: 100%;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9hdXRoL3JlZ2lzdGVyL3JlZ2lzdGVyLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSxhQUFhO0NBQ2hCIiwiZmlsZSI6InNyYy9hcHAvY29tcG9uZW50cy9hdXRoL3JlZ2lzdGVyL3JlZ2lzdGVyLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyI6aG9zdCB7XHJcbiAgICBoZWlnaHQ6IDEwMCU7XHJcbn0iXX0= */"
+module.exports = ":host {\r\n    height: 100%;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9hdXRoL3JlZ2lzdGVyL3JlZ2lzdGVyLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSxZQUFZO0FBQ2hCIiwiZmlsZSI6InNyYy9hcHAvY29tcG9uZW50cy9hdXRoL3JlZ2lzdGVyL3JlZ2lzdGVyLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyI6aG9zdCB7XHJcbiAgICBoZWlnaHQ6IDEwMCU7XHJcbn0iXX0= */"
 
 /***/ }),
 
@@ -1430,7 +1433,7 @@ var RegisterComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ":host {\r\n    height: 100%;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvYWNjZXNzLWRlbmllZC9hY2Nlc3MtZGVuaWVkLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSxhQUFhO0NBQ2hCIiwiZmlsZSI6InNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvYWNjZXNzLWRlbmllZC9hY2Nlc3MtZGVuaWVkLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyI6aG9zdCB7XHJcbiAgICBoZWlnaHQ6IDEwMCU7XHJcbn0iXX0= */"
+module.exports = ":host {\r\n    height: 100%;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvYWNjZXNzLWRlbmllZC9hY2Nlc3MtZGVuaWVkLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSxZQUFZO0FBQ2hCIiwiZmlsZSI6InNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvYWNjZXNzLWRlbmllZC9hY2Nlc3MtZGVuaWVkLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyI6aG9zdCB7XHJcbiAgICBoZWlnaHQ6IDEwMCU7XHJcbn0iXX0= */"
 
 /***/ }),
 
@@ -1441,7 +1444,7 @@ module.exports = ":host {\r\n    height: 100%;\r\n}\r\n/*# sourceMappingURL=data
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div fxFlex fxFill fxLayoutAlign=\"center center\" class=\"bg-content\">\n    <div fxFlex=\"400px\" class=\"text-center\">\n        <h1>Oh no !!!</h1>\n        <p>Looks like you're attempting to access to a page which is not allowed to you. How bad this is... </p>\n    </div>\n</div>"
+module.exports = "<div fxFlex fxFill fxLayoutAlign=\"center center\" class=\"bg-content\">\r\n    <div fxFlex=\"400px\" class=\"text-center\">\r\n        <h1>Oh no !!!</h1>\r\n        <p>Looks like you're attempting to access to a page which is not allowed to you. How bad this is... </p>\r\n    </div>\r\n</div>"
 
 /***/ }),
 
@@ -1497,7 +1500,7 @@ var AccessDeniedComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ":host {\r\n    height: 100%;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvY3J1ZC1jcmVhdGUvY3J1ZC1jcmVhdGUuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLGFBQWE7Q0FDaEIiLCJmaWxlIjoic3JjL2FwcC9jb21wb25lbnRzL2Rhc2hib2FyZC9jcnVkLWNyZWF0ZS9jcnVkLWNyZWF0ZS5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiOmhvc3Qge1xyXG4gICAgaGVpZ2h0OiAxMDAlO1xyXG59Il19 */"
+module.exports = ":host {\r\n    height: 100%;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvY3J1ZC1jcmVhdGUvY3J1ZC1jcmVhdGUuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLFlBQVk7QUFDaEIiLCJmaWxlIjoic3JjL2FwcC9jb21wb25lbnRzL2Rhc2hib2FyZC9jcnVkLWNyZWF0ZS9jcnVkLWNyZWF0ZS5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiOmhvc3Qge1xyXG4gICAgaGVpZ2h0OiAxMDAlO1xyXG59Il19 */"
 
 /***/ }),
 
@@ -1508,7 +1511,7 @@ module.exports = ":host {\r\n    height: 100%;\r\n}\r\n/*# sourceMappingURL=data
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div fxLayout=\"column\" class=\"bg-content\" fxFlex=\"100%\" style=\"overflow-y:auto\">\n    <ng-container *ngIf=\"crudConfig\">\n        <div fxLayout=\"row\" fxFlex=\"0 0 auto\" class=\"p-3 pb-0\">\n            <div fxFlex>\n                <h1 class=\"mat-display-1 mb-0\">{{ crudConfig.labels.create_title }}</h1>\n                <span>{{ crudConfig.labels.create_description }}</span>\n            </div>\n            <div *ngIf=\"! isMobile\" fxFlex=\"200px\" fxLayoutAlign=\"end start\">\n                <button [routerLink]=\"crudConfig.links.list\" mat-button color=\"warn\">{{ crudConfig.labels.back_to_list }}</button>\n            </div>\n            <div *ngIf=\"isMobile\" fxFlex=\"200px\" fxLayoutAlign=\"end start\">\n                <button [routerLink]=\"crudConfig.links.list\" mat-icon-button color=\"warn\">\n                    <mat-icon>arrow_back</mat-icon>\n                </button>\n            </div>\n        </div>\n        <div class=\"p-3\" fxLayout=\"row\" fxFlex=\"1 0 auto\" fxLayout=\"column\">\n            <mat-card>\n                <mat-card-title>\n                    {{ crudConfig.labels.create_title }}\n                </mat-card-title>\n                <mat-card-content>\n                    <form [formGroup]=\"crudForm\" *ngIf=\"crudForm\">\n                        <app-fields *ngFor=\"let field of crudConfig.fields\" [field]=\"field\" [group]=\"crudForm\"></app-fields>\n                    </form>\n                </mat-card-content>\n                <mat-divider *ngIf=\"! tendoo.crud.isLoading\"></mat-divider>\n                <mat-progress-bar color=\"warn\" style=\"height: 1px;position: absolute;left: 0\" *ngIf=\"tendoo.crud.isLoading\" mode=\"indeterminate\"></mat-progress-bar>\n                <mat-card-actions>\n                    <button [disabled]=\"tendoo.crud.isLoading\" mat-button (click)=\"submit()\" color=\"primary\">Submit</button>\n                </mat-card-actions>\n            </mat-card>\n        </div>\n    </ng-container>\n    <div fxFlex fxFill *ngIf=\"! crudForm\" fxLayoutAlign=\"center center\">\n        <mat-spinner [diameter]=\"50\"></mat-spinner>\n    </div>\n</div>"
+module.exports = "<div fxLayout=\"column\" class=\"bg-content\" fxFlex=\"100%\" style=\"overflow-y:auto\">\r\n    <ng-container *ngIf=\"crudConfig\">\r\n        <div fxLayout=\"row\" fxFlex=\"0 0 auto\" class=\"p-3 pb-0\">\r\n            <div fxFlex>\r\n                <h1 class=\"mat-display-1 mb-0\">{{ crudConfig.labels.create_title }}</h1>\r\n                <span>{{ crudConfig.labels.create_description }}</span>\r\n            </div>\r\n            <div *ngIf=\"! isMobile\" fxFlex=\"200px\" fxLayoutAlign=\"end start\">\r\n                <button [routerLink]=\"crudConfig.links.list\" mat-button color=\"warn\">{{ crudConfig.labels.back_to_list }}</button>\r\n            </div>\r\n            <div *ngIf=\"isMobile\" fxFlex=\"200px\" fxLayoutAlign=\"end start\">\r\n                <button [routerLink]=\"crudConfig.links.list\" mat-icon-button color=\"warn\">\r\n                    <mat-icon>arrow_back</mat-icon>\r\n                </button>\r\n            </div>\r\n        </div>\r\n        <div class=\"p-3\" fxLayout=\"row\" fxFlex=\"1 0 auto\" fxLayout=\"column\">\r\n            <mat-card>\r\n                <mat-card-title>\r\n                    {{ crudConfig.labels.create_title }}\r\n                </mat-card-title>\r\n                <mat-card-content>\r\n                    <form [formGroup]=\"crudForm\" *ngIf=\"crudForm\">\r\n                        <app-fields *ngFor=\"let field of crudConfig.fields\" [field]=\"field\" [group]=\"crudForm\"></app-fields>\r\n                    </form>\r\n                </mat-card-content>\r\n                <mat-divider *ngIf=\"! tendoo.crud.isLoading\"></mat-divider>\r\n                <mat-progress-bar color=\"warn\" style=\"height: 1px;position: absolute;left: 0\" *ngIf=\"tendoo.crud.isLoading\" mode=\"indeterminate\"></mat-progress-bar>\r\n                <mat-card-actions>\r\n                    <button [disabled]=\"tendoo.crud.isLoading\" mat-button (click)=\"submit()\" color=\"primary\">Submit</button>\r\n                </mat-card-actions>\r\n            </mat-card>\r\n        </div>\r\n    </ng-container>\r\n    <div fxFlex fxFill *ngIf=\"! crudForm\" fxLayoutAlign=\"center center\">\r\n        <mat-spinner [diameter]=\"50\"></mat-spinner>\r\n    </div>\r\n</div>"
 
 /***/ }),
 
@@ -1650,7 +1653,7 @@ var CrudCreateComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ":host {\r\n    height: 100%;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvY3J1ZC1lZGl0L2NydWQtZWRpdC5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0lBQ0ksYUFBYTtDQUNoQiIsImZpbGUiOiJzcmMvYXBwL2NvbXBvbmVudHMvZGFzaGJvYXJkL2NydWQtZWRpdC9jcnVkLWVkaXQuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIjpob3N0IHtcclxuICAgIGhlaWdodDogMTAwJTtcclxufSJdfQ== */"
+module.exports = ":host {\r\n    height: 100%;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvY3J1ZC1lZGl0L2NydWQtZWRpdC5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0lBQ0ksWUFBWTtBQUNoQiIsImZpbGUiOiJzcmMvYXBwL2NvbXBvbmVudHMvZGFzaGJvYXJkL2NydWQtZWRpdC9jcnVkLWVkaXQuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIjpob3N0IHtcclxuICAgIGhlaWdodDogMTAwJTtcclxufSJdfQ== */"
 
 /***/ }),
 
@@ -1661,7 +1664,7 @@ module.exports = ":host {\r\n    height: 100%;\r\n}\r\n/*# sourceMappingURL=data
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div fxLayout=\"column\" class=\"bg-content\" fxFlex=\"100%\" style=\"overflow-y:auto\">\n    <ng-container *ngIf=\"crudConfig\">\n        <div fxLayout=\"row\"  fxFlex=\"0 0 auto\" class=\"p-3 pb-0\">\n            <div fxFlex>\n                <h1 class=\"mat-display-1 mb-0\">{{ crudConfig.labels.edit_title }}</h1>\n                <span>{{ crudConfig.labels.edit_description }}</span>\n            </div>\n            <div *ngIf=\"! isMobile\" fxFlex=\"200px\" fxLayoutAlign=\"end start\">\n                <button [routerLink]=\"crudConfig.links.list\" mat-button color=\"warn\">{{ crudConfig.labels.back_to_list }}</button>\n            </div>\n            <div *ngIf=\"isMobile\" fxFlex=\"200px\" fxLayoutAlign=\"end start\">\n                <button [routerLink]=\"crudConfig.links.list\" mat-icon-button color=\"warn\">\n                    <mat-icon>arrow_back</mat-icon>\n                </button>\n            </div>\n        </div>\n        <div class=\"p-3\" fxLayout=\"row\" fxFlex=\"1 0 auto\" fxLayout=\"column\">\n            <mat-card>\n                <mat-card-title>\n                    {{ crudConfig.labels.edit_title }}\n                </mat-card-title>\n                <mat-card-content>\n                    <form [formGroup]=\"crudForm\" *ngIf=\"crudForm\">\n                        <app-fields *ngFor=\"let field of crudConfig.fields\" [field]=\"field\" [group]=\"crudForm\"></app-fields>\n                    </form>\n                </mat-card-content>\n                <mat-divider *ngIf=\"! tendoo.crud.isLoading\"></mat-divider>\n                <mat-progress-bar color=\"warn\" style=\"height: 1px;position: absolute;left: 0\" *ngIf=\"tendoo.crud.isLoading\" mode=\"indeterminate\"></mat-progress-bar>\n                <mat-card-actions>\n                    <button [disabled]=\"tendoo.crud.isLoading\" mat-button (click)=\"submit()\" color=\"primary\">Edit</button>\n                </mat-card-actions>\n            </mat-card>\n        </div>\n    </ng-container>\n    <div fxFlex fxFill *ngIf=\"! crudForm\" fxLayoutAlign=\"center center\">\n        <mat-spinner [diameter]=\"50\"></mat-spinner>\n    </div>\n</div>"
+module.exports = "<div fxLayout=\"column\" class=\"bg-content\" fxFlex=\"100%\" style=\"overflow-y:auto\">\r\n    <ng-container *ngIf=\"crudConfig\">\r\n        <div fxLayout=\"row\"  fxFlex=\"0 0 auto\" class=\"p-3 pb-0\">\r\n            <div fxFlex>\r\n                <h1 class=\"mat-display-1 mb-0\">{{ crudConfig.labels.edit_title }}</h1>\r\n                <span>{{ crudConfig.labels.edit_description }}</span>\r\n            </div>\r\n            <div *ngIf=\"! isMobile\" fxFlex=\"200px\" fxLayoutAlign=\"end start\">\r\n                <button [routerLink]=\"crudConfig.links.list\" mat-button color=\"warn\">{{ crudConfig.labels.back_to_list }}</button>\r\n            </div>\r\n            <div *ngIf=\"isMobile\" fxFlex=\"200px\" fxLayoutAlign=\"end start\">\r\n                <button [routerLink]=\"crudConfig.links.list\" mat-icon-button color=\"warn\">\r\n                    <mat-icon>arrow_back</mat-icon>\r\n                </button>\r\n            </div>\r\n        </div>\r\n        <div class=\"p-3\" fxLayout=\"row\" fxFlex=\"1 0 auto\" fxLayout=\"column\">\r\n            <mat-card>\r\n                <mat-card-title>\r\n                    {{ crudConfig.labels.edit_title }}\r\n                </mat-card-title>\r\n                <mat-card-content>\r\n                    <form [formGroup]=\"crudForm\" *ngIf=\"crudForm\">\r\n                        <app-fields *ngFor=\"let field of crudConfig.fields\" [field]=\"field\" [group]=\"crudForm\"></app-fields>\r\n                    </form>\r\n                </mat-card-content>\r\n                <mat-divider *ngIf=\"! tendoo.crud.isLoading\"></mat-divider>\r\n                <mat-progress-bar color=\"warn\" style=\"height: 1px;position: absolute;left: 0\" *ngIf=\"tendoo.crud.isLoading\" mode=\"indeterminate\"></mat-progress-bar>\r\n                <mat-card-actions>\r\n                    <button [disabled]=\"tendoo.crud.isLoading\" mat-button (click)=\"submit()\" color=\"primary\">Edit</button>\r\n                </mat-card-actions>\r\n            </mat-card>\r\n        </div>\r\n    </ng-container>\r\n    <div fxFlex fxFill *ngIf=\"! crudForm\" fxLayoutAlign=\"center center\">\r\n        <mat-spinner [diameter]=\"50\"></mat-spinner>\r\n    </div>\r\n</div>"
 
 /***/ }),
 
@@ -1800,7 +1803,7 @@ var CrudEditComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ":host {\r\n    height: 100%;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvY3J1ZC9jcnVkLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSxhQUFhO0NBQ2hCIiwiZmlsZSI6InNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvY3J1ZC9jcnVkLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyI6aG9zdCB7XHJcbiAgICBoZWlnaHQ6IDEwMCU7XHJcbn0iXX0= */"
+module.exports = ":host {\r\n    height: 100%;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvY3J1ZC9jcnVkLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSxZQUFZO0FBQ2hCIiwiZmlsZSI6InNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvY3J1ZC9jcnVkLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyI6aG9zdCB7XHJcbiAgICBoZWlnaHQ6IDEwMCU7XHJcbn0iXX0= */"
 
 /***/ }),
 
@@ -1977,7 +1980,7 @@ var CrudComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "#aside-nav-list {\r\n    padding: 0%;\r\n}\r\nmat-list-item div > div > i {\r\n    margin-right: 16px;\r\n}\r\n.body-container {\r\n    height: 100%;\r\n    overflow-y: auto;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvZGFzaGJvYXJkLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSxZQUFZO0NBQ2Y7QUFDRDtJQUNJLG1CQUFtQjtDQUN0QjtBQUNEO0lBQ0ksYUFBYTtJQUNiLGlCQUFpQjtDQUNwQiIsImZpbGUiOiJzcmMvYXBwL2NvbXBvbmVudHMvZGFzaGJvYXJkL2Rhc2hib2FyZC5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiI2FzaWRlLW5hdi1saXN0IHtcclxuICAgIHBhZGRpbmc6IDAlO1xyXG59XHJcbm1hdC1saXN0LWl0ZW0gZGl2ID4gZGl2ID4gaSB7XHJcbiAgICBtYXJnaW4tcmlnaHQ6IDE2cHg7XHJcbn1cclxuLmJvZHktY29udGFpbmVyIHtcclxuICAgIGhlaWdodDogMTAwJTtcclxuICAgIG92ZXJmbG93LXk6IGF1dG87XHJcbn0iXX0= */"
+module.exports = "#aside-nav-list {\r\n    padding: 0%;\r\n}\r\nmat-list-item div > div > i {\r\n    margin-right: 16px;\r\n}\r\n.body-container {\r\n    height: 100%;\r\n    overflow-y: auto;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvZGFzaGJvYXJkLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSxXQUFXO0FBQ2Y7QUFDQTtJQUNJLGtCQUFrQjtBQUN0QjtBQUNBO0lBQ0ksWUFBWTtJQUNaLGdCQUFnQjtBQUNwQiIsImZpbGUiOiJzcmMvYXBwL2NvbXBvbmVudHMvZGFzaGJvYXJkL2Rhc2hib2FyZC5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiI2FzaWRlLW5hdi1saXN0IHtcclxuICAgIHBhZGRpbmc6IDAlO1xyXG59XHJcbm1hdC1saXN0LWl0ZW0gZGl2ID4gZGl2ID4gaSB7XHJcbiAgICBtYXJnaW4tcmlnaHQ6IDE2cHg7XHJcbn1cclxuLmJvZHktY29udGFpbmVyIHtcclxuICAgIGhlaWdodDogMTAwJTtcclxuICAgIG92ZXJmbG93LXk6IGF1dG87XHJcbn0iXX0= */"
 
 /***/ }),
 
@@ -2131,7 +2134,7 @@ var DashboardComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ":host {\r\n    height: 100%;\r\n}\r\n.avatar-container {\r\n    border-radius: 679px;\r\n    width: 180px;\r\n    height: 180px;\r\n    overflow: hidden;\r\n    border: solid 1px #333;\r\n}\r\n.avatar-container img {\r\n    width: 250px;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvaG9tZS9ob21lLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSxhQUFhO0NBQ2hCO0FBQ0Q7SUFDSSxxQkFBcUI7SUFDckIsYUFBYTtJQUNiLGNBQWM7SUFDZCxpQkFBaUI7SUFDakIsdUJBQXVCO0NBQzFCO0FBQ0Q7SUFDSSxhQUFhO0NBQ2hCIiwiZmlsZSI6InNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvaG9tZS9ob21lLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyI6aG9zdCB7XHJcbiAgICBoZWlnaHQ6IDEwMCU7XHJcbn1cclxuLmF2YXRhci1jb250YWluZXIge1xyXG4gICAgYm9yZGVyLXJhZGl1czogNjc5cHg7XHJcbiAgICB3aWR0aDogMTgwcHg7XHJcbiAgICBoZWlnaHQ6IDE4MHB4O1xyXG4gICAgb3ZlcmZsb3c6IGhpZGRlbjtcclxuICAgIGJvcmRlcjogc29saWQgMXB4ICMzMzM7XHJcbn1cclxuLmF2YXRhci1jb250YWluZXIgaW1nIHtcclxuICAgIHdpZHRoOiAyNTBweDtcclxufSJdfQ== */"
+module.exports = ":host {\r\n    height: 100%;\r\n}\r\n.avatar-container {\r\n    border-radius: 679px;\r\n    width: 180px;\r\n    height: 180px;\r\n    overflow: hidden;\r\n    border: solid 1px #333;\r\n}\r\n.avatar-container img {\r\n    width: 250px;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvaG9tZS9ob21lLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSxZQUFZO0FBQ2hCO0FBQ0E7SUFDSSxvQkFBb0I7SUFDcEIsWUFBWTtJQUNaLGFBQWE7SUFDYixnQkFBZ0I7SUFDaEIsc0JBQXNCO0FBQzFCO0FBQ0E7SUFDSSxZQUFZO0FBQ2hCIiwiZmlsZSI6InNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvaG9tZS9ob21lLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyI6aG9zdCB7XHJcbiAgICBoZWlnaHQ6IDEwMCU7XHJcbn1cclxuLmF2YXRhci1jb250YWluZXIge1xyXG4gICAgYm9yZGVyLXJhZGl1czogNjc5cHg7XHJcbiAgICB3aWR0aDogMTgwcHg7XHJcbiAgICBoZWlnaHQ6IDE4MHB4O1xyXG4gICAgb3ZlcmZsb3c6IGhpZGRlbjtcclxuICAgIGJvcmRlcjogc29saWQgMXB4ICMzMzM7XHJcbn1cclxuLmF2YXRhci1jb250YWluZXIgaW1nIHtcclxuICAgIHdpZHRoOiAyNTBweDtcclxufSJdfQ== */"
 
 /***/ }),
 
@@ -2179,7 +2182,7 @@ var DashboardHomeComponent = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-home',
             template: __webpack_require__(/*! ./home.component.html */ "./src/app/components/dashboard/home/home.component.html"),
-            styles: [__webpack_require__(/*! ./home.component.css */ "./src/app/components/dashboard/home/home.component.css")],
+            styles: [__webpack_require__(/*! ./home.component.css */ "./src/app/components/dashboard/home/home.component.css")]
         }),
         __metadata("design:paramtypes", [src_app_services_tendoo_service__WEBPACK_IMPORTED_MODULE_1__["TendooService"]])
     ], DashboardHomeComponent);
@@ -2197,7 +2200,7 @@ var DashboardHomeComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ":host {\r\n    height: 100%;\r\n}\r\n.media-preview {\r\n    max-width: 98%;\r\n    max-height: 98%;\r\n}\r\n.toolbar {\r\n    background: linear-gradient(to bottom, rgba(0,0,0,1) 0%,rgba(255,255,255,0) 100%);\r\n    color:#EEE; \r\n    width: 100%; \r\n    position: relative; \r\n    margin-bottom: -60px;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvbWVkaWFzLWRldGFpbHMvbWVkaWFzLWRldGFpbHMuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLGFBQWE7Q0FDaEI7QUFDRDtJQUNJLGVBQWU7SUFDZixnQkFBZ0I7Q0FDbkI7QUFDRDtJQUNJLGtGQUFrRjtJQUNsRixXQUFXO0lBQ1gsWUFBWTtJQUNaLG1CQUFtQjtJQUNuQixxQkFBcUI7Q0FDeEIiLCJmaWxlIjoic3JjL2FwcC9jb21wb25lbnRzL2Rhc2hib2FyZC9tZWRpYXMtZGV0YWlscy9tZWRpYXMtZGV0YWlscy5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiOmhvc3Qge1xyXG4gICAgaGVpZ2h0OiAxMDAlO1xyXG59XHJcbi5tZWRpYS1wcmV2aWV3IHtcclxuICAgIG1heC13aWR0aDogOTglO1xyXG4gICAgbWF4LWhlaWdodDogOTglO1xyXG59XHJcbi50b29sYmFyIHtcclxuICAgIGJhY2tncm91bmQ6IGxpbmVhci1ncmFkaWVudCh0byBib3R0b20sIHJnYmEoMCwwLDAsMSkgMCUscmdiYSgyNTUsMjU1LDI1NSwwKSAxMDAlKTtcclxuICAgIGNvbG9yOiNFRUU7IFxyXG4gICAgd2lkdGg6IDEwMCU7IFxyXG4gICAgcG9zaXRpb246IHJlbGF0aXZlOyBcclxuICAgIG1hcmdpbi1ib3R0b206IC02MHB4O1xyXG59Il19 */"
+module.exports = ":host {\r\n    height: 100%;\r\n}\r\n.media-preview {\r\n    max-width: 98%;\r\n    max-height: 98%;\r\n}\r\n.toolbar {\r\n    background: linear-gradient(to bottom, rgba(0,0,0,1) 0%,rgba(255,255,255,0) 100%);\r\n    color:#EEE; \r\n    width: 100%; \r\n    position: relative; \r\n    margin-bottom: -60px;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvbWVkaWFzLWRldGFpbHMvbWVkaWFzLWRldGFpbHMuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLFlBQVk7QUFDaEI7QUFDQTtJQUNJLGNBQWM7SUFDZCxlQUFlO0FBQ25CO0FBQ0E7SUFDSSxpRkFBaUY7SUFDakYsVUFBVTtJQUNWLFdBQVc7SUFDWCxrQkFBa0I7SUFDbEIsb0JBQW9CO0FBQ3hCIiwiZmlsZSI6InNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvbWVkaWFzLWRldGFpbHMvbWVkaWFzLWRldGFpbHMuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIjpob3N0IHtcclxuICAgIGhlaWdodDogMTAwJTtcclxufVxyXG4ubWVkaWEtcHJldmlldyB7XHJcbiAgICBtYXgtd2lkdGg6IDk4JTtcclxuICAgIG1heC1oZWlnaHQ6IDk4JTtcclxufVxyXG4udG9vbGJhciB7XHJcbiAgICBiYWNrZ3JvdW5kOiBsaW5lYXItZ3JhZGllbnQodG8gYm90dG9tLCByZ2JhKDAsMCwwLDEpIDAlLHJnYmEoMjU1LDI1NSwyNTUsMCkgMTAwJSk7XHJcbiAgICBjb2xvcjojRUVFOyBcclxuICAgIHdpZHRoOiAxMDAlOyBcclxuICAgIHBvc2l0aW9uOiByZWxhdGl2ZTsgXHJcbiAgICBtYXJnaW4tYm90dG9tOiAtNjBweDtcclxufSJdfQ== */"
 
 /***/ }),
 
@@ -2208,7 +2211,7 @@ module.exports = ":host {\r\n    height: 100%;\r\n}\r\n.media-preview {\r\n    m
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div fxLayout=\"column\" class=\"bg-content\" fxFlex=\"100%\" style=\"overflow-y:auto\">\n    <div *ngIf=\"!media\" class=\"p-3\" fxFlex fxLayout=\"column\" fxLayoutAlign=\"center center\">\n        <mat-spinner [diameter]=\"50\"></mat-spinner>\n    </div>\n    <div *ngIf=\"media\" fxFlex=\"100%\" fxLayout=\"column\" style=\"background: #111\" fxLayoutAlign=\"center center\">\n        <div fxFlex=\"60px\" fxLayoutAlign=\"space-between center\" class=\"p-1 toolbar\">\n            <div>\n                <button routerLink=\"/dashboard/medias/page/1\" mat-icon-button>\n                    <mat-icon>keyboard_backspace</mat-icon>\n                </button>\n            </div>\n            <div>\n                <button mat-icon-button class=\"ml-1\">\n                    <mat-icon>crop</mat-icon>\n                </button>\n                <button mat-icon-button (click)=\"deleteMedia()\" class=\"ml-1\">\n                    <mat-icon>delete</mat-icon>\n                </button>\n                <button mat-icon-button class=\"ml-1\">\n                    <mat-icon>rotate_left</mat-icon>\n                </button>\n                <button mat-icon-button class=\"ml-1\">\n                    <mat-icon>rotate_right</mat-icon>\n                </button>\n            </div>\n        </div>\n        <div style=\"height: 100%\" fxLayoutAlign=\"center center\">\n            <img class=\"media-preview\" *ngIf=\"[ 'jpeg', 'png', 'jpg', 'gif' ].includes( media.extension )\" [src]=\"media.sizes.original\" [alt]=\"media.name\">\n        </div>\n    </div>\n</div>"
+module.exports = "<div fxLayout=\"column\" class=\"bg-content\" fxFlex=\"100%\" style=\"overflow-y:auto\">\r\n    <div *ngIf=\"!media\" class=\"p-3\" fxFlex fxLayout=\"column\" fxLayoutAlign=\"center center\">\r\n        <mat-spinner [diameter]=\"50\"></mat-spinner>\r\n    </div>\r\n    <div *ngIf=\"media\" fxFlex=\"100%\" fxLayout=\"column\" style=\"background: #111\" fxLayoutAlign=\"center center\">\r\n        <div fxFlex=\"60px\" fxLayoutAlign=\"space-between center\" class=\"p-1 toolbar\">\r\n            <div>\r\n                <button routerLink=\"/dashboard/medias/page/1\" mat-icon-button>\r\n                    <mat-icon>keyboard_backspace</mat-icon>\r\n                </button>\r\n            </div>\r\n            <div>\r\n                <button mat-icon-button class=\"ml-1\">\r\n                    <mat-icon>crop</mat-icon>\r\n                </button>\r\n                <button mat-icon-button (click)=\"deleteMedia()\" class=\"ml-1\">\r\n                    <mat-icon>delete</mat-icon>\r\n                </button>\r\n                <button mat-icon-button class=\"ml-1\">\r\n                    <mat-icon>rotate_left</mat-icon>\r\n                </button>\r\n                <button mat-icon-button class=\"ml-1\">\r\n                    <mat-icon>rotate_right</mat-icon>\r\n                </button>\r\n            </div>\r\n        </div>\r\n        <div style=\"height: 100%\" fxLayoutAlign=\"center center\">\r\n            <img class=\"media-preview\" *ngIf=\"[ 'jpeg', 'png', 'jpg', 'gif' ].includes( media.extension )\" [src]=\"media.sizes.original\" [alt]=\"media.name\">\r\n        </div>\r\n    </div>\r\n</div>"
 
 /***/ }),
 
@@ -2319,7 +2322,7 @@ var MediasDetailsComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ":host {\r\n    height: 100%;\r\n}\r\n\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvbWVkaWFzLXVwbG9hZC9tZWRpYXMtdXBsb2FkLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSxhQUFhO0NBQ2hCIiwiZmlsZSI6InNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvbWVkaWFzLXVwbG9hZC9tZWRpYXMtdXBsb2FkLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyI6aG9zdCB7XHJcbiAgICBoZWlnaHQ6IDEwMCU7XHJcbn1cclxuIl19 */"
+module.exports = ":host {\r\n    height: 100%;\r\n}\r\n\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvbWVkaWFzLXVwbG9hZC9tZWRpYXMtdXBsb2FkLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSxZQUFZO0FBQ2hCIiwiZmlsZSI6InNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvbWVkaWFzLXVwbG9hZC9tZWRpYXMtdXBsb2FkLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyI6aG9zdCB7XHJcbiAgICBoZWlnaHQ6IDEwMCU7XHJcbn1cclxuIl19 */"
 
 /***/ }),
 
@@ -2330,7 +2333,7 @@ module.exports = ":host {\r\n    height: 100%;\r\n}\r\n\r\n/*# sourceMappingURL=
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div fxLayout=\"column\" fxFlex=\"100%\" style=\"overflow-y:auto\">\n    <!-- <mat-progress-bar color=\"warn\" style=\"height: 2px; position: absolute\" *ngIf=\"tendoo.users.isLoading\" mode=\"indeterminate\"></mat-progress-bar> -->\n    <div fxLayout=\"row\" class=\"bg-content p-3 pb-0\">\n        <div fxFlex>\n            <h1 class=\"mat-display-1 mb-0\">Media</h1>\n            <small class=\"mat-title\">upload a new file</small>\n        </div>\n        <div fxFlex fxLayoutAlign=\"end start\">\n            <div>\n                <button mat-button [routerLink]=\"'/dashboard/medias'\">Back</button>\n            </div>\n        </div>    \n    </div>\n    <div fxFlex class=\"bg-content p-3\" fxFlexLayout=\"row\" fxLayoutAlign=\"center center\">\n        <div fxLayout=\"column\" fxFlex fxFill id=\"drag-zone\">\n            <mat-card [fxFlex]=\"dragState === 'over' ? '100px': 'auto'\">\n                <mat-card-content fxFlex fxLayout=\"column\">\n                    <dropzone fxFlex [config]=\"dropzoneConfig\" [message]=\"dragMessage\"></dropzone>\n                </mat-card-content>\n            </mat-card>\n        </div>\n    </div>\n</div>"
+module.exports = "<div fxLayout=\"column\" fxFlex=\"100%\" style=\"overflow-y:auto\">\r\n    <!-- <mat-progress-bar color=\"warn\" style=\"height: 2px; position: absolute\" *ngIf=\"tendoo.users.isLoading\" mode=\"indeterminate\"></mat-progress-bar> -->\r\n    <div fxLayout=\"row\" class=\"bg-content p-3 pb-0\">\r\n        <div fxFlex>\r\n            <h1 class=\"mat-display-1 mb-0\">Media</h1>\r\n            <small class=\"mat-title\">upload a new file</small>\r\n        </div>\r\n        <div fxFlex fxLayoutAlign=\"end start\">\r\n            <div>\r\n                <button mat-button [routerLink]=\"'/dashboard/medias'\">Back</button>\r\n            </div>\r\n        </div>    \r\n    </div>\r\n    <div fxFlex class=\"bg-content p-3\" fxFlexLayout=\"row\" fxLayoutAlign=\"center center\">\r\n        <div fxLayout=\"column\" fxFlex fxFill id=\"drag-zone\">\r\n            <mat-card [fxFlex]=\"dragState === 'over' ? '100px': 'auto'\">\r\n                <mat-card-content fxFlex fxLayout=\"column\">\r\n                    <dropzone fxFlex [config]=\"dropzoneConfig\" [message]=\"dragMessage\"></dropzone>\r\n                </mat-card-content>\r\n            </mat-card>\r\n        </div>\r\n    </div>\r\n</div>"
 
 /***/ }),
 
@@ -2413,7 +2416,7 @@ var MediasUploadComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ":host {\r\n    height: 100%;\r\n}\r\n\r\n.mat-grid-tile {\r\n    border: solid 1px #EFEFEF;\r\n    background: #EFEFEF;\r\n}\r\n\r\n.overlay {\r\n    width: 100%;\r\n    height: 100%;\r\n    position: absolute;\r\n    background: rgba(51, 51, 51, 0.29);\r\n    top: 0;\r\n    left: 0;\r\n}\r\n\r\n.upload-placeholder {\r\n    border: dashed 5px #888;\r\n    margin: 10px;\r\n    background: rgba(51, 51, 51, 0.11);\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvbWVkaWFzL21lZGlhcy5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0lBQ0ksYUFBYTtDQUNoQjs7QUFFRDtJQUNJLDBCQUEwQjtJQUMxQixvQkFBb0I7Q0FDdkI7O0FBRUQ7SUFDSSxZQUFZO0lBQ1osYUFBYTtJQUNiLG1CQUFtQjtJQUNuQixtQ0FBbUM7SUFDbkMsT0FBTztJQUNQLFFBQVE7Q0FDWDs7QUFDRDtJQUNJLHdCQUF3QjtJQUN4QixhQUFhO0lBQ2IsbUNBQW1DO0NBQ3RDIiwiZmlsZSI6InNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvbWVkaWFzL21lZGlhcy5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiOmhvc3Qge1xyXG4gICAgaGVpZ2h0OiAxMDAlO1xyXG59XHJcblxyXG4ubWF0LWdyaWQtdGlsZSB7XHJcbiAgICBib3JkZXI6IHNvbGlkIDFweCAjRUZFRkVGO1xyXG4gICAgYmFja2dyb3VuZDogI0VGRUZFRjtcclxufVxyXG5cclxuLm92ZXJsYXkge1xyXG4gICAgd2lkdGg6IDEwMCU7XHJcbiAgICBoZWlnaHQ6IDEwMCU7XHJcbiAgICBwb3NpdGlvbjogYWJzb2x1dGU7XHJcbiAgICBiYWNrZ3JvdW5kOiByZ2JhKDUxLCA1MSwgNTEsIDAuMjkpO1xyXG4gICAgdG9wOiAwO1xyXG4gICAgbGVmdDogMDtcclxufVxyXG4udXBsb2FkLXBsYWNlaG9sZGVyIHtcclxuICAgIGJvcmRlcjogZGFzaGVkIDVweCAjODg4O1xyXG4gICAgbWFyZ2luOiAxMHB4O1xyXG4gICAgYmFja2dyb3VuZDogcmdiYSg1MSwgNTEsIDUxLCAwLjExKTtcclxufSJdfQ== */"
+module.exports = ":host {\r\n    height: 100%;\r\n}\r\n\r\n.mat-grid-tile {\r\n    border: solid 1px #EFEFEF;\r\n    background: #EFEFEF;\r\n}\r\n\r\n.overlay {\r\n    width: 100%;\r\n    height: 100%;\r\n    position: absolute;\r\n    background: rgba(51, 51, 51, 0.29);\r\n    top: 0;\r\n    left: 0;\r\n}\r\n\r\n.upload-placeholder {\r\n    border: dashed 5px #888;\r\n    margin: 10px;\r\n    background: rgba(51, 51, 51, 0.11);\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvbWVkaWFzL21lZGlhcy5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0lBQ0ksWUFBWTtBQUNoQjs7QUFFQTtJQUNJLHlCQUF5QjtJQUN6QixtQkFBbUI7QUFDdkI7O0FBRUE7SUFDSSxXQUFXO0lBQ1gsWUFBWTtJQUNaLGtCQUFrQjtJQUNsQixrQ0FBa0M7SUFDbEMsTUFBTTtJQUNOLE9BQU87QUFDWDs7QUFDQTtJQUNJLHVCQUF1QjtJQUN2QixZQUFZO0lBQ1osa0NBQWtDO0FBQ3RDIiwiZmlsZSI6InNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvbWVkaWFzL21lZGlhcy5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiOmhvc3Qge1xyXG4gICAgaGVpZ2h0OiAxMDAlO1xyXG59XHJcblxyXG4ubWF0LWdyaWQtdGlsZSB7XHJcbiAgICBib3JkZXI6IHNvbGlkIDFweCAjRUZFRkVGO1xyXG4gICAgYmFja2dyb3VuZDogI0VGRUZFRjtcclxufVxyXG5cclxuLm92ZXJsYXkge1xyXG4gICAgd2lkdGg6IDEwMCU7XHJcbiAgICBoZWlnaHQ6IDEwMCU7XHJcbiAgICBwb3NpdGlvbjogYWJzb2x1dGU7XHJcbiAgICBiYWNrZ3JvdW5kOiByZ2JhKDUxLCA1MSwgNTEsIDAuMjkpO1xyXG4gICAgdG9wOiAwO1xyXG4gICAgbGVmdDogMDtcclxufVxyXG4udXBsb2FkLXBsYWNlaG9sZGVyIHtcclxuICAgIGJvcmRlcjogZGFzaGVkIDVweCAjODg4O1xyXG4gICAgbWFyZ2luOiAxMHB4O1xyXG4gICAgYmFja2dyb3VuZDogcmdiYSg1MSwgNTEsIDUxLCAwLjExKTtcclxufSJdfQ== */"
 
 /***/ }),
 
@@ -2424,7 +2427,7 @@ module.exports = ":host {\r\n    height: 100%;\r\n}\r\n\r\n.mat-grid-tile {\r\n 
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div fxFlex fxLayout=\"column\">\n    <div fxLayout=\"column\" class=\"upload-placeholder\" (dropOver)=\"hasDropped( $event )\" (dragOut)=\"hasDraggedOut( $event )\" appDroppable *ngIf=\"wantsToDrop\" fxFlex=\"100%\" style=\"overflow-y:auto\" fxLayoutAlign=\"center center\">\n        <h3>Drop your file here to upload</h3>\n    </div>\n    <div fxLayout=\"column\" fxFlex=\"100%\" style=\"overflow-y:auto\"  (dragOver)=\"hasDraggedOver( $event )\" *ngIf=\"! wantsToDrop\" appDroppable>\n        <!-- <mat-progress-bar color=\"warn\" style=\"height: 2px; position: absolute\" *ngIf=\"tendoo.users.isLoading\" mode=\"indeterminate\"></mat-progress-bar> -->\n        <div fxLayout=\"row\" fxFlex=\"0 0 auto\" class=\"bg-content p-3 pb-0\">\n            <div fxFlex>\n                <h1 class=\"mat-display-1 mb-0\">Media</h1>\n                <span>display all the medias by type</span>\n            </div>\n            <div fxFlex fxLayoutAlign=\"end start\">\n            </div>    \n        </div>\n        <div fxFlex *ngIf=\"medias.length === 0\" class=\"p-3 bg-content\" fxLayoutAlign=\"center center\">\n            <span>It seems quite empty right here. Drop files to upload them.</span>\n        </div>\n        <div fxFlex *ngIf=\"medias.length > 0\" class=\"p-3 bg-content\">\n            <mat-card class=\"p-0\">\n                <mat-card-title class=\"p-1 mb-0\">\n                    <div fxFlex fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\n                        <div fxLayoutAlign=\"start center\">\n                            <button *ngIf=\"selectedMediasCount === 0\" [disabled]=\"pagination.prev_page_url === null\" (click)=\"goToPage( pagination.current_page - 1 )\" mat-icon-button color=\"warn\">\n                                <mat-icon>arrow_back</mat-icon>\n                            </button>\n                            <button *ngIf=\"selectedMediasCount === 0\" [disabled]=\"pagination.next_page_url === null\" (click)=\"goToPage( pagination.current_page + 1 )\" mat-icon-button color=\"warn\">\n                                <mat-icon>arrow_forward</mat-icon>\n                            </button>\n                            <button *ngIf=\"selectedMediasCount > 0\" (click)=\"reset()\" mat-icon-button color=\"warn\">\n                                <mat-icon>cancel</mat-icon>\n                            </button>\n                            <span *ngIf=\"selectedMediasCount > 0\">\n                                {{ selectedMediasCount }} <span>selected</span>\n                            </span>\n                        </div>\n                        <div>\n                            <button *ngIf=\"selectedMediasCount > 0\" (click)=\"deleteSelected()\" mat-icon-button color=\"warn\">\n                                <mat-icon>delete</mat-icon>\n                            </button>\n                            <button (click)=\"selectAll()\" mat-icon-button color=\"primary\">\n                                <mat-icon>check</mat-icon>\n                            </button>\n                        </div>\n                    </div>\n                </mat-card-title>\n                <mat-divider></mat-divider>\n                <div class=\"p-2\">\n                    <mat-grid-list [cols]=\"gridCols\" gutterSize=\"1em\" rowHeight=\"140px\">\n                        <mat-grid-tile\n                            (mousedown)=\"handle( media )\"\n                            (mouseup)=\"cancelBulkSelect()\"\n                            (click)=\"openSingle( media )\"\n                            *ngFor=\"let media of medias\"\n                            [colspan]=\"1\"\n                            [rowspan]=\"1\">\n                            <div *ngIf=\"[ 'zip' ].indexOf( media.extension ) === -1\">\n                                <img [src]=\"media.sizes.thumb\" [alt]=\"media.name\">\n                            </div>\n                            <div *ngIf=\"[ 'zip' ].indexOf( media.extension ) !== -1\">\n                                <mat-icon>archive</mat-icon>\n                            </div>\n                            <div class=\"overlay\" fxLayoutAlign=\"end start\" *ngIf=\"media.selected\">\n                                <i class=\"material-icons m-1\" style=\"color: white\">\n                                check_circle\n                                </i>\n                            </div>\n                        </mat-grid-tile>\n                    </mat-grid-list>\n                </div>\n            </mat-card>\n        </div>\n    </div>\n</div>"
+module.exports = "<div fxFlex fxLayout=\"column\">\r\n    <div fxLayout=\"column\" class=\"upload-placeholder\" (dropOver)=\"hasDropped( $event )\" (dragOut)=\"hasDraggedOut( $event )\" appDroppable *ngIf=\"wantsToDrop\" fxFlex=\"100%\" style=\"overflow-y:auto\" fxLayoutAlign=\"center center\">\r\n        <h3>Drop your file here to upload</h3>\r\n    </div>\r\n    <div fxLayout=\"column\" fxFlex=\"100%\" style=\"overflow-y:auto\"  (dragOver)=\"hasDraggedOver( $event )\" *ngIf=\"! wantsToDrop\" appDroppable>\r\n        <!-- <mat-progress-bar color=\"warn\" style=\"height: 2px; position: absolute\" *ngIf=\"tendoo.users.isLoading\" mode=\"indeterminate\"></mat-progress-bar> -->\r\n        <div fxLayout=\"row\" fxFlex=\"0 0 auto\" class=\"bg-content p-3 pb-0\">\r\n            <div fxFlex>\r\n                <h1 class=\"mat-display-1 mb-0\">Media</h1>\r\n                <span>display all the medias by type</span>\r\n            </div>\r\n            <div fxFlex fxLayoutAlign=\"end start\">\r\n            </div>    \r\n        </div>\r\n        <div fxFlex *ngIf=\"medias.length === 0\" class=\"p-3 bg-content\" fxLayoutAlign=\"center center\">\r\n            <span>It seems quite empty right here. Drop files to upload them.</span>\r\n        </div>\r\n        <div fxFlex *ngIf=\"medias.length > 0\" class=\"p-3 bg-content\">\r\n            <mat-card class=\"p-0\">\r\n                <mat-card-title class=\"p-1 mb-0\">\r\n                    <div fxFlex fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n                        <div fxLayoutAlign=\"start center\">\r\n                            <button *ngIf=\"selectedMediasCount === 0\" [disabled]=\"pagination.prev_page_url === null\" (click)=\"goToPage( pagination.current_page - 1 )\" mat-icon-button color=\"warn\">\r\n                                <mat-icon>arrow_back</mat-icon>\r\n                            </button>\r\n                            <button *ngIf=\"selectedMediasCount === 0\" [disabled]=\"pagination.next_page_url === null\" (click)=\"goToPage( pagination.current_page + 1 )\" mat-icon-button color=\"warn\">\r\n                                <mat-icon>arrow_forward</mat-icon>\r\n                            </button>\r\n                            <button *ngIf=\"selectedMediasCount > 0\" (click)=\"reset()\" mat-icon-button color=\"warn\">\r\n                                <mat-icon>cancel</mat-icon>\r\n                            </button>\r\n                            <span *ngIf=\"selectedMediasCount > 0\">\r\n                                {{ selectedMediasCount }} <span>selected</span>\r\n                            </span>\r\n                        </div>\r\n                        <div>\r\n                            <button *ngIf=\"selectedMediasCount > 0\" (click)=\"deleteSelected()\" mat-icon-button color=\"warn\">\r\n                                <mat-icon>delete</mat-icon>\r\n                            </button>\r\n                            <button (click)=\"selectAll()\" mat-icon-button color=\"primary\">\r\n                                <mat-icon>check</mat-icon>\r\n                            </button>\r\n                        </div>\r\n                    </div>\r\n                </mat-card-title>\r\n                <mat-divider></mat-divider>\r\n                <div class=\"p-2\">\r\n                    <mat-grid-list [cols]=\"gridCols\" gutterSize=\"1em\" rowHeight=\"140px\">\r\n                        <mat-grid-tile\r\n                            (mousedown)=\"handle( media )\"\r\n                            (mouseup)=\"cancelBulkSelect()\"\r\n                            (click)=\"openSingle( media )\"\r\n                            *ngFor=\"let media of medias\"\r\n                            [colspan]=\"1\"\r\n                            [rowspan]=\"1\">\r\n                            <div *ngIf=\"[ 'zip' ].indexOf( media.extension ) === -1\">\r\n                                <img [src]=\"media.sizes.thumb\" [alt]=\"media.name\">\r\n                            </div>\r\n                            <div *ngIf=\"[ 'zip' ].indexOf( media.extension ) !== -1\">\r\n                                <mat-icon>archive</mat-icon>\r\n                            </div>\r\n                            <div class=\"overlay\" fxLayoutAlign=\"end start\" *ngIf=\"media.selected\">\r\n                                <i class=\"material-icons m-1\" style=\"color: white\">\r\n                                check_circle\r\n                                </i>\r\n                            </div>\r\n                        </mat-grid-tile>\r\n                    </mat-grid-list>\r\n                </div>\r\n            </mat-card>\r\n        </div>\r\n    </div>\r\n</div>"
 
 /***/ }),
 
@@ -2790,7 +2793,7 @@ var MediasComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ":host {\r\n    height: 100%;\r\n}\r\n.module-details {\r\n    background: #f9f9f9;\r\n}\r\n.active-tab {\r\n    background: #FFF;\r\n    margin-bottom: -1px;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvbW9kdWxlcy1kZXRhaWxzL21vZHVsZXMtZGV0YWlscy5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0lBQ0ksYUFBYTtDQUNoQjtBQUNEO0lBQ0ksb0JBQW9CO0NBQ3ZCO0FBQ0Q7SUFDSSxpQkFBaUI7SUFDakIsb0JBQW9CO0NBQ3ZCIiwiZmlsZSI6InNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvbW9kdWxlcy1kZXRhaWxzL21vZHVsZXMtZGV0YWlscy5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiOmhvc3Qge1xyXG4gICAgaGVpZ2h0OiAxMDAlO1xyXG59XHJcbi5tb2R1bGUtZGV0YWlscyB7XHJcbiAgICBiYWNrZ3JvdW5kOiAjZjlmOWY5O1xyXG59XHJcbi5hY3RpdmUtdGFiIHtcclxuICAgIGJhY2tncm91bmQ6ICNGRkY7XHJcbiAgICBtYXJnaW4tYm90dG9tOiAtMXB4O1xyXG59Il19 */"
+module.exports = ":host {\r\n    height: 100%;\r\n}\r\n.module-details {\r\n    background: #f9f9f9;\r\n}\r\n.active-tab {\r\n    background: #FFF;\r\n    margin-bottom: -1px;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvbW9kdWxlcy1kZXRhaWxzL21vZHVsZXMtZGV0YWlscy5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0lBQ0ksWUFBWTtBQUNoQjtBQUNBO0lBQ0ksbUJBQW1CO0FBQ3ZCO0FBQ0E7SUFDSSxnQkFBZ0I7SUFDaEIsbUJBQW1CO0FBQ3ZCIiwiZmlsZSI6InNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvbW9kdWxlcy1kZXRhaWxzL21vZHVsZXMtZGV0YWlscy5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiOmhvc3Qge1xyXG4gICAgaGVpZ2h0OiAxMDAlO1xyXG59XHJcbi5tb2R1bGUtZGV0YWlscyB7XHJcbiAgICBiYWNrZ3JvdW5kOiAjZjlmOWY5O1xyXG59XHJcbi5hY3RpdmUtdGFiIHtcclxuICAgIGJhY2tncm91bmQ6ICNGRkY7XHJcbiAgICBtYXJnaW4tYm90dG9tOiAtMXB4O1xyXG59Il19 */"
 
 /***/ }),
 
@@ -2996,7 +2999,7 @@ var ModulesDetailsComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ":host {\r\n    height: 100%;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvbW9kdWxlcy11cGxvYWQvbW9kdWxlcy11cGxvYWQuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLGFBQWE7Q0FDaEIiLCJmaWxlIjoic3JjL2FwcC9jb21wb25lbnRzL2Rhc2hib2FyZC9tb2R1bGVzLXVwbG9hZC9tb2R1bGVzLXVwbG9hZC5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiOmhvc3Qge1xyXG4gICAgaGVpZ2h0OiAxMDAlO1xyXG59Il19 */"
+module.exports = ":host {\r\n    height: 100%;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvbW9kdWxlcy11cGxvYWQvbW9kdWxlcy11cGxvYWQuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLFlBQVk7QUFDaEIiLCJmaWxlIjoic3JjL2FwcC9jb21wb25lbnRzL2Rhc2hib2FyZC9tb2R1bGVzLXVwbG9hZC9tb2R1bGVzLXVwbG9hZC5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiOmhvc3Qge1xyXG4gICAgaGVpZ2h0OiAxMDAlO1xyXG59Il19 */"
 
 /***/ }),
 
@@ -3145,7 +3148,7 @@ var ModulesUploadComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ":host {\r\n    height: 100%;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvbW9kdWxlcy9tb2R1bGVzLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSxhQUFhO0NBQ2hCIiwiZmlsZSI6InNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvbW9kdWxlcy9tb2R1bGVzLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyI6aG9zdCB7XHJcbiAgICBoZWlnaHQ6IDEwMCU7XHJcbn0iXX0= */"
+module.exports = ":host {\r\n    height: 100%;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvbW9kdWxlcy9tb2R1bGVzLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSxZQUFZO0FBQ2hCIiwiZmlsZSI6InNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvbW9kdWxlcy9tb2R1bGVzLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyI6aG9zdCB7XHJcbiAgICBoZWlnaHQ6IDEwMCU7XHJcbn0iXX0= */"
 
 /***/ }),
 
@@ -3477,7 +3480,7 @@ var ModulesComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ":host {\r\n    height: 100%;\r\n    overflow-y: auto;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvbm90LWZvdW5kL25vdC1mb3VuZC5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0lBQ0ksYUFBYTtJQUNiLGlCQUFpQjtDQUNwQiIsImZpbGUiOiJzcmMvYXBwL2NvbXBvbmVudHMvZGFzaGJvYXJkL25vdC1mb3VuZC9ub3QtZm91bmQuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIjpob3N0IHtcclxuICAgIGhlaWdodDogMTAwJTtcclxuICAgIG92ZXJmbG93LXk6IGF1dG87XHJcbn0iXX0= */"
+module.exports = ":host {\r\n    height: 100%;\r\n    overflow-y: auto;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvbm90LWZvdW5kL25vdC1mb3VuZC5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0lBQ0ksWUFBWTtJQUNaLGdCQUFnQjtBQUNwQiIsImZpbGUiOiJzcmMvYXBwL2NvbXBvbmVudHMvZGFzaGJvYXJkL25vdC1mb3VuZC9ub3QtZm91bmQuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIjpob3N0IHtcclxuICAgIGhlaWdodDogMTAwJTtcclxuICAgIG92ZXJmbG93LXk6IGF1dG87XHJcbn0iXX0= */"
 
 /***/ }),
 
@@ -3543,7 +3546,7 @@ var NotFoundComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ":host {\r\n    height: 100%;\r\n    overflow-y: auto;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvcHJvZmlsZS1hcHBzL3Byb2ZpbGUtYXBwcy5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0lBQ0ksYUFBYTtJQUNiLGlCQUFpQjtDQUNwQiIsImZpbGUiOiJzcmMvYXBwL2NvbXBvbmVudHMvZGFzaGJvYXJkL3Byb2ZpbGUtYXBwcy9wcm9maWxlLWFwcHMuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIjpob3N0IHtcclxuICAgIGhlaWdodDogMTAwJTtcclxuICAgIG92ZXJmbG93LXk6IGF1dG87XHJcbn0iXX0= */"
+module.exports = ":host {\r\n    height: 100%;\r\n    overflow-y: auto;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvcHJvZmlsZS1hcHBzL3Byb2ZpbGUtYXBwcy5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0lBQ0ksWUFBWTtJQUNaLGdCQUFnQjtBQUNwQiIsImZpbGUiOiJzcmMvYXBwL2NvbXBvbmVudHMvZGFzaGJvYXJkL3Byb2ZpbGUtYXBwcy9wcm9maWxlLWFwcHMuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIjpob3N0IHtcclxuICAgIGhlaWdodDogMTAwJTtcclxuICAgIG92ZXJmbG93LXk6IGF1dG87XHJcbn0iXX0= */"
 
 /***/ }),
 
@@ -3681,7 +3684,7 @@ var ProfileAppsComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".avatar-image {\r\n    width: 100px;\r\n    border-radius: 50px;\r\n}\r\n.profile-background {\r\n    background: #EEE;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvcHJvZmlsZS9wcm9maWxlLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSxhQUFhO0lBQ2Isb0JBQW9CO0NBQ3ZCO0FBQ0Q7SUFDSSxpQkFBaUI7Q0FDcEIiLCJmaWxlIjoic3JjL2FwcC9jb21wb25lbnRzL2Rhc2hib2FyZC9wcm9maWxlL3Byb2ZpbGUuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIi5hdmF0YXItaW1hZ2Uge1xyXG4gICAgd2lkdGg6IDEwMHB4O1xyXG4gICAgYm9yZGVyLXJhZGl1czogNTBweDtcclxufVxyXG4ucHJvZmlsZS1iYWNrZ3JvdW5kIHtcclxuICAgIGJhY2tncm91bmQ6ICNFRUU7XHJcbn0iXX0= */"
+module.exports = ".avatar-image {\r\n    width: 100px;\r\n    border-radius: 50px;\r\n}\r\n.profile-background {\r\n    background: #EEE;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvcHJvZmlsZS9wcm9maWxlLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSxZQUFZO0lBQ1osbUJBQW1CO0FBQ3ZCO0FBQ0E7SUFDSSxnQkFBZ0I7QUFDcEIiLCJmaWxlIjoic3JjL2FwcC9jb21wb25lbnRzL2Rhc2hib2FyZC9wcm9maWxlL3Byb2ZpbGUuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIi5hdmF0YXItaW1hZ2Uge1xyXG4gICAgd2lkdGg6IDEwMHB4O1xyXG4gICAgYm9yZGVyLXJhZGl1czogNTBweDtcclxufVxyXG4ucHJvZmlsZS1iYWNrZ3JvdW5kIHtcclxuICAgIGJhY2tncm91bmQ6ICNFRUU7XHJcbn0iXX0= */"
 
 /***/ }),
 
@@ -3803,10 +3806,10 @@ var ProfileComponent = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-profile',
             template: __webpack_require__(/*! ./profile.component.html */ "./src/app/components/dashboard/profile/profile.component.html"),
-            styles: [__webpack_require__(/*! ./profile.component.css */ "./src/app/components/dashboard/profile/profile.component.css")],
             host: {
                 style: "height: 100%"
-            }
+            },
+            styles: [__webpack_require__(/*! ./profile.component.css */ "./src/app/components/dashboard/profile/profile.component.css")]
         }),
         __metadata("design:paramtypes", [src_app_services_tendoo_service__WEBPACK_IMPORTED_MODULE_1__["TendooService"],
             _angular_material__WEBPACK_IMPORTED_MODULE_5__["MatSnackBar"]])
@@ -3825,7 +3828,7 @@ var ProfileComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ":host {\r\n    height: 100%;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvc2V0dGluZ3Mvc2V0dGluZ3MuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLGFBQWE7Q0FDaEIiLCJmaWxlIjoic3JjL2FwcC9jb21wb25lbnRzL2Rhc2hib2FyZC9zZXR0aW5ncy9zZXR0aW5ncy5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiOmhvc3Qge1xyXG4gICAgaGVpZ2h0OiAxMDAlO1xyXG59Il19 */"
+module.exports = ":host {\r\n    height: 100%;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvc2V0dGluZ3Mvc2V0dGluZ3MuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLFlBQVk7QUFDaEIiLCJmaWxlIjoic3JjL2FwcC9jb21wb25lbnRzL2Rhc2hib2FyZC9zZXR0aW5ncy9zZXR0aW5ncy5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiOmhvc3Qge1xyXG4gICAgaGVpZ2h0OiAxMDAlO1xyXG59Il19 */"
 
 /***/ }),
 
@@ -3968,7 +3971,7 @@ var SettingsComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ":host {\r\n    height: 100%;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvdXNlcnMtY3JlYXRlL3VzZXJzLWNyZWF0ZS5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0lBQ0ksYUFBYTtDQUNoQiIsImZpbGUiOiJzcmMvYXBwL2NvbXBvbmVudHMvZGFzaGJvYXJkL3VzZXJzLWNyZWF0ZS91c2Vycy1jcmVhdGUuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIjpob3N0IHtcclxuICAgIGhlaWdodDogMTAwJTtcclxufSJdfQ== */"
+module.exports = ":host {\r\n    height: 100%;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvdXNlcnMtY3JlYXRlL3VzZXJzLWNyZWF0ZS5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0lBQ0ksWUFBWTtBQUNoQiIsImZpbGUiOiJzcmMvYXBwL2NvbXBvbmVudHMvZGFzaGJvYXJkL3VzZXJzLWNyZWF0ZS91c2Vycy1jcmVhdGUuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIjpob3N0IHtcclxuICAgIGhlaWdodDogMTAwJTtcclxufSJdfQ== */"
 
 /***/ }),
 
@@ -4233,7 +4236,7 @@ var UsersEditComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ":host {\r\n    height: 100%;\r\n}\r\n#search-field {\r\n    height: 35px;\r\n    border-radius: 5px;\r\n    border: solid 1px #DDD;\r\n    background: #FFF;\r\n    width: 100%;\r\n    font-size: 18px;\r\n    padding: 0 10px;\r\n    margin-right: 10px;\r\n    margin-left: 10px;\r\n}\r\nth.mat-header-cell, td.mat-cell {\r\n    padding: 10px;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvdXNlcnMvdXNlcnMuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLGFBQWE7Q0FDaEI7QUFDRDtJQUNJLGFBQWE7SUFDYixtQkFBbUI7SUFDbkIsdUJBQXVCO0lBQ3ZCLGlCQUFpQjtJQUNqQixZQUFZO0lBQ1osZ0JBQWdCO0lBQ2hCLGdCQUFnQjtJQUNoQixtQkFBbUI7SUFDbkIsa0JBQWtCO0NBQ3JCO0FBQ0Q7SUFDSSxjQUFjO0NBQ2pCIiwiZmlsZSI6InNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvdXNlcnMvdXNlcnMuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIjpob3N0IHtcclxuICAgIGhlaWdodDogMTAwJTtcclxufVxyXG4jc2VhcmNoLWZpZWxkIHtcclxuICAgIGhlaWdodDogMzVweDtcclxuICAgIGJvcmRlci1yYWRpdXM6IDVweDtcclxuICAgIGJvcmRlcjogc29saWQgMXB4ICNEREQ7XHJcbiAgICBiYWNrZ3JvdW5kOiAjRkZGO1xyXG4gICAgd2lkdGg6IDEwMCU7XHJcbiAgICBmb250LXNpemU6IDE4cHg7XHJcbiAgICBwYWRkaW5nOiAwIDEwcHg7XHJcbiAgICBtYXJnaW4tcmlnaHQ6IDEwcHg7XHJcbiAgICBtYXJnaW4tbGVmdDogMTBweDtcclxufVxyXG50aC5tYXQtaGVhZGVyLWNlbGwsIHRkLm1hdC1jZWxsIHtcclxuICAgIHBhZGRpbmc6IDEwcHg7XHJcbn0iXX0= */"
+module.exports = ":host {\r\n    height: 100%;\r\n}\r\n#search-field {\r\n    height: 35px;\r\n    border-radius: 5px;\r\n    border: solid 1px #DDD;\r\n    background: #FFF;\r\n    width: 100%;\r\n    font-size: 18px;\r\n    padding: 0 10px;\r\n    margin-right: 10px;\r\n    margin-left: 10px;\r\n}\r\nth.mat-header-cell, td.mat-cell {\r\n    padding: 10px;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvdXNlcnMvdXNlcnMuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLFlBQVk7QUFDaEI7QUFDQTtJQUNJLFlBQVk7SUFDWixrQkFBa0I7SUFDbEIsc0JBQXNCO0lBQ3RCLGdCQUFnQjtJQUNoQixXQUFXO0lBQ1gsZUFBZTtJQUNmLGVBQWU7SUFDZixrQkFBa0I7SUFDbEIsaUJBQWlCO0FBQ3JCO0FBQ0E7SUFDSSxhQUFhO0FBQ2pCIiwiZmlsZSI6InNyYy9hcHAvY29tcG9uZW50cy9kYXNoYm9hcmQvdXNlcnMvdXNlcnMuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIjpob3N0IHtcclxuICAgIGhlaWdodDogMTAwJTtcclxufVxyXG4jc2VhcmNoLWZpZWxkIHtcclxuICAgIGhlaWdodDogMzVweDtcclxuICAgIGJvcmRlci1yYWRpdXM6IDVweDtcclxuICAgIGJvcmRlcjogc29saWQgMXB4ICNEREQ7XHJcbiAgICBiYWNrZ3JvdW5kOiAjRkZGO1xyXG4gICAgd2lkdGg6IDEwMCU7XHJcbiAgICBmb250LXNpemU6IDE4cHg7XHJcbiAgICBwYWRkaW5nOiAwIDEwcHg7XHJcbiAgICBtYXJnaW4tcmlnaHQ6IDEwcHg7XHJcbiAgICBtYXJnaW4tbGVmdDogMTBweDtcclxufVxyXG50aC5tYXQtaGVhZGVyLWNlbGwsIHRkLm1hdC1jZWxsIHtcclxuICAgIHBhZGRpbmc6IDEwcHg7XHJcbn0iXX0= */"
 
 /***/ }),
 
@@ -4874,7 +4877,7 @@ var DatabaseComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ":host {\r\n    height: 100%;\r\n    overflow-y: auto;\r\n    flex-direction: column;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9kby1zZXR1cC9kby1zZXR1cC5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0lBQ0ksYUFBYTtJQUNiLGlCQUFpQjtJQUNqQix1QkFBdUI7Q0FDMUIiLCJmaWxlIjoic3JjL2FwcC9jb21wb25lbnRzL2RvLXNldHVwL2RvLXNldHVwLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyI6aG9zdCB7XHJcbiAgICBoZWlnaHQ6IDEwMCU7XHJcbiAgICBvdmVyZmxvdy15OiBhdXRvO1xyXG4gICAgZmxleC1kaXJlY3Rpb246IGNvbHVtbjtcclxufSJdfQ== */"
+module.exports = ":host {\r\n    height: 100%;\r\n    overflow-y: auto;\r\n    flex-direction: column;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9kby1zZXR1cC9kby1zZXR1cC5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0lBQ0ksWUFBWTtJQUNaLGdCQUFnQjtJQUNoQixzQkFBc0I7QUFDMUIiLCJmaWxlIjoic3JjL2FwcC9jb21wb25lbnRzL2RvLXNldHVwL2RvLXNldHVwLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyI6aG9zdCB7XHJcbiAgICBoZWlnaHQ6IDEwMCU7XHJcbiAgICBvdmVyZmxvdy15OiBhdXRvO1xyXG4gICAgZmxleC1kaXJlY3Rpb246IGNvbHVtbjtcclxufSJdfQ== */"
 
 /***/ }),
 
@@ -4996,6 +4999,82 @@ var SetupHomeComponent = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/components/error/error.component.css":
+/*!******************************************************!*\
+  !*** ./src/app/components/error/error.component.css ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ":host {\r\n    height: 100%;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9lcnJvci9lcnJvci5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0lBQ0ksWUFBWTtBQUNoQiIsImZpbGUiOiJzcmMvYXBwL2NvbXBvbmVudHMvZXJyb3IvZXJyb3IuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIjpob3N0IHtcclxuICAgIGhlaWdodDogMTAwJTtcclxufSJdfQ== */"
+
+/***/ }),
+
+/***/ "./src/app/components/error/error.component.html":
+/*!*******************************************************!*\
+  !*** ./src/app/components/error/error.component.html ***!
+  \*******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div fxFlex fxLayout=\"row\" fxLayoutAlign=\"center center\" class=\"bg-content\">\n\t<div fxLayout=\"column\">\n\t\t<div fxLayoutAlign=\"center center\">\n\t\t\t<img [src]=\"tendoo.getAsset( 'assets/images/logo.png' )\" style=\"width: 150px\" alt=\"\" srcset=\"\">\n\t\t</div>\n\t\t<ng-container [ngSwitch]=\"errorCode\">\n\t\t\t<div *ngSwitchCase=\"'not-installed'\" fxFlex.xl=\"50%\" fxFlex.lg=\"50%\" fxFlex.md=\"60%\" fxFlex.sm=\"80%\" fxFlex.xs=\"90%\">\n\t\t\t\t<h3 class=\"mat-display-2 text-center mb-1\">Not Installed</h3>\n\t\t\t\t<h4 class=\"mat-h4 text-center\">Would you like to use Tendoo, you need to <a routerLink=\"/do-setup\">install it</a></h4>\n\t\t\t</div>\n\t\t\t<div *ngSwitchDefault fxFlex.xl=\"50%\" fxFlex.lg=\"50%\" fxFlex.md=\"60%\" fxFlex.sm=\"80%\" fxFlex.xs=\"90%\">\n\t\t\t\t<h3 class=\"mat-display-2 text-center mb-1\">An Error Occured</h3>\n\t\t\t\t<h4 class=\"mat-h4 text-center\">Have you broken the internet ?</h4>\n\t\t\t</div>\n\t\t</ng-container>\n\t</div>\n</div>"
+
+/***/ }),
+
+/***/ "./src/app/components/error/error.component.ts":
+/*!*****************************************************!*\
+  !*** ./src/app/components/error/error.component.ts ***!
+  \*****************************************************/
+/*! exports provided: ErrorComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ErrorComponent", function() { return ErrorComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var src_app_services_tendoo_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/services/tendoo.service */ "./src/app/services/tendoo.service.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+var ErrorComponent = /** @class */ (function () {
+    function ErrorComponent(activateRoute, tendoo) {
+        this.activateRoute = activateRoute;
+        this.tendoo = tendoo;
+        this.errorCode = undefined;
+    }
+    ErrorComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.activateRoute.paramMap.subscribe(function (params) {
+            _this.errorCode = params.get('code');
+            console.log(_this.errorCode);
+        });
+    };
+    ErrorComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-error',
+            template: __webpack_require__(/*! ./error.component.html */ "./src/app/components/error/error.component.html"),
+            styles: [__webpack_require__(/*! ./error.component.css */ "./src/app/components/error/error.component.css")]
+        }),
+        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_1__["ActivatedRoute"],
+            src_app_services_tendoo_service__WEBPACK_IMPORTED_MODULE_2__["TendooService"]])
+    ], ErrorComponent);
+    return ErrorComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/components/home/home.component.css":
 /*!****************************************************!*\
   !*** ./src/app/components/home/home.component.css ***!
@@ -5066,7 +5145,7 @@ var HomeComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ":host {\r\n    height: 100%;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9taWdyYXRpb24tZGlhbG9nL21pZ3JhdGlvbi1kaWFsb2cuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLGFBQWE7Q0FDaEIiLCJmaWxlIjoic3JjL2FwcC9jb21wb25lbnRzL21pZ3JhdGlvbi1kaWFsb2cvbWlncmF0aW9uLWRpYWxvZy5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiOmhvc3Qge1xyXG4gICAgaGVpZ2h0OiAxMDAlO1xyXG59Il19 */"
+module.exports = ":host {\r\n    height: 100%;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9taWdyYXRpb24tZGlhbG9nL21pZ3JhdGlvbi1kaWFsb2cuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLFlBQVk7QUFDaEIiLCJmaWxlIjoic3JjL2FwcC9jb21wb25lbnRzL21pZ3JhdGlvbi1kaWFsb2cvbWlncmF0aW9uLWRpYWxvZy5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiOmhvc3Qge1xyXG4gICAgaGVpZ2h0OiAxMDAlO1xyXG59Il19 */"
 
 /***/ }),
 
@@ -5077,7 +5156,7 @@ module.exports = ":host {\r\n    height: 100%;\r\n}\r\n/*# sourceMappingURL=data
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div fxLayout=\"row\" fxLayoutAlign=\"center center\" class=\"p-4\">\r\n\t<div class=\"loader-section\" fxFlex=\"100px\">\r\n\t\t<mat-spinner [diameter]=\"30\"></mat-spinner>\r\n\t</div>\r\n\t<div class=\"loader-details\" fxFlex=\"auto\" fxFlex=\"300px\">\r\n\t\t<h3 class=\"mat-h3 m-0\">Migrating...</h3>\r\n\t\t<small>{{ version }} : {{ file }}</small>\r\n\t</div>\r\n</div>"
+module.exports = "<div fxLayout=\"row\" fxLayoutAlign=\"center center\" class=\"p-4\">\n\t<div class=\"loader-section\" fxFlex=\"100px\">\n\t\t<mat-spinner [diameter]=\"30\"></mat-spinner>\n\t</div>\n\t<div class=\"loader-details\" fxFlex=\"auto\" fxFlex=\"300px\">\n\t\t<h3 class=\"mat-h3 m-0\">Migrating...</h3>\n\t\t<small>{{ version }} : {{ file }}</small>\n\t</div>\n</div>"
 
 /***/ }),
 
@@ -5459,6 +5538,7 @@ var PreventAppNotInstalledGuard = /** @class */ (function () {
                             _this.router.navigateByUrl('do-setup');
                         }
                     });
+                    _this.router.navigateByUrl("error/" + result.status);
                     return resolve(false);
                 }
                 return resolve(true);
@@ -5466,6 +5546,8 @@ var PreventAppNotInstalledGuard = /** @class */ (function () {
                 _this.snackbar.open(result.error.message || 'An unexpected error occured while checking the application status', null, {
                     duration: 3000
                 });
+                _this.router.navigateByUrl('error');
+                resolve(false);
             });
         });
     };
@@ -5798,6 +5880,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var ngx_cookie_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ngx-cookie-service */ "./node_modules/ngx-cookie-service/index.js");
 /* harmony import */ var _services_tendoo_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../services/tendoo.service */ "./src/app/services/tendoo.service.ts");
 /* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var _check_app_installed_guard__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./check-app-installed.guard */ "./src/app/guards/check-app-installed.guard.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -5813,32 +5896,38 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var QuickAuthenticationGuard = /** @class */ (function () {
-    function QuickAuthenticationGuard(cookie, tendoo, snackbar, router) {
+    function QuickAuthenticationGuard(cookie, tendoo, snackbar, router, installGuard) {
         this.cookie = cookie;
         this.tendoo = tendoo;
         this.snackbar = snackbar;
         this.router = router;
+        this.installGuard = installGuard;
     }
     QuickAuthenticationGuard.prototype.canActivate = function (next, state) {
         var _this = this;
         return new rxjs__WEBPACK_IMPORTED_MODULE_2__["Observable"](function (observer) {
-            var token = _this.cookie.get('auth.user');
-            if (token) {
-                _this.tendoo.auth.tokenLogin(token).subscribe(function (result) {
-                    observer.next(false);
-                    observer.complete();
-                    _this.snackbar.open(result.message, 'OK', { duration: 3000 });
-                    _this.router.navigateByUrl(_this.tendoo.auth.intented || '/dashboard');
-                }, function (error) {
-                    observer.next(true);
-                    observer.complete();
-                });
-            }
-            else {
-                observer.next(true);
-                observer.complete();
-            }
+            _this.installGuard.canActivate(next, state).then(function (result) {
+                if (result) {
+                    var token = _this.cookie.get('auth.user');
+                    if (token) {
+                        _this.tendoo.auth.tokenLogin(token).subscribe(function (result) {
+                            observer.next(false);
+                            observer.complete();
+                            _this.snackbar.open(result.message, 'OK', { duration: 3000 });
+                            _this.router.navigateByUrl(_this.tendoo.auth.intented || '/dashboard');
+                        }, function (error) {
+                            observer.next(true);
+                            observer.complete();
+                        });
+                    }
+                    else {
+                        observer.next(true);
+                        observer.complete();
+                    }
+                }
+            });
         });
     };
     QuickAuthenticationGuard = __decorate([
@@ -5848,7 +5937,8 @@ var QuickAuthenticationGuard = /** @class */ (function () {
         __metadata("design:paramtypes", [ngx_cookie_service__WEBPACK_IMPORTED_MODULE_3__["CookieService"],
             _services_tendoo_service__WEBPACK_IMPORTED_MODULE_4__["TendooService"],
             _angular_material__WEBPACK_IMPORTED_MODULE_5__["MatSnackBar"],
-            _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]])
+            _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"],
+            _check_app_installed_guard__WEBPACK_IMPORTED_MODULE_6__["PreventAppNotInstalledGuard"]])
     ], QuickAuthenticationGuard);
     return QuickAuthenticationGuard;
 }());
@@ -7701,7 +7791,7 @@ var TendooService = /** @class */ (function (_super) {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".dialog-text {\r\n    text-align: center;\r\n}\r\n:host {\r\n    width: 100%;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvc2hhcmVkL2NvbmZpcm0tZGlhbG9nL2NvbmZpcm0tZGlhbG9nLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSxtQkFBbUI7Q0FDdEI7QUFDRDtJQUNJLFlBQVk7Q0FDZiIsImZpbGUiOiJzcmMvYXBwL3NoYXJlZC9jb25maXJtLWRpYWxvZy9jb25maXJtLWRpYWxvZy5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLmRpYWxvZy10ZXh0IHtcclxuICAgIHRleHQtYWxpZ246IGNlbnRlcjtcclxufVxyXG46aG9zdCB7XHJcbiAgICB3aWR0aDogMTAwJTtcclxufSJdfQ== */"
+module.exports = ".dialog-text {\r\n    text-align: center;\r\n}\r\n:host {\r\n    width: 100%;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvc2hhcmVkL2NvbmZpcm0tZGlhbG9nL2NvbmZpcm0tZGlhbG9nLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSxrQkFBa0I7QUFDdEI7QUFDQTtJQUNJLFdBQVc7QUFDZiIsImZpbGUiOiJzcmMvYXBwL3NoYXJlZC9jb25maXJtLWRpYWxvZy9jb25maXJtLWRpYWxvZy5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLmRpYWxvZy10ZXh0IHtcclxuICAgIHRleHQtYWxpZ246IGNlbnRlcjtcclxufVxyXG46aG9zdCB7XHJcbiAgICB3aWR0aDogMTAwJTtcclxufSJdfQ== */"
 
 /***/ }),
 
@@ -7764,11 +7854,11 @@ var ConfirmDialogComponent = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-confirm-dialog',
             template: __webpack_require__(/*! ./confirm-dialog.component.html */ "./src/app/shared/confirm-dialog/confirm-dialog.component.html"),
-            styles: [__webpack_require__(/*! ./confirm-dialog.component.css */ "./src/app/shared/confirm-dialog/confirm-dialog.component.css")],
             encapsulation: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewEncapsulation"].None,
             host: {
                 style: 'flex-direction: column; box-sizing: border-box; display: flex; height: 100%;',
-            }
+            },
+            styles: [__webpack_require__(/*! ./confirm-dialog.component.css */ "./src/app/shared/confirm-dialog/confirm-dialog.component.css")]
         }),
         __param(1, Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Inject"])(_angular_material__WEBPACK_IMPORTED_MODULE_1__["MAT_DIALOG_DATA"])),
         __metadata("design:paramtypes", [_angular_material__WEBPACK_IMPORTED_MODULE_1__["MatDialogRef"], Object, _angular_material__WEBPACK_IMPORTED_MODULE_1__["MatSnackBar"]])
@@ -7787,7 +7877,7 @@ var ConfirmDialogComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ":host {\r\n    height: 100%;\r\n}\r\n#search-field {\r\n    height: 35px;\r\n    border-radius: 5px;\r\n    border: solid 1px #DDD;\r\n    background: #FFF;\r\n    width: 100%;\r\n    font-size: 18px;\r\n    padding: 0 10px;\r\n    margin-right: 10px;\r\n    margin-left: 10px;\r\n}\r\nth.mat-header-cell, td.mat-cell {\r\n    padding: 10px;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvc2hhcmVkL2NydWQtdGFibGUvY3J1ZC10YWJsZS5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0lBQ0ksYUFBYTtDQUNoQjtBQUNEO0lBQ0ksYUFBYTtJQUNiLG1CQUFtQjtJQUNuQix1QkFBdUI7SUFDdkIsaUJBQWlCO0lBQ2pCLFlBQVk7SUFDWixnQkFBZ0I7SUFDaEIsZ0JBQWdCO0lBQ2hCLG1CQUFtQjtJQUNuQixrQkFBa0I7Q0FDckI7QUFDRDtJQUNJLGNBQWM7Q0FDakIiLCJmaWxlIjoic3JjL2FwcC9zaGFyZWQvY3J1ZC10YWJsZS9jcnVkLXRhYmxlLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyI6aG9zdCB7XHJcbiAgICBoZWlnaHQ6IDEwMCU7XHJcbn1cclxuI3NlYXJjaC1maWVsZCB7XHJcbiAgICBoZWlnaHQ6IDM1cHg7XHJcbiAgICBib3JkZXItcmFkaXVzOiA1cHg7XHJcbiAgICBib3JkZXI6IHNvbGlkIDFweCAjREREO1xyXG4gICAgYmFja2dyb3VuZDogI0ZGRjtcclxuICAgIHdpZHRoOiAxMDAlO1xyXG4gICAgZm9udC1zaXplOiAxOHB4O1xyXG4gICAgcGFkZGluZzogMCAxMHB4O1xyXG4gICAgbWFyZ2luLXJpZ2h0OiAxMHB4O1xyXG4gICAgbWFyZ2luLWxlZnQ6IDEwcHg7XHJcbn1cclxudGgubWF0LWhlYWRlci1jZWxsLCB0ZC5tYXQtY2VsbCB7XHJcbiAgICBwYWRkaW5nOiAxMHB4O1xyXG59Il19 */"
+module.exports = ":host {\r\n    height: 100%;\r\n}\r\n#search-field {\r\n    height: 35px;\r\n    border-radius: 5px;\r\n    border: solid 1px #DDD;\r\n    background: #FFF;\r\n    width: 100%;\r\n    font-size: 18px;\r\n    padding: 0 10px;\r\n    margin-right: 10px;\r\n    margin-left: 10px;\r\n}\r\nth.mat-header-cell, td.mat-cell {\r\n    padding: 10px;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvc2hhcmVkL2NydWQtdGFibGUvY3J1ZC10YWJsZS5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0lBQ0ksWUFBWTtBQUNoQjtBQUNBO0lBQ0ksWUFBWTtJQUNaLGtCQUFrQjtJQUNsQixzQkFBc0I7SUFDdEIsZ0JBQWdCO0lBQ2hCLFdBQVc7SUFDWCxlQUFlO0lBQ2YsZUFBZTtJQUNmLGtCQUFrQjtJQUNsQixpQkFBaUI7QUFDckI7QUFDQTtJQUNJLGFBQWE7QUFDakIiLCJmaWxlIjoic3JjL2FwcC9zaGFyZWQvY3J1ZC10YWJsZS9jcnVkLXRhYmxlLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyI6aG9zdCB7XHJcbiAgICBoZWlnaHQ6IDEwMCU7XHJcbn1cclxuI3NlYXJjaC1maWVsZCB7XHJcbiAgICBoZWlnaHQ6IDM1cHg7XHJcbiAgICBib3JkZXItcmFkaXVzOiA1cHg7XHJcbiAgICBib3JkZXI6IHNvbGlkIDFweCAjREREO1xyXG4gICAgYmFja2dyb3VuZDogI0ZGRjtcclxuICAgIHdpZHRoOiAxMDAlO1xyXG4gICAgZm9udC1zaXplOiAxOHB4O1xyXG4gICAgcGFkZGluZzogMCAxMHB4O1xyXG4gICAgbWFyZ2luLXJpZ2h0OiAxMHB4O1xyXG4gICAgbWFyZ2luLWxlZnQ6IDEwcHg7XHJcbn1cclxudGgubWF0LWhlYWRlci1jZWxsLCB0ZC5tYXQtY2VsbCB7XHJcbiAgICBwYWRkaW5nOiAxMHB4O1xyXG59Il19 */"
 
 /***/ }),
 
@@ -8075,7 +8165,7 @@ var CrudTableComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "mat-form-field {\r\n    margin-bottom: 10px;\r\n    width: 100%;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvc2hhcmVkL2ZpZWxkcy9maWVsZHMuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLG9CQUFvQjtJQUNwQixZQUFZO0NBQ2YiLCJmaWxlIjoic3JjL2FwcC9zaGFyZWQvZmllbGRzL2ZpZWxkcy5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsibWF0LWZvcm0tZmllbGQge1xyXG4gICAgbWFyZ2luLWJvdHRvbTogMTBweDtcclxuICAgIHdpZHRoOiAxMDAlO1xyXG59Il19 */"
+module.exports = "mat-form-field {\r\n    margin-bottom: 10px;\r\n    width: 100%;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvc2hhcmVkL2ZpZWxkcy9maWVsZHMuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLG1CQUFtQjtJQUNuQixXQUFXO0FBQ2YiLCJmaWxlIjoic3JjL2FwcC9zaGFyZWQvZmllbGRzL2ZpZWxkcy5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsibWF0LWZvcm0tZmllbGQge1xyXG4gICAgbWFyZ2luLWJvdHRvbTogMTBweDtcclxuICAgIHdpZHRoOiAxMDAlO1xyXG59Il19 */"
 
 /***/ }),
 
@@ -8161,7 +8251,7 @@ var FieldsComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ":host {\r\n    height: 100%;\r\n}\r\n.avatar-container {\r\n    border-radius: 679px;\r\n    width: 180px;\r\n    height: 180px;\r\n    overflow: hidden;\r\n    border: solid 1px #333;\r\n}\r\n.avatar-container img {\r\n    width: 250px;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvc2hhcmVkL2ZpbGUtdXBsb2FkL2ZpbGUtdXBsb2FkLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSxhQUFhO0NBQ2hCO0FBQ0Q7SUFDSSxxQkFBcUI7SUFDckIsYUFBYTtJQUNiLGNBQWM7SUFDZCxpQkFBaUI7SUFDakIsdUJBQXVCO0NBQzFCO0FBQ0Q7SUFDSSxhQUFhO0NBQ2hCIiwiZmlsZSI6InNyYy9hcHAvc2hhcmVkL2ZpbGUtdXBsb2FkL2ZpbGUtdXBsb2FkLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyI6aG9zdCB7XHJcbiAgICBoZWlnaHQ6IDEwMCU7XHJcbn1cclxuLmF2YXRhci1jb250YWluZXIge1xyXG4gICAgYm9yZGVyLXJhZGl1czogNjc5cHg7XHJcbiAgICB3aWR0aDogMTgwcHg7XHJcbiAgICBoZWlnaHQ6IDE4MHB4O1xyXG4gICAgb3ZlcmZsb3c6IGhpZGRlbjtcclxuICAgIGJvcmRlcjogc29saWQgMXB4ICMzMzM7XHJcbn1cclxuLmF2YXRhci1jb250YWluZXIgaW1nIHtcclxuICAgIHdpZHRoOiAyNTBweDtcclxufSJdfQ== */"
+module.exports = ":host {\r\n    height: 100%;\r\n}\r\n.avatar-container {\r\n    border-radius: 679px;\r\n    width: 180px;\r\n    height: 180px;\r\n    overflow: hidden;\r\n    border: solid 1px #333;\r\n}\r\n.avatar-container img {\r\n    width: 250px;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvc2hhcmVkL2ZpbGUtdXBsb2FkL2ZpbGUtdXBsb2FkLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSxZQUFZO0FBQ2hCO0FBQ0E7SUFDSSxvQkFBb0I7SUFDcEIsWUFBWTtJQUNaLGFBQWE7SUFDYixnQkFBZ0I7SUFDaEIsc0JBQXNCO0FBQzFCO0FBQ0E7SUFDSSxZQUFZO0FBQ2hCIiwiZmlsZSI6InNyYy9hcHAvc2hhcmVkL2ZpbGUtdXBsb2FkL2ZpbGUtdXBsb2FkLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyI6aG9zdCB7XHJcbiAgICBoZWlnaHQ6IDEwMCU7XHJcbn1cclxuLmF2YXRhci1jb250YWluZXIge1xyXG4gICAgYm9yZGVyLXJhZGl1czogNjc5cHg7XHJcbiAgICB3aWR0aDogMTgwcHg7XHJcbiAgICBoZWlnaHQ6IDE4MHB4O1xyXG4gICAgb3ZlcmZsb3c6IGhpZGRlbjtcclxuICAgIGJvcmRlcjogc29saWQgMXB4ICMzMzM7XHJcbn1cclxuLmF2YXRhci1jb250YWluZXIgaW1nIHtcclxuICAgIHdpZHRoOiAyNTBweDtcclxufSJdfQ== */"
 
 /***/ }),
 
@@ -8172,7 +8262,7 @@ module.exports = ":host {\r\n    height: 100%;\r\n}\r\n.avatar-container {\r\n  
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div fxFill fxLayoutAlign=\"center center\" fxLayout=\"column\" style=\"background:#333\">\n    <div fxFlex=\"300px\" style=\"width: 250px\">\n        <mat-card fxFill class=\"p-0\">\n            <mat-card-content fxFill>\n                <div fxFlex=\"auto\" fxLayout=\"column\">\n                    <div fxFlex=\"auto\" fxLayoutAlign=\"center center\">\n                        <div class=\"avatar-container\" fxLayoutAlign=\"center center\">\n                            <img src=\"assets/images/avatar-placeholder.png\" alt=\"\" srcset=\"\">\n                        </div>\n                    </div>\n                    <mat-divider [inset]=\"true\"></mat-divider>\n                    <div fxLayout=\"row\" fxFlex>\n                        <div fxFlex fxLayoutAlign=\"center center\">\n                            A text here\n                        </div>\n                        <mat-divider [vertical]=\"true\"></mat-divider>\n                        <div fxFlex fxLayoutAlign=\"center center\">\n                            A text here\n                        </div>\n                    </div>\n                    <mat-divider [inset]=\"true\"></mat-divider>\n                    <div fxLayout=\"row\" fxFlex>\n                        <div fxFlex fxLayoutAlign=\"center center\">\n                            A text here\n                        </div>\n                        <mat-divider [vertical]=\"true\"></mat-divider>\n                        <div fxFlex fxLayoutAlign=\"center center\">\n                            A text here\n                        </div>\n                    </div>\n                </div>\n            </mat-card-content>\n        </mat-card>\n    </div>\n</div>"
+module.exports = "<div fxFill fxLayoutAlign=\"center center\" fxLayout=\"column\" style=\"background:#333\">\r\n    <div fxFlex=\"300px\" style=\"width: 250px\">\r\n        <mat-card fxFill class=\"p-0\">\r\n            <mat-card-content fxFill>\r\n                <div fxFlex=\"auto\" fxLayout=\"column\">\r\n                    <div fxFlex=\"auto\" fxLayoutAlign=\"center center\">\r\n                        <div class=\"avatar-container\" fxLayoutAlign=\"center center\">\r\n                            <img src=\"assets/images/avatar-placeholder.png\" alt=\"\" srcset=\"\">\r\n                        </div>\r\n                    </div>\r\n                    <mat-divider [inset]=\"true\"></mat-divider>\r\n                    <div fxLayout=\"row\" fxFlex>\r\n                        <div fxFlex fxLayoutAlign=\"center center\">\r\n                            A text here\r\n                        </div>\r\n                        <mat-divider [vertical]=\"true\"></mat-divider>\r\n                        <div fxFlex fxLayoutAlign=\"center center\">\r\n                            A text here\r\n                        </div>\r\n                    </div>\r\n                    <mat-divider [inset]=\"true\"></mat-divider>\r\n                    <div fxLayout=\"row\" fxFlex>\r\n                        <div fxFlex fxLayoutAlign=\"center center\">\r\n                            A text here\r\n                        </div>\r\n                        <mat-divider [vertical]=\"true\"></mat-divider>\r\n                        <div fxFlex fxLayoutAlign=\"center center\">\r\n                            A text here\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </mat-card-content>\r\n        </mat-card>\r\n    </div>\r\n</div>"
 
 /***/ }),
 
@@ -8232,7 +8322,7 @@ var FileUploadComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "mat-list-item div > div > i {\r\n    margin-right: 16px;\r\n}\r\nmat-nav-list {\r\n    padding-top: 0;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvc2hhcmVkL21lbnUtbGlzdC9tZW51LWxpc3QuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLG1CQUFtQjtDQUN0QjtBQUNEO0lBQ0ksZUFBZTtDQUNsQiIsImZpbGUiOiJzcmMvYXBwL3NoYXJlZC9tZW51LWxpc3QvbWVudS1saXN0LmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyJtYXQtbGlzdC1pdGVtIGRpdiA+IGRpdiA+IGkge1xyXG4gICAgbWFyZ2luLXJpZ2h0OiAxNnB4O1xyXG59XHJcbm1hdC1uYXYtbGlzdCB7XHJcbiAgICBwYWRkaW5nLXRvcDogMDtcclxufSJdfQ== */"
+module.exports = "mat-list-item div > div > i {\r\n    margin-right: 16px;\r\n}\r\nmat-nav-list {\r\n    padding-top: 0;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvc2hhcmVkL21lbnUtbGlzdC9tZW51LWxpc3QuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLGtCQUFrQjtBQUN0QjtBQUNBO0lBQ0ksY0FBYztBQUNsQiIsImZpbGUiOiJzcmMvYXBwL3NoYXJlZC9tZW51LWxpc3QvbWVudS1saXN0LmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyJtYXQtbGlzdC1pdGVtIGRpdiA+IGRpdiA+IGkge1xyXG4gICAgbWFyZ2luLXJpZ2h0OiAxNnB4O1xyXG59XHJcbm1hdC1uYXYtbGlzdCB7XHJcbiAgICBwYWRkaW5nLXRvcDogMDtcclxufSJdfQ== */"
 
 /***/ }),
 
@@ -8243,7 +8333,7 @@ module.exports = "mat-list-item div > div > i {\r\n    margin-right: 16px;\r\n}\
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<mat-nav-list>\n\t<ng-container *ngFor=\"let menu of sidebarMenus; index as index\">\n\t\t<div *ngIf=\"menu.childrens?.length > 0\" matLine href=\"javascript:void(0)\" (click)=\"toggle( index )\">\n\t\t\t<mat-list-item>\n\t\t\t\t<div fxLayout=\"row\" fxLayoutAlign=\"space-around center\" fxFill>\n\t\t\t\t\t<div fxFlex=\"auto\" fxLayout=\"row\" fxLayoutAlign=\"start center\">\n\t\t\t\t\t\t<i class=\"material-icons\">{{ menu.icon ? menu.icon : 'star' }}</i>\n\t\t\t\t\t\t<span>{{ menu.text }}</span>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div fxFlex=\"24px\">\n\t\t\t\t\t\t<i *ngIf=\"menu.open\"class=\"material-icons\">arrow_drop_up</i>\n\t\t\t\t\t\t<i *ngIf=\"! menu.open\" class=\"material-icons\">arrow_drop_down</i>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t</mat-list-item>\n\t\t\t<app-sub-menu-list (navigate)=\"navigate.emit( $event )\" *ngIf=\"menu.childrens?.length > 0 && menu.open\" [childrens]=\"menu.childrens\"></app-sub-menu-list>\n\t\t</div>\n\t\t<a *ngIf=\"! menu.childrens\" matLine (click)=\"goTo( menu )\">\n\t\t\t<mat-list-item >\n\t\t\t\t<div fxLayout=\"row\" fxLayoutAlign=\"space-around center\" class=\"w-100\">\n\t\t\t\t\t<div fxFlex=\"auto\" fxLayout=\"row\" fxLayoutAlign=\"start center\">\n\t\t\t\t\t\t<i class=\"material-icons\">{{ menu.icon ? menu.icon : 'star' }}</i>\n\t\t\t\t\t\t<span>{{ menu.text }}</span>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t</mat-list-item>\n\t\t</a>\n\t</ng-container>\n</mat-nav-list>"
+module.exports = "<mat-nav-list>\r\n\t<ng-container *ngFor=\"let menu of sidebarMenus; index as index\">\r\n\t\t<div *ngIf=\"menu.childrens?.length > 0\" matLine href=\"javascript:void(0)\" (click)=\"toggle( index )\">\r\n\t\t\t<mat-list-item>\r\n\t\t\t\t<div fxLayout=\"row\" fxLayoutAlign=\"space-around center\" fxFill>\r\n\t\t\t\t\t<div fxFlex=\"auto\" fxLayout=\"row\" fxLayoutAlign=\"start center\">\r\n\t\t\t\t\t\t<i class=\"material-icons\">{{ menu.icon ? menu.icon : 'star' }}</i>\r\n\t\t\t\t\t\t<span>{{ menu.text }}</span>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t\t<div fxFlex=\"24px\">\r\n\t\t\t\t\t\t<i *ngIf=\"menu.open\"class=\"material-icons\">arrow_drop_up</i>\r\n\t\t\t\t\t\t<i *ngIf=\"! menu.open\" class=\"material-icons\">arrow_drop_down</i>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t</mat-list-item>\r\n\t\t\t<app-sub-menu-list (navigate)=\"navigate.emit( $event )\" *ngIf=\"menu.childrens?.length > 0 && menu.open\" [childrens]=\"menu.childrens\"></app-sub-menu-list>\r\n\t\t</div>\r\n\t\t<a *ngIf=\"! menu.childrens\" matLine (click)=\"goTo( menu )\">\r\n\t\t\t<mat-list-item >\r\n\t\t\t\t<div fxLayout=\"row\" fxLayoutAlign=\"space-around center\" class=\"w-100\">\r\n\t\t\t\t\t<div fxFlex=\"auto\" fxLayout=\"row\" fxLayoutAlign=\"start center\">\r\n\t\t\t\t\t\t<i class=\"material-icons\">{{ menu.icon ? menu.icon : 'star' }}</i>\r\n\t\t\t\t\t\t<span>{{ menu.text }}</span>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t</mat-list-item>\r\n\t\t</a>\r\n\t</ng-container>\r\n</mat-nav-list>"
 
 /***/ }),
 
@@ -8341,7 +8431,7 @@ var MenuListComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "mat-nav-list {\r\n    background: rgba(233, 233, 233, 0.5);\r\n    border-top: solid 1px #e0e0e0;\r\n    border-bottom: solid 1px #e0e0e0;\r\n}\r\n\r\nmat-list-item span {\r\n    padding-left: 40px;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvc2hhcmVkL3N1Yi1tZW51LWxpc3Qvc3ViLW1lbnUtbGlzdC5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0lBQ0kscUNBQXFDO0lBQ3JDLDhCQUE4QjtJQUM5QixpQ0FBaUM7Q0FDcEM7O0FBRUQ7SUFDSSxtQkFBbUI7Q0FDdEIiLCJmaWxlIjoic3JjL2FwcC9zaGFyZWQvc3ViLW1lbnUtbGlzdC9zdWItbWVudS1saXN0LmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyJtYXQtbmF2LWxpc3Qge1xyXG4gICAgYmFja2dyb3VuZDogcmdiYSgyMzMsIDIzMywgMjMzLCAwLjUpO1xyXG4gICAgYm9yZGVyLXRvcDogc29saWQgMXB4ICNlMGUwZTA7XHJcbiAgICBib3JkZXItYm90dG9tOiBzb2xpZCAxcHggI2UwZTBlMDtcclxufVxyXG5cclxubWF0LWxpc3QtaXRlbSBzcGFuIHtcclxuICAgIHBhZGRpbmctbGVmdDogNDBweDtcclxufSJdfQ== */"
+module.exports = "mat-nav-list {\r\n    background: rgba(233, 233, 233, 0.5);\r\n    border-top: solid 1px #e0e0e0;\r\n    border-bottom: solid 1px #e0e0e0;\r\n}\r\n\r\nmat-list-item span {\r\n    padding-left: 40px;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvc2hhcmVkL3N1Yi1tZW51LWxpc3Qvc3ViLW1lbnUtbGlzdC5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0lBQ0ksb0NBQW9DO0lBQ3BDLDZCQUE2QjtJQUM3QixnQ0FBZ0M7QUFDcEM7O0FBRUE7SUFDSSxrQkFBa0I7QUFDdEIiLCJmaWxlIjoic3JjL2FwcC9zaGFyZWQvc3ViLW1lbnUtbGlzdC9zdWItbWVudS1saXN0LmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyJtYXQtbmF2LWxpc3Qge1xyXG4gICAgYmFja2dyb3VuZDogcmdiYSgyMzMsIDIzMywgMjMzLCAwLjUpO1xyXG4gICAgYm9yZGVyLXRvcDogc29saWQgMXB4ICNlMGUwZTA7XHJcbiAgICBib3JkZXItYm90dG9tOiBzb2xpZCAxcHggI2UwZTBlMDtcclxufVxyXG5cclxubWF0LWxpc3QtaXRlbSBzcGFuIHtcclxuICAgIHBhZGRpbmctbGVmdDogNDBweDtcclxufSJdfQ== */"
 
 /***/ }),
 
@@ -8352,7 +8442,7 @@ module.exports = "mat-nav-list {\r\n    background: rgba(233, 233, 233, 0.5);\r\
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<mat-nav-list class=\"pt-0\">\n\t<a *ngFor=\"let menu of subMenus\" matLine (click)=\"goTo( menu )\">\n\t\t<mat-list-item >\n\t\t\t<span>{{ menu.text }}</span>\n\t\t</mat-list-item>\n\t</a>\n</mat-nav-list>"
+module.exports = "<mat-nav-list class=\"pt-0\">\r\n\t<a *ngFor=\"let menu of subMenus\" matLine (click)=\"goTo( menu )\">\r\n\t\t<mat-list-item >\r\n\t\t\t<span>{{ menu.text }}</span>\r\n\t\t</mat-list-item>\r\n\t</a>\r\n</mat-nav-list>"
 
 /***/ }),
 
@@ -8642,12 +8732,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var src_app_guards_quick_authentication_guard__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! src/app/guards/quick-authentication.guard */ "./src/app/guards/quick-authentication.guard.ts");
 /* harmony import */ var src_app_components_dashboard_profile_apps_profile_apps_component__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! src/app/components/dashboard/profile-apps/profile-apps.component */ "./src/app/components/dashboard/profile-apps/profile-apps.component.ts");
 /* harmony import */ var src_app_shared_file_upload_file_upload_component__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! src/app/shared/file-upload/file-upload.component */ "./src/app/shared/file-upload/file-upload.component.ts");
+/* harmony import */ var src_app_components_error_error_component__WEBPACK_IMPORTED_MODULE_39__ = __webpack_require__(/*! src/app/components/error/error.component */ "./src/app/components/error/error.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -8810,6 +8902,12 @@ var RoutesModule = /** @class */ (function () {
                                 component: src_app_components_dashboard_not_found_not_found_component__WEBPACK_IMPORTED_MODULE_25__["NotFoundComponent"]
                             }
                         ]
+                    }, {
+                        path: 'error/:code',
+                        component: src_app_components_error_error_component__WEBPACK_IMPORTED_MODULE_39__["ErrorComponent"]
+                    }, {
+                        path: 'error',
+                        component: src_app_components_error_error_component__WEBPACK_IMPORTED_MODULE_39__["ErrorComponent"]
                     }
                 ], {
                     enableTracing: false
@@ -8831,7 +8929,7 @@ var RoutesModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! D:\public_html\cms\src\public\tendoo-setup\src\main.ts */"./src/main.ts");
+module.exports = __webpack_require__(/*! D:\xampp\htdocs\packages\tendoo\cms\src\public\tendoo-setup\src\main.ts */"./src/main.ts");
 
 
 /***/ })

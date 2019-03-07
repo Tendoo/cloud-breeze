@@ -25,6 +25,7 @@ export class PreventAppNotInstalledGuard implements CanActivate {
                                 this.router.navigateByUrl( 'do-setup' );
                             }
                         });
+                        this.router.navigateByUrl( `error/${result.status}` );
                         return resolve( false );
                     }
                     return resolve( true );
@@ -32,6 +33,8 @@ export class PreventAppNotInstalledGuard implements CanActivate {
                     this.snackbar.open( result.error.message || 'An unexpected error occured while checking the application status', null, {
                         duration: 3000
                     });
+                    this.router.navigateByUrl( 'error' );
+                    resolve( false );
                 })
             })
         }

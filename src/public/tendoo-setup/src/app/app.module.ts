@@ -54,6 +54,7 @@ import { ProfileAppsComponent } from './components/dashboard/profile-apps/profil
 import { DroppableDirective } from './directives/droppable.directive';
 import { FileUploadComponent } from './shared/file-upload/file-upload.component';
 import { TruncateMiddlePipe } from './pipes/truncate-middle.pipe';
+import { ErrorComponent } from './components/error/error.component';
 
 @NgModule({
     declarations: [
@@ -97,6 +98,7 @@ import { TruncateMiddlePipe } from './pipes/truncate-middle.pipe';
         DroppableDirective,
         FileUploadComponent,
         TruncateMiddlePipe,
+        ErrorComponent,
     ],
     imports: [
         BrowserModule,

@@ -38,6 +38,7 @@ import { OauthComponent } from "src/app/components/auth/oauth/oauth.component";
 import { QuickAuthenticationGuard } from "src/app/guards/quick-authentication.guard";
 import { ProfileAppsComponent } from "src/app/components/dashboard/profile-apps/profile-apps.component";
 import { FileUploadComponent } from "src/app/shared/file-upload/file-upload.component";
+import { ErrorComponent } from "src/app/components/error/error.component";
 
 @NgModule({
     imports: [
@@ -92,7 +93,7 @@ import { FileUploadComponent } from "src/app/shared/file-upload/file-upload.comp
             }, {
                 path: 'dashboard',
                 component: DashboardComponent,
-                canActivate: [ PreventAppNotInstalledGuard, QuickAuthenticationGuard ],
+                canActivate: [ QuickAuthenticationGuard ], // 
                 children: [
                     {
                         path: '',
@@ -159,6 +160,12 @@ import { FileUploadComponent } from "src/app/shared/file-upload/file-upload.comp
                         component: NotFoundComponent
                     }
                 ]
+            }, {
+                path: 'error/:code',
+                component: ErrorComponent
+            }, {
+                path: 'error',
+                component: ErrorComponent
             }
         ], {
             enableTracing: false
