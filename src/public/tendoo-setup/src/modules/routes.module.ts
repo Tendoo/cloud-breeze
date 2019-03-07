@@ -46,9 +46,7 @@ import { ErrorComponent } from "src/app/components/error/error.component";
             {
                 path: '',
                 redirectTo: 'auth/login',
-                // redirectTo: 'test',
                 pathMatch: 'full',
-                // component: HomeComponent
             }, {
                 path: 'test',
                 component: FileUploadComponent
