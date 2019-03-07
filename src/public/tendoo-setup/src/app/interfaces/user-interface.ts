@@ -6,4 +6,5 @@ export interface User {
     role_id: number;
     updated_at: string;
     username: string;
+    role: any;
 }

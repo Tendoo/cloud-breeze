@@ -18,7 +18,7 @@ import * as moment from 'moment';
 export class LoginComponent implements OnInit {
     fields: Field[]     =   [];
     loginForm: FormGroup;
-    fromRegistration: string;
+    notice: string;
 
     constructor(
         public tendoo: TendooService,
@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
     ngOnInit() {
 
         this.routeSnapshot.queryParamMap.subscribe( query => {
-            this.fromRegistration   =   query.get( 'notice' );
+            this.notice   =   query.get( 'notice' );
         });
 
         this.fields     =   [
@@ -47,6 +47,10 @@ export class LoginComponent implements OnInit {
                 name: 'password',
                 type: 'password',
                 description: 'Only you knows what is the password',
+            }, {
+                label: 'Keep me in',
+                name: 'keep_me_in',
+                type: 'switch'
             }
         ];
 
@@ -70,8 +74,16 @@ export class LoginComponent implements OnInit {
              * each outgoing request
              */
             this.tendoo.auth.setCredentials( result.user, result.token );
-            const now   =   moment.now();
-            this.cookie.set( 'auth.user', result.token, moment( now ).add( 7, 'days' ).toDate(), '/' );
+
+            /**
+             * keep the user signed only if he 
+             * has explicitely requested that.
+             */
+            if ( this.loginForm.get( 'keep_me_in' ).value ) {
+                const now   =   moment.now();
+                this.cookie.set( 'auth.user', result.token, moment( now ).add( 7, 'days' ).toDate(), '/' );
+            }
+
             this.snackbar.open( result.message, null, {
                 duration: 3000
             });

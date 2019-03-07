@@ -43,7 +43,7 @@ export class UsersEditComponent implements OnInit {
         })
     }
     
-    submit( shouldReturn: boolean ) {
+    submit( shouldReturn: boolean = null ) {
         ValidationGenerator.touchAllFields( this.form );
 
         if ( ! this.form.valid ) {

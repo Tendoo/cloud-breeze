@@ -1,7 +1,7 @@
 import { FormControl, FormGroup } from "@angular/forms";
 
 export interface Field {
-    type: 'text' | 'textarea' | 'email' | 'file' | 'number' | 'datetime' | 'hidden' | 'select' | 'multiple_select' | 'password' | 'button';
+    type: 'text' | 'textarea' | 'email' | 'file' | 'number' | 'datetime' | 'hidden' | 'select' | 'multiple_select' | 'password' | 'button' | 'switch';
     name: string;
     label:string;
     value?: string | number | FieldOption;

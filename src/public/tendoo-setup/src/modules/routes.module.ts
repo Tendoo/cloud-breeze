@@ -91,73 +91,77 @@ import { ErrorComponent } from "src/app/components/error/error.component";
             }, {
                 path: 'dashboard',
                 component: DashboardComponent,
-                canActivate: [ QuickAuthenticationGuard ], // 
-                children: [
-                    {
-                        path: '',
-                        component: DashboardHomeComponent
-                    }, {
-                        path: 'users',
-                        component: UsersComponent
-                    }, {
-                        path: 'users/edit/:id',
-                        component: UsersEditComponent
-                    }, {
-                        path: 'users/create',
-                        component: UsersCreateComponent
-                    }, {
-                        path: 'profile',
-                        component: ProfileComponent
-                    }, {
-                        path: 'profile/apps',
-                        component: ProfileAppsComponent
-                    }, {
-                        path: 'modules',
-                        component: ModulesComponent
-                    }, {
-                        path: 'modules/details/:namespace',
-                        component: ModulesDetailsComponent
-                    }, {
-                        path: 'modules/upload',
-                        component: ModulesUploadComponent
-                    }, {
-                        path: 'settings',
-                        component: SettingsComponent
-                    }, {
-                        path: 'medias/page/:page',
-                        component: MediasComponent
-                    }, {
-                        path: 'medias/upload',
-                        component: MediasUploadComponent
-                    }, {
-                        path: 'medias/details/:id',
-                        component: MediasDetailsComponent
-                    }, {
-                        path: 'crud/:namespace',
-                        component: CrudComponent,
-                        canActivate: [
-                            CrudListGuard
-                        ]
-                    }, {
-                        path: 'crud/:namespace/create',
-                        component: CrudCreateComponent,
-                        canActivate: [
-                            CrudCreateGuard
-                        ]
-                    }, {
-                        path: 'crud/:namespace/edit/:id',
-                        component: CrudEditComponent,
-                        canActivate: [
-                            CrudEditGuard
-                        ]
-                    }, {
-                        path: 'access-denied',
-                        component: AccessDeniedComponent
-                    }, {
-                        path: '**',
-                        component: NotFoundComponent
-                    }
-                ]
+                canActivate: [ PreventAppNotInstalledGuard ],
+                children: [{
+                    path: '',
+                    canActivate: [ QuickAuthenticationGuard, RequireLoggedGuard ], // 
+                    children: [
+                        {
+                            path: '',
+                            component: DashboardHomeComponent
+                        }, {
+                            path: 'users',
+                            component: UsersComponent
+                        }, {
+                            path: 'users/edit/:id',
+                            component: UsersEditComponent
+                        }, {
+                            path: 'users/create',
+                            component: UsersCreateComponent
+                        }, {
+                            path: 'profile',
+                            component: ProfileComponent
+                        }, {
+                            path: 'profile/apps',
+                            component: ProfileAppsComponent
+                        }, {
+                            path: 'modules',
+                            component: ModulesComponent
+                        }, {
+                            path: 'modules/details/:namespace',
+                            component: ModulesDetailsComponent
+                        }, {
+                            path: 'modules/upload',
+                            component: ModulesUploadComponent
+                        }, {
+                            path: 'settings',
+                            component: SettingsComponent
+                        }, {
+                            path: 'medias/page/:page',
+                            component: MediasComponent
+                        }, {
+                            path: 'medias/upload',
+                            component: MediasUploadComponent
+                        }, {
+                            path: 'medias/details/:id',
+                            component: MediasDetailsComponent
+                        }, {
+                            path: 'crud/:namespace',
+                            component: CrudComponent,
+                            canActivate: [
+                                CrudListGuard
+                            ]
+                        }, {
+                            path: 'crud/:namespace/create',
+                            component: CrudCreateComponent,
+                            canActivate: [
+                                CrudCreateGuard
+                            ]
+                        }, {
+                            path: 'crud/:namespace/edit/:id',
+                            component: CrudEditComponent,
+                            canActivate: [
+                                CrudEditGuard
+                            ]
+                        }, {
+                            path: 'access-denied',
+                            component: AccessDeniedComponent
+                        }, {
+                            path: '**',
+                            component: NotFoundComponent
+                        }
+                    ]
+                }]
             }, {
                 path: 'error/:code',
                 component: ErrorComponent
