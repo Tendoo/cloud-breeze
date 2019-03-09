@@ -24,6 +24,14 @@ class HomeController extends Controller
         if ( $helper->AppIsInstalled() ) {
             return [
                 'status'    =>  'installed',
+                'migrations' =>  [
+                    'system'    => [],
+                    'modules'   => []
+                ],
+                'localisation'  => [
+                    'eng'   => [],
+                    'fr'    => []
+                ],
                 'message'   =>  __( 'Tendoo is installed.' )
             ];
         } else {
