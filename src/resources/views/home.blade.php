@@ -37,7 +37,7 @@
     <script type="text/javascript" src="{{ asset( 'tendoo/tendoo-setup/vendor.js' ) }}"></script>
     <script type="text/javascript" src="{{ asset( 'tendoo/tendoo-setup/runtime.js' ) }}"></script>
     <script type="text/javascript" src="{{ asset( 'tendoo/tendoo-setup/polyfills.js' ) }}"></script>
-    <script type="text/javascript" src="{{ asset( 'tendoo/tendoo-setup/styles.js' ) }}"></script>
+    <script type="text/javascript" src="{{ asset( 'tendoo/tendoo-setup/styles.css' ) }}"></script>
     <script type="text/javascript" src="{{ asset( 'tendoo/tendoo-setup/main.js' ) }}"></script>
 </body>
 
