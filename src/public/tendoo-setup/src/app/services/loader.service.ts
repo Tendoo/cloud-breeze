@@ -14,7 +14,7 @@ export class LoaderService {
     bulkDeletePath;
     isLoading           =   false;
     baseUrl             =   tendoo.base_url; 
-    angularAssetsUrl    =   tendoo.angular_assets_url;
+    angularUrl          =   tendoo.angular_url;
     static headers      =   {};
 
     constructor(

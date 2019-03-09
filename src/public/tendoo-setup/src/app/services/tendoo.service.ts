@@ -63,6 +63,6 @@ export class TendooService extends LoaderService {
      * @return string
      */
     getAsset( assetUrl ) {
-        return this.angularAssetsUrl + assetUrl;
+        return this.angularUrl + assetUrl;
     }
 }
