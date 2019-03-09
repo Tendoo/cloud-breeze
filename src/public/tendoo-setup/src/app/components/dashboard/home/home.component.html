@@ -7,7 +7,7 @@
                     <div fxFlex="auto" fxLayout="column">
                         <div fxFlex="auto" fxLayoutAlign="center center" fxLayout="column">
                             <div class="avatar-container" fxLayoutAlign="center center">
-                                <img src="assets/images/avatar-placeholder.png" alt="" srcset="">
+                                <img [src]="tendoo.getAsset( 'assets/images/avatar-placeholder.png' )" alt="" srcset="">
                             </div>
                             <h1 class="mat-h1 mt-2 mb-0">{{ tendoo.auth.getUser().username | titlecase }}</h1>
                         </div>

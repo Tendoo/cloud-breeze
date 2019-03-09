@@ -32,7 +32,7 @@
     <script>
         const tendoo    =   {
             base_url                :   '{{ url("/") }}/',
-            angular_url             :   `{{  asset( 'tendoo/tendoo-setup/assets' ) }}/`
+            angular_url             :   `{{  asset( 'tendoo/tendoo-setup' ) }}/`
         }
     </script>
     <script type="text/javascript" src="{{ asset( 'tendoo/tendoo-setup/vendor.js' ) }}"></script>
