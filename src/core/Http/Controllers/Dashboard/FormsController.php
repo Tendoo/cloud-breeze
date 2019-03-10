@@ -60,6 +60,9 @@ class FormsController extends DashboardController
             case 'dashboard.settings.email': 
                 return Field::emailSettingsFields();
             break;
+            case 'dashboard.settings.recaptcha': 
+                return Field::recaptchaFields();
+            break;
         }
     }
 

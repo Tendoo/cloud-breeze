@@ -66,7 +66,7 @@ export class SettingsComponent implements OnInit {
                 });
             }, (result: HttpErrorResponse) => {
                 ValidationGenerator.enableFields( this.activeTab.fields );
-                this.snackbar.open( result.error.message );
+                this.snackbar.open( result.error.message, 'CLOSE' );
             }
         );
     }

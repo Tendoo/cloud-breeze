@@ -2,6 +2,7 @@
 namespace Tendoo\Core\Services\Fields;
 use Tendoo\Core\Models\Role;
 use Tendoo\Core\Services\Helper;
+use Tendoo\Core\Services\Options;
 use Tendoo\Core\Facades\Field;
 
 trait GeneralSettingsFields
@@ -328,10 +329,12 @@ trait GeneralSettingsFields
 
     public static function recaptchaFields()
     {
+        $options                                    =   app()->make( Options::class );
+
         $enableRecaptcha                            =   new \stdClass;
         $enableRecaptcha->name                      =   'enable_recaptcha';
         $enableRecaptcha->type                      =   'switch';
-        $enableRecaptcha->label                      =   __( 'Enable Recaptcha' );
+        $enableRecaptcha->label                     =   __( 'Enable Recaptcha' );
         $enableRecaptcha->value                     =   $options->get( $enableRecaptcha->name );
         $enableRecaptcha->description               =   __( 'Helps you to protect your login and registration page from spams' );
         $enableRecaptcha->options                   =   Helper::booleanToggle();
