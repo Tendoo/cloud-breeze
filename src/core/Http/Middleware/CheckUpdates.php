@@ -17,7 +17,7 @@ class CheckUpdates
              * version as described on the files
              */
             if ( $options->get( 'db_version' ) != config( 'tendoo.db_version' ) ) {
-                return redirect( route( 'update.database' ) );
+                throw new ShouldUpdateDatabaseException;
             }
 
             /**
@@ -26,7 +26,7 @@ class CheckUpdates
              * but it might include publishing assets.
              */
             if ( $options->get( 'assets_version' ) != config( 'tendoo.assets_version' ) ) {
-                return redirect( route( 'update.files' ) );
+                throw new SHouldUpdateAssetsException;
             }
         }
         return $next( $request );

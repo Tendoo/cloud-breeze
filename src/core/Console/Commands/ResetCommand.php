@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Cookie;
 use Jackiedo\DotenvEditor\Facades\DotenvEditor;
 use Tendoo\Core\Services\Helper;
 use Tendoo\Core\Facades\Hook;
+use Tendoo\Core\Services\Modules;
 
 class ResetCommand extends Command
 {
@@ -18,7 +19,7 @@ class ResetCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'reset';
+    protected $signature = 'tendoo:reset';
 
     /**
      * The console command description.
@@ -58,11 +59,26 @@ class ResetCommand extends Command
              * @hook tendoo.reset
              */
             Hook::action( 'tendoo.reset' );
-            // reset migration
+
+            /**
+             * run internal drop methods
+             * to uninstall the application
+             */
             Artisan::call( 'migrate:reset' );
             Artisan::call( 'config:clear' );
             Artisan::call( 'cache:clear' );
             Artisan::call( 'view:clear' );
+
+            /**
+             * remove modules migrations
+             * retreive the installed module.
+             */
+            $moduleServices     =   app()->make( Modules::class );
+            $modules            =   $moduleServices->get();
+
+            foreach( $modules as $module ) {
+                $moduleServices->dropAllMigrations( $module[ 'namespace' ] );
+            }
 
             /**
              * Delete Environment Keys

@@ -31,6 +31,7 @@ Route::middleware([ 'tendoo.cors', 'tendoo.prevent.flood', 'tendoo.prevent.insta
     include_once( dirname( __FILE__ ) . '/api-routes/setup.php' );
 });
 
-Route::get( 'tendoo/ping', 'HomeController@ping' )->middleware([
-    'tendoo.cors',
-]);
+Route::middleware([ 'tendoo.cors' ])->group( function() {
+    Route::get( 'tendoo/ping', 'HomeController@ping' );
+    Route::get( 'tendoo/update/{action}', 'HomeController@update' );
+});

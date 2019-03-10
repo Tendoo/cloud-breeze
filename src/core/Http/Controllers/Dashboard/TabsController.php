@@ -55,6 +55,10 @@ class TabsController extends DashboardController
                 'label'     =>  __( 'Email' ),
                 'namespace' =>  'dashboard.settings.email',
                 'fields'    =>  Field::emailSettingsFields()
+            ], [
+                'label'     =>  __( 'reCaptcha' ),
+                'namespace' =>  'dashboard.settings.recaptcha',
+                'fields'    =>  Field::recaptchaFields()
             ]
         ];
     }

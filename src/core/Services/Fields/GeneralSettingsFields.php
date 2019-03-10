@@ -325,4 +325,19 @@ trait GeneralSettingsFields
             $mail_sparkpost_endpoint 
         ];
     }
+
+    public static function recaptchaFields()
+    {
+        $enableRecaptcha                            =   new \stdClass;
+        $enableRecaptcha->name                      =   'enable_recaptcha';
+        $enableRecaptcha->type                      =   'switch';
+        $enableRecaptcha->label                      =   __( 'Enable Recaptcha' );
+        $enableRecaptcha->value                     =   $options->get( $enableRecaptcha->name );
+        $enableRecaptcha->description               =   __( 'Helps you to protect your login and registration page from spams' );
+        $enableRecaptcha->options                   =   Helper::booleanToggle();
+
+        return [
+            $enableRecaptcha
+        ];
+    }
 }
