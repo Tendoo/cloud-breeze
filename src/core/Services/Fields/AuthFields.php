@@ -4,6 +4,8 @@ namespace Tendoo\Core\Services\Fields;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Event;
 use Tendoo\Core\Facades\Hook;
+use Tendoo\Core\Services\Helper;
+use Tendoo\Core\Services\Options;
 
 trait AuthFields {
 
@@ -18,6 +20,7 @@ trait AuthFields {
         $Field->type            =   'password';
         $Field->label           =   __( 'Password' );
         $Field->placeholder     =   __( 'Password' );
+        $Field->value           =   '';
         $Field->description     =   __( 'Provide your unique password.' );
         $Field->validation      =   'required|min:6';
         return $Field;
@@ -30,11 +33,10 @@ trait AuthFields {
     private static function rememberme()
     {
         $Field  =   new \StdClass;
-        $Field->name            =   'remember_me';
-        $Field->type            =   'checkbox';
-        $Field->options         =   [
-            '1'     =>  __( 'Remember Me' )
-        ];
+        $Field->name            =   'keep_me_in';
+        $Field->type            =   'switch';
+        $Field->label           =   __( 'Keep me logged' );
+        $Field->options         =   Helper::booleanToggle();
         return $Field;
     }
 
@@ -114,7 +116,7 @@ trait AuthFields {
         $Field->type            =   'text';
         $Field->label           =   __( 'Username' );
         $Field->placeholder     =   __( 'Username' );
-        $Field->description     =   __( 'Provide a unique username for your account.' );
+        $Field->descruotuib     =   __( 'Provide a unique username for your account.' );
         $Field->validation      =   'required|min:5|unique:tendoo_users';
         return $Field;
     }
@@ -131,7 +133,9 @@ trait AuthFields {
         $Field->type            =   'text';
         $Field->label           =   __( 'Username' );
         $Field->placeholder     =   __( 'Username' );
+        $Field->description     =   __( 'Provide the username used during the registration.' );
         $Field->validation      =   'required|min:5';
+        $Field->value           =   '';
         return $Field;
     }
 
@@ -141,14 +145,43 @@ trait AuthFields {
      */
     public static function login()
     {
+        $options    =   app()->make( Options::class );
+
         /**
          * @Hook:login.fields
          */
-        return Hook::filter( 'login.fields', [
+        $loginFields    =   [
             self::loginUsername(),
             self::password(),
             self::rememberme()
-        ]);
+        ];
+
+        if ( $options->get( 'enable_recaptcha' ) ) {
+
+            $recaptcha              =   self::recaptcha();
+            $loginFields[]          =   $recaptcha;
+        }
+
+        return Hook::filter( 'login.fields', $loginFields );
+    }
+
+    /**
+     * provide a recaptcha field
+     * @return Field recaptcha
+     */
+    public static function recaptcha()
+    {
+        $options                =   app()->make( Options::class );
+        $recaptcha              =   new \stdClass;
+        $recaptcha->name        =   'recaptcha';
+        $recaptcha->label       =   __( 'Recaptcha' );
+        $recaptcha->type        =   'recaptcha';
+        $recaptcha->validation  =   'required';
+        $recaptcha->data        =   [
+            'siteKey'           =>  $options->get( 'recaptcha_site_key' )
+        ];
+
+        return $recaptcha;
     }
 
     /**
@@ -163,6 +196,12 @@ trait AuthFields {
             self::password(),
             self::passwordConfirm(),
         ];
+
+        $options        =   app()->make( Options::class );
+
+        if ( $options->get( 'enable_recaptcha' ) ) {
+            $fields[]       =   self::recaptcha();
+        }
 
         /**
          * @Hook:register.fields

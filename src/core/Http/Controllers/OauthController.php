@@ -4,6 +4,7 @@ namespace Tendoo\Core\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Carbon\Carbon;
 use Exception;
 use Tendoo\Core\Services\Page;
@@ -11,6 +12,7 @@ use Tendoo\Core\Services\Oauth;
 use Tendoo\Core\Facades\Hook;
 use Tendoo\Core\Services\UserOptions;
 use Tendoo\Core\Services\AuthService;
+use Tendoo\Core\Services\Options;
 use Tendoo\Core\Models\Oauth as OauthModel;
 use Tendoo\Core\Models\Application;
 use Tendoo\Core\Models\User;
@@ -20,6 +22,7 @@ use Tendoo\Core\Exceptions\CoreException;
 use Tendoo\Core\Exceptions\WrongCredentialException;
 use Tendoo\Core\Exceptions\WrongOauthScopeException;
 use Tendoo\Core\Http\Requests\PostRegisterRequest;
+use Tendoo\Core\Facades\Curl;
 
 class OauthController extends BaseController
 {
@@ -63,6 +66,38 @@ class OauthController extends BaseController
 
     public function postLogin( Request $request )
     {
+        /**
+         * let's check if the reCaptcha is enabled
+         * and if the token provide is valid
+         */
+        $options    =   app()->make( Options::class );
+
+        if ( $options->get( 'enable_recaptcha' ) ) {
+            $result     =   Curl::to( 'https://www.google.com/recaptcha/api/siteverify' )
+                ->withData([ 
+                    'secret'    =>  $options->get( 'recaptcha_site_secret' ),
+                    'response'  =>  $request->input( 'recaptcha' ),
+                    'ip'        =>  $request->ip()
+                ])
+                ->withContentType( 'application/x-www-form-urlencoded' )
+                ->asJsonResponse()
+                ->post();
+
+            Log::info( json_encode( $result ) );
+            Log::info( json_encode([ 
+                'secret'    =>  $options->get( 'recaptcha_site_secret' ),
+                'response'  =>  $request->input( 'recaptcha' ),
+                'ip'        =>  $request->ip()
+            ]) );
+
+            if ( $result->success === false ) {
+                return response()->json([
+                    'status'    =>  'failed',
+                    'message'   =>  __( 'Unable to proceed, the reCaptcha validation has failed.' )
+                ], 401 );
+            }
+        }
+
         $attempt    =   Auth::attempt( $request->only( 'username', 'password' ) );
 
         if ( $attempt ) {
@@ -221,6 +256,38 @@ class OauthController extends BaseController
                 'status'    =>  'failed',
                 'message'   =>  __( 'Unable to proceed, the registration are closed on this website' )
             ]);
+        }
+
+        /**
+         * let's check if the reCaptcha is enabled
+         * and if the token provide is valid
+         */
+        $options    =   app()->make( Options::class );
+
+        if ( $options->get( 'enable_recaptcha' ) ) {
+            $result     =   Curl::to( 'https://www.google.com/recaptcha/api/siteverify' )
+                ->withData([ 
+                    'secret'    =>  $options->get( 'recaptcha_site_secret' ),
+                    'response'  =>  $request->input( 'recaptcha' ),
+                    'ip'        =>  $request->ip()
+                ])
+                ->withContentType( 'application/x-www-form-urlencoded' )
+                ->asJsonResponse()
+                ->post();
+
+            Log::info( json_encode( $result ) );
+            Log::info( json_encode([ 
+                'secret'    =>  $options->get( 'recaptcha_site_secret' ),
+                'response'  =>  $request->input( 'recaptcha' ),
+                'ip'        =>  $request->ip()
+            ]) );
+
+            if ( $result->success === false ) {
+                return response()->json([
+                    'status'    =>  'failed',
+                    'message'   =>  __( 'Unable to proceed, the reCaptcha validation has failed.' )
+                ], 401 );
+            }
         }
 
         $this->authService->register( $request );

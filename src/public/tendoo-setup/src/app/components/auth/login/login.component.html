@@ -1,14 +1,24 @@
-<form [formGroup]="loginForm">
+<div fxFill fxLayout="column" fxLayoutAlign="center center" *ngIf="isLoading">
+    <div fxLayoutAlign="center center">
+        <img [src]="tendoo.getAsset( 'assets/images/logo.png' )" style="width: 150px" alt="" srcset="">
+    </div>
+    <div fxFill fxLayoutAlign="center center">
+        <mat-spinner mode="indeterminate" diameter="50"></mat-spinner>
+    </div>
+</div>
+<form [formGroup]="loginForm" *ngIf="loginForm">
     <div fxLayout="column" fxFlex>
         <div fxLayoutAlign="center center">
             <img [src]="tendoo.getAsset( 'assets/images/logo.png' )" style="width: 150px" alt="" srcset="">
         </div>
-        <div>
+        <div *ngIf="! isLoading">
             <mat-card color="primary">
                 <mat-card-title>Authenticating</mat-card-title>
                 <mat-card-content>
-                    <app-fields [field]="field" [group]="loginForm" *ngFor="let field of fields"></app-fields>
-                    <p *ngIf="notice === 'from-registration'" class="registration-notice">Your account has been created, but require activation, please consider checking your email to proceed with the validation.</p>
+                    <ng-container>
+                        <p *ngIf="notice === 'from-registration'" class="registration-notice m-0">Your account has been created, but require activation, please consider checking your email to proceed with the validation.</p>
+                        <app-fields [field]="field" [group]="loginForm" *ngFor="let field of fields"></app-fields>
+                    </ng-container>
                 </mat-card-content>
                 <mat-divider *ngIf="!tendoo.isLoading"></mat-divider>
                 <mat-progress-bar *ngIf="tendoo.auth.isLoading" mode="indeterminate" style="height: 1px;position: absolute;left: 0;"></mat-progress-bar>

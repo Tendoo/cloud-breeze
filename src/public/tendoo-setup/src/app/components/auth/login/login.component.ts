@@ -19,6 +19,7 @@ export class LoginComponent implements OnInit {
     fields: Field[]     =   [];
     loginForm: FormGroup;
     notice: string;
+    isLoading           =   true;
 
     constructor(
         public tendoo: TendooService,
@@ -31,31 +32,44 @@ export class LoginComponent implements OnInit {
     }
     
     ngOnInit() {
-
+        this.isLoading  =   true;
         this.routeSnapshot.queryParamMap.subscribe( query => {
             this.notice   =   query.get( 'notice' );
         });
 
-        this.fields     =   [
-            {
-                label: 'Username',
-                name: 'username',
-                type: 'text',
-                description: 'Username saved during the registration.',
-            }, {
-                label: 'Password',
-                name: 'password',
-                type: 'password',
-                description: 'Only you knows what is the password',
-            }, {
-                label: 'Keep me in',
-                name: 'keep_me_in',
-                type: 'switch'
-            }
-        ];
+        this.tendoo.fields.getPublicFields( 'auth.login' ).subscribe( ( rawFields: Field[] ) => {
+            this.isLoading  =   false;
+            this.fields     =   rawFields;
+            const fields    =   ValidationGenerator.buildFormControls( this.fields );
+            this.loginForm  =   new FormGroup( fields );
+        }, ( result ) => {
+            this.isLoading  =   false;
+            this.snackbar.open( 'Unable to load the login form.', 'TRY AGAIN' )
+                .afterDismissed()
+                .subscribe( action => {
+                    if ( action.dismissedByAction ) {
+                        this.ngOnInit();
+                    }
+                })
+        })
 
-        const fields    =   ValidationGenerator.buildFormControls( this.fields );
-        this.loginForm  =   new FormGroup( fields );
+        // this.fields     =   [
+        //     {
+        //         label: 'Username',
+        //         name: 'username',
+        //         type: 'text',
+        //         description: 'Username saved during the registration.',
+        //     }, {
+        //         label: 'Password',
+        //         name: 'password',
+        //         type: 'password',
+        //         description: 'Only you knows what is the password',
+        //     }, {
+        //         label: 'Keep me in',
+        //         name: 'keep_me_in',
+        //         type: 'switch'
+        //     }
+        // ];
     }
 
     login() {

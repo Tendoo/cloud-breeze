@@ -5,6 +5,8 @@ namespace Tendoo\Core\Console\Commands;
 use Illuminate\Console\Command;
 use Tendoo\Core\Services\Options;
 use Tendoo\Core\Services\OptionWrapper;
+use Tendoo\Core\Models\Option;
+
 
 class OptionGet extends Command
 {
@@ -13,7 +15,7 @@ class OptionGet extends Command
      *
      * @var string
      */
-    protected $signature = 'option:get {key?}';
+    protected $signature = 'option:get {key?} {--full}';
 
     /**
      * The console command description.
@@ -40,45 +42,39 @@ class OptionGet extends Command
     public function handle()
     {
         $this->options  =   app()->make( Options::class );
-        
-        $headers         =   [
-            __( 'ID' ),
-            __( 'Parent' ),
-            __( 'Key' ),
-            __( 'Value' ),
-            __( 'User' ),
-            __( 'Array' ),
-        ];
 
-        $values         =   [];
         $key            =   $this->argument( 'key' );
-        $options        =   $this->options->get( $key );
-        foreach( $options as $option ) {
-            
-            if ( ! $option instanceof OptionWrapper ) {
-                $values[]   =   [
+        
+        if( $this->option( 'full' ) ) {
+            $headers         =   [
+                __( 'ID' ),
+                __( 'Key' ),
+                __( 'Value' ),
+                __( 'User' ),
+                __( 'Array' ),
+            ];
+
+            $option     =   Option::where( 'key', $key )
+                ->get();
+
+            if ( $option instanceof Option ) {
+                $values         =   [];
+                $values[]       =   [
                     $option[ 'id' ],
-                    __( 'N/A' ),
                     $option[ 'key' ],
                     $option[ 'value' ],
                     $option[ 'user_id' ],
-                    ( bool ) intval( $option[ 'array' ] ) ? __( 'Yes' ) : __( 'No' ),
                 ];
-            } else {
-                $subOptions     =   $option->get();
-                foreach ( $subOptions as $sub ) {
-                    $values[]   =   [
-                        $sub[ 'id' ],
-                        $option->getPrimaryKey(),
-                        $sub[ 'key' ],
-                        $sub[ 'value' ],
-                        $sub[ 'user_id' ],
-                        ( bool ) intval( $sub[ 'array' ] ) ? __( 'Yes' ) : __( 'No' ),
-                    ];
-                }
-            }
-        }
 
-        return $this->table( $headers, $values );
+                return $this->table( $headers, $values );
+            } else {
+                return $this->error( 'Unable to find the option with the key : "' . $key . '"' );
+            }
+    
+        } else {
+            $option         =   $this->options->get( $key );
+            return $this->line( '=> ' . $option );
+        }
+        
     }
 }

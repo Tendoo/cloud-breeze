@@ -113,6 +113,7 @@ class FormsController extends DashboardController
             case 'dashboard.settings.general':  
             case 'dashboard.settings.registration':  
             case 'dashboard.settings.email':  
+            case 'dashboard.settings.recaptcha':  
                 /**
                  * this should actually be save separately 
                  * on a specific service
@@ -120,6 +121,11 @@ class FormsController extends DashboardController
                 return $this->__saveSettings( $request );
             break;
         }
+
+        return response()->json([
+            'status'    =>  'failed',
+            'message'   =>  __( 'Unhandled POST form' )
+        ], 401 );
     }
 
     /**

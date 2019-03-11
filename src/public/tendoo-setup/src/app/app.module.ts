@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { DropzoneModule } from 'ngx-dropzone-wrapper';
 import { CookieService } from 'ngx-cookie-service';
+import { NgxCaptchaModule } from 'ngx-captcha';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -110,7 +111,8 @@ import { ErrorComponent } from './components/error/error.component';
         MaterialModule,
         RoutesModule,
         FormsModule,
-        DropzoneModule
+        DropzoneModule,
+        NgxCaptchaModule
     ],
     entryComponents: [
         ConfirmDialogComponent,

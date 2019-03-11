@@ -13,16 +13,9 @@ export class FieldsComponent implements OnInit {
 	constructor() { 
 		
 	}
-
-	/**
-	 * Check change state
-	 */
-	change() {
-		// console.log( this.field.control );
-	}
 	
 	ngOnInit() {
-		if ( [ 'text', 'email', 'select', 'password', 'textarea', 'datetime', 'number', 'multiple_select', 'button', 'switch' ].indexOf( this.field.type ) === -1 ) {
+		if ( [ 'text', 'email', 'select', 'password', 'textarea', 'datetime', 'number', 'multiple_select', 'button', 'switch', 'recaptcha' ].indexOf( this.field.type ) === -1 ) {
 			throw( `Unable to render the field '${this.field.name}' with the field type : '${this.field.type}'. This type is not supported.`);
 		}
 

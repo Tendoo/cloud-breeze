@@ -866,7 +866,7 @@ class Modules
     public function dropMigration( $namespace, $version, $file )
     {
         $module     =   $this->get( $namespace );
-        return $this->__runSingleFile( 'drop', $module, $file );
+        return $this->__runSingleFile( 'down', $module, $file );
     }
 
     /**

@@ -339,8 +339,24 @@ trait GeneralSettingsFields
         $enableRecaptcha->description               =   __( 'Helps you to protect your login and registration page from spams' );
         $enableRecaptcha->options                   =   Helper::booleanToggle();
 
+        $siteKey                                    =   new \stdClass;
+        $siteKey->name                              =   'recaptcha_site_key';
+        $siteKey->type                              =   'text';
+        $siteKey->label                             =   __( 'Site Key' );
+        $siteKey->value                             =   $options->get( $siteKey->name );
+        $siteKey->description                       =   __( 'Provide the sit0e key token to be used with the recaptcha.' );
+        
+        $siteSecret                                    =   new \stdClass;
+        $siteSecret->name                              =   'recaptcha_site_secret';
+        $siteSecret->type                              =   'text';
+        $siteSecret->label                             =   __( 'Site Secret' );
+        $siteSecret->value                             =   $options->get( $siteKey->name );
+        $siteSecret->description                       =   __( 'Provide the site secret token to be used with the recaptcha.' );
+
         return [
-            $enableRecaptcha
+            $enableRecaptcha,
+            $siteKey,
+            $siteSecret
         ];
     }
 }

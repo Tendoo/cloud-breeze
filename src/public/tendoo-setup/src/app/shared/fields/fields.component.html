@@ -121,6 +121,31 @@
 		<br>
 	</ng-container>
 
+	<!-- (reset)="handleReset()"
+	(ready)="handleReady()"
+	(load)="handleLoad()"
+	[type]="type"
+	[ngModelOptions]="{ standalone: true }"
+	[badge]="badge"
+	(success)="handleSuccess($event)"-->
+	<!-- recaptcha field -->
+	<ng-container *ngIf="[ 'recaptcha' ].includes( field.type )">
+		<ngx-recaptcha2 #captchaElem
+			[siteKey]="field.data.siteKey"
+			[useGlobalDomain]="false"
+			type="image"
+			[formControlName]="field.name">
+		</ngx-recaptcha2>
+		<mat-error *ngIf="field.control.invalid && field.control.touched">
+			<br>
+			<span *ngIf="field.control.errors.required">This field is required<br></span>
+			<span *ngIf="field.control.errors.email">This field is not a valid email<br></span>
+			<span *ngIf="field.control.errors.minlength">this field doesn't match the required length : {{field.control.errors.minlength.requiredLength }}<br></span>
+			<span *ngIf="field.control.errors.matches">this field doesn't match the field : {{ field.control.errors.matches.formControlName }}<br></span>
+			<span *ngIf="field.control.errors.number">this field require a valid number<br></span>
+			<span *ngFor="let error of field?.errors">{{ error }}<br></span>
+		</mat-error>	
+	</ng-container>
 	<!-- button -->
 	<button [type]="field.type" *ngIf="[ 'button' ].indexOf( field.type ) !== -1" (click)="field.onClick( group )" mat-raised-button color="primary">{{ field.label }}</button>
 </ng-container>
