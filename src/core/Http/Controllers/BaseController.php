@@ -54,15 +54,6 @@ class BaseController extends Controller
     }
 
     /**
-     * set title
-     * @param string page title
-     */
-    public function setTitle( $title )
-    {
-        Page::setTitle( $title );
-    }
-
-    /**
      * Check permission
      */
     public function checkPermission( $permission )
