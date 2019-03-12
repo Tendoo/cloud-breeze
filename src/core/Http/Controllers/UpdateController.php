@@ -45,26 +45,6 @@ class UpdateController extends Controller
     }
 
     /**
-     * index page
-     * @return view
-     */
-    public function index()
-    {
-        Page::setTitle( __( 'Database Update' ) );
-        return view( 'tendoo::components.frontend.update.database' );
-    }
-
-    /**
-     * Updating the files
-     * @return view
-     */
-    public function filesIndex()
-    {
-        Page::setTitle( __( 'File Update' ) );
-        return view( 'tendoo::components.frontend.update.files' );
-    }
-
-    /**
      * Post Database Update
      * @return void
      */
