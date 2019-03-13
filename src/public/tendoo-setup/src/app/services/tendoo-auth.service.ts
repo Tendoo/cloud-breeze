@@ -81,4 +81,26 @@ export class TendooAuthService extends LoaderService {
             return entry;   
         }))
     }
+
+    /**
+     * request password reset for a specific 
+     * email
+     * @param string email
+     * @return {Observable} {Observable<AsyncResponse>} observable of asyncresponse
+     */
+    requestPasswordReset( email ) {
+        return this.post( `${this.baseUrl}tendoo/auth/password-reset`, { email });
+    }
+
+    /**
+     * change password of an account, using 
+     * a provided new password and the hidden
+     * request authorization code
+     * @param string new password
+     * @param string authorizationr request
+     * @return {Observable} {Observable<AsyncResponse>} observable of asyncresponse
+     */
+    changePassword( password, authorization ) {
+        return <Observable<AsyncResponse>>this.post( `${this.baseUrl}tendoo/auth/change-password`, { password, authorization });
+    }
 }

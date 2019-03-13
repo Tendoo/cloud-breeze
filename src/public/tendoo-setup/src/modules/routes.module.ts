@@ -39,6 +39,8 @@ import { QuickAuthenticationGuard } from "src/app/guards/quick-authentication.gu
 import { ProfileAppsComponent } from "src/app/components/dashboard/profile-apps/profile-apps.component";
 import { FileUploadComponent } from "src/app/shared/file-upload/file-upload.component";
 import { ErrorComponent } from "src/app/components/error/error.component";
+import { LostPasswordComponent } from "src/app/components/auth/lost-password/lost-password.component";
+import { ChangePasswordComponent } from "src/app/components/auth/change-password/change-password.component";
 
 @NgModule({
     imports: [
@@ -82,6 +84,12 @@ import { ErrorComponent } from "src/app/components/error/error.component";
                         path: 'login',
                         canActivate: [ QuickAuthenticationGuard ],
                         component: LoginComponent
+                    }, {
+                        path: 'lost-password',
+                        component: LostPasswordComponent
+                    }, {
+                        path: 'change-password',
+                        component: ChangePasswordComponent
                     }, {
                         path: '',
                         canActivate: [ RequireLoggedGuard ],

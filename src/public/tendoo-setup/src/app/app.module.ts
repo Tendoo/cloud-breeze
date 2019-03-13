@@ -56,6 +56,8 @@ import { DroppableDirective } from './directives/droppable.directive';
 import { FileUploadComponent } from './shared/file-upload/file-upload.component';
 import { TruncateMiddlePipe } from './pipes/truncate-middle.pipe';
 import { ErrorComponent } from './components/error/error.component';
+import { LostPasswordComponent } from './components/auth/lost-password/lost-password.component';
+import { ChangePasswordComponent } from './components/auth/change-password/change-password.component';
 
 @NgModule({
     declarations: [
@@ -100,6 +102,8 @@ import { ErrorComponent } from './components/error/error.component';
         FileUploadComponent,
         TruncateMiddlePipe,
         ErrorComponent,
+        LostPasswordComponent,
+        ChangePasswordComponent,
     ],
     imports: [
         BrowserModule,
