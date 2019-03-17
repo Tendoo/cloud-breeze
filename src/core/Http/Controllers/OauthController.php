@@ -341,7 +341,7 @@ class OauthController extends BaseController
         $user   =   User::where( 'email', $request->input( 'email' ) )->first();
 
         if ( $user == null ) {
-            return redirect()->route( 'recovery.index' )->with([
+            throw new CoreException([
                 'status'    =>  'danger',
                 'message'   =>  __( 'This email is not currently in use on the system.' )
             ]);
@@ -352,7 +352,7 @@ class OauthController extends BaseController
          * otherwise we can't reset that user password
          */
         if ( ! ( bool ) intval( $user->active ) ) {
-            return redirect()->route( 'recovery.index' )->with([
+            throw new CoreException([
                 'status'    =>  'danger',
                 'message'   =>  __( 'Unable to reset a password for a non active user.' )
             ]);
