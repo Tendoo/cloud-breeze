@@ -71,39 +71,41 @@ class OauthController extends BaseController
         return $this->__oauthLogin( $request );
     }
 
-    public function postLogin( Request $request )
+    /**
+     * proceed a server side verification
+     * of a verification code submitted through
+     * reCaptcha
+     * @return void
+     */
+    private function __CheckGoogleRecaptcha()
     {
-        /**
-         * let's check if the reCaptcha is enabled
-         * and if the token provide is valid
-         */
-        $options    =   app()->make( Options::class );
-
-        if ( $options->get( 'enable_recaptcha' ) ) {
+        if ( $this->options->get( 'enable_recaptcha' ) ) {
             $result     =   Curl::to( 'https://www.google.com/recaptcha/api/siteverify' )
                 ->withData([ 
-                    'secret'    =>  $options->get( 'recaptcha_site_secret' ),
-                    'response'  =>  $request->input( 'recaptcha' ),
-                    'ip'        =>  $request->ip()
+                    'secret'    =>  $this->options->get( 'recaptcha_site_secret' ),
+                    'response'  =>  request()->input( 'recaptcha' ),
+                    'ip'        =>  request()->ip()
                 ])
                 ->withContentType( 'application/x-www-form-urlencoded' )
                 ->asJsonResponse()
                 ->post();
 
-            Log::info( json_encode( $result ) );
-            Log::info( json_encode([ 
-                'secret'    =>  $options->get( 'recaptcha_site_secret' ),
-                'response'  =>  $request->input( 'recaptcha' ),
-                'ip'        =>  $request->ip()
-            ]) );
-
             if ( $result->success === false ) {
-                return response()->json([
+                throw new CoreException([
                     'status'    =>  'failed',
                     'message'   =>  __( 'Unable to proceed, the reCaptcha validation has failed.' )
-                ], 401 );
+                ]);
             }
         }
+    }
+
+    public function postLogin( Request $request )
+    {
+        /**
+         * checking reCaptcha and throwing or
+         * not an error accordingly
+         */
+        $this->__CheckGoogleRecaptcha();
 
         $attempt    =   Auth::attempt( $request->only( 'username', 'password' ) );
 
@@ -120,7 +122,6 @@ class OauthController extends BaseController
                 )
             ) {
                 Auth::logout();
-
                 throw new AccessDeniedException( __( 'Your role is not allowed to login.' ) );
             }
 
@@ -338,6 +339,12 @@ class OauthController extends BaseController
      */
     public function passwordRecovery( RecoveryRequest $request )
     {
+        /**
+         * checking reCaptcha and throwing or
+         * not an error accordingly
+         */
+        $this->__CheckGoogleRecaptcha();
+
         $user   =   User::where( 'email', $request->input( 'email' ) )->first();
 
         if ( $user == null ) {
@@ -366,9 +373,9 @@ class OauthController extends BaseController
         $userOptions->set( 'recovery-token', $hashedCode );
         $userOptions->set( 'recovery-validity', 
             $this->date
-            ->copy()
-            ->addDay()
-            ->toDateTimeString()
+                ->copy()
+                ->addDay()
+                ->toDateTimeString()
         );
 
         Hook::action( 'before.send-recovery-email', $user, $hashedCode );
@@ -377,7 +384,7 @@ class OauthController extends BaseController
          * Sending an email which expire
          */
         Mail::to( $user->email )
-            ->queue( new PasswordReset( url()->route( 'recovery.password', [
+            ->queue( new PasswordReset( url( '/auth/change-password', [
                 'user'  =>  $user->id,
                 'code'  =>  $hashedCode
             ]), $user ) );
@@ -397,7 +404,7 @@ class OauthController extends BaseController
      */
     public function postRecoveryCode( User $user, PasswordChangeRequest $request )
     {
-        $this->__checkRefreshValidity( $user, $request->input( 'recovery_code' ) );
+        $this->__checkRefreshValidity( $user, $request->input( 'authorization' ) );
         
         /**
          * If the script reach this 
@@ -441,7 +448,10 @@ class OauthController extends BaseController
         if ( $this->date->gt( 
             Carbon::parse( $expiration ) 
         ) || empty( $expiration ) ) {
-            throw new RecoveryException;
+            throw new CoreException([
+                'status'    =>  'failed',
+                'message'   =>  __( 'Unable to proceed, the code has expired.' )
+            ]);
         }
 
         /**
@@ -451,9 +461,10 @@ class OauthController extends BaseController
             /**
              * do we need to provide more information about this issue ?
              */
-            throw new RecoveryException( 
-                __( 'The token provided is incorrect or may have expired.' )
-            );
+            throw new CoreException([
+                'status'    =>  'failed',
+                'message'   =>  __( 'Unable to proceed, the request is not valid.')
+            ]);
         }
     }
 }

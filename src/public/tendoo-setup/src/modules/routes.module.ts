@@ -88,7 +88,7 @@ import { ChangePasswordComponent } from "src/app/components/auth/change-password
                         path: 'lost-password',
                         component: LostPasswordComponent
                     }, {
-                        path: 'change-password',
+                        path: 'change-password/:user/:code',
                         component: ChangePasswordComponent
                     }, {
                         path: '',

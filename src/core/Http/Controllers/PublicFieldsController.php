@@ -15,6 +15,12 @@ class PublicFieldsController extends BaseController
             case 'auth.register':
                 return Field::register();
             break;
+            case 'auth.recovery':
+                return Field::recovery();
+            break;
+            case 'auth.change-password':
+                return Field::changePassword();
+            break;
         }
 
         /**

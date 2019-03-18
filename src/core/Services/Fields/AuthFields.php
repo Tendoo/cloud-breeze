@@ -77,20 +77,6 @@ trait AuthFields {
      * return email field
      * @return object of field
      */
-    private static function recoveryCode()
-    {
-        $Field  =   new \StdClass;
-        $Field->name            =   'recovery_code';
-        $Field->type            =   'hidden';
-        $Field->validation      =   'required';
-        $Field->value           =   @Route::current()->parameter( 'code' );
-        return $Field;
-    }
-
-    /**
-     * return email field
-     * @return object of field
-     */
     private static function recoveryEmail()
     {
         // Password Config;
@@ -216,7 +202,14 @@ trait AuthFields {
      */
     public static function recovery()
     {
-        return [ self::recoveryEmail() ];
+        $options        =   app()->make( Options::class );
+        $fields         =   [ self::recoveryEmail() ];
+
+        if ( $options->get( 'enable_recaptcha' ) ) {
+            $fields[]       =   self::recaptcha();
+        }
+
+        return $fields;
     }
 
     /**
@@ -225,10 +218,17 @@ trait AuthFields {
      */
     public static function changePassword()
     {
-        return [
+        $fields     =   [
             self::password(),
             self::passwordConfirm(),
-            self::recoveryCode()
         ];
+
+        $options        =   app()->make( Options::class );
+
+        if ( $options->get( 'enable_recaptcha' ) ) {
+            $fields[]       =   self::recaptcha();
+        }
+        
+        return $fields;
     }
 }

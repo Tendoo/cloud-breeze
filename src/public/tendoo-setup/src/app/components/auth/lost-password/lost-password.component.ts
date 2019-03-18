@@ -6,6 +6,7 @@ import { ValidationGenerator } from 'src/app/classes/validation-generator.class'
 import { MatSnackBar } from '@angular/material';
 import { AsyncResponse } from 'src/app/interfaces/async-response';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-lost-password',
@@ -17,23 +18,17 @@ export class LostPasswordComponent implements OnInit {
     fields: Field[];
     constructor(
         public tendoo: TendooService,
-        private snackbar: MatSnackBar
+        private snackbar: MatSnackBar,
+        private router: Router
     ) { }
     
     ngOnInit() {
-        this.fields             =   [
-            {
-                label: 'Account Email', 
-                name: 'email',
-                validation: 'required|email',
-                type: 'text',
-                description: 'The email you\'ve signed with.'
-            }
-        ];
+        this.tendoo.fields.getPublicFields( 'auth.recovery' ).subscribe( (fields: Field[]) => {
+            this.fields             =   fields;
+            const controllers       =   ValidationGenerator.buildFormControls( this.fields );
+            this.lostPasswordForm   =   new FormGroup( controllers );
+        })
 
-        const controllers       =   ValidationGenerator.buildFormControls( this.fields );
-
-        this.lostPasswordForm   =   new FormGroup( controllers );
     }
     
     proceed() {
@@ -47,11 +42,11 @@ export class LostPasswordComponent implements OnInit {
 
         const subscription  =   this.tendoo
             .auth
-            .requestPasswordReset( this.lostPasswordForm.get( 'email' ).value )
+            .requestPasswordReset( this.lostPasswordForm.value )
             .subscribe( ( response: AsyncResponse ) => {
                 this.snackbar.open( response.message, 'OK', { duration : 3000 });
                 subscription.unsubscribe();
-                ValidationGenerator.enableFields( this.fields );
+                this.router.navigateByUrl( '/auth/login?notice=email-send' );
         }, ( result:HttpErrorResponse ) => {
             this.snackbar.open( result.error.message || 'An unexpected error occured.', 'OK' );
             subscription.unsubscribe();
