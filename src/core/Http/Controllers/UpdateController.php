@@ -3,7 +3,7 @@ namespace Tendoo\Core\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Tendoo\Core\Services\Page;
+use Tendoo\Core\Services\Update;
 use Tendoo\Core\Services\Options;
 use Tendoo\Core\Exceptions\AccessDeniedException;
 use Illuminate\Support\Facades\Artisan;
@@ -51,6 +51,7 @@ class UpdateController extends Controller
     public function postUpdate( Request $request)
     {
         $options    =   app()->make( 'Tendoo\Core\Services\Options' );
+        $update     =   app()->make( Update::class );
 
         /**
          * this operation can be made only
@@ -63,10 +64,6 @@ class UpdateController extends Controller
             );
         }
 
-        $data   =   $request->validate([
-            'files'     =>  'required'
-        ]);
-
         /**
          * including migrations files
          */
@@ -75,10 +72,12 @@ class UpdateController extends Controller
             include_once( DATABASE_MIGRATIONS_PATH . $file );
         }
 
+        $databaseFiles  =   $update->getUpdates();
+
         /**
          * including update files
          */
-        foreach( $data[ 'files' ] as $file ) {
+        foreach( $databaseFiles as $file ) {
             
             /**
              * including the files
@@ -115,7 +114,7 @@ class UpdateController extends Controller
 
         return [
             'status'    =>  'success',
-            'message'   =>  __( 'The database has been correctly updated. You\'ll be redirected shortly.' )
+            'message'   =>  __( 'Database migration complete !' )
         ];
     }
 
@@ -140,7 +139,7 @@ class UpdateController extends Controller
 
         return [
             'status'    =>  'success',
-            'message'   =>  __( 'The file has been published. You\'ll be redirected shortly.' )
+            'message'   =>  __( 'The assets has been udpated !' )
         ];
     }
 }

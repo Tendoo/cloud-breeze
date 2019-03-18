@@ -58,6 +58,7 @@ import { TruncateMiddlePipe } from './pipes/truncate-middle.pipe';
 import { ErrorComponent } from './components/error/error.component';
 import { LostPasswordComponent } from './components/auth/lost-password/lost-password.component';
 import { ChangePasswordComponent } from './components/auth/change-password/change-password.component';
+import { CoreMigrationDialogComponent } from './shared/core-migration-dialog/core-migration-dialog.component';
 
 @NgModule({
     declarations: [
@@ -104,6 +105,7 @@ import { ChangePasswordComponent } from './components/auth/change-password/chang
         ErrorComponent,
         LostPasswordComponent,
         ChangePasswordComponent,
+        CoreMigrationDialogComponent,
     ],
     imports: [
         BrowserModule,
@@ -121,7 +123,8 @@ import { ChangePasswordComponent } from './components/auth/change-password/chang
     entryComponents: [
         ConfirmDialogComponent,
         MigrationDialogComponent,
-        FileUploadComponent
+        FileUploadComponent,
+        CoreMigrationDialogComponent,
     ],
     providers: [
         CookieService,

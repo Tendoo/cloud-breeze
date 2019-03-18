@@ -25,25 +25,49 @@ export class QuickAuthenticationGuard implements CanActivate {
 		state: RouterStateSnapshot
 	): Observable<boolean> | Promise<boolean> | boolean {
 		return new Observable( ( observer ) => {
+			
 			let token 	=	this.cookie.get( 'auth.user' );
-			if ( token && Object.values( LoaderService.headers ).length === 0 ) {
-				this.tendoo.auth.tokenLogin( token ).subscribe( result => {
-					observer.next( false );
-					observer.complete();
-					this.snackbar.open( result.message, 'OK', { duration: 3000 });
 
+			/**
+			 * if a token exist and the user is not already connected
+			 * let' try to quick authenticate him
+			 */
+			if ( token && Object.values( LoaderService.headers ).length === 0 ) {
+
+				this.tendoo.auth.tokenLogin( token ).subscribe( result => {
 					/**
 					 * if the user access from the
 					 * login page
 					 */
 					if ( next.url.toString() === 'login' ) {
+						observer.next( false );
 						this.router.navigateByUrl( this.tendoo.auth.intented || '/dashboard' );
+					} else {
+						observer.next( true );
 					}
-				}, ( error: HttpErrorResponse ) => {
-					observer.next( true );
+
 					observer.complete();
-				})
+					this.snackbar.open( result.message, 'OK', { duration: 3000 });
+
+				}, ( error: HttpErrorResponse ) => {
+
+					/**
+					 * the authentication has failed to 
+					 * success, let's redirect the user
+					 * to the login page
+					 */
+					observer.next( false );
+					observer.complete();
+					this.tendoo.auth.intented  =   state.url;
+					this.router.navigateByUrl( 'auth/login?notice=login-required' );
+				});
+
 			} else {
+				
+				/**
+				 * the user is already authenticated
+				 * not need to take any further action
+				 */
 				observer.next( true );
 				observer.complete();
 			}

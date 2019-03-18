@@ -102,21 +102,27 @@ class MenusConfig extends Menus
             $general->text         =   __( 'General' );
             $general->label        =   10;
             $general->namespace    =   'settings.general';
-            $general->href         =   '/dashboard/settings?tab=general';
+            $general->href         =   '/dashboard/settings?tab=dashboard.settings.general';
 
             $registration                   =   new \stdClass;
             $registration->text             =   __( 'Registration' );
             $registration->label            =   0;
             $registration->namespace        =   'settings.registration';
-            $registration->href             =   '/dashboard/settings?tab=registration';
+            $registration->href             =   '/dashboard/settings?tab=dashboard.settings.registration';
 
             $email                   =   new \stdClass;
             $email->text             =   __( 'Mail' );
             $email->label            =   0;
             $email->namespace        =   'settings.email';
-            $email->href             =   '/dashboard/settings?tab=email';
+            $email->href             =   '/dashboard/settings?tab=dashboard.settings.email';
+            
+            $recaptcha                   =   new \stdClass;
+            $recaptcha->text             =   __( 'reCaptcha' );
+            $recaptcha->label            =   0;
+            $recaptcha->namespace        =   'settings.email';
+            $recaptcha->href             =   '/dashboard/settings?tab=dashboard.settings.recaptcha';
 
-            $this->addTo( 'settings', [ $general, $registration, $email ]);
+            $this->addTo( 'settings', [ $general, $registration, $email, $recaptcha ]);
         }
     }
 

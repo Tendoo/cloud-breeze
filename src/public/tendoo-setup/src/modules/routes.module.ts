@@ -102,7 +102,7 @@ import { ChangePasswordComponent } from "src/app/components/auth/change-password
                 canActivate: [ PreventAppNotInstalledGuard ],
                 children: [{
                     path: '',
-                    canActivate: [ QuickAuthenticationGuard, RequireLoggedGuard ], // 
+                    canActivate: [ QuickAuthenticationGuard ], // RequireLoggedGuard
                     children: [
                         {
                             path: '',

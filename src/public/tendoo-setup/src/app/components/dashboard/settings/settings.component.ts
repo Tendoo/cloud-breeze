@@ -15,15 +15,13 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class SettingsComponent implements OnInit {
     tabs: Tab[];
+    selectedIndex   =   2;
     constructor(
         public tendoo: TendooService,
         public snackbar: MatSnackBar,
         private routeSnapshot: ActivatedRoute
     ) { 
         this.tendoo.dashboardTitle( 'Application Settings' );
-        this.routeSnapshot.queryParamMap.subscribe( result => {
-            
-        })
     }
     
     ngOnInit() {
@@ -34,7 +32,25 @@ export class SettingsComponent implements OnInit {
                 tab.form        =   new FormGroup( fields );
             });
             this.tabs   =   tabs;
+
+            this.detectActiveTab();
         });
+    }
+
+    detectActiveTab() {
+        this.routeSnapshot.queryParamMap.subscribe( query => {
+            let tabIndex;
+
+            this.tabs.map( (tab, index) => {
+                if ( tab.namespace === query.get( 'tab' ) ) {
+                    tabIndex    =   index;
+                }
+            });
+
+            this.setTabActive( tabIndex );
+
+            console.log( this.activeTab );
+        })
     }
     
     /**
@@ -80,10 +96,9 @@ export class SettingsComponent implements OnInit {
             _tab.active         =   false;
             if ( index === _index ) {
                 _tab.active     =   true;
+                this.selectedIndex  =   _index;
             } 
         });
-
-        console.log( this.activeTab );
     }
  
     /**

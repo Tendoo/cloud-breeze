@@ -17,6 +17,7 @@ import { TendooOptionsService } from './tendoo-options.service';
 import { Title } from '@angular/platform-browser';
 import { TendooLinkService } from './tendoo-link.service';
 import { TendooOauthService } from './tendoo-oauth.service';
+import { TendooUpdateService } from './tendoo-update.service';
 
 @Injectable({
     providedIn: 'root'
@@ -40,6 +41,7 @@ export class TendooService extends LoaderService {
         public links: TendooLinkService,
         public options: TendooOptionsService,
         public oauth: TendooOauthService,
+        public update: TendooUpdateService,
         public title: Title
     ) {
         super( http, httpParser, snackbar );

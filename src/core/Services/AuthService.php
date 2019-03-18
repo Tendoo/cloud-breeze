@@ -123,13 +123,10 @@ class AuthService
         $tokenKey       =   'Auth-Token::' . $token;
 
         if ( Cache::has( $tokenKey ) ) {
+            
             $cached            =   Cache::get( $tokenKey );
 
-            Log::debug( json_encode( $cached ) );// return response()->json( $cached );die;
-            // Cache::forget( $tokenKey );
-
             if ( @$cached[ 'browser' ] === request()->header( 'User-Agent' ) ) {
-                Cache::forget( $tokenKey );
 
                 Auth::loginUsingId( $cached[ 'user_id' ] );
 
@@ -142,12 +139,15 @@ class AuthService
                         ->addMinutes(60)
                         ->toDateTimestring(),
                 ], 3600 );
+
+                $user           =   Auth::user();
+                $user->role     =   $user->role;
                 
                 return [
                     'status'    =>  'success',
                     'message'   =>  __( 'You are successfully authenticated' ),
                     'data'      =>  [
-                        'user'      =>  Auth::user(),
+                        'user'      =>  $user,
                         'token'     =>  $token
                     ]
                 ];

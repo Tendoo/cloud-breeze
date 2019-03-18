@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Tendoo\Core\Services\Setup;
 use Tendoo\Core\Services\Helper;
 use Tendoo\Core\Exceptions\NotFoundException;
+use Tendoo\Core\Services\Options;
 
 class HomeController extends Controller
 {
@@ -26,10 +27,22 @@ class HomeController extends Controller
     {
         $helper  =   app()->make( Helper::class );
         if ( $helper->AppIsInstalled() ) {
+
+            $options    =   app()->make( Options::class );
+
             return [
                 'status'    =>  'installed',
                 'migrations' =>  [
-                    'system'    => [],
+                    'system'    =>  [
+                        'db'    =>  [
+                            'new_version'   =>  TENDOO_DB_VERSION,
+                            'old_version'   =>  $options->get( 'db_version' )
+                        ],
+                        'assets' =>  [
+                            'new_version'   =>  TENDOO_ASSETS_VERSION,
+                            'old_version'   =>  $options->get( 'assets_version' )
+                        ]
+                    ],
                     'modules'   => []
                 ],
                 'localisation'  => [
