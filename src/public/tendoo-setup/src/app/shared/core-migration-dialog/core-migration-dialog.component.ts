@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialog } from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialog, MatSnackBar } from '@angular/material';
 import { AsyncResponse } from 'src/app/interfaces/async-response';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
     selector: 'app-core-migration-dialog',
@@ -12,7 +13,8 @@ export class CoreMigrationDialogComponent implements OnInit {
     currentlyProcessing: string;
     constructor(
         @Inject( MAT_DIALOG_DATA ) private data,
-        private dialog: MatDialog
+        private dialog: MatDialog,
+        private snackbar: MatSnackBar,
     ) { 
         console.log( this.data );
         this.queue  =   this.data.queue;
@@ -25,7 +27,25 @@ export class CoreMigrationDialogComponent implements OnInit {
             for( let index in this.data.queue ) {
                 const currentPromise        =   this.queue[ index ];
                 this.currentlyProcessing    =   currentPromise.before;
-                let promise                 =   await <AsyncResponse>currentPromise.exec();
+                
+                /**
+                 * try to catch error throwed during
+                 * the migration
+                 */
+                let promise;
+                try {
+                    promise                 =   await <AsyncResponse>currentPromise.exec();
+                } catch( e ) {
+                    if ( e instanceof HttpErrorResponse ) {
+                        const snackBarObservable    =   this.snackbar.open( e.error.message, 'TRY AGAIN' )
+                            .afterDismissed()
+                            .subscribe( result => {
+                                this.ngOnInit();
+                                snackBarObservable.unsubscribe();
+                            })
+                    }
+                }
+                
                 this.currentlyProcessing    =   promise.message;
             }
         }

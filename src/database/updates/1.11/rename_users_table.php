@@ -1,5 +1,5 @@
 <?php
-namespace Tendoo\Database\Updates\v1_10;
+namespace Tendoo\Database\Updates\v1_11;
 
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;

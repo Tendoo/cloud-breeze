@@ -56,10 +56,16 @@ export class QuickAuthenticationGuard implements CanActivate {
 					 * success, let's redirect the user
 					 * to the login page
 					 */
-					observer.next( false );
-					observer.complete();
-					this.tendoo.auth.intented  =   state.url;
-					this.router.navigateByUrl( 'auth/login?notice=login-required' );
+					if ( next.url.toString() !== 'login' ) {
+						observer.next( false );
+						observer.complete();
+						this.tendoo.auth.intented  =   state.url;
+						this.router.navigateByUrl( 'auth/login?notice=login-required' );
+					} else {
+						this.tendoo.auth.intented  =   '/dashboard';
+						observer.next( true );
+						observer.complete();
+					}
 				});
 
 			} else {
