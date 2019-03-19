@@ -442,12 +442,19 @@ class Modules
                 /**
                  * @step 2 : move files
                  * We're now looping to move files
+                 * and create symlink for the assets
                  */
                 foreach( $rawFiles as $file ) {
                     Storage::disk( 'modules' )->put( 
                         $file,
                         Storage::disk( 'temp-modules' )->get( $file )
                     );
+
+                    /**
+                     * create a symlink directory 
+                     * only if the module has that folder
+                     */
+                    $this->createSymLink( $moduleNamespace );
                 }
 
                 /**
@@ -467,6 +474,47 @@ class Modules
                     'code'      =>  'invalid_module'
                 ];
             }
+        }
+    }
+
+    /**
+     * create a symbolink asset directory
+     * for specific module
+     * @param string module namespace
+     * @return void
+     */
+    public function createSymLink( $moduleNamespace )
+    {
+        $moduleNamespace    =   strtolower( $moduleNamespace );
+
+        Storage::disk( 'laravel-public' )->makeDirectory( 'modules' );
+
+        $directories  =   Storage::disk( 'modules' )
+            ->allDirectories( $moduleNamespace );
+
+        foreach( $directories as $dir ) {
+            if ( $dir === 'public' ) {
+                symlink( 
+                    base_path( 'modules' ) . DIRECTORY_SEPARATOR . $moduleNamespace . DIRECTORY_SEPARATOR . 'public', 
+                    base_path( 'public' ) . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . $moduleNamespace
+                );
+            }
+        }
+    }
+
+    /**
+     * remove symlink create for a 
+     * module using a namespace
+     * @param string module namespace
+     * @return void
+     */
+    public function removeSymLink( $moduleNamespace )
+    {
+        $namespace  =   strtolower( $moduleNamespace );
+        $path       =   base_path( 'public' ) . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . $moduleNamespace;
+
+        if ( is_link( $path ) ) {
+            unlink( $path );
         }
     }
 
@@ -605,6 +653,11 @@ class Modules
              * Delete module from DISK
              */
             Storage::disk( 'modules' )->deleteDirectory( ucwords( $namespace ) );
+
+            /**
+             * remove symlink if that exists
+             */
+            $this->removeSymLink( $namespace );
 
             return [
                 'status'    =>  'success',
@@ -803,9 +856,16 @@ class Modules
                     version_compare( $lastVersion, $version, '<' ) && 
                     version_compare( $currentVersion, $version, '>=' )
                 ) {					
-					$version_names[ $version ]    =   Storage::disk( 'modules' )->allFiles(
+                    $files      =   Storage::disk( 'modules' )->allFiles(
                         ucwords( $module[ 'namespace' ] ) . DIRECTORY_SEPARATOR . 'Migrations' . DIRECTORY_SEPARATOR . $version 
                     );
+
+                    /**
+                     * add a migration only if there is a file to add.
+                     */
+                    if ( count( $files ) ) {
+                        $version_names[ $version ]    =   $files;
+                    }
                 }
             }
 

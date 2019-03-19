@@ -176,6 +176,9 @@ import { ChangePasswordComponent } from "src/app/components/auth/change-password
             }, {
                 path: 'error',
                 component: ErrorComponent
+            }, {
+                path: '**',
+                component: NotFoundComponent
             }
         ], {
             enableTracing: false
