@@ -16,6 +16,14 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "cloud-tools": [
+        "dist/cloud-tools"
+      ],
+      "cloud-tools/*": [
+        "dist/cloud-tools/*"
+      ]
+    }
   }
 }

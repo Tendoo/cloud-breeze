@@ -3,6 +3,7 @@ import { MatDialog, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 import { TendooService } from 'src/app/services/tendoo.service';
 import { TendooModule } from 'src/app/interfaces/module.interface';
 import { AsyncResponse } from 'src/app/interfaces/async-response';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
 	selector: 'app-migration-dialog',
@@ -25,18 +26,34 @@ export class MigrationDialogComponent implements OnInit {
 	}
 	
 	async ngOnInit() {
-		const response 	=	await this.runVersionMigration();
-		this.snackbar.open( response.message, 'OK', { duration: 3000 });
-		this.dialog.getDialogById( 'migration-dialog' ).close( response );
+		const response 			=	await <Promise<AsyncResponse>>this.runVersionMigration();
+
+		if ( response.status === 'success' ) {
+			this.dialog.getDialogById( 'migration-dialog' ).close( response );
+			this.snackbar.open( response.message, 'OK', { duration: 3000 });
+		} else {
+			const retryObservable 	=	this.snackbar.open( response.message, 'TRY AGAIN' )
+				.afterDismissed()
+				.subscribe( action => {
+					if ( action.dismissedByAction ) {
+						retryObservable.unsubscribe();
+						this.ngOnInit();
+					}
+				});
+		}
 	}
 
 	async runVersionMigration() {
 		const { migrations, module } 	=	this.data;
 		for( let version in migrations ) {
 			this.version 	=	version;
-			const response 	=	await <Promise<AsyncResponse>>this.runMigration( migrations[ version ], module, version );
-			if ( response.status === 'failed' ) {
-				return response;
+			try {
+				const response 	=	await <Promise<AsyncResponse>>this.runMigration( migrations[ version ], module, version );
+				if ( response.status === 'failed' ) {
+					return response;
+				}
+			} catch( e ) {
+				return (<HttpErrorResponse>e).error;
 			}
 		}
 
@@ -58,12 +75,12 @@ export class MigrationDialogComponent implements OnInit {
 				
 				const parts 		=	files[i].split( '/' );
 				this.file 			=	parts[ parts.length -  1 ];
-				const response 		=	await <Promise<AsyncResponse>>this.tendoo.modules.runMigration( module.namespace, files[i], version )
 
-				if ( response.status === 'failed' ) {
-					reject( response );
+				try {
+					const response 	=	await <Promise<AsyncResponse>>this.tendoo.modules.runMigration( module.namespace, files[i], version )
+				} catch( e ) {
+					return reject( e );
 				}
-
 			}
 
 			resolve({

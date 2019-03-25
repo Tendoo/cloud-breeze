@@ -135,6 +135,41 @@
           }
         }
       }
+    },
+    "cloud-tools": {
+      "root": "projects/cloud-tools",
+      "sourceRoot": "projects/cloud-tools/src",
+      "projectType": "library",
+      "prefix": "ct",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/cloud-tools/tsconfig.lib.json",
+            "project": "projects/cloud-tools/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/cloud-tools/src/test.ts",
+            "tsConfig": "projects/cloud-tools/tsconfig.spec.json",
+            "karmaConfig": "projects/cloud-tools/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/cloud-tools/tsconfig.lib.json",
+              "projects/cloud-tools/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }
   },
   "defaultProject": "tendoo-setup"

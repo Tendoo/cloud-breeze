@@ -9,6 +9,7 @@ use XmlParser;
 use PhpParser\Error;
 use PhpParser\NodeDumper;
 use PhpParser\ParserFactory;
+use Tendoo\Core\Exceptions\CoreException;
 
 class Modules 
 {
@@ -707,13 +708,17 @@ class Modules
                  */
                 $object     =   new $className;
     
-                // the method should be "up" or "down"
+                /**
+                 * let's try to run a method
+                 * "up" or "down" and watch for
+                 * any error.
+                 */
                 $object->$method();
-                
+
                 return [
                     'status'    =>  'success',
                     'message'   =>  __( 'The migration has been successfully runned' )
-                ];
+                ];                
             }
 
             return [
@@ -896,8 +901,17 @@ class Modules
     public function runMigration( $namespace, $version, $file )
     {
         $module     =   $this->get( $namespace );
-        $this->options->set( strtolower( $namespace ) . '_last_migration', $version );
-        return $this->__runSingleFile( 'up', $module, $file );
+        $result     =   $this->__runSingleFile( 'up', $module, $file );
+
+        /**
+         * save the migration only 
+         * if it's successful
+         */
+        if ( $result[ 'status' ] === 'success' ) {
+            $this->options->set( strtolower( $namespace ) . '_last_migration', $version );
+        }
+
+        return $result;
     }
 
     /**

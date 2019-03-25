@@ -9,6 +9,7 @@ import { Router, ActivatedRouteSnapshot, ActivatedRoute } from '@angular/router'
 import { Title } from '@angular/platform-browser';
 import { CookieService } from 'ngx-cookie-service';
 import * as moment from 'moment';
+import { HelperService } from 'src/app/services/helper.service';
 
 @Component({
     selector: 'app-login',
@@ -26,7 +27,8 @@ export class LoginComponent implements OnInit {
         private snackbar: MatSnackBar,
         private router: Router,
         public routeSnapshot: ActivatedRoute,
-        private cookie: CookieService
+        private cookie: CookieService,
+        private helper: HelperService,
     ) { 
         this.tendoo.setTitle( 'Login' );
     }
@@ -52,24 +54,6 @@ export class LoginComponent implements OnInit {
                     }
                 })
         })
-
-        // this.fields     =   [
-        //     {
-        //         label: 'Username',
-        //         name: 'username',
-        //         type: 'text',
-        //         description: 'Username saved during the registration.',
-        //     }, {
-        //         label: 'Password',
-        //         name: 'password',
-        //         type: 'password',
-        //         description: 'Only you knows what is the password',
-        //     }, {
-        //         label: 'Keep me in',
-        //         name: 'keep_me_in',
-        //         type: 'switch'
-        //     }
-        // ];
     }
 
     login() {
@@ -108,8 +92,18 @@ export class LoginComponent implements OnInit {
              */
             let path    =   this.tendoo.auth.intented;
 
-            this.router.navigateByUrl( path || 'dashboard' );
-
+            this.routeSnapshot.queryParamMap.subscribe( param => {                
+                if ( param.get( 'redirect' ) !== null ) {
+                    window.location.href     =   param.get( 'redirect' );
+                } else {
+                    console.log( this.helper.isUrl( path ), path );
+                    if ( this.helper.isUrl( path ) ) {
+                        window.location.href     =   path;
+                    } else {
+                        this.router.navigateByUrl( path || 'dashboard' );
+                    }
+                }
+            })
         }, (result: HttpErrorResponse ) => {
             this.snackbar.open( result.error.message, 'OK', { duration: 3000 });
         })

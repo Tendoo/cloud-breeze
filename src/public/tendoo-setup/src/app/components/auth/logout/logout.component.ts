@@ -24,7 +24,7 @@ export class LogoutComponent implements OnInit {
         this.tendoo.setTitle( 'Logging out...' );
         this.auth.logout().subscribe( result => {
             this.cookie.delete( 'auth.user' );
-            this.route.navigateByUrl( '/auth/login' );
+            this.route.navigateByUrl( '/auth/login?notice=logged-out' );
         }, error => {
             this.snackbar.open( 'An error occured while logging out.', 'TRY AGAIN' )
                 .afterDismissed()

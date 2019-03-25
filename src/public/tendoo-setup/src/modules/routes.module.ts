@@ -41,6 +41,7 @@ import { FileUploadComponent } from "src/app/shared/file-upload/file-upload.comp
 import { ErrorComponent } from "src/app/components/error/error.component";
 import { LostPasswordComponent } from "src/app/components/auth/lost-password/lost-password.component";
 import { ChangePasswordComponent } from "src/app/components/auth/change-password/change-password.component";
+import { MustLogoutGuard } from "src/app/guards/must-logout.guard";
 
 @NgModule({
     imports: [
@@ -82,7 +83,7 @@ import { ChangePasswordComponent } from "src/app/components/auth/change-password
                         canActivate: [ CheckRegistrationStatusGuard ]
                     }, {
                         path: 'login',
-                        canActivate: [ QuickAuthenticationGuard ],
+                        canActivate: [ MustLogoutGuard ],
                         component: LoginComponent
                     }, {
                         path: 'lost-password',
