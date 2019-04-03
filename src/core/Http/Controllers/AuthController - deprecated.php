@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Str;
 use Tendoo\Core\Services\Page;
 use Tendoo\Core\Services\Options;
 use Tendoo\Core\Services\AuthService;
@@ -288,7 +289,7 @@ class AuthController extends BaseController
         /**
          * Generating a hashed code according to the username
          */
-        $hashedCode     =   str_random( strlen( $user->username ) ) . $this->date->timestamp;
+        $hashedCode     =   Str::random( strlen( $user->username ) ) . $this->date->timestamp;
         $userOptions    =   new UserOptions( $user->id );
         $userOptions->set( 'recovery-token', $hashedCode );
         $userOptions->set( 'recovery-validity', 

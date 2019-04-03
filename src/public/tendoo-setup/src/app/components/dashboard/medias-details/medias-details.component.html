@@ -24,7 +24,7 @@
                 </button>
             </div>
         </div>
-        <div style="height: 100%" fxLayoutAlign="center center">
+        <div style="height: 100%; overflow-y: auto" fxLayoutAlign="center center">
             <img class="media-preview" *ngIf="[ 'jpeg', 'png', 'jpg', 'gif' ].includes( media.extension )" [src]="media.sizes.original" [alt]="media.name">
         </div>
     </div>

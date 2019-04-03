@@ -3,6 +3,7 @@ namespace Tendoo\Core\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Tendoo\Core\Services\Update;
 use Tendoo\Core\Services\Options;
 use Tendoo\Core\Exceptions\AccessDeniedException;
@@ -89,7 +90,7 @@ class UpdateController extends Controller
              */
             $details    =   pathinfo( $file );
             $version    =   str_replace( '.', '_',  $details[ 'dirname' ] );
-            $className  =   studly_case( $details[ 'filename' ] );
+            $className  =   Str::studly( $details[ 'filename' ] );
             $className  =   'Tendoo\Database\Updates\v' . $version . '\\' . $className;
             $class      =   new $className;
 

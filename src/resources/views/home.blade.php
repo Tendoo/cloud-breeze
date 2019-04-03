@@ -1,10 +1,11 @@
+@Inject( 'Str', 'Illuminate\Support\Str' )
 <!doctype html>
 <html lang="en">
 
 <head>
     <meta charset="utf-8">
     <title>Tendoo CMS</title>
-    <base href="{{ str_finish( url( '/' ), '/' ) }}">
+    <base href="{{ $Str::finish( url( '/' ), '/' ) }}">
     <style type="text/css">
         .loader {
             height: 100%;

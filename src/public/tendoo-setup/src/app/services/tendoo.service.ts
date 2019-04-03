@@ -18,6 +18,7 @@ import { Title } from '@angular/platform-browser';
 import { TendooLinkService } from './tendoo-link.service';
 import { TendooOauthService } from './tendoo-oauth.service';
 import { TendooUpdateService } from './tendoo-update.service';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
     providedIn: 'root'
@@ -42,9 +43,10 @@ export class TendooService extends LoaderService {
         public options: TendooOptionsService,
         public oauth: TendooOauthService,
         public update: TendooUpdateService,
-        public title: Title
+        public title: Title,
+        public cookie: CookieService
     ) {
-        super( http, httpParser, snackbar );
+        super( http, httpParser, snackbar, cookie );
     }
 
     dashboardTitle( title: string ) {

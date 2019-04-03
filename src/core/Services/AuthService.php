@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 use Carbon\Carbon;
 use Tendoo\Core\Models\Role;
 use Tendoo\Core\Models\User;
@@ -93,7 +94,7 @@ class AuthService
     public function generateToken( $user )
     {
         $dateService    =   app()->make( DateService::class );
-        $newKey         =   str_random(40);
+        $newKey         =   Str::random(40);
         $tokenKey       =   'Auth-Token::' . $newKey;
         $config         =   [
             'key'       =>  $tokenKey,
@@ -106,7 +107,9 @@ class AuthService
         ];
         
         Cache::forget( $tokenKey );
-        Cache::put( $tokenKey, $config, 3600 ); // expire in one hour.
+        Cache::put( $tokenKey, $config, $dateService
+            ->copy()
+            ->addMinutes(60) ); // expire in one hour.
         Log::info( json_encode( $config ) );
 
         return $newKey;
@@ -138,7 +141,9 @@ class AuthService
                         ->copy()
                         ->addMinutes(60)
                         ->toDateTimestring(),
-                ], 3600 );
+                ], $dateService
+                    ->copy()
+                    ->addMinutes(60) );
 
                 $user           =   Auth::user();
                 $user->role     =   $user->role;
@@ -185,7 +190,9 @@ class AuthService
                         ->copy()
                         ->addMinutes(60)
                         ->toDateTimestring(),
-                ], 3600 );
+                ], $dateService
+                    ->copy()
+                    ->addMinutes(60) );
             }
         }
         return false;

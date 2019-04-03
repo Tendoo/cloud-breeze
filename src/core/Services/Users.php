@@ -8,6 +8,7 @@ use Tendoo\Core\Services\UserOptions;
 use Tendoo\Core\Mail\ActivateAccountMail;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class Users
 {
@@ -88,7 +89,7 @@ class Users
         /**
          * Send user activation code
          */
-        $activationCode     =   str_random( 10 ) . $user->id;
+        $activationCode     =   Str::random( 10 ) . $user->id;
         $userOptions        =   new UserOptions( $user->id );
         $userOptions->set( 'activation-code', $activationCode );
 

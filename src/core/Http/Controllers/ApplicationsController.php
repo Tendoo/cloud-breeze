@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 use Tendoo\Core\Models\Application;
 use Tendoo\Core\Models\Oauth;
 use Tendoo\Core\Facades\Hook;
@@ -83,7 +84,7 @@ class ApplicationsController extends Controller
          * Set a token to authenticate the request
          * the token should expire within 10 minutes
          */
-        $token          =   str_random(40);
+        $token          =   Str::random(40);
         Cache::put( 'oauth-token-' . Auth::id(), $token, now()->addMinutes(10) );
 
         return [
@@ -125,8 +126,8 @@ class ApplicationsController extends Controller
 
     private function __proceedApproval( Request $request )
     {
-        $access_token           =   str_random(40);
-        $refresh_token          =   str_random(30);
+        $access_token           =   Str::random(40);
+        $refresh_token          =   Str::random(30);
         $data                   =   $request->input( 'data' );
         $date                   =   app()->make( DateService::class );
         extract( $data );

@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { HttpResponseParserService } from './http-response-parser.service';
 import { AsyncResponse } from '../interfaces/async-response';
 import { MatSnackBar } from '@angular/material';
+import { CookieService } from 'ngx-cookie-service';
 
 declare const tendoo;
 
@@ -20,7 +21,8 @@ export class LoaderService {
     constructor(
         protected http: HttpClient,
         private httpParser: HttpResponseParserService,
-        protected snackbar: MatSnackBar
+        protected snackbar: MatSnackBar,
+        protected cookie: CookieService
     ) {}
 
     /**

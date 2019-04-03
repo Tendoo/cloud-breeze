@@ -1,4 +1,5 @@
 @inject( 'SchemaService', 'Tendoo\Core\Services\Schema' )<{{ '?php' }}
+@inject( 'Str', 'Illuminate\Support\Str' )
 /**
  * Table Migration
  * @package {{ config( 'tendoo.version' ) }}
@@ -10,7 +11,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class {{ ucwords( camel_case( $migration ) ) }} extends Migration
+class {{ ucwords( $Str::camel( $migration ) ) }} extends Migration
 {
     /**
      * Run the migrations.

@@ -6,8 +6,8 @@ use JsonSerializable;
 
 class DateService extends Carbon
 {
-    public function __construct( $timeZone = 'Europe/London' )
+    public function __construct( $time = 'now', $timeZone = 'Europe/London' )
     {
-        parent::__construct( 'now', new DateTimeZone( $timeZone ) );
+        parent::__construct( $time, new DateTimeZone( $timeZone ) );
     }
 }

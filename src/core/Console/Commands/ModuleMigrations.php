@@ -4,6 +4,7 @@ namespace Tendoo\Core\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Tendoo\Core\Services\Modules;
 use Tendoo\Core\Services\Setup;
 use Tendoo\Core\Services\Helper;
@@ -170,7 +171,7 @@ class ModuleMigrations extends Command
 
         foreach( $pieces as $piece ) {
             if ( substr( $piece, 0, 8 ) == '--table=' ) {
-                $table  =   snake_case( substr( $piece, 8 ) );
+                $table  =   Str::snake( substr( $piece, 8 ) );
             }
         }
 

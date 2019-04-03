@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 use Carbon\Carbon;
 use Exception;
 use Tendoo\Core\Services\Page;
@@ -188,8 +189,8 @@ class OauthController extends BaseController
             return redirect( $callback_url . '?status=denied' );
         } else {
 
-            $access_token           =   str_random(40);
-            $refresh_token          =   str_random(30);
+            $access_token           =   Str::random(40);
+            $refresh_token          =   Str::random(30);
             $url                    =   parse_url( $request->input( 'callback_url' ) );
 
             /**
@@ -368,7 +369,7 @@ class OauthController extends BaseController
         /**
          * Generating a hashed code according to the username
          */
-        $hashedCode     =   str_random( strlen( $user->username ) ) . $this->date->timestamp;
+        $hashedCode     =   Str::random( strlen( $user->username ) ) . $this->date->timestamp;
         $userOptions    =   new UserOptions( $user->id );
         $userOptions->set( 'recovery-token', $hashedCode );
         $userOptions->set( 'recovery-validity', 

@@ -49,7 +49,7 @@ export class TendooAuthService extends LoaderService {
     logout() {
         
         this.user                   =   undefined;
-        const token                 =   LoaderService.headers[ 'X-AUTH-TOKEN' ];
+        const token                 =   this.cookie.get( 'auth.user' );
         LoaderService.headers       =   {};
 
         return this.post( `${this.baseUrl}tendoo/auth/logout`, {

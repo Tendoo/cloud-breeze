@@ -26,6 +26,7 @@ use Tendoo\Core\Console\Commands\ModuleController;
 use Tendoo\Core\Console\Commands\ModuleMigrations;
 use Tendoo\Core\Console\Commands\ModuleModels;
 use Tendoo\Core\Console\Commands\ModuleCrudGeneratorCommand;
+use Tendoo\Core\Console\Commands\ModuleSymlinkCommand;
 use Tendoo\Core\Console\Commands\OptionDelete;
 use Tendoo\Core\Console\Commands\OptionSet;
 use Tendoo\Core\Console\Commands\OptionGet;
@@ -115,6 +116,7 @@ class ServiceProvider extends CoreServiceProvider
             ModuleController::class,
             ModuleMigrations::class,
             ModuleModels::class,
+            ModuleSymlinkCommand::class,
             OptionDelete::class,
             OptionSet::class,
             OptionGet::class,

@@ -4,6 +4,7 @@ use Tendoo\Core\Services\Crud;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Tendoo\Core\Services\Field;
 use Tendoo\Core\Services\Helper;
@@ -82,7 +83,7 @@ class ApplicationCrud extends Crud
         foreach( $inputs as $name => $value ) {
             if ( in_array( $name, [ 'client_key', 'client_secret' ] ) ) {
                 if ( empty( $inputs[ $name ] ) ) {
-                    $inputs[ $name ]    =   str_random(40);
+                    $inputs[ $name ]    =   Str::random(40);
                 }
             }
         }
@@ -102,7 +103,7 @@ class ApplicationCrud extends Crud
         foreach( $inputs as $name => $value ) {
             if ( in_array( $name, [ 'client_key', 'client_secret' ] ) ) {
                 if ( empty( $inputs[ $name ] ) ) {
-                    $inputs[ $name ]    =   str_random(40);
+                    $inputs[ $name ]    =   Str::random(40);
                 }
             }
         }

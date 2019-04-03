@@ -6,6 +6,7 @@ use Tendoo\Core\Services\DateService;
 use Tendoo\Core\Models\Media;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Gumlet\ImageResize;
 
 class MediaService
@@ -53,7 +54,7 @@ class MediaService
         if ( in_array( $extension, $this->extensions ) ) {
 
             $uploadedInfo   =   pathinfo( $file->getClientOriginalName() );
-            $fileName       =   str_slug( $uploadedInfo[ 'filename' ], '-' );
+            $fileName       =   Str::slug( $uploadedInfo[ 'filename' ], '-' );
             $fileName       =   ( $customName == null ? $fileName : $customName );
             $fileName       =   $this->__preventDuplicate( $fileName );
             $fullFileName   =   $fileName . '.' . strtolower( $file->getClientOriginalExtension() );
