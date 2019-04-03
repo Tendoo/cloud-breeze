@@ -296,4 +296,31 @@ class ModulesController extends DashboardController
         
         return $module;
     }
+
+    /**
+     * create a symlink for
+     * the defined module
+     * @param string module namespace
+     * @return AsyncResponse
+     */
+    public function setSymlink( $namespace )
+    {
+        $module     =   $this->modules->get( $namespace );
+
+        /**
+         * makes sure the moduel actually
+         * exists
+         */
+        if ( ! empty( $module ) ) {
+            $this->modules->createSymlink( $namespace );
+            return [
+                'status'    =>  'success',
+                'message'   =>  sprintf( __( 'The symlink has been set for the module %s.' ), $module[ 'name' ] )
+            ];
+        }
+
+        throw new NotFoundException([
+            'message'   =>  __( 'Unable to find the module using the provided namespace' )
+        ]);
+    }
 }

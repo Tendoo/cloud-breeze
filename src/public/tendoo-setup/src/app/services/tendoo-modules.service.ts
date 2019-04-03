@@ -62,7 +62,7 @@ export class TendooModulesService extends TendooAuthService {
      * Run a specific migration for thie provided module
      * @param {string} module namespace
      * @param {string} file path to run
-     * @return {Obserable<AsyncReponse>}
+     * @return {Promise<AsyncReponse>}
      */
     runMigration( namespace, file, version ) {
         return new Promise( ( resolve, reject ) => {
@@ -78,5 +78,15 @@ export class TendooModulesService extends TendooAuthService {
 
     download( namespace: string ) {
         return this.get( `${this.baseUrl}tendoo/modules/${namespace}/download` );
+    }
+
+    /**
+     * generate symlink for the
+     * the selected module
+     * @param string namespace
+     * @return {Observable<AsyncResponse>} response
+     */
+    createSymLink( namespace: string ) {
+        return this.get( `${this.baseUrl}tendoo/modules/${namespace}/symlink` );
     }
 }

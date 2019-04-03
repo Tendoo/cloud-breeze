@@ -9,9 +9,6 @@ class PublicFieldsController extends BaseController
 {
     public function getFields( $namespace )  
     {
-        $modules    =   app()->make( Modules::class );
-        $modules->createSymLink( 'MyNexoPOS' );
-
         switch( $namespace ) {
             case 'auth.login':
                 return Field::login();

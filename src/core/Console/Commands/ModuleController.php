@@ -16,7 +16,7 @@ class ModuleController extends Command
      *
      * @var string
      */
-    protected $signature = 'module:controller {namespace} {name?} {--resource=} {--delete=}';
+    protected $signature = 'modules:controller {namespace} {name?} {--resource=} {--delete=}';
 
     /**
      * The console command description.

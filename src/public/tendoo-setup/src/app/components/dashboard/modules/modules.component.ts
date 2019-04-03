@@ -281,4 +281,13 @@ export class ModulesComponent implements OnInit {
     get isLoading() {
         return this.tendoo.links.isLoading || this.tendoo.modules.isLoading;
     }
+
+    createSymlink( module: TendooModule ) {
+        this.tendoo.modules.createSymLink( module.namespace )
+            .subscribe( result => {
+                const snack     =   this.snackbar.open( 'A symbolic link has been created for that module', 'OK', { duration: 3000 });                
+            }, (result: HttpErrorResponse ) => {
+                this.snackbar.open( result.error.message || 'An error has occured during the process', 'OK' );
+            })
+    }
 }

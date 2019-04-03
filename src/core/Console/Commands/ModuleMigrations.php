@@ -16,7 +16,7 @@ class ModuleMigrations extends Command
      *
      * @var string
      */
-    protected $signature = 'module:migration {namespace} {--delete=}';
+    protected $signature = 'modules:migration {namespace} {--delete=}';
 
     /**
      * The console command description.

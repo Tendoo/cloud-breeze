@@ -10,7 +10,7 @@ use Carbon\Carbon;
 
 class ModuleSymlinkCommand extends Command
 {
-    protected $signature = 'tendoo:symlink {namespace}';
+    protected $signature = 'modules:symlink {namespace}';
 
     public function __construct()
     {

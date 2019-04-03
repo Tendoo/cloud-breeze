@@ -15,7 +15,7 @@ class EnableModule extends Command
      *
      * @var string
      */
-    protected $signature = 'module:enable {namespace}';
+    protected $signature = 'modules:enable {namespace}';
 
     /**
      * The console command description.

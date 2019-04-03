@@ -19,7 +19,7 @@ class MakeModuleServiceProvider extends Command
      *
      * @var string
      */
-    protected $signature = 'module:provider {namespace} {name}';
+    protected $signature = 'modules:provider {namespace} {name}';
 
     /**
      * The console command description.

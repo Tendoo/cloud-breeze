@@ -486,20 +486,17 @@ class Modules
      */
     public function createSymLink( $moduleNamespace )
     {
-        $moduleNamespace    =   strtolower( $moduleNamespace );
-
         Storage::disk( 'laravel-public' )->makeDirectory( 'modules' );
 
-        $directories  =   Storage::disk( 'modules' )
-            ->allDirectories( $moduleNamespace );
-
-        foreach( $directories as $dir ) {
-            if ( $dir === 'public' ) {
-                symlink( 
-                    base_path( 'modules' ) . DIRECTORY_SEPARATOR . $moduleNamespace . DIRECTORY_SEPARATOR . 'public', 
-                    base_path( 'public' ) . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . $moduleNamespace
-                );
-            }
+        /**
+         * checks if a public directory exists and create a 
+         * link for that directory
+         */
+        if ( Storage::disk( 'modules' )->exists( $moduleNamespace . DIRECTORY_SEPARATOR . 'Public' ) ) {
+            symlink( 
+                base_path( 'modules' ) . DIRECTORY_SEPARATOR . $moduleNamespace . DIRECTORY_SEPARATOR . 'Public', 
+                base_path( 'public' ) . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . $moduleNamespace
+            );
         }
     }
 
@@ -511,7 +508,6 @@ class Modules
      */
     public function removeSymLink( $moduleNamespace )
     {
-        $namespace  =   strtolower( $moduleNamespace );
         $path       =   base_path( 'public' ) . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . $moduleNamespace;
 
         if ( is_link( $path ) ) {

@@ -16,7 +16,7 @@ class ModuleModels extends Command
      *
      * @var string
      */
-    protected $signature = 'module:model {namespace} {name}';
+    protected $signature = 'modules:model {namespace} {name}';
 
     /**
      * The console command description.

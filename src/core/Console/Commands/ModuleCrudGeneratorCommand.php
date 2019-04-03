@@ -14,7 +14,7 @@ class ModuleCrudGeneratorCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'module:crud {namespace}';
+    protected $signature = 'modules:crud {namespace}';
 
     /**
      * The console command description.

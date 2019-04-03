@@ -15,7 +15,7 @@ class DisableModule extends Command
      *
      * @var string
      */
-    protected $signature = 'module:disable {namespace?} {--all}';
+    protected $signature = 'modules:disable {namespace?} {--all}';
 
     /**
      * The console command description.

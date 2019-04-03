@@ -12,7 +12,7 @@ class ModulesList extends Command
      *
      * @var string
      */
-    protected $signature = 'module:list';
+    protected $signature = 'modules:list';
 
     /**
      * The console command description.

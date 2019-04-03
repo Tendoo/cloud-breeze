@@ -70,6 +70,19 @@ class TendooHandler extends ExceptionHandler
             }
 
             if ( 
+                $exception instanceof ValidationException
+            ) {
+                return response()->json([
+                    'status'    =>  'failed',
+                    'class'     =>  str_replace( '\\', '/', get_class( $exception ) ),
+                    'message'   =>  $exception->getMessage(),
+                    'line'      =>  $exception->getLine(),
+                    'file'      =>  $exception->getFile(),
+                    'errors'    =>  $exception->errors()
+                ], 401 );
+            }
+
+            if ( 
                 $exception instanceof Exception
             ) {
                 return response()->json([

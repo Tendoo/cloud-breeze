@@ -35,6 +35,7 @@
                                 <button [routerLink]="'/dashboard/modules/details/' + module.namespace" mat-menu-item>Details</button>
                                 <button (click)="download( module )" mat-menu-item>Download</button>
                                 <button (click)="delete( module )" mat-menu-item>Delete</button>
+                                <button (click)="createSymlink( module )" mat-menu-item>Create Symlink</button>
                             </mat-menu>
                         </ng-container>
                         <button class="m-0" [disabled]="isLoading" *ngIf="module.enabled" (click)="setStatus( module, 'disable' )"  mat-button color="primary">Disable</button>
