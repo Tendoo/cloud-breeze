@@ -21,7 +21,7 @@ class Modules
     {
         if ( Helper::AppIsInstalled() ) {
             /**
-             * We can only enable a module if the databse is installed.
+             * We can only enable a module if the database is installed.
              */
             $this->options          =   app()->make( 'Tendoo\Core\Services\Options' );
         }
