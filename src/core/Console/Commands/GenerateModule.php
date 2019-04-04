@@ -123,6 +123,8 @@ class GenerateModule extends Command
                 $target     =   base_path( 'modules' . DIRECTORY_SEPARATOR . $this->module[ 'namespace' ] . DIRECTORY_SEPARATOR . 'Public' );
                 $link       =   exec("mklink /{$mode} \"{$link}\" \"{$target}\"");
             }
+
+            $this->info( sprintf( 'Your new module "%s" has been created.', $this->module[ 'name' ] ) );
         } else {
 
             $this->error( 'A similar module has been found' );
