@@ -492,11 +492,21 @@ class Modules
          * checks if a public directory exists and create a 
          * link for that directory
          */
-        if ( Storage::disk( 'modules' )->exists( $moduleNamespace . DIRECTORY_SEPARATOR . 'Public' ) ) {
-            symlink( 
-                base_path( 'modules' ) . DIRECTORY_SEPARATOR . $moduleNamespace . DIRECTORY_SEPARATOR . 'Public', 
-                base_path( 'public' ) . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . $moduleNamespace
-            );
+        if ( 
+            Storage::disk( 'modules' )->exists( $moduleNamespace . DIRECTORY_SEPARATOR . 'Public' ) && 
+            ! is_link( base_path( 'public' ) . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . $moduleNamespace ) 
+        ) {
+            $target     =   base_path( 'modules/' . $moduleNamespace . '/Public' );
+
+            if ( ! \windows_os() ) {
+                Storage::disk( 'laravel-public' )->makeDirectory( 'modules/' . $moduleNamespace );
+                $link           =   \symlink( $target, public_path( '/modules/' . strtolower( $moduleNamespace ) ) );
+            } else {
+                $mode       =   'J';
+                $link       =   public_path( 'modules' . DIRECTORY_SEPARATOR . strtolower( $moduleNamespace ) );
+                $target     =   base_path( 'modules' . DIRECTORY_SEPARATOR . $moduleNamespace . DIRECTORY_SEPARATOR . 'Public' );
+                $link       =   exec("mklink /{$mode} \"{$link}\" \"{$target}\"");
+            }
         }
     }
 
