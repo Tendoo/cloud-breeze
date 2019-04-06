@@ -9,6 +9,8 @@ use Tendoo\Core\Services\Field;
 use Tendoo\Core\Services\Helper;
 use Tendoo\Core\Models\User;
 use Tendoo\Core\Facades\Hook;
+use Tendoo\Core\Services\Users;
+use {{ trim( $model_name ) }}
 
 class {{ ucwords( $Str::camel( $Str::plural( $resource_name ) ) ) }} extends Crud
 {
@@ -31,7 +33,7 @@ class {{ ucwords( $Str::camel( $Str::plural( $resource_name ) ) ) }} extends Cru
     /**
      * Model Used
      */
-    protected $model      =   '{{ trim( $model_name ) }}';
+    protected $model      =   {{ trim( $model_name ) }}::class;
 
     /**
      * Adding relation
@@ -52,12 +54,12 @@ class {{ ucwords( $Str::camel( $Str::plural( $resource_name ) ) ) }} extends Cru
      * Fields which will be filled during post/put
      */
     @php
-    $fields         =   explode( ',' $fillable );
+    $fields         =   explode( ',', $fillable );
     foreach( $fields as &$field ) {
-        $field      =   trime( $field );
+        $field      =   trim( $field );
     }
     @endphp
-    public $fillable    =   {{ json_encode( $fillable ) }};
+    public $fillable    =   {!! json_encode( $fillable ) !!};
 
     /**
      * Define Constructor
@@ -236,7 +238,7 @@ class {{ ucwords( $Str::camel( $Str::plural( $resource_name ) ) ) }} extends Cru
     public function getColumns() {
         return [
             @foreach( $Schema::getColumnListing( $table_name ) as $column )
-        '{{ $column }}'  =>  [
+'{{ $column }}'  =>  [
                 'label'  =>  __( '{{ ucwords( $column ) }}' )
             ],
             @endforeach
