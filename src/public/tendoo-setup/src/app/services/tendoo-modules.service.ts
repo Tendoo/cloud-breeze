@@ -34,7 +34,7 @@ export class TendooModulesService extends TendooAuthService {
     /**
      * Enable a module
      * @param string module namespace
-     * @return {Observable} AsyncResponse
+     * @return Observable AsyncResponse
      */
     enable( module: string ) {
         return this.post( this.baseUrl + 'tendoo/modules/enable', { module });
@@ -43,7 +43,7 @@ export class TendooModulesService extends TendooAuthService {
     /**
      * Disable a module
      * @param string module namespace
-     * @return {Observable} AsyncReponse
+     * @return Observable AsyncReponse
      */
     disable( module: string ) {
         return this.post( this.baseUrl + 'tendoo/modules/disable', { module });
@@ -52,7 +52,7 @@ export class TendooModulesService extends TendooAuthService {
     /**
      * get a single module details
      * @param string module namespace
-     * @return {Obserable} TendooModule
+     * @return Observable TendooModule
      */
     getModule( namespace: string ) {
         return this.get( `${this.baseUrl}tendoo/modules/${namespace}`);
@@ -60,9 +60,9 @@ export class TendooModulesService extends TendooAuthService {
 
     /**
      * Run a specific migration for thie provided module
-     * @param {string} module namespace
-     * @param {string} file path to run
-     * @return {Promise<AsyncReponse>}
+     * @param string module namespace
+     * @param string file path to run
+     * @return Promise
      */
     runMigration( namespace, file, version ) {
         return new Promise( ( resolve, reject ) => {
@@ -84,7 +84,7 @@ export class TendooModulesService extends TendooAuthService {
      * generate symlink for the
      * the selected module
      * @param string namespace
-     * @return {Observable<AsyncResponse>} response
+     * @return Observable response
      */
     createSymLink( namespace: string ) {
         return this.get( `${this.baseUrl}tendoo/modules/${namespace}/symlink` );

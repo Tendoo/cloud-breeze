@@ -42,6 +42,7 @@ import { ErrorComponent } from "src/app/components/error/error.component";
 import { LostPasswordComponent } from "src/app/components/auth/lost-password/lost-password.component";
 import { ChangePasswordComponent } from "src/app/components/auth/change-password/change-password.component";
 import { MustLogoutGuard } from "src/app/guards/must-logout.guard";
+import { SaveRedirectGuard } from "src/app/guards/save-redirect.guard";
 
 @NgModule({
     imports: [
@@ -72,7 +73,7 @@ import { MustLogoutGuard } from "src/app/guards/must-logout.guard";
             }, {
                 path: 'auth',
                 component: AuthComponent,
-                canActivate: [ PreventAppNotInstalledGuard ],
+                canActivate: [ PreventAppNotInstalledGuard, SaveRedirectGuard ],
                 children: [
                     {
                         path: 'logout',

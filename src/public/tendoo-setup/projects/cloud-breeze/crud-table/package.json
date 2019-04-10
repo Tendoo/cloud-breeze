@@ -1,0 +1,11 @@
+{
+  "name": "@cloud-breeze/crud-table",
+  "version": "0.0.5",
+  "peerDependencies": {
+    "@angular/common": "^7.0.0",
+    "@angular/core": "^7.0.0",
+    "@angular/material": "^7.3.7",
+    "@cloud-breeze/core": "0.0.2",
+    "@cloud-breeze/dialog": "0.0.1"
+  }
+}

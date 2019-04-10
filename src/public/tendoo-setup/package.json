@@ -8,7 +8,10 @@
     "build-ct": "cd projects/cloud-tools; ng build; npm publish",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "build-libraries": "ng build @cloud-breeze/core; ng build @cloud-breeze/dialog; ng build @cloud-breeze/crud-table",
+    "publish-core": "cd projects/cloud-breeze/core; ng build @cloud-breeze/core; npm publish --access public",
+    "publish-table": "cd projects/cloud-breeze/crud-table; npm publish --access public"
   },
   "private": true,
   "dependencies": {
@@ -25,6 +28,8 @@
     "@angular/platform-browser": "~7.0.0",
     "@angular/platform-browser-dynamic": "~7.0.0",
     "@angular/router": "~7.0.0",
+    "@cloud-breeze/core": "0.0.2",
+    "@cloud-breeze/dialog": "~0.0.3",
     "core-js": "^2.6.1",
     "hammerjs": "^2.0.8",
     "install": "^0.12.2",

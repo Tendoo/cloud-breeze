@@ -86,7 +86,7 @@ export class TendooAuthService extends LoaderService {
      * request password reset for a specific 
      * email
      * @param string email
-     * @return {Observable} {Observable<AsyncResponse>} observable of asyncresponse
+     * @return Observable observable of asyncresponse
      */
     requestPasswordReset( data ) {
         return this.post( `${this.baseUrl}tendoo/auth/password-reset`, data );
@@ -98,8 +98,8 @@ export class TendooAuthService extends LoaderService {
      * request authorization code
      * @param string new password
      * @param string authorizationr request
-     * @param {number} user int
-     * @return {Observable} {Observable<AsyncResponse>} observable of asyncresponse
+     * @param number user int
+     * @return Observable observable of asyncresponse
      */
     changePassword( data ) {
         const { password, authorization, user }     =   data;

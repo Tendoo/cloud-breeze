@@ -95,6 +95,14 @@ export class LoginComponent implements OnInit {
             this.routeSnapshot.queryParamMap.subscribe( param => {                
                 if ( param.get( 'redirect' ) !== null ) {
                     window.location.href     =   param.get( 'redirect' );
+                } else if ( this.cookie.get( 'redirect' ) ) {
+                    /**
+                     * let's check if there is a cookie which 
+                     * require a redirection. If yes, redirect
+                     * and delete the cookie
+                     */
+                    window.location.href    =   this.cookie.get( 'redirect' );
+                    this.cookie.delete( 'redirect' );
                 } else {
                     console.log( this.helper.isUrl( path ), path );
                     if ( this.helper.isUrl( path ) ) {

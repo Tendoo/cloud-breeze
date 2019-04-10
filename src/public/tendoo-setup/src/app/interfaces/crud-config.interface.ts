@@ -4,8 +4,11 @@ import { Button } from "./button";
 
 export interface CrudTableColumn {
     [key: string ] : {
-        label: string
-    }
+        label ?: string,
+        replace ?: string;
+        truncate ?: string;
+        type ?: string
+    },
 }
 
 export interface CrudConfig {

@@ -27,7 +27,7 @@ export class LoaderService {
 
     /**
      * Submit post request
-     * @param {string} url to access
+     * @param string url to access
      * @param data data to submit
      */
     post( url:string, data: { [ key:string] : any }, config = {}) {
@@ -56,7 +56,7 @@ export class LoaderService {
 
     /**
      * Submit put request
-     * @param {string} url to access
+     * @param string url to access
      * @param data data to submit
      */
     put( url:string, data: { [ key:string] : any } ) {
@@ -70,7 +70,7 @@ export class LoaderService {
     
     /**
      * Submit DELETE request
-     * @param {string} url to access
+     * @param string url to access
      * @param data data to submit
      */
     delete( url ) {
@@ -93,7 +93,7 @@ export class LoaderService {
 
     /**
      * Submit get request
-     * @param {string} url to access
+     * @param string url to access
      * @param data data to submit
      */
     get( url ) {
