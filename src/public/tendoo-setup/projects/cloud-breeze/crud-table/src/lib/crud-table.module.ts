@@ -6,6 +6,8 @@ import { TruncateMiddlePipe } from './pipes/truncate-middle.pipe';
 import { TruncatePipe } from './pipes/truncate.pipe';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { DialogModule } from '@cloud-breeze/dialog';
 
 @NgModule({
 	declarations: [ CrudTableComponent, TruncateMiddlePipe, TruncatePipe ],
@@ -22,7 +24,9 @@ import { RouterModule } from '@angular/router';
 		MatProgressBarModule,
 		MatCheckboxModule,
 		MatDividerModule,
-		MatButtonModule
+		MatButtonModule,
+		FlexLayoutModule,
+		DialogModule
 	],
 	exports: [ CrudTableComponent ]
 })

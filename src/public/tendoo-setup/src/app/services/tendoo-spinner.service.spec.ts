@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { CloudToolsService } from './cloud-tools.service';
+import { TendooSpinnerService } from './tendoo-spinner.service';
 
-describe('CloudToolsService', () => {
+describe('TendooSpinnerService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: CloudToolsService = TestBed.get(CloudToolsService);
+    const service: TendooSpinnerService = TestBed.get(TendooSpinnerService);
     expect(service).toBeTruthy();
   });
 });

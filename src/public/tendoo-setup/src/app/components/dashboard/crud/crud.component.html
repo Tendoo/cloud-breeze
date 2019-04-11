@@ -6,7 +6,7 @@
         </div>
     </div>
     <div fxFlex class="p-3" fxLayout="column">
-        <app-crud-table
+        <cb-table
             *ngIf="crud.results.data.length > 0"
             [crud]="crud"
 
@@ -14,7 +14,7 @@
             (delete)="deleteEntries( $event )"
             (action)="doAction( $event )"
             (search)="searh( $event )"
-        ></app-crud-table>
+        ></cb-table>
         <div *ngIf="crud.results.data.length === 0" fxFlex fxFill fxLayoutAlign="center center">
             <div fxFlex="400px">
                 <p style="text-align: center">

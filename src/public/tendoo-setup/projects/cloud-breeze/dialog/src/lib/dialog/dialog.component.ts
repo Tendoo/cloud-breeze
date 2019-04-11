@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject, ViewEncapsulation } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
-import { Button } from '@cloud-breeze/core';
 import { Dialog } from '../interfaces/dialog';
+import { Button } from '@cloud-breeze/core';
 
 @Component({
 	selector: 'cb-dialog',

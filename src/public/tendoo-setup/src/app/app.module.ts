@@ -59,6 +59,8 @@ import { ErrorComponent } from './components/error/error.component';
 import { LostPasswordComponent } from './components/auth/lost-password/lost-password.component';
 import { ChangePasswordComponent } from './components/auth/change-password/change-password.component';
 import { CoreMigrationDialogComponent } from './shared/core-migration-dialog/core-migration-dialog.component';
+import { CrudTableModule } from 'projects/cloud-breeze/crud-table/src/public_api';
+import { LoadingAnimationComponent } from './partials/loading-animation/loading-animation.component';
 
 @NgModule({
     declarations: [
@@ -106,6 +108,7 @@ import { CoreMigrationDialogComponent } from './shared/core-migration-dialog/cor
         LostPasswordComponent,
         ChangePasswordComponent,
         CoreMigrationDialogComponent,
+        LoadingAnimationComponent,
     ],
     imports: [
         BrowserModule,
@@ -118,13 +121,15 @@ import { CoreMigrationDialogComponent } from './shared/core-migration-dialog/cor
         RoutesModule,
         FormsModule,
         DropzoneModule,
-        NgxCaptchaModule
+        NgxCaptchaModule,
+        CrudTableModule
     ],
     entryComponents: [
         ConfirmDialogComponent,
         MigrationDialogComponent,
         FileUploadComponent,
         CoreMigrationDialogComponent,
+        LoadingAnimationComponent,
     ],
     providers: [
         CookieService,

@@ -1,9 +1,10 @@
 import { Component, OnInit, Input, Output, OnDestroy } from '@angular/core';
 import { EventEmitter } from '@angular/core';
 import { MatDialog, MatSnackBar } from '@angular/material';
-import { DialogComponent, Dialog } from '@cloud-breeze/dialog';
+
 import { Router } from '@angular/router';
 import { TableConfig, TableColumn } from '../interfaces/crud-config.interface';
+import { DialogComponent, Dialog } from '@cloud-breeze/dialog';
 
 @Component({
     selector: 'cb-table',

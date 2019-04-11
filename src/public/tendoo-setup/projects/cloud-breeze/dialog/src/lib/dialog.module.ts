@@ -5,6 +5,7 @@ import { MatButtonModule, MatDividerModule } from '@angular/material';
 
 @NgModule({
 	declarations: [DialogComponent],
+	entryComponents: [DialogComponent],
 	imports: [
 		CommonModule,
 		MatDividerModule,

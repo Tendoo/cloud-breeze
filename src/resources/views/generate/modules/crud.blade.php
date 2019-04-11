@@ -39,9 +39,11 @@ class {{ ucwords( $Str::camel( $Str::plural( $resource_name ) ) ) }} extends Cru
      * Adding relation
      */
     public $relations   =  [
+        @if( count( $relations ) > 0 ) 
         @foreach( $relations as $relation )
         [ '{{ strtolower( trim( $relation[0] ) ) }}', '{{ strtolower( trim( $relation[2] ) ) }}', '=', '{{ strtolower( trim( $relation[1] ) ) }}' ]
         @endforeach
+        @endif
     ];
 
     /**

@@ -6,6 +6,7 @@ import { SetupService } from '../services/setup.service';
 import { TendooService } from '../services/tendoo.service';
 import { AsyncResponse } from '../interfaces/async-response';
 import { CoreMigrationDialogComponent } from '../shared/core-migration-dialog/core-migration-dialog.component';
+import { TendooSpinnerService } from '../services/tendoo-spinner.service';
 
 @Injectable({
     providedIn: 'root'
@@ -16,14 +17,17 @@ export class PreventAppNotInstalledGuard implements CanActivate {
         private router: Router,
         private snackbar: MatSnackBar,
         private tendoo: TendooService,
-        private dialog: MatDialog
+        private dialog: MatDialog,
+        private spinner: TendooSpinnerService
     ){}
     
     canActivate(
         next: ActivatedRouteSnapshot,
         state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
             return new Promise( async ( resolve, reject ) => {
+                this.spinner.open( 'Pinging the server...', 'tendoo-ping-server' );
                 this.setup.ping().subscribe( async (result: any) => {
+                    this.spinner.close( 'tendoo-ping-server' );
                     if ( result.status === 'not-installed' ) {
                         this.snackbar.open( result.message, 'INSTALL' ).afterDismissed().subscribe( action => {
                             if ( action.dismissedByAction ) {
@@ -62,6 +66,7 @@ export class PreventAppNotInstalledGuard implements CanActivate {
                     }
 
                 }, result => {
+                    this.spinner.close( 'tendoo-ping-server' );
                     this.snackbar.open( result.error.message || 'An unexpected error occured while checking the application status', null, {
                         duration: 3000
                     });
