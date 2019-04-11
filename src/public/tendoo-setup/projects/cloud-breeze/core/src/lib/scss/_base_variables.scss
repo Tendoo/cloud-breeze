@@ -1,0 +1,31 @@
+$breakpoints: (
+    xl: (
+        min: 1920px,
+        max: 5000px
+    ),
+    lg: (
+        min: 1280px,
+        max: 1919px
+    ),
+    md: (
+        min: 960px,
+        max: 1279px
+    ),
+    sm: (
+        min: 600px,
+        max: 959px
+    ),
+    xs: (
+        min: 0px,
+        max: 599px
+    )
+);
+
+$default-margin: 3rem;
+
+$directions: (
+    l: left,
+    t: top,
+    b: bottom,
+    r: right
+);

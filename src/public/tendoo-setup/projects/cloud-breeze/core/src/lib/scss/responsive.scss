@@ -1,0 +1,42 @@
+@import './base_variables';
+
+@mixin breakpoint( $shortand ) {
+    $size: map-get( $breakpoints, $shortand );
+    @media (min-width: #{ map-get( $size, min ) }) and ( max-width: #{ map-get( $size, max ) } ) {
+        @content;
+    }
+} 
+
+@each $breakpoint, $size in $breakpoints {
+    @include breakpoint( $breakpoint ) {
+        @each $variation in (0, 1, 2, 3, 4) {
+            @each $space, $space-name in (m: margin, p: padding ) {
+                @each $corner, $direction in $directions {
+                    .#{$space}-#{$variation} {
+                        #{$space-name}: $default-margin * ($variation*0.15) !important;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@each $breakpoint, $size in $breakpoints {
+    @include breakpoint( $breakpoint ) {
+        @each $variation in (0, 1, 2, 3, 4) {
+            @each $space, $space-name in (m: margin, p: padding ) {
+                @each $corner, $direction in $directions {
+                    .#{$space}#{$corner}-#{$variation} {
+                        @if $variation != 0 {
+                            #{$space-name}-#{$direction}: $default-margin * ($variation*0.15) !important;
+                        } @else {
+                            #{$space-name}-#{$direction}: 0rem !important;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+                                
