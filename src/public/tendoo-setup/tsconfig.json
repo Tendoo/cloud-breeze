@@ -18,24 +18,6 @@
       "dom"
     ],
     "paths": {
-      "cloud-tools": [
-        "dist/cloud-tools"
-      ],
-      "cloud-tools/*": [
-        "dist/cloud-tools/*"
-      ],
-      "@cloud-breeze/crud-table": [
-        "dist/cloud-breeze/crud-table"
-      ],
-      "@cloud-breeze/crud-table/*": [
-        "dist/cloud-breeze/crud-table/*"
-      ],
-      "@cloud-breeze/dialog": [
-        "dist/cloud-breeze/dialog"
-      ],
-      "@cloud-breeze/dialog/*": [
-        "dist/cloud-breeze/dialog/*"
-      ],
       "@cloud-breeze/core": [
         "dist/cloud-breeze/core"
       ],

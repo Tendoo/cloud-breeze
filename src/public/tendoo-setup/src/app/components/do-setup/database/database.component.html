@@ -9,7 +9,7 @@
                 <mat-divider></mat-divider>
                 <mat-card-content>
                     <p style="margin: 30px 0 20px">In order to install Tendoo CMS, please provide all the informations required to connect to the database.</p>
-                    <app-fields [field]="field" [group]="setupForm" *ngFor="let field of fields"></app-fields>
+                    <cb-field [field]="field" [group]="setupForm" *ngFor="let field of fields"></cb-field>
                 </mat-card-content>
                 <mat-divider *ngIf="! setup.isLoading"></mat-divider>
                 <mat-progress-bar *ngIf="setup.isLoading" mode="indeterminate" style="height: 1px;position: absolute;left: 0;"></mat-progress-bar>

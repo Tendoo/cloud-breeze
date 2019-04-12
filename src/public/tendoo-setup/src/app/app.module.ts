@@ -4,8 +4,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { DropzoneModule } from 'ngx-dropzone-wrapper';
 import { CookieService } from 'ngx-cookie-service';
 import { NgxCaptchaModule } from 'ngx-captcha';
+import { CoreModule } from '@cloud-breeze/core';
 
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from 'src/modules/material.module';
@@ -21,7 +21,6 @@ import { SettingsComponent } from './components/dashboard/settings/settings.comp
 import { RoutesModule } from 'src/modules/routes.module';
 import { DashboardHomeComponent } from './components/dashboard/home/home.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { FieldsComponent } from './shared/fields/fields.component';
 import { HttpClientModule } from '@angular/common/http';
 import { LoaderService } from './services/loader.service';
 import { DoSetupComponent } from './components/do-setup/do-setup.component';
@@ -38,7 +37,6 @@ import { MediasUploadComponent } from './components/dashboard/medias-upload/medi
 import { MenuListComponent } from './shared/menu-list/menu-list.component';
 import { SubMenuListComponent } from './shared/sub-menu-list/sub-menu-list.component';
 import { CoreEvent } from './classes/core-event.class';
-import { EventEmitter } from 'protractor';
 import { NotFoundComponent } from './components/dashboard/not-found/not-found.component';
 import { CrudComponent } from './components/dashboard/crud/crud.component';
 import { CrudTableComponent } from './shared/crud-table/crud-table.component';
@@ -59,7 +57,6 @@ import { ErrorComponent } from './components/error/error.component';
 import { LostPasswordComponent } from './components/auth/lost-password/lost-password.component';
 import { ChangePasswordComponent } from './components/auth/change-password/change-password.component';
 import { CoreMigrationDialogComponent } from './shared/core-migration-dialog/core-migration-dialog.component';
-import { CrudTableModule } from 'projects/cloud-breeze/crud-table/src/public_api';
 import { LoadingAnimationComponent } from './partials/loading-animation/loading-animation.component';
 
 @NgModule({
@@ -75,7 +72,6 @@ import { LoadingAnimationComponent } from './partials/loading-animation/loading-
         ModulesComponent,
         SettingsComponent,
         DashboardHomeComponent,
-        FieldsComponent,
         DoSetupComponent,
         AuthComponent,
         HomeComponent,
@@ -112,7 +108,6 @@ import { LoadingAnimationComponent } from './partials/loading-animation/loading-
     ],
     imports: [
         BrowserModule,
-        AppRoutingModule,
         BrowserAnimationsModule,
         FlexLayoutModule,
         ReactiveFormsModule,
@@ -122,7 +117,7 @@ import { LoadingAnimationComponent } from './partials/loading-animation/loading-
         FormsModule,
         DropzoneModule,
         NgxCaptchaModule,
-        CrudTableModule
+        CoreModule,
     ],
     entryComponents: [
         ConfirmDialogComponent,

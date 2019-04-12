@@ -22,7 +22,7 @@
                         <mat-tab *ngFor="let tab of tabs" [label]="tab.label">
                             <form [formGroup]="tab.form">
                                 <div class="p-2">
-                                    <app-fields *ngFor="let field of tab.fields" [field]="field" [group]="tab.form"></app-fields>
+                                    <cb-field *ngFor="let field of tab.fields" [field]="field" [group]="tab.form"></cb-field>
                                 </div>
                             </form>
                         </mat-tab>

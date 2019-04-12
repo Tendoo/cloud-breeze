@@ -185,6 +185,9 @@ import { SaveRedirectGuard } from "src/app/guards/save-redirect.guard";
         ], {
             enableTracing: false
         })
+    ],
+    exports: [
+        RouterModule
     ]
 })
 export class RoutesModule{}

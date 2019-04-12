@@ -14,6 +14,7 @@ import { DialogComponent } from './components/dialog/dialog.component';
 import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TendooSpinnerService } from './services/tendoo-spinner.service';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
 	entryComponents: [ 
@@ -34,24 +35,27 @@ import { TendooSpinnerService } from './services/tendoo-spinner.service';
 		TendooSpinnerService
 	],
 	imports: [
-		MaterialModule,
 		CommonModule,
+		MaterialModule,
 		FormsModule,
 		ReactiveFormsModule,
 		NgxCaptchaModule,
 		RouterModule,
-		BrowserAnimationsModule
+		BrowserAnimationsModule,
+		FlexLayoutModule
 	],
 	exports: [ 
 		MaterialModule, 
 		BrowserAnimationsModule,
+		FlexLayoutModule,
+		NgxCaptchaModule,
 
 		FieldsComponent,
 		CrudTableComponent,
 		DialogComponent,
 		LoadingAnimationComponent,
 		MenuListComponent,
-		SubMenuListComponent
+		SubMenuListComponent,
 	]
 })
 export class CoreModule { }

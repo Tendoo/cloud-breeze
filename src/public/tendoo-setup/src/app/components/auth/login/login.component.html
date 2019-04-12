@@ -17,7 +17,7 @@
                 <mat-card-content>
                     <ng-container>
                         <p *ngIf="notice === 'from-registration'" class="registration-notice m-0">Your account has been created, but require activation, please consider checking your email to proceed with the validation.</p>
-                        <app-fields [field]="field" [group]="loginForm" *ngFor="let field of fields"></app-fields>
+                        <cb-field [field]="field" [group]="loginForm" *ngFor="let field of fields"></cb-field>
                     </ng-container>
                 </mat-card-content>
                 <mat-divider *ngIf="!tendoo.isLoading"></mat-divider>

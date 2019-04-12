@@ -1,0 +1,14 @@
+{
+  "name": "@cloud-breeze/bootstrap-scss",
+  "version": "1.0.0",
+  "description": "Provide the entire bootstrap scss",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Blair Jersyer",
+  "license": "MIT",
+  "dependencies": {
+    "node-sass": "^4.11.0"
+  }
+}

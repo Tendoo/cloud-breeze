@@ -7,7 +7,7 @@
             <mat-card color="primary">
                 <mat-card-title>Register</mat-card-title>
                 <mat-card-content>
-                    <app-fields [field]="field" [group]="registerForm" *ngFor="let field of fields"></app-fields>
+                    <cb-field [field]="field" [group]="registerForm" *ngFor="let field of fields"></cb-field>
                 </mat-card-content>
                 <mat-divider *ngIf="!tendoo.isLoading"></mat-divider>
                 <mat-progress-bar *ngIf="tendoo.auth.isLoading" mode="indeterminate" style="height: 1px;position: absolute;left: 0;"></mat-progress-bar>

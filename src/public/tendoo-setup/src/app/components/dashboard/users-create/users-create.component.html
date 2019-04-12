@@ -15,7 +15,7 @@
             </mat-card-title>
             <mat-card-content>
                 <form [formGroup]="form" *ngIf="form">
-                    <app-fields *ngFor="let field of fields" [field]="field" [group]="form"></app-fields>
+                    <cb-field *ngFor="let field of fields" [field]="field" [group]="form"></cb-field>
                 </form>
             </mat-card-content>
             <mat-divider *ngIf="! tendoo.users.isLoading"></mat-divider>
