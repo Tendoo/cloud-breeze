@@ -16,14 +16,13 @@ trait GeneralSettingsFields
         $app_name->type             =   'text';
         $app_name->description      =   __( 'This name will be used to identify the application.' );
         $app_name->placeholder      =   $app_name->label;
-        $app_name->validation       =   'sometimes|required|min:5';
+        $app_name->validation       =   'min:5';
         $app_name->value            =   $options->get( $app_name->name );
 
         $timezone                   =   new \StdClass;
         $timezone->name             =   'app_timezone';
         $timezone->label            =   __( 'TimeZone' );
         $timezone->type             =   'select';
-        $timezone->validation       =   'required';
         $timezone->description      =   __( 'This will see the default time used over the application.' );
         $timezone->options          =   Helper::kvToJsOptions( generate_timezone_list() );
         $timezone->value            =   $options->get( $timezone->name );
@@ -32,7 +31,6 @@ trait GeneralSettingsFields
         $multisite->name            =   'multisite_enabled';
         $multisite->label           =   __( 'Enable the multisite' );
         $multisite->type            =   'switch';
-        $multisite->validation      =   'required';
         $multisite->description     =   __( 'Enable a multi site feature which let you have multiple instance of the application with on database.' );
         $multisite->options         =   Helper::booleanToggle();
         $multisite->value           =   ( bool ) intval( $options->get( $multisite->name ) );        
