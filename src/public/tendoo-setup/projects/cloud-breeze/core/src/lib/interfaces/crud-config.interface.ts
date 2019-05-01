@@ -21,7 +21,9 @@ export interface TableConfig {
     }
     fields: Field[];
     links: {[ key: string ]: string };
-    results? : {[ key: string]: string | number | boolean }[];
+    results? : {
+        data: {[ key: string]: string | number | boolean }[]
+    };
     namespace?: string;
 }
 

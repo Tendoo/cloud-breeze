@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 import { TendooService } from 'src/app/services/tendoo.service';
 import { Observable, forkJoin } from 'rxjs';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar, MatDialog } from '@angular/material';
 import { CoreEvent } from 'src/app/classes/core-event.class';
 import { HttpErrorResponse } from '@angular/common/http';
 import { CoreAction } from 'src/app/interfaces/core-action';
@@ -22,11 +22,13 @@ export class CrudComponent implements OnInit, OnDestroy {
         private activatedRoute: ActivatedRoute,
         public tendoo: TendooService,
         private snackbar: MatSnackBar,
+        private dialog: MatDialog,
         private coreEvent: CoreEvent,
         private route: Router
     ) { }
     
     ngOnInit() {
+        console.log( 'foo' );
         this.coreEvent.subscribe( (action: CoreAction ) => {
             if ( action.type === 'crud.action.success' ) {
                 this.loadCrud();
@@ -46,6 +48,7 @@ export class CrudComponent implements OnInit, OnDestroy {
     loadCrud() {
         this.tendoo.dashboardTitle( 'Loading...' );
         this.activatedRoute.paramMap.subscribe( route => {
+            console.log( 'crud loaded' );
             this.namespace  =   route.get( 'namespace' );
             this.page       =   +route.get( 'page' );
 
@@ -105,11 +108,17 @@ export class CrudComponent implements OnInit, OnDestroy {
             this.tendoo.crud
                 .performAction( this.namespace, actionData )
                 .subscribe( data => {
+                    this.dialog
+                        .getDialogById( actionData.menu.namespace )
+                        .close();
                     this.coreEvent.emit({
                         type: 'crud.action.success',
                         data: Object.assign( data, actionData )
                     })          
             }, (data: HttpErrorResponse) => {
+                this.dialog
+                    .getDialogById( actionData.menu.namespace )
+                    .close();
                 this.coreEvent.emit({
                     type: 'crud.action.failed',
                     data: Object.assign( data.error, actionData )

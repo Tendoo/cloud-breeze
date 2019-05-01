@@ -64,8 +64,6 @@ class CrudController extends DashboardController
         $model          =   $resource->get( 'model' );
         $model::find( $id )->delete();
 
-        Event::fire( 'after.deleting.crud', $namespace, $id );
-
         return [
             'status'    =>  'success',
             'message'   =>  __( 'The entry has been successfully delete.' )

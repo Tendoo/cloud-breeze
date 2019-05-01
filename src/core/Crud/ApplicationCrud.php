@@ -138,7 +138,10 @@ class ApplicationCrud extends Crud
      * @return void
      */
     public function beforeDelete( $namespace, $id ) {
-        // not required
+        return [ 
+            'status'    =>  'success',
+            'message'   =>  __( 'Hasn been deleted' )
+        ];
     }
 
     /**
