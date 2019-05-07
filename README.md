@@ -17,7 +17,13 @@ The system also ship flood security which basically block any user which exceed 
 # Installation
 Since Cloud Breeze is a package, it could be installed using a composer command : 
 
-`composer require tendoo/cloud-breeze`
+`composer require tendoo/cms`
+
+Then, you need to publish the assets of Cloud Breeze by running the following command : 
+
+`php artisan tendoo:publish`
+
+The only action you need now, is to access to the home page of your project to start using it.
 
 # How doest that looks like ?
 ## 1 - Installation Welcome page
