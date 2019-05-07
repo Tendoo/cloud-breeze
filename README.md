@@ -10,7 +10,9 @@ Is a Laravel Package which provide a ready to use API Server for your PWA (Progr
 - Build in UI : which helps you to mange users, modules and medias.
 
 # How Does that works ?
-The application essentially allow communication from API endpoints. This means even the built-in UI use the API endpoints to communicate with the application. So, some endpoints are public and could be accessed from any remote application (PWA), unless if explicitely block it (CORS). The system also ship flood security which basically block any user which exceed a specific amount of requests per minutes. You can also use the building reCaptcha feature to protect Authentication features (login, register, recovery).
+The application essentially allow communication from API endpoints. This means even the built-in UI use the API endpoints to communicate with the application. So, some endpoints are public and could be accessed from any remote application (PWA), unless if explicitely block it (CORS). 
+
+The system also ship flood security which basically block any user which exceed a specific amount of requests per minutes. You can also use the building reCaptcha feature to protect Authentication features (login, register, recovery).
 
 # Installation
 Since Cloud Breeze is a package, it could be installed using a composer command : 
