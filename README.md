@@ -4,21 +4,18 @@
 <a href="https://packagist.org/packages/tendoo/cms"><img src="https://poser.pugx.org/tendoo/cms/license.svg" alt="License"></a>
 
 # Cloud Breeze
-We do believe in PWA (Progressive Web Application). The purpose of this application, is to create a ready to use API server. It has been build as a laravel package and ship a basic UI for managing the data. The frontend has been build with Angular & Angular Material.
+Is a Laravel Package which provide a ready to use API Server for your PWA (Progress Web Application). This package comes with a building : 
+- Oauth System (with related pages)
+- Modules : which could extends the server features
+- Build in UI : which helps you to mange users, modules and medias.
 
-# Getting Started
-The project can be installed as any regular laravel package. You can run the following command to start quickly.
-
-`composer require tendoo/cms:dev-api-server`
-
-This should install the application along with the angular version. Not, you need to publish the access. By assets you should understand the necessary js, css and html files.
-
-`php artisan tendoo:publish`
-
-The final step is to access to the application and proceed to the installation. 
+# How Does that works ?
+The application essentially allow communication from API endpoints. This means even the built-in UI use the API endpoints to communicate with the application. So, some endpoints are public and could be accessed from any remote application (PWA), unless if explicitely block it (CORS). The system also ship flood security which basically block any user which exceed a specific amount of requests per minutes. You can also use the building reCaptcha feature to protect Authentication features (login, register, recovery).
 
 # Installation
-Tendoo CMS only works now with MySQL or equivalent database. You need to create a database and have the credentials ready. Once on the application (while it's not yet installed), you'll see a snackbar notification inviting you to install it. Just click on `INSTALL` and proceed.
+Since Cloud Breeze is a package, it could be installed using a composer command : 
+
+`composer require tendoo/cloud-breeze`
 
 # How doest that looks like ?
 ## 1 - Installation Welcome page
