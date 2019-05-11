@@ -6,11 +6,11 @@ import { TableColumnInterface } from 'src/app/interfaces/table-column.interface'
 import { TableEntryInterface } from 'src/app/interfaces/table-entry.interface';
 import { Router } from '@angular/router';
 import { MatDialog, MatSnackBar } from '@angular/material';
-import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
 import { ConfirmDialogObject } from 'src/app/interfaces/confirm-dialog';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AsyncResponse } from 'src/app/interfaces/async-response';
 import { TableConfig } from 'src/app/interfaces/table-config.interface';
+import { DialogComponent } from '@cloud-breeze/core';
 
 @Component({
     selector: 'app-users',
@@ -114,7 +114,7 @@ export class UsersComponent implements OnInit {
 
         if ( menu.confirm !== undefined ) {
             console.log( menu.namespace );
-            this.dialog.open( ConfirmDialogComponent, {
+            this.dialog.open( DialogComponent, {
                 id: menu.namespace,
                 data: <ConfirmDialogObject>{
                     title: menu.confirm.title,
@@ -191,7 +191,7 @@ export class UsersComponent implements OnInit {
      * @return void
      */
     deleteSelectedEntries( entries ) {
-        this.dialog.open( ConfirmDialogComponent, {
+        this.dialog.open( DialogComponent, {
             id: 'delete.all.popup',
             data: <ConfirmDialogObject>{
                 title: 'Please Confirm Your Action',

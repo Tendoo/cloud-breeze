@@ -39,6 +39,19 @@ export class TendooMediasService extends LoaderService {
     }
 
     /**
+     * Download media
+     * @param number media id
+     * @return Observable
+     */
+    downloadMedia( id ) {
+        return this._get( `download/${id}` );
+    }
+
+    private _get( url ) {
+        return this.get( `${this.baseUrl}tendoo/medias/${url}` );
+    }
+
+    /**
      * Delete single media using a provided id
      * @param id media id to delete
      */

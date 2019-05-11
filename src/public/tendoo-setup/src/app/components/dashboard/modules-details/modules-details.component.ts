@@ -7,9 +7,9 @@ import { MatSnackBar, MatDialog } from '@angular/material';
 import { AsyncResponse } from 'src/app/interfaces/async-response';
 import { CoreEvent } from 'src/app/classes/core-event.class';
 import { Observable } from 'rxjs';
-import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
 import { ConfirmDialogObject } from 'src/app/interfaces/confirm-dialog';
 import { HttpErrorResponse } from '@angular/common/http';
+import { DialogComponent } from '@cloud-breeze/core';
 
 @Component({
     selector: 'app-modules-details',
@@ -75,7 +75,7 @@ export class ModulesDetailsComponent implements OnInit {
      * @return void
      */
     toggleModule( action: string ) {
-        this.dialog.open( ConfirmDialogComponent, {
+        this.dialog.open( DialogComponent, {
             id: 'toggle-module',
             data: <ConfirmDialogObject>{
                 title: 'Confirm your action',
@@ -125,7 +125,7 @@ export class ModulesDetailsComponent implements OnInit {
     }
 
     removeModule() {
-        this.dialog.open( ConfirmDialogComponent, {
+        this.dialog.open( DialogComponent, {
             id: 'remove-module',
             data: <ConfirmDialogObject>{
                 title: 'Confirm your action',

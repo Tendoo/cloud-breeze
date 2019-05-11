@@ -2,10 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { TendooService } from 'src/app/services/tendoo.service';
 import { ActivatedRoute, ActivatedRouteSnapshot, Router } from '@angular/router';
 import { MatSnackBar, MatDialog } from '@angular/material';
-import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
-import { ConfirmDialogObject } from 'src/app/interfaces/confirm-dialog';
 import { AsyncResponse } from 'src/app/interfaces/async-response';
 import { HttpErrorResponse } from '@angular/common/http';
+import { DialogComponent, Dialog } from '@cloud-breeze/core';
 
 @Component({
     selector: 'app-medias-details',
@@ -14,6 +13,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class MediasDetailsComponent implements OnInit {
     media: any;
+    editEnabled        =   false;
     constructor(
         public tendoo: TendooService,
         private activatedRoute: ActivatedRoute,
@@ -37,10 +37,23 @@ export class MediasDetailsComponent implements OnInit {
         })
     }
 
+    toggleEdition() {
+        this.editEnabled = !this.editEnabled;
+        if ( this.editEnabled ) {
+            this.tendoo.medias.downloadMedia( this.media.id ).subscribe( result => {
+                console.log( result );
+            })
+        }
+    }
+
+    convertImageToBase64() {
+        
+    }
+
     deleteMedia() {
-        this.dialog.open( ConfirmDialogComponent, {
+        this.dialog.open( DialogComponent, {
             id: 'delete-media',
-            data: <ConfirmDialogObject> {
+            data: <Dialog> {
                 title: 'Confirm Your Action',
                 message: 'Would you like to delete this media ?',
                 buttons: [
@@ -68,4 +81,7 @@ export class MediasDetailsComponent implements OnInit {
         })
     }
     
+    rotate( direction: string ) {
+        ;
+    }
 }

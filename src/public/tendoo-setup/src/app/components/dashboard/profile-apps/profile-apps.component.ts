@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { TendooService } from 'src/app/services/tendoo.service';
 import { MatDialog, MatSnackBar } from '@angular/material';
-import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
 import { ConfirmDialogObject } from 'src/app/interfaces/confirm-dialog';
 import { AsyncResponse } from 'src/app/interfaces/async-response';
+import { DialogComponent } from '@cloud-breeze/core';
 
 export interface PeriodicElement {
     name: string;
@@ -63,7 +63,7 @@ export class ProfileAppsComponent implements OnInit {
     }
     
     revoke( app ) {
-        this.dialog.open( ConfirmDialogComponent, {
+        this.dialog.open( DialogComponent, {
             id: 'confirm-dialog',
             data: <ConfirmDialogObject>{
                 title: `Confirm Your Action`,

@@ -178,4 +178,18 @@ class MediasController extends DashboardController
             'message'   =>  __( 'Unable to find the media using the provided id' )
         ]);
     }
+
+    /**
+     * allow a dowload of a specific 
+     * media
+     * @param int of the media to download
+     * @return Stream
+     */
+    public function downloadMedia( $id ) 
+    {
+        $medias     =   $this->mediaService->find( $id );
+        if( $medias ) {
+            return $medias;
+        }
+    }
 }

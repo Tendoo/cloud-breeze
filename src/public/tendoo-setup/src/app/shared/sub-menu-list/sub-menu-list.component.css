@@ -1,9 +1,0 @@
-mat-nav-list {
-    background: rgba(233, 233, 233, 0.5);
-    border-top: solid 1px #e0e0e0;
-    border-bottom: solid 1px #e0e0e0;
-}
-
-mat-list-item span {
-    padding-left: 40px;
-}

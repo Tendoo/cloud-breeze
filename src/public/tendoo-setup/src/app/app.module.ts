@@ -28,18 +28,14 @@ import { AuthComponent } from './components/auth/auth.component';
 import { HomeComponent } from './components/home/home.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ModulesUploadComponent } from './components/dashboard/modules-upload/modules-upload.component';
-import { ConfirmDialogComponent } from './shared/confirm-dialog/confirm-dialog.component';
 import { UsersEditComponent } from './components/dashboard/users-edit/users-edit.component';
 import { UsersCreateComponent } from './components/dashboard/users-create/users-create.component';
 import { ProfileComponent } from './components/dashboard/profile/profile.component';
 import { MediasComponent } from './components/dashboard/medias/medias.component';
 import { MediasUploadComponent } from './components/dashboard/medias-upload/medias-upload.component';
-import { MenuListComponent } from './shared/menu-list/menu-list.component';
-import { SubMenuListComponent } from './shared/sub-menu-list/sub-menu-list.component';
 import { CoreEvent } from './classes/core-event.class';
 import { NotFoundComponent } from './components/dashboard/not-found/not-found.component';
 import { CrudComponent } from './components/dashboard/crud/crud.component';
-import { CrudTableComponent } from './shared/crud-table/crud-table.component';
 import { CrudCreateComponent } from './components/dashboard/crud-create/crud-create.component';
 import { CrudEditComponent } from './components/dashboard/crud-edit/crud-edit.component';
 import { MigrationDialogComponent } from './components/migration-dialog/migration-dialog.component';
@@ -58,6 +54,7 @@ import { LostPasswordComponent } from './components/auth/lost-password/lost-pass
 import { ChangePasswordComponent } from './components/auth/change-password/change-password.component';
 import { CoreMigrationDialogComponent } from './shared/core-migration-dialog/core-migration-dialog.component';
 import { LoadingAnimationComponent } from './partials/loading-animation/loading-animation.component';
+import { ImageCropperModule } from 'ngx-image-cropper';
 
 @NgModule({
     declarations: [
@@ -77,17 +74,13 @@ import { LoadingAnimationComponent } from './partials/loading-animation/loading-
         HomeComponent,
         DashboardComponent,
         ModulesUploadComponent,
-        ConfirmDialogComponent,
         UsersEditComponent,
         UsersCreateComponent,
         ProfileComponent,
         MediasComponent,
         MediasUploadComponent,
-        MenuListComponent,
-        SubMenuListComponent,
         NotFoundComponent,
         CrudComponent,
-        CrudTableComponent,
         CrudCreateComponent,
         CrudEditComponent,
         MigrationDialogComponent,
@@ -118,9 +111,9 @@ import { LoadingAnimationComponent } from './partials/loading-animation/loading-
         DropzoneModule,
         NgxCaptchaModule,
         CoreModule,
+        ImageCropperModule,
     ],
     entryComponents: [
-        ConfirmDialogComponent,
         MigrationDialogComponent,
         FileUploadComponent,
         CoreMigrationDialogComponent,

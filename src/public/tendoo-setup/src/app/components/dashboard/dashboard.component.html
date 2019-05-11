@@ -29,7 +29,7 @@
         <ng-container>
             <div fxFlex="250px"  fxLayout="column" class="aside-menu">
                 <div fxFlex>
-                    <app-menu-list [menus]="asideMenus"></app-menu-list>
+                    <cb-menu [menus]="asideMenus"></cb-menu>
                 </div>    
             </div>
             <mat-divider [vertical]="true"></mat-divider>
@@ -43,7 +43,7 @@
             <ng-container>
                 <div fxFlex="250px"  fxLayout="column" class="aside-menu">
                     <div fxFlex>
-                        <app-menu-list (navigate)="toggleDrawer( $event )" [menus]="asideMenus"></app-menu-list>
+                        <cb-menu (navigate)="toggleDrawer( $event )" [menus]="asideMenus"></cb-menu>
                     </div>    
                 </div>
             </ng-container>

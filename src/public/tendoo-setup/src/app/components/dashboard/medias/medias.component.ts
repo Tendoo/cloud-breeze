@@ -4,13 +4,13 @@ import { Media } from 'src/app/interfaces/media';
 import { forkJoin } from 'rxjs';
 import { PaginatedResponse } from 'src/app/interfaces/paginated-response';
 import { MatDialog, MatSnackBar } from '@angular/material';
-import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
 import { ConfirmDialogObject } from 'src/app/interfaces/confirm-dialog';
 import { AsyncResponse } from 'src/app/interfaces/async-response';
 import { MediaObserver } from '@angular/flex-layout';
 import { Title } from '@angular/platform-browser';
 import { TendooService } from 'src/app/services/tendoo.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { DialogComponent } from '@cloud-breeze/core';
 import { FileUploadComponent } from 'src/app/shared/file-upload/file-upload.component';
 
 @Component({
@@ -221,7 +221,7 @@ export class MediasComponent implements OnInit {
     }
 
     deleteSelected() {
-        this.dialog.open( ConfirmDialogComponent, {
+        this.dialog.open( DialogComponent, {
             id: 'delete.medias',
             width: '50%',
             height: '30%',

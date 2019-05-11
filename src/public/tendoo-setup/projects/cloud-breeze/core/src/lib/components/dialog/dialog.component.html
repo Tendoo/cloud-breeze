@@ -1,14 +1,15 @@
 <div fxLayout="column" fxFill>
 	<div fxFlex="auto" fxLayout="column" fxLayoutAlign="start start">
-		<div class="dialog-text p-2" fxLayoutAlign="center center" fxFill>
+		<div class="dialog-text p-2 px-4" fxLayoutAlign="center center" fxFill>
 			<div>
-				<p class="mat-display-2 m-0 py-3">
+				<p class="mat-h1 m-0 pt-3">
 					{{ data.title }}
 				</p>
 				<p class="mat-body-1">{{ data.message }}</p>
 			</div>
 		</div>
 	</div>
+	<mat-divider></mat-divider>
 	<div fxLayout="row" fxFlex="50px" fxLayoutAlign="stretch stretch">
 		<ng-container *ngFor="let button of data.buttons">
 			<button (click)="handle( button )" fxFlex="auto" mat-button="">

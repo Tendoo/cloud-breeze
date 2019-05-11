@@ -5,3 +5,4 @@ Route::delete( '/tendoo/medias/{id}', 'Dashboard\MediasController@delete' );
 Route::post( '/tendoo/medias', 'Dashboard\MediasController@upload' );
 Route::post( '/tendoo/medias/bulk-upload', 'Dashboard\MediasController@bulkUpload' );
 Route::post( '/tendoo/medias/delete', 'Dashboard\MediasController@deleteBulkMedias' );
+Route::get( '/tendoo/medias/download/{id}', 'Dashboard\MediasController@downloadMedia' );

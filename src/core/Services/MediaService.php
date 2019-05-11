@@ -136,7 +136,6 @@ class MediaService
     {
         if ( in_array( $size, array_keys( $this->sizes ) ) ) {
             $file   =   Media::where( 'slug', $filename )->first();
-
         }
         return false;
     }

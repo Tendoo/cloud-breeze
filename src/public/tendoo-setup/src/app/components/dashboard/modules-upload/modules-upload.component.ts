@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
 import { MatDialogRef, MatDialog, MatSnackBar } from '@angular/material';
 import { ConfirmDialogObject } from 'src/app/interfaces/confirm-dialog';
 import { ResponsiveService } from 'src/app/services/responsive.service';
@@ -7,6 +6,7 @@ import { TendooService } from 'src/app/services/tendoo.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AsyncResponse } from 'src/app/interfaces/async-response';
 import { Router } from '@angular/router';
+import { DialogComponent } from '@cloud-breeze/core';
 
 @Component({
     selector: 'app-modules-upload',
@@ -43,7 +43,7 @@ export class ModulesUploadComponent implements OnInit {
             });
         }
 
-        this.dialog.open( ConfirmDialogComponent, {
+        this.dialog.open( DialogComponent, {
             id      :   'upload.module',
             data 	:	<ConfirmDialogObject>{
                 title 		    :	'Would you like to confirm ?',

@@ -10,22 +10,50 @@
                 </button>
             </div>
             <div>
-                <button mat-icon-button class="ml-1">
-                    <mat-icon>crop</mat-icon>
-                </button>
-                <button mat-icon-button (click)="deleteMedia()" class="ml-1">
-                    <mat-icon>delete</mat-icon>
-                </button>
-                <button mat-icon-button class="ml-1">
-                    <mat-icon>rotate_left</mat-icon>
-                </button>
-                <button mat-icon-button class="ml-1">
-                    <mat-icon>rotate_right</mat-icon>
-                </button>
+                <ng-container *ngIf="! editEnabled">
+                    <button mat-icon-button (click)="deleteMedia()" class="ml-1">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                    <button  (click)="toggleEdition()" mat-icon-button class="ml-1">
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                </ng-container>
+                <ng-container *ngIf="editEnabled">
+                    <button (click)="toggleEdition()" mat-icon-button class="ml-1">
+                        <mat-icon>arrow_back</mat-icon>
+                    </button>
+                    <button mat-icon-button class="ml-1">
+                        <mat-icon>crop</mat-icon>
+                    </button>
+                    <button (click)="rotate( 'left' )" mat-icon-button class="ml-1">
+                        <mat-icon>rotate_left</mat-icon>
+                    </button>
+                    <button (click)="rotate( 'right' )" mat-icon-button class="ml-1">
+                        <mat-icon>rotate_right</mat-icon>
+                    </button>
+                    <button (click)="save()" mat-icon-button class="ml-1">
+                        <mat-icon>save</mat-icon>
+                    </button>
+                </ng-container>
             </div>
         </div>
         <div style="height: 100%; overflow-y: auto" fxLayoutAlign="center center">
-            <img class="media-preview" *ngIf="[ 'jpeg', 'png', 'jpg', 'gif' ].includes( media.extension )" [src]="media.sizes.original" [alt]="media.name">
+            <img class="media-preview" *ngIf="[ 'jpeg', 'png', 'jpg', 'gif' ].includes( media.extension ) && ! editEnabled" [src]="media.sizes.original" [alt]="media.name">
+            <ng-container *ngIf="editEnabled">
+                <canvas id="holder"></canvas>
+                <image-cropper
+                    *ngIf="editEnabled"
+                    [imageBase64]="loadedImageBase64"
+                    [maintainAspectRatio]="true"
+                    [aspectRatio]="4 / 3"
+                    [resizeToWidth]="128"
+                    [format]="media.extension"
+                    (imageCropped)="imageCropped($event)"
+                    (imageLoaded)="imageLoaded()"
+                    (cropperReady)="cropperReady()"
+                    (loadImageFailed)="loadImageFailed()"
+                ></image-cropper>
+            </ng-container>
         </div>
     </div>
 </div>

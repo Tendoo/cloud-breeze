@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { TendooService } from 'src/app/services/tendoo.service';
 import { MatDialog, MatSnackBar } from '@angular/material';
-import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
 import { ConfirmDialogObject } from 'src/app/interfaces/confirm-dialog';
 import { ResponsiveService } from 'src/app/services/responsive.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AsyncResponse } from 'src/app/interfaces/async-response';
 import { TendooModule } from 'src/app/interfaces/module.interface';
 import { CoreEvent } from 'src/app/classes/core-event.class';
+import { DialogComponent } from '@cloud-breeze/core';
 import { MigrationDialogComponent } from '../../migration-dialog/migration-dialog.component';
 
 @Component({
@@ -61,7 +61,7 @@ export class ModulesComponent implements OnInit {
      */
     delete( module ) {
         console.log( module );
-        this.dialog.open( ConfirmDialogComponent, {
+        this.dialog.open( DialogComponent, {
             id: 'delete.module',
             data: <ConfirmDialogObject>{
                 title       :   'Confirm Your Action',
@@ -122,7 +122,7 @@ export class ModulesComponent implements OnInit {
      * @return void
      */
     private __proceedEnableModule( module ) {
-        this.dialog.open( ConfirmDialogComponent, {
+        this.dialog.open( DialogComponent, {
             data: <ConfirmDialogObject>{
                 title: 'Please confirm your action',
                 message: 'Would you like to enable this module ?',
@@ -153,7 +153,7 @@ export class ModulesComponent implements OnInit {
      * @return void
      */
     private __proceedDisableModule( module ) {
-        this.dialog.open( ConfirmDialogComponent, {
+        this.dialog.open( DialogComponent, {
             data: <ConfirmDialogObject>{
                 title: 'Please confirm your action',
                 message: 'Would you like to disable this module ?',
