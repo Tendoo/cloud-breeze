@@ -4,6 +4,7 @@ namespace Tendoo\Core\Services;
 use Carbon\Carbon;
 use Tendoo\Core\Services\DateService;
 use Tendoo\Core\Models\Media;
+use Tendoo\Core\Exceptions\NotFoundException;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -228,5 +229,31 @@ class MediaService
         }
 
         return $media;
+    }
+
+    /**
+     * get media path
+     * @param number media id
+     * @return array
+     */
+    public function getMediaPath( $id, $size = '' )
+    {
+        $media  =   $this->find( $id );
+        if ( $media instanceof Media ) {
+            $file   =   Storage::disk( 'public' )->path( $media->slug . ( ! empty( $size ) ? '-' . $size : '' ) . '.' . $media->extension );
+            
+            if ( is_file( $file ) ) {
+                return Storage::disk( 'public' )->download( $media->slug . ( ! empty( $size ) ? '-' . $size : '' ) . '.' . $media->extension  );
+            }
+
+            throw new NotFoundException([
+                'status'    =>  'failed',
+                'message'   =>  __( 'Unable to find the requested file.' )
+            ]);
+        }
+        throw new NotFoundException([
+            'status'    =>  'failed',
+            'message'   =>  __( 'Unable to find the media entry' )
+        ]);
     }
 }

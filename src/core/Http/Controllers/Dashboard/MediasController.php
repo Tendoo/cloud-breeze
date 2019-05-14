@@ -187,7 +187,7 @@ class MediasController extends DashboardController
      */
     public function downloadMedia( $id ) 
     {
-        $medias     =   $this->mediaService->find( $id );
+        $medias     =   $this->mediaService->getMediaPath( $id );
         if( $medias ) {
             return $medias;
         }

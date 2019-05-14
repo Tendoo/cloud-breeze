@@ -32,7 +32,13 @@ export class MediasDetailsComponent implements OnInit {
                 this.media  =   media;
                 this.tendoo.dashboardTitle( 'Details : ' + this.media.name );
             }, ( error ) => {
-                this.snackbar.open( 'Unable to open this media, it may have been deleted or it doesn\'t exists' )
+                this.snackbar.open( 'Unable to open this media, it may have been deleted or it doesn\'t exists', 'RETURN' )
+                    .afterDismissed()
+                    .subscribe( action => {
+                        if ( action.dismissedByAction ) {
+                            this.router.navigateByUrl( 'dashboard/medias/page/1' );
+                        }
+                    })
             })
         })
     }
@@ -41,7 +47,7 @@ export class MediasDetailsComponent implements OnInit {
         this.editEnabled = !this.editEnabled;
         if ( this.editEnabled ) {
             this.tendoo.medias.downloadMedia( this.media.id ).subscribe( result => {
-                console.log( result );
+                // console.log( result );
             })
         }
     }

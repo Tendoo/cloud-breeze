@@ -19,9 +19,6 @@
                     </button>
                 </ng-container>
                 <ng-container *ngIf="editEnabled">
-                    <button (click)="toggleEdition()" mat-icon-button class="ml-1">
-                        <mat-icon>arrow_back</mat-icon>
-                    </button>
                     <button mat-icon-button class="ml-1">
                         <mat-icon>crop</mat-icon>
                     </button>
@@ -33,6 +30,9 @@
                     </button>
                     <button (click)="save()" mat-icon-button class="ml-1">
                         <mat-icon>save</mat-icon>
+                    </button>
+                    <button (click)="toggleEdition()" mat-icon-button class="ml-1">
+                        <mat-icon>cancel</mat-icon>
                     </button>
                 </ng-container>
             </div>

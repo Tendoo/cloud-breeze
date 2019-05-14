@@ -10,6 +10,7 @@ import { MediaUploadStatus } from 'src/app/interfaces/media-upload-status';
 export class FileUploadComponent implements OnInit {
     currentProgress: number     =   0;
     processedFiles: number      =   0;
+    failedFiles: number         =   0;
     totalFiles: number          =   0;
     processing: File;
     constructor(
