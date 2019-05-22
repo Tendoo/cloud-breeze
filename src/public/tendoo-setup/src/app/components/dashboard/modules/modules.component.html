@@ -36,6 +36,7 @@
                                 <button (click)="download( module )" mat-menu-item>Download</button>
                                 <button (click)="delete( module )" mat-menu-item>Delete</button>
                                 <button (click)="createSymlink( module )" mat-menu-item>Create Symlink</button>
+                                <button (click)="resetMigration( module )" mat-menu-item>Reset Migration</button>
                             </mat-menu>
                         </ng-container>
                         <button class="m-0" [disabled]="isLoading" *ngIf="module.enabled" (click)="setStatus( module, 'disable' )"  mat-button color="primary">Disable</button>

@@ -11,6 +11,17 @@ class Role extends Model
     private static $cachedPermissions   =   [];
     protected $table    =   'tendoo_roles';
 
+    
+    /**
+     * Relation with users
+     * @return void
+    **/
+
+    public function users()
+    {
+        return $this->hasMany( User::class );
+    }
+    
     /**
      * Relation with users
      * @return void

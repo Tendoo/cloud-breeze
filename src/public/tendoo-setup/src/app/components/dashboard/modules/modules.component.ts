@@ -7,7 +7,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { AsyncResponse } from 'src/app/interfaces/async-response';
 import { TendooModule } from 'src/app/interfaces/module.interface';
 import { CoreEvent } from 'src/app/classes/core-event.class';
-import { DialogComponent } from '@cloud-breeze/core';
+import { DialogComponent, Dialog } from '@cloud-breeze/core';
 import { MigrationDialogComponent } from '../../migration-dialog/migration-dialog.component';
 
 @Component({
@@ -289,5 +289,42 @@ export class ModulesComponent implements OnInit {
             }, (result: HttpErrorResponse ) => {
                 this.snackbar.open( result.error.message || 'An error has occured during the process', 'OK' );
             })
+    }
+
+    /**
+     * reset module migration
+     */
+    resetMigration( module: TendooModule ) {
+        this.dialog.open( DialogComponent, {
+            id: 'reset-migration-dialog',
+            data: <Dialog>{
+                title: 'Resetting Module Migration',
+                message: `Would you like to confirm this action ? All migration will be reverted and your data will be lost`,
+                buttons: [
+                    {
+                        label: 'OK',
+                        onClick: () => {
+                            this.tendoo.modules.resetMigrations( module ).subscribe( result => {
+                                
+                                const { migrations }    =   result[ 'data' ];
+
+                                this.dialog.getDialogById( 'reset-migration-dialog' ).close();;
+                                this.dialog.open( MigrationDialogComponent, {
+                                    id: 'migration-dialog',
+                                    data: { migrations, module },
+                                    closeOnNavigation: false,
+                                    disableClose: true,
+                                });
+                            })
+                        }
+                    }, {
+                        label: 'Cancel',
+                        onClick: () => {
+                            this.dialog.getDialogById( 'reset-migration-dialog' ).close();
+                        }
+                    }
+                ]
+            }
+        })
     }
 }

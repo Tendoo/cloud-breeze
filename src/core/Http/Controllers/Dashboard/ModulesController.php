@@ -323,4 +323,29 @@ class ModulesController extends DashboardController
             'message'   =>  __( 'Unable to find the module using the provided namespace' )
         ]);
     }
+
+    public function resetMigration( Request $request )
+    {
+        $namespace  =   $request->input( 'namespace' );
+        $module     =   $this->modules->get( $namespace );
+
+        if ( $module ) {
+            
+            $this->options->delete( strtolower( $namespace ) . '_last_migration' );
+            $this->modules->dropAllMigrations( $namespace );
+
+            return [
+                'status'    =>  'success',
+                'message'   =>  __( 'The module migration has been dropped' ),
+                'data'      =>  [
+                    'migrations'    =>  $migration  =   $this->modules->getMigrations( $namespace )
+                ]
+            ];
+        }
+
+        throw new NotFoundException([
+            'status'    =>  'failed',
+            'message'   =>  __( 'Unable to find the requested module' )
+        ]);
+    }
 }

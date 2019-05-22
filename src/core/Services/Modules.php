@@ -3,6 +3,7 @@ namespace Tendoo\Core\Services;
 
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Arr;
 use Tendoo\Core\Services\Helper;
 use XmlParser;
