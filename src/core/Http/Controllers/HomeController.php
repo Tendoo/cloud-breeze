@@ -6,9 +6,10 @@ use Illuminate\Http\Request;
 use Tendoo\Core\Services\Setup;
 use Tendoo\Core\Services\Helper;
 use Tendoo\Core\Exceptions\NotFoundException;
+use Tendoo\Core\Exceptions\AccessDeniedException;
 use Tendoo\Core\Services\Options;
 
-class HomeController extends Controller
+class HomeController extends BaseController
 {
     /**
      * Show the application dashboard.
@@ -57,5 +58,28 @@ class HomeController extends Controller
                 'message'   =>  __( 'Tendoo is not installed.' )
             ];
         }
+    }
+
+    /**
+     * Extract module
+     * @param string module namespace
+     * @todo review
+     * @return void
+     */
+    public function extractModule( $module, Request $request )
+    {
+        /**
+         * let's make sure the url is valid
+         */
+        if ( ! $request->hasValidSignature() ) {
+            throw new AccessDeniedException( __( 'This url is not valid or has expired.' ) );
+        }
+
+        $moduleDetails     =   $this->modules->extract( $module );
+        
+        return response()->download( 
+            $moduleDetails[ 'path' ], 
+            strtolower( $moduleDetails[ 'module' ][ 'namespace' ] ) . '-' . $moduleDetails[ 'module' ][ 'version' ] . '.zip' 
+        )->deleteFileAfterSend( true );
     }
 }

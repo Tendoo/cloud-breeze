@@ -33,4 +33,6 @@ Route::middleware([ 'tendoo.cors' ])->group( function() {
     Route::get( 'tendoo/ping', 'HomeController@ping' );
     Route::get( 'tendoo/update/database', 'UpdateController@postUpdate' );
     Route::get( 'tendoo/update/assets', 'UpdateController@postFiles' );
+    Route::post( 'tendoo/modules/{namespace}/download', 'HomeController@extractModule' )
+        ->name( 'tendoo.modules.download' );
 });

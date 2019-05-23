@@ -9,12 +9,12 @@ use Tendoo\Core\Services\DateService;
 
 class Url
 {
-    public function generate( $namespace, Request $request )
+    public function generate( $action, Request $request )
     {
-        if( $namespace === 'extract.module' ) {
+        if( $action === 'extract.module' ) {
             $date       =   app()->make( DateService::class );
             return [
-                'url'   =>  UrlHelper::temporarySignedRoute( 'tendoo.modules.download', now()->addYears(30), [
+                'url'   =>  UrlHelper::temporarySignedRoute( 'tendoo.modules.download', $date->addYears(30), [
                     'namespace' =>  $request->input( 'namespace' )
                 ]),
                 'token' =>  $request->header( 'X-AUTH-TOKEN' ),

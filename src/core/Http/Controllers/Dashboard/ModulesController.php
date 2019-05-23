@@ -1,10 +1,11 @@
 <?php
 namespace Tendoo\Core\Http\Controllers\Dashboard;
 
-use Tendoo\Core\Http\Controllers\DashboardController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Log;
+
+use Tendoo\Core\Http\Controllers\DashboardController;
 use Tendoo\Core\Http\Requests\PostModuleRequest;
 use Tendoo\Core\Exceptions\CoreException;
 use Tendoo\Core\Exceptions\ModuleMigrationRequiredException;
@@ -17,6 +18,7 @@ class ModulesController extends DashboardController
     public function __construct()
     {
         parent::__construct();
+
         $this->middleware( function( $request, $next ) {
             $this->checkPermission( 'manage.modules' );
             return $next( $request );
@@ -107,29 +109,6 @@ class ModulesController extends DashboardController
         }
 
         throw new CoreException( __( 'Unable to locate the module.' ) );
-    }
-
-    /**
-     * Extract module
-     * @param string module namespace
-     * @todo review
-     * @return void
-     */
-    public function extractModule( $module )
-    {
-        /**
-         * let's make sure the url is valid
-         */
-        if ( ! request()->hasValidSignature() ) {
-            throw new AccessDeniedException( __( 'This url is not valid or has expired.' ) );
-        }
-
-        $moduleDetails     =   $this->modules->extract( $module );
-        
-        return response()->download( 
-            $moduleDetails[ 'path' ], 
-            strtolower( $moduleDetails[ 'module' ][ 'namespace' ] ) . '-' . $moduleDetails[ 'module' ][ 'version' ] . '.zip' 
-        )->deleteFileAfterSend( true );
     }
 
     /**
@@ -321,6 +300,31 @@ class ModulesController extends DashboardController
 
         throw new NotFoundException([
             'message'   =>  __( 'Unable to find the module using the provided namespace' )
+        ]);
+    }
+
+    public function resetMigration( Request $request )
+    {
+        $namespace  =   $request->input( 'namespace' );
+        $module     =   $this->modules->get( $namespace );
+
+        if ( $module ) {
+            
+            $this->options->delete( strtolower( $namespace ) . '_last_migration' );
+            $this->modules->dropAllMigrations( $namespace );
+
+            return [
+                'status'    =>  'success',
+                'message'   =>  __( 'The module migration has been dropped' ),
+                'data'      =>  [
+                    'migrations'    =>  $migration  =   $this->modules->getMigrations( $namespace )
+                ]
+            ];
+        }
+
+        throw new NotFoundException([
+            'status'    =>  'failed',
+            'message'   =>  __( 'Unable to find the requested module' )
         ]);
     }
 }

@@ -7,4 +7,4 @@ Route::post( '/tendoo/modules/{namespace}/migration', 'Dashboard\ModulesControll
 Route::delete( '/tendoo/modules/{namespace}', 'Dashboard\ModulesController@deleteModule' );
 Route::post( '/tendoo/modules/enable', 'Dashboard\ModulesController@enableModule' );
 Route::post( '/tendoo/modules/disable', 'Dashboard\ModulesController@disableModule' );
-Route::post( 'tendoo/modules/{namespace}/download', 'Dashboard\ModulesController@extractModule' )->name( 'tendoo.modules.download' );
+Route::post( '/tendoo/modules/reset-migrations', 'Dashboard\ModulesController@resetMigration' );

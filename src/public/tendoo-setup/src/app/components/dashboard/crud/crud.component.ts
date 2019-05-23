@@ -31,7 +31,7 @@ export class CrudComponent implements OnInit, OnDestroy {
         console.log( 'foo' );
         this.coreEvent.subscribe( (action: CoreAction ) => {
             if ( action.type === 'crud.action.success' ) {
-                this.loadCrud();
+                this.loadCrudData();
             }
         });
 
@@ -48,26 +48,28 @@ export class CrudComponent implements OnInit, OnDestroy {
     loadCrud() {
         this.tendoo.dashboardTitle( 'Loading...' );
         this.activatedRoute.paramMap.subscribe( route => {
-            console.log( 'crud loaded' );
-            this.namespace  =   route.get( 'namespace' );
-            this.page       =   +route.get( 'page' );
-
-            this.tendoo.crud.getConfig( this.namespace ).subscribe( (crud: CrudConfig ) => {
-                this.crud   =   crud;
-                this.tendoo.dashboardTitle( this.crud.labels.list_title );
-            }, error => {
-                this.snackbar
-                    .open( 'Unable to load the crud component.', 'TRY AGAIN' )
-                    .afterDismissed()
-                    .subscribe( observer => {
-                        if ( observer.dismissedByAction ) {
-                            this.loadCrud();
-                        }
-                })
-            });
+            this.namespace  = route.get('namespace');
+            this.page       = +route.get('page');    
+            this.loadCrudData();
         })
     }
     
+    private loadCrudData() {
+        this.tendoo.crud.getConfig(this.namespace).subscribe((crud: CrudConfig) => {
+            this.crud = crud;
+            this.tendoo.dashboardTitle(this.crud.labels.list_title);
+        }, error => {
+            this.snackbar
+                .open('Unable to load the crud component.', 'TRY AGAIN')
+                .afterDismissed()
+                .subscribe(observer => {
+                    if (observer.dismissedByAction) {
+                        this.loadCrud();
+                    }
+                });
+        });
+    }
+
     /**
      * 
     **/
@@ -78,23 +80,28 @@ export class CrudComponent implements OnInit, OnDestroy {
     /**
      * 
     **/
-    deleteEntries( data ) {
-        const action    =   this.tendoo.crud
+    deleteEntries( requestData ) {
+        const { dialog }    =   requestData;
+        const action        =   this.tendoo.crud
             .performBulkAction( this.namespace, {
-                entries_id  :   data.entries.map( entry => entry.id ),
+                entries_id  :   requestData.entries.map( entry => entry.id ),
                 action: 'delete_selected'
             }).subscribe( data => {
+                this.loadCrudData();
+                this.dialog.getDialogById( dialog.id )
+                    .close();
                 this.coreEvent.emit({
                     type: 'crud.bulk.success',
                     data
-                })
+                });
             }, ( result:HttpErrorResponse ) => {
+                this.dialog.getDialogById( dialog.id )
+                    .close();
                 this.coreEvent.emit({
                     type: 'crud.bulk.failed',
                     data: result.error
                 });
-            })
-        
+            });        
     }
 
     /**

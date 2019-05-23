@@ -1,10 +1,16 @@
 import { Injectable } from '@angular/core';
 import { TendooAuthService } from './tendoo-auth.service';
+import { TendooModule } from '../interfaces/module.interface';
 
 @Injectable({
     providedIn: 'root'
 })
 export class TendooModulesService extends TendooAuthService {
+    
+    resetMigrations( module: TendooModule ) {
+        return this.post( `${this.baseUrl}tendoo/modules/reset-migrations`, { namespace: module.namespace });
+    }
+
     getAll() {
         return this.get( this.baseUrl + 'tendoo/modules' );
     }

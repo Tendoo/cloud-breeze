@@ -16,4 +16,5 @@ export interface TendooModule {
     version: string;
     'view-path': string;
     name: string;
+    isLoading?: boolean;
 }

@@ -12,8 +12,8 @@ class LinkController extends DashboardController
         parent::__construct();
     }
 
-    public function getSigned( $namespace, Request $request )
+    public function getSigned( $action, Request $request )
     {
-        return Hook::filter( 'signed.url', $namespace, $request );
+        return Hook::filter( 'signed.url', $action, $request );
     }
 }

@@ -7,8 +7,9 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { AsyncResponse } from 'src/app/interfaces/async-response';
 import { TendooModule } from 'src/app/interfaces/module.interface';
 import { CoreEvent } from 'src/app/classes/core-event.class';
-import { DialogComponent } from '@cloud-breeze/core';
+import { DialogComponent, Dialog } from '@cloud-breeze/core';
 import { MigrationDialogComponent } from '../../migration-dialog/migration-dialog.component';
+import { LoaderService } from 'src/app/services/loader.service';
 
 @Component({
     selector: 'app-modules',
@@ -32,11 +33,15 @@ export class ModulesComponent implements OnInit {
     
     loadModules() {
         this.tendoo.modules.getAll().subscribe( (modules:any[]) => {
-            this.modules    =   Object.values( modules );
+            this.modules    =   Object.values( modules ).map( module => {
+                module.isLoading = false;
+                return module;
+            });
         })
     }
 
     private __deleteModule( module ) {
+        module.isLoading    =   true;
         this.tendoo.modules.deleteModule( module.namespace ).subscribe( (result:AsyncResponse ) => {
             this.snackbar.open( result.message, null, { duration: 3000 });
 
@@ -51,6 +56,7 @@ export class ModulesComponent implements OnInit {
 
             this.loadModules();
         }, ( result:HttpErrorResponse ) => {
+            module.isLoading    =   false;
             this.snackbar.open( result.error.message, 'OK' );
         })
     }
@@ -59,8 +65,7 @@ export class ModulesComponent implements OnInit {
      * delete a module
      * @return void
      */
-    delete( module ) {
-        console.log( module );
+    delete( module: TendooModule ) {
         this.dialog.open( DialogComponent, {
             id: 'delete.module',
             data: <ConfirmDialogObject>{
@@ -121,7 +126,7 @@ export class ModulesComponent implements OnInit {
      * Proceed Enable Module
      * @return void
      */
-    private __proceedEnableModule( module ) {
+    private __proceedEnableModule( module: TendooModule ) {
         this.dialog.open( DialogComponent, {
             data: <ConfirmDialogObject>{
                 title: 'Please confirm your action',
@@ -186,6 +191,7 @@ export class ModulesComponent implements OnInit {
      */
     private __enableModule( module:TendooModule )
     {
+        module.isLoading    =   true;
         this.tendoo.modules.enable( module.namespace ).subscribe( response => {
 
             /**
@@ -219,6 +225,7 @@ export class ModulesComponent implements OnInit {
                 })
 
             } else {
+                module.isLoading    =   false;
                 this.snackbar.open( result.error.message, null, {
                     duration: 4000
                 });
@@ -234,8 +241,9 @@ export class ModulesComponent implements OnInit {
      * the action has been confirmed
      * @return void
      */
-    private __disableModule( module )
+    private __disableModule( module: TendooModule )
     {
+        module.isLoading    =   true;
         this.tendoo.modules.disable( module.namespace ).subscribe( response => {
 
             /**
@@ -252,6 +260,7 @@ export class ModulesComponent implements OnInit {
                 .getDialogById( 'disable-enable-module' )
                 .close();
         }, ( result: HttpErrorResponse ) => {
+            module.isLoading    =   false;
             this.snackbar.open( result.error.message, null, {
                 duration: 4000
             });
@@ -266,14 +275,23 @@ export class ModulesComponent implements OnInit {
      * @param {object} module
      * @return void
      */
-    download( module ) {
+    download( module: TendooModule ) {
+        module.isLoading    =   true;
         this.tendoo.links.signed( 'extract.module', {
             namespace: module.namespace
         }).subscribe( (result: any) => {
             this.tendoo.post( result.url, {
                 'token'         : result.token
+            }, {
+                headers: Object.assign({}, {
+                    'Content-Type'  :   'application/zip'
+                }, LoaderService.headers ),
             }).subscribe( result => {
+                module.isLoading    =   false;
                 console.log( result );
+            }, ( error ) => {
+                module.isLoading    =   false;
+                this.snackbar.open( 'An error has occured while downloading the module', 'OK', { duration : 3000 });
             })
         })        
     }
@@ -283,11 +301,52 @@ export class ModulesComponent implements OnInit {
     }
 
     createSymlink( module: TendooModule ) {
+        module.isLoading    =   true;
         this.tendoo.modules.createSymLink( module.namespace )
             .subscribe( result => {
+                module.isLoading    =   false;
                 const snack     =   this.snackbar.open( 'A symbolic link has been created for that module', 'OK', { duration: 3000 });                
             }, (result: HttpErrorResponse ) => {
+                module.isLoading    =   false;
                 this.snackbar.open( result.error.message || 'An error has occured during the process', 'OK' );
             })
+    }
+
+    /**
+     * reset module migration
+     */
+    resetMigration( module: TendooModule ) {
+        this.dialog.open( DialogComponent, {
+            id: 'reset-migration-dialog',
+            data: <Dialog>{
+                title: 'Resetting Module Migration',
+                message: `Would you like to confirm this action ? All migration will be reverted and your data will be lost`,
+                buttons: [
+                    {
+                        label: 'OK',
+                        onClick: () => {
+                            module.isLoading    =   true;
+                            this.tendoo.modules.resetMigrations( module ).subscribe( result => {
+                                module.isLoading        =   false;
+                                const { migrations }    =   result[ 'data' ];
+
+                                this.dialog.getDialogById( 'reset-migration-dialog' ).close();;
+                                this.dialog.open( MigrationDialogComponent, {
+                                    id: 'migration-dialog',
+                                    data: { migrations, module },
+                                    closeOnNavigation: false,
+                                    disableClose: true,
+                                });
+                            })
+                        }
+                    }, {
+                        label: 'Cancel',
+                        onClick: () => {
+                            this.dialog.getDialogById( 'reset-migration-dialog' ).close();
+                        }
+                    }
+                ]
+            }
+        })
     }
 }
