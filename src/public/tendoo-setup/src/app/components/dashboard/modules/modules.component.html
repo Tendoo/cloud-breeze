@@ -1,5 +1,4 @@
 <div fxLayout="column" fxFlex="100%">
-    <mat-progress-bar color="warn" style="height: 2px; position: relative;margin-bottom: -2px" *ngIf="tendoo.modules.isLoading" mode="indeterminate"></mat-progress-bar>
     <div fxLayout="row" class="bg-content p-3">
         <div fxFlex>
             <h1 class="mat-h1 mb-0">Modules</h1>
@@ -24,13 +23,13 @@
                 </mat-card-title>
                 <mat-card-content style="height: 50px;">{{ module.description }}</mat-card-content>
                 <mat-divider
-                    *ngIf="! isLoading"></mat-divider>
+                    *ngIf="! module.isLoading"></mat-divider>
                 <mat-progress-bar color="warn" style="height: 1px; position: absolute;left:0" 
-                    *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
+                    *ngIf="module.isLoading" mode="indeterminate"></mat-progress-bar>
                 <mat-card-actions>
                     <div fxFill fxLayout="row" fxLayoutAlign="space-between" fxFlex="0 0 auto">
                         <ng-container>
-                            <button class="m-0" [disabled]="isLoading" [matMenuTriggerFor]="moduleMenu" mat-button color="primary">Options</button>
+                            <button class="m-0" [disabled]="module.isLoading" [matMenuTriggerFor]="moduleMenu" mat-button color="primary">Options</button>
                             <mat-menu #moduleMenu="matMenu">
                                 <button [routerLink]="'/dashboard/modules/details/' + module.namespace" mat-menu-item>Details</button>
                                 <button (click)="download( module )" mat-menu-item>Download</button>
@@ -39,8 +38,8 @@
                                 <button (click)="resetMigration( module )" mat-menu-item>Reset Migration</button>
                             </mat-menu>
                         </ng-container>
-                        <button class="m-0" [disabled]="isLoading" *ngIf="module.enabled" (click)="setStatus( module, 'disable' )"  mat-button color="primary">Disable</button>
-                        <button class="m-0" [disabled]="isLoading" *ngIf="! module.enabled" (click)="setStatus( module, 'enable' )"  mat-button color="accent">Enable</button>
+                        <button class="m-0" [disabled]="module.isLoading" *ngIf="module.enabled" (click)="setStatus( module, 'disable' )"  mat-button color="primary">Disable</button>
+                        <button class="m-0" [disabled]="module.isLoading" *ngIf="! module.enabled" (click)="setStatus( module, 'enable' )"  mat-button color="accent">Enable</button>
                     </div>
                 </mat-card-actions>
             </mat-card>

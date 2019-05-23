@@ -9,6 +9,7 @@ import { TendooModule } from 'src/app/interfaces/module.interface';
 import { CoreEvent } from 'src/app/classes/core-event.class';
 import { DialogComponent, Dialog } from '@cloud-breeze/core';
 import { MigrationDialogComponent } from '../../migration-dialog/migration-dialog.component';
+import { LoaderService } from 'src/app/services/loader.service';
 
 @Component({
     selector: 'app-modules',
@@ -32,7 +33,10 @@ export class ModulesComponent implements OnInit {
     
     loadModules() {
         this.tendoo.modules.getAll().subscribe( (modules:any[]) => {
-            this.modules    =   Object.values( modules );
+            this.modules    =   Object.values( modules ).map( module => {
+                module.isLoading = false;
+                return module;
+            });
         })
     }
 
@@ -60,7 +64,6 @@ export class ModulesComponent implements OnInit {
      * @return void
      */
     delete( module ) {
-        console.log( module );
         this.dialog.open( DialogComponent, {
             id: 'delete.module',
             data: <ConfirmDialogObject>{
@@ -121,7 +124,7 @@ export class ModulesComponent implements OnInit {
      * Proceed Enable Module
      * @return void
      */
-    private __proceedEnableModule( module ) {
+    private __proceedEnableModule( module: TendooModule ) {
         this.dialog.open( DialogComponent, {
             data: <ConfirmDialogObject>{
                 title: 'Please confirm your action',
@@ -186,6 +189,7 @@ export class ModulesComponent implements OnInit {
      */
     private __enableModule( module:TendooModule )
     {
+        module.isLoading    =   true;
         this.tendoo.modules.enable( module.namespace ).subscribe( response => {
 
             /**
@@ -219,6 +223,7 @@ export class ModulesComponent implements OnInit {
                 })
 
             } else {
+                module.isLoading    =   false;
                 this.snackbar.open( result.error.message, null, {
                     duration: 4000
                 });
@@ -234,8 +239,9 @@ export class ModulesComponent implements OnInit {
      * the action has been confirmed
      * @return void
      */
-    private __disableModule( module )
+    private __disableModule( module: TendooModule )
     {
+        module.isLoading    =   true;
         this.tendoo.modules.disable( module.namespace ).subscribe( response => {
 
             /**
@@ -252,6 +258,7 @@ export class ModulesComponent implements OnInit {
                 .getDialogById( 'disable-enable-module' )
                 .close();
         }, ( result: HttpErrorResponse ) => {
+            module.isLoading    =   false;
             this.snackbar.open( result.error.message, null, {
                 duration: 4000
             });
@@ -270,10 +277,19 @@ export class ModulesComponent implements OnInit {
         this.tendoo.links.signed( 'extract.module', {
             namespace: module.namespace
         }).subscribe( (result: any) => {
+            this.tendoo.isLoading   =   true;
             this.tendoo.post( result.url, {
                 'token'         : result.token
+            }, {
+                headers: Object.assign({}, {
+                    'Content-Type'  :   'application/zip'
+                }, LoaderService.headers ),
             }).subscribe( result => {
+                this.tendoo.isLoading   =   false;
                 console.log( result );
+            }, ( error ) => {
+                this.tendoo.isLoading   =   false;
+                this.snackbar.open( 'An error has occured while downloading the module', 'OK', { duration : 3000 });
             })
         })        
     }

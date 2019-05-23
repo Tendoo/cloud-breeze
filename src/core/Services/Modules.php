@@ -4,6 +4,7 @@ namespace Tendoo\Core\Services;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Arr;
 use Tendoo\Core\Services\Helper;
 use XmlParser;
@@ -307,6 +308,32 @@ class Modules
                 unlink( $zipFile );
             }
 
+            $moduleDir      =   dirname( $module[ 'index-file' ] );
+            $files          =   Storage::disk( 'modules' )->allFiles( ucwords( $namespace ) );
+
+            /**
+             * get ignored manifest
+             */
+            $manifest       =   false;
+            if ( Storage::disk( 'modules' )->exists( ucwords( $namespace ) . DIRECTORY_SEPARATOR . 'manifest.json' ) ) {
+                $manifest       =   json_decode( Storage::disk( 'modules' )->get( ucwords( $namespace ) . DIRECTORY_SEPARATOR . 'manifest.json' ), true );
+            }
+
+            /**
+             * if a file is within an ignore 
+             * match the looped file, it's skipped
+             */
+            $files      =   array_values( collect( $files )->filter( function( $file ) use ( $manifest, $namespace ) {
+                foreach( $manifest[ 'ignore' ] as $check ) {
+                    if ( fnmatch( ucwords( $namespace ) . '/' . $check, $file ) ) {
+                        return false;
+                    }
+                }
+
+                return true;
+                
+            })->toArray() );
+            
             // create new archive
             $zipArchive     =   new \ZipArchive;
             $zipArchive->open( 
@@ -316,10 +343,8 @@ class Modules
             );
             $zipArchive->addEmptyDir( ucwords( $namespace ) );
 
-            $moduleDir      =   dirname( $module[ 'index-file' ] );
-            $files          =   Storage::disk( 'modules' )->allFiles( ucwords( $namespace ) );
-
             foreach( $files as $index => $file ) {
+
                 /**
                  * We should avoid to extract git stuff as well
                  */
