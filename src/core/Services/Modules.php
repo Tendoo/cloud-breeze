@@ -520,13 +520,13 @@ class Modules
          */
         if ( 
             Storage::disk( 'modules' )->exists( $moduleNamespace . DIRECTORY_SEPARATOR . 'Public' ) && 
-            ! is_link( base_path( 'public' ) . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . $moduleNamespace ) 
+            ! is_link( base_path( 'public' ) . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . strtolower( $moduleNamespace ) ) 
         ) {
             $target     =   base_path( 'modules/' . $moduleNamespace . '/Public' );
 
             if ( ! \windows_os() ) {
                 Storage::disk( 'laravel-public' )->makeDirectory( 'modules/' . $moduleNamespace );
-                $link           =   \symlink( $target, public_path( '/modules/' . strtolower( $moduleNamespace ) ) );
+                $link           =   @\symlink( $target, public_path( '/modules/' . strtolower( $moduleNamespace ) ) );
             } else {
                 $mode       =   'J';
                 $link       =   public_path( 'modules' . DIRECTORY_SEPARATOR . strtolower( $moduleNamespace ) );

@@ -41,6 +41,7 @@ export class ModulesComponent implements OnInit {
     }
 
     private __deleteModule( module ) {
+        module.isLoading    =   true;
         this.tendoo.modules.deleteModule( module.namespace ).subscribe( (result:AsyncResponse ) => {
             this.snackbar.open( result.message, null, { duration: 3000 });
 
@@ -55,6 +56,7 @@ export class ModulesComponent implements OnInit {
 
             this.loadModules();
         }, ( result:HttpErrorResponse ) => {
+            module.isLoading    =   false;
             this.snackbar.open( result.error.message, 'OK' );
         })
     }
@@ -63,7 +65,7 @@ export class ModulesComponent implements OnInit {
      * delete a module
      * @return void
      */
-    delete( module ) {
+    delete( module: TendooModule ) {
         this.dialog.open( DialogComponent, {
             id: 'delete.module',
             data: <ConfirmDialogObject>{
@@ -273,11 +275,11 @@ export class ModulesComponent implements OnInit {
      * @param {object} module
      * @return void
      */
-    download( module ) {
+    download( module: TendooModule ) {
+        module.isLoading    =   true;
         this.tendoo.links.signed( 'extract.module', {
             namespace: module.namespace
         }).subscribe( (result: any) => {
-            this.tendoo.isLoading   =   true;
             this.tendoo.post( result.url, {
                 'token'         : result.token
             }, {
@@ -285,10 +287,10 @@ export class ModulesComponent implements OnInit {
                     'Content-Type'  :   'application/zip'
                 }, LoaderService.headers ),
             }).subscribe( result => {
-                this.tendoo.isLoading   =   false;
+                module.isLoading    =   false;
                 console.log( result );
             }, ( error ) => {
-                this.tendoo.isLoading   =   false;
+                module.isLoading    =   false;
                 this.snackbar.open( 'An error has occured while downloading the module', 'OK', { duration : 3000 });
             })
         })        
@@ -299,10 +301,13 @@ export class ModulesComponent implements OnInit {
     }
 
     createSymlink( module: TendooModule ) {
+        module.isLoading    =   true;
         this.tendoo.modules.createSymLink( module.namespace )
             .subscribe( result => {
+                module.isLoading    =   false;
                 const snack     =   this.snackbar.open( 'A symbolic link has been created for that module', 'OK', { duration: 3000 });                
             }, (result: HttpErrorResponse ) => {
+                module.isLoading    =   false;
                 this.snackbar.open( result.error.message || 'An error has occured during the process', 'OK' );
             })
     }
@@ -320,8 +325,9 @@ export class ModulesComponent implements OnInit {
                     {
                         label: 'OK',
                         onClick: () => {
+                            module.isLoading    =   true;
                             this.tendoo.modules.resetMigrations( module ).subscribe( result => {
-                                
+                                module.isLoading        =   false;
                                 const { migrations }    =   result[ 'data' ];
 
                                 this.dialog.getDialogById( 'reset-migration-dialog' ).close();;
