@@ -21,4 +21,34 @@ class Settings
             break;
         }
     }
+
+    public function dashboardSettings( $settings, $namespace )
+    {
+        if ( $namespace === 'application' ) {
+            return [
+                'tabs'      =>  [
+                    [
+                        'label'     =>  __( 'General' ),
+                        'namespace' =>  'dashboard.settings.general',
+                        'fields'    =>  Field::generalSettings()
+                    ], [
+                        'label'     =>  __( 'Registration' ),
+                        'namespace' =>  'dashboard.settings.registration',
+                        'fields'    =>  Field::registration()
+                    ], [
+                        'label'     =>  __( 'Email' ),
+                        'namespace' =>  'dashboard.settings.email',
+                        'fields'    =>  Field::emailSettingsFields()
+                    ], [
+                        'label'     =>  __( 'reCaptcha' ),
+                        'namespace' =>  'dashboard.settings.recaptcha',
+                        'fields'    =>  Field::recaptchaFields()
+                    ]
+                ],
+                'title'             =>  'Application Settings',
+                'description'       =>  'configure how the application should works'
+            ];
+        }
+        return $settings;
+    }
 }

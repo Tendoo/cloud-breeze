@@ -4,8 +4,8 @@
 <div fxLayout="column" fxFlex="100%" style="overflow-y:auto" *ngIf="tabs">
     <div fxLayout="row" fxFlex="0 0 auto" class="bg-content p-3 pb-0">
         <div fxFlex>
-            <h1 class="mat-display-1 mb-0">Settings</h1>
-            <span class="mat-title">configure how Tendoo CMS should be used</span>
+            <h1 class="mat-display-1 mb-0">{{ tendoo.title.getTitle() }}</h1>
+            <span>{{ tendoo.description }}</span>
         </div>
     </div>
     <div class="p-3 bg-content" fxFlex="1 0 auto" fxLayout="column">

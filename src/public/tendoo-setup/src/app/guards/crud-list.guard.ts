@@ -27,7 +27,7 @@ export class CrudListGuard implements CanActivate {
                     resolve( true );
                 }, (result: HttpErrorResponse) => {
                     if ( result.error.class === 'Tendoo/Core/Exceptions/AccessDenied' ) {
-                        this.router.navigateByUrl( 'dashboard/access-denied' );
+                        this.router.navigateByUrl( 'dashboard/error/access-denied' );
                     } else {
                         this.snackbar.open( result.error.message || 'Unable to access to the requested page. You may not have access to that page.', 'OK', { duration: 5000 })
                     }

@@ -102,14 +102,14 @@ class AuthService
             'browser'   =>  request()->header( 'User-Agent' ),
             'expires'   =>  $dateService
                 ->copy()
-                ->addMinutes(60)
+                ->addDays(7)
                 ->toDateTimestring(),
         ];
         
         Cache::forget( $tokenKey );
         Cache::put( $tokenKey, $config, $dateService
             ->copy()
-            ->addMinutes(60) ); // expire in one hour.
+            ->addDays(7) ); // expire in one hour.
         Log::info( json_encode( $config ) );
 
         return $newKey;
@@ -139,11 +139,11 @@ class AuthService
                     'browser'   =>  request()->header( 'User-Agent' ),
                     'expires'   =>  $dateService
                         ->copy()
-                        ->addMinutes(60)
+                        ->addDays(7)
                         ->toDateTimestring(),
                 ], $dateService
                     ->copy()
-                    ->addMinutes(60) );
+                    ->addDays(7) );
 
                 $user           =   Auth::user();
                 $user->role     =   $user->role;
@@ -180,7 +180,7 @@ class AuthService
              * if the token expire within 5 minutes, 
              * let's refresh it
              */
-            if ( $dateService->copy()->addMinutes(5)->gt( $cached[ 'expire' ] ) ) {
+            if ( $dateService->copy()->addDay()->gt( $cached[ 'expire' ] ) ) {
                 Cache::forget( $tokenKey );
                 Cache::put( $tokenKey, [
                     'key'       =>  $newKey,
@@ -188,11 +188,11 @@ class AuthService
                     'browser'   =>  request()->header( 'User-Agent' ),
                     'expires'   =>  $dateService
                         ->copy()
-                        ->addMinutes(60)
+                        ->addDays(7)
                         ->toDateTimestring(),
                 ], $dateService
                     ->copy()
-                    ->addMinutes(60) );
+                    ->addDays(7) );
             }
         }
         return false;

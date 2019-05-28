@@ -34,12 +34,10 @@ import { ProfileComponent } from './components/dashboard/profile/profile.compone
 import { MediasComponent } from './components/dashboard/medias/medias.component';
 import { MediasUploadComponent } from './components/dashboard/medias-upload/medias-upload.component';
 import { CoreEvent } from './classes/core-event.class';
-import { NotFoundComponent } from './components/dashboard/not-found/not-found.component';
 import { CrudComponent } from './components/dashboard/crud/crud.component';
 import { CrudCreateComponent } from './components/dashboard/crud-create/crud-create.component';
 import { CrudEditComponent } from './components/dashboard/crud-edit/crud-edit.component';
 import { MigrationDialogComponent } from './components/migration-dialog/migration-dialog.component';
-import { AccessDeniedComponent } from './components/dashboard/access-denied/access-denied.component';
 import { ModulesDetailsComponent } from './components/dashboard/modules-details/modules-details.component';
 import { MAT_DATE_LOCALE } from '@angular/material';
 import { MediasDetailsComponent } from './components/dashboard/medias-details/medias-details.component';
@@ -79,12 +77,10 @@ import { ImageCropperModule } from 'ngx-image-cropper';
         ProfileComponent,
         MediasComponent,
         MediasUploadComponent,
-        NotFoundComponent,
         CrudComponent,
         CrudCreateComponent,
         CrudEditComponent,
         MigrationDialogComponent,
-        AccessDeniedComponent,
         ModulesDetailsComponent,
         MediasDetailsComponent,
         OauthComponent,

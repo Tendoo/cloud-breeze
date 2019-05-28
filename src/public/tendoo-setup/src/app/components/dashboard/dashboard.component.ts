@@ -38,8 +38,6 @@ export class DashboardComponent implements OnInit {
                     this.logoWidth          =   (250 - (16*2));
                 break;
             }
-
-            console.log( this.showDefaultAside );
         });
 
         this.coreEvent.subscribe( (event: CoreAction) => {

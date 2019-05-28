@@ -27,6 +27,7 @@ Route::middleware([ 'tendoo.cors', 'tendoo.prevent.not-installed', 'tendoo.preve
     include_once( dirname( __FILE__ ) . '/api-routes/tabs.php' );
     include_once( dirname( __FILE__ ) . '/api-routes/menus.php' );
     include_once( dirname( __FILE__ ) . '/api-routes/medias.php' );
+    include_once( dirname( __FILE__ ) . '/api-routes/settings.php' );
 });
 
 Route::middleware([ 'tendoo.cors' ])->group( function() {

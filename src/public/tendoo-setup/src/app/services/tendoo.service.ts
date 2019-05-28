@@ -19,12 +19,14 @@ import { TendooLinkService } from './tendoo-link.service';
 import { TendooOauthService } from './tendoo-oauth.service';
 import { TendooUpdateService } from './tendoo-update.service';
 import { CookieService } from 'ngx-cookie-service';
+import { TendooSettingsService } from './tendoo-settings.service';
 
 @Injectable({
     providedIn: 'root'
 })
 export class TendooService extends LoaderService {
     protected http;
+    description: string;
     constructor( 
         http: HttpClient,
         httpParser: HttpResponseParserService,
@@ -44,13 +46,18 @@ export class TendooService extends LoaderService {
         public oauth: TendooOauthService,
         public update: TendooUpdateService,
         public title: Title,
-        public cookie: CookieService
+        public cookie: CookieService,
+        public settings: TendooSettingsService
     ) {
         super( http, httpParser, snackbar, cookie );
     }
 
     dashboardTitle( title: string ) {
         this.title.setTitle( `${title} - Dashboard` );
+    }
+
+    dashboardDescription( description: string ) {
+        this.description    =   description;
     }
 
     /**

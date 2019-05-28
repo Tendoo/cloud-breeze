@@ -324,9 +324,11 @@ class Modules
              * match the looped file, it's skipped
              */
             $files      =   array_values( collect( $files )->filter( function( $file ) use ( $manifest, $namespace ) {
-                foreach( $manifest[ 'ignore' ] as $check ) {
-                    if ( fnmatch( ucwords( $namespace ) . '/' . $check, $file ) ) {
-                        return false;
+                if ( is_array( @$manifest[ 'ignore' ] ) ) {
+                    foreach( $manifest[ 'ignore' ] as $check ) {
+                        if ( fnmatch( ucwords( $namespace ) . '/' . $check, $file ) ) {
+                            return false;
+                        }
                     }
                 }
 

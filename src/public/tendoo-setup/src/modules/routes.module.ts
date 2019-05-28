@@ -24,12 +24,10 @@ import { ProfileComponent } from "src/app/components/dashboard/profile/profile.c
 import { MediasComponent } from "src/app/components/dashboard/medias/medias.component";
 import { MediasUploadComponent } from "src/app/components/dashboard/medias-upload/medias-upload.component";
 import { MediasDetailsComponent } from "src/app/components/dashboard/medias-details/medias-details.component";
-import { NotFoundComponent } from "src/app/components/dashboard/not-found/not-found.component";
 import { CrudComponent } from "src/app/components/dashboard/crud/crud.component";
 import { CrudCreateComponent } from "src/app/components/dashboard/crud-create/crud-create.component";
 import { CrudEditComponent } from "src/app/components/dashboard/crud-edit/crud-edit.component";
 import { CrudCreateGuard } from "src/app/guards/crud-create.guard";
-import { AccessDeniedComponent } from "src/app/components/dashboard/access-denied/access-denied.component";
 import { CrudListGuard } from "src/app/guards/crud-list.guard";
 import { CrudEditGuard } from "src/app/guards/crud-edit.guard";
 import { CheckRegistrationStatusGuard } from "src/app/guards/check-registration-status.guard";
@@ -134,7 +132,7 @@ import { SaveRedirectGuard } from "src/app/guards/save-redirect.guard";
                             path: 'modules/upload',
                             component: ModulesUploadComponent
                         }, {
-                            path: 'settings',
+                            path: 'settings/:namespace',
                             component: SettingsComponent
                         }, {
                             path: 'medias/page/:page',
@@ -164,11 +162,14 @@ import { SaveRedirectGuard } from "src/app/guards/save-redirect.guard";
                                 CrudEditGuard
                             ]
                         }, {
-                            path: 'access-denied',
-                            component: AccessDeniedComponent
+                            path: 'error/:code',
+                            component: ErrorComponent
+                        }, {
+                            path: 'error',
+                            component: ErrorComponent
                         }, {
                             path: '**',
-                            component: NotFoundComponent
+                            redirectTo: 'dashboard/error/not-found'
                         }
                     ]
                 }]
@@ -180,7 +181,7 @@ import { SaveRedirectGuard } from "src/app/guards/save-redirect.guard";
                 component: ErrorComponent
             }, {
                 path: '**',
-                component: NotFoundComponent
+                redirectTo: 'error/not-found'
             }
         ], {
             enableTracing: false

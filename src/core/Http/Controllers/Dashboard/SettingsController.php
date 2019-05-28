@@ -86,4 +86,14 @@ class SettingsController extends DashboardController
                 ->with( $response );
         }
     }
+
+    /**
+     * get specific setings
+     * @param string settings namespace
+     * @return json
+     */
+    public function get( $namespace )
+    {
+        return Hook::filter( 'dashboard.settings', [], $namespace );
+    }
 }
