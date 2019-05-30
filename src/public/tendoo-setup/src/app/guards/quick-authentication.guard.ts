@@ -27,7 +27,6 @@ export class QuickAuthenticationGuard implements CanActivate {
 		return new Observable( ( observer ) => {
 			
 			let token 	=	this.cookie.get( 'auth.user' );
-			console.log( token.length, Object.values( LoaderService.headers ).length );
 
 			/**
 			 * if a token exist and the user is not already connected

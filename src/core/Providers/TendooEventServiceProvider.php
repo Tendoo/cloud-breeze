@@ -122,7 +122,7 @@ class TendooEventServiceProvider extends ServiceProvider
         Hook::addFilter( 'signed.url', 'Tendoo\Core\Events\Url@generate', 10, 2 );
         Hook::addFilter( 'dashboard.settings', 'Tendoo\Core\Events\Settings@dashboardSettings', 10, 2 );
         Hook::addFilter( 'dashboard.forms', 'Tendoo\Core\Events\Forms@define', 10, 3 );
-        Hook::addFilter( 'dashboard.save.forms', 'Tendoo\Core\Events\Forms@save', 10, 3 );
+        Hook::addFilter( 'dashboard.save.forms', 'Tendoo\Core\Events\Forms@save', 10, 2 );
         Hook::addFilter( 'dashboard.tabs', 'Tendoo\Core\Events\Tabs@get', 10, 2 );
         Hook::addFilter( 'public.fields', 'Tendoo\Core\Events\Fields@systemFields', 10, 2 );
     }

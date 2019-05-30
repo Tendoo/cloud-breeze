@@ -28,14 +28,19 @@ export class SettingsComponent implements OnInit {
     
     ngOnInit() {
         this.routeSnapshot.paramMap.subscribe( param => {
-            this.tendoo.settings.getSettings( param.get( 'namespace' ) ).subscribe( (settings: Setting ) => {
+            this.tendoo.settings.getSettings( param.get( 'namespace' ) ).subscribe( ( settings: Setting ) => {
+
+                console.log( Object.assign({}, {}, settings ) );
+
                 if ( settings.tabs === undefined ) {
                     this.router.navigateByUrl( '/dashboard/error/settings-misconfiguration' );
                     return;
                 }
 
                 settings.tabs.forEach( ( tab: Tab, index ) => {
-                    index === 0 ? tab.active    =   true : tab.active = false;
+                    if ( tab.active === undefined ) {
+                        tab.active  =   ( index === 0 ) ? true: false;
+                    }
                     const fields    =   ValidationGenerator.buildFormControls( tab.fields );
                     tab.form        =   new FormGroup( fields );
                 });
@@ -50,7 +55,7 @@ export class SettingsComponent implements OnInit {
 
     detectActiveTab() {
         this.routeSnapshot.queryParamMap.subscribe( query => {
-            let tabIndex;
+            let tabIndex    =   -1;
 
             this.tabs.map( (tab, index) => {
                 if ( tab.namespace === query.get( 'tab' ) ) {
@@ -58,7 +63,9 @@ export class SettingsComponent implements OnInit {
                 }
             });
 
-            this.setTabActive( tabIndex );
+            if ( tabIndex !== -1 ) {
+                this.setTabActive( tabIndex );
+            }
         })
     }
     
@@ -67,8 +74,6 @@ export class SettingsComponent implements OnInit {
      * @return any
      */
     saveSettings() {
-        console.log( this.activeTab );
-
         ValidationGenerator.touchAllFields( this.activeTab.form );
 
         if ( ! this.activeTab.form.valid ) {

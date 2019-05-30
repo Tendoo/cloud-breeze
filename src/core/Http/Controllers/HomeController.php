@@ -76,7 +76,7 @@ class HomeController extends BaseController
         }
 
         $moduleDetails     =   $this->modules->extract( $module );
-        
+
         return response()->download( 
             $moduleDetails[ 'path' ], 
             strtolower( $moduleDetails[ 'module' ][ 'namespace' ] ) . '-' . $moduleDetails[ 'module' ][ 'version' ] . '.zip' 

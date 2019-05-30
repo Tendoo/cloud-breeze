@@ -4,9 +4,11 @@ namespace Tendoo\Core\Events;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Event;
+use Illuminate\Http\Request;
 
 use Tendoo\Core\Http\Requests\OptionsRequest;
 use Tendoo\Core\Services\Field;
+use Tendoo\Core\Services\Options;
 use Tendoo\Core\Models\User;
 
 class Forms
@@ -18,7 +20,7 @@ class Forms
      * @param array form
      * @return array
      */
-    public function define( $forms, $namespace, $index )
+    public function define( $forms, $namespace, $index = null )
     {
         switch( $namespace ) {
             case 'dashboard.users.create':
@@ -57,13 +59,14 @@ class Forms
         }
     }
 
-    public function save( $namespace, $data, $result )
+    public function save( $result, $data )
     {
         extract( $data );
         /**
          * ->request
          * ->validationResult
          * ->validation
+         * ->namespace
          */
 
         /**
@@ -103,6 +106,7 @@ class Forms
     private function __saveSettings( Request $request )
     {
         $inputs     =   $request->except([ '_token', '_route', '_radio', '_checkbox', '_previous' ]);
+        $options    =   app()->make( Options::class );
 
         /**
          * Before ssaving an option
@@ -121,14 +125,14 @@ class Forms
         // deleting _checkbox field
         foreach( ( array )  $request->input( '_checkbox' ) as $key ) {
             if ( in_array( $key, ( array ) $request->input( '_radio' ) ) || in_array( $key, ( array ) $request->input( '_checkbox' ) ) ) {
-                $this->options->delete( $key );
+                $options->delete( $key );
             }
         }
 
         // deleting _radio field
         foreach( ( array ) $request->input( '_radio' ) as $key ) {
             if ( in_array( $key, ( array ) $request->input( '_radio' ) ) ) {
-                $this->options->delete( $key );
+                $options->delete( $key );
             }
         }
 
@@ -138,9 +142,9 @@ class Forms
          */
         foreach ( $inputs as $key => $value ) {
             if ( is_bool( $value ) ) {
-                $value === true ? $this->options->set( $key, $value ) : $this->options->delete( $key );
+                $value === true ? $options->set( $key, $value ) : $options->delete( $key );
             } else {
-                $this->options->set( $key, $value );
+                $options->set( $key, $value );
             }
         }
 

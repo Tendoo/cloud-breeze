@@ -72,16 +72,10 @@ class FormsController extends DashboardController
          * let's save the form
          * and return a result 
          */
-        $result     =   Hook::filter( 
-            'dashboard.save.form', 
-            $namespace, 
-            compact( 'request', 'validationResult', 'validation' ), 
-            false 
-        );        
-
-        return $result ?? response()->json([
+        return Hook::filter( 'dashboard.save.forms', response()->json([
             'status'    =>  'failed',
-            'message'   =>  __( 'Unhandled POST form' )
-        ], 401 );
+            'data'      =>  compact( 'namespace' ),
+            'message'   =>  __( 'Unhandled forms POST Request Response.' )
+        ], 401 ), compact( 'request', 'namespace', 'validation', 'validationResult' ) );  
     }
 }

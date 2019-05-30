@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Event;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Tendoo\Core\Exceptions\CrudException;
 use Tendoo\Core\Events\CrudInit;
+use Exception;
 
 class CrudController extends DashboardController
 {
