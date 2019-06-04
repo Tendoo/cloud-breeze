@@ -2,8 +2,8 @@
     <div fxLayout="row" class="bg-content p-3">
         <div fxFlex fxLayout="row">
             <div fxFlex>
-                <h1 class="mat-display-1 mb-0">{{ auth.getUser().username }}</h1>
-                <span>{{ auth.getUser().role.name }}</span>
+                <h1 class="mat-h1 mb-0">My Profile</h1>
+                <span>{{ auth.getUser().username }} &mdash; {{ auth.getUser().role.name }}</span>
             </div>
             <div fxFlex fxLayoutAlign="end start">
                 <div>
@@ -15,8 +15,6 @@
     <div fxFlex fxLayout="row" class="profile-background p-3 pt-0" fxFill fxLayoutAlign="center">
         <div fxFlex class="profile-container">
             <mat-card class="p-0" *ngIf="tabs">
-                <mat-card-title class="p-2 mb-0">Profile Settings</mat-card-title>
-                <mat-divider></mat-divider>
                 <mat-card-content class="p-0">
                     <mat-tab-group (selectedIndexChange)="setTabActive($event)">
                         <mat-tab *ngFor="let tab of tabs" [label]="tab.label">

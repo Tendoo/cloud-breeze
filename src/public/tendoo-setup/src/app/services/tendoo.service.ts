@@ -27,6 +27,7 @@ import { TendooSettingsService } from './tendoo-settings.service';
 export class TendooService extends LoaderService {
     protected http;
     description: string;
+    private titleText: string;
     constructor( 
         http: HttpClient,
         httpParser: HttpResponseParserService,
@@ -53,7 +54,12 @@ export class TendooService extends LoaderService {
     }
 
     dashboardTitle( title: string ) {
+        this.titleText      =   title;
         this.title.setTitle( `${title} - Dashboard` );
+    }
+
+    getDashboardTitle() {
+        return this.titleText;
     }
 
     dashboardDescription( description: string ) {

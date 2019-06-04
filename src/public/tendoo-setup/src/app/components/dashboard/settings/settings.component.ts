@@ -30,8 +30,6 @@ export class SettingsComponent implements OnInit {
         this.routeSnapshot.paramMap.subscribe( param => {
             this.tendoo.settings.getSettings( param.get( 'namespace' ) ).subscribe( ( settings: Setting ) => {
 
-                console.log( Object.assign({}, {}, settings ) );
-
                 if ( settings.tabs === undefined ) {
                     this.router.navigateByUrl( '/dashboard/error/settings-misconfiguration' );
                     return;

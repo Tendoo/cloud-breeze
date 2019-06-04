@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Event;
 
-use Tendoo\Core\Http\Controllers\FormsController;
+use Tendoo\Core\Http\Controllers\Dashboard\FormsController;
 use Tendoo\Core\Services\Field;
 use Tendoo\Core\Models\User;
 

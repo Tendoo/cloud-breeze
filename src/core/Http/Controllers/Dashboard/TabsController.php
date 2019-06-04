@@ -16,6 +16,7 @@ use Tendoo\Core\Models\Oauth;
 use Tendoo\Core\Models\Option as OptionModel;
 use Tendoo\Core\Exceptions\CoreException;
 use Tendoo\Core\Services\Field;
+use Tendoo\Core\Facades\Hook;
 
 class TabsController extends DashboardController
 {
