@@ -21,7 +21,7 @@
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <!-- <link href="{{ asset( 'tendoo/tendoo-setup/styles.css' ) }}" rel="stylesheet"/> -->
+    <link href="{{ asset( 'tendoo/tendoo-setup/styles.css' ) }}" rel="stylesheet"/>
 </head>
 
 <body>
@@ -40,7 +40,7 @@
     <script type="text/javascript" src="{{ asset( 'tendoo/tendoo-setup/runtime.js' ) }}"></script>
     <script type="text/javascript" src="{{ asset( 'tendoo/tendoo-setup/polyfills.js' ) }}"></script>
     <script type="text/javascript" src="{{ asset( 'tendoo/tendoo-setup/main.js' ) }}"></script>
-    <script type="text/javascript" src="{{ asset( 'tendoo/tendoo-setup/styles.js' ) }}"></script>
+    <!-- <script type="text/javascript" src="{{ asset( 'tendoo/tendoo-setup/styles.js' ) }}"></script> -->
 </body>
 
 </html>
