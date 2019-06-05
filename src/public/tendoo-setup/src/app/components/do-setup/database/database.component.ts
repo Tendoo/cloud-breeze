@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Field } from 'src/app/interfaces/field';
 import { FormGroup } from '@angular/forms';
 import { ValidationGenerator } from 'src/app/classes/validation-generator.class';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { SetupService } from 'src/app/services/setup.service';
 import { AsyncResponse } from 'src/app/interfaces/async-response';

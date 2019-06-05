@@ -3,7 +3,7 @@ import { FormGroup } from '@angular/forms';
 import { Field } from 'src/app/interfaces/field';
 import { TendooService } from 'src/app/services/tendoo.service';
 import { ValidationGenerator } from 'src/app/classes/validation-generator.class';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { AsyncResponse } from 'src/app/interfaces/async-response';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';

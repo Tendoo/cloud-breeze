@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { MatDialog, MatDialogRef } from '@angular/material';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { LoadingAnimationComponent } from '../partials/loading-animation/loading-animation.component';
 
 @Injectable({

@@ -6,7 +6,7 @@ import { FormUrl } from 'src/app/interfaces/form-url';
 import { ValidationGenerator } from 'src/app/classes/validation-generator.class';
 import { FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { AsyncResponse } from 'src/app/interfaces/async-response';
 import { HttpErrorResponse } from '@angular/common/http';
 

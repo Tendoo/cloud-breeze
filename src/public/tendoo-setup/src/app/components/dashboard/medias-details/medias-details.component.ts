@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { TendooService } from 'src/app/services/tendoo.service';
 import { ActivatedRoute, ActivatedRouteSnapshot, Router } from '@angular/router';
-import { MatSnackBar, MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { AsyncResponse } from 'src/app/interfaces/async-response';
 import { HttpErrorResponse } from '@angular/common/http';
 import { DialogComponent, Dialog } from '@cloud-breeze/core';

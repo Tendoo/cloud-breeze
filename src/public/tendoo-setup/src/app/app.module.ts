@@ -39,7 +39,7 @@ import { CrudCreateComponent } from './components/dashboard/crud-create/crud-cre
 import { CrudEditComponent } from './components/dashboard/crud-edit/crud-edit.component';
 import { MigrationDialogComponent } from './components/migration-dialog/migration-dialog.component';
 import { ModulesDetailsComponent } from './components/dashboard/modules-details/modules-details.component';
-import { MAT_DATE_LOCALE } from '@angular/material';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { MediasDetailsComponent } from './components/dashboard/medias-details/medias-details.component';
 import { OauthComponent } from './components/auth/oauth/oauth.component';
 import { TruncatePipe } from './pipes/truncate.pipe';

@@ -3,7 +3,7 @@ import { Field } from 'src/app/interfaces/field';
 import { FormGroup } from '@angular/forms';
 import { ValidationGenerator } from 'src/app/classes/validation-generator.class';
 import { SetupService } from 'src/app/services/setup.service';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { AsyncResponse } from 'src/app/interfaces/async-response';

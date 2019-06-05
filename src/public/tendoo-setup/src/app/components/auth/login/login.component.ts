@@ -3,7 +3,7 @@ import { Field } from 'src/app/interfaces/field';
 import { TendooService } from 'src/app/services/tendoo.service';
 import { ValidationGenerator } from 'src/app/classes/validation-generator.class';
 import { FormGroup } from '@angular/forms';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router, ActivatedRouteSnapshot, ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';

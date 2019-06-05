@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
 import { TendooService } from '../services/tendoo.service';
 import { HttpErrorResponse } from '@angular/common/http';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { PreventAppNotInstalledGuard } from './check-app-installed.guard';
 import { LoaderService } from '../services/loader.service';
 

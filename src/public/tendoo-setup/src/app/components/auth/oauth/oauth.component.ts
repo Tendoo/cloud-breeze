@@ -3,7 +3,7 @@ import { TendooService } from 'src/app/services/tendoo.service';
 import { ActivatedRoute } from '@angular/router';
 import { forkJoin } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { AsyncResponse } from 'src/app/interfaces/async-response';
 
 @Component({

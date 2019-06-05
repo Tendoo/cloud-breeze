@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TendooService } from 'src/app/services/tendoo.service';
 import { Tab } from 'src/app/interfaces/tab';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormGroup } from '@angular/forms';
 import { ValidationGenerator } from 'src/app/classes/validation-generator.class';
 import { HttpErrorResponse } from '@angular/common/http';

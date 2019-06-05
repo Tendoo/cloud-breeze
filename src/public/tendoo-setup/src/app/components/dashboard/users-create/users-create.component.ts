@@ -5,7 +5,7 @@ import { forkJoin } from 'rxjs';
 import { ValidationGenerator } from 'src/app/classes/validation-generator.class';
 import { FormGroup } from '@angular/forms';
 import { FormUrl } from 'src/app/interfaces/form-url';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { AsyncResponse } from 'src/app/interfaces/async-response';
 import { HttpErrorResponse } from '@angular/common/http';

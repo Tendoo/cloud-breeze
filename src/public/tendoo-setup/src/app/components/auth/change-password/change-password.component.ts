@@ -4,7 +4,7 @@ import { TendooService } from 'src/app/services/tendoo.service';
 import { Field } from 'src/app/interfaces/field';
 import { FormGroup } from '@angular/forms';
 import { ValidationGenerator } from 'src/app/classes/validation-generator.class';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({

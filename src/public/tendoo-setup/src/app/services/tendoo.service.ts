@@ -10,7 +10,7 @@ import { TendooFormsService } from './tendoo-forms.service';
 import { HttpResponseParserService } from './http-response-parser.service';
 import { TendooTabsService } from './tendoo-tabs.service';
 import { TendooMenusService } from './tendoo-menu.service';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { TendooMediasService } from './tendoo-medias.service';
 import { TendooCrudService } from './tendoo-crud.service';
 import { TendooOptionsService } from './tendoo-options.service';
