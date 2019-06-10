@@ -8,5 +8,6 @@
 Route::get( 'auth/token', 'OauthController@usingToken' )
     ->name( 'auth.token' );
 
-Route::get( '', 'HomeController@index' );
-Route::fallback( 'HomeController@index' );
+Route::prefix( 'tendoo' )->group( function() {
+    Route::fallback( 'HomeController@index' ); 
+});
