@@ -19,6 +19,7 @@ require_once TENDOO_ROOT . '/core/Services/Helper.php';
 require_once TENDOO_ROOT . '/core/Services/HelperFunctions.php';
 
 use Illuminate\Support\ServiceProvider as CoreServiceProvider;
+
 use Tendoo\Core\Console\Commands\DisableModule;
 use Tendoo\Core\Console\Commands\EnableModule;
 use Tendoo\Core\Console\Commands\GenerateModule;
@@ -37,9 +38,12 @@ use Tendoo\Core\Console\Commands\EnvEditorSetCommand;
 use Tendoo\Core\Console\Commands\EnvEditorGetCommand;
 use Tendoo\Core\Console\Commands\PublishCommand;
 use Tendoo\Core\Console\Commands\DeleteExpiredOptionsCommand;
+use Tendoo\Core\Models\Role;
+use Tendoo\Core\Http\TendooKernel;
+use Tendoo\Core\Observers\RoleObserver;
+
 use Illuminate\Routing\Router;
 use Jackiedo\DotenvEditor\DotenvEditor;
-use Tendoo\Core\Http\TendooKernel;
 
 use Orchestra\Parser\Xml\Reader as XmlReader;
 use Orchestra\Parser\Xml\Document as XmlDocument;
@@ -129,11 +133,6 @@ class ServiceProvider extends CoreServiceProvider
             PublishCommand::class,
             DeleteExpiredOptionsCommand::class,
         ]);
-        
-        /**
-         * Load Route from Web
-         */
-        // $this->loadRoutesFrom( __DIR__ . '/routes/web.php');
 
         /**
          * Load Migrations
@@ -148,11 +147,12 @@ class ServiceProvider extends CoreServiceProvider
         $this->publishes([
             __DIR__ . '/config/tendoo.php'   =>  $configPath . '/tendoo.php'
         ], 'tendoo-config' );
-
-        // $this->publishes([
-        //     __DIR__ . '/public'   =>  $publicPath
-        // ], 'tendoo-assets' );
-
+        
+        /**
+         * register observer for 
+         * role model
+         */
+        Role::observe( RoleObserver::class );
     }
 
     /**
@@ -273,14 +273,6 @@ class ServiceProvider extends CoreServiceProvider
         $this->app->singleton( 'XmlParser', function ($app) {
             return new XmlReader(new XmlDocument($app));
         });
-        
-        /**
-         * Overriding the Exception Handler
-         */
-        // $this->app->singleton(
-        //     \App\Exceptions\Handler::class,
-        //     \Tendoo\Core\Exceptions\TendooHandler::class
-        // );
 
         $this->app->singleton(
             \App\Http\Kernel::class,
