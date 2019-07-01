@@ -1,5 +1,5 @@
 <?php
-namespace Tendoo\Core\Services\Fields;
+namespace Tendoo\Core\Fields\Frontend;
 
 trait SetupFields
 {

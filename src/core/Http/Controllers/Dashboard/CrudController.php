@@ -381,8 +381,10 @@ class CrudController extends DashboardController
 
         if ( method_exists( $resource, 'getEntries' ) ) {
             $model          =   $resource->get( 'model' );
+            $model          =   $model::find( $id );
+            $fields         =   Hook::filter( 'dashboard.crud.fields', [], $namespace, compact( 'model', 'namespace', 'id' ) );
             $config         =   [
-                'fields'                =>  $id === null ? $resource->getFields() : $resource->getFields( $model::find( $id ) ),
+                'fields'                =>  $fields,
                 'labels'                =>  $resource->getLabels(),
                 'links'                 =>  @$resource->getLinks(),
                 'namespace'             =>  $namespace,

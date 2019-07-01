@@ -1,13 +1,18 @@
 <?php
 namespace Tendoo\Core\Crud;
-use Tendoo\Core\Services\Crud;
+
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+
+use Tendoo\Core\Services\Crud;
 use Tendoo\Core\Services\Field;
 use Tendoo\Core\Services\Helper;
 use Tendoo\Core\Models\User;
 use Tendoo\Core\Facades\Hook;
 use Tendoo\Core\Models\Option as OptionModel;
+use Tendoo\Core\Services\Users as UserService;
+use Tendoo\Core\Exceptions\AccessDeniedException;
+use Tendoo\Core\Fields\Dashboard\UserRegistration;
 
 class Users extends Crud
 {
@@ -25,7 +30,7 @@ class Users extends Crud
      * Define namespace
      * @param string
      */
-    protected $namespace  =   'dashboard.tendoo.users';
+    protected $namespace  =   'tendoo-users';
 
     /**
      * Model Used
@@ -38,6 +43,8 @@ class Users extends Crud
     public $relations   =  [
         [ 'tendoo_roles', 'tendoo_users.role_id', '=', 'tendoo_roles.id' ]
     ];
+
+    protected $fields   =   UserRegistration::class;
 
     /**
      * Fields which will be filled during post/put
@@ -58,6 +65,7 @@ class Users extends Crud
         $this->edit_description     =   __( 'Edit a user details.' );  
         $this->create_title         =   __( 'Create User' );
         $this->create_description   =   __( 'Create a new user.' );
+        $this->users                =   app()->make( UserService::class );
 
         Hook::addFilter( 'crud.entry', [ $this, 'setActions' ], 10, 2 );
     }
@@ -119,7 +127,7 @@ class Users extends Crud
          */
         $fields     =   $this->getFields( $user );
 
-        if ( $request->route( 'namespace' ) == 'dashboard.tendoo.users' ) {
+        if ( $request->route( 'namespace' ) == 'tendoo-users' ) {
 
             /**
              * Use UserFieldsValidation and add assign it to "crud" validation array
@@ -127,7 +135,35 @@ class Users extends Crud
              * user
              */
         }
+        
         return Helper::getFieldsValidation( $fields );
+    }
+
+    public function getLabels()
+    {
+        return [
+            'list_title'            =>  __( 'Users List' ),
+            'list_description'      =>  __( 'Display all registered users.' ),
+            'no_entry'              =>  __( 'No applications has been registered' ),
+            'create_new'            =>  __( 'Add a new user' ),
+            'create_title'          =>  __( 'Register a new user' ),
+            'create_description'    =>  __( 'Will create a new using which has access to the application.' ),
+            'edit_title'            =>  __( 'Edit a user' ),
+            'edit_description'      =>  __( 'Change a registered user informations.' ),
+            'back_to_list'          =>  __( 'Return to the Users list' ),
+        ];
+    }
+
+    public function canAccess( $data )
+    {
+        if ( $this->users->is([ 'admin' ]) && true ) {
+            return [
+                'status'    =>  'success',
+                'message'   =>  __( 'Access Granted.' )
+            ];
+        }
+        
+        throw new AccessDeniedException( __( 'You don\'t have access to this resource' ) );
     }
 
     /**
@@ -135,7 +171,13 @@ class Users extends Crud
      * @return void
      */
     public function beforeDelete( $namespace, $id ) {
-        if ( $namespace == 'dashboard.tendoo.users' ) {
+        if ( $namespace == 'tendoo-users' ) {
+            if ( ! $this->users->is([ 'admin' ]) ) {
+                throw new AccessDeniedException(
+                    __( 'You are not allowed to perform this action.' )
+                );
+            }
+
             /**
              * @todo we might check if the 
              * user has the right to delete
@@ -223,7 +265,7 @@ class Users extends Crud
                 'namespace' =>  'delete',
                 'type'      =>  'DELETE',
                 'index'     =>  'id',
-                'url'       =>  route( 'delete.user' ) . '/' . $entry->id,
+                'url'       =>  'tendoo/crud/tendoo-users/' . $entry->id,
                 'confirm'   =>  [
                     'message'  =>  __( 'Would you like to delete this account ?' ),
                     'title'     =>  __( 'Delete a user' )
@@ -279,5 +321,18 @@ class Users extends Crud
     public function deleteOptions( $user_id )
     {
         OptionModel::where( 'user_id', $user_id )->delete();
+    }
+
+        /**
+     * get Links
+     * @return array of links
+     */
+    public function getLinks()
+    {
+        return  [
+            'create'    =>  '/dashboard/crud/tendoo-users/create',
+            'list'    =>  '/dashboard/crud/tendoo-users',
+            'edit'    =>  '/dashboard/crud/tendoo-users/edit/#',
+        ];
     }
 }

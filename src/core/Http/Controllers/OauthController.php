@@ -9,23 +9,29 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
 use Exception;
+
+use Tendoo\Core\Facades\Hook;
+
 use Tendoo\Core\Services\Page;
 use Tendoo\Core\Services\Oauth;
-use Tendoo\Core\Facades\Hook;
 use Tendoo\Core\Services\UserOptions;
 use Tendoo\Core\Services\AuthService;
 use Tendoo\Core\Services\Options;
+
 use Tendoo\Core\Models\Oauth as OauthModel;
 use Tendoo\Core\Models\Application;
 use Tendoo\Core\Models\User;
+
 use Tendoo\Core\Exceptions\OauthDeniedException;
 use Tendoo\Core\Exceptions\AccessDeniedException;
 use Tendoo\Core\Exceptions\CoreException;
 use Tendoo\Core\Exceptions\WrongCredentialException;
 use Tendoo\Core\Exceptions\WrongOauthScopeException;
+
 use Tendoo\Core\Mail\PasswordReset;
 use Tendoo\Core\Mail\PasswordUpdated;
 use Tendoo\Core\Mail\UserRegistrationMail;
+
 use Tendoo\Core\Http\Requests\LoginRequest;
 use Tendoo\Core\Http\Requests\PostRegisterRequest;
 use Tendoo\Core\Http\Requests\RecoveryRequest;
@@ -107,8 +113,8 @@ class OauthController extends BaseController
          * not an error accordingly
          */
         $this->__CheckGoogleRecaptcha();
-
-        $attempt    =   Auth::attempt( $request->only( 'username', 'password' ) );
+        
+        $attempt    =   Auth::attempt( $request->only( 'username', 'password' ), $request->input( 'keep_me_in' ) );
 
         if ( $attempt ) {
 
@@ -130,12 +136,13 @@ class OauthController extends BaseController
             $user->role     =   $user->role;
             $token          =   $this->authService->generateToken( $user );
             
-            return [
-                'status'    =>  'success',
-                'message'   =>  __( 'The user has been successfully connected' ),
-                'user'      =>  $user,
-                'token'     =>  $token
-            ];
+            return response()->json([
+                'status'            =>  'success',
+                'message'           =>  __( 'The user has been successfully connected' ),
+                'user'              =>  $user,
+                'token'             =>  $token,
+                'redirectTo'        =>  Hook::filter( 'after.login.callback', false )
+            ])->cookie( cookie( 'auth_token', $token ) );
         }
 
         throw new WrongCredentialException;

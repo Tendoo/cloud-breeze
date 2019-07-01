@@ -1,19 +1,23 @@
 <?php
-namespace Tendoo\Core\Services\Fields;
+namespace Tendoo\Core\Fields\Dashboard;
 
-use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Event;
-use Tendoo\Core\Facades\Hook;
-use Tendoo\Core\Services\Helper;
 use Tendoo\Core\Services\Options;
+use Tendoo\Core\Services\Helper;
+use Tendoo\Core\Facades\Hook;
 
-trait AuthFields {
+class UserRegistration 
+{
+    public function getFields( $model = null )
+    {
+        return [];
+    }
 
+    
     /**
      * return password field
      * @return object of field
      */
-    private static function password()
+    private function password()
     {
         $Field  =   new \StdClass;
         $Field->name            =   'password';
@@ -30,7 +34,7 @@ trait AuthFields {
      * return checkbox field
      * @return object of field
      */
-    private static function rememberme()
+    private function rememberme()
     {
         $Field  =   new \StdClass;
         $Field->name            =   'keep_me_in';
@@ -44,7 +48,7 @@ trait AuthFields {
      * return password confirm field
      * @return object of field
      */
-    private static function passwordConfirm()
+    private function passwordConfirm()
     {
         // Password Confir;
         $Field  =   new \StdClass;
@@ -61,7 +65,7 @@ trait AuthFields {
      * return email field
      * @return object of field
      */
-    private static function email()
+    private function email()
     {
         $Field  =   new \StdClass;
         $Field->name            =   'email';
@@ -77,7 +81,7 @@ trait AuthFields {
      * return email field
      * @return object of field
      */
-    private static function recoveryEmail()
+    private function recoveryEmail()
     {
         // Password Config;
         $Email  =   new \StdClass;
@@ -94,7 +98,7 @@ trait AuthFields {
      * return username field
      * @return object of field
      */
-    private static function username()
+    private function username()
     {
         // UserName
         $Field  =   new \StdClass;
@@ -111,7 +115,7 @@ trait AuthFields {
      * return username field
      * @return object of field
      */
-    private static function loginUsername()
+    private function loginUsername()
     {
         // UserName
         $Field  =   new \StdClass;
@@ -129,7 +133,7 @@ trait AuthFields {
      * Return Login fields
      * @return array of login fields
      */
-    public static function login()
+    public function login()
     {
         $options    =   app()->make( Options::class );
 
@@ -137,14 +141,14 @@ trait AuthFields {
          * @Hook:login.fields
          */
         $loginFields    =   [
-            self::loginUsername(),
-            self::password(),
-            self::rememberme()
+            $this->loginUsername(),
+            $this->password(),
+            $this->rememberme()
         ];
 
         if ( $options->get( 'enable_recaptcha' ) ) {
 
-            $recaptcha              =   self::recaptcha();
+            $recaptcha              =   $this->recaptcha();
             $loginFields[]          =   $recaptcha;
         }
 
@@ -155,7 +159,7 @@ trait AuthFields {
      * provide a recaptcha field
      * @return Field recaptcha
      */
-    public static function recaptcha()
+    public function recaptcha()
     {
         $options                =   app()->make( Options::class );
         $recaptcha              =   new \stdClass;
@@ -174,19 +178,19 @@ trait AuthFields {
      * Register Fields
      * @return array of fields object
      */
-    public static function register()
+    public function register()
     {
         $fields                 =   [
-            self::username(),
-            self::email(),
-            self::password(),
-            self::passwordConfirm(),
+            $this->username(),
+            $this->email(),
+            $this->password(),
+            $this->passwordConfirm(),
         ];
 
         $options        =   app()->make( Options::class );
 
         if ( $options->get( 'enable_recaptcha' ) ) {
-            $fields[]       =   self::recaptcha();
+            $fields[]       =   $this->recaptcha();
         }
 
         /**
@@ -200,13 +204,13 @@ trait AuthFields {
      * Recovery Fields
      * @return array of fields
      */
-    public static function recovery()
+    public function recovery()
     {
         $options        =   app()->make( Options::class );
-        $fields         =   [ self::recoveryEmail() ];
+        $fields         =   [ $this->recoveryEmail() ];
 
         if ( $options->get( 'enable_recaptcha' ) ) {
-            $fields[]       =   self::recaptcha();
+            $fields[]       =   $this->recaptcha();
         }
 
         return $fields;
@@ -216,17 +220,17 @@ trait AuthFields {
      * Change Password Fields
      * @return array of fields
      */
-    public static function changePassword()
+    public function changePassword()
     {
         $fields     =   [
-            self::password(),
-            self::passwordConfirm(),
+            $this->password(),
+            $this->passwordConfirm(),
         ];
 
         $options        =   app()->make( Options::class );
 
         if ( $options->get( 'enable_recaptcha' ) ) {
-            $fields[]       =   self::recaptcha();
+            $fields[]       =   $this->recaptcha();
         }
         
         return $fields;

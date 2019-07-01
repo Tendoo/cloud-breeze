@@ -1,18 +1,40 @@
 <?php
-namespace Tendoo\Core\Services\Fields;
+namespace Tendoo\Core\Fields\Dashboard;
 
-use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Event;
-use Tendoo\Core\Facades\Hook;
-use Illuminate\Validation\Rule;
+use Tendoo\Core\Models\Application;
 
-trait ApplicationsFields {
+class Applications 
+{
+    public function getFields( $entry = null )
+    {
+        $fields     =   [
+            $this->name( $entry ),
+            $this->active( $entry ),
+            $this->clientKey( $entry ),
+            $this->secretKey( $entry ),
+            $this->callback( $entry ),
+            $this->description( $entry ),
+        ];
+
+        /**
+         * Let's fill back the fields
+         */
+        if ( $entry instanceof Application ) {
+            foreach( $fields as &$field ) {
+                if ( isset( $entry->{$field->name} ) ) {
+                    $field->value   =   $entry->{$field->name};
+                }
+            }
+        }
+
+        return $fields;
+    }
 
     /**
      * return password field
      * @return object of field
      */
-    private static function name()
+    private function name()
     {
         $Field  =   new \StdClass;
         $Field->name            =   'name';
@@ -27,7 +49,7 @@ trait ApplicationsFields {
      * return checkbox field
      * @return object of field
      */
-    private static function active()
+    private function active()
     {
         $Field  =   new \StdClass;
         $Field->name            =   'active';
@@ -51,7 +73,7 @@ trait ApplicationsFields {
      * return password confirm field
      * @return object of field
      */
-    private static function clientKey( $entry )
+    private function clientKey( $entry )
     {
         // Password Confir;
         $Field  =   new \StdClass;
@@ -74,7 +96,7 @@ trait ApplicationsFields {
      * return callback fields
      * @return object of field
      */
-    private static function callback()
+    private function callback()
     {
         // Password Confir;
         $Field  =   new \StdClass;
@@ -91,7 +113,7 @@ trait ApplicationsFields {
      * return email field
      * @return object of field
      */
-    private static function secretKey( $entry )
+    private function secretKey( $entry )
     {
         $Field  =   new \StdClass;
         $Field->name            =   'client_secret';
@@ -113,7 +135,7 @@ trait ApplicationsFields {
      * return email field
      * @return object of field
      */
-    private static function description()
+    private function description()
     {
         $Field  =   new \StdClass;
         $Field->name            =   'description';
@@ -121,35 +143,5 @@ trait ApplicationsFields {
         $Field->validation      =   '';
         $Field->label           =   __( 'Description' );
         return $Field;
-    }
-
-    /**
-     * Return Application Field for the Crud Purpose
-     * Only Administrator should use theses fields.
-     * @return array of Fields
-     */
-    public static function applicationsFields( $entry ) 
-    {
-        $fields     =   [
-            self::name( $entry ),
-            self::active( $entry ),
-            self::clientKey( $entry ),
-            self::secretKey( $entry ),
-            self::callback( $entry ),
-            self::description( $entry ),
-        ];
-
-        /**
-         * Let's fill back the fields
-         */
-        if ( is_object( $entry ) ) {
-            foreach( $fields as &$field ) {
-                if ( isset( $entry->{$field->name} ) ) {
-                    $field->value   =   $entry->{$field->name};
-                }
-            }
-        }
-
-        return $fields;
     }
 }

@@ -8,24 +8,26 @@ use Illuminate\Support\Facades\Event;
 use Tendoo\Core\Http\Requests\OptionsRequest;
 use Tendoo\Core\Services\Field;
 use Tendoo\Core\Models\User;
+use Tendoo\Core\Fields\Frontend\Authentication;
 
 
 class Fields
 {
     public function systemFields( $fields, $namespace )
     {
+        $this->authentication    =   new Authentication;
         switch( $namespace ) {
             case 'auth.login':
-                return Field::login();
+                return $this->authentication->login();
             break;
             case 'auth.register':
-                return Field::register();
+                return $this->authentication->register();
             break;
             case 'auth.recovery':
-                return Field::recovery();
+                return $this->authentication->recovery();
             break;
             case 'auth.change-password':
-                return Field::changePassword();
+                return $this->authentication->changePassword();
             break;
             default: 
                 return $fields; 

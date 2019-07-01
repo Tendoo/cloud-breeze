@@ -10,9 +10,23 @@ use Tendoo\Core\Http\Requests\OptionsRequest;
 use Tendoo\Core\Services\Field;
 use Tendoo\Core\Services\Options;
 use Tendoo\Core\Models\User;
+use Tendoo\Core\Fields\Dashboard\ProfileFields;
+use Tendoo\Core\Fields\Dashboard\GeneralSettings;
+use Tendoo\Core\Fields\Dashboard\User as UserFields;
 
 class Forms
 {
+    protected $profile;
+    protected $settings;
+    protected $users;
+    
+    public function __construct()
+    {
+        $this->profile      =   new ProfileFields;
+        $this->settings     =   new GeneralSettings;
+        $this->users        =   new UserFields;
+    }
+
     /**
      * defined system forms
      * @param string form namespace
@@ -32,26 +46,26 @@ class Forms
                             'id'    =>  $index
                         ]),
                     ],
-                    'fields'    =>  Field::setupUserFields( User::find( $index ) )
+                    'fields'    =>  $this->users->getFields( User::find( $index ) )
                 ];
             break;
             case 'dashboard.profile.security': 
-                return Field::userSecurityFields();
+                return $this->profile->userSecurityFields();
             break;
             case 'dashboard.profile.general': 
-                return Field::userGeneralFields();
+                return $this->profile->userGeneralFields();
             break;
             case 'dashboard.settings.general': 
-                return Field::generalSettings();
+                return $this->settings->generalSettings();
             break;
             case 'dashboard.settings.registration': 
-                return Field::registration();
+                return $this->settings->registration();
             break;
             case 'dashboard.settings.email': 
-                return Field::emailSettingsFields();
+                return $this->settings->emailSettingsFields();
             break;
             case 'dashboard.settings.recaptcha': 
-                return Field::recaptchaFields();
+                return $this->settings->recaptchaFields();
             break;
             default: 
                 return $forms;

@@ -7,7 +7,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Auth;
 use Tendoo\Core\Services\UserOptions;
 
-class User extends Authenticatable
+class User extends Tendoo_Model
 {
     use Notifiable;
 

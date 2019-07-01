@@ -1,15 +1,15 @@
 <?php
-namespace Tendoo\Core\Services\Fields;
+namespace Tendoo\Core\Fields\Dashboard;
 
 use Illuminate\Support\Facades\Auth;
 
-trait ProfileFields 
+class ProfileFields
 {
     /**
      * Profile Fields
      * @return array of profile field
      */
-    static function userSecurityFields()
+    public function userSecurityFields()
     {
         $oldPassword                        =   new \stdClass;
         $oldPassword->name                  =   'old_password';
@@ -39,7 +39,7 @@ trait ProfileFields
      * User General Fields
      * @return array fields
      */
-    static function userGeneralFields()
+    public function userGeneralFields()
     {
         $userOptions            =   app()->make( 'Tendoo\Core\Services\UserOptions' );
         

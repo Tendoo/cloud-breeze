@@ -6,7 +6,9 @@ use Illuminate\Http\Request;
 use Tendoo\Core\Models\User;
 use Tendoo\Core\Services\Options;
 
-
+/**
+ * @deprecated 
+ */
 class UserAjaxOptionsController extends BaseController
 {
     protected $userOptions;

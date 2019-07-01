@@ -1,14 +1,21 @@
 <?php
-namespace Tendoo\Core\Services\Fields;
-use Tendoo\Core\Models\Role;
-use Tendoo\Core\Models\User;
-use Tendoo\Core\Services\Helper;
+namespace Tendoo\Core\Fields\Dashboard;
+
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
-trait UsersFields
+use Tendoo\Core\Models\Role;
+use Tendoo\Core\Models\User as UserModel;
+use Tendoo\Core\Services\Helper;
+
+class User
 {
-    static function setupUserFields( $user = false )
+    public function __construct( $user = null )
+    {
+        $this->user     =   $user;
+    }
+    
+    public function getFields()
     {
         $request                =   app()->make( Request::class );
 
@@ -71,17 +78,17 @@ trait UsersFields
          * The validation should be unique according
          * to the operation
          */
-        if ( $user instanceof User ) {
+        if ( $this->user instanceof User ) {
             $email->validation      =   [
                 'required',
                 'email',
-                Rule::unique('tendoo_users')->ignore( $user->id ),
+                Rule::unique('tendoo_users')->ignore( $this->user->id ),
             ];
 
             $username->validation   =   [ 
                 'required', 
                 'min:5', 
-                Rule::unique('tendoo_users')->ignore( $user->id ),
+                Rule::unique('tendoo_users')->ignore( $this->user->id ),
             ];
 
             $password->validation       =   'sometimes|nullable|min:6';
@@ -93,20 +100,20 @@ trait UsersFields
         /**
          * populate fields when required
          */
-        if ( $user instanceof User ) {
+        if ( $this->user instanceof User ) {
             foreach ( $fields as &$field ) {
                 /**
                  * Field the field when provided
                  */
                 if ( $field->name != 'password' ) {
-                    $field->value       =   @$user->{$field->name};
+                    $field->value       =   @$this->user->{$field->name};
                 }
 
                 if ( $field->type === 'select' && $field->name === 'active' ) {
                     foreach( $field->options as &$data ) {
-                        if ( @$user->{$field->name} === true && intval( $data[ 'value' ] ) === 1 ) {
+                        if ( @$this->user->{$field->name} === true && intval( $data[ 'value' ] ) === 1 ) {
                             $field->value           =   1;
-                        } else if ( @$user->{$field->name} === false && intval( $data[ 'value' ] ) === 0 ) {
+                        } else if ( @$this->user->{$field->name} === false && intval( $data[ 'value' ] ) === 0 ) {
                             $field->value           =   0;
                         }
                     }

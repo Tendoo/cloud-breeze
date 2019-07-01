@@ -67,13 +67,13 @@ class MenusConfig extends Menus
             
             $list                  =   new \stdClass;
             $list->text            =   __( 'List of users' );
-            $list->href            =   '/dashboard/users';
+            $list->href            =   '/dashboard/crud/tendoo-users';
             $list->label           =   10;
             $list->namespace       =   'users.list';
             
             $create                  =   new \stdClass;
             $create->text            =   __( 'Create a new user' );
-            $create->href            =   '/dashboard/users/create';
+            $create->href            =   '/dashboard/crud/tendoo-users/create';
             $create->label           =   10;
             $create->namespace       =   'users.create';
 

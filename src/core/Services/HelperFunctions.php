@@ -139,3 +139,46 @@ function isUrl( $text )
 {  
     return filter_var( $text, FILTER_VALIDATE_URL ) !== false;  
 }
+
+class UseThisChain  {
+    
+    public function __construct( $class ) 
+    {
+        $this->class    =   $class;
+    }
+
+    /**
+     * 
+     * @param string method name
+     * @return string result
+     */
+    public function method( $name ) {
+        return $this->class . '@' . $name;
+    }
+}
+
+/**
+ * shorthand way to write 
+ * class and method for route 
+ * or hooks
+ * @param string
+ * @return stdClass class
+ */
+function useThis( string $class ) {
+    return new UseThisChain( $class );
+}
+
+/**
+ * Execute a class @ method
+ * @param string class name with method
+ * @return void
+ */
+function execThis( $className ) {
+	$vars 	=	explode( $className, '@' );
+	if ( count( $vars ) === 2 ) {
+		$class 		=	$vars[0];
+		$method 	=	$vars[1];
+		return (new $class)->$method();
+	}
+	throw \Exception( sprintf( __( 'Unable to execute the following class callback string : %s' ), $className ) );
+}

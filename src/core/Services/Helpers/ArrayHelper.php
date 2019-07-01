@@ -75,7 +75,7 @@ trait ArrayHelper {
     }
 
     /**
-     * KVToJsOptions
+     * Key Value To Js Options
      * @param array
      * @return array of options
      */

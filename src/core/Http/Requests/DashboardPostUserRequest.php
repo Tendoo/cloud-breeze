@@ -6,7 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Tendoo\Core\Services\Field;
 use Tendoo\Core\Facades\Hook;
 
-class PostRegisterRequest extends FormRequest
+class DashboardPostUserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

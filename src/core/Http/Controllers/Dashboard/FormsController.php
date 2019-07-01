@@ -21,7 +21,6 @@ class FormsController extends DashboardController
         parent::__construct();
 
         $this->middleware( function( $request, $next ) {
-            $this->fields   =   app()->make( Field::class );
             return $next( $request );
         });
     }

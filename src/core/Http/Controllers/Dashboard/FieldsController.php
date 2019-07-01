@@ -11,6 +11,8 @@ use Tendoo\Core\Models\Option as OptionModel;
 use Tendoo\Core\Services\Field;
 use Tendoo\Core\Http\Controllers\DashboardController;
 
+use Tendoo\Core\Fields\Dashboard\User as UserFields;
+
 class FieldsController extends DashboardController 
 {
     private $fields;
@@ -19,7 +21,6 @@ class FieldsController extends DashboardController
         parent::__construct();
 
         $this->middleware( function( $request, $next ) {
-            $this->fields   =   app()->make( Field::class );
             return $next( $request );
         });
     }
@@ -34,7 +35,7 @@ class FieldsController extends DashboardController
         switch( $namespace ) {
             case 'dashboard.users.create':
             case 'dashboard.users.edit':
-                return Field::setupUserFields( $index );
+                return new UserFields( User::findOrNull( $id ) );
             break;
         }
     }

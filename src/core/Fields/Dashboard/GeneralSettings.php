@@ -1,13 +1,14 @@
 <?php
-namespace Tendoo\Core\Services\Fields;
+namespace Tendoo\Core\Fields\Dashboard;
+
 use Tendoo\Core\Models\Role;
 use Tendoo\Core\Services\Helper;
 use Tendoo\Core\Services\Options;
 use Tendoo\Core\Facades\Field;
 
-trait GeneralSettingsFields
+class GeneralSettings
 {
-    public static function generalSettings()
+    public function generalSettings()
     {
         $options                    =   app()->make( 'Tendoo\Core\Services\Options' );
         $app_name                   =   new \StdClass;
@@ -46,7 +47,7 @@ trait GeneralSettingsFields
         return [ $app_name, $timezone, $multisite, $enable_maintenance ];
     }
 
-    public static function registration()
+    public function registration()
     {
         $options    =   app()->make( 'Tendoo\Core\Services\Options' );
 
@@ -131,7 +132,7 @@ trait GeneralSettingsFields
      * Email Settings Fields
      * @return void
      */
-    public static function emailSettingsFields()
+    public function emailSettingsFields()
     {
         $options                    =   app()->make( 'Tendoo\Core\Services\Options' );
 
@@ -325,7 +326,7 @@ trait GeneralSettingsFields
         ];
     }
 
-    public static function recaptchaFields()
+    public function recaptchaFields()
     {
         $options                                    =   app()->make( Options::class );
 
@@ -348,7 +349,7 @@ trait GeneralSettingsFields
         $siteSecret->name                              =   'recaptcha_site_secret';
         $siteSecret->type                              =   'text';
         $siteSecret->label                             =   __( 'Site Secret' );
-        $siteSecret->value                             =   $options->get( $siteKey->name );
+        $siteSecret->value                             =   $options->get( $siteSecret->name );
         $siteSecret->description                       =   __( 'Provide the site secret token to be used with the recaptcha.' );
 
         return [

@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
 use Tendoo\Core\Models\Role;
@@ -118,9 +119,26 @@ class AuthService
     /**
      * Authenticate the request
      * @param string token
-     * @return AsyncResponse
+     * @return array AsyncResponse
      */
     public function authToken( $token )
+    {
+        $result     =   $this->authTokenSilently( $token );
+
+        if ( $result[ 'status' ] === 'failed' ) {
+            throw new AccessDeniedException( $result[ 'message' ] );
+        }
+
+        return $result;
+    }
+
+    /**
+     * Authenticate the token silently
+     * silently without throwing any error
+     * @param string token
+     * @return array AsyncResponse
+     */
+    public function authTokenSilently( $token )
     {
         $dateService    =   app()->make( DateService::class );
         $tokenKey       =   'Auth-Token::' . $token;
@@ -158,10 +176,16 @@ class AuthService
                 ];
             }
 
-            throw new AccessDeniedException( __( 'The current authentication request is invalid' ) );
+            return [
+                'status'    =>  'failed',
+                'message'   =>  __( 'The current authentication request is invalid' )
+            ];
         }
 
-        throw new SessionExpiredException( __( 'Unable to proceed your session has expired.' ) );
+        return [
+            'status'    =>  'failed',
+            'message'   =>  __( 'Unable to proceed your session has expired.' )
+        ];
     }
 
     /**

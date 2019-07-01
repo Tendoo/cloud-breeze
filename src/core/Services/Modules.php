@@ -33,6 +33,7 @@ class Modules
 
     /**
      * Load Modules
+     * @param string path to load
      * @return void
      */
     public function load( $dir = null )
@@ -166,7 +167,7 @@ class Modules
                     /**
                      * Load module folder contents
                      */
-                    foreach([ 'Models', 'Services', 'Facades', 'Crud', 'Mail', 'Http', 'Queues', 'Gates', 'Observers' ] as $folder ) {
+                    foreach([ 'Models', 'Services', 'Facades', 'Crud', 'Mails', 'Http', 'Queues', 'Gates', 'Observers' ] as $folder ) {
                         /**
                          * Load Module models
                          */
