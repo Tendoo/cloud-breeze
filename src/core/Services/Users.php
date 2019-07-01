@@ -99,10 +99,9 @@ class Users
          * for letting him know his account has been created
          */
         Mail::to( $user->email )
-            ->queue( new ActivateAccountMail( url()->route( 'register.activate', [
-                'code'  =>  $activationCode,
-                'user'  =>  $user->id
-            ]), $user ) );
+            ->queue( new ActivateAccountMail( url( 
+                sprintf( '/tendoo/auth/activation?code=%s&user=%s', $activationCode, $user->id ) 
+            ), $user ) );
     }
 
     /**

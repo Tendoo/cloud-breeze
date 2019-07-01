@@ -259,7 +259,7 @@ class Users extends Crud
                 'namespace' =>  $isAuthenticated ? 'profil' : 'edit',
                 'type'      =>  'GOTO',
                 'index'     =>  'id',
-                'url'       =>  $isAuthenticated ? '/dashboard/profile' : '/dashboard/users/edit/' . $entry->id
+                'url'       =>  $isAuthenticated ? '/dashboard/profile' : '/dashboard/crud/tendoo-users/edit/' . $entry->id
             ], [
                 'label'     =>  __( 'Delete' ),
                 'namespace' =>  'delete',

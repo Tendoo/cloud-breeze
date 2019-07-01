@@ -55,15 +55,15 @@ class OptionGet extends Command
             ];
 
             $option     =   Option::where( 'key', $key )
-                ->get();
+                ->first();
 
             if ( $option instanceof Option ) {
                 $values         =   [];
                 $values[]       =   [
-                    $option[ 'id' ],
-                    $option[ 'key' ],
-                    $option[ 'value' ],
-                    $option[ 'user_id' ],
+                    $option->id,
+                    $option->key,
+                    $option->value,
+                    $option->user_id,
                 ];
 
                 return $this->table( $headers, $values );

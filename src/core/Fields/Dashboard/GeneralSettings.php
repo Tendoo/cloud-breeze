@@ -89,7 +89,7 @@ class GeneralSettings
         $validate_users->type                       =   'switch';
         $validate_users->value                      =   $options->get( $validate_users->name );
         $validate_users->options                    =   Helper::booleanToggle();
-        $validate_users->description                =   __( 'Everytime a user will register, his account will be set as active immediately' );
+        $validate_users->description                =   __( 'Will force email validation everytime a user register.' );
         
         $reset_activation_link                      =   new \StdClass;
         $reset_activation_link->name                =   'reset_activation_link';

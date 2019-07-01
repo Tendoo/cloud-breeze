@@ -37,13 +37,28 @@ class AuthService
         $redirect           =   Hook::filter( 'before.register', false, $request, $options );
 
         /**
+         * simple way to validate 
+         * user having the same username
+         */
+        $user   =   User::where( 'email', $request->input( 'email' ) )
+            ->orWhere( 'username', strtolower( $request->input( 'username' ) ) )
+            ->first();
+            
+        if ( $user instanceof User ) {
+            if( $user->email === $request->input( 'email' ) ) {
+                throw new \Exception( __( 'This email is already in use.' ) );
+            } 
+            throw new \Exception( __( 'This username is already in use.' ) );
+        }
+
+        /**
          * A hook can control the user registration
          */
         if ( $redirect instanceof RedirectResponse ) {
             return $redirect;
         }
 
-        $shouldActivate     =   $options->get( 'validate_users', 'false' ) === 'true' ? true : false;
+        $shouldActivate     =   $options->get( 'validate_users', false ) ? true : false;
 
         /**
          * Create user instance
@@ -53,7 +68,7 @@ class AuthService
         $user->password     =   bcrypt( $request->input( 'password' ) );
         $user->email        =   $request->input( 'email' );
         $user->role_id      =   $options->get( 'register_as', 1 ); // default user
-        $user->active       =   $shouldActivate ? 1 : 0;
+        $user->active       =   ! $shouldActivate;
         $user->save();
 
         /**
@@ -69,7 +84,7 @@ class AuthService
          */
         Hook::action( 'register.user', $user, $option );
 
-        if ( $shouldActivate ) {
+        if ( ( bool ) $shouldActivate ) {
             $userService->sendActivationEmail( $user );
         }
 
@@ -77,11 +92,11 @@ class AuthService
          * let's notify all admin with admin role a user has been registered
          * @todo adding a filter for role selected to receive an email
          */
-        if ( $options->get( 'registration_notification' ) == 'yes' ) {
+        if ( ( bool ) $options->get( 'registration_notification' ) ) {
             foreach( Role::where( 'namespace', 'admin' )->first()->user as $admin ) {
                 Mail::to( $admin->email )
                     ->queue( new UserRegistrationMail([
-                        'link'  =>  route( 'dashboard.users.list' ),
+                        'link'  =>  url( '/tendoo/dashboard/crud/tendoo-users/edit/' . $user->id ),
                         'user'  =>  $user
                     ]));
             }
