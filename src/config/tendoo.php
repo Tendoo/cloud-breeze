@@ -56,5 +56,23 @@ return [
             'register_as',
             'registration_notification',
         ]
+    ],
+
+    'ip-banner' => [
+        'enable'        =>  true,
+
+        /**
+         * describe what is forbidden
+         * on each request processed
+         */
+        'forbidden'     =>  [
+            '.php',
+        ],
+
+        /**
+         * if a client makes the same mistake
+         * "x" times, his ip will be banned
+         */
+        'mistakes-threshold'    =>  1
     ]
 ];

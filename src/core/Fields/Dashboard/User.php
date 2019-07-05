@@ -10,12 +10,7 @@ use Tendoo\Core\Services\Helper;
 
 class User
 {
-    public function __construct( $user = null )
-    {
-        $this->user     =   $user;
-    }
-    
-    public function getFields()
+    public function getFields( $user = null )
     {
         $request                =   app()->make( Request::class );
 
@@ -78,17 +73,17 @@ class User
          * The validation should be unique according
          * to the operation
          */
-        if ( $this->user instanceof User ) {
+        if ( $user instanceof UserModel ) {
             $email->validation      =   [
                 'required',
                 'email',
-                Rule::unique('tendoo_users')->ignore( $this->user->id ),
+                Rule::unique('tendoo_users')->ignore( $user->id ),
             ];
 
             $username->validation   =   [ 
                 'required', 
                 'min:5', 
-                Rule::unique('tendoo_users')->ignore( $this->user->id ),
+                Rule::unique('tendoo_users')->ignore( $user->id ),
             ];
 
             $password->validation       =   'sometimes|nullable|min:6';
@@ -100,23 +95,18 @@ class User
         /**
          * populate fields when required
          */
-        if ( $this->user instanceof User ) {
+        if ( $user instanceof UserModel ) {
             foreach ( $fields as &$field ) {
-                /**
-                 * Field the field when provided
-                 */
-                if ( $field->name != 'password' ) {
-                    $field->value       =   @$this->user->{$field->name};
-                }
-
                 if ( $field->type === 'select' && $field->name === 'active' ) {
                     foreach( $field->options as &$data ) {
-                        if ( @$this->user->{$field->name} === true && intval( $data[ 'value' ] ) === 1 ) {
+                        if ( @$user->{$field->name} === true && intval( $data[ 'value' ] ) === 1 ) {
                             $field->value           =   1;
-                        } else if ( @$this->user->{$field->name} === false && intval( $data[ 'value' ] ) === 0 ) {
+                        } else if ( @$user->{$field->name} === false && intval( $data[ 'value' ] ) === 0 ) {
                             $field->value           =   0;
                         }
                     }
+                } else if ( $field->type != 'password' ) {
+                    $field->value       =   @$user->{$field->name};
                 }
             }
         }

@@ -50,8 +50,8 @@ class Crud
     private function usersFields( $id = null )
     {
         $model          =   User::find( $id );
-        $fieldClass     =   new UserFields( $model );
-        return $fieldClass->getFields();
+        $fieldClass     =   new UserFields();
+        return $fieldClass->getFields( $model );
     }
 
     /**
@@ -74,8 +74,8 @@ class Crud
     private function appFields( $id = null ) 
     {
         $model          =   Application::find( $id );
-        $fieldClass     =   new Applications( $model );
-        return $fieldClass->getFields();
+        $fieldClass     =   new Applications;
+        return $fieldClass->getFields( $model );
     }
 
     /**
@@ -87,12 +87,19 @@ class Crud
      */
     public function fields( $fields, string $namespace, $data )
     {
+        extract( $data );
+        /**
+         * ->model
+         * ->namespace
+         * ->id
+         */
+
         switch( $namespace ) {
             case 'tendoo-apps' :
-                return $this->appFields();
+                return $this->appFields( $id );
             break;
             case 'tendoo-users':
-                return $this->usersFields();
+                return $this->usersFields( $id );
             break;
             default:
                 return $fields;

@@ -82,4 +82,9 @@ class HomeController extends BaseController
             strtolower( $moduleDetails[ 'module' ][ 'namespace' ] ) . '-' . $moduleDetails[ 'module' ][ 'version' ] . '.zip' 
         )->deleteFileAfterSend( true );
     }
+
+    public function bannedClient()
+    {
+        return view( 'Tendoo::errors.banned-client' );
+    }
 }

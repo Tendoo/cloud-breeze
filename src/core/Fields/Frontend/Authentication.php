@@ -232,4 +232,24 @@ class Authentication
         
         return $fields;
     }
+
+    /**
+     * request activation
+     * @param void
+     * @return array Fields
+     */
+    public function requestActivation()
+    {
+        $email                  =   new \stdClass;
+        $email->name            =   'email';
+        $email->validation      =   'email';
+        $email->label           =   __( 'Email' );
+        $email->description     =   __( 'Provide the email you\'ve signed with.' );
+        $email->type            =   'email';
+
+        return [
+            $email,
+            $this->recaptcha()
+        ];
+    }
 }

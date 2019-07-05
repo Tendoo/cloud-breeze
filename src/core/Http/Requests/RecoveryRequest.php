@@ -3,7 +3,8 @@
 namespace Tendoo\Core\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Tendoo\Core\Services\Field;
+use Tendoo\Core\Services\Validation;
+use Tendoo\Core\Fields\Frontend\Authentication;
 
 class RecoveryRequest extends FormRequest
 {
@@ -24,6 +25,8 @@ class RecoveryRequest extends FormRequest
      */
     public function rules()
     {
-        return Field::buildValidation( 'recovery' );
+        return Validation::extract( 
+            ( new Authentication )->recovery()
+        );
     }
 }

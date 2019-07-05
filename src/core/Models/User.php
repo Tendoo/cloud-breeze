@@ -13,6 +13,10 @@ class User extends Tendoo_Model
 
     protected $table  =   'tendoo_users';
 
+    protected $casts    =   [
+        'active'    =>  'boolean'
+    ];
+
     /** @var */
     public $user_id;
 

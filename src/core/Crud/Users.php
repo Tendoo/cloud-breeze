@@ -13,6 +13,7 @@ use Tendoo\Core\Models\Option as OptionModel;
 use Tendoo\Core\Services\Users as UserService;
 use Tendoo\Core\Exceptions\AccessDeniedException;
 use Tendoo\Core\Fields\Dashboard\UserRegistration;
+use Tendoo\Core\Fields\Dashboard\User as UserFields;
 
 class Users extends Crud
 {
@@ -44,7 +45,7 @@ class Users extends Crud
         [ 'tendoo_roles', 'tendoo_users.role_id', '=', 'tendoo_roles.id' ]
     ];
 
-    protected $fields   =   UserRegistration::class;
+    protected $fields   =   UsersFields::class;
 
     /**
      * Fields which will be filled during post/put
@@ -77,7 +78,7 @@ class Users extends Crud
      */
     public function getFields( $entry = null ) 
     {
-        return Field::setupUserFields( $entry );
+        return (new UserFields)->getFields( $entry );
     }
 
     /**

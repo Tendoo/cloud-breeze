@@ -16,6 +16,7 @@ use Tendoo\Core\Services\Page;
 use Tendoo\Core\Services\Oauth;
 use Tendoo\Core\Services\UserOptions;
 use Tendoo\Core\Services\AuthService;
+use Tendoo\Core\Services\Users;
 use Tendoo\Core\Services\Options;
 
 use Tendoo\Core\Models\Oauth as OauthModel;
@@ -48,7 +49,10 @@ class OauthController extends BaseController
         parent::__construct();
 
         $this->middleware( function( $request, $next ) {
+            
             $this->authService      =   app()->make( AuthService::class );
+            $this->usersService     =   app()->make( Users::class );
+
             return $next( $request );
         });
         
@@ -117,6 +121,15 @@ class OauthController extends BaseController
         $attempt    =   Auth::attempt( $request->only( 'username', 'password' ), $request->input( 'keep_me_in' ) );
 
         if ( $attempt ) {
+
+            /**
+             * if the user is not yet active, 
+             * let's abort the authentication
+             */
+            if ( ! Auth::user()->active ) {
+                Auth::logout();
+                throw new AccessDeniedException( __( 'Your account has\'nt yet been activated. Consider checking your email or reactivate your account.' ) );
+            }
 
             /**
              * If users is not admin and if the login is disabled
@@ -474,5 +487,53 @@ class OauthController extends BaseController
                 'message'   =>  __( 'Unable to proceed, the request is not valid.')
             ]);
         }
+    }
+
+    /**
+     * subtmit a user activation
+     * @param Request
+     * @return Response
+     */
+    public function postActivation( Request $request )
+    {
+        if ( $request->input( 'code' ) !== null && $request->input( 'user_id' ) !== null ) {
+            return $this->usersService->activateAccount( 
+                $request->input( 'code' ),
+                $request->input( 'user_id' )
+            );
+        }
+
+        abord(400); // the request is not well formed
+    }
+
+    /**
+     * send activation link
+     * to an unactivated account
+     * @param Request
+     * @return Response
+     */
+    public function requestActivation( Request $request )
+    {
+        $this->__CheckGoogleRecaptcha();
+
+        
+        if ( $request->input( 'email' ) !== null ) {
+            $user   =   User::where( 'email', $request->input( 'email' ) )->first();
+
+            return $user;
+
+            if ( ! $user instanceof User || $user->active ) {
+                throw new \Exception( __( 'Unable to proceed with the activation.' ) );
+            }
+
+            $this->userService->sendActivationEmail( $user );
+
+            return [
+                'status'    =>  'success',
+                'message'   =>  __( 'The activation has been send to your address.' )
+            ];
+        }
+
+        throw new \Exception( __( 'Unable to proceed with the activation.' ) );
     }
 }

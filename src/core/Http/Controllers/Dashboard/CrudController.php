@@ -221,7 +221,7 @@ class CrudController extends DashboardController
         return [
             'status'    =>   'success',
             'message'   =>  __( 'the entry has been updated' ),
-            'entyr'     =>  $entry
+            'data'      =>  compact( 'entry' )
         ];
     }
 

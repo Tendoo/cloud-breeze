@@ -29,6 +29,9 @@ class Fields
             case 'auth.change-password':
                 return $this->authentication->changePassword();
             break;
+            case 'auth.request-activation':
+                return $this->authentication->requestActivation();
+            break;
             default: 
                 return $fields; 
             break;

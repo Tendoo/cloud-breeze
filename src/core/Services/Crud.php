@@ -180,6 +180,7 @@ class Crud
 
         /**
          * Order the current result, according to the mentionned columns
+         * means the user has clicked on "reorder"
          */
         if ( $request->query( 'direction' ) && $request->query( 'active' ) ) {
             $query->orderBy( 
