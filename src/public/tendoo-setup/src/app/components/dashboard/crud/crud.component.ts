@@ -55,8 +55,8 @@ export class CrudComponent implements OnInit, OnDestroy {
         })
     }
     
-    private loadCrudData() {
-        this.tendoo.crud.getConfig(this.namespace).subscribe((crud: CrudConfig) => {
+    private loadCrudData( params = null ) {
+        this.tendoo.crud.getConfig(this.namespace, params ).subscribe((crud: CrudConfig) => {
             this.crud = crud;
             this.tendoo.dashboardTitle(this.crud.labels.list_title);
         }, error => {
@@ -71,11 +71,16 @@ export class CrudComponent implements OnInit, OnDestroy {
         });
     }
 
+    handleRefresh( crud )
+    {
+        this.loadCrudData();
+    }
+
     /**
      * 
     **/
     sortData( data ) {
-        console.log( data );
+        this.loadCrudData( data );
     }
 
     /**

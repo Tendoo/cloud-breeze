@@ -53,6 +53,8 @@ import { ChangePasswordComponent } from './components/auth/change-password/chang
 import { CoreMigrationDialogComponent } from './shared/core-migration-dialog/core-migration-dialog.component';
 import { LoadingAnimationComponent } from './partials/loading-animation/loading-animation.component';
 import { ImageCropperModule } from 'ngx-image-cropper';
+import { ActivateAccountComponent } from './components/auth/activate-account/activate-account.component';
+import { RequestActivationComponent } from './components/auth/request-activation/request-activation.component';
 
 @NgModule({
     declarations: [
@@ -94,6 +96,8 @@ import { ImageCropperModule } from 'ngx-image-cropper';
         ChangePasswordComponent,
         CoreMigrationDialogComponent,
         LoadingAnimationComponent,
+        ActivateAccountComponent,
+        RequestActivationComponent,
     ],
     imports: [
         BrowserModule,

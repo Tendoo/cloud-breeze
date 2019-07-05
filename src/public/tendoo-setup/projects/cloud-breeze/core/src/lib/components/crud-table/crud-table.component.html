@@ -12,9 +12,14 @@
     </mat-card-title>
     <mat-card-title class="p-2 mb-0" *ngIf="! searchEnabled" fxLayoutAlign="space-between">
         <div fxFlex="100%" *ngIf="! hasSelectedEntries" fxLayout="row" fxLayoutAlign="space-between center">
-            <button mat-icon-button [routerLink]="crud.links.create" mat-button color="primary">
-                <mat-icon>add</mat-icon>
-            </button>
+            <div>
+                <button mat-icon-button [routerLink]="crud.links.create" mat-button color="primary">
+                    <mat-icon>add</mat-icon>
+                </button>
+                <button mat-icon-button (click)="toggleRefresh()" mat-button color="primary">
+                    <mat-icon>refresh</mat-icon>
+                </button>
+            </div>
             <button mat-icon-button (click)="toggleSearch( true )">
                 <mat-icon>search</mat-icon>
             </button>
