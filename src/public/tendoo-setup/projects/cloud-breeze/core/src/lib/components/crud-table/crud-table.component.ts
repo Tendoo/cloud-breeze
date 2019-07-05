@@ -21,6 +21,7 @@ export class CrudTableComponent implements OnInit, OnDestroy {
     @Output( 'delete' ) delete          =   new EventEmitter();
     @Output( 'action' ) action          =   new EventEmitter();
     @Output( 'search' ) searchEvent     =   new EventEmitter();
+    @Output( 'refresh' ) refresh        =   new EventEmitter();
 
     columnsNames: string[]                  =   [];
     searchEnabled                           =   false;
@@ -53,11 +54,17 @@ export class CrudTableComponent implements OnInit, OnDestroy {
 
     search( field: HTMLInputElement ) {
         if ( field.value.length !== 0 ) {
-            this.searchEvent.emit( 
+            return this.searchEvent.emit( 
                 field.value.length
             );
         } 
         return this.snackbar.open( 'You need to input something to search.', 'OK', { duration: 3000 });
+    }
+
+    toggleRefresh() {
+        this.refresh.emit({
+            crud : this.crud
+        });
     }
 
     /**

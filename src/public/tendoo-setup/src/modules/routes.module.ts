@@ -41,6 +41,8 @@ import { LostPasswordComponent } from "src/app/components/auth/lost-password/los
 import { ChangePasswordComponent } from "src/app/components/auth/change-password/change-password.component";
 import { MustLogoutGuard } from "src/app/guards/must-logout.guard";
 import { SaveRedirectGuard } from "src/app/guards/save-redirect.guard";
+import { ActivateAccountComponent } from "src/app/components/auth/activate-account/activate-account.component";
+import { RequestActivationComponent } from "src/app/components/auth/request-activation/request-activation.component";
 
 @NgModule({
     imports: [
@@ -85,8 +87,15 @@ import { SaveRedirectGuard } from "src/app/guards/save-redirect.guard";
                         canActivate: [ MustLogoutGuard ],
                         component: LoginComponent
                     }, {
+                        path: 'activate',
+                        canActivate: [ MustLogoutGuard ],
+                        component: ActivateAccountComponent
+                    }, {
                         path: 'lost-password',
                         component: LostPasswordComponent
+                    }, {
+                        path: 'request-activation',
+                        component: RequestActivationComponent
                     }, {
                         path: 'change-password/:user/:code',
                         component: ChangePasswordComponent

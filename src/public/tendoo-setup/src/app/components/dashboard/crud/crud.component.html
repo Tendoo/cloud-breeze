@@ -14,6 +14,7 @@
             (delete)="deleteEntries( $event )"
             (action)="doAction( $event )"
             (search)="searh( $event )"
+            (refresh)="handleRefresh( $event )"
         ></cb-table>
         <div *ngIf="crud.results.data.length === 0" fxFlex fxFill fxLayoutAlign="center center">
             <div fxFlex="400px">
