@@ -13,6 +13,7 @@ use Illuminate\Support\Str;
 use Carbon\Carbon;
 use Tendoo\Core\Models\Role;
 use Tendoo\Core\Models\User;
+use Tendoo\Core\Models\Oauth;
 use Tendoo\Core\Services\Users;
 use Tendoo\Core\Services\DateService;
 use Tendoo\Core\Services\Options;
@@ -155,16 +156,24 @@ class AuthService
      */
     public function authTokenSilently( $token )
     {
-        $dateService    =   app()->make( DateService::class );
-        $tokenKey       =   'Auth-Token::' . $token;
+        $dateService        =   app()->make( DateService::class );
+        $tokenKey           =   'Auth-Token::' . $token;
+        $oauthConnexion     =   Oauth::token( $token )->valid()->first();
 
-        if ( Cache::has( $tokenKey ) ) {
+        /**
+         * Attempt to authenticate 
+         * using a oAuth connexion 
+         * which might exists
+         */
+        if ( $oauthConnexion instanceof Oauth ) {
+            
+            return $this->__proceedAuthentication( $oauthConnexion->user_id, $token );
+
+        } else if ( Cache::has( $tokenKey ) ) {
             
             $cached            =   Cache::get( $tokenKey );
 
-            if ( @$cached[ 'browser' ] === request()->header( 'User-Agent' ) ) {
-
-                Auth::loginUsingId( $cached[ 'user_id' ] );
+            if ( @$cached[ 'browser' ] === request()->header( 'User-Agent' ) || ! config( 'tenodo.auth.strict-browser-match', false ) ) {
 
                 Cache::put( $tokenKey, [
                     'key'       =>  $tokenKey,
@@ -178,17 +187,7 @@ class AuthService
                     ->copy()
                     ->addDays(7) );
 
-                $user           =   Auth::user();
-                $user->role     =   $user->role;
-                
-                return [
-                    'status'    =>  'success',
-                    'message'   =>  __( 'You are successfully authenticated' ),
-                    'data'      =>  [
-                        'user'      =>  $user,
-                        'token'     =>  $token
-                    ]
-                ];
+                return $this->__proceedAuthentication( $cached[ 'user_id' ], $token );
             }
 
             return [
@@ -200,6 +199,22 @@ class AuthService
         return [
             'status'    =>  'failed',
             'message'   =>  __( 'Unable to proceed your session has expired.' )
+        ];
+    }
+
+    private function __proceedAuthentication( $user_id, $token )
+    {
+        Auth::loginUsingId( $user_id );
+        $user           =   Auth::user();
+        $user->role     =   $user->role;
+        
+        return [
+            'status'    =>  'success',
+            'message'   =>  __( 'You are successfully authenticated' ),
+            'data'      =>  [
+                'user'      =>  $user,
+                'token'     =>  $token
+            ]
         ];
     }
 

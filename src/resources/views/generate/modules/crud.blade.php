@@ -10,9 +10,9 @@ use Tendoo\Core\Services\Helper;
 use Tendoo\Core\Models\User;
 use Tendoo\Core\Facades\Hook;
 use Tendoo\Core\Services\Users;
-use {{ trim( $model_name ) }}
+use {{ trim( $model_name ) }};
 
-class {{ ucwords( $Str::camel( $Str::plural( $resource_name ) ) ) }} extends Crud
+class {{ ucwords( $Str::camel( $resource_name ) ) }}Crud extends Crud
 {
     /**
      * define the base table
@@ -33,7 +33,7 @@ class {{ ucwords( $Str::camel( $Str::plural( $resource_name ) ) ) }} extends Cru
     /**
      * Model Used
      */
-    protected $model      =   {{ trim( $model_name ) }}::class;
+    protected $model      =   \{{ trim( $model_name ) }}::class;
 
     /**
      * Adding relation
@@ -130,7 +130,7 @@ class {{ ucwords( $Str::camel( $Str::plural( $resource_name ) ) ) }} extends Cru
      * @param array of fields
      * @return array of fields
      */
-    public function filterPutInputs( $inputs, {{ trim( $model_name ) }} $entry )
+    public function filterPutInputs( $inputs, \{{ trim( $model_name ) }} $entry )
     {
         return $inputs;
     }
@@ -167,34 +167,6 @@ class {{ ucwords( $Str::camel( $Str::plural( $resource_name ) ) ) }} extends Cru
     {
         return $inputs;
     }
-
-    /**
-     * Validation Rule for POST/PUT request
-     * @param object Request
-     * @return void
-     */
-    public function validationRules( $request )
-    {
-        /**
-         * Retreive the entry ID from the Route
-         */
-        $entryId       =   $request->route( 'id' ) ? User::find( $request->route( 'id' ) ) : null;
-        
-        /**
-         * If the current request process {{ strtolower( trim( $namespace ) ) }} namespace
-         */
-        $fields     =   $this->getFields( $entryId );
-
-        if ( $request->route( 'namespace' ) == '{{ strtolower( trim( $namespace ) ) }}' ) {
-
-            /**
-             * Use UserFieldsValidation and add assign it to "crud" validation array
-             * the entry object is send to perform validation and ignoring the current edited
-             * entry
-             */
-        }
-        return Helper::getFieldsValidation( $fields );
-    }
     
     /**
      * Protect an access to a specific crud UI
@@ -205,7 +177,7 @@ class {{ ucwords( $Str::camel( $Str::plural( $resource_name ) ) ) }} extends Cru
     {
         $users      =   app()->make( Users::class );
         
-        if ( $users->is([ 'admin' ] ) ) {
+        if ( $users->is([ 'admin' ]) ) {
             return [
                 'status'    =>  'success',
                 'message'   =>  __( 'The access is granted.' )

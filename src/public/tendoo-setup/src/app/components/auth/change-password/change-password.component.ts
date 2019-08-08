@@ -1,11 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter } from '@angular/core';
 import { ActivatedRouteSnapshot, ActivatedRoute, Router } from '@angular/router';
 import { TendooService } from 'src/app/services/tendoo.service';
-import { Field } from 'src/app/interfaces/field';
 import { FormGroup } from '@angular/forms';
-import { ValidationGenerator } from 'src/app/classes/validation-generator.class';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Field, ValidationGenerator } from '@cloud-breeze/core';
 
 @Component({
 	selector: 'app-change-password',
@@ -16,6 +15,7 @@ export class ChangePasswordComponent implements OnInit {
 	user: string;
 	code: string;
 	fields: Field[];
+	recaptcha: Field;
 	changePasswordForm: FormGroup;
 	
 	constructor(
@@ -32,6 +32,13 @@ export class ChangePasswordComponent implements OnInit {
 
 			this.tendoo.fields.getPublicFields( 'auth.change-password' ).subscribe( (fields: Field[]) => {
 				this.fields 				=	fields;
+				const recaptcha 			=	this.fields.filter( field => field.type === 'recaptcha' );
+				
+				if ( recaptcha.length > 0 ) {
+					this.recaptcha 	=	recaptcha[0];
+					this.recaptcha.reset 	=	new EventEmitter<boolean>();
+				}
+				
 				const controls 				=	ValidationGenerator.buildFormControls( this.fields );
 				this.changePasswordForm 	=	new FormGroup( controls );
 			});
@@ -58,7 +65,6 @@ export class ChangePasswordComponent implements OnInit {
 		 * server to authenticate a token
 		 * and a user provided
 		 */
-		console.log( this.changePasswordForm.value );
 		const formData 	=	this.changePasswordForm.value;
 		this.tendoo.auth.changePassword({
 			user : this.user,
@@ -69,6 +75,11 @@ export class ChangePasswordComponent implements OnInit {
 			this.snackbar.open( result.message, 'OK', { duration : 3000 });
 		}, ( result: HttpErrorResponse ) => {
 			ValidationGenerator.enableFields( this.fields );
+
+			if ( this.recaptcha ) {
+                this.recaptcha.reset.emit(true);
+            }
+
 			this.snackbar.open( result.error.message || 'An error has occured during the process.', 'OK' );
 		})
 	}	

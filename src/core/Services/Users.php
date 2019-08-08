@@ -4,11 +4,17 @@ namespace Tendoo\Core\Services;
 use Tendoo\Core\Models\Role;
 use Tendoo\Core\Models\User;
 use Tendoo\Core\Models\Permission;
+
 use Tendoo\Core\Services\UserOptions;
 use Tendoo\Core\Services\DateService;
+
+use Tendoo\Core\Facades\Hook;
+
 use Tendoo\Core\Mail\ActivateAccountMail;
+
 use Tendoo\Core\Exceptions\NotFoundException;
 use Tendoo\Core\Exceptions\AccessDeniedException;
+
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;

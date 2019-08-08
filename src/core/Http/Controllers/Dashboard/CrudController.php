@@ -85,7 +85,7 @@ class CrudController extends DashboardController
          * In case nothing handle this crud
          */
         if ( ! class_exists( $crudClass ) ) {
-            throw new CoreException([
+            throw new CrudException([
                 'status'    =>  'failed',
                 'message'   =>  __( 'Unhandled crud resource' )
             ]);
@@ -104,6 +104,7 @@ class CrudController extends DashboardController
         if ( method_exists( $resource, 'filterPostInputs' ) ) {
             $inputs     =   $resource->filterPostInputs( $request->all() );
         }
+
 
         foreach ( $inputs as $name => $value ) {
 
@@ -159,7 +160,7 @@ class CrudController extends DashboardController
          * In case nothing handle this crud
          */
         if ( ! class_exists( $crudClass ) ) {
-            throw new CoreException([
+            throw new CrudException([
                 'status'    =>  'failed',
                 'message'   =>  __( 'Unhandled crud resource' )
             ]);
@@ -261,7 +262,7 @@ class CrudController extends DashboardController
          * In case nothing handle this crud
          */
         if ( ! class_exists( $crudClass ) ) {
-            throw new CoreException([
+            throw new CrudException([
                 'status'    =>  'failed',
                 'message'   =>  __( 'Unhandled crud resource' )
             ]);

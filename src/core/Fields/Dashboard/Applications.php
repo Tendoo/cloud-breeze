@@ -2,6 +2,7 @@
 namespace Tendoo\Core\Fields\Dashboard;
 
 use Tendoo\Core\Models\Application;
+use Illuminate\Validation\Rule;
 
 class Applications 
 {

@@ -17,6 +17,7 @@ use Tendoo\Core\Events\Options;
 use Tendoo\Core\Events\Url;
 use Tendoo\Core\Events\Tabs;
 use Tendoo\Core\Events\Fields;
+use Tendoo\Core\Events\Validation;
 
 class TendooEventServiceProvider extends ServiceProvider
 {
@@ -54,8 +55,9 @@ class TendooEventServiceProvider extends ServiceProvider
         Hook::addFilter( 'dashboard.forms',                     useThis( Forms::class )->method( 'define' ), 10, 3 );
         Hook::addFilter( 'dashboard.save.forms',                useThis( Forms::class )->method( 'save' ), 10, 2 );
         Hook::addFilter( 'dashboard.tabs',                      useThis( Tabs::class )->method( 'get' ), 10, 2 );
-        Hook::addFilter( 'public.fields',                       useThis( Fields::class )->method( 'systemFields' ), 10, 2 );
         Hook::addFilter( 'dashboard.crud.validation',           useThis( CrudEvents::class )->method( 'validation' ), 10, 3 );
         Hook::addFilter( 'dashboard.crud.fields',               useThis( CrudEvents::class )->method( 'fields' ), 10, 3 );
-    }
+        Hook::addFilter( 'public.fields',                       useThis( Fields::class )->method( 'systemFields' ), 10, 2 );
+        Hook::addFilter( 'public.validation',                   useThis( Validation::class )->method( 'publicValidation' ), 10, 3 );
+    }   
 }

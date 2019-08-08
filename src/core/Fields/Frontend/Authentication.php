@@ -103,7 +103,7 @@ class Authentication
         $Field->type            =   'text';
         $Field->label           =   __( 'Username' );
         $Field->placeholder     =   __( 'Username' );
-        $Field->descruotuib     =   __( 'Provide a unique username for your account.' );
+        $Field->description     =   __( 'Provide a unique username for your account.' );
         $Field->validation      =   'required|min:5|unique:tendoo_users';
         return $Field;
     }
@@ -120,7 +120,7 @@ class Authentication
         $Field->type            =   'text';
         $Field->label           =   __( 'Username' );
         $Field->placeholder     =   __( 'Username' );
-        $Field->description     =   __( 'Provide the username used during the registration.' );
+        $Field->description     =   __( 'Provide the username you\'ve signed with.' );
         $Field->validation      =   'required|min:5';
         $Field->value           =   '';
         return $Field;

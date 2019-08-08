@@ -89,7 +89,7 @@ class TendooAppServiceProvider extends ServiceProvider
         $this->app->singleton( DateService::class, function(){
             $options    =   app()->make( Options::class );
             $timeZone   =   $options->get( 'app_timezone', 'Europe/London' );
-            return new DateService( $timeZone );
+            return new DateService( 'now', $timeZone );
         });
 
         // save Singleton for options

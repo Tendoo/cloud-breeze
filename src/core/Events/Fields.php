@@ -16,6 +16,7 @@ class Fields
     public function systemFields( $fields, $namespace )
     {
         $this->authentication    =   new Authentication;
+
         switch( $namespace ) {
             case 'auth.login':
                 return $this->authentication->login();

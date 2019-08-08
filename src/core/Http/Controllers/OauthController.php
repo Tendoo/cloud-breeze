@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
 use Exception;
@@ -37,6 +38,7 @@ use Tendoo\Core\Http\Requests\LoginRequest;
 use Tendoo\Core\Http\Requests\PostRegisterRequest;
 use Tendoo\Core\Http\Requests\RecoveryRequest;
 use Tendoo\Core\Http\Requests\PasswordChangeRequest;
+use Tendoo\Core\Http\Requests\PostOauthRequest;
 use Tendoo\Core\Facades\Curl;
 
 class OauthController extends BaseController
@@ -83,6 +85,105 @@ class OauthController extends BaseController
     }
 
     /**
+     * authentication for registered 
+     * or allowed applications
+     * @param Request
+     * @return AsyncResponse
+     */
+    public function postOauth( PostOauthRequest $request )
+    {
+        $attempt    =   Auth::attempt( $request->only( 'username', 'password' ) );
+
+        if ( ! $attempt ) {
+            throw new WrongCredentialException;
+        }
+
+        $this->__checkOnCredentialsSuccessfull();
+
+        $user           =   User::find( Auth::user()->id );
+        $user->role     =   $user->role;
+
+        /**
+         * Authenticating the application
+         */
+        $application    =   Application::where([
+            [ 'client_key',     '=', $request->input( 'client_key' )],
+            [ 'client_secret',  '=', $request->input( 'client_secret' )]
+        ])->first();
+
+        if( ! $application instanceof Application ) {
+            throw new Exception( 'Wrong application credentials are provided' );
+        }
+
+        $action                 =   $request->input( 'action' );
+        $callback_url           =   $request->input( 'callback_url' );
+        $scopes                 =   $request->input( 'scopes' );
+        $access_token           =   Str::random(40);
+        $refresh_token          =   Str::random(30);
+        $url                    =   parse_url( $request->input( 'callback_url' ) );
+
+        /**
+         * A user can not have the same application connected to his account many time. 
+         * If a prior connexion has been made, then this latest will be updated with the new
+         * credentials.
+         */
+        $oauth =   OauthModel::where([
+            'app_id'    =>  $application->id,
+            'domain'    =>  @$url[ 'host' ]
+        ])->first();
+
+        if ( $oauth instanceof OauthModel ) {
+            $oauth->access_token    =   $access_token;
+            $oauth->app_name        =   $application->name;
+            $oauth->app_id          =   $application->id;
+            $oauth->scopes          =   json_encode( $scopes );
+            $oauth->refresh_token   =   $refresh_token;
+            $oauth->domain          =   @$url[ 'host' ] ? $url[ 'host' ] : __( 'N/A' );
+            $oauth->user_id         =   Auth::id();
+            $oauth->expires_at      =   Carbon::now()->addDays(7)->toDateTimeString();
+            $oauth->save();
+        } else {
+            $oauth                  =   new OauthModel;
+            $oauth->access_token    =   $access_token;
+            $oauth->app_name        =   $application->name;
+            $oauth->app_id          =   $application->id;
+            $oauth->scopes          =   json_encode( $scopes );
+            $oauth->refresh_token   =   $refresh_token;
+            $oauth->domain          =   @$url[ 'host' ] ? $url[ 'host' ] : __( 'N/A' );
+            $oauth->user_id         =   Auth::id();
+            $oauth->expires_at      =   Carbon::now()->addDays(7)->toDateTimeString();
+            $oauth->save();
+        }
+
+        /**
+         * run an action when the Oauth is
+         * succesful
+         * @hook
+         */
+        Hook::action( 'oauth.successful', $oauth );
+
+        /**
+         * @todo adding expiration to the keys
+         */
+        $hasQueryParam = parse_url( $callback_url, PHP_URL_QUERY );
+        
+        // Returns a string if the URL has parameters or NULL if not
+        if ( $hasQueryParam ) {
+            $callback_url .= '&access_token=' . $access_token;
+        } else {
+            $callback_url .= '?access_token=' . $access_token;
+        }
+
+        return response()->json([
+            'status'            =>  'success',
+            'message'           =>  __( 'The user has been successfully connected' ),
+            'user'              =>  $user,
+            'access_token'      =>  $access_token,
+            'redirectTo'        =>  Hook::filter( 'after.login.callback', false )
+        ])->cookie( cookie( 'access_token', $access_token ) );
+    }
+
+    /**
      * proceed a server side verification
      * of a verification code submitted through
      * reCaptcha
@@ -122,28 +223,7 @@ class OauthController extends BaseController
 
         if ( $attempt ) {
 
-            /**
-             * if the user is not yet active, 
-             * let's abort the authentication
-             */
-            if ( ! Auth::user()->active ) {
-                Auth::logout();
-                throw new AccessDeniedException( __( 'Your account has\'nt yet been activated. Consider checking your email or reactivate your account.' ) );
-            }
-
-            /**
-             * If users is not admin and if the login is disabled
-             * then he's redirected to the login with an error
-             */
-            if ( $this->options->get( 'app_restricted_login', false ) &&  
-                ! in_array( 
-                    Auth::user()->role->namespace,
-                    Hook::filter( 'login.roles.allowed', [ 'admin' ])
-                )
-            ) {
-                Auth::logout();
-                throw new AccessDeniedException( __( 'Your role is not allowed to login.' ) );
-            }
+            $this->__checkOnCredentialsSuccessfull();
 
             $user           =   User::find( Auth::user()->id );
             $user->role     =   $user->role;
@@ -162,6 +242,37 @@ class OauthController extends BaseController
     }
 
     /**
+     * make a private verification
+     * of the authenticated user
+     * @param 
+     */
+    private function __checkOnCredentialsSuccessfull()
+    {
+        /**
+         * if the user is not yet active, 
+         * let's abort the authentication
+         */
+        if ( ! Auth::user()->active ) {
+            Auth::logout();
+            throw new AccessDeniedException( __( 'Your account has\'nt yet been activated. Consider checking your email or reactivate your account.' ) );
+        }
+
+        /**
+         * If users is not admin and if the login is disabled
+         * then he's redirected to the login with an error
+         */
+        if ( $this->options->get( 'app_restricted_login', false ) &&  
+            ! in_array( 
+                Auth::user()->role->namespace,
+                Hook::filter( 'login.roles.allowed', [ 'admin' ])
+            )
+        ) {
+            Auth::logout();
+            throw new AccessDeniedException( __( 'Your role is not allowed to login.' ) );
+        }
+    }
+
+    /**
      * disconnect the user 
      * by deleting a reference of the Auth session
      * @param void
@@ -171,6 +282,7 @@ class OauthController extends BaseController
     {
         $auth   =   app()->make( AuthService::class );
         $auth->forget( $request->input( 'token' ) );
+        
         return [
             'status'    =>  'success',
             'message'   =>  __( 'The session has been deleted.' )
@@ -405,7 +517,7 @@ class OauthController extends BaseController
          * Sending an email which expire
          */
         Mail::to( $user->email )
-            ->queue( new PasswordReset( url( '/auth/change-password', [
+            ->queue( new PasswordReset( url( '/tendoo/auth/change-password', [
                 'user'  =>  $user->id,
                 'code'  =>  $hashedCode
             ]), $user ) );
@@ -423,8 +535,10 @@ class OauthController extends BaseController
      * @param Request
      * @return void
      */
-    public function postRecoveryCode( User $user, PasswordChangeRequest $request )
+    public function postRecoveryCode( $id, PasswordChangeRequest $request )
     {
+        $user       =   User::findOrFail( $id );
+
         $this->__checkRefreshValidity( $user, $request->input( 'authorization' ) );
         
         /**
@@ -462,6 +576,7 @@ class OauthController extends BaseController
     {
         $userOptions    =   new UserOptions( $user->id );
         $expiration     =   $userOptions->get( 'recovery-validity' );
+        Log::info( 'code-expiration::' . $expiration );
 
         /**
          * Check if the recovery code has not expired
@@ -515,12 +630,9 @@ class OauthController extends BaseController
     public function requestActivation( Request $request )
     {
         $this->__CheckGoogleRecaptcha();
-
         
         if ( $request->input( 'email' ) !== null ) {
             $user   =   User::where( 'email', $request->input( 'email' ) )->first();
-
-            return $user;
 
             if ( ! $user instanceof User || $user->active ) {
                 throw new \Exception( __( 'Unable to proceed with the activation.' ) );

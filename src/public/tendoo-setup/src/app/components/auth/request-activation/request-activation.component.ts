@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { FormGroup } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ValidationGenerator } from 'src/app/classes/validation-generator.class';
-import { Field } from 'dist/cloud-breeze/crud-table/lib/interfaces/field';
+import { Field } from 'src/app/interfaces/field';
 
 @Component({
     selector: 'app-request-activation',

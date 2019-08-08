@@ -10,6 +10,8 @@ use Tendoo\Core\Models\Application;
 use Tendoo\Core\Models\User;
 use Tendoo\Core\Facades\Hook;
 
+use Illuminate\Foundation\Http\FormRequest;
+
 class Crud 
 {
     public function define( $namespace )
@@ -24,7 +26,7 @@ class Crud
         return $namespace;
     }
 
-    public function validation( $rules, $namespace, FormRequest $request )
+    public function validation( $rules = [], $namespace = '', FormRequest $request = null )
     {
         switch( $namespace ) {
             case 'tendoo-users': 
@@ -32,7 +34,7 @@ class Crud
             case 'tendoo-apps':
                 return $this->tendooAppRules( $request->route( 'id' ) );
             default:
-                return [];
+                return $rules;
         }
     }
 

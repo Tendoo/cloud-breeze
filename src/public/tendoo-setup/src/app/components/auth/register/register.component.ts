@@ -1,13 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { Field } from 'src/app/interfaces/field';
 import { TendooService } from 'src/app/services/tendoo.service';
-import { ValidationGenerator } from 'src/app/classes/validation-generator.class';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AsyncResponse } from 'src/app/interfaces/async-response';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
+import { Field, ValidationGenerator } from '@cloud-breeze/core';
 
 @Component({
     selector: 'app-register',
@@ -17,6 +16,7 @@ import { Title } from '@angular/platform-browser';
 export class RegisterComponent implements OnInit {
     fields: Field[]         =   [];
     registerForm: FormGroup;
+    recaptcha: Field;
 
     constructor(
         public tendoo: TendooService,
@@ -29,6 +29,13 @@ export class RegisterComponent implements OnInit {
     ngOnInit() {
         this.tendoo.fields.getPublicFields( 'auth.register' ).subscribe( (fields: Field[]) => {
             this.fields         =   fields;
+            const recaptcha     =   this.fields.filter( field => field.type === 'recaptcha' );
+
+            if ( recaptcha.length > 0 ) {
+                this.recaptcha  =   recaptcha[0];
+                this.recaptcha.reset    =   new EventEmitter<boolean>();
+            }
+
             const controls      =   ValidationGenerator.buildFormControls( this.fields );
             this.registerForm   =   new FormGroup( controls );
         });
@@ -56,6 +63,11 @@ export class RegisterComponent implements OnInit {
 
             this.snackbar.open( result.error.message, 'OK', { duration: 5000 });
             ValidationGenerator.enableFields( this.fields );
+
+            // foo
+            if ( this.recaptcha ) {
+                this.recaptcha.reset.emit( true );
+            }
 
             /**
              * loop all the field to show the 

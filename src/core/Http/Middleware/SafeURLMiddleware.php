@@ -20,6 +20,7 @@ class SafeURLMiddleware
              * been banned before proceeding
              */
             if( IPBanner::isBanned( $request->ip() ) ) {
+                IPBanner::refreshDenyOnHtaccess();
                 throw new ClientBannedException(
                     __( 'You have been restricted to access to this website.' )
                 );
@@ -66,5 +67,7 @@ class SafeURLMiddleware
         }
         
         $client->save();
+        
+        IPBanner::refreshDenyOnHtaccess();
     }
 }

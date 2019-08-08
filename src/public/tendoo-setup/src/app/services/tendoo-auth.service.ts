@@ -114,7 +114,7 @@ export class TendooAuthService extends LoaderService {
      * @return Observable
      */
     sendActivationCode( code, user_id ) {
-        return this.post( `${this.baseUrl}tenodo/auth/activate`, { code, user_id });
+        return this.post( `${this.baseUrl}tendoo/auth/activate`, { code, user_id });
     }
 
     /**

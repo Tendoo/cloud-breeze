@@ -11,15 +11,15 @@
                 </mat-card-content>
                 <mat-divider *ngIf="!tendoo.isLoading"></mat-divider>
                 <mat-progress-bar *ngIf="tendoo.auth.isLoading" mode="indeterminate" style="height: 1px;position: absolute;left: 0;"></mat-progress-bar>
-                <mat-card-actions fxLayoutAlign="space-between">
-                    <button [disabled]="tendoo.auth.isLoading" routerLink="/auth/login" mat-button="">
-                        Login
-                    </button>
+                <mat-card-actions fxLayoutAlign="end">
                     <button [disabled]="tendoo.auth.isLoading" (click)="register()" mat-button="">
                         Register
                     </button>    
                 </mat-card-actions>
             </mat-card>
+        </div>
+        <div fxLayoutAlign="center center" class="mt-3">
+            <a routerLink="/auth/login"><small>Already Registered ?</small></a>
         </div>
     </div>
 </form>

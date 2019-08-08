@@ -215,7 +215,7 @@ class ModuleCrudGeneratorCommand extends Command
     {
         $this->crudDetails[ 'module' ]     =   $this->module;
         Storage::disk( 'modules' )->put( 
-            $this->module[ 'namespace' ] . DIRECTORY_SEPARATOR . 'Crud' . DIRECTORY_SEPARATOR . ucwords( Str::camel( $this->crudDetails[ 'resource_name' ] ) ) . '.php', 
+            $this->module[ 'namespace' ] . DIRECTORY_SEPARATOR . 'Crud' . DIRECTORY_SEPARATOR . ucwords( Str::camel( $this->crudDetails[ 'resource_name' ] ) ) . 'Crud.php', 
             view( 'tendoo::generate.modules.crud', $this->crudDetails )
         );
 
