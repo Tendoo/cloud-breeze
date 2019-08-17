@@ -233,7 +233,6 @@ class CrudController extends DashboardController
     public function crudList( string $namespace )
     {
         $crudClass          =   Hook::filter( 'register.crud', $namespace );
-        $service            =   app()->make( 'Tendoo\Core\Services\Crud' );
 
         /**
          * In case nothing handle this crud
