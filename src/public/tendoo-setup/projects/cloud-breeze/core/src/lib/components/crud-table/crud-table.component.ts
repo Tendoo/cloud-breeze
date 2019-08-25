@@ -45,16 +45,26 @@ export class CrudTableComponent implements OnInit, OnDestroy, OnChanges {
 
     @Input( 'crud' ) 
     set crud( value: TableConfig ) {
-        console.log( value );
         this._crud  =   value;
+        this.columns            =   this._crud.columns;
+        this.columnsNames       =   Object.keys( this._crud.columns );
+        this.labels             =   Object.assign( this.labels, this._crud.labels );
     }
 
     get crud() {
         return this._crud;
     }
 
+    isNumber( number ) {
+        return ! isNaN( number );
+    }
+
     ngOnChanges( changes: SimpleChanges ) {
         const { crud }      =   changes;
+    }
+
+    columnReplaceNotSet( element, column ) {
+        return ( element[ column ] !== true && element[ column ] !== false ) && isNaN( element[ column ] );
     }
     
     ngOnInit() {

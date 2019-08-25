@@ -27,7 +27,7 @@ export class TendooCrudService extends LoaderService {
      * @param namespace crud namespace
      * @return Observable<TableEntries>
      */
-    getEntries( namespace, params: { [ key:string ]: string } = null ) {
+    getEntries( namespace, params: { [ key:string ]: string|number } = null ) {
         return this.get( this.baseUrl + 'tendoo/crud/' + namespace + ( params !== null ? '?' + this.serialize( params ) : '' ) );
     }
     
@@ -36,7 +36,7 @@ export class TendooCrudService extends LoaderService {
      * @param namespace crud namespace
      * @param params route parameters
      */
-    getConfig( namespace, params: { [ key:string ]: string } = null ) {
+    getConfig( namespace, params: { [ key:string ]: string|number } = null ) {
         return this.get( this.baseUrl + 'tendoo/crud/' + namespace + '/config' + ( params !== null ? '?' + this.serialize( params ) : '' ) );
     }
 

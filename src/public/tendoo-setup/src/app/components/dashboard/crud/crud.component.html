@@ -9,6 +9,7 @@
         <cb-table
             *ngIf="crud.results.data.length > 0"
             [crud]="crud"
+            [is-loading]="isLoading"
             (page)="handlePage( $event )"
             (sort)="sortData( $event )"
             (delete)="deleteEntries( $event )"

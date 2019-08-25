@@ -18,10 +18,16 @@ import { CrudPageChange, TableConfig } from '@cloud-breeze/core';
 })
 export class CrudComponent implements OnInit, OnDestroy {
     crud: TableConfig;
-    page: number;
     namespace: string;
     crudConfigSubscription: Subscription;
     routeParamSubscription: Subscription;
+    filter                  =   {
+        page        :   1,
+        per_page    :   10,
+        direction   :   '',
+        column      :   ''
+    }
+    isLoading: boolean      =   false;
     constructor(
         private activatedRoute: ActivatedRoute,
         public tendoo: TendooService,
@@ -48,25 +54,32 @@ export class CrudComponent implements OnInit, OnDestroy {
     }
 
     handlePage( page: CrudPageChange ) {
-        this.loadCrudData({ page: (+(page.pageIndex) + 1).toString() });
+        this.filter.page        =   page.pageIndex + 1;
+        this.filter.per_page    =   page.pageSize;
+        this.loadCrudData();
     }
 
     loadCrud() {
         this.tendoo.dashboardTitle( 'Loading...' );
         this.routeParamSubscription     =   this.activatedRoute.paramMap.subscribe( route => {
             this.namespace  = route.get('namespace');
-            this.page       = +route.get('page');    
+            this.filter.page       = +route.get('page') || 1;    
             this.loadCrudData();
         });
     }
     
-    private loadCrudData( params = null ) {
-        this.tendoo.crud.getConfig(this.namespace, params ).subscribe((crud: TableConfig) => {
+    private loadCrudData( params = {} ) {
+
+        this.filter             =   Object.assign( this.filter, params );
+        this.isLoading          =   true;
+
+        this.tendoo.crud.getConfig(this.namespace, this.filter ).subscribe((crud: TableConfig) => {
+            this.isLoading      =   false;
             this.crud           =   crud;
-            this.tendoo.dashboardTitle( crud.labels.list_title );
+            this.tendoo.dashboardTitle( this.crud.labels.list_title );
         }, error => {
             this.snackbar
-                .open('Unable to load the crud component.', 'TRY AGAIN')
+                .open( 'Unable to load the crud component.', 'TRY AGAIN' )
                 .afterDismissed()
                 .subscribe(observer => {
                     if (observer.dismissedByAction) {
@@ -76,8 +89,7 @@ export class CrudComponent implements OnInit, OnDestroy {
         });
     }
 
-    handleRefresh( crud )
-    {
+    handleRefresh( crud ) {
         this.loadCrudData();
     }
 
@@ -85,7 +97,8 @@ export class CrudComponent implements OnInit, OnDestroy {
      * 
     **/
     sortData( data ) {
-        this.loadCrudData( data );
+        this.filter     =   Object.assign( this.filter, data );
+        this.loadCrudData();
     }
 
     /**

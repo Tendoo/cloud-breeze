@@ -79,13 +79,13 @@
                         -->
                         <ng-container *ngIf="columns[ column ].replace !== undefined">
                             <ng-container *ngIf="columns[ column ].type === 'boolean'">
-                                <ng-container *ngIf="element[ column ] === false">
+                                <ng-container *ngIf="element[ column ] === false || element[ column ] === 0">
                                     {{ columns[ column ].replace[0] }}
                                 </ng-container>
-                                <ng-container *ngIf="element[ column ] === true">
+                                <ng-container *ngIf="element[ column ] === true || element[ column ] === 1">
                                     {{ columns[ column ].replace[1] }}
                                 </ng-container>
-                                <ng-container *ngIf="element[ column ] !== true && element[ column ] !== false">
+                                <ng-container *ngIf="columnReplaceNotSet( element, column )">
                                     {{ columns[ column ].replace[ '$default' ] ? columns[ column ].replace[ '$default' ] : 'N/A' }}
                                 </ng-container>
                             </ng-container>
