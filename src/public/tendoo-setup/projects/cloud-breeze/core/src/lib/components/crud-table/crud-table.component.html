@@ -1,4 +1,4 @@
-<mat-card class="p-0">
+<mat-card class="p-0" *ngIf="_crud !== undefined">
     <mat-card-title class="p-2 mb-0" *ngIf="searchEnabled" color="warn">
         <div fxFlex="100%" fxLayout="row" fxLayoutAlign="space-between center">
             <button (click)="toggleSearch( false )" mat-icon-button>
@@ -13,7 +13,7 @@
     <mat-card-title class="p-2 mb-0" *ngIf="! searchEnabled" fxLayoutAlign="space-between">
         <div fxFlex="100%" *ngIf="! hasSelectedEntries" fxLayout="row" fxLayoutAlign="space-between center">
             <div>
-                <button mat-icon-button [routerLink]="crud.links.create" mat-button color="primary">
+                <button mat-icon-button [routerLink]="_crud.links.create" mat-button color="primary">
                     <mat-icon>add</mat-icon>
                 </button>
                 <button mat-icon-button (click)="toggleRefresh()" mat-button color="primary">
@@ -43,8 +43,8 @@
     </mat-card-title>
     <mat-divider *ngIf="! isLoading"></mat-divider>
     <mat-progress-bar color="warn" style="height: 1px;position: absolute;left: 0;" *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
-    <mat-card-content style="overflow-x: auto;">
-        <table matSort (matSortChange)="sortData($event)" mat-table [dataSource]="crud.results[ 'data' ]" fxFlex>
+    <mat-card-content style="overflow-x: auto;" fxLayout="column">
+        <table matSort (matSortChange)="sortData($event)" mat-table [dataSource]="_crud.results[ 'data' ]" fxFlex>
             <!--- Note that these columns can be defined in any order.
                 The actual rendered columns are set as a property on the row definition" -->
             <ng-container *ngFor="let column of columnsNames" [matColumnDef]="column">
@@ -101,12 +101,16 @@
                     </td>
                 </ng-container>
             </ng-container>
-            
             <tr mat-header-row *matHeaderRowDef="columnsNames"></tr>
             <tr mat-row *matRowDef="let row; columns: columnsNames;"></tr>
         </table>
+        <mat-paginator 
+            showFirstLastButtons
+            (page)="changePage( $event )" 
+            [length]="totalEntries"
+            [pageSizeOptions]="[10, 30, 100, 200]">
+        </mat-paginator>
     </mat-card-content>
-    <mat-card-footer class="p-2">
-        hello world
+    <mat-card-footer>
     </mat-card-footer>
 </mat-card>

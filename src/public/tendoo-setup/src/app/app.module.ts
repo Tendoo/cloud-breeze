@@ -55,6 +55,7 @@ import { LoadingAnimationComponent } from './partials/loading-animation/loading-
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { ActivateAccountComponent } from './components/auth/activate-account/activate-account.component';
 import { RequestActivationComponent } from './components/auth/request-activation/request-activation.component';
+import { CrudTableComponent } from './tests/crud-table/crud-table.component';
 
 @NgModule({
     declarations: [
@@ -98,6 +99,7 @@ import { RequestActivationComponent } from './components/auth/request-activation
         LoadingAnimationComponent,
         ActivateAccountComponent,
         RequestActivationComponent,
+        CrudTableComponent,
     ],
     imports: [
         BrowserModule,

@@ -43,6 +43,7 @@ import { MustLogoutGuard } from "src/app/guards/must-logout.guard";
 import { SaveRedirectGuard } from "src/app/guards/save-redirect.guard";
 import { ActivateAccountComponent } from "src/app/components/auth/activate-account/activate-account.component";
 import { RequestActivationComponent } from "src/app/components/auth/request-activation/request-activation.component";
+import { CrudTableComponent } from "src/app/tests/crud-table/crud-table.component";
 
 @NgModule({
     imports: [
@@ -53,7 +54,7 @@ import { RequestActivationComponent } from "src/app/components/auth/request-acti
                 pathMatch: 'full',
             }, {
                 path: 'test',
-                component: FileUploadComponent
+                component: CrudTableComponent
             }, {
                 path: 'do-setup',
                 component: DoSetupComponent,

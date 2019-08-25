@@ -1,14 +1,15 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, EventEmitter } from '@angular/core';
 import { CrudConfig } from 'src/app/interfaces/crud-config.interface';
 import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 import { TendooService } from 'src/app/services/tendoo.service';
-import { Observable, forkJoin } from 'rxjs';
+import { Observable, forkJoin, Observer, Subscription } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CoreEvent } from 'src/app/classes/core-event.class';
 import { HttpErrorResponse } from '@angular/common/http';
 import { CoreAction } from 'src/app/interfaces/core-action';
+import { CrudPageChange, TableConfig } from '@cloud-breeze/core';
 
 @Component({
     selector: 'app-crud',
@@ -16,9 +17,11 @@ import { CoreAction } from 'src/app/interfaces/core-action';
     styleUrls: ['./crud.component.css']
 })
 export class CrudComponent implements OnInit, OnDestroy {
-    crud: CrudConfig;
+    crud: TableConfig;
     page: number;
     namespace: string;
+    crudConfigSubscription: Subscription;
+    routeParamSubscription: Subscription;
     constructor(
         private activatedRoute: ActivatedRoute,
         public tendoo: TendooService,
@@ -29,7 +32,6 @@ export class CrudComponent implements OnInit, OnDestroy {
     ) { }
     
     ngOnInit() {
-        console.log( 'foo' );
         this.coreEvent.subscribe( (action: CoreAction ) => {
             if ( action.type === 'crud.action.success' ) {
                 this.loadCrudData();
@@ -43,22 +45,25 @@ export class CrudComponent implements OnInit, OnDestroy {
      * while destroying let's destroy the subscriber
      */
     ngOnDestroy() {
-        // this.coreEvent.unsubscribe();
+    }
+
+    handlePage( page: CrudPageChange ) {
+        this.loadCrudData({ page: (+(page.pageIndex) + 1).toString() });
     }
 
     loadCrud() {
         this.tendoo.dashboardTitle( 'Loading...' );
-        this.activatedRoute.paramMap.subscribe( route => {
+        this.routeParamSubscription     =   this.activatedRoute.paramMap.subscribe( route => {
             this.namespace  = route.get('namespace');
             this.page       = +route.get('page');    
             this.loadCrudData();
-        })
+        });
     }
     
     private loadCrudData( params = null ) {
-        this.tendoo.crud.getConfig(this.namespace, params ).subscribe((crud: CrudConfig) => {
-            this.crud = crud;
-            this.tendoo.dashboardTitle(this.crud.labels.list_title);
+        this.tendoo.crud.getConfig(this.namespace, params ).subscribe((crud: TableConfig) => {
+            this.crud           =   crud;
+            this.tendoo.dashboardTitle( crud.labels.list_title );
         }, error => {
             this.snackbar
                 .open('Unable to load the crud component.', 'TRY AGAIN')
