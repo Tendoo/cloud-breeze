@@ -14,6 +14,7 @@ use Carbon\Carbon;
 use Tendoo\Core\Models\Role;
 use Tendoo\Core\Models\User;
 use Tendoo\Core\Models\Oauth;
+use Tendoo\Core\Models\Application;
 use Tendoo\Core\Services\Users;
 use Tendoo\Core\Services\DateService;
 use Tendoo\Core\Services\Options;
@@ -127,7 +128,6 @@ class AuthService
         Cache::put( $tokenKey, $config, $dateService
             ->copy()
             ->addDays(7) ); // expire in one hour.
-        Log::info( json_encode( $config ) );
 
         return $newKey;
     }
@@ -137,9 +137,9 @@ class AuthService
      * @param string token
      * @return array AsyncResponse
      */
-    public function authToken( $token )
+    public function authToken( $token, $client_key )
     {
-        $result     =   $this->authTokenSilently( $token );
+        $result     =   $this->authTokenSilently( $token, $client_key );
 
         if ( $result[ 'status' ] === 'failed' ) {
             throw new AccessDeniedException( $result[ 'message' ] );
@@ -154,7 +154,7 @@ class AuthService
      * @param string token
      * @return array AsyncResponse
      */
-    public function authTokenSilently( $token )
+    public function authTokenSilently( $token, $client_key )
     {
         $dateService        =   app()->make( DateService::class );
         $tokenKey           =   'Auth-Token::' . $token;
@@ -166,6 +166,19 @@ class AuthService
          * which might exists
          */
         if ( $oauthConnexion instanceof Oauth ) {
+
+            /**
+             * let's check if the authenticated application
+             * is registered within the system
+             */
+            $application    =   Application::where( 'client_key', $client_key )->first();
+
+            if ( ! $application instanceof Application ) {
+                throw new AccessDeniedException([
+                    'status'    =>  'failed',
+                    'message'   =>  __( 'The authentication request is not secure since, it doesn\'t rely on an registered application.' )
+                ]);
+            }
             
             return $this->__proceedAuthentication( $oauthConnexion->user_id, $token );
 

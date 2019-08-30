@@ -1,6 +1,8 @@
 <?php
 namespace Tendoo\Core\Services;
+
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
 
 class DateService extends Carbon
 {

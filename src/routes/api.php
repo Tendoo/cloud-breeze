@@ -30,8 +30,11 @@ Route::prefix( 'api' )->group( function() {
         include_once( dirname( __FILE__ ) . '/api-routes/settings.php' );
     });
     
-    Route::middleware([ 'tendoo.cors' ])->group( function() {
+    Route::middleware([ 'check.migrations' ])->group( function() {
         Route::get( 'tendoo/ping', 'HomeController@ping' );
+    });
+
+    Route::middleware([ 'tendoo.cors' ])->group( function() {
         Route::get( 'tendoo/update/database', 'UpdateController@postUpdate' );
         Route::get( 'tendoo/update/assets', 'UpdateController@postFiles' );
         Route::post( 'tendoo/modules/{namespace}/download', 'HomeController@extractModule' )
