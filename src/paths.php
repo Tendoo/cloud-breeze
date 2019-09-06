@@ -64,7 +64,12 @@ config([ 'temp.uploads' => [
     'root'      =>  storage_path( 'uploads' )
 ]]);
 
-config([ 'filesystems.disks' => array_merge( config( 'filesystems.disks' ), config( 'temp' ) ) ]);
+// config([ 'filesystems.disks' => array_merge( config( 'filesystems.disks' ), config( 'temp' ) ) ]);
+
+foreach( config( 'temp' ) as $name => $value ) {
+    app()->config[ "filesystems.disks.{$name}" ]  =   $value;
+}
+
 
 /**
  *  Changing the Auth Model Provider
