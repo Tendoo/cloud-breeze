@@ -3,9 +3,11 @@ namespace Tendoo\Core\Http\Middleware;
 use Tendoo\Core\Services\Options;
 use Tendoo\Core\Services\Helper;
 use Illuminate\Support\Facades\Storage;
+use Tendoo\Core\Exceptions\ShouldUpdateAssetsException;
+use Tendoo\Core\Exceptions\ShouldUpdateDatabaseException;
 use Closure;
 
-class CheckUpdates
+class CheckMigrations
 {
     public function handle( $request, Closure $next )
     {
@@ -26,7 +28,7 @@ class CheckUpdates
              * but it might include publishing assets.
              */
             if ( $options->get( 'assets_version' ) != config( 'tendoo.assets_version' ) ) {
-                throw new SHouldUpdateAssetsException;
+                throw new ShouldUpdateAssetsException;
             }
         }
         return $next( $request );

@@ -96,7 +96,7 @@ class ServiceProvider extends CoreServiceProvider
         $router->aliasMiddleware( 'expect.unlogged', \Tendoo\Core\Http\Middleware\RedirectIfAuthenticated::class );
         $router->aliasMiddleware( 'expect.logged', \Tendoo\Core\Http\Middleware\RedirectIfNotAuthenticated::class ); 
         $router->aliasMiddleware( 'can.register', \Tendoo\Core\Http\Middleware\CheckRegistrationStatus::class );
-        $router->aliasMiddleware( 'check.updates', \Tendoo\Core\Http\Middleware\CheckUpdates::class );
+        $router->aliasMiddleware( 'check.migrations', \Tendoo\Core\Http\Middleware\CheckMigrations::class );
         $router->aliasMiddleware( 'api.guard', \Tendoo\Core\Http\Middleware\LoadApi::class );
         $router->aliasMiddleware( 'tendoo.auth', \Tendoo\Core\Http\Middleware\TendooAuth::class );
         $router->aliasMiddleware( 'tendoo.guest', \Tendoo\Core\Http\Middleware\TendooGuest::class );
