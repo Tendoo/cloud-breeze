@@ -137,7 +137,7 @@ class AuthService
      * @param string token
      * @return array AsyncResponse
      */
-    public function authToken( $token, $client_key )
+    public function authToken( $token, $client_key = null )
     {
         $result     =   $this->authTokenSilently( $token, $client_key );
 

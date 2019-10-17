@@ -3,7 +3,8 @@
 namespace Tendoo\Core\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Tendoo\Core\Services\Field;
+use Tendoo\Core\Services\Validation;
+use Tendoo\Core\Fields\Frontend\SetupFields;
 
 class SetupAppDetailsRequest extends FormRequest
 {
@@ -24,6 +25,6 @@ class SetupAppDetailsRequest extends FormRequest
      */
     public function rules()
     {
-        return Field::buildValidation( 'setupAppDetails' );
+        return Validation::extract( SetupFields::setupAppDetails() );
     }
 }

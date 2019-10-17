@@ -1,7 +1,7 @@
 <?php
 namespace Tendoo\Core\Fields\Frontend;
 
-trait SetupFields
+class SetupFields
 {
     /**
      * Setup Applications Fields
