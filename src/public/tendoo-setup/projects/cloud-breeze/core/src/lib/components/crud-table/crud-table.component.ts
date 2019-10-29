@@ -122,7 +122,7 @@ export class CrudTableComponent implements OnInit, OnDestroy, OnChanges {
                             label: 'Ok',
                             namespace: 'ok',
                             onClick: () => {
-                                this.__proceedAction( menu, url );
+                                this.__proceedAction( menu, url, row );
                             }
                         }, {
                             label: 'Cancel',
@@ -136,7 +136,7 @@ export class CrudTableComponent implements OnInit, OnDestroy, OnChanges {
                 }
             });
         } else {
-            this.__proceedAction( menu, url );
+            this.__proceedAction( menu, url, row );
         }
     }
     
@@ -146,8 +146,8 @@ export class CrudTableComponent implements OnInit, OnDestroy, OnChanges {
      * @param object menu
      * @return void
      */
-    private __proceedAction( menu, url ) {
-        this.action.emit({ menu, url });
+    private __proceedAction( menu, url, row ) {
+        this.action.emit({ menu, url, row });
     }
 
     /**

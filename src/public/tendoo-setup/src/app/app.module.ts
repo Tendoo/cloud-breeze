@@ -4,7 +4,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { DropzoneModule } from 'ngx-dropzone-wrapper';
 import { CookieService } from 'ngx-cookie-service';
 import { NgxCaptchaModule } from 'ngx-captcha';
-import { CoreModule } from '@cloud-breeze/core';
+import { CloudBreezeModule } from '@cloud-breeze/core';
 
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -112,7 +112,7 @@ import { CrudTableComponent } from './tests/crud-table/crud-table.component';
         FormsModule,
         DropzoneModule,
         NgxCaptchaModule,
-        CoreModule,
+        CloudBreezeModule,
         ImageCropperModule,
     ],
     entryComponents: [

@@ -55,6 +55,11 @@ class Crud
     protected $bulkActions  =   [];
 
     /**
+     * define where in statement
+     */
+    protected $whereIn      =   [];
+
+    /**
      * Construct Parent
      */
     public function __construct()
@@ -181,7 +186,20 @@ class Crud
              */
             if ( $this->listWhere ) {
                 foreach( $this->listWhere as $key => $value ) {
-                    $query->where( $key, $value );
+                    if ( count( $this->listWhere ) > 1 ) {
+                        $query->orWhere( $key, $value );
+                    } else {
+                        $query->where( $key, $value );
+                    }
+                }
+            }
+
+            /**
+             * try to run the where in statement
+             */
+            if ( $this->whereIn ) {
+                foreach( $this->whereIn as $key => $values ) {
+                    $query->whereIn( $key, $values );
                 }
             }
         }

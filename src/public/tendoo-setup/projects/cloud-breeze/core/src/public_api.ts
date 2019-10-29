@@ -27,4 +27,4 @@ export * from './lib/components/loading-animation/loading-animation.component';
 export * from './lib/components/menu-list/menu-list.component';
 export * from './lib/components/sub-menu-list/sub-menu-list.component';
 
-export * from './lib/core.module';
+export * from './lib/cloud-breeze.module';

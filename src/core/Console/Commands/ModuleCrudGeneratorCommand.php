@@ -173,8 +173,8 @@ class ModuleCrudGeneratorCommand extends Command
 
             $this->crudDetails[ 'relations' ][]     =   [
                 trim( $parameters[0] ), 
-                trim( $parameters[0] ) . '.' . trim( $parameters[1] ),
-                $this->crudDetails[ 'table_name' ] . '.' . trim( $parameters[2] )
+                trim( $parameters[0] ) . '.' . trim( $parameters[2] ),
+                $this->crudDetails[ 'table_name' ] . '.' . trim( $parameters[1] )
             ];
 
             return $this->askRelation(false);

@@ -58,7 +58,9 @@ class OauthController extends BaseController
             return $next( $request );
         });
         
-        $this->middleware( 'tendoo.guest' );
+        $this->middleware( 'tendoo.guest' )->except([
+            'postLogout'
+        ]);
 
         $this->oauth        =   new Oauth;
     }

@@ -23,6 +23,7 @@ class Crud
         if( $namespace === 'tendoo-apps' ) {
             return ApplicationCrud::class;
         }
+
         return $namespace;
     }
 

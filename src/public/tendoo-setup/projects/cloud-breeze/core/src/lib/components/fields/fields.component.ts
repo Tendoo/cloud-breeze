@@ -26,6 +26,7 @@ export class FieldsComponent implements OnInit {
 		/**
 		 * listen to reset on
 		 * the field reset method
+		 * 
 		 */
 		if ( this.field.reset !== undefined ) {
 			this.field.reset.subscribe( value => {
