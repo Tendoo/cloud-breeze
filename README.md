@@ -3,16 +3,38 @@
 <a href="https://packagist.org/packages/tendoo/cms"><img src="https://poser.pugx.org/tendoo/cms/v/stable.svg" alt="Latest Stable Version"></a>
 <a href="https://packagist.org/packages/tendoo/cms"><img src="https://poser.pugx.org/tendoo/cms/license.svg" alt="License"></a>
 
-# Cloud Breeze
-Is a Laravel Package which provide a ready to use API Server for your PWA (Progress Web Application). This package comes with a building : 
-- Oauth System (with related pages)
-- Modules : which could extends the server features
-- Build in UI : which helps you to mange users, modules and medias.
+# Cloud Breeze : Why this new project
+This package has been create to extend laravel to a modulable Framework. Usually for Laravel, most of the time only one application is created per installation. If the application is huge, it might consist into small several features that are somehow linked together. While this might work for anyone willing to create a single application, it becomes more hard when it comes to create a very large ecosystem with a bunch of differents features that might not be at all related. 
 
-# How Does that works ?
-The application essentially allow communication from API endpoints. This means even the built-in UI use the API endpoints to communicate with the application. So, some endpoints are public and could be accessed from any remote application (PWA), unless if explicitely block it (CORS). 
+Cloud Breeze ensure you to have a moduleable system with (obviously) modules, that has their own and isolated entities : Controllers, Api & Web routes, Migrations, Service Providers, Email, Views... It comes with some extra features on top of the one already provided by Laravel to ease the developpment as much as possible.
 
-The system also ship flood security which basically block any user which exceed a specific amount of requests per minutes. You can also use the building reCaptcha feature to protect Authentication features (login, register, recovery).
+- Dedicated Authentication Pages (registration, login, recovery)
+- Dedicated Dashboard 
+  - User Management
+  - Options Management
+  - Media Management (images...)
+  - Modules Management (install, enable, disable)
+  - Applications Management (Let you define API keys for secured API endpoints).
+ - Oauth Enpoints 
+ 
+ These are provided with on the laravel package extensions. However, we have decoupled the ui from the backend and so, you can invoke (import) some of the frontend elements such as: 
+ 
+ - Fields, 
+ - ValidationGenerator
+ - AuthService
+ - CoreService
+ - FieldsServices
+ - FormsServices
+ - Crud Component
+ - Dialog Component
+ - ...
+ 
+ These ensure you to quickly have a working UI that interact directly with Cloud Breeze and all his modules. You should note that the UI of cloud breeze is build with Angular 8, Angular Material and some others dependencies. You can require the package on your environment using npm
+ 
+ `npm i @cloud-breeze/core`
+ 
+ 
+ 
 
 # Installation
 Since Cloud Breeze is a package, it could be installed using a composer command : 
