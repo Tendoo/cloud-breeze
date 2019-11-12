@@ -1,3 +1,5 @@
+import { LoaderService } from './services/loader.service';
+import { TendooConfigService } from './services/tendoo-config.service';
 import { TendooService } from './services/tendoo.service';
 import { TendooUsersService } from './services/tendoo-users.service';
 import { TendooTabsService } from './services/tendoo-tabs.service';
@@ -15,8 +17,7 @@ import { SetupService } from './services/setup.service';
 import { ResponsiveService } from './services/responsive.service';
 import { HelperService } from './services/helper.service';
 import { TendooUpdateService } from './services/tendoo-update.service';
-import { LoaderService } from './services/loader.service';
-import { NgModule, Self } from '@angular/core';
+import { NgModule, Self, InjectionToken } from '@angular/core';
 import { NgxCaptchaModule } from 'ngx-captcha';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MaterialModule } from './modules/material.module';
@@ -33,6 +34,11 @@ import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TendooSpinnerService } from './services/tendoo-spinner.service';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { ModuleWithProviders } from '@angular/core';
+export const CB_URL_CONFIG 	=	new InjectionToken<{
+	baseUrl: string;
+	angularUrl: string;
+}>( 'cb-url-config' );
 
 @NgModule({
 	entryComponents: [ 
@@ -99,13 +105,16 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 })
 // @dynamic
 export class CloudBreezeModule {
-	public static url: { 'base': string; 'angular': string } 	=	{
-		base: '',
-		angular: ''
-	};
-
-	static define( url: { 'base': string; 'angular': string } ) {
-		this.url 	=	url;
-		return CloudBreezeModule;
+	static forRoot( config: { 'base': string; 'angular': string } ): ModuleWithProviders<any> {
+		return {
+			ngModule: CloudBreezeModule,
+			providers: [
+				TendooConfigService,
+				{
+					provide: CB_URL_CONFIG,
+					useValue: config
+				}
+			]
+		}
 	}
 }

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { LoaderService } from './loader.service';
 import { HttpClient } from '@angular/common/http';
 import { TendooAuthService } from './tendoo-auth.service';
@@ -20,6 +20,7 @@ import { TendooOauthService } from './tendoo-oauth.service';
 import { TendooUpdateService } from './tendoo-update.service';
 import { CookieService } from 'ngx-cookie-service';
 import { TendooSettingsService } from './tendoo-settings.service';
+import { CB_URL_CONFIG } from '../cloud-breeze.module';
 
 @Injectable({
     providedIn: 'root'
@@ -48,9 +49,10 @@ export class TendooService extends LoaderService {
         public update: TendooUpdateService,
         public title: Title,
         public cookie: CookieService,
-        public settings: TendooSettingsService
+        public settings: TendooSettingsService,
+        @Inject(CB_URL_CONFIG) protected config,
     ) {
-        super( http, httpParser, snackbar, cookie );
+        super( http, httpParser, snackbar, cookie, config );
     }
 
     dashboardTitle( title: string ) {

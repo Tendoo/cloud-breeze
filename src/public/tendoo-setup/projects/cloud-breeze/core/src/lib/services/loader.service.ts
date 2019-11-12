@@ -1,11 +1,12 @@
-import { CloudBreezeModule } from './../cloud-breeze.module';
-import { Injectable } from '@angular/core';
+import { CloudBreezeModule, CB_URL_CONFIG } from './../cloud-breeze.module';
+import { Injectable, Inject } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { HttpResponseParserService } from './http-response-parser.service';
 import { AsyncResponse } from '../interfaces/async-response';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CookieService } from 'ngx-cookie-service';
+import { TendooConfigService } from './tendoo-config.service';
 
 declare const tendoo;
 
@@ -15,16 +16,20 @@ declare const tendoo;
 export class LoaderService {
     bulkDeletePath;
     isLoading           =   false;
-    baseUrl             =   CloudBreezeModule.url.base; 
-    angularUrl          =   CloudBreezeModule.url.angular;
+    baseUrl;
+    angularUrl;
     static headers      =   {};
 
     constructor(
         protected http: HttpClient,
         private httpParser: HttpResponseParserService,
         protected snackbar: MatSnackBar,
-        protected cookie: CookieService
-    ) {}
+        protected cookie: CookieService,
+        protected config: TendooConfigService
+    ) {
+        this.baseUrl        =   this.config.baseUrl;
+        this.angularUrl     =   this.config.angularUrl;
+    }
 
     /**
      * Submit post request
