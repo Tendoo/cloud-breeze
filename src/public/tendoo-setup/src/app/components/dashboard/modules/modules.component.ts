@@ -284,12 +284,17 @@ export class ModulesComponent implements OnInit {
             this.tendoo.post( result.url, {
                 'token'         : result.token
             }, {
+                responseType: 'blob',
                 headers: Object.assign({}, {
                     'Content-Type'  :   'application/zip'
                 }, LoaderService.headers ),
             }).subscribe( result => {
                 module.isLoading    =   false;
-                console.log( result );
+                const url           =   window.URL.createObjectURL( result );
+                const anchor = document.createElement("a");
+                anchor.download = module.namespace.toLocaleLowerCase() + '-' + module.version + '.zip';
+                anchor.href = url;
+                anchor.click()
             }, ( error ) => {
                 module.isLoading    =   false;
                 this.snackbar.open( 'An error has occured while downloading the module', 'OK', { duration : 3000 });
