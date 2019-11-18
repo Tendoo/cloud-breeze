@@ -1,6 +1,9 @@
 <?php
 namespace Tendoo\Core\Services;
 
+use Tendoo\Core\Facades\Curl;
+use Tendoo\Core\Services\Options;
+
 class Validation 
 {
     public static function extract( array $fields )
@@ -13,5 +16,33 @@ class Validation
             }
         }
         return $validation;
+    }
+
+    /**
+     * helps to validate a 
+     * recaptcha fields with Google Servers
+     * @param value
+     * @return boolean
+     */
+    public static function verifyRecaptcha( $value )
+    {
+        $options    =   app()->make( Options::class );
+
+        if ( $options->get( 'enable_recaptcha' ) ) {
+            $result     =   Curl::to( 'https://www.google.com/recaptcha/api/siteverify' )
+                ->withData([ 
+                    'secret'    =>  $options->get( 'recaptcha_site_secret' ),
+                    'response'  =>  $value,
+                    'ip'        =>  request()->ip()
+                ])
+                ->withContentType( 'application/x-www-form-urlencoded' )
+                ->asJsonResponse()
+                ->post();
+
+            if ( $result->success === false ) {
+                return false;
+            }
+        }
+        return true;
     }
 }

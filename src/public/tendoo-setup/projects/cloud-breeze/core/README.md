@@ -1,7 +1,7 @@
-### Cloud Breeze Core
+## Cloud Breeze Core
 
 This package contains UI utilities and components that are intented to be
-used with Cloud Breeze Backend service (API). It can be used on any Angular 8+ that
+used with Cloud Breeze Backend Headless (API). It can be used on any Angular 8+ that
 use Angular Material as UI Framework.
 
 It contains a set of classes that could help to achieve some repetitive actions
@@ -33,7 +33,7 @@ Some of internal services of Cloud Breeze are used as well such as :
 - Users Service
 - Tendoo Service
 
-#### Integration on Angular
+### Integration on Angular
 
 You just need to import the `CloudBreezeModule` and defining initial configuration, which are URL to
 either the backend service (powered by Laravel) and the UI (where angular loads).
@@ -52,47 +52,11 @@ either the backend service (powered by Laravel) and the UI (where angular loads)
 export class AppModule {}
 ```
 
-#### Using Form Constructor
+### API Usage & Example
 
-The form constructor is made to help you building a forum generated from the backend in no time.
-The purpose of having a form defined from the backend, is to ensure that it can be customized by any
-module installed on Cloud Breeze (backend) and rendered on your app without having to compile it each time.
-It's then a dynamic form builder.
+The following part will cover the usage and example of the internal API.
 
-First of all the fields must be defined from Cloud Breeze Backend as following:
-
-...
-
-#### Using Table Builder `<cb-table/>`
-
-The table builder let you create a table powered with CRUD operations. The basic usage of the component
-requires you to use the following tag :
-
-```html
-<cb-table></cb-table>
-```
-
-The component accepts various properties and raised various events depending on the user action.
-
-##### Supported Properties
-
-| Property  | Description                                                                                                          |
-| --------- | -------------------------------------------------------------------------------------------------------------------- |
-| crud      | Contains the configuration of the table. it's a required property that define the columns, the values, the labels... |
-| isLoading | Since the table doesn't perform async operation, the use can then notify the table when something is being loaded.   |
-
-##### Supported Events
-
-| Event   | Description                                                       |
-| ------- | ----------------------------------------------------------------- |
-| sort    | trigger when the user click on a column to sort the results.      |
-| delete  | trigger when the user delete an entry.                            |
-| action  | trigger when the user click on a custom action.                   |
-| search  | trigger when the user click on a the search button.               |
-| refresh | trigger when the user click on a the refresh button.              |
-| page    | trigger when the user click on a the a page under the pagination. |
-
-### Form builder and Validation
+#### Form builder, Fields and Validation API
 
 The form builder allow you to create form using a JSON that might be retreived
 remotely. once again, this helps to have a dynamic form instead of a fixed one that
@@ -122,6 +86,7 @@ multiple fields and that could be actived like so :
 
 ```ts
 import { Component, OnInit } from "@angular/core";
+import { Field } from "@cloud-breeze/core";
 
 @Component({
   selector: "app-demo",
@@ -264,11 +229,60 @@ class DemoComponent implements OnInit {
   // ...
 }
 ```
+##### Supported Type of Fields
+While using the JSON for building forms, it's important to understand what are the fields type supported. By file type, we're talking about the value used for the "type" attribute. If `text`, `textarea` and `password` are pretty straingforward to understand (creating a text, textarea and a password field), a special attention needs to be put over the following : `email`, `select`, `datetime`, `multiple_select`, `switch`, `recaptcha`.
+
+**Email** \
+Will define the type 'email' so that some browser could natively force validation that allow email value.
+
+**Select** \
+As the regular select tag on HTML, this let you create the exact same field. However, you should include 1 more entry on the JSON : `òptions`.
+
+```ts
+const field: Field  = {
+  type: 'select',
+  options: [
+    {
+      value: 'your_value',
+      label: 'Value Label'
+    }
+  ],
+  label: 'Select Your Role',
+  description: 'put a description here.',
+  validation: 'required'
+}
+```
+Note that, the "value" attribute on the Field interface is used to match the "value" inside the options objects.
+
+**datetime** \
+Use the [Angular Material Component](https://material.angular.io/components/datepicker/overview) datetime picker.
+
+**multiple_select** \
+Similar to select, but instead of a single choice, more that one value will be selected.
+
+**switch** \
+Helps to render a switch value. Usually on Cloud Breeze, the switch value doesn't matter. while saving an option, if the switch is untoggled, the option will be deleted from the database. Obviously, there is an internal mecanism that track forms
+that includes switches. So the value could be "1" or "yes" as you want. Verifying that the field is checked, consist then to see wether an option having the field name exists.
+
+**recaptcha** \
+This field provide a support to the recaptcha field provided by [ngx-captcha](https://www.npmjs.com/package/ngx-captcha). It support additionnal parameters that are necessary to render the field properly : 
+
+```ts
+const field: Field  = {
+  type: 'recaptcha',
+  data: {
+    siteKey: 'YOUR_KEY_HERE'
+  },
+  label: 'Select Your Role',
+  description: 'put a description here.',
+  validation: 'required'
+}
+```
 
 The `ValidationGenerator` class has some other interesting methods.
 
 | Methods           | Description                                                                                                                  |
-| ----------------- |              --------------------------------------------------------------------------------------------------------------------------- |
+| ----------------- | ---------------------------------------------------------------------------------------------------------------------------- |
 | from              | Build Validation rule from a string                                                                                          |
 | extractControls   | Extract an object of FormControl from an array of Field                                                                      |
 | buildFormControls | build FormControl by defining the value set on "value" property and extract the controls. It return an object of FormControl |
@@ -279,3 +293,121 @@ The `ValidationGenerator` class has some other interesting methods.
 | enableFields      | Make sure fields can be edited. Accepts an array of Field (Field[])                                                          |
 | throwFieldsError  | Throw a custom field Error                                                                                                   |
 | noNullValue       | Return an object of FormControl that has a value different from null                                                         |
+
+#### Table & CRUD API
+
+The table builder let you create a table powered with CRUD operations. The basic usage of the component
+requires you to use the following tag :
+
+```html
+<cb-table></cb-table>
+```
+
+The component accepts various properties and raised various events depending on the user action.
+
+##### Supported Properties
+
+| Property  | Description                                                                                                          |
+| --------- | -------------------------------------------------------------------------------------------------------------------- |
+| crud      | Contains the configuration of the table. it's a required property that define the columns, the values, the labels... |
+| isLoading | Since the table doesn't perform async operation, the use can then notify the table when something is being loaded.   |
+
+##### Supported Events
+
+| Event   | Description                                                       |
+| ------- | ----------------------------------------------------------------- |
+| sort    | trigger when the user click on a column to sort the results.      |
+| delete  | trigger when the user delete an entry.                            |
+| action  | trigger when the user click on a custom action.                   |
+| search  | trigger when the user click on a the search button.               |
+| refresh | trigger when the user click on a the refresh button.              |
+| page    | trigger when the user click on a the a page under the pagination. |
+
+#### Dialog API
+
+The Cloud Breeze provide an easy way to use the Material Dialog
+to create either confirm, alert or multi-purpose dialogs using the Angular Dialog API.
+
+It consit of a component that is injected on the Dialog that can display a title, a message
+and as many buttons as you set. Here is how to define a Diloag :
+
+```ts
+import { MatDialog } from "@angular/material";
+import { Component } from "@angular/core";
+import { Dialog, DialogComponent } from "@cloud-breeze/core";
+
+@Component({
+  selector: "app-foo-component",
+  templateUrl: "./foo.component.html"
+})
+class FooComponent {
+  constructor(private dialog: MatDialog) {
+    this.dialog.open(DialogComponent, {
+      // ...
+      data: <Dialog>{
+        title: "Your Title",
+        message: "Your message",
+        buttons: [
+          {
+            label: "Yes",
+            onClick: () => {
+              // do something
+            }
+          },
+          {
+            label: "No",
+            onClick: () => {
+              // do something
+            }
+          }
+        ]
+      }
+      // ...
+    });
+  }
+}
+```
+
+#### Media API
+
+The media API helps to manage the media (usually images). It's provided by the internal service `TendooMediasService`,
+that you could inject in your components. You'll then be able to use internal features such as `uploadFile`:
+
+```ts
+//...
+(<TendooMediasService>this.mediasService).uploadFile(<File>file); // => Promise<File>
+```
+
+You should note that on Cloud Breeze, each medias are linked with a model that is created as it's uploaded. It stores useful
+informations about the medias and helps to link this one with some others model. Obviously deleting a Media model delete
+the file reference on the storage as well.
+
+```ts
+// assuming "this.mediasService" is an instance of TendooMediasService
+this.mediasService.deleteMediaById(); // => Observable<HttpResponse>
+```
+
+For some of the method available, the logged user should required permissions otherwhise the action
+will fail with an "NotAuthorizedException" (Server Side).
+
+As one of the internal methods, you can get a paginated result of the medias using the method `getMedias` :
+
+```ts
+  // get medias
+  this.mediasService.getMedias( page: int ); // => Observable<HttpResponse>
+```
+
+#### Modules API
+
+The module helps to extends internal Cloud Breeze features. It could be made by adjusting an existing feature, or by providing completely new API endpoints that could be consummed by external applications/modules. This Angular Service has endpoints to manage entirely the modules installed. Here is the list of method available with their description and the expected response.
+
+| Method          | Response                  | Description                                                                                                                                                                                                         |
+| --------------- | ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| resetMigrations | Observable >AsyncResponse | Reset a specific module migration. This usually means all the table will be truncated and the migration files will run over.                                                                                        |
+| getAll          | Observable Module[] | Returns an array of installed modules                                                                                                                                                                               |
+| uploadFile      | Observable > AsyncResponse | Upload a File blob so that Cloud Breeze install it as a module. The file should be a valid Cloud Breeze module.                                                                                                     |
+| deleteModule    | Observable > AsyncResponse | Delete a specific module using a provided namespace                                                                                                                                                                 |
+| enable          | Observable > AsyncResponse | enable a specific module using the provided namespace. Sometime, the migrations is provided if the module hasn't never been enabled(installed). You can then run the migration on Cloud Breeze using `runMigration` |
+| runMigration    | Observable > AsyncResponse | Run a migration for a specific module, file and version. Usually provided after having enabled the module                                                                                                           |
+| download        | Observable > AsyncResponse | Return an async response that include the file URL, to download a cached zip of the module, which namespace is provided as unique parameter.                                                                        |
+| createSymLink   | Observable > AsyncResponse | If a module include assets, the method helps to create a symbolic link on the public directory of laravel that points to the module public directory.                                                               |

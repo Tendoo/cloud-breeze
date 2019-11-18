@@ -9,7 +9,7 @@ export class TendooConfigService {
     angularUrl: string;
 
     constructor( @Inject( CB_URL_CONFIG ) config ) {
-        this.baseUrl        =   config.baseUrl;
-        this.angularUrl     =   config.angularUrl;
+        this.baseUrl        =   config.base.replace(/\/?$/, '/') + 'api/';
+        this.angularUrl     =   config.angular.replace(/\/?$/, '/');
     }
 }

@@ -27,6 +27,90 @@ use Tendoo\Core\Exceptions\AccessDeniedException;
 
 class AuthService 
 {
+    public function registerUser( $fields )
+    {
+        $userService    =   app()->make( Users::class );
+        $options        =   app()->make( Options::class );
+
+        /**
+         * Trigger Action before registering the users
+         * @filter:before.register
+         */
+        $redirect           =   Hook::filter( 'before.register.user', false, $fields, $options );
+
+        /**
+         * simple way to validate 
+         * user having the same username
+         */
+        $user   =   User::where( 'email', $fields[ 'email' ] )
+            ->orWhere( 'username', strtolower( $fields[ 'username' ] ) )
+            ->first();
+            
+        if ( $user instanceof User ) {
+            if( $user->email === $fields[ 'email' ] ) {
+                throw new \Exception( __( 'This email is already in use.' ) );
+            } 
+            throw new \Exception( __( 'This username is already in use.' ) );
+        }
+
+        /**
+         * A hook can control the user registration
+         */
+        if ( $redirect instanceof RedirectResponse ) {
+            return $redirect;
+        }
+
+        $shouldActivate     =   $options->get( 'validate_users', false ) ? true : false;
+
+        /**
+         * Create user instance
+         */
+        $user               =   new User;
+        $user->username     =   $fields[ 'username' ];
+        $user->password     =   bcrypt( $fields[ 'password' ] );
+        $user->email        =   $fields[ 'email' ];
+        $user->role_id      =   $options->get( 'register_as', 1 ); // default user
+        $user->active       =   ! $shouldActivate;
+        $user->save();
+
+        /**
+         * Save user options
+         * before registration
+         */
+        $option             =   new Options( $user->id );
+        $option->set( 'theme_class', 'red-theme' );
+
+        /**
+         * Trigger Hook for the user
+         * @hook:register.user
+         */
+        Hook::action( 'register.user', $user, $option );
+
+        if ( ( bool ) $shouldActivate ) {
+            $userService->sendActivationEmail( $user );
+        }
+
+        /**
+         * let's notify all admin with admin role a user has been registered
+         * @todo adding a filter for role selected to receive an email
+         */
+        if ( ( bool ) $options->get( 'registration_notification' ) ) {
+            foreach( Role::where( 'namespace', 'admin' )->first()->user as $admin ) {
+                Mail::to( $admin->email )
+                    ->queue( new UserRegistrationMail([
+                        'link'  =>  url( '/tendoo/dashboard/crud/tendoo-users/edit/' . $user->id ),
+                        'user'  =>  $user
+                    ]));
+            }
+        }
+
+        return [
+            'status'    =>  'success',
+            'message'   =>  __( 'The user has been succesfully registered' ),
+            'data'      =>  compact( 'user' )
+        ];
+    }
+
     public function register( Request $request )
     {
         $userService    =   app()->make( Users::class );

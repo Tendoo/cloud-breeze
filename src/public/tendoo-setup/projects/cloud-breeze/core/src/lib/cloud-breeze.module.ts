@@ -35,9 +35,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TendooSpinnerService } from './services/tendoo-spinner.service';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ModuleWithProviders } from '@angular/core';
+import { CookieService } from 'ngx-cookie-service';
 export const CB_URL_CONFIG 	=	new InjectionToken<{
-	baseUrl: string;
-	angularUrl: string;
+	base: string;
+	angular: string;
 }>( 'cb-url-config' );
 
 @NgModule({
@@ -76,6 +77,7 @@ export const CB_URL_CONFIG 	=	new InjectionToken<{
 		// TendooUpdateService,
 		TendooUsersService,
 		TendooService,
+		CookieService,
 	],
 	imports: [
 		CommonModule,

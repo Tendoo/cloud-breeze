@@ -16,7 +16,23 @@ export * from './lib/interfaces/crud-page-change.interface';
 export * from './lib/pipes/truncate.pipe';
 export * from './lib/pipes/truncate-middle.pipe';
 
+export * from './lib/services/tendoo-config.service';
+export * from './lib/services/tendoo-auth.service';
+export * from './lib/services/tendoo.service';
 export * from './lib/services/tendoo-spinner.service';
+export * from './lib/services/tendoo-users.service';
+export * from './lib/services/tendoo-update.service';
+export * from './lib/services/tendoo-tabs.service';
+export * from './lib/services/tendoo-table.service';
+export * from './lib/services/tendoo-settings.service';
+export * from './lib/services/tendoo-options.service';
+export * from './lib/services/tendoo-modules.service';
+export * from './lib/services/tendoo-menu.service';
+export * from './lib/services/tendoo-medias.service';
+export * from './lib/services/tendoo-link.service';
+export * from './lib/services/tendoo-forms.service';
+export * from './lib/services/tendoo-fields.service';
+export * from './lib/services/tendoo-crud.service';
 
 export * from './lib/classes/validation-generator.class';
 
