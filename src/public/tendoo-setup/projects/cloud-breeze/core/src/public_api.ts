@@ -3,6 +3,7 @@
  */
 
 export * from './lib/interfaces/field';
+export * from './lib/interfaces/form.interface';
 export * from './lib/interfaces/button';
 export * from './lib/interfaces/async-response';
 export * from './lib/interfaces/menu';

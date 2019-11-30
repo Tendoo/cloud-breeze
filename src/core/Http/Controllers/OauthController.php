@@ -220,27 +220,11 @@ class OauthController extends BaseController
          * not an error accordingly
          */
         $this->__CheckGoogleRecaptcha();
-        
-        $attempt    =   Auth::attempt( $request->only( 'username', 'password' ), $request->input( 'keep_me_in' ) );
 
-        if ( $attempt ) {
-
-            $this->__checkOnCredentialsSuccessfull();
-
-            $user           =   User::find( Auth::user()->id );
-            $user->role     =   $user->role;
-            $token          =   $this->authService->generateToken( $user );
-            
-            return response()->json([
-                'status'            =>  'success',
-                'message'           =>  __( 'The user has been successfully connected' ),
-                'user'              =>  $user,
-                'token'             =>  $token,
-                'redirectTo'        =>  Hook::filter( 'after.login.callback', false )
-            ])->cookie( cookie( 'auth_token', $token ) );
-        }
-
-        throw new WrongCredentialException;
+        return $this->authService->login( 
+            $request->only( 'username', 'password' ),
+            $request->input( 'keep_me_in' )
+        );
     }
 
     /**
@@ -426,12 +410,7 @@ class OauthController extends BaseController
             }
         }
 
-        $this->authService->register( $request );
-
-        return response()->json([
-            'status'    =>  'success',
-            'message'   =>  __( 'The registration was successful' )
-        ]);
+        return $this->authService->register( $request );
     }
 
     /**

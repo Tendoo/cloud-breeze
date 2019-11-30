@@ -2,6 +2,7 @@ import { ValidatorFn, Validators, FormControl, AbstractControl, FormGroup } from
 import { Field } from "../interfaces/field";
 import { MatchesValidator } from "../validators/matches.validator";
 import { Numbervalidator } from "../validators/number.validator";
+import { Form } from "../interfaces/form.interface";
 
 export class ValidationGenerator {
     /**
@@ -199,5 +200,32 @@ export class ValidationGenerator {
         }
 
         return finalData;
+    }
+
+    /**
+     * Create a form group for a specified Form interface.
+     * use the availabel fields within the sections to generate it.
+     * @param form Form configuration
+     */
+    static buildForm( form: Form ) {
+        const groups    =   {};
+        form.sections.forEach( section => {
+            const form              =   ValidationGenerator.buildFormGroup( section.fields ).formGroup;
+            section.formGroup       =   form;
+            groups[ section.name ]  =   section.formGroup;
+        });
+
+        form.formGroup  =   new FormGroup( groups );
+        
+        return form;
+    }
+
+    /**
+     * Trigger a touch even on a FormGroup object 
+     * defined within a Form.
+     * @param form Form object
+     */
+    static touchFormFields( form: Form ) {
+        ValidationGenerator.touchAllFields( form.formGroup );
     }
 }

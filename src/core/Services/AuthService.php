@@ -361,4 +361,62 @@ class AuthService
             Cache::forget( $tokenKey );
         }
     }
+
+    public function login( $fields, $keepMeIn = false ) 
+    {
+        extract( $fields );
+        
+        $attempt    =   Auth::attempt( compact( 'username', 'password' ), $keepMeIn );
+
+        if ( $attempt ) {
+
+            $this->__checkOnCredentialsSuccessfull();
+
+            $user           =   User::find( Auth::user()->id );
+            $user->role     =   $user->role;
+            $token          =   $this->generateToken( $user );
+            
+            return [
+                'status'            =>  'success',
+                'message'           =>  __( 'The user has been successfully connected' ),
+                'user'              =>  $user,
+                'token'             =>  $token,
+                'redirectTo'        =>  Hook::filter( 'after.login.callback', false )
+            ];
+        }
+
+        throw new WrongCredentialException;
+    }
+
+    /**
+     * make a private verification
+     * of the authenticated user
+     * @param 
+     */
+    private function __checkOnCredentialsSuccessfull()
+    {
+        $options    =   app()->make( Options::class );
+        /**
+         * if the user is not yet active, 
+         * let's abort the authentication
+         */
+        if ( ! Auth::user()->active ) {
+            Auth::logout();
+            throw new AccessDeniedException( __( 'Your account has\'nt yet been activated. Consider checking your email or reactivate your account.' ) );
+        }
+
+        /**
+         * If users is not admin and if the login is disabled
+         * then he's redirected to the login with an error
+         */
+        if ( $options->get( 'app_restricted_login', false ) &&  
+            ! in_array( 
+                Auth::user()->role->namespace,
+                Hook::filter( 'login.roles.allowed', [ 'admin' ])
+            )
+        ) {
+            Auth::logout();
+            throw new AccessDeniedException( __( 'Your role is not allowed to login.' ) );
+        }
+    }
 }

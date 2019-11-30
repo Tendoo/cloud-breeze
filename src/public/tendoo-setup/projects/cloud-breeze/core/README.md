@@ -229,6 +229,49 @@ class DemoComponent implements OnInit {
   // ...
 }
 ```
+
+**Working With Form Builder (since 1.2.0)**\
+The form builder is a new feature that helps to build an entire form with sections and fields.
+The purpose of this feature it to have a form dynamically defined form a remote server that get 
+rendered without having to recompile the application from scratch.
+
+This new update introduce then `Form` which is an interface and a new method `buildFrom` withing the `ValidationGenerator` class. Let's proceed first by exploring the `Form` interface.
+
+```ts
+export class Form {
+  title: string; // if your form has a title, it might be defined here
+  description: string; // the same goes for the description
+  sections: [ // you'll define your form sections here
+    {
+      title: string; // if the section has a title
+      description: string; // if the section has a description
+      fields: Field[] // an array of fields
+    }
+    // repeat as many section as you want...
+  ]
+  url: string; // where the Form should be submitted to. Must be define as a full URL.
+}
+```
+
+Using the `TendooFormsService` you can get forms from a Cloud Breeze backend using the method 
+`getPublicForms` which requires a namespace (unique identifier that is identified by your module, so that i can return the Form configuration as a JSON). The method proceed a Asynchronous request and return an `Observable<Form>` (observable of form).
+
+Usually you'll have to initialize a form like so.
+
+```ts
+// ... formService is an instance of TendoFormsService injected on the constructor
+  ngOnInit() {
+    this.formsService.getPublicForms( 'my-form-namespace' )
+      .subscribe( (form: Form) => {
+        this.form   = ValidationGenerator.buildForm( form );
+      }) 
+  }
+```
+
+The reason why `buildForm` is required, is to make sure the Form actually has a FormGroup defined. The method `buildForm` added to the `ValidationGenerator` loops over the fields and create a FormGroup object accordingly. If your fields has a validation, a validation will be generated on each `FormControl` attached to the field.
+
+The `Form` object can now be used to generate the template on the component.
+
 ##### Supported Type of Fields
 While using the JSON for building forms, it's important to understand what are the fields type supported. By file type, we're talking about the value used for the "type" attribute. If `text`, `textarea` and `password` are pretty straingforward to understand (creating a text, textarea and a password field), a special attention needs to be put over the following : `email`, `select`, `datetime`, `multiple_select`, `switch`, `recaptcha`.
 
