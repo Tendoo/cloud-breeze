@@ -39,9 +39,7 @@ class {{ ucwords( $Str::camel( $resource_name ) ) }}Crud extends Crud
      * Adding relation
      */
     public $relations   =  [
-        @if( count( $relations ) > 0 ) 
-        @foreach( $relations as $relation )
-        [ '{{ strtolower( trim( $relation[0] ) ) }}', '{{ strtolower( trim( $relation[2] ) ) }}', '=', '{{ strtolower( trim( $relation[1] ) ) }}' ]
+        @if( count( $relations ) > 0 )@foreach( $relations as $relation )[ '{{ strtolower( trim( $relation[0] ) ) }}', '{{ strtolower( trim( $relation[2] ) ) }}', '=', '{{ strtolower( trim( $relation[1] ) ) }}' ],
         @endforeach
         @endif
     ];
@@ -51,6 +49,12 @@ class {{ ucwords( $Str::camel( $resource_name ) ) }}Crud extends Crud
      * @var array
     **/
     protected $listWhere    =   [];
+
+    /**
+     * Define where in statement
+     * @var array
+     */
+    protected $whereIn      =   [];
 
     /**
      * Fields which will be filled during post/put

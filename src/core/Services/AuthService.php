@@ -27,6 +27,90 @@ use Tendoo\Core\Exceptions\AccessDeniedException;
 
 class AuthService 
 {
+    public function registerUser( $fields )
+    {
+        $userService    =   app()->make( Users::class );
+        $options        =   app()->make( Options::class );
+
+        /**
+         * Trigger Action before registering the users
+         * @filter:before.register
+         */
+        $redirect           =   Hook::filter( 'before.register.user', false, $fields, $options );
+
+        /**
+         * simple way to validate 
+         * user having the same username
+         */
+        $user   =   User::where( 'email', $fields[ 'email' ] )
+            ->orWhere( 'username', strtolower( $fields[ 'username' ] ) )
+            ->first();
+            
+        if ( $user instanceof User ) {
+            if( $user->email === $fields[ 'email' ] ) {
+                throw new \Exception( __( 'This email is already in use.' ) );
+            } 
+            throw new \Exception( __( 'This username is already in use.' ) );
+        }
+
+        /**
+         * A hook can control the user registration
+         */
+        if ( $redirect instanceof RedirectResponse ) {
+            return $redirect;
+        }
+
+        $shouldActivate     =   $options->get( 'validate_users', false ) ? true : false;
+
+        /**
+         * Create user instance
+         */
+        $user               =   new User;
+        $user->username     =   $fields[ 'username' ];
+        $user->password     =   bcrypt( $fields[ 'password' ] );
+        $user->email        =   $fields[ 'email' ];
+        $user->role_id      =   $options->get( 'register_as', 1 ); // default user
+        $user->active       =   ! $shouldActivate;
+        $user->save();
+
+        /**
+         * Save user options
+         * before registration
+         */
+        $option             =   new Options( $user->id );
+        $option->set( 'theme_class', 'red-theme' );
+
+        /**
+         * Trigger Hook for the user
+         * @hook:register.user
+         */
+        Hook::action( 'register.user', $user, $option );
+
+        if ( ( bool ) $shouldActivate ) {
+            $userService->sendActivationEmail( $user );
+        }
+
+        /**
+         * let's notify all admin with admin role a user has been registered
+         * @todo adding a filter for role selected to receive an email
+         */
+        if ( ( bool ) $options->get( 'registration_notification' ) ) {
+            foreach( Role::where( 'namespace', 'admin' )->first()->user as $admin ) {
+                Mail::to( $admin->email )
+                    ->queue( new UserRegistrationMail([
+                        'link'  =>  url( '/tendoo/dashboard/crud/tendoo-users/edit/' . $user->id ),
+                        'user'  =>  $user
+                    ]));
+            }
+        }
+
+        return [
+            'status'    =>  'success',
+            'message'   =>  __( 'The user has been succesfully registered' ),
+            'data'      =>  compact( 'user' )
+        ];
+    }
+
     public function register( Request $request )
     {
         $userService    =   app()->make( Users::class );
@@ -137,7 +221,7 @@ class AuthService
      * @param string token
      * @return array AsyncResponse
      */
-    public function authToken( $token, $client_key )
+    public function authToken( $token, $client_key = null )
     {
         $result     =   $this->authTokenSilently( $token, $client_key );
 
@@ -275,6 +359,64 @@ class AuthService
         $tokenKey       =   'Auth-Token::' . $token;
         if ( Cache::has( $tokenKey ) ) {
             Cache::forget( $tokenKey );
+        }
+    }
+
+    public function login( $fields, $keepMeIn = false ) 
+    {
+        extract( $fields );
+        
+        $attempt    =   Auth::attempt( compact( 'username', 'password' ), $keepMeIn );
+
+        if ( $attempt ) {
+
+            $this->__checkOnCredentialsSuccessfull();
+
+            $user           =   User::find( Auth::user()->id );
+            $user->role     =   $user->role;
+            $token          =   $this->generateToken( $user );
+            
+            return [
+                'status'            =>  'success',
+                'message'           =>  __( 'The user has been successfully connected' ),
+                'user'              =>  $user,
+                'token'             =>  $token,
+                'redirectTo'        =>  Hook::filter( 'after.login.callback', false )
+            ];
+        }
+
+        throw new WrongCredentialException;
+    }
+
+    /**
+     * make a private verification
+     * of the authenticated user
+     * @param 
+     */
+    private function __checkOnCredentialsSuccessfull()
+    {
+        $options    =   app()->make( Options::class );
+        /**
+         * if the user is not yet active, 
+         * let's abort the authentication
+         */
+        if ( ! Auth::user()->active ) {
+            Auth::logout();
+            throw new AccessDeniedException( __( 'Your account has\'nt yet been activated. Consider checking your email or reactivate your account.' ) );
+        }
+
+        /**
+         * If users is not admin and if the login is disabled
+         * then he's redirected to the login with an error
+         */
+        if ( $options->get( 'app_restricted_login', false ) &&  
+            ! in_array( 
+                Auth::user()->role->namespace,
+                Hook::filter( 'login.roles.allowed', [ 'admin' ])
+            )
+        ) {
+            Auth::logout();
+            throw new AccessDeniedException( __( 'Your role is not allowed to login.' ) );
         }
     }
 }

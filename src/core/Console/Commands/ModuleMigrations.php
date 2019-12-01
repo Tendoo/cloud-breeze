@@ -131,7 +131,7 @@ class ModuleMigrations extends Command
         $this->schema       =   $this->__getSchema( $this->migration );
         $this->migration    =   $this->__getMigrationName( $this->migration );
 
-        $fileName           =   $this->module[ 'namespace' ] . DIRECTORY_SEPARATOR . 'Migrations' . DIRECTORY_SEPARATOR . $this->version . DIRECTORY_SEPARATOR . snake_case( $this->migration ) . '.php';
+        $fileName           =   $this->module[ 'namespace' ] . DIRECTORY_SEPARATOR . 'Migrations' . DIRECTORY_SEPARATOR . $this->version . DIRECTORY_SEPARATOR . Str::snake( $this->migration ) . '.php';
 
         /**
          * Make sure the migration don't exist yet
@@ -190,7 +190,7 @@ class ModuleMigrations extends Command
 
         foreach( $pieces as $piece ) {
             if ( substr( $piece, 0, 9 ) == '--schema=' ) {
-                $schema  =   $this->__parseSchema( snake_case( substr( $piece, 9 ) ) );
+                $schema  =   $this->__parseSchema( Str::snake( substr( $piece, 9 ) ) );
             }
         }
 
