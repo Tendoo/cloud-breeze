@@ -38,7 +38,7 @@ class TendooAppServiceProvider extends ServiceProvider
         /**
          * We might need to publish views as well
          */
-        if ( ! is_dir( base_path() . '/public/tendoo' ) ) {
+        if ( ! is_dir( base_path() . '/public/tendoo-public' ) ) {
             Artisan::call( 'vendor:publish', [
                 '--tag' => 'tendoo-assets',
             ]);
@@ -52,6 +52,8 @@ class TendooAppServiceProvider extends ServiceProvider
          * Let's check if the .env exists 
          * if not. Let's create it. since it's needed
          */
+        // dd( app()->config[ 'filesystems' ][ 'disks' ] );
+        // dd( Storage::disk( 'root' )->exists( '.env' ) );
         if ( ! Storage::disk( 'root' )->exists( '.env' ) ) {
             Storage::disk( 'root' )->put( '.env', view( 'tendoo::generate.env' ) );            
             return redirect( url()->current() )->send();
@@ -89,7 +91,7 @@ class TendooAppServiceProvider extends ServiceProvider
         $this->app->singleton( DateService::class, function(){
             $options    =   app()->make( Options::class );
             $timeZone   =   $options->get( 'app_timezone', 'Europe/London' );
-            return new DateService( $timeZone );
+            return new DateService( 'now', $timeZone );
         });
 
         // save Singleton for options

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { TendooService } from '../services/tendoo.service';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable({
@@ -27,7 +27,7 @@ export class CrudListGuard implements CanActivate {
                     resolve( true );
                 }, (result: HttpErrorResponse) => {
                     if ( result.error.class === 'Tendoo/Core/Exceptions/AccessDenied' ) {
-                        this.router.navigateByUrl( 'dashboard/access-denied' );
+                        this.router.navigateByUrl( 'dashboard/error/access-denied' );
                     } else {
                         this.snackbar.open( result.error.message || 'Unable to access to the requested page. You may not have access to that page.', 'OK', { duration: 5000 })
                     }

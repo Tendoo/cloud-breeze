@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { MatSnackBar, MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { SetupService } from '../services/setup.service';
 import { TendooService } from '../services/tendoo.service';
 import { AsyncResponse } from '../interfaces/async-response';
@@ -45,6 +46,8 @@ export class PreventAppNotInstalledGuard implements CanActivate {
                      */
                     const queue     =   <any[]>this.tendoo.update.needsUpdate( result );
 
+                    console.log( queue );
+
                     if ( queue.length > 0 ) {
                         /**
                          * consider handling errors
@@ -67,13 +70,28 @@ export class PreventAppNotInstalledGuard implements CanActivate {
 
                 }, result => {
                     this.spinner.close( 'tendoo-ping-server' );
-                    this.snackbar.open( result.error.message || 'An unexpected error occured while checking the application status', null, {
-                        duration: 3000
-                    });
-                    this.router.navigateByUrl( 'error' );
-                    resolve( false );
+
+                    switch( result.error.class ) {
+                        case 'Tendoo/Core/Exceptions/ShouldUpdateDatabaseException': 
+                            this.router.navigateByUrl( '/migrations/database?redirect=' + state.url );
+                        break;
+                        case 'Tendoo/Core/Exceptions/ShouldUpdateAssetsException': 
+                            this.router.navigateByUrl( '/migrations/assets?redirect=' + state.url );
+                        break;
+                        default:
+                            this.showUnexpectedErrorMessage( result, resolve );
+                        break;
+                    }
                 })
             })
+        }
+
+        showUnexpectedErrorMessage( result, resolve ) {
+            this.snackbar.open( result.error.message || 'An unexpected error occured while checking the application status', null, {
+                duration: 3000
+            });
+            this.router.navigateByUrl( 'error' );
+            resolve( false );
         }
     }
     

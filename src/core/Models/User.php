@@ -7,11 +7,15 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Auth;
 use Tendoo\Core\Services\UserOptions;
 
-class User extends Authenticatable
+class User extends Tendoo_Model
 {
     use Notifiable;
 
     protected $table  =   'tendoo_users';
+
+    protected $casts    =   [
+        'active'    =>  'boolean'
+    ];
 
     /** @var */
     public $user_id;

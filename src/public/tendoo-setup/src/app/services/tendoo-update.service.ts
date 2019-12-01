@@ -13,10 +13,11 @@ export class TendooUpdateService extends LoaderService {
         
         /**
          * if the version saved on the database is different from the
-         * version available on the files, it meens that we need
-         * to proceed to a migration.
+         * version available on the files, it means that we need
+         * to proceed to a migration. Note that the file version 
+         * are supposed to be the reference
          */
-        if ( dbStatus.new_version !== dbStatus.old_version ) {
+        if ( dbStatus.file_version !== dbStatus.db_version ) {
             queue.push({
                 exec :  () => {
                     return new Promise( ( resolve, reject ) => {
@@ -31,7 +32,7 @@ export class TendooUpdateService extends LoaderService {
             });
         }
 
-        if ( assetsStatus.new_version !== assetsStatus.old_version ) {
+        if ( assetsStatus.file_version !== assetsStatus.db_version ) {
             queue.push({
                 exec: () => {
                     return new Promise( ( resolve, reject ) => {

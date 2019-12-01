@@ -1,4 +1,6 @@
 import { FormControl, FormGroup } from "@angular/forms";
+import { Observable } from "rxjs";
+import { EventEmitter } from "@angular/core";
 
 export interface Field {
     type: 'text' | 'textarea' | 'email' | 'file' | 'number' | 'datetime' | 'hidden' | 'select' | 'multiple_select' | 'password' | 'button' | 'switch' | 'recaptcha';
@@ -19,6 +21,7 @@ export interface Field {
     data?: any
     suffix?: string;
     prefix?: string;
+    reset?: EventEmitter<boolean>;
 }
 export interface FieldOption {
     label: string;

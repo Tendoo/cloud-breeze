@@ -105,4 +105,25 @@ export class TendooAuthService extends LoaderService {
         const { password, authorization, user }     =   data;
         return <Observable<AsyncResponse>>this.post( `${this.baseUrl}tendoo/auth/change-password/${user}`, data );
     }
+
+    /**
+     * send activation token
+     * and user id, to activate an account
+     * @param string token
+     * @param number user id
+     * @return Observable
+     */
+    sendActivationCode( code, user_id ) {
+        return this.post( `${this.baseUrl}tendoo/auth/activate`, { code, user_id });
+    }
+
+    /**
+     * Request activation for
+     * the user provided
+     * @param object form data
+     * @return Observable
+     */
+    requestActivationLink( formData ) {
+        return this.post( `${this.baseUrl}tendoo/auth/request-activation`, formData );
+    }
 }

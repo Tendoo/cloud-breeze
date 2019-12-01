@@ -1,16 +1,40 @@
 <div fxFlex fxLayout="row" fxLayoutAlign="center center" class="bg-content">
 	<div fxLayout="column">
-		<div fxLayoutAlign="center center">
-			<img [src]="tendoo.getAsset( 'assets/images/logo.png' )" style="width: 150px" alt="" srcset="">
-		</div>
 		<ng-container [ngSwitch]="errorCode">
 			<div *ngSwitchCase="'not-installed'" fxFlex.xl="50%" fxFlex.lg="50%" fxFlex.md="60%" fxFlex.sm="80%" fxFlex.xs="90%">
+				<div fxLayoutAlign="center center">
+					<img [src]="tendoo.getAsset( 'assets/images/logo.png' )" style="width: 150px" alt="" srcset="">
+				</div>
 				<h3 class="mat-display-2 text-center mb-1">Not Installed</h3>
 				<h4 class="mat-h4 text-center">Would you like to use Tendoo, you need to <a routerLink="/do-setup">install it</a></h4>
 			</div>
+			<div *ngSwitchCase="'not-found'" fxFlex.xl="50%" fxFlex.lg="50%" fxFlex.md="60%" fxFlex.sm="80%" fxFlex.xs="90%">
+				<div fxFlex="400px" class="text-center">
+					<img style="width: 215px" [src]="tendoo.getAsset( 'assets/images/park.svg' )" alt="">
+					<h1 class="mt-0">You're Lost !</h1>
+					<p>The page you're looking for doesn't exists or is not handled by the system. Please call the police or the FBI, the earth is in danger.</p>
+				</div>
+			</div>
+			<div *ngSwitchCase="'access-denied'" fxFlex.xl="50%" fxFlex.lg="50%" fxFlex.md="60%" fxFlex.sm="80%" fxFlex.xs="90%">
+				<div fxFlex="400px" class="text-center">
+					<img style="width: 215px" [src]="tendoo.getAsset( 'assets/images/policeman.svg' )" alt="">
+					<h1 class="mt-0">Stop Here Sir !!!</h1>
+					<p>The page you trying to reach is not allowed to you. There is nothing to see, circulate !</p>
+				</div>
+			</div>
+			<div *ngSwitchCase="'settings-misconfiguration'" fxFlex.xl="50%" fxFlex.lg="50%" fxFlex.md="60%" fxFlex.sm="80%" fxFlex.xs="90%">
+				<div fxFlex="400px" class="text-center">
+					<img style="width: 215px" [src]="tendoo.getAsset( 'assets/images/accident.svg' )" alt="">
+					<h1 class="mt-0">Settings Misconfiguration</h1>
+					<p>The current settings hasn't been correctly configured</p>
+				</div>
+			</div>
 			<div *ngSwitchDefault fxFlex.xl="50%" fxFlex.lg="50%" fxFlex.md="60%" fxFlex.sm="80%" fxFlex.xs="90%">
-				<h3 class="mat-display-2 text-center mb-1">An Error Occured</h3>
-				<h4 class="mat-h4 text-center">Have you broken the internet ?</h4>
+				<div fxFlex="400px" class="text-center">
+					<img style="width: 215px" [src]="tendoo.getAsset( 'assets/images/fire.svg' )" alt="">
+					<h1 class="mt-0">An Unexpected Error Occured</h1>
+					<p>What have you done to the internet ? Are you a hacker ?</p>
+				</div>
 			</div>
 		</ng-container>
 	</div>

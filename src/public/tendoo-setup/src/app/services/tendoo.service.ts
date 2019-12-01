@@ -10,7 +10,7 @@ import { TendooFormsService } from './tendoo-forms.service';
 import { HttpResponseParserService } from './http-response-parser.service';
 import { TendooTabsService } from './tendoo-tabs.service';
 import { TendooMenusService } from './tendoo-menu.service';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { TendooMediasService } from './tendoo-medias.service';
 import { TendooCrudService } from './tendoo-crud.service';
 import { TendooOptionsService } from './tendoo-options.service';
@@ -19,12 +19,15 @@ import { TendooLinkService } from './tendoo-link.service';
 import { TendooOauthService } from './tendoo-oauth.service';
 import { TendooUpdateService } from './tendoo-update.service';
 import { CookieService } from 'ngx-cookie-service';
+import { TendooSettingsService } from './tendoo-settings.service';
 
 @Injectable({
     providedIn: 'root'
 })
 export class TendooService extends LoaderService {
     protected http;
+    description: string;
+    private titleText: string;
     constructor( 
         http: HttpClient,
         httpParser: HttpResponseParserService,
@@ -44,13 +47,23 @@ export class TendooService extends LoaderService {
         public oauth: TendooOauthService,
         public update: TendooUpdateService,
         public title: Title,
-        public cookie: CookieService
+        public cookie: CookieService,
+        public settings: TendooSettingsService
     ) {
         super( http, httpParser, snackbar, cookie );
     }
 
     dashboardTitle( title: string ) {
+        this.titleText      =   title;
         this.title.setTitle( `${title} - Dashboard` );
+    }
+
+    getDashboardTitle() {
+        return this.titleText;
+    }
+
+    dashboardDescription( description: string ) {
+        this.description    =   description;
     }
 
     /**

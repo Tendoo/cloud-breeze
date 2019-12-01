@@ -11,6 +11,7 @@ export * from './lib/interfaces/paginated-response';
 export * from './lib/interfaces/table-column.interface';
 export * from './lib/interfaces/crud-config.interface';
 export * from './lib/interfaces/dialog';
+export * from './lib/interfaces/crud-page-change.interface';
 
 export * from './lib/pipes/truncate.pipe';
 export * from './lib/pipes/truncate-middle.pipe';

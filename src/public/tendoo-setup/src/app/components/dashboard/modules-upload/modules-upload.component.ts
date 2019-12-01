@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialogRef, MatDialog, MatSnackBar } from '@angular/material';
+import { MatDialogRef, MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ConfirmDialogObject } from 'src/app/interfaces/confirm-dialog';
 import { ResponsiveService } from 'src/app/services/responsive.service';
 import { TendooService } from 'src/app/services/tendoo.service';

@@ -47,7 +47,7 @@ class PublishCommand extends Command
         Storage::disk( 'laravel-public' )->makeDirectory( 'tendoo' );
 
         foreach( $files as $file ) {
-            Storage::disk( 'laravel-public' )->put( 'tendoo/' . $file, Storage::disk( 'tendoo-dist' )->get( $file ) );
+            Storage::disk( 'laravel-public' )->put( 'tendoo-public/' . $file, Storage::disk( 'tendoo-dist' )->get( $file ) );
         }
 
 
@@ -59,5 +59,7 @@ class PublishCommand extends Command
         foreach( $files as $file ) {
             Storage::disk( 'config' )->put( $file, Storage::disk( 'tendoo-config' )->get( $file ) );
         }
+
+        $this->info( __( 'Tendoo Assets has been published...' ) );
     }
 }

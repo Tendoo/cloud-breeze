@@ -4,6 +4,7 @@ namespace Tendoo\Core\Exceptions;
 
 use Exception;
 use Illuminate\Session\TokenMismatchException;
+use Illuminate\Support\Facades\View;
 use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Validation\ValidationException;
@@ -94,7 +95,13 @@ class TendooHandler extends ExceptionHandler
                 ], 401 );
             }
             
+        } else {
+
+            if ( $exception instanceof ClientBannedException ) {
+                return abort( 403, __( 'You have been restricted to access this website.' ) );
+            }
+
+            return parent::render($request, $exception);
         }
-        return parent::render($request, $exception);
     }
 }

@@ -56,5 +56,42 @@ return [
             'register_as',
             'registration_notification',
         ]
+    ],
+
+    'ip-banner' => [
+        'enable'        =>  true,
+
+        /**
+         * describe what is forbidden
+         * on each request processed
+         */
+        'forbidden'     =>  [
+            '.php',
+        ],
+
+        /**
+         * if a client makes the same mistake
+         * "x" times, his ip will be banned
+         */
+        'mistakes-threshold'    =>  1,
+
+        /**
+         * the ip of the client
+         * will be recorded
+         * on the mentionned htaccess file
+         */
+        'htaccess-blocking'     =>  false,
+
+        'htaccess-path'         =>  ''
+    ],
+
+    'auth'          =>          [
+        /**
+         * for the browser to always the
+         * same while checking an auth token.
+         * Might makes authentication impossible if
+         * it's made from a popup on mobile apps.
+         */
+        'strict-browser-match'      =>  true
     ]
 ];

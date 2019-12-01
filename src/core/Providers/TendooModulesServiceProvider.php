@@ -1,9 +1,9 @@
 <?php
-
 namespace Tendoo\Core\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Tendoo\Core\Services\Modules;
+
 class TendooModulesServiceProvider extends ServiceProvider
 {
     /**

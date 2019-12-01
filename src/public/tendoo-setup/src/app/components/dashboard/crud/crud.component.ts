@@ -1,13 +1,15 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, EventEmitter } from '@angular/core';
 import { CrudConfig } from 'src/app/interfaces/crud-config.interface';
 import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 import { TendooService } from 'src/app/services/tendoo.service';
-import { Observable, forkJoin } from 'rxjs';
-import { MatSnackBar, MatDialog } from '@angular/material';
+import { Observable, forkJoin, Observer, Subscription } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { CoreEvent } from 'src/app/classes/core-event.class';
 import { HttpErrorResponse } from '@angular/common/http';
 import { CoreAction } from 'src/app/interfaces/core-action';
+import { CrudPageChange, TableConfig } from '@cloud-breeze/core';
 
 @Component({
     selector: 'app-crud',
@@ -15,9 +17,17 @@ import { CoreAction } from 'src/app/interfaces/core-action';
     styleUrls: ['./crud.component.css']
 })
 export class CrudComponent implements OnInit, OnDestroy {
-    crud: CrudConfig;
-    page: number;
+    crud: TableConfig;
     namespace: string;
+    crudConfigSubscription: Subscription;
+    routeParamSubscription: Subscription;
+    filter                  =   {
+        page        :   1,
+        per_page    :   10,
+        direction   :   '',
+        column      :   ''
+    }
+    isLoading: boolean      =   false;
     constructor(
         private activatedRoute: ActivatedRoute,
         public tendoo: TendooService,
@@ -28,7 +38,6 @@ export class CrudComponent implements OnInit, OnDestroy {
     ) { }
     
     ngOnInit() {
-        console.log( 'foo' );
         this.coreEvent.subscribe( (action: CoreAction ) => {
             if ( action.type === 'crud.action.success' ) {
                 this.loadCrudData();
@@ -42,25 +51,35 @@ export class CrudComponent implements OnInit, OnDestroy {
      * while destroying let's destroy the subscriber
      */
     ngOnDestroy() {
-        // this.coreEvent.unsubscribe();
+    }
+
+    handlePage( page: CrudPageChange ) {
+        this.filter.page        =   page.pageIndex + 1;
+        this.filter.per_page    =   page.pageSize;
+        this.loadCrudData();
     }
 
     loadCrud() {
         this.tendoo.dashboardTitle( 'Loading...' );
-        this.activatedRoute.paramMap.subscribe( route => {
+        this.routeParamSubscription     =   this.activatedRoute.paramMap.subscribe( route => {
             this.namespace  = route.get('namespace');
-            this.page       = +route.get('page');    
+            this.filter.page       = +route.get('page') || 1;    
             this.loadCrudData();
-        })
+        });
     }
     
-    private loadCrudData() {
-        this.tendoo.crud.getConfig(this.namespace).subscribe((crud: CrudConfig) => {
-            this.crud = crud;
-            this.tendoo.dashboardTitle(this.crud.labels.list_title);
+    private loadCrudData( params = {} ) {
+
+        this.filter             =   Object.assign( this.filter, params );
+        this.isLoading          =   true;
+
+        this.tendoo.crud.getConfig(this.namespace, this.filter ).subscribe((crud: TableConfig) => {
+            this.isLoading      =   false;
+            this.crud           =   crud;
+            this.tendoo.dashboardTitle( this.crud.labels.list_title );
         }, error => {
             this.snackbar
-                .open('Unable to load the crud component.', 'TRY AGAIN')
+                .open( 'Unable to load the crud component.', 'TRY AGAIN' )
                 .afterDismissed()
                 .subscribe(observer => {
                     if (observer.dismissedByAction) {
@@ -70,11 +89,16 @@ export class CrudComponent implements OnInit, OnDestroy {
         });
     }
 
+    handleRefresh( crud ) {
+        this.loadCrudData();
+    }
+
     /**
      * 
     **/
     sortData( data ) {
-        console.log( data );
+        this.filter     =   Object.assign( this.filter, data );
+        this.loadCrudData();
     }
 
     /**

@@ -164,8 +164,16 @@ class Crud
 
             $query          =   call_user_func_array([ $query, 'select' ], $select );
 
-            foreach( $this->relations as $relation ) {
-                $query->join( $relation[0], $relation[1], $relation[2], $relation[3] );
+            foreach( $this->relations as $junction => $relation ) {
+                /**
+                 * if no junction statement is provided
+                 * then let's make it inner by default
+                 */
+                $junction   =   is_numeric( $junction ) ? 'join' : $junction;
+
+                if ( in_array( $junction, [ 'join', 'leftJoin', 'rightJoin', 'crossJoin' ] ) ) {
+                    $query->$junction( $relation[0], $relation[1], $relation[2], $relation[3] );
+                }
             }
 
             /**
@@ -180,6 +188,7 @@ class Crud
 
         /**
          * Order the current result, according to the mentionned columns
+         * means the user has clicked on "reorder"
          */
         if ( $request->query( 'direction' ) && $request->query( 'active' ) ) {
             $query->orderBy( 

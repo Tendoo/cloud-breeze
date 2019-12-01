@@ -19,7 +19,10 @@
             fxFlex.xl="20%">
             <mat-card>
                 <mat-card-title>
-                    <h2 class="mat-h2">{{ module.name }}</h2>
+                    <div fxFlex fxLayout="row" fxLayoutAlign="space-between">
+                        <h2 class="mat-h2 mb-0" fxFlex>{{ module.name }}</h2>
+                        <span style="font-size:12px">{{ module.version }}</span>
+                    </div>
                 </mat-card-title>
                 <mat-card-content style="height: 50px;">{{ module.description }}</mat-card-content>
                 <mat-divider

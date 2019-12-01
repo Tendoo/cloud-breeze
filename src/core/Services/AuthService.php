@@ -8,10 +8,13 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
 use Tendoo\Core\Models\Role;
 use Tendoo\Core\Models\User;
+use Tendoo\Core\Models\Oauth;
+use Tendoo\Core\Models\Application;
 use Tendoo\Core\Services\Users;
 use Tendoo\Core\Services\DateService;
 use Tendoo\Core\Services\Options;
@@ -36,13 +39,28 @@ class AuthService
         $redirect           =   Hook::filter( 'before.register', false, $request, $options );
 
         /**
+         * simple way to validate 
+         * user having the same username
+         */
+        $user   =   User::where( 'email', $request->input( 'email' ) )
+            ->orWhere( 'username', strtolower( $request->input( 'username' ) ) )
+            ->first();
+            
+        if ( $user instanceof User ) {
+            if( $user->email === $request->input( 'email' ) ) {
+                throw new \Exception( __( 'This email is already in use.' ) );
+            } 
+            throw new \Exception( __( 'This username is already in use.' ) );
+        }
+
+        /**
          * A hook can control the user registration
          */
         if ( $redirect instanceof RedirectResponse ) {
             return $redirect;
         }
 
-        $shouldActivate     =   $options->get( 'validate_users', 'false' ) === 'true' ? true : false;
+        $shouldActivate     =   $options->get( 'validate_users', false ) ? true : false;
 
         /**
          * Create user instance
@@ -52,7 +70,7 @@ class AuthService
         $user->password     =   bcrypt( $request->input( 'password' ) );
         $user->email        =   $request->input( 'email' );
         $user->role_id      =   $options->get( 'register_as', 1 ); // default user
-        $user->active       =   $shouldActivate ? 1 : 0;
+        $user->active       =   ! $shouldActivate;
         $user->save();
 
         /**
@@ -68,7 +86,7 @@ class AuthService
          */
         Hook::action( 'register.user', $user, $option );
 
-        if ( $shouldActivate ) {
+        if ( ( bool ) $shouldActivate ) {
             $userService->sendActivationEmail( $user );
         }
 
@@ -76,11 +94,11 @@ class AuthService
          * let's notify all admin with admin role a user has been registered
          * @todo adding a filter for role selected to receive an email
          */
-        if ( $options->get( 'registration_notification' ) == 'yes' ) {
+        if ( ( bool ) $options->get( 'registration_notification' ) ) {
             foreach( Role::where( 'namespace', 'admin' )->first()->user as $admin ) {
                 Mail::to( $admin->email )
                     ->queue( new UserRegistrationMail([
-                        'link'  =>  route( 'dashboard.users.list' ),
+                        'link'  =>  url( '/tendoo/dashboard/crud/tendoo-users/edit/' . $user->id ),
                         'user'  =>  $user
                     ]));
             }
@@ -102,15 +120,14 @@ class AuthService
             'browser'   =>  request()->header( 'User-Agent' ),
             'expires'   =>  $dateService
                 ->copy()
-                ->addMinutes(60)
+                ->addDays(7)
                 ->toDateTimestring(),
         ];
         
         Cache::forget( $tokenKey );
         Cache::put( $tokenKey, $config, $dateService
             ->copy()
-            ->addMinutes(60) ); // expire in one hour.
-        Log::info( json_encode( $config ) );
+            ->addDays(7) ); // expire in one hour.
 
         return $newKey;
     }
@@ -118,20 +135,58 @@ class AuthService
     /**
      * Authenticate the request
      * @param string token
-     * @return AsyncResponse
+     * @return array AsyncResponse
      */
-    public function authToken( $token )
+    public function authToken( $token, $client_key )
     {
-        $dateService    =   app()->make( DateService::class );
-        $tokenKey       =   'Auth-Token::' . $token;
+        $result     =   $this->authTokenSilently( $token, $client_key );
 
-        if ( Cache::has( $tokenKey ) ) {
+        if ( $result[ 'status' ] === 'failed' ) {
+            throw new AccessDeniedException( $result[ 'message' ] );
+        }
+
+        return $result;
+    }
+
+    /**
+     * Authenticate the token silently
+     * silently without throwing any error
+     * @param string token
+     * @return array AsyncResponse
+     */
+    public function authTokenSilently( $token, $client_key )
+    {
+        $dateService        =   app()->make( DateService::class );
+        $tokenKey           =   'Auth-Token::' . $token;
+        $oauthConnexion     =   Oauth::token( $token )->valid()->first();
+
+        /**
+         * Attempt to authenticate 
+         * using a oAuth connexion 
+         * which might exists
+         */
+        if ( $oauthConnexion instanceof Oauth ) {
+
+            /**
+             * let's check if the authenticated application
+             * is registered within the system
+             */
+            $application    =   Application::where( 'client_key', $client_key )->first();
+
+            if ( ! $application instanceof Application ) {
+                throw new AccessDeniedException([
+                    'status'    =>  'failed',
+                    'message'   =>  __( 'The authentication request is not secure since, it doesn\'t rely on an registered application.' )
+                ]);
+            }
+            
+            return $this->__proceedAuthentication( $oauthConnexion->user_id, $token );
+
+        } else if ( Cache::has( $tokenKey ) ) {
             
             $cached            =   Cache::get( $tokenKey );
 
-            if ( @$cached[ 'browser' ] === request()->header( 'User-Agent' ) ) {
-
-                Auth::loginUsingId( $cached[ 'user_id' ] );
+            if ( @$cached[ 'browser' ] === request()->header( 'User-Agent' ) || ! config( 'tenodo.auth.strict-browser-match', false ) ) {
 
                 Cache::put( $tokenKey, [
                     'key'       =>  $tokenKey,
@@ -139,29 +194,41 @@ class AuthService
                     'browser'   =>  request()->header( 'User-Agent' ),
                     'expires'   =>  $dateService
                         ->copy()
-                        ->addMinutes(60)
+                        ->addDays(7)
                         ->toDateTimestring(),
                 ], $dateService
                     ->copy()
-                    ->addMinutes(60) );
+                    ->addDays(7) );
 
-                $user           =   Auth::user();
-                $user->role     =   $user->role;
-                
-                return [
-                    'status'    =>  'success',
-                    'message'   =>  __( 'You are successfully authenticated' ),
-                    'data'      =>  [
-                        'user'      =>  $user,
-                        'token'     =>  $token
-                    ]
-                ];
+                return $this->__proceedAuthentication( $cached[ 'user_id' ], $token );
             }
 
-            throw new AccessDeniedException( __( 'The current authentication request is invalid' ) );
+            return [
+                'status'    =>  'failed',
+                'message'   =>  __( 'The current authentication request is invalid' )
+            ];
         }
 
-        throw new SessionExpiredException( __( 'Unable to proceed your session has expired.' ) );
+        return [
+            'status'    =>  'failed',
+            'message'   =>  __( 'Unable to proceed your session has expired.' )
+        ];
+    }
+
+    private function __proceedAuthentication( $user_id, $token )
+    {
+        Auth::loginUsingId( $user_id );
+        $user           =   Auth::user();
+        $user->role     =   $user->role;
+        
+        return [
+            'status'    =>  'success',
+            'message'   =>  __( 'You are successfully authenticated' ),
+            'data'      =>  [
+                'user'      =>  $user,
+                'token'     =>  $token
+            ]
+        ];
     }
 
     /**
@@ -180,7 +247,7 @@ class AuthService
              * if the token expire within 5 minutes, 
              * let's refresh it
              */
-            if ( $dateService->copy()->addMinutes(5)->gt( $cached[ 'expire' ] ) ) {
+            if ( $dateService->copy()->addDay()->gt( $cached[ 'expire' ] ) ) {
                 Cache::forget( $tokenKey );
                 Cache::put( $tokenKey, [
                     'key'       =>  $newKey,
@@ -188,11 +255,11 @@ class AuthService
                     'browser'   =>  request()->header( 'User-Agent' ),
                     'expires'   =>  $dateService
                         ->copy()
-                        ->addMinutes(60)
+                        ->addDays(7)
                         ->toDateTimestring(),
                 ], $dateService
                     ->copy()
-                    ->addMinutes(60) );
+                    ->addDays(7) );
             }
         }
         return false;

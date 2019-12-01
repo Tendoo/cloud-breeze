@@ -3,7 +3,7 @@
 namespace Tendoo\Core\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Tendoo\Core\Services\Field;
+use Tendoo\Core\Facades\Hook;
 
 class RecoveryRequest extends FormRequest
 {
@@ -24,6 +24,6 @@ class RecoveryRequest extends FormRequest
      */
     public function rules()
     {
-        return Field::buildValidation( 'recovery' );
+        return Hook::filter( 'public.validation', [], 'auth-recovery', $this );
     }
 }

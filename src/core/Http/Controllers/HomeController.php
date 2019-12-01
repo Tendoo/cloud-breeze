@@ -36,12 +36,12 @@ class HomeController extends BaseController
                 'migrations' =>  [
                     'system'    =>  [
                         'db'    =>  [
-                            'new_version'   =>  TENDOO_DB_VERSION,
-                            'old_version'   =>  $options->get( 'db_version' )
+                            'file_version'  =>  TENDOO_DB_VERSION,
+                            'db_version'    =>  $options->get( 'db_version' )
                         ],
                         'assets' =>  [
-                            'new_version'   =>  TENDOO_ASSETS_VERSION,
-                            'old_version'   =>  $options->get( 'assets_version' )
+                            'file_version'  =>  TENDOO_ASSETS_VERSION,
+                            'db_version'    =>  $options->get( 'assets_version' )
                         ]
                     ],
                     'modules'   => []
@@ -76,10 +76,15 @@ class HomeController extends BaseController
         }
 
         $moduleDetails     =   $this->modules->extract( $module );
-        
+
         return response()->download( 
             $moduleDetails[ 'path' ], 
             strtolower( $moduleDetails[ 'module' ][ 'namespace' ] ) . '-' . $moduleDetails[ 'module' ][ 'version' ] . '.zip' 
         )->deleteFileAfterSend( true );
+    }
+
+    public function bannedClient()
+    {
+        return view( 'Tendoo::errors.banned-client' );
     }
 }

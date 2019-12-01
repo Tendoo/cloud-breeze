@@ -34,14 +34,12 @@ import { ProfileComponent } from './components/dashboard/profile/profile.compone
 import { MediasComponent } from './components/dashboard/medias/medias.component';
 import { MediasUploadComponent } from './components/dashboard/medias-upload/medias-upload.component';
 import { CoreEvent } from './classes/core-event.class';
-import { NotFoundComponent } from './components/dashboard/not-found/not-found.component';
 import { CrudComponent } from './components/dashboard/crud/crud.component';
 import { CrudCreateComponent } from './components/dashboard/crud-create/crud-create.component';
 import { CrudEditComponent } from './components/dashboard/crud-edit/crud-edit.component';
 import { MigrationDialogComponent } from './components/migration-dialog/migration-dialog.component';
-import { AccessDeniedComponent } from './components/dashboard/access-denied/access-denied.component';
 import { ModulesDetailsComponent } from './components/dashboard/modules-details/modules-details.component';
-import { MAT_DATE_LOCALE } from '@angular/material';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { MediasDetailsComponent } from './components/dashboard/medias-details/medias-details.component';
 import { OauthComponent } from './components/auth/oauth/oauth.component';
 import { TruncatePipe } from './pipes/truncate.pipe';
@@ -55,6 +53,9 @@ import { ChangePasswordComponent } from './components/auth/change-password/chang
 import { CoreMigrationDialogComponent } from './shared/core-migration-dialog/core-migration-dialog.component';
 import { LoadingAnimationComponent } from './partials/loading-animation/loading-animation.component';
 import { ImageCropperModule } from 'ngx-image-cropper';
+import { ActivateAccountComponent } from './components/auth/activate-account/activate-account.component';
+import { RequestActivationComponent } from './components/auth/request-activation/request-activation.component';
+import { CrudTableComponent } from './tests/crud-table/crud-table.component';
 
 @NgModule({
     declarations: [
@@ -79,12 +80,10 @@ import { ImageCropperModule } from 'ngx-image-cropper';
         ProfileComponent,
         MediasComponent,
         MediasUploadComponent,
-        NotFoundComponent,
         CrudComponent,
         CrudCreateComponent,
         CrudEditComponent,
         MigrationDialogComponent,
-        AccessDeniedComponent,
         ModulesDetailsComponent,
         MediasDetailsComponent,
         OauthComponent,
@@ -98,6 +97,9 @@ import { ImageCropperModule } from 'ngx-image-cropper';
         ChangePasswordComponent,
         CoreMigrationDialogComponent,
         LoadingAnimationComponent,
+        ActivateAccountComponent,
+        RequestActivationComponent,
+        CrudTableComponent,
     ],
     imports: [
         BrowserModule,

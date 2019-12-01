@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AsyncResponse } from '../interfaces/async-response';
 import { Router, ActivatedRoute } from '@angular/router';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({
     providedIn: 'root'

@@ -22,7 +22,14 @@ export interface TableConfig {
     fields: Field[];
     links: {[ key: string ]: string };
     results? : {
-        data: {[ key: string]: string | number | boolean }[]
+        data: {[ key: string]: string | number | boolean }[];
+        current_page: number;
+        from: number;
+        to: number;
+        last_page: number;
+        per_page: number;
+        total: number;
+        path: string;
     };
     namespace?: string;
 }

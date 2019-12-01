@@ -5,7 +5,7 @@
                 fxLayoutAlign.xl="center center"
                 fxLayoutAlign.lg="center center"
                 >
-                <span *ngIf="showDefaultAside">Tendoo Server</span>
+                <span *ngIf="showDefaultAside">Cloud Breeze</span>
                 <span *ngIf="! showDefaultAside">
                     <button mat-icon-button (click)="toggleDrawer()">
                         <mat-icon aria-label="Example icon-button with a heart icon">menu</mat-icon>
@@ -35,7 +35,9 @@
             <mat-divider [vertical]="true"></mat-divider>
         </ng-container>
         <div fxFlex="1 1 auto" class="body-container" fxLayout="column">
-            <router-outlet></router-outlet>
+            <div id="body-parent" fxFlex="1 0 calc(0)" style="overflow-y: auto; flex-basis: 0" fxLayout="column">
+                <router-outlet></router-outlet>
+            </div>
         </div>
     </div>
     <mat-drawer-container class="example-container" fxFlex fxLayout="row" *ngIf="! showDefaultAside">
@@ -49,7 +51,9 @@
             </ng-container>
         </mat-drawer>
         <mat-drawer-content fxFlex="1 1 auto" class="body-container" fxLayout="column">
-            <router-outlet></router-outlet>
+            <div id="body-parent" fxFlex="1 0 calc(0)" style="overflow-y: auto; flex-basis: 0" fxLayout="column">
+                <router-outlet></router-outlet>
+            </div>
         </mat-drawer-content>
     </mat-drawer-container>
 </div>

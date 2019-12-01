@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TendooService } from 'src/app/services/tendoo.service';
-import { MatDialog, MatSnackBar } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ConfirmDialogObject } from 'src/app/interfaces/confirm-dialog';
 import { AsyncResponse } from 'src/app/interfaces/async-response';
 import { DialogComponent } from '@cloud-breeze/core';

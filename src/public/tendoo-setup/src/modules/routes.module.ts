@@ -24,12 +24,10 @@ import { ProfileComponent } from "src/app/components/dashboard/profile/profile.c
 import { MediasComponent } from "src/app/components/dashboard/medias/medias.component";
 import { MediasUploadComponent } from "src/app/components/dashboard/medias-upload/medias-upload.component";
 import { MediasDetailsComponent } from "src/app/components/dashboard/medias-details/medias-details.component";
-import { NotFoundComponent } from "src/app/components/dashboard/not-found/not-found.component";
 import { CrudComponent } from "src/app/components/dashboard/crud/crud.component";
 import { CrudCreateComponent } from "src/app/components/dashboard/crud-create/crud-create.component";
 import { CrudEditComponent } from "src/app/components/dashboard/crud-edit/crud-edit.component";
 import { CrudCreateGuard } from "src/app/guards/crud-create.guard";
-import { AccessDeniedComponent } from "src/app/components/dashboard/access-denied/access-denied.component";
 import { CrudListGuard } from "src/app/guards/crud-list.guard";
 import { CrudEditGuard } from "src/app/guards/crud-edit.guard";
 import { CheckRegistrationStatusGuard } from "src/app/guards/check-registration-status.guard";
@@ -43,6 +41,9 @@ import { LostPasswordComponent } from "src/app/components/auth/lost-password/los
 import { ChangePasswordComponent } from "src/app/components/auth/change-password/change-password.component";
 import { MustLogoutGuard } from "src/app/guards/must-logout.guard";
 import { SaveRedirectGuard } from "src/app/guards/save-redirect.guard";
+import { ActivateAccountComponent } from "src/app/components/auth/activate-account/activate-account.component";
+import { RequestActivationComponent } from "src/app/components/auth/request-activation/request-activation.component";
+import { CrudTableComponent } from "src/app/tests/crud-table/crud-table.component";
 
 @NgModule({
     imports: [
@@ -53,7 +54,7 @@ import { SaveRedirectGuard } from "src/app/guards/save-redirect.guard";
                 pathMatch: 'full',
             }, {
                 path: 'test',
-                component: FileUploadComponent
+                component: CrudTableComponent
             }, {
                 path: 'do-setup',
                 component: DoSetupComponent,
@@ -87,8 +88,15 @@ import { SaveRedirectGuard } from "src/app/guards/save-redirect.guard";
                         canActivate: [ MustLogoutGuard ],
                         component: LoginComponent
                     }, {
+                        path: 'activate',
+                        canActivate: [ MustLogoutGuard ],
+                        component: ActivateAccountComponent
+                    }, {
                         path: 'lost-password',
                         component: LostPasswordComponent
+                    }, {
+                        path: 'request-activation',
+                        component: RequestActivationComponent
                     }, {
                         path: 'change-password/:user/:code',
                         component: ChangePasswordComponent
@@ -134,7 +142,7 @@ import { SaveRedirectGuard } from "src/app/guards/save-redirect.guard";
                             path: 'modules/upload',
                             component: ModulesUploadComponent
                         }, {
-                            path: 'settings',
+                            path: 'settings/:namespace',
                             component: SettingsComponent
                         }, {
                             path: 'medias/page/:page',
@@ -164,11 +172,14 @@ import { SaveRedirectGuard } from "src/app/guards/save-redirect.guard";
                                 CrudEditGuard
                             ]
                         }, {
-                            path: 'access-denied',
-                            component: AccessDeniedComponent
+                            path: 'error/:code',
+                            component: ErrorComponent
+                        }, {
+                            path: 'error',
+                            component: ErrorComponent
                         }, {
                             path: '**',
-                            component: NotFoundComponent
+                            redirectTo: 'dashboard/error/not-found'
                         }
                     ]
                 }]
@@ -180,7 +191,7 @@ import { SaveRedirectGuard } from "src/app/guards/save-redirect.guard";
                 component: ErrorComponent
             }, {
                 path: '**',
-                component: NotFoundComponent
+                redirectTo: 'error/not-found'
             }
         ], {
             enableTracing: false

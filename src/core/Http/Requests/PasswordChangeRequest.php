@@ -4,6 +4,7 @@ namespace Tendoo\Core\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Tendoo\Core\Services\Field;
+use Tendoo\Core\Facades\Hook;
 
 class PasswordChangeRequest extends FormRequest
 {
@@ -24,6 +25,6 @@ class PasswordChangeRequest extends FormRequest
      */
     public function rules()
     {
-        return Field::buildValidation( 'changePassword' );
+        return Hook::filter( 'public.validation', [], 'auth-password-change', $this );
     }
 }

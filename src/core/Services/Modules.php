@@ -33,6 +33,7 @@ class Modules
 
     /**
      * Load Modules
+     * @param string path to load
      * @return void
      */
     public function load( $dir = null )
@@ -166,7 +167,7 @@ class Modules
                     /**
                      * Load module folder contents
                      */
-                    foreach([ 'Models', 'Services', 'Facades', 'Crud', 'Mail', 'Http', 'Queues' ] as $folder ) {
+                    foreach([ 'Models', 'Services', 'Facades', 'Crud', 'Mails', 'Http', 'Queues', 'Gates', 'Observers', 'Listeners', 'Tests' ] as $folder ) {
                         /**
                          * Load Module models
                          */
@@ -324,9 +325,11 @@ class Modules
              * match the looped file, it's skipped
              */
             $files      =   array_values( collect( $files )->filter( function( $file ) use ( $manifest, $namespace ) {
-                foreach( $manifest[ 'ignore' ] as $check ) {
-                    if ( fnmatch( ucwords( $namespace ) . '/' . $check, $file ) ) {
-                        return false;
+                if ( is_array( @$manifest[ 'ignore' ] ) ) {
+                    foreach( $manifest[ 'ignore' ] as $check ) {
+                        if ( fnmatch( ucwords( $namespace ) . '/' . $check, $file ) ) {
+                            return false;
+                        }
                     }
                 }
 

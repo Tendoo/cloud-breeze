@@ -24,6 +24,9 @@
               "src/app/assets/images/egg.svg",
               "src/app/assets/images/park.svg",
               "src/app/assets/images/logo.png",
+              "src/app/assets/images/fire.svg",
+              "src/app/assets/images/policeman.svg",
+              "src/app/assets/images/accident.svg",
               "src/app/assets/images/avatar-placeholder.png"
             ],
             "styles": [

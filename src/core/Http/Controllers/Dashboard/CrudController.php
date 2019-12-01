@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Event;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Tendoo\Core\Exceptions\CrudException;
 use Tendoo\Core\Events\CrudInit;
+use Exception;
 
 class CrudController extends DashboardController
 {
@@ -84,7 +85,7 @@ class CrudController extends DashboardController
          * In case nothing handle this crud
          */
         if ( ! class_exists( $crudClass ) ) {
-            throw new CoreException([
+            throw new CrudException([
                 'status'    =>  'failed',
                 'message'   =>  __( 'Unhandled crud resource' )
             ]);
@@ -103,6 +104,7 @@ class CrudController extends DashboardController
         if ( method_exists( $resource, 'filterPostInputs' ) ) {
             $inputs     =   $resource->filterPostInputs( $request->all() );
         }
+
 
         foreach ( $inputs as $name => $value ) {
 
@@ -158,7 +160,7 @@ class CrudController extends DashboardController
          * In case nothing handle this crud
          */
         if ( ! class_exists( $crudClass ) ) {
-            throw new CoreException([
+            throw new CrudException([
                 'status'    =>  'failed',
                 'message'   =>  __( 'Unhandled crud resource' )
             ]);
@@ -220,7 +222,7 @@ class CrudController extends DashboardController
         return [
             'status'    =>   'success',
             'message'   =>  __( 'the entry has been updated' ),
-            'entyr'     =>  $entry
+            'data'      =>  compact( 'entry' )
         ];
     }
 
@@ -231,7 +233,6 @@ class CrudController extends DashboardController
     public function crudList( string $namespace )
     {
         $crudClass          =   Hook::filter( 'register.crud', $namespace );
-        $service            =   app()->make( 'Tendoo\Core\Services\Crud' );
 
         /**
          * In case nothing handle this crud
@@ -260,7 +261,7 @@ class CrudController extends DashboardController
          * In case nothing handle this crud
          */
         if ( ! class_exists( $crudClass ) ) {
-            throw new CoreException([
+            throw new CrudException([
                 'status'    =>  'failed',
                 'message'   =>  __( 'Unhandled crud resource' )
             ]);
@@ -380,8 +381,10 @@ class CrudController extends DashboardController
 
         if ( method_exists( $resource, 'getEntries' ) ) {
             $model          =   $resource->get( 'model' );
+            $model          =   $model::find( $id );
+            $fields         =   Hook::filter( 'dashboard.crud.fields', [], $namespace, compact( 'model', 'namespace', 'id' ) );
             $config         =   [
-                'fields'                =>  $id === null ? $resource->getFields() : $resource->getFields( $model::find( $id ) ),
+                'fields'                =>  $fields,
                 'labels'                =>  $resource->getLabels(),
                 'links'                 =>  @$resource->getLinks(),
                 'namespace'             =>  $namespace,

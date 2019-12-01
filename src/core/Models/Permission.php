@@ -13,4 +13,16 @@ class Permission extends Model
     {
         return $this->belongsToMany( Role::class, 'tendoo_role_permission' );
     }
+
+    /**
+     * return all permissions using
+     * a namespace string used for search
+     * @param Query
+     * @param string search namespace
+     * @return Query
+     */
+    public function scopeIncludes( $query, $search )
+    {   
+        return $query->where( 'namespace', 'like', '%' . $search );
+    }
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialog, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { TendooService } from 'src/app/services/tendoo.service';
 import { TendooModule } from 'src/app/interfaces/module.interface';
 import { AsyncResponse } from 'src/app/interfaces/async-response';

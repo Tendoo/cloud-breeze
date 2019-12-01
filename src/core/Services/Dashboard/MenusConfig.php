@@ -67,13 +67,13 @@ class MenusConfig extends Menus
             
             $list                  =   new \stdClass;
             $list->text            =   __( 'List of users' );
-            $list->href            =   '/dashboard/users';
+            $list->href            =   '/dashboard/crud/tendoo-users';
             $list->label           =   10;
             $list->namespace       =   'users.list';
             
             $create                  =   new \stdClass;
             $create->text            =   __( 'Create a new user' );
-            $create->href            =   '/dashboard/users/create';
+            $create->href            =   '/dashboard/crud/tendoo-users/create';
             $create->label           =   10;
             $create->namespace       =   'users.create';
 
@@ -102,25 +102,25 @@ class MenusConfig extends Menus
             $general->text         =   __( 'General' );
             $general->label        =   10;
             $general->namespace    =   'settings.general';
-            $general->href         =   '/dashboard/settings?tab=dashboard.settings.general';
+            $general->href         =   '/dashboard/settings/application?tab=dashboard.settings.general';
 
             $registration                   =   new \stdClass;
             $registration->text             =   __( 'Registration' );
             $registration->label            =   0;
             $registration->namespace        =   'settings.registration';
-            $registration->href             =   '/dashboard/settings?tab=dashboard.settings.registration';
+            $registration->href             =   '/dashboard/settings/application?tab=dashboard.settings.registration';
 
             $email                   =   new \stdClass;
             $email->text             =   __( 'Mail' );
             $email->label            =   0;
             $email->namespace        =   'settings.email';
-            $email->href             =   '/dashboard/settings?tab=dashboard.settings.email';
+            $email->href             =   '/dashboard/settings/application?tab=dashboard.settings.email';
             
             $recaptcha                   =   new \stdClass;
             $recaptcha->text             =   __( 'reCaptcha' );
             $recaptcha->label            =   0;
             $recaptcha->namespace        =   'settings.email';
-            $recaptcha->href             =   '/dashboard/settings?tab=dashboard.settings.recaptcha';
+            $recaptcha->href             =   '/dashboard/settings/application?tab=dashboard.settings.recaptcha';
 
             $this->addTo( 'settings', [ $general, $registration, $email, $recaptcha ]);
         }

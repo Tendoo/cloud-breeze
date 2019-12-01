@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { TendooService } from 'src/app/services/tendoo.service';
 import { Tab } from 'src/app/interfaces/tab';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormGroup } from '@angular/forms';
 import { ValidationGenerator } from 'src/app/classes/validation-generator.class';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AsyncResponse } from 'src/app/interfaces/async-response';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Setting } from 'src/app/interfaces/setting';
 
 @Component({
     selector: 'app-settings',
@@ -19,27 +20,40 @@ export class SettingsComponent implements OnInit {
     constructor(
         public tendoo: TendooService,
         public snackbar: MatSnackBar,
-        private routeSnapshot: ActivatedRoute
+        private routeSnapshot: ActivatedRoute,
+        private router: Router
     ) { 
         this.tendoo.dashboardTitle( 'Application Settings' );
     }
     
     ngOnInit() {
-        this.tendoo.tabs.getTabs( 'dashboard.settings' ).subscribe( tabs => {
-            tabs.forEach( ( tab: Tab, index ) => {
-                index === 0 ? tab.active    =   true : tab.active = false;
-                const fields    =   ValidationGenerator.buildFormControls( tab.fields );
-                tab.form        =   new FormGroup( fields );
-            });
-            this.tabs   =   tabs;
+        this.routeSnapshot.paramMap.subscribe( param => {
+            this.tendoo.settings.getSettings( param.get( 'namespace' ) ).subscribe( ( settings: Setting ) => {
 
-            this.detectActiveTab();
+                if ( settings.tabs === undefined ) {
+                    this.router.navigateByUrl( '/dashboard/error/settings-misconfiguration' );
+                    return;
+                }
+
+                settings.tabs.forEach( ( tab: Tab, index ) => {
+                    if ( tab.active === undefined ) {
+                        tab.active  =   ( index === 0 ) ? true: false;
+                    }
+                    const fields    =   ValidationGenerator.buildFormControls( tab.fields );
+                    tab.form        =   new FormGroup( fields );
+                });
+    
+                this.tabs   =   settings.tabs;
+                this.tendoo.dashboardTitle( settings.title );
+                this.tendoo.dashboardDescription( settings.description );
+                this.detectActiveTab();
+            });
         });
     }
 
     detectActiveTab() {
         this.routeSnapshot.queryParamMap.subscribe( query => {
-            let tabIndex;
+            let tabIndex    =   -1;
 
             this.tabs.map( (tab, index) => {
                 if ( tab.namespace === query.get( 'tab' ) ) {
@@ -47,9 +61,9 @@ export class SettingsComponent implements OnInit {
                 }
             });
 
-            this.setTabActive( tabIndex );
-
-            console.log( this.activeTab );
+            if ( tabIndex !== -1 ) {
+                this.setTabActive( tabIndex );
+            }
         })
     }
     
@@ -58,8 +72,6 @@ export class SettingsComponent implements OnInit {
      * @return any
      */
     saveSettings() {
-        console.log( this.activeTab );
-
         ValidationGenerator.touchAllFields( this.activeTab.form );
 
         if ( ! this.activeTab.form.valid ) {

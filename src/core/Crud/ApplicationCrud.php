@@ -11,10 +11,10 @@ use Tendoo\Core\Services\Helper;
 use Tendoo\Core\Services\Users;
 use Tendoo\Core\Models\User;
 use Tendoo\Core\Models\Application;
+use Tendoo\Core\Models\Option as OptionModel;
 use Tendoo\Core\Facades\Hook;
 use Tendoo\Core\Exceptions\CrudException;
 use Tendoo\Core\Exceptions\AccessDeniedException;
-use Tendoo\Core\Models\Option as OptionModel;
 
 class ApplicationCrud extends Crud
 {
@@ -69,7 +69,6 @@ class ApplicationCrud extends Crud
      */
     public function getFields( $entry = null ) 
     {
-        $fields     =   app()->make( Field::class );
         return $fields->applicationsFields( $entry );
     }
 

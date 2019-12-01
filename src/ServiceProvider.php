@@ -19,6 +19,7 @@ require_once TENDOO_ROOT . '/core/Services/Helper.php';
 require_once TENDOO_ROOT . '/core/Services/HelperFunctions.php';
 
 use Illuminate\Support\ServiceProvider as CoreServiceProvider;
+
 use Tendoo\Core\Console\Commands\DisableModule;
 use Tendoo\Core\Console\Commands\EnableModule;
 use Tendoo\Core\Console\Commands\GenerateModule;
@@ -37,9 +38,14 @@ use Tendoo\Core\Console\Commands\EnvEditorSetCommand;
 use Tendoo\Core\Console\Commands\EnvEditorGetCommand;
 use Tendoo\Core\Console\Commands\PublishCommand;
 use Tendoo\Core\Console\Commands\DeleteExpiredOptionsCommand;
+
+use Tendoo\Core\Models\Role;
+use Tendoo\Core\Http\TendooKernel;
+use Tendoo\Core\Observers\RoleObserver;
+use Tendoo\Core\Http\Middleware\SafeURLMiddleware;
+
 use Illuminate\Routing\Router;
 use Jackiedo\DotenvEditor\DotenvEditor;
-use Tendoo\Core\Http\TendooKernel;
 
 use Orchestra\Parser\Xml\Reader as XmlReader;
 use Orchestra\Parser\Xml\Document as XmlDocument;
@@ -88,17 +94,17 @@ class ServiceProvider extends CoreServiceProvider
         $router->aliasMiddleware( 'app.installed', \Tendoo\Core\Http\Middleware\AppInstalled::class );
         $router->aliasMiddleware( 'app.notInstalled', \Tendoo\Core\Http\Middleware\AppNotInstalled::class );
         $router->aliasMiddleware( 'expect.unlogged', \Tendoo\Core\Http\Middleware\RedirectIfAuthenticated::class );
-        $router->aliasMiddleware( 'expect.logged', \Tendoo\Core\Http\Middleware\RedirectIfNotAuthenticated::class );
+        $router->aliasMiddleware( 'expect.logged', \Tendoo\Core\Http\Middleware\RedirectIfNotAuthenticated::class ); 
         $router->aliasMiddleware( 'can.register', \Tendoo\Core\Http\Middleware\CheckRegistrationStatus::class );
-        $router->aliasMiddleware( 'check.updates', \Tendoo\Core\Http\Middleware\CheckUpdates::class );
+        $router->aliasMiddleware( 'check.migrations', \Tendoo\Core\Http\Middleware\CheckMigrations::class );
         $router->aliasMiddleware( 'api.guard', \Tendoo\Core\Http\Middleware\LoadApi::class );
         $router->aliasMiddleware( 'tendoo.auth', \Tendoo\Core\Http\Middleware\TendooAuth::class );
         $router->aliasMiddleware( 'tendoo.guest', \Tendoo\Core\Http\Middleware\TendooGuest::class );
         $router->aliasMiddleware( 'tendoo.cors', \Barryvdh\Cors\HandleCors::class );   
-        
         $router->aliasMiddleware( 'tendoo.prevent.not-installed', \Tendoo\Core\Http\Middleware\AppInstalled::class );
         $router->aliasMiddleware( 'tendoo.prevent.installed', \Tendoo\Core\Http\Middleware\AppNotInstalled::class );
-        $router->aliasMiddleware( 'tendoo.prevent.flood', \Tendoo\Core\Http\Middleware\PreventFloodRequest::class );      
+        $router->aliasMiddleware( 'tendoo.prevent.flood', \Tendoo\Core\Http\Middleware\PreventFloodRequest::class );   
+        $router->aliasMiddleware( 'tendoo.safe-url', SafeURLMiddleware::class );   
         
         $corePath       =   base_path() . _SLASH_ . 'core' . _SLASH_ ;
         $configPath     =   base_path() . _SLASH_ . 'config' . _SLASH_ ;
@@ -129,11 +135,6 @@ class ServiceProvider extends CoreServiceProvider
             PublishCommand::class,
             DeleteExpiredOptionsCommand::class,
         ]);
-        
-        /**
-         * Load Route from Web
-         */
-        // $this->loadRoutesFrom( __DIR__ . '/routes/web.php');
 
         /**
          * Load Migrations
@@ -148,11 +149,12 @@ class ServiceProvider extends CoreServiceProvider
         $this->publishes([
             __DIR__ . '/config/tendoo.php'   =>  $configPath . '/tendoo.php'
         ], 'tendoo-config' );
-
-        // $this->publishes([
-        //     __DIR__ . '/public'   =>  $publicPath
-        // ], 'tendoo-assets' );
-
+        
+        /**
+         * register observer for 
+         * role model
+         */
+        Role::observe( RoleObserver::class );
     }
 
     /**
@@ -176,116 +178,19 @@ class ServiceProvider extends CoreServiceProvider
         /**
          * Define Storage Location Path
          */
-        config([ 'temp.database-updates' => [
-            'driver' => 'local',
-            'root' => DATABASE_UPDATES_PATH,
-        ] ]);
-        
-        config([ 'temp.tendoo-assets' => [
-            'driver' => 'local',
-            'root' => TENDOO_ASSETS_PATH,
-        ] ]);
-
-        config([ 'temp.tendoo-dist' => [
-            'driver' => 'local',
-            'root' => TENDOO_DIST_PATH,
-        ] ]);
-
-        config([ 'temp.tendoo-root' => [
-            'driver' => 'local',
-            'root' => TENDOO_ROOT_PATH,
-        ] ]);
-
-        config([ 'temp.laravel-public' => [
-            'driver' => 'local',
-            'root' => base_path( 'public' ),
-        ] ]);
-        
-        config([ 'temp.tendoo-config' => [
-            'driver' => 'local',
-            'root' => TENDOO_CONFIG_PATH,
-        ] ]);
-        
-        config([ 'temp.database-migrations' => [
-            'driver' => 'local',
-            'root' => DATABASE_MIGRATIONS_PATH,
-        ] ]);
-
-        config([ 'temp.temp-core' => [
-            'driver' => 'local',
-            'root' => storage_path( 'core' ),
-        ] ]);
-        
-        config([ 'temp.root' => [
-            'driver' => 'local',
-            'root' => base_path(),
-        ] ]);
-
-        config([ 'temp.modules' => [
-            'driver' => 'local',
-            'root' => base_path( 'modules' ),
-        ] ]);
-
-        config([ 'temp.config' => [
-            'driver' => 'local',
-            'root' => base_path( 'config' ),
-        ] ]);
-        
-        config([ 'temp.temp-modules' => [
-            'driver'    =>  'local',
-            'root'  =>  storage_path( 'modules' )
-        ] ]);
-
-        config([ 'temp.uploads' => [
-            'driver'    =>  'local',
-            'root'      =>  storage_path( 'uploads' )
-        ]]);
-
-        config([ 'filesystems.disks' => array_merge( config( 'filesystems.disks' ), config( 'temp' ) ) ]);
-
-        /**
-         *  Changing the Auth Model Provider
-         */
-        config([ 'auth.providers.users'     =>  [
-            'driver'    =>  'eloquent',
-            'model'     =>  'Tendoo\Core\Models\User'
-        ]]);
-
-        /**
-         * register version
-         */
-        config([
-            'tendoo.db_version'     =>  TENDOO_DB_VERSION,
-            'tendoo.assets_version' =>  TENDOO_ASSETS_VERSION,
-            'tendoo.version'        =>  TENDOO_VERSION
-        ]);
-
-        /**
-         * Define the table prefix
-         */
-        config([
-            'database.connections.mysql.prefix'     =>  env( 'DB_TABLE_PREFIX', '' ),
-            'database.connections.sqlite.prefix'    =>  env( 'DB_TABLE_PREFIX', '' ),
-            'database.connections.pgsql.prefix'     =>  env( 'DB_TABLE_PREFIX', '' ),
-            'database.connections.sqlsrv.prefix'    =>  env( 'DB_TABLE_PREFIX', '' ),
-        ]);
+        include_once( dirname( __FILE__ ) . '/paths.php' );
 
         $this->app->singleton( 'XmlParser', function ($app) {
             return new XmlReader(new XmlDocument($app));
         });
-        
-        /**
-         * Overriding the Exception Handler
-         */
+
         // $this->app->singleton(
-        //     \App\Exceptions\Handler::class,
-        //     \Tendoo\Core\Exceptions\TendooHandler::class
+        //     \App\Http\Kernel::class,
+        //     TendooKernel::class
         // );
 
-        $this->app->singleton(
-            \App\Http\Kernel::class,
-            TendooKernel::class
-        );
+        // $this->app->router->prependMiddleware( SafeURLMiddleware::class );
+        // app()->make( \Illuminate\Foundation\Http\Kernel::class )->prependMiddleware( SafeURLMiddleware::class );
 
         $this->app->singleton(
             \Illuminate\Contracts\Debug\ExceptionHandler::class,

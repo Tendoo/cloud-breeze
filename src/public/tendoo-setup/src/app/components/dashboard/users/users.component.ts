@@ -5,7 +5,8 @@ import { Observable, forkJoin } from 'rxjs';
 import { TableColumnInterface } from 'src/app/interfaces/table-column.interface';
 import { TableEntryInterface } from 'src/app/interfaces/table-entry.interface';
 import { Router } from '@angular/router';
-import { MatDialog, MatSnackBar } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ConfirmDialogObject } from 'src/app/interfaces/confirm-dialog';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AsyncResponse } from 'src/app/interfaces/async-response';
@@ -26,7 +27,7 @@ export class UsersComponent implements OnInit {
     searchValue                             =   '';
     tableConfig: TableConfig;
     checkAll: any;
-    @ViewChild( 'searchField' ) searchField: ElementRef;
+    @ViewChild( 'searchField', { static: false }) searchField: ElementRef;
 
     constructor(
         public tendoo: TendooService,

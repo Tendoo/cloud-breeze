@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { TendooService } from '../services/tendoo.service';
 
 @Injectable({
@@ -26,7 +26,7 @@ export class CrudCreateGuard implements CanActivate {
                     resolve( true );
                 }, (result: HttpErrorResponse) => {
                     if ( result.error.class === 'Tendoo/Core/Exceptions/AccessDenied' ) {
-                        this.router.navigateByUrl( 'dashboard/access-denied' );
+                        this.router.navigateByUrl( 'dashboard/error/access-denied' );
                     } else if ( result.error.class === 'Tendoo/Core/Exceptions/RedirectException' ) {
                         this.snackbar.open( result.error.message, 'OK', { duration: 5000 })
                         setTimeout( () => {

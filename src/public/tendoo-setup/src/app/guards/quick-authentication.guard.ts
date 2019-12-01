@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
 import { TendooService } from '../services/tendoo.service';
 import { HttpErrorResponse } from '@angular/common/http';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { PreventAppNotInstalledGuard } from './check-app-installed.guard';
 import { LoaderService } from '../services/loader.service';
 
@@ -27,7 +27,6 @@ export class QuickAuthenticationGuard implements CanActivate {
 		return new Observable( ( observer ) => {
 			
 			let token 	=	this.cookie.get( 'auth.user' );
-			console.log( token.length, Object.values( LoaderService.headers ).length );
 
 			/**
 			 * if a token exist and the user is not already connected

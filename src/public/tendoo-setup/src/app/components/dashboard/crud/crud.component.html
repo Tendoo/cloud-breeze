@@ -1,19 +1,21 @@
 <div *ngIf="crud" class="bg-content" fxLayout="column" fxFlex="100%" style="overflow-y:auto">
-    <div fxLayout="row" class="p-3 pb-0">
-        <div fxFlex>
-            <h1 class="mat-display-1 mb-0">{{ crud.labels.list_title }}</h1>
+    <div class="p-3 pb-0">
+        <div >
+            <h1 class="mat-h1 mb-0">{{ crud.labels.list_title }}</h1>
             <span>{{ crud.labels.list_description }}</span>
         </div>
     </div>
-    <div fxFlex class="p-3" fxLayout="column">
+    <div class="p-3">
         <cb-table
             *ngIf="crud.results.data.length > 0"
             [crud]="crud"
-
+            [is-loading]="isLoading"
+            (page)="handlePage( $event )"
             (sort)="sortData( $event )"
             (delete)="deleteEntries( $event )"
             (action)="doAction( $event )"
             (search)="searh( $event )"
+            (refresh)="handleRefresh( $event )"
         ></cb-table>
         <div *ngIf="crud.results.data.length === 0" fxFlex fxFill fxLayoutAlign="center center">
             <div fxFlex="400px">
