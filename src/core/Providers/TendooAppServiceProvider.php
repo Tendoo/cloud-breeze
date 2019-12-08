@@ -2,25 +2,27 @@
 
 namespace Tendoo\Core\Providers;
 
-use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\View;
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Support\Facades\Blade;
-use Illuminate\Encryption\Encrypter;
-use Illuminate\Console\Scheduling\Schedule;
-use Tendoo\Core\Services\Options;
-use Tendoo\Core\Services\UserOptions;
-use Tendoo\Core\Services\DateService;
-use Tendoo\Core\Services\Users;
-use Tendoo\Core\Services\AuthService;
-use Tendoo\Core\Services\MediaService;
 use Tendoo\Core\Models\Role;
 use Tendoo\Core\Models\User;
+use Tendoo\Core\Services\Users;
 use Tendoo\Core\Services\Helper;
+use Tendoo\Core\Services\Options;
 use Tendoo\Core\Models\Permission;
+use Illuminate\Encryption\Encrypter;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Blade;
+use Tendoo\Core\Services\AuthService;
+use Tendoo\Core\Services\DateService;
+use Tendoo\Core\Services\UserOptions;
+use Illuminate\Support\Facades\Schema;
+use Tendoo\Core\Services\MediaService;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\ServiceProvider;
+use Tendoo\Core\Observers\RoleObserver;
+use Tendoo\Core\Observers\UserObserver;
+use Illuminate\Console\Scheduling\Schedule;
 use Jackiedo\DotenvEditor\Facades\DotenvEditor;
 
 
@@ -34,6 +36,12 @@ class TendooAppServiceProvider extends ServiceProvider
     public function boot()
     {
         Blade::withoutDoubleEncoding();
+
+        /**
+         * Model observation
+         */
+        Role::observe( RoleObserver::class );
+        User::observe( UserObserver::class );
 
         /**
          * We might need to publish views as well
@@ -84,7 +92,7 @@ class TendooAppServiceProvider extends ServiceProvider
     {
         // save Singleton for options
         $this->app->singleton( Options::class, function(){
-            return new Options;
+            return new Options();
         });
 
         // save Singleton for options

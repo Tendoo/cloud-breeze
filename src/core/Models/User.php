@@ -44,6 +44,11 @@ class User extends Tendoo_Model
      */
     protected static $permissions  =   [];
 
+    public function __construct( $attributes = [])
+    {
+        parent::__construct( $attributes );
+    }
+
     /**
      * Relation with roles
      * @return void

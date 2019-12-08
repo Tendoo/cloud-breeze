@@ -1,6 +1,7 @@
 <?php
 namespace Tendoo\Core\Services;
 
+use Tendoo\Core\Models\Option;
 use Tendoo\Core\Services\Options;
 
 class UserOptions extends Options
@@ -9,25 +10,18 @@ class UserOptions extends Options
 
     public function __construct( $user_id )
     {
-        parent::__construct( $user_id );
+        $this->user_id  =   $user_id;
+        parent::__construct();
     }
 
-    /**
-     * Get user option
-     * @return mixed
-     */
-    public function getOption( $key = null, $default = null )
+    public function option() 
     {
-        /**
-         * If key is provided
-         */
-        if ( $key !== null ) {
-            return $this->get( $key, $default );
-        }
+        return Option::where( 'user_id', $this->user_id );
+    }
 
-        /**
-         * If no keys are provided
-         */
-        return $this->get();
+    public function beforeSave( $option )
+    {
+        $option->user_id    =   $this->user_id;
+        return $option;
     }
 }

@@ -8,8 +8,6 @@ use Illuminate\Routing\Router;
 class TendooKernel extends Kernel {
     public function __construct( Application $app, Router $router )
     {
-        // parent::__construct( $app, $router );
-
         $this->middlewareGroups[ 'web' ][]  =   \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class;
         $this->middlewareGroups[ 'web' ][]  =   VerifyCsrfToken::class;
 

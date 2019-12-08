@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Log;
 class Options 
 {
     private $rawOptions         =   [];
-    private $options     =   [];
+    private $options            =   [];
     private $isUserOptions      =   false;
     private $option;
     private $user_id;
@@ -21,9 +21,8 @@ class Options
      * would like to avoid getting general option. So even if the user is not connected
      * we should treat null (when user is not connected) as if the 
      */
-    public function __construct( $user_id = null )
+    public function __construct()
     {
-        $this->user_id      =   $user_id;
         $this->build();
     }
 
@@ -33,13 +32,6 @@ class Options
      */
     public function option()
     {
-        /**
-         * if the user is not connected $this->user_id = 0 which is different from null and we
-         * would like to avoid getting general options
-         */
-        if ( $this->user_id !== null ) {        
-            return Option::where( 'user_id', $this->user_id );
-        }
         return Option::where( 'user_id', null );
     }
 
@@ -51,8 +43,8 @@ class Options
 
     public function build()
     {
-        $this->options  =   [];
-        $this->rawOptions     =   $this->option()->get();
+        $this->options          =   [];
+        $this->rawOptions       =   $this->option()->get();
     }
 
     /**
@@ -65,40 +57,74 @@ class Options
 
     public function set( $key, $value, $expiration = null )
     {
-        $date   =   app()->make( 'Tendoo\Core\Services\DateService' );
-
-        $this->hasFound   =   false;
+        $this->hasFound     =   false;
+        $storedOption       =   null;
         
-        $this->rawOptions->map( function( $option, $index ) use ( $value, $key, $expiration, $date ) {
+        /**
+         * if an option has been found,
+         * it will save the new value and update
+         * the option object.
+         */
+        $this->rawOptions->map( function( $option, $index ) use ( $value, $key, $expiration, &$storedOption ) {
             if ( $key === $option->key ) {
                 $this->hasFound         =   true;
                 $option->value          =   is_array( $value ) ? json_encode( $value ) : empty( $value ) ? '' : $value;
                 $option->expire_on      =   $expiration;
+
+                /**
+                 * this should be overridable
+                 * from a user option or any
+                 * extending this class
+                 */
+                $option                 =   $this->beforeSave( $option );
                 $option->save();
+
+                /**
+                 * populate the variable
+                 * that we'll return
+                 */
+                $storedOption           =   $option;
             }
         });
 
+        /**
+         * if the option hasn't been found
+         * it will create a new Option model
+         * and store with, then save it on the option model
+         */
         if( ! $this->hasFound ) {
-            $this->option           =   new Option;
-            $this->option->key      =   trim( strtolower( $key ) );
-            $this->option->value    =   is_array( $value ) ? json_encode( $value ) : empty( $value ) ? '' : $value;
-            $this->option->array    =   true;
-            
-            /**
-             * If user is defined
-             */
-            if ( $this->user_id ) {
-                $this->option->user_id     =   $this->user_id;
-            }
-
+            $this->option               =   new Option;
+            $this->option->key          =   trim( strtolower( $key ) );
+            $this->option->array        =   false;
+            $this->option->value        =   is_array( $value ) ? json_encode( $value ) : empty( $value ) ? '' : $value;
             $this->option->expire_on    =   $expiration;
+
+            /**
+             * this should be overridable
+             * from a user option or any
+             * extending this class
+             */
+            $this->option                 =   $this->beforeSave( $this->option );            
             $this->option->save();
 
             /**
-             * Let's save the new option
+             * populate the variable
+             * that we'll return
              */
-            $this->rawOptions[ $this->option->key ]     =   $this->option;
+            $storedOption               =   $this->option;
         }
+
+        /**
+         * Let's save the new option
+         */
+        $this->rawOptions[ $key ]     =   $storedOption;
+        
+        return $storedOption;
+    }
+
+    public function beforeSave( $option )
+    {
+        return $option;
     }
 
     /**
@@ -108,6 +134,10 @@ class Options
     **/
     public function get( $key = null, $default = null )
     {
+        if ( $key === null ) {
+            return $this->rawOptions;
+        }
+
         $this->value    =   $default !== null ? $default : null;
 
         $this->rawOptions->map( function( $option ) use ( $key ) {
@@ -134,16 +164,16 @@ class Options
     **/
     public function delete( $key ) 
     {
-        $this->removableIndex     =   null;
+        $this->removableIndex           =   null;
         $this->rawOptions->map( function( $option, $index ) use ( $key ) {
             if ( $option->key === $key ) {
                 $option->delete();
                 $this->removableIndex     =   $index;
             }
-        });   
+        });  
 
-        if ( $this->removableIndex ) {
-            unset( $this->rawOptions[ $this->removableIndex ] );
+        if ( ! empty( $this->removableIndex ) ) {
+            $this->rawOptions->offsetUnset( $this->removableIndex );
         }
     }
 }
