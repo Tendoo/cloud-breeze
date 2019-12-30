@@ -24,14 +24,14 @@ class Validation
      * @param value
      * @return boolean
      */
-    public static function verifyRecaptcha( $value )
+    public static function verifyRecaptcha( $value, $option = 'recaptcha_site_secret' )
     {
         $options    =   app()->make( Options::class );
 
         if ( $options->get( 'enable_recaptcha' ) ) {
             $result     =   Curl::to( 'https://www.google.com/recaptcha/api/siteverify' )
                 ->withData([ 
-                    'secret'    =>  $options->get( 'recaptcha_site_secret' ),
+                    'secret'    =>  $options->get( $option ),
                     'response'  =>  $value,
                     'ip'        =>  request()->ip()
                 ])

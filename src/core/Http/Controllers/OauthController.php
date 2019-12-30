@@ -453,62 +453,7 @@ class OauthController extends BaseController
      */
     public function passwordRecovery( RecoveryRequest $request )
     {
-        /**
-         * checking reCaptcha and throwing or
-         * not an error accordingly
-         */
-        $this->__CheckGoogleRecaptcha();
-
-        $user   =   User::where( 'email', $request->input( 'email' ) )->first();
-
-        if ( $user == null ) {
-            throw new CoreException([
-                'status'    =>  'danger',
-                'message'   =>  __( 'This email is not currently in use on the system.' )
-            ]);
-        }
-
-        /**
-         * Check if the user is active
-         * otherwise we can't reset that user password
-         */
-        if ( ! ( bool ) intval( $user->active ) ) {
-            throw new CoreException([
-                'status'    =>  'danger',
-                'message'   =>  __( 'Unable to reset a password for a non active user.' )
-            ]);
-        }
-
-        /**
-         * Generating a hashed code according to the username
-         */
-        $hashedCode     =   Str::random( strlen( $user->username ) ) . $this->date->timestamp;
-        $userOptions    =   new UserOptions( $user->id );
-        $userOptions->set( 'recovery-token', $hashedCode );
-        $userOptions->set( 'recovery-validity', 
-            $this->date
-                ->copy()
-                ->addDay()
-                ->toDateTimeString()
-        );
-
-        Hook::action( 'before.send-recovery-email', $user, $hashedCode );
-
-        /**
-         * Sending an email which expire
-         */
-        Mail::to( $user->email )
-            ->queue( new PasswordReset( url( '/tendoo/auth/change-password', [
-                'user'  =>  $user->id,
-                'code'  =>  $hashedCode
-            ]), $user ) );
-
-        Hook::action( 'after.send-recovery-email', $user, $hashedCode );      
-
-        return [
-            'status'    =>  'success',
-            'message'   =>  __( 'An email has been send with password reset details.' )
-        ];
+        return $this->authService->lostPassword( $request->all() );
     }
 
     /**
@@ -516,73 +461,9 @@ class OauthController extends BaseController
      * @param Request
      * @return void
      */
-    public function postRecoveryCode( $id, PasswordChangeRequest $request )
+    public function postNewPassword( $id, PasswordChangeRequest $request )
     {
-        $user       =   User::findOrFail( $id );
-
-        $this->__checkRefreshValidity( $user, $request->input( 'authorization' ) );
-        
-        /**
-         * If the script reach this 
-         * the everything is fine so far
-         */
-        $user->password     =   Hash::make( $request->input( 'password' ) );
-        $user->save();
-
-        /**
-         * Delete the keys so that the password can't be changed with the same
-         * keys
-         */
-        $userOptions    =   new UserOptions( $user->id );
-        $userOptions->delete( 'recovery-token' );
-        $userOptions->delete( 'recovery-validity' );
-
-        /**
-         * @todo:email we might inform the user that his password has been reseted
-         */
-        Mail::to( $user->email )
-            ->queue( new PasswordUpdated( $user ) );
-        
-        return [
-            'status'    =>  'success', 
-            'message'   =>  __( 'Your password has been successfully updated!' )
-        ];
-    }
-
-    /**
-     * Check Refresh Validity
-     * @return void
-     */
-    private function __checkRefreshValidity( $user, $code )
-    {
-        $userOptions    =   new UserOptions( $user->id );
-        $expiration     =   $userOptions->get( 'recovery-validity' );
-        Log::info( 'code-expiration::' . $expiration );
-
-        /**
-         * Check if the recovery code has not expired
-         */
-        if ( $this->date->gt( 
-            Carbon::parse( $expiration ) 
-        ) || empty( $expiration ) ) {
-            throw new CoreException([
-                'status'    =>  'failed',
-                'message'   =>  __( 'Unable to proceed, the code has expired.' )
-            ]);
-        }
-
-        /**
-         * Check if the recovery code is similar to what the user has on his options
-         */
-        if ( $userOptions->get( 'recovery-token' ) !== $code ) {
-            /**
-             * do we need to provide more information about this issue ?
-             */
-            throw new CoreException([
-                'status'    =>  'failed',
-                'message'   =>  __( 'Unable to proceed, the request is not valid.')
-            ]);
-        }
+        return $this->authService->saveNewPassword( $id, $request->all() );
     }
 
     /**

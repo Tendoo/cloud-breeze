@@ -36,6 +36,7 @@ import { TendooSpinnerService } from './services/tendoo-spinner.service';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ModuleWithProviders } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
+import { ImageCropperModule } from 'ngx-image-cropper';
 export const CB_URL_CONFIG 	=	new InjectionToken<{
 	base: string;
 	angular: string;
@@ -87,7 +88,8 @@ export const CB_URL_CONFIG 	=	new InjectionToken<{
 		NgxCaptchaModule,
 		RouterModule,
 		BrowserAnimationsModule,
-		FlexLayoutModule
+		FlexLayoutModule,
+		ImageCropperModule,
 	],
 	exports: [ 
 		MaterialModule, 

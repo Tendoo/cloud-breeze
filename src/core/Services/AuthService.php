@@ -1,32 +1,43 @@
 <?php
 namespace Tendoo\Core\Services;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Cookie;
-use Illuminate\Support\Str;
 use Carbon\Carbon;
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
 use Tendoo\Core\Models\Role;
 use Tendoo\Core\Models\User;
-use Tendoo\Core\Models\Oauth;
-use Tendoo\Core\Models\Application;
-use Tendoo\Core\Services\Users;
-use Tendoo\Core\Services\DateService;
-use Tendoo\Core\Services\Options;
 use Tendoo\Core\Facades\Hook;
+use Tendoo\Core\Models\Oauth;
+use Tendoo\Core\Services\Users;
+use Tendoo\Core\Services\Options;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Tendoo\Core\Mail\PasswordReset;
+use Tendoo\Core\Models\Application;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Cache;
 use Tendoo\Core\Mail\PasswordUpdated;
+use Tendoo\Core\Services\DateService;
+use Tendoo\Core\Services\UserOptions;
+use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Schema;
+use Tendoo\Core\Exceptions\CoreException;
 use Tendoo\Core\Mail\UserRegistrationMail;
-use Tendoo\Core\Exceptions\SessionExpiredException;
 use Tendoo\Core\Exceptions\AccessDeniedException;
+use Tendoo\Core\Exceptions\SessionExpiredException;
+use Tendoo\Core\Exceptions\WrongCredentialException;
 
 class AuthService 
 {
+    public function __construct()
+    {
+        $this->userService      =   app()->make( Users::class );
+        $this->options          =   app()->make( Options::class );
+        $this->date             =   app()->make( DateService::class );
+    }
+
     public function registerUser( $fields )
     {
         $userService    =   app()->make( Users::class );
@@ -418,5 +429,193 @@ class AuthService
             Auth::logout();
             throw new AccessDeniedException( __( 'Your role is not allowed to login.' ) );
         }
+    }
+
+    /**
+     * change a user password using the provided
+     * data fields
+     * @param array fields
+     * @return mixed
+     */
+    public function lostPassword( $fields )
+    {
+        /**
+         * checking reCaptcha and throwing or
+         * not an error accordingly
+         */
+        $this->checkReCaptcha();
+
+        return $this->lostPasswordUnsecured( $fields );
+    }
+
+    public function lostPasswordUnsecured( $fields )
+    {
+        $user   =   User::where( 'email', $fields[ 'email' ] )->first();
+
+        if ( $user == null ) {
+            throw new CoreException([
+                'status'    =>  'danger',
+                'message'   =>  __( 'This email is not currently in use on the system.' )
+            ]);
+        }
+
+        /**
+         * Check if the user is active
+         * otherwise we can't reset that user password
+         */
+        if ( ! ( bool ) intval( $user->active ) ) {
+            throw new CoreException([
+                'status'    =>  'danger',
+                'message'   =>  __( 'Unable to reset a password for a non active user.' )
+            ]);
+        }
+
+        /**
+         * Generating a hashed code according to the username
+         */
+        $hashedCode     =   Str::random( strlen( $user->username ) ) . $this->date->timestamp;
+        $userOptions    =   new UserOptions( $user->id );
+        $userOptions->set( 'recovery-token', $hashedCode );
+        $userOptions->set( 'recovery-validity', 
+            $this->date
+                ->copy()
+                ->addDay()
+                ->toDateTimeString()
+        );
+
+        Hook::action( 'before.send-recovery-email', $user, $hashedCode );
+
+        /**
+         * Sending an email which expire
+         */
+        $url            =   Hook::filter( 'recovery.email-url', url( '/tendoo/auth/change-password', [
+            'user'  =>  $user->id,
+            'code'  =>  $hashedCode
+        ]), $user, $hashedCode );
+
+        Mail::to( $user->email )
+            ->queue( new PasswordReset( $url, $user ) );
+
+        Hook::action( 'after.send-recovery-email', $user, $hashedCode );      
+
+        return [
+            'status'    =>  'success',
+            'message'   =>  __( 'An email has been send with password reset details.' )
+        ];
+    }
+
+    /**
+     * Check recaptcha using predefined 
+     * values as POST data
+     * @return void
+     */
+    public function checkReCaptcha( $data = [])
+    {
+        /**
+         * expecting
+         * @var string recaptcha
+         * @var string ip
+         */
+        extract( $data );
+        
+        if ( $this->options->get( 'enable_recaptcha' ) ) {
+            $result     =   Curl::to( 'https://www.google.com/recaptcha/api/siteverify' )
+                ->withData([ 
+                    'secret'    =>  $this->options->get( 'recaptcha_site_secret' ),
+                    'response'  =>  $recaptcha ?: request()->input( 'recaptcha' ),
+                    'ip'        =>  $ip ?: request()->ip()
+                ])
+                ->withContentType( 'application/x-www-form-urlencoded' )
+                ->asJsonResponse()
+                ->post();
+
+            if ( $result->success === false ) {
+                throw new CoreException([
+                    'status'    =>  'failed',
+                    'message'   =>  __( 'Unable to proceed, the reCaptcha validation has failed.' )
+                ]);
+            }
+        }
+    }
+
+    /**
+     * Check Refresh Validity
+     * @return void
+     */
+    private function __checkRefreshValidity( $user, $code )
+    {
+        $userOptions    =   new UserOptions( $user->id );
+        $expiration     =   $userOptions->get( 'recovery-validity' );
+        Log::info( 'code-expiration::' . $expiration );
+
+        /**
+         * Check if the recovery code has not expired
+         */
+        if ( $this->date->gt( 
+            Carbon::parse( $expiration ) 
+        ) || empty( $expiration ) ) {
+            throw new CoreException([
+                'status'    =>  'failed',
+                'message'   =>  __( 'Unable to proceed, the code has expired.' )
+            ]);
+        }
+
+        /**
+         * Check if the recovery code is similar to what the user has on his options
+         */
+        if ( $userOptions->get( 'recovery-token' ) !== $code ) {
+            /**
+             * do we need to provide more information about this issue ?
+             */
+            throw new CoreException([
+                'status'    =>  'failed',
+                'message'   =>  __( 'Unable to proceed, the request is not valid.')
+            ]);
+        }
+    }
+
+    public function saveNewPassword( $id, $code, $fields )
+    {
+        $this->checkReCaptcha( $fields );
+        return $this->saveNewPasswordUnsecured( $id, $code, $fields );
+    }
+
+    /**
+     * Change the user password using 
+     * provided authorization + field values
+     * @param array fields
+     * @return array result
+     */
+    public function saveNewPasswordUnsecured( $fields )
+    {
+        $user       =   User::findOrFail( $fields[ 'user' ] );
+
+        $this->__checkRefreshValidity( $user, $fields[ 'authorization' ] );
+        
+        /**
+         * If the script reach this 
+         * the everything is fine so far
+         */
+        $user->password     =   Hash::make( $fields[ 'password' ] );
+        $user->save();
+
+        /**
+         * Delete the keys so that the password can't be changed with the same
+         * keys
+         */
+        $userOptions    =   new UserOptions( $user->id );
+        $userOptions->delete( 'recovery-token' );
+        $userOptions->delete( 'recovery-validity' );
+
+        /**
+         * @todo:email we might inform the user that his password has been reseted
+         */
+        Mail::to( $user->email )
+            ->queue( new PasswordUpdated( $user ) );
+        
+        return [
+            'status'    =>  'success', 
+            'message'   =>  __( 'Your password has been successfully updated!' )
+        ];
     }
 }

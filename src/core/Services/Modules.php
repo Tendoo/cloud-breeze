@@ -78,8 +78,9 @@ class Modules
          * Checks if a config file exists
          */
         if ( in_array( 'config.xml', $files ) ) {
-            $xml        =   $this->xmlParser->load( base_path() . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . $dir . DIRECTORY_SEPARATOR . 'config.xml' );
-            $config     =   $xml->parse([
+            $xmlContent     =   file_get_contents( base_path() . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . $dir . DIRECTORY_SEPARATOR . 'config.xml' );
+            $xml            =   $this->xmlParser->extract( $xmlContent );
+            $config         =   $xml->parse([
                 'namespace'             => [ 'uses'     => 'namespace' ],
                 // 'language'           =>  [ 'uses'    => 'language' ], 
                 'version'               =>  [ 'uses'    => 'version' ],

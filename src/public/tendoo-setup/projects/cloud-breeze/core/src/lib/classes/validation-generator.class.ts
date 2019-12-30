@@ -3,6 +3,8 @@ import { Field } from "../interfaces/field";
 import { MatchesValidator } from "../validators/matches.validator";
 import { Numbervalidator } from "../validators/number.validator";
 import { Form } from "../interfaces/form.interface";
+import { Observable } from "rxjs";
+import { EventEmitter } from "@angular/core";
 
 export class ValidationGenerator {
     /**
@@ -116,7 +118,14 @@ export class ValidationGenerator {
         } else {
             field.control.setValue( field.value || null );
         }
-        
+
+        /**
+         * each field should 
+         * support a reset event while 
+         * being built
+         */
+        field.reset     =   new EventEmitter<boolean>();
+                
         return this.extractControls([ field ])[ field.name ];
     }
 
@@ -212,7 +221,7 @@ export class ValidationGenerator {
         form.sections.forEach( section => {
             const form              =   ValidationGenerator.buildFormGroup( section.fields ).formGroup;
             section.formGroup       =   form;
-            groups[ section.name ]  =   section.formGroup;
+            groups[ section.namespace ]  =   section.formGroup;
         });
 
         form.formGroup  =   new FormGroup( groups );

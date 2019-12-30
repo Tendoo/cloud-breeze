@@ -22,6 +22,7 @@ export interface Field {
     suffix?: string;
     prefix?: string;
     reset?: EventEmitter<boolean>;
+    clear?: () => void
 }
 export interface FieldOption {
     label: string;

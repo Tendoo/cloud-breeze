@@ -3,7 +3,7 @@ import { Field } from "./field";
 
 export interface Form {
     sections: {
-        name?: string;
+        namespace?: string;
         title?: string;
         description?: string;
         fields?: Field[],

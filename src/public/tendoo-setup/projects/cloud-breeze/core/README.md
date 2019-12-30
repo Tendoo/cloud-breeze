@@ -322,6 +322,22 @@ const field: Field  = {
 }
 ```
 
+**image** Since (1.2.7) \
+This field type uses the ["ngx-image-cropper"](https://www.npmjs.com/package/ngx-image-cropper) package for Angular. As a field here is how it's defined :
+
+```ts
+const field: Field = {
+  type: 'image',
+  data: {
+    // here you provide the package input parameters
+  },
+  label: 'Your Field Label',
+  description: 'Field description',
+  validation: 'put the field validation here'
+}
+```
+That field use TailWindCSS styles, we the package should be embedded on your project as well. TailwinCSS will progressively replace ["angular/flex-layout"](https://github.com/angular/flex-layout) required currently.
+
 The `ValidationGenerator` class has some other interesting methods.
 
 | Methods           | Description                                                                                                                  |

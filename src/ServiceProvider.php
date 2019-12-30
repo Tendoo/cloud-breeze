@@ -99,6 +99,7 @@ class ServiceProvider extends CoreServiceProvider
         $router->aliasMiddleware( 'check.migrations', \Tendoo\Core\Http\Middleware\CheckMigrations::class );
         $router->aliasMiddleware( 'api.guard', \Tendoo\Core\Http\Middleware\LoadApi::class );
         $router->aliasMiddleware( 'tendoo.auth', \Tendoo\Core\Http\Middleware\TendooAuth::class );
+        $router->aliasMiddleware( 'tendoo.silent-auth', \Tendoo\Core\Http\Middleware\TendooSilentAuth::class );
         $router->aliasMiddleware( 'tendoo.guest', \Tendoo\Core\Http\Middleware\TendooGuest::class );
         $router->aliasMiddleware( 'tendoo.cors', \Barryvdh\Cors\HandleCors::class );   
         $router->aliasMiddleware( 'tendoo.prevent.not-installed', \Tendoo\Core\Http\Middleware\AppInstalled::class );

@@ -17,6 +17,11 @@ class User extends Tendoo_Model
         'active'    =>  'boolean'
     ];
 
+    /**
+     * @var Tendoo\Core\Services\UserOptions;
+     */
+    public $options;
+
     /** @var */
     public $user_id;
 

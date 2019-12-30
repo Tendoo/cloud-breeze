@@ -8,8 +8,10 @@ use Illuminate\Http\Request;
 Route::prefix( 'api' )->group( function() {
     Route::middleware([ 'tendoo.cors', 'tendoo.prevent.not-installed', 'tendoo.prevent.flood' ])->group( function() {
         include_once( dirname( __FILE__ ) . '/api-routes/auth.php' );
-        include_once( dirname( __FILE__ ) . '/api-routes/options.php' );
-        include_once( dirname( __FILE__ ) . '/api-routes/public-forms.php' );
+        Route::middleware([ 'tendoo.silent-auth' ])->group( function() {
+            include_once( dirname( __FILE__ ) . '/api-routes/options.php' );
+            include_once( dirname( __FILE__ ) . '/api-routes/public-forms.php' );
+        });
     });
     
     Route::middleware([ 'tendoo.cors', 'tendoo.prevent.installed', 'tendoo.prevent.flood' ])->group( function() {
