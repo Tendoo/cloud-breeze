@@ -80,7 +80,7 @@ Creating a role is possible thanks to the class `Tendoo\Core\Models\Role`. A rol
 
 ```php
 <?php
-use Tendoo\Core\Models\Role
+use Tendoo\Core\Models\Role;
 
 $role   = new Role;
 $role->name   =   __( 'Super Man' );
@@ -95,7 +95,7 @@ So far you've create a role and it's that simple. The second steps is to assign 
 A permission allow to perform an action on the system. You can manipulate the permissions using the model `Tendoo\Core\Models\Permission`. Let's then create some permissions for the Super Man role.
 
 ```php
-use Tendoo\Core\Models\Permission
+use Tendoo\Core\Models\Permission;
 
 // ...
 $permission   = new Permission;
@@ -107,6 +107,21 @@ $permission->save();
 
 ### Assigning Permission to Role
 Now we've create permission, let's give Super Man the capacity to fly. It should be made using a static method
-on the Model class, taking as  first parameter, the namespace of the role and on second parameter the namespace of the permission. `Role::addPermission( '[role namespace]', '[permission namespace]' );`. Let's have a look at a concret example
+on the Model class, taking as  first parameter, the namespace of the role and on second parameter the namespace of the permission. `Role::addPermissions( '[role namespace]', '[permission namespace]' );`. Let's have a look at a concret example
 
+```php
+use Tendoo\Core\Models\Role;
+
+// ... 
+Role::addPermissions( 'superman', 'fly' );
 ```
+
+You can also add a bunch of permission by passing an array to the second parameter.
+
+```php
+use Tendoo\Core\Models\Role;
+
+// ...
+Role::addPermissions( 'superman', [ 'fly', 'eyelazer', 'frozen.breath' ]);
+```
+You should note there is not specific way to write permission namespace, however the convention is to not use spaces and to separate your strings with a dot "." or a hyphen "-". Here is an example "long.permission.namespace".
