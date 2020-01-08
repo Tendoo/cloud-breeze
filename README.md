@@ -130,6 +130,6 @@ You should note there is not specific way to write permission namespace, however
 While you can add permission usin the static method `addPermissions`, you should use `RemovePermissions` to remove permissions on a specific role. Here is the use case of that method.
 
 ```php
-Role::RemovePermissions 'superman', [ 'snap.infinite.gaunlet' ]);
+Role::RemovePermissions( 'superman', [ 'snap.infinite.gaunlet' ]);
 ```
 Note here that the second parameter should always be an array.
