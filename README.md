@@ -133,3 +133,15 @@ While you can add permission usin the static method `addPermissions`, you should
 Role::RemovePermissions( 'superman', [ 'snap.infinite.gaunlet' ]);
 ```
 Note here that the second parameter should always be an array.
+
+### Checking User Permission
+As said above, the verification of a permission is made on role through the User model. You can then check if the User class. Here is how you should proceed : 
+
+```php
+use Tendoo\Core\Models\User;
+
+if ( User::allowedTo( 'snap.infinite.gaunglet' ) ) {
+  /// you're not strong engough
+}
+```
+The user we're making this verification  over, is the one connected. This function won't then work if no users is currently connected.
