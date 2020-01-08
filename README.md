@@ -141,7 +141,7 @@ As said above, the verification of a permission is made on role through the User
 use Tendoo\Core\Models\User;
 
 if ( User::allowedTo( 'snap.infinite.gaunglet' ) ) {
-  /// you're not strong engough
+  /// you're not strong enough
 }
 ```
 The user we're making this verification  over, is the one connected. This function won't then work if no users is currently connected.
