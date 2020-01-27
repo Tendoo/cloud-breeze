@@ -32,9 +32,6 @@ Cloud Breeze ensure you to have a moduleable system with (obviously) modules, th
  These ensure you to quickly have a working UI that interact directly with Cloud Breeze and all his modules. You should note that the UI of cloud breeze is build with Angular 8, Angular Material and some others dependencies. You can require the package on your environment using npm
  
  `npm i @cloud-breeze/core`
- 
- 
- 
 
 # Installation
 Since Cloud Breeze is a package, it could be installed using a composer command : 
@@ -72,4 +69,79 @@ The only action you need now, is to access to the home page of your project to s
 ## 8 - Settings Page
 ![Settings Page](https://user-images.githubusercontent.com/5265663/52856871-dba3b200-3125-11e9-9010-624ba4e83545.png)
 
-For more image check this [thread](https://github.com/Tendoo/cms/issues/7).
+# API
+This describe how the internal API works. 
+
+## Users Permissions & Roles
+A role allow you to group users whom should have the same attributes. For example, you could have a editor role on your system, if for example you're planning to create blog where such role will be needed. Once a role is created, you can assign permission to it. A permission is the capacity to perform an action on the system. Assigning a permissions is not the only step as you need to verify if a user has the permission to perform certains actoin through his role.
+
+### Creating Role
+Creating a role is possible thanks to the class `Tendoo\Core\Models\Role`. A role has a name, and a `namespace` which is more like a computer identifier for the entity. Let's consider the following example : 
+
+```php
+<?php
+use Tendoo\Core\Models\Role;
+
+$role   = new Role;
+$role->name   =   __( 'Super Man' );
+$role->namespace  = 'superman';
+$role->description  = ''; // whatever relevant to describe the role
+$role->save();
+
+```
+
+So far you've create a role and it's that simple. The second steps is to assign a Permission, but first of all, let's create some permissions
+### Creating a Permission
+A permission allow to perform an action on the system. You can manipulate the permissions using the model `Tendoo\Core\Models\Permission`. Let's then create some permissions for the Super Man role.
+
+```php
+use Tendoo\Core\Models\Permission;
+
+// ...
+$permission   = new Permission;
+$permission->name   =   __( 'Fly' );
+$permission->namespace  =   'fly';
+$permission->description  = ''; // once again whatever could be relevant.
+$permission->save();
+```
+
+### Assigning Permission to Role
+Now we've create permission, let's give Super Man the capacity to fly. It should be made using a static method
+on the Model class, taking as  first parameter, the namespace of the role and on second parameter the namespace of the permission. `Role::addPermissions( '[role namespace]', '[permission namespace]' );`. Let's have a look at a concret example
+
+```php
+use Tendoo\Core\Models\Role;
+
+// ... 
+Role::addPermissions( 'superman', 'fly' );
+```
+
+You can also add a bunch of permission by passing an array to the second parameter.
+
+```php
+use Tendoo\Core\Models\Role;
+
+// ...
+Role::addPermissions( 'superman', [ 'fly', 'eyelazer', 'frozen.breath' ]);
+```
+You should note there is not specific way to write permission namespace, however the convention is to not use spaces and to separate your strings with a dot "." or a hyphen "-". Here is an example "long.permission.namespace".
+
+### Removing Permissions from a Role
+While you can add permission usin the static method `addPermissions`, you should use `RemovePermissions` to remove permissions on a specific role. Here is the use case of that method.
+
+```php
+Role::RemovePermissions( 'superman', [ 'snap.infinite.gaunlet' ]);
+```
+Note here that the second parameter should always be an array.
+
+### Checking User Permission
+As said above, the verification of a permission is made on role through the User model. You can then check if the User class. Here is how you should proceed : 
+
+```php
+use Tendoo\Core\Models\User;
+
+if ( User::allowedTo( 'snap.infinite.gaunglet' ) ) {
+  /// you're not strong enough
+}
+```
+The user we're making this verification  over, is the one connected. This function won't then work if no users is currently connected.
