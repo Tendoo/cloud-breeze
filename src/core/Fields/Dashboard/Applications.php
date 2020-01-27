@@ -106,7 +106,7 @@ class Applications
         $Field->label           =   __( 'Callback' );
         $Field->placeholder     =   __( 'Callback URL' );
         $Field->description     =   __( 'Where the Auth Request should redirect once approuved.' );
-        $Field->validation      =   'url|required';
+        $Field->validation      =   '';
         return $Field;
     }
 

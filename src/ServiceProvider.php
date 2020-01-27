@@ -18,37 +18,39 @@ define( 'TENDOO_DB_VERSION', '1.12' );
 require_once TENDOO_ROOT . '/core/Services/Helper.php';
 require_once TENDOO_ROOT . '/core/Services/HelperFunctions.php';
 
-use Illuminate\Support\ServiceProvider as CoreServiceProvider;
-
-use Tendoo\Core\Console\Commands\DisableModule;
-use Tendoo\Core\Console\Commands\EnableModule;
-use Tendoo\Core\Console\Commands\GenerateModule;
-use Tendoo\Core\Console\Commands\ModuleController;
-use Tendoo\Core\Console\Commands\ModuleMigrations;
-use Tendoo\Core\Console\Commands\ModuleModels;
-use Tendoo\Core\Console\Commands\ModuleCrudGeneratorCommand;
-use Tendoo\Core\Console\Commands\ModuleSymlinkCommand;
-use Tendoo\Core\Console\Commands\OptionDelete;
-use Tendoo\Core\Console\Commands\OptionSet;
-use Tendoo\Core\Console\Commands\OptionGet;
-use Tendoo\Core\Console\Commands\RefreshCommand;
-use Tendoo\Core\Console\Commands\ResetCommand;
-use Tendoo\Core\Console\Commands\MakeModuleServiceProvider;
-use Tendoo\Core\Console\Commands\EnvEditorSetCommand;
-use Tendoo\Core\Console\Commands\EnvEditorGetCommand;
-use Tendoo\Core\Console\Commands\PublishCommand;
-use Tendoo\Core\Console\Commands\DeleteExpiredOptionsCommand;
+use Illuminate\Http\Request;
 
 use Tendoo\Core\Models\Role;
-use Tendoo\Core\Http\TendooKernel;
-use Tendoo\Core\Observers\RoleObserver;
-use Tendoo\Core\Http\Middleware\SafeURLMiddleware;
-
 use Illuminate\Routing\Router;
+use Tendoo\Core\Http\TendooKernel;
+use Illuminate\Support\Facades\URL;
 use Jackiedo\DotenvEditor\DotenvEditor;
-
+use Tendoo\Core\Observers\RoleObserver;
+use Tendoo\Core\Console\Commands\OptionGet;
+use Tendoo\Core\Console\Commands\OptionSet;
 use Orchestra\Parser\Xml\Reader as XmlReader;
+use Tendoo\Core\Console\Commands\EnableModule;
+use Tendoo\Core\Console\Commands\ModuleModels;
+use Tendoo\Core\Console\Commands\OptionDelete;
+use Tendoo\Core\Console\Commands\ResetCommand;
+use Tendoo\Core\Console\Commands\DisableModule;
+use Tendoo\Core\Console\Commands\GenerateModule;
+use Tendoo\Core\Console\Commands\PublishCommand;
+use Tendoo\Core\Console\Commands\RefreshCommand;
 use Orchestra\Parser\Xml\Document as XmlDocument;
+
+use Tendoo\Core\Console\Commands\ModuleController;
+use Tendoo\Core\Console\Commands\ModuleMigrations;
+use Tendoo\Core\Http\Middleware\SafeURLMiddleware;
+use Tendoo\Core\Console\Commands\EnvEditorGetCommand;
+
+use Tendoo\Core\Console\Commands\EnvEditorSetCommand;
+use Tendoo\Core\Console\Commands\ModuleSymlinkCommand;
+
+use Tendoo\Core\Console\Commands\MakeModuleServiceProvider;
+use Tendoo\Core\Console\Commands\ModuleCrudGeneratorCommand;
+use Tendoo\Core\Console\Commands\DeleteExpiredOptionsCommand;
+use Illuminate\Support\ServiceProvider as CoreServiceProvider;
 
 class ServiceProvider extends CoreServiceProvider
 {
@@ -59,6 +61,10 @@ class ServiceProvider extends CoreServiceProvider
      */
     public function boot( Router $router )
     {        
+        if ( Request::isSecure() ) {
+            URL::forceSchema('https');
+        }
+
         /**
          * Register DotEnv Editor
          */
@@ -97,7 +103,7 @@ class ServiceProvider extends CoreServiceProvider
         $router->aliasMiddleware( 'expect.logged', \Tendoo\Core\Http\Middleware\RedirectIfNotAuthenticated::class ); 
         $router->aliasMiddleware( 'can.register', \Tendoo\Core\Http\Middleware\CheckRegistrationStatus::class );
         $router->aliasMiddleware( 'check.migrations', \Tendoo\Core\Http\Middleware\CheckMigrations::class );
-        $router->aliasMiddleware( 'api.guard', \Tendoo\Core\Http\Middleware\LoadApi::class );
+        $router->aliasMiddleware( 'tendoo.guard', \Tendoo\Core\Http\Middleware\LoadApi::class );
         $router->aliasMiddleware( 'tendoo.auth', \Tendoo\Core\Http\Middleware\TendooAuth::class );
         $router->aliasMiddleware( 'tendoo.silent-auth', \Tendoo\Core\Http\Middleware\TendooSilentAuth::class );
         $router->aliasMiddleware( 'tendoo.guest', \Tendoo\Core\Http\Middleware\TendooGuest::class );

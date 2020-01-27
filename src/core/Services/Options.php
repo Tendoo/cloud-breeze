@@ -54,7 +54,6 @@ class Options
      * @param boolean force set
      * @return void
     **/
-
     public function set( $key, $value, $expiration = null )
     {
         $this->hasFound     =   false;
@@ -140,16 +139,17 @@ class Options
 
         $this->value    =   $default !== null ? $default : null;
 
-        $this->rawOptions->map( function( $option ) use ( $key ) {
+        $this->rawOptions->map( function( $option ) use ( $key, $default ) {
             if ( $option->key === $key ) {
                 if ( 
+                    ! empty( $option->value ) &&
                     is_string( $option->value ) && 
                     is_array( $json = json_decode( $option->value, true ) ) && 
                     ( json_last_error() == JSON_ERROR_NONE ) 
                 ) {
                     $this->value  =  $json;
                 } else {
-                    $this->value  =  $option->value;
+                    $this->value  =  empty( $option->value ) ? $default : $option->value;
                 }
             }
         });

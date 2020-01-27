@@ -32,7 +32,7 @@
     </app-root>
     <script>
         const tendoo    =   {
-            base_url                :   '{{ url("/api") }}/',
+            base_url                :   '{{ url( "/api" ) }}/',
             angular_url             :   `{{  asset( 'tendoo-public/tendoo-setup' ) }}/`
         }
     </script>

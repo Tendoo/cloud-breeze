@@ -94,6 +94,18 @@ class OauthController extends BaseController
      */
     public function postOauth( PostOauthRequest $request )
     {
+        /**
+         * Authenticating the application
+         */
+        $application    =   Application::where([
+            [ 'client_key',     '=', $request->input( 'client_key' )],
+            // [ 'client_secret',  '=', $request->input( 'client_secret' )] // should only be used on header
+        ])->first();
+
+        if( ! $application instanceof Application ) {
+            throw new Exception( 'Wrong application credentials are provided' );
+        }
+
         $attempt    =   Auth::attempt( $request->only( 'username', 'password' ) );
 
         if ( ! $attempt ) {
@@ -102,20 +114,8 @@ class OauthController extends BaseController
 
         $this->__checkOnCredentialsSuccessfull();
 
-        $user           =   User::find( Auth::user()->id );
-        $user->role     =   $user->role;
-
-        /**
-         * Authenticating the application
-         */
-        $application    =   Application::where([
-            [ 'client_key',     '=', $request->input( 'client_key' )],
-            [ 'client_secret',  '=', $request->input( 'client_secret' )]
-        ])->first();
-
-        if( ! $application instanceof Application ) {
-            throw new Exception( 'Wrong application credentials are provided' );
-        }
+        $user                   =   User::find( Auth::user()->id );
+        $user->role             =   $user->role;
 
         $action                 =   $request->input( 'action' );
         $callback_url           =   $request->input( 'callback_url' );
