@@ -11,7 +11,7 @@ define( 'TENDOO_ROOT', __DIR__ );
  * Updating this will force 
  * assets and database migration
  */
-define( 'TENDOO_VERSION', '5.0' );
+define( 'TENDOO_VERSION', '5.0.1' );
 define( 'TENDOO_ASSETS_VERSION', '1.8.1' );
 define( 'TENDOO_DB_VERSION', '1.12' );
 
