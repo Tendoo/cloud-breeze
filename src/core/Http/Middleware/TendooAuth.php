@@ -47,9 +47,9 @@ class TendooAuth
          * to redirect or return a proper json response
          */
         if ( $request->wantsJson() ) {
-            if ( $token === null ) {
+            if ( empty( $token ) ) {
                 throw new AccessDeniedException(
-                    __( 'Unable to proceed. The request is not valid.' )
+                    __( 'Unable to proceed. The provided token is not valid.' )
                 );
             }
     
@@ -57,7 +57,7 @@ class TendooAuth
              * if it's not trusty, the service 
              * should throw an error
              */
-            if ( $auth->authToken( $token ) ) {
+            if ( $auth->authToken( $token, $request->header( 'X-CLIENT-SECRET' ) ) ) {
                 return $next( $request );
             }
         } else {

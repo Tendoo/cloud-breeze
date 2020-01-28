@@ -249,7 +249,7 @@ class AuthService
      * @param string token
      * @return array AsyncResponse
      */
-    public function authTokenSilently( $token, $client_key )
+    public function authTokenSilently( $token, $client_secret )
     {
         $dateService        =   app()->make( DateService::class );
         $tokenKey           =   'Auth-Token::' . $token;
@@ -266,7 +266,7 @@ class AuthService
              * let's check if the authenticated application
              * is registered within the system
              */
-            $application    =   Application::where( 'client_key', $client_key )->first();
+            $application    =   Application::first();
 
             if ( ! $application instanceof Application ) {
                 throw new AccessDeniedException([
