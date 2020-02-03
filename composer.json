@@ -1,6 +1,5 @@
 {
     "name": "tendoo/cloud-breeze",
-    "version": "1.0.5",
     "description": "A bunch of useful features to start creating PWA with Laravel.",
     "license": "MIT",
     "authors": [

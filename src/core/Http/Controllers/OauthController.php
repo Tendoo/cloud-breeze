@@ -463,7 +463,7 @@ class OauthController extends BaseController
      */
     public function postNewPassword( $id, PasswordChangeRequest $request )
     {
-        return $this->authService->saveNewPassword( $id, $request->all() );
+        return $this->authService->saveNewPassword( $id, $request->input( 'authorization' ), $request->all() );
     }
 
     /**

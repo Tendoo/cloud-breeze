@@ -6,6 +6,7 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Tendoo\Core\Models\Role;
 use Tendoo\Core\Models\User;
+use Tendoo\Core\Facades\Curl;
 use Tendoo\Core\Facades\Hook;
 use Tendoo\Core\Models\Oauth;
 use Tendoo\Core\Services\Users;
@@ -443,7 +444,7 @@ class AuthService
          * checking reCaptcha and throwing or
          * not an error accordingly
          */
-        $this->checkReCaptcha();
+        $this->checkReCaptcha( $fields );
 
         return $this->lostPasswordUnsecured( $fields );
     }
@@ -522,8 +523,8 @@ class AuthService
             $result     =   Curl::to( 'https://www.google.com/recaptcha/api/siteverify' )
                 ->withData([ 
                     'secret'    =>  $this->options->get( 'recaptcha_site_secret' ),
-                    'response'  =>  $recaptcha ?: request()->input( 'recaptcha' ),
-                    'ip'        =>  $ip ?: request()->ip()
+                    'response'  =>  @$recaptcha ?: request()->input( 'recaptcha' ),
+                    'ip'        =>  @$ip ?: request()->ip()
                 ])
                 ->withContentType( 'application/x-www-form-urlencoded' )
                 ->asJsonResponse()
@@ -586,7 +587,7 @@ class AuthService
      * @param array fields
      * @return array result
      */
-    public function saveNewPasswordUnsecured( $fields )
+    public function saveNewPasswordUnsecured( $id, $code, $fields )
     {
         $user       =   User::findOrFail( $fields[ 'user' ] );
 

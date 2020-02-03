@@ -316,7 +316,7 @@ class Modules
             /**
              * get ignored manifest
              */
-            $manifest       =   false;
+            $manifest           =   false;
             if ( Storage::disk( 'modules' )->exists( ucwords( $namespace ) . DIRECTORY_SEPARATOR . 'manifest.json' ) ) {
                 $manifest       =   json_decode( Storage::disk( 'modules' )->get( ucwords( $namespace ) . DIRECTORY_SEPARATOR . 'manifest.json' ), true );
             }
