@@ -61,10 +61,6 @@ class ServiceProvider extends CoreServiceProvider
      */
     public function boot( Router $router )
     {        
-        if ( request()->isSecure() ) {
-            URL::forceSchema('https');
-        }
-
         /**
          * Register DotEnv Editor
          */
