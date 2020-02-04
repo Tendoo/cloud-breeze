@@ -57,14 +57,14 @@ export class DatabaseComponent implements OnInit {
                 description: 'provide the database name',
                 type: 'text',
                 validation: 'required',
-                value: 'laravel-ng'
+                value: 'cloud-breeze'
             }, {
                 appearance: 'fill',
                 name: 'db_prefix',
                 label: 'Tables Prefix',
                 description: 'provide a unique table prefix',
                 type: 'text',
-                value: 'tendoo_'
+                value: 'cb_'
             }
         ];
 

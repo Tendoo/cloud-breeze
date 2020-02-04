@@ -65,4 +65,64 @@ class SetupFields
 
         return $Fields;
     }
+
+    public static function databaseDetails()
+    {
+        $Fields                 =   [];
+
+        // Database
+        $HostName  =   new \StdClass;
+        $HostName->name             =   'host';
+        $HostName->type             =   'text';
+        $HostName->label            =   __( 'Host' );
+        $HostName->placeholder      =   __( 'Host' );
+        $HostName->description      =   __( 'provide the host anme.' );
+        $HostName->value            =   'localhost';
+        $HostName->validation       =   'required|min:5';
+        $Fields[]                   =   $Database;
+
+        // Database
+        $Database  =   new \StdClass;
+        $Database->name             =   'database';
+        $Database->type             =   'text';
+        $Database->label            =   __( 'Database' );
+        $Database->placeholder      =   __( 'Database' );
+        $Database->description      =   __( 'provide the database name.' );
+        $Database->value            =   'cloud-breeze';
+        $Database->validation       =   'required|min:5';
+        $Fields[]                   =   $Database;
+
+        // Username
+        $Username  =   new \StdClass;
+        $Username->name             =   'username';
+        $Username->type             =   'text';
+        $Username->label            =   __( 'Username' );
+        $Username->placeholder      =   __( 'Username' );
+        $Username->description      =   __( 'provide username having access to the database.' );
+        $Username->value            =   __( 'root' );
+        $Username->validation       =   'required|min:5';
+        $Fields[]                   =   $Username;
+
+        // Password
+        $Password  =   new \StdClass;
+        $Password->name             =   'password';
+        $Password->type             =   'text';
+        $Password->label            =   __( 'Password' );
+        $Password->placeholder      =   __( 'Password' );
+        $Password->description      =   __( 'provide username having access to the database.' );
+        $Password->value            =   '';
+        $Password->validation       =   'required|min:5';
+        $Fields[]                   =   $Password;
+
+        // Password
+        $DbPrefix  =   new \StdClass;
+        $DbPrefix->name             =   'db_prefix';
+        $DbPrefix->type             =   'text';
+        $DbPrefix->label            =   __( 'DB Prefix' );
+        $DbPrefix->placeholder      =   __( 'DB Prefix' );
+        $DbPrefix->description      =   __( 'provide the database prefix.' );
+        $DbPrefix->value            =   'cb_';
+        $DbPrefix->validation       =   'required|min:5';
+        $Fields[]                   =   $Password;
+    }
 }

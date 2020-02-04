@@ -115,6 +115,7 @@ class Setup
         /**
          * Let's create the tables. The DB is supposed to be set
          */
+        Artisan::call( 'config:clear' );
         Artisan::call( 'migrate:fresh' );
         
         /**
