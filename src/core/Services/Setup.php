@@ -33,7 +33,7 @@ class Setup
             'unix_socket'    =>      env('DB_SOCKET', ''),
             'charset'        =>      'utf8',
             'collation'      =>      'utf8_unicode_ci',
-            'prefix'         =>      $request->input( 'dbprefix' ),
+            'prefix'         =>      $request->input( 'db_prefix' ),
             'strict'         =>      true,
             'engine'         =>      null,
         ]]);
