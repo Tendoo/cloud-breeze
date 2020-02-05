@@ -92,8 +92,8 @@ config([
  * Define the table prefix
  */
 config([
-    'database.connections.mysql.prefix'     =>  env( 'DB_TABLE_PREFIX', '' ),
-    'database.connections.sqlite.prefix'    =>  env( 'DB_TABLE_PREFIX', '' ),
-    'database.connections.pgsql.prefix'     =>  env( 'DB_TABLE_PREFIX', '' ),
-    'database.connections.sqlsrv.prefix'    =>  env( 'DB_TABLE_PREFIX', '' ),
+    'database.connections.mysql.prefix'     =>  env( 'DB_PREFIX', '' ),
+    'database.connections.sqlite.prefix'    =>  env( 'DB_PREFIX', '' ),
+    'database.connections.pgsql.prefix'     =>  env( 'DB_PREFIX', '' ),
+    'database.connections.sqlsrv.prefix'    =>  env( 'DB_PREFIX', '' ),
 ]);
