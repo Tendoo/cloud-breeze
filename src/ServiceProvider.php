@@ -141,6 +141,10 @@ class ServiceProvider extends CoreServiceProvider
             DeleteExpiredOptionsCommand::class,
         ]);
 
+        if ( request()->secure() || request()->server( 'HTTP_X_FORWARDED_PROTO' ) === 'https' ) {
+            $this->app[ 'request' ]->server->set( 'HTTPS', true );
+        }
+
         /**
          * Load Migrations
          */
