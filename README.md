@@ -62,15 +62,15 @@ You need to update your filesystems.php file available on the config directory w
         'driver'    =>  'local',
         'root'      =>  base_path( 'modules' )
     ],
-
+    
     'cb-database-updates' =>   [
         'driver'    =>  'local',
-        'root'      =>  base_path( 'vendor' . DIRECTORY_SEPARATOR . 'tendoo' . DIRECTORY_SEPARATOR . 'cloud-breeze' . DIRECTORY_SEPARATOR . 'database' . DIRECTORY_SEPARATOR . 'updates' )
+        'root'      =>  base_path( 'vendor' . DIRECTORY_SEPARATOR . 'tendoo' . DIRECTORY_SEPARATOR . 'cloud-breeze' . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR . 'database' . DIRECTORY_SEPARATOR . 'updates' )
     ],
 
     'cb-dist' =>   [
         'driver'    =>  'local',
-        'root'      =>  base_path( 'vendor' . DIRECTORY_SEPARATOR . 'tendoo' . DIRECTORY_SEPARATOR . 'cloud-breeze' . DIRECTORY_SEPARATOR . 'public' . DIRECTORY_SEPARATOR . 'dist' )
+        'root'      =>  base_path( 'vendor' . DIRECTORY_SEPARATOR . 'tendoo' . DIRECTORY_SEPARATOR . 'cloud-breeze' . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR . 'public' . DIRECTORY_SEPARATOR . 'dist' )
     ],
 
     'cb-public' =>   [
@@ -80,12 +80,12 @@ You need to update your filesystems.php file available on the config directory w
 
     'cb-config' =>   [
         'driver'    =>  'local',
-        'root'      =>  base_path( 'vendor' . DIRECTORY_SEPARATOR . 'tendoo' . DIRECTORY_SEPARATOR . 'cloud-breeze' . DIRECTORY_SEPARATOR . 'config' )
+        'root'      =>  base_path( 'vendor' . DIRECTORY_SEPARATOR . 'tendoo' . DIRECTORY_SEPARATOR . 'cloud-breeze' . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR . 'config' )
     ],
 
     'cb-database-migrations' =>   [
         'driver'    =>  'local',
-        'root'      =>  base_path( 'vendor' . DIRECTORY_SEPARATOR . 'tendoo' . DIRECTORY_SEPARATOR . 'cloud-breeze' . DIRECTORY_SEPARATOR . 'database' . DIRECTORY_SEPARATOR . 'migrations' )
+        'root'      =>  base_path( 'vendor' . DIRECTORY_SEPARATOR . 'tendoo' . DIRECTORY_SEPARATOR . 'cloud-breeze' . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR . 'database' . DIRECTORY_SEPARATOR . 'migrations' )
     ],
 
     'cb-temp-core' =>   [
