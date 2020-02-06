@@ -53,55 +53,55 @@ You need to update your filesystems.php file available on the config directory w
 'disks' => [
   // ...
 
-  'cb-root'       =>  [
-      'driver'    =>  'local',
-      'root'      =>  base_path()
-  ],
+    'cb-root'       =>  [
+        'driver'    =>  'local',
+        'root'      =>  base_path()
+    ],
 
-  'cb-modules'   =>  [
-      'driver'    =>  'local',
-      'root'      =>  base_path() . 'modules'
-  ],
-  
-  'cb-database-updates' =>   [
-      'driver'    =>  'local',
-      'root'      =>  base_path() . 'vendor' . DIRECTORY_SEPARATOR . 'tendoo' . DIRECTORY_SEPARATOR . 'cloud-breeze' . DIRECTORY_SEPARATOR . 'database' . DIRECTORY_SEPARATOR . 'updates',
-  ],
+    'cb-modules'   =>  [
+        'driver'    =>  'local',
+        'root'      =>  base_path( 'modules' )
+    ],
 
-  'cb-dist' =>   [
-      'driver'    =>  'local',
-      'root'      =>  base_path() . 'vendor' . DIRECTORY_SEPARATOR . 'tendoo' . DIRECTORY_SEPARATOR . 'cloud-breeze' . DIRECTORY_SEPARATOR . 'public' . DIRECTORY_SEPARATOR . 'dist',
-  ],
+    'cb-database-updates' =>   [
+        'driver'    =>  'local',
+        'root'      =>  base_path( 'vendor' . DIRECTORY_SEPARATOR . 'tendoo' . DIRECTORY_SEPARATOR . 'cloud-breeze' . DIRECTORY_SEPARATOR . 'database' . DIRECTORY_SEPARATOR . 'updates' )
+    ],
 
-  'cb-public' =>   [
-      'driver'    =>  'local',
-      'root'      =>  base_path( 'public' ),
-  ],
+    'cb-dist' =>   [
+        'driver'    =>  'local',
+        'root'      =>  base_path( 'vendor' . DIRECTORY_SEPARATOR . 'tendoo' . DIRECTORY_SEPARATOR . 'cloud-breeze' . DIRECTORY_SEPARATOR . 'public' . DIRECTORY_SEPARATOR . 'dist' )
+    ],
 
-  'cb-config' =>   [
-      'driver'    =>  'local',
-      'root'      =>  base_path() . 'vendor' . DIRECTORY_SEPARATOR . 'tendoo' . DIRECTORY_SEPARATOR . 'cloud-breeze' . DIRECTORY_SEPARATOR . 'config',
-  ],
+    'cb-public' =>   [
+        'driver'    =>  'local',
+        'root'      =>  base_path( 'public' ),
+    ],
 
-  'cb-database-migrations' =>   [
-      'driver'    =>  'local',
-      'root'      =>  base_path() . 'vendor' . DIRECTORY_SEPARATOR . 'tendoo' . DIRECTORY_SEPARATOR . 'cloud-breeze' . DIRECTORY_SEPARATOR . 'database' . DIRECTORY_SEPARATOR . 'migrations', 
-  ],
+    'cb-config' =>   [
+        'driver'    =>  'local',
+        'root'      =>  base_path( 'vendor' . DIRECTORY_SEPARATOR . 'tendoo' . DIRECTORY_SEPARATOR . 'cloud-breeze' . DIRECTORY_SEPARATOR . 'config' )
+    ],
 
-  'cb-temp-core' =>   [
-      'driver'    =>  'local',
-      'root'      =>  base_path(),
-  ]
-  ,
-  'cb-laravel-config' =>   [
-      'driver'    =>  'local',
-      'root'      =>  base_path( 'config' ),
-  ],
+    'cb-database-migrations' =>   [
+        'driver'    =>  'local',
+        'root'      =>  base_path( 'vendor' . DIRECTORY_SEPARATOR . 'tendoo' . DIRECTORY_SEPARATOR . 'cloud-breeze' . DIRECTORY_SEPARATOR . 'database' . DIRECTORY_SEPARATOR . 'migrations' )
+    ],
 
-  'cb-temp-modules' =>   [
-      'driver'    =>  'local',
-      'root'      =>  base_path( 'modules' ),
-  ],
+    'cb-temp-core' =>   [
+        'driver'    =>  'local',
+        'root'      =>  base_path(),
+    ]
+    ,
+    'cb-laravel-config' =>   [
+        'driver'    =>  'local',
+        'root'      =>  base_path( 'config' ),
+    ],
+
+    'cb-temp-modules' =>   [
+        'driver'    =>  'local',
+        'root'      =>  base_path( 'modules' ),
+    ],
 
   // ...
 ],
