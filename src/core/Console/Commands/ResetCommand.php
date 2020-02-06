@@ -90,7 +90,7 @@ class ResetCommand extends Command
             DotEnvEditor::deleteKey( 'DB_TABLE_PREFIX' );
             DotEnvEditor::deleteKey( 'DB_PORT' );
             DotEnvEditor::deleteKey( 'DB_CONNECTION' );
-            DotEnvEditor::deleteKey( 'TENDOO_VERSION' );
+            DotEnvEditor::deleteKey( 'CB_VERSION' );
             DotenvEditor::save();
 
             $this->info( 'The system has been reset. You can now make a fresh installation.' );

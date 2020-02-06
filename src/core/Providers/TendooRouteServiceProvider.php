@@ -41,11 +41,11 @@ class TendooRouteServiceProvider extends ServiceProvider
         app()->booted( function() {
             Route::middleware( 'web' ) // <= watch this out
             ->namespace( $this->namespace )
-            ->group( TENDOO_ROUTES_PATH . DIRECTORY_SEPARATOR . 'web.php' );
+            ->group( CB_ROUTES_PATH . DIRECTORY_SEPARATOR . 'web.php' );
         });
 
         Route::middleware( 'tendoo.cors' )->namespace( $this->namespace )
-            ->group( TENDOO_ROUTES_PATH . DIRECTORY_SEPARATOR . 'api.php' );
+            ->group( CB_ROUTES_PATH . DIRECTORY_SEPARATOR . 'api.php' );
 
         $this->mapModulesRoutes();
     }
@@ -69,7 +69,7 @@ class TendooRouteServiceProvider extends ServiceProvider
              */
 
             // include module controllers
-            $controllers    =   Storage::disk( 'modules' )->files( $module[ 'controllers-relativePath' ] );
+            $controllers    =   Storage::disk( 'cb-modules' )->files( $module[ 'controllers-relativePath' ] );
             foreach( $controllers as $controller ) {
                 include_once( config( 'tendoo.modules_path' ) . '/' . $controller );
             }

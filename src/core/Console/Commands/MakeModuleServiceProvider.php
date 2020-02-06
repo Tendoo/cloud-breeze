@@ -45,8 +45,8 @@ class MakeModuleServiceProvider extends Command
                 if ( $module = $modules->get( $this->argument( 'namespace') ) ) {
                     $fileName   =   ucwords( Str::camel( $this->argument( 'name' ) ) );
                     $filePath   =   $module[ 'namespace' ] . DIRECTORY_SEPARATOR . 'Providers' . DIRECTORY_SEPARATOR . $fileName . '.php';
-                    if ( ! Storage::disk( 'modules' )->exists( $filePath ) ) {
-                        Storage::disk( 'modules' )->put( 
+                    if ( ! Storage::disk( 'cb-modules' )->exists( $filePath ) ) {
+                        Storage::disk( 'cb-modules' )->put( 
                             $filePath,
                             view( 'tendoo::generate.modules.providers', [
                                 'module'    =>  $module,

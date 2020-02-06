@@ -60,10 +60,8 @@ class TendooAppServiceProvider extends ServiceProvider
          * Let's check if the .env exists 
          * if not. Let's create it. since it's needed
          */
-        // dd( app()->config[ 'filesystems' ][ 'disks' ] );
-        // dd( Storage::disk( 'root' )->exists( '.env' ) );
-        if ( ! Storage::disk( 'root' )->exists( '.env' ) ) {
-            Storage::disk( 'root' )->put( '.env', view( 'tendoo::generate.env' ) );            
+        if ( ! Storage::disk( 'cb-root' )->exists( '.env' ) ) {
+            Storage::disk( 'cb-root' )->put( '.env', view( 'tendoo::generate.env' ) );            
             return redirect( url()->current() )->send();
         }
         

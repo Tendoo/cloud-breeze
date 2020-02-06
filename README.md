@@ -34,6 +34,8 @@ Cloud Breeze ensure you to have a moduleable system with (obviously) modules, th
  `npm i @cloud-breeze/core`
 
 # Installation
+
+## Download Package
 Since Cloud Breeze is a package, it could be installed using a composer command : 
 
 `composer require tendoo/cms`
@@ -43,6 +45,67 @@ Then, you need to publish the assets of Cloud Breeze by running the following co
 `php artisan tendoo:publish`
 
 The only action you need now, is to access to the home page of your project to start using it.
+
+## Create Storage Disks
+You need to update your filesystems.php file available on the config directory with the following changes : 
+
+```php
+'disks' => [
+  // ...
+
+  'cb-root'       =>  [
+      'driver'    =>  'local',
+      'root'      =>  base_path()
+  ],
+
+  'cb-modules'   =>  [
+      'driver'    =>  'local',
+      'root'      =>  base_path() . 'modules'
+  ],
+  
+  'cb-database-updates' =>   [
+      'driver'    =>  'local',
+      'root'      =>  base_path() . 'vendor' . DIRECTORY_SEPARATOR . 'tendoo' . DIRECTORY_SEPARATOR . 'cloud-breeze' . DIRECTORY_SEPARATOR . 'database' . DIRECTORY_SEPARATOR . 'updates',
+  ],
+
+  'cb-dist' =>   [
+      'driver'    =>  'local',
+      'root'      =>  base_path() . 'vendor' . DIRECTORY_SEPARATOR . 'tendoo' . DIRECTORY_SEPARATOR . 'cloud-breeze' . DIRECTORY_SEPARATOR . 'public' . DIRECTORY_SEPARATOR . 'dist',
+  ],
+
+  'cb-public' =>   [
+      'driver'    =>  'local',
+      'root'      =>  base_path( 'public' ),
+  ],
+
+  'cb-config' =>   [
+      'driver'    =>  'local',
+      'root'      =>  base_path() . 'vendor' . DIRECTORY_SEPARATOR . 'tendoo' . DIRECTORY_SEPARATOR . 'cloud-breeze' . DIRECTORY_SEPARATOR . 'config',
+  ],
+
+  'cb-database-migrations' =>   [
+      'driver'    =>  'local',
+      'root'      =>  base_path() . 'vendor' . DIRECTORY_SEPARATOR . 'tendoo' . DIRECTORY_SEPARATOR . 'cloud-breeze' . DIRECTORY_SEPARATOR . 'database' . DIRECTORY_SEPARATOR . 'migrations', 
+  ],
+
+  'cb-temp-core' =>   [
+      'driver'    =>  'local',
+      'root'      =>  base_path(),
+  ]
+  ,
+  'cb-laravel-config' =>   [
+      'driver'    =>  'local',
+      'root'      =>  base_path( 'config' ),
+  ],
+
+  'cb-temp-modules' =>   [
+      'driver'    =>  'local',
+      'root'      =>  base_path( 'modules' ),
+  ],
+
+  // ...
+],
+```
 
 # How doest that looks like ?
 ## 1 - Installation Welcome page

@@ -9,8 +9,8 @@ class TendooModule
     {
         $this->modules  =   app()->make( 'Tendoo\Core\Services\Modules' );
         $this->module   =   $this->modules->asFile( $file );
-        $eventFiles     =   Storage::disk( 'modules' )->files( ucwords( $this->module[ 'namespace' ] ) . '\Events' );
-        $fieldsFiles    =   Storage::disk( 'modules' )->files( ucwords( $this->module[ 'namespace' ] ) . '\Fields' );
+        $eventFiles     =   Storage::disk( 'cb-modules' )->files( ucwords( $this->module[ 'namespace' ] ) . '\Events' );
+        $fieldsFiles    =   Storage::disk( 'cb-modules' )->files( ucwords( $this->module[ 'namespace' ] ) . '\Fields' );
         
         // including events files
         foreach( $eventFiles as $file ) {

@@ -17,7 +17,7 @@ class AppNotInstalled
      */
     public function handle($request, Closure $next)
     {
-        if ( DotenvEditor::keyExists( 'TENDOO_VERSION' ) ) {
+        if ( DotenvEditor::keyExists( 'CB_VERSION' ) ) {
             throw new TendooInstalledException( __( 'Tendoo CMS has already been installed' ) );
         }
         return $next($request);

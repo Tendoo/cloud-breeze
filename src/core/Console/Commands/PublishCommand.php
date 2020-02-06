@@ -41,23 +41,23 @@ class PublishCommand extends Command
         /**
          * moving dist
          */
-        $files  =   Storage::disk( 'tendoo-dist' )->allFiles();
+        $files  =   Storage::disk( 'cb-dist' )->allFiles();
 
-        Storage::disk( 'laravel-public' )->deleteDirectory( 'tendoo' );
-        Storage::disk( 'laravel-public' )->makeDirectory( 'tendoo' );
+        Storage::disk( 'cb-public' )->deleteDirectory( 'tendoo' );
+        Storage::disk( 'cb-public' )->makeDirectory( 'tendoo' );
 
         foreach( $files as $file ) {
-            Storage::disk( 'laravel-public' )->put( 'tendoo-public/' . $file, Storage::disk( 'tendoo-dist' )->get( $file ) );
+            Storage::disk( 'cb-public' )->put( 'tendoo-public/' . $file, Storage::disk( 'cb-dist' )->get( $file ) );
         }
 
 
         /**
          * moving config
          */
-        $files  =   Storage::disk( 'tendoo-config' )->allFiles();
+        $files  =   Storage::disk( 'cb-config' )->allFiles();
         
         foreach( $files as $file ) {
-            Storage::disk( 'config' )->put( $file, Storage::disk( 'tendoo-config' )->get( $file ) );
+            Storage::disk( 'cb-laravel-config' )->put( $file, Storage::disk( 'cb-config' )->get( $file ) );
         }
 
         $this->info( __( 'Tendoo Assets has been published...' ) );

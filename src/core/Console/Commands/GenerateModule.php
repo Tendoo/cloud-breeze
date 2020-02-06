@@ -84,29 +84,29 @@ class GenerateModule extends Command
     public function generateModule()
     {
         if ( ! $this->modules->get( $this->module[ 'namespace' ] ) ) {
-            Storage::disk( 'modules' )->makeDirectory( $this->module[ 'namespace' ] );
+            Storage::disk( 'cb-modules' )->makeDirectory( $this->module[ 'namespace' ] );
             
             /**
              * Geneate Internal Directories
              */
             foreach([ 'Config', 'Crud', 'Events', 'Mails', 'Fields', 'Facades', 'Http', 'Migrations', 'Resources', 'Routes', 'Models', 'Providers', 'Services', 'Public' ] as $folder ) {
-                Storage::disk( 'modules' )->makeDirectory( $this->module[ 'namespace' ] . DIRECTORY_SEPARATOR . $folder );
+                Storage::disk( 'cb-modules' )->makeDirectory( $this->module[ 'namespace' ] . DIRECTORY_SEPARATOR . $folder );
             }
 
             /**
              * Generate Sub Folders
              */
-            Storage::disk( 'modules' )->makeDirectory( $this->module[ 'namespace' ] . DIRECTORY_SEPARATOR . 'Http' . DIRECTORY_SEPARATOR . 'Controllers' );
-            Storage::disk( 'modules' )->makeDirectory( $this->module[ 'namespace' ] . DIRECTORY_SEPARATOR . 'Migrations' . DIRECTORY_SEPARATOR . '1.0' );
-            Storage::disk( 'modules' )->makeDirectory( $this->module[ 'namespace' ] . DIRECTORY_SEPARATOR . 'Resources' . DIRECTORY_SEPARATOR . 'Views' );
+            Storage::disk( 'cb-modules' )->makeDirectory( $this->module[ 'namespace' ] . DIRECTORY_SEPARATOR . 'Http' . DIRECTORY_SEPARATOR . 'Controllers' );
+            Storage::disk( 'cb-modules' )->makeDirectory( $this->module[ 'namespace' ] . DIRECTORY_SEPARATOR . 'Migrations' . DIRECTORY_SEPARATOR . '1.0' );
+            Storage::disk( 'cb-modules' )->makeDirectory( $this->module[ 'namespace' ] . DIRECTORY_SEPARATOR . 'Resources' . DIRECTORY_SEPARATOR . 'Views' );
 
             /**
              * Generate Files
              */
-            Storage::disk( 'modules' )->put( $this->module[ 'namespace' ] . DIRECTORY_SEPARATOR . 'config.xml', $this->streamContent( 'config' ) );
-            Storage::disk( 'modules' )->put( $this->module[ 'namespace' ] . DIRECTORY_SEPARATOR . $this->module[ 'namespace' ] . 'Module.php', $this->streamContent( 'main' ) );
-            Storage::disk( 'modules' )->put( $this->module[ 'namespace' ] . DIRECTORY_SEPARATOR . 'Events' . DIRECTORY_SEPARATOR . $this->module[ 'namespace' ] . 'Event.php', $this->streamContent( 'event' ) );
-            Storage::disk( 'modules' )->put( $this->module[ 'namespace' ] . DIRECTORY_SEPARATOR . 'Public' . DIRECTORY_SEPARATOR . 'index.html', '<h1>Silence is golden !</h1>' );
+            Storage::disk( 'cb-modules' )->put( $this->module[ 'namespace' ] . DIRECTORY_SEPARATOR . 'config.xml', $this->streamContent( 'config' ) );
+            Storage::disk( 'cb-modules' )->put( $this->module[ 'namespace' ] . DIRECTORY_SEPARATOR . $this->module[ 'namespace' ] . 'Module.php', $this->streamContent( 'main' ) );
+            Storage::disk( 'cb-modules' )->put( $this->module[ 'namespace' ] . DIRECTORY_SEPARATOR . 'Events' . DIRECTORY_SEPARATOR . $this->module[ 'namespace' ] . 'Event.php', $this->streamContent( 'event' ) );
+            Storage::disk( 'cb-modules' )->put( $this->module[ 'namespace' ] . DIRECTORY_SEPARATOR . 'Public' . DIRECTORY_SEPARATOR . 'index.html', '<h1>Silence is golden !</h1>' );
 
             /**
              * Generate Module Public Folder
@@ -115,7 +115,7 @@ class GenerateModule extends Command
             $target     =   base_path( 'modules/' . $this->module[ 'namespace' ] . '/Public' );
 
             if ( ! \windows_os() ) {
-                Storage::disk( 'laravel-public' )->makeDirectory( 'modules/' . $this->module[ 'namespace' ] );
+                Storage::disk( 'cb-public' )->makeDirectory( 'modules/' . $this->module[ 'namespace' ] );
                 $link           =   \symlink( $target, public_path( '/modules/' . strtolower( $this->module[ 'namespace' ] ) ) );
             } else {
                 $mode       =   'J';

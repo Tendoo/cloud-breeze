@@ -13,7 +13,7 @@ trait App {
     static function AppIsInstalled()
     {
         $env    =   DotenvEditor::getKeys();
-        return @$env[ 'TENDOO_VERSION' ][ 'value' ] !== null;
+        return @$env[ 'CB_VERSION' ][ 'value' ] !== null;
     }
 
     /**

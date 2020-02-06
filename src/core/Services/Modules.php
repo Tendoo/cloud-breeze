@@ -43,8 +43,8 @@ class Modules
          */
         if ( $dir == null ) {
             // get all modules folders
-            $directories  =   Storage::disk( 'modules' )->directories();
-    
+            $directories  =   Storage::disk( 'cb-modules' )->directories();
+ 
             // get directories
             foreach( $directories as $dir ) {
                 $this->__init( $dir );
@@ -64,7 +64,7 @@ class Modules
         /**
          * Loading files from module directory
          */
-        $rawfiles  =   Storage::disk( 'modules' )->files( $dir );
+        $rawfiles  =   Storage::disk( 'cb-modules' )->files( $dir );
         
         /**
          * Just retreive the files name
@@ -138,7 +138,7 @@ class Modules
                     /**
                      * register module service provider
                      */
-                    $servicesProviders   =   Storage::disk( 'modules' )->allFiles( $config[ 'namespace' ] . DIRECTORY_SEPARATOR . 'Providers' );
+                    $servicesProviders   =   Storage::disk( 'cb-modules' )->allFiles( $config[ 'namespace' ] . DIRECTORY_SEPARATOR . 'Providers' );
 
                     foreach( $servicesProviders as $service ) {
                         /**
@@ -172,7 +172,7 @@ class Modules
                         /**
                          * Load Module models
                          */
-                        $files   =   Storage::disk( 'modules' )->allFiles( $config[ 'namespace' ] . DIRECTORY_SEPARATOR . $folder );
+                        $files   =   Storage::disk( 'cb-modules' )->allFiles( $config[ 'namespace' ] . DIRECTORY_SEPARATOR . $folder );
 
                         foreach( $files as $file ) {
                             /**
@@ -188,7 +188,7 @@ class Modules
                     /**
                      * Load Module Config
                      */
-                    $files   =   Storage::disk( 'modules' )->allFiles( $config[ 'namespace' ] . DIRECTORY_SEPARATOR . 'Config' );
+                    $files   =   Storage::disk( 'cb-modules' )->allFiles( $config[ 'namespace' ] . DIRECTORY_SEPARATOR . 'Config' );
                     $moduleConfig       =   [];
 
                     foreach( $files as $file ) {
@@ -223,7 +223,7 @@ class Modules
          * Required to autoload module components
          */
 
-        include_once( TENDOO_ROOT . DIRECTORY_SEPARATOR .'core' . DIRECTORY_SEPARATOR . 'Services' . DIRECTORY_SEPARATOR . 'TendooModule.php' );
+        include_once( CB_ROOT . DIRECTORY_SEPARATOR .'core' . DIRECTORY_SEPARATOR . 'Services' . DIRECTORY_SEPARATOR . 'TendooModule.php' );
 
         foreach( $this->modules as $module ) {
             if ( ! $module[ 'enabled' ] ) {
@@ -311,14 +311,14 @@ class Modules
             }
 
             $moduleDir      =   dirname( $module[ 'index-file' ] );
-            $files          =   Storage::disk( 'modules' )->allFiles( ucwords( $namespace ) );
+            $files          =   Storage::disk( 'cb-modules' )->allFiles( ucwords( $namespace ) );
 
             /**
              * get ignored manifest
              */
             $manifest           =   false;
-            if ( Storage::disk( 'modules' )->exists( ucwords( $namespace ) . DIRECTORY_SEPARATOR . 'manifest.json' ) ) {
-                $manifest       =   json_decode( Storage::disk( 'modules' )->get( ucwords( $namespace ) . DIRECTORY_SEPARATOR . 'manifest.json' ), true );
+            if ( Storage::disk( 'cb-modules' )->exists( ucwords( $namespace ) . DIRECTORY_SEPARATOR . 'manifest.json' ) ) {
+                $manifest       =   json_decode( Storage::disk( 'cb-modules' )->get( ucwords( $namespace ) . DIRECTORY_SEPARATOR . 'manifest.json' ), true );
             }
 
             /**
@@ -378,7 +378,7 @@ class Modules
     public function upload( $file )
     {
         // move file to temp directory
-        $path   =   Storage::disk( 'temp-modules' )->putFile( 
+        $path   =   Storage::disk( 'cb-temp-modules' )->putFile( 
             null, 
             $file 
         );
@@ -396,7 +396,7 @@ class Modules
          */
         unlink( $fullPath );
 
-        $directories    =   Storage::disk( 'temp-modules' )->directories();
+        $directories    =   Storage::disk( 'cb-temp-modules' )->directories();
         $module         =   [];
         
         /**
@@ -404,7 +404,7 @@ class Modules
          */
         foreach( $directories as $dir ) {
             // browse directory files
-            $rawFiles          =   Storage::disk( 'temp-modules' )->allFiles( $dir );
+            $rawFiles          =   Storage::disk( 'cb-temp-modules' )->allFiles( $dir );
 
             /**
              * Just retreive the files name
@@ -419,7 +419,7 @@ class Modules
                 $file   =   $dir . DIRECTORY_SEPARATOR . 'config.xml';
 
                 $xml    =   new \SimpleXMLElement( 
-                    Storage::disk( 'temp-modules' )->get( $file )
+                    Storage::disk( 'cb-temp-modules' )->get( $file )
                 );
 
                 if ( 
@@ -468,7 +468,7 @@ class Modules
                  * @step 1 : creating host folder
                  * No errors has been found, We\'ll install the module then
                  */
-                Storage::disk( 'modules' )->makeDirectory( $moduleNamespace );
+                Storage::disk( 'cb-modules' )->makeDirectory( $moduleNamespace );
 
                 /**
                  * @step 2 : move files
@@ -476,9 +476,9 @@ class Modules
                  * and create symlink for the assets
                  */
                 foreach( $rawFiles as $file ) {
-                    Storage::disk( 'modules' )->put( 
+                    Storage::disk( 'cb-modules' )->put( 
                         $file,
-                        Storage::disk( 'temp-modules' )->get( $file )
+                        Storage::disk( 'cb-temp-modules' )->get( $file )
                     );
 
                     /**
@@ -516,20 +516,20 @@ class Modules
      */
     public function createSymLink( $moduleNamespace )
     {
-        Storage::disk( 'laravel-public' )->makeDirectory( 'modules' );
+        Storage::disk( 'cb-public' )->makeDirectory( 'modules' );
 
         /**
          * checks if a public directory exists and create a 
          * link for that directory
          */
         if ( 
-            Storage::disk( 'modules' )->exists( $moduleNamespace . DIRECTORY_SEPARATOR . 'Public' ) && 
+            Storage::disk( 'cb-modules' )->exists( $moduleNamespace . DIRECTORY_SEPARATOR . 'Public' ) && 
             ! is_link( base_path( 'public' ) . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . strtolower( $moduleNamespace ) ) 
         ) {
             $target     =   base_path( 'modules/' . $moduleNamespace . '/Public' );
 
             if ( ! \windows_os() ) {
-                Storage::disk( 'laravel-public' )->makeDirectory( 'modules/' . $moduleNamespace );
+                Storage::disk( 'cb-public' )->makeDirectory( 'modules/' . $moduleNamespace );
                 $link           =   @\symlink( $target, public_path( '/modules/' . strtolower( $moduleNamespace ) ) );
             } else {
                 $mode       =   'J';
@@ -631,19 +631,19 @@ class Modules
          * We should then delete everything and return an error.
          */
 
-        $directories  =   Storage::disk( 'temp-modules' )->allDirectories();
+        $directories  =   Storage::disk( 'cb-temp-modules' )->allDirectories();
 
         foreach( $directories as $directory ) {
-            Storage::disk( 'temp-modules' )->deleteDirectory( $directory );
+            Storage::disk( 'cb-temp-modules' )->deleteDirectory( $directory );
         }
 
         /**
          * Delete unused files as well
          */
-        $files  =   Storage::disk( 'temp-modules' )->allFiles();
+        $files  =   Storage::disk( 'cb-temp-modules' )->allFiles();
 
         foreach( $files as $file ) {
-            Storage::disk( 'temp-modules' )->delete( $file );
+            Storage::disk( 'cb-temp-modules' )->delete( $file );
         }
     }
 
@@ -672,7 +672,7 @@ class Modules
              * Run down method for all migrations 
              */
 
-            $migrationFiles   =   Storage::disk( 'modules' )->allFiles( 
+            $migrationFiles   =   Storage::disk( 'cb-modules' )->allFiles( 
                 $module[ 'namespace' ] . DIRECTORY_SEPARATOR . 'Migrations' . DIRECTORY_SEPARATOR
             );
 
@@ -689,7 +689,7 @@ class Modules
             /**
              * Delete module from DISK
              */
-            Storage::disk( 'modules' )->deleteDirectory( ucwords( $namespace ) );
+            Storage::disk( 'cb-modules' )->deleteDirectory( ucwords( $namespace ) );
 
             /**
              * remove symlink if that exists
@@ -883,7 +883,7 @@ class Modules
              */
             $lastVersion        =   $this->options->get( strtolower( $module[ 'namespace' ] ) . '_last_migration', '0.0.0' );
             $currentVersion     =   $module[ 'version' ];
-            $directories        =   Storage::disk( 'modules' )->directories( ucwords( $module[ 'namespace' ] ) . DIRECTORY_SEPARATOR . 'Migrations' . DIRECTORY_SEPARATOR );
+            $directories        =   Storage::disk( 'cb-modules' )->directories( ucwords( $module[ 'namespace' ] ) . DIRECTORY_SEPARATOR . 'Migrations' . DIRECTORY_SEPARATOR );
             $version_names      =   [];
 
             foreach( $directories as $dir ) {
@@ -897,7 +897,7 @@ class Modules
                     version_compare( $lastVersion, $version, '<' ) && 
                     version_compare( $currentVersion, $version, '>=' )
                 ) {					
-                    $files      =   Storage::disk( 'modules' )->allFiles(
+                    $files      =   Storage::disk( 'cb-modules' )->allFiles(
                         ucwords( $module[ 'namespace' ] ) . DIRECTORY_SEPARATOR . 'Migrations' . DIRECTORY_SEPARATOR . $version 
                     );
 

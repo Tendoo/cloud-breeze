@@ -5,30 +5,34 @@ if ( ! defined( '_SLASH_' ) ) {
     define( '_SLASH_', DIRECTORY_SEPARATOR );
 }
 
-define( 'TENDOO_ROOT', __DIR__ );
+define( 'CB_ROOT', __DIR__ );
 
 /**
  * Updating this will force 
  * assets and database migration
  */
-define( 'TENDOO_VERSION', '5.0.1' );
-define( 'TENDOO_ASSETS_VERSION', '1.8.1' );
-define( 'TENDOO_DB_VERSION', '1.12' );
+define( 'CB_VERSION', '5.0.1' );
+define( 'CB_ASSETS_VERSION', '1.8.1' );
+define( 'CB_DB_VERSION', '1.12' );
 
-require_once TENDOO_ROOT . '/core/Services/Helper.php';
-require_once TENDOO_ROOT . '/core/Services/HelperFunctions.php';
+require_once CB_ROOT . '/core/Services/Helper.php';
+require_once CB_ROOT . '/constants.php';
+require_once CB_ROOT . '/core/Services/HelperFunctions.php';
 
 use Illuminate\Http\Request;
 
-use Tendoo\Core\Models\Role;
 use Illuminate\Routing\Router;
-use Tendoo\Core\Http\TendooKernel;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Support\ServiceProvider as CoreServiceProvider;
+
 use Jackiedo\DotenvEditor\DotenvEditor;
+use Orchestra\Parser\Xml\Document as XmlDocument;
+use Orchestra\Parser\Xml\Reader as XmlReader;
+use Tendoo\Core\Models\Role;
+use Tendoo\Core\Http\TendooKernel;
 use Tendoo\Core\Observers\RoleObserver;
 use Tendoo\Core\Console\Commands\OptionGet;
 use Tendoo\Core\Console\Commands\OptionSet;
-use Orchestra\Parser\Xml\Reader as XmlReader;
 use Tendoo\Core\Console\Commands\EnableModule;
 use Tendoo\Core\Console\Commands\ModuleModels;
 use Tendoo\Core\Console\Commands\OptionDelete;
@@ -37,7 +41,6 @@ use Tendoo\Core\Console\Commands\DisableModule;
 use Tendoo\Core\Console\Commands\GenerateModule;
 use Tendoo\Core\Console\Commands\PublishCommand;
 use Tendoo\Core\Console\Commands\RefreshCommand;
-use Orchestra\Parser\Xml\Document as XmlDocument;
 
 use Tendoo\Core\Console\Commands\ModuleController;
 use Tendoo\Core\Console\Commands\ModuleMigrations;
@@ -50,7 +53,6 @@ use Tendoo\Core\Console\Commands\ModuleSymlinkCommand;
 use Tendoo\Core\Console\Commands\MakeModuleServiceProvider;
 use Tendoo\Core\Console\Commands\ModuleCrudGeneratorCommand;
 use Tendoo\Core\Console\Commands\DeleteExpiredOptionsCommand;
-use Illuminate\Support\ServiceProvider as CoreServiceProvider;
 
 class ServiceProvider extends CoreServiceProvider
 {
@@ -60,7 +62,7 @@ class ServiceProvider extends CoreServiceProvider
      * boot method
      */
     public function boot( Router $router )
-    {        
+    {      
         /**
          * Register DotEnv Editor
          */
@@ -87,8 +89,8 @@ class ServiceProvider extends CoreServiceProvider
         $this->app->register( \Tendoo\Core\Providers\TendooModulesServiceProvider::class );
         $this->app->register( \Tendoo\Core\Providers\TendooUserOptionsServiceProvider::class );
         $this->app->register( \Tendoo\Core\Providers\TendooRouteServiceProvider::class );
-        $this->app->register( 'TorMorten\Eventy\EventServiceProvider' );
-        $this->app->register( 'TorMorten\Eventy\EventBladeServiceProvider' );
+        $this->app->register( \TorMorten\Eventy\EventServiceProvider::class );
+        $this->app->register( \TorMorten\Eventy\EventBladeServiceProvider::class );
 
         /**
          * Register Middleware
@@ -166,22 +168,31 @@ class ServiceProvider extends CoreServiceProvider
     public function register()
     {
         /**
-         * database update location path
-         * @var constant
+         *  Changing the Auth Model Provider
          */
-        if ( ! defined( 'DATABASE_UPDATES_PATH' ) ): define( 'DATABASE_UPDATES_PATH', dirname( __FILE__ ) . '/database/updates/' ); endif;
-        if ( ! defined( 'DATABASE_MIGRATIONS_PATH' ) ): define( 'DATABASE_MIGRATIONS_PATH', dirname( __FILE__ ) . '/database/migrations/' ); endif;
-        if ( ! defined( 'TENDOO_CONFIG_PATH' ) ): define( 'TENDOO_CONFIG_PATH', dirname( __FILE__ ) . '/config/' ); endif;
-        if ( ! defined( 'TENDOO_ASSETS_PATH' ) ): define( 'TENDOO_ASSETS_PATH', dirname( __FILE__ ) . '/public/' ); endif;
-        if ( ! defined( 'TENDOO_DIST_PATH' ) ): define( 'TENDOO_DIST_PATH', dirname( __FILE__ ) . '/public/dist/' ); endif;
-        if ( ! defined( 'TENDOO_ROOT_PATH' ) ): define( 'TENDOO_ROOT_PATH', dirname( __FILE__ ) ); endif;
-        if ( ! defined( 'TENDOO_ROUTES_PATH' ) ): define( 'TENDOO_ROUTES_PATH', TENDOO_ROOT_PATH . DIRECTORY_SEPARATOR . 'routes' . DIRECTORY_SEPARATOR ); endif;
-        if ( ! defined( 'TENDOO_MODULES_PATH' ) ): define( 'TENDOO_MODULES_PATH', base_path() . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR ); endif;
+        config([ 'auth.providers.users'     =>  [
+            'driver'    =>  'eloquent',
+            'model'     =>  'Tendoo\Core\Models\User'
+        ]]);
 
         /**
-         * Define Storage Location Path
+         * register version
          */
-        include_once( dirname( __FILE__ ) . '/paths.php' );
+        config([
+            'tendoo.db_version'     =>  CB_DB_VERSION,
+            'tendoo.assets_version' =>  CB_ASSETS_VERSION,
+            'tendoo.version'        =>  CB_VERSION
+        ]);
+
+        /**
+         * Define the table prefix
+         */
+        config([
+            'database.connections.mysql.prefix'     =>  env( 'DB_PREFIX', '' ),
+            'database.connections.sqlite.prefix'    =>  env( 'DB_PREFIX', '' ),
+            'database.connections.pgsql.prefix'     =>  env( 'DB_PREFIX', '' ),
+            'database.connections.sqlsrv.prefix'    =>  env( 'DB_PREFIX', '' ),
+        ]);
 
         $this->app->singleton( 'XmlParser', function ($app) {
             return new XmlReader(new XmlDocument($app));

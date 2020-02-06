@@ -14,7 +14,7 @@ class Update
     public function download( $type )
     {
         $file   =   file_get_contents( config( 'tendoo.archive.' . $type ) );
-        Storage::disk( 'temp-core' )
+        Storage::disk( 'cb-temp-core' )
             ->put( 'master.zip', $file );
     }
 
@@ -38,7 +38,7 @@ class Update
      */
     public function moveApp()
     {
-        $this->move( Storage::disk( 'temp-core' )->allFiles( 'tendoo-master/app' ) );
+        $this->move( Storage::disk( 'cb-temp-core' )->allFiles( 'tendoo-master/app' ) );
     }
 
     /**
@@ -46,7 +46,7 @@ class Update
      */
     public function moveBootstrap()
     {
-        $this->move( Storage::disk( 'temp-core' )->allFiles( 'tendoo-master/bootstrap' ) );
+        $this->move( Storage::disk( 'cb-temp-core' )->allFiles( 'tendoo-master/bootstrap' ) );
     }
 
     /**
@@ -55,7 +55,7 @@ class Update
      */
     public function moveConfig()
     {
-        $this->move( Storage::disk( 'temp-core' )->allFiles( 'tendoo-master/config' ) );   
+        $this->move( Storage::disk( 'cb-temp-core' )->allFiles( 'tendoo-master/config' ) );   
     }
 
     /**
@@ -64,7 +64,7 @@ class Update
      */
     public function moveDatabase()
     {
-        $this->move( Storage::disk( 'temp-core' )->allFiles( 'tendoo-master/database' ) );
+        $this->move( Storage::disk( 'cb-temp-core' )->allFiles( 'tendoo-master/database' ) );
     }
 
     /**
@@ -73,7 +73,7 @@ class Update
      */
     public function movePublic()
     {
-        $this->move( Storage::disk( 'temp-core' )->allFiles( 'tendoo-master/public' ) );
+        $this->move( Storage::disk( 'cb-temp-core' )->allFiles( 'tendoo-master/public' ) );
     }
 
     /**
@@ -82,7 +82,7 @@ class Update
      */
     public function moveResources()
     {
-        $this->move( Storage::disk( 'temp-core' )->allFiles( 'tendoo-master/resources' ) );
+        $this->move( Storage::disk( 'cb-temp-core' )->allFiles( 'tendoo-master/resources' ) );
     }
 
     /**
@@ -91,7 +91,7 @@ class Update
      */
     public function moveRoutes()
     {
-        $this->move( Storage::disk( 'temp-core' )->allFiles( 'tendoo-master/routes' ) );
+        $this->move( Storage::disk( 'cb-temp-core' )->allFiles( 'tendoo-master/routes' ) );
     }
 
     /**
@@ -100,7 +100,7 @@ class Update
      */
     public function moveTests()
     {
-        $this->move( Storage::disk( 'temp-core' )->allFiles( 'tendoo-master/tests' ) );     
+        $this->move( Storage::disk( 'cb-temp-core' )->allFiles( 'tendoo-master/tests' ) );     
     }
 
     /**
@@ -111,7 +111,7 @@ class Update
     {
         foreach ( $files as $file ) {
             $fileInfo   =   pathinfo( $file );
-            Storage::disk( 'root' )->put( 
+            Storage::disk( 'cb-root' )->put( 
                 substr( $file, strlen( 'tendoo-master/' ) ),
                 file_get_contents( base_path() . '/storage/core/' . $file ) 
             );
@@ -134,7 +134,7 @@ class Update
             'routes',
             'tests' 
         ] as $folder ) {
-            Storage::disk( 'root' )->deleteDirectory( $folder );
+            Storage::disk( 'cb-root' )->deleteDirectory( $folder );
         }
     }
 
@@ -168,8 +168,8 @@ class Update
     public function finish()
     {
         $this->createSymbolicLink();
-        Storage::disk( 'root' )->deleteDirectory( 'storage/core' );
-        Storage::disk( 'root' )->put( 'storage/core/index.php', '<h1>Golden Slicence !</h1>' );
+        Storage::disk( 'cb-root' )->deleteDirectory( 'storage/core' );
+        Storage::disk( 'cb-root' )->put( 'storage/core/index.php', '<h1>Golden Slicence !</h1>' );
         Artisan::call( 'up' );
     }
 
@@ -184,10 +184,10 @@ class Update
         $file_db_version    =   config( 'tendoo.db_version' );
         $files              =   [];
 
-        foreach( Storage::disk( 'database-updates' )->allDirectories() as $dir ) {
+        foreach( Storage::disk( 'cb-database-updates' )->allDirectories() as $dir ) {
             if ( version_compare( $dir, $db_version, '>' ) && version_compare( $dir, $file_db_version, '<=' ) ) {
                 $files    =   array_merge( 
-                    Storage::disk( 'database-updates' )->allFiles( $dir ),
+                    Storage::disk( 'cb-database-updates' )->allFiles( $dir ),
                     $files
                 );
             }

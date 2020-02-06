@@ -56,8 +56,8 @@ class ModuleController extends Command
              */
             if ( $this->option( 'delete' ) == 'all' ) {
                 if ( $this->confirm( 'Do you want to delete all controllers ?' ) ) {
-                    Storage::disk( 'modules' )->deleteDirectory( $controllerPath );
-                    Storage::disk( 'modules' )->MakeDirectory( $controllerPath );
+                    Storage::disk( 'cb-modules' )->deleteDirectory( $controllerPath );
+                    Storage::disk( 'cb-modules' )->MakeDirectory( $controllerPath );
                     return $this->info( 'All controllers has been deleted !' );
                 }
             }
@@ -69,10 +69,10 @@ class ModuleController extends Command
             $fileName   =   $controllerPath . $name;
             $namespace  =   $this->argument( 'namespace' );
 
-            if ( ! Storage::disk( 'modules' )->exists( 
+            if ( ! Storage::disk( 'cb-modules' )->exists( 
                 $fileName 
             ) ) {
-                Storage::disk( 'modules' )->put( $fileName . '.php', view( 'tendoo::generate.modules.controller', compact(
+                Storage::disk( 'cb-modules' )->put( $fileName . '.php', view( 'tendoo::generate.modules.controller', compact(
                     'modules', 'module', 'name', 'namespace'
                 ) ) );
                 return $this->info( 'The controller has been created !' );
