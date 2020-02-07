@@ -27,5 +27,12 @@
         }
     },
     "prefer-stable": true,
-    "minimum-stability": "dev"
+    "minimum-stability": "dev",
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Tendoo\\ServiceProvider"
+            ]
+        }
+    }
 }
