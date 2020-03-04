@@ -68,7 +68,7 @@ class UpdateController extends Controller
         /**
          * including migrations files
          */
-        $files  =   Storage::disk( 'cb-database-migrations' )->allFiles();
+        $files  =   Storage::disk( 'cb-root' )->allFiles( CB_DBMIGRATIONS_PATH );
         foreach ( $files as $file ) {
             include_once( DATABASE_MIGRATIONS_PATH . $file );
         }

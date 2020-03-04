@@ -74,12 +74,12 @@ class ModuleMigrations extends Command
          * if we would like to delete all migrations
          */
         if ( $this->option( 'delete' ) == 'all' ) {
-            Storage::disk( 'cb-modules' )->deleteDirectory( $this->module[ 'namespace' ] . DIRECTORY_SEPARATOR . 'Migrations' );
-            Storage::disk( 'cb-modules' )->makeDirectory( $this->module[ 'namespace' ] . DIRECTORY_SEPARATOR . 'Migrations' );
+            Storage::disk( 'cb-root' )->deleteDirectory( CB_MODULES_PATH . $this->module[ 'namespace' ] . DIRECTORY_SEPARATOR . 'Migrations' );
+            Storage::disk( 'cb-root' )->makeDirectory( CB_MODULES_PATH . $this->module[ 'namespace' ] . DIRECTORY_SEPARATOR . 'Migrations' );
             $this->info( sprintf( 'All %s migration folders has been deleted !', $this->module[ 'name' ] ) );
             return false;
         } else if( $this->option( 'delete' ) != '' ) {
-            Storage::disk( 'cb-modules' )->deleteDirectory( $this->module[ 'namespace' ] . DIRECTORY_SEPARATOR . 'Migrations' . DIRECTORY_SEPARATOR . $this->option( 'delete' ) );
+            Storage::disk( 'cb-root' )->deleteDirectory( CB_MODULES_PATH . $this->module[ 'namespace' ] . DIRECTORY_SEPARATOR . 'Migrations' . DIRECTORY_SEPARATOR . $this->option( 'delete' ) );
             $this->info( sprintf( 'The migration directory %s has been deleted.', $this->option( 'delete' ) ) );
             return false;
         }
@@ -136,15 +136,15 @@ class ModuleMigrations extends Command
         /**
          * Make sure the migration don't exist yet
          */
-        if ( Storage::disk( 'cb-modules' )->exists( $fileName ) ) {
+        if ( Storage::disk( 'cb-root' )->exists( CB_MODULES_PATH . $fileName ) ) {
             return $this->info( 'A migration with the same name has been found !' );
         }
 
         /**
          * Create Migration file
          */
-        Storage::disk( 'cb-modules' )->put( 
-            $fileName, 
+        Storage::disk( 'cb-root' )->put( 
+            CB_MODULES_PATH . $fileName, 
             $this->streamContent( 'migration' ) 
         );
 

@@ -58,53 +58,26 @@ You need to update your filesystems.php file available on the config directory w
         'root'      =>  base_path()
     ],
 
-    'cb-modules'   =>  [
-        'driver'    =>  'local',
-        'root'      =>  base_path( 'modules' )
-    ],
-    
-    'cb-database-updates' =>   [
-        'driver'    =>  'local',
-        'root'      =>  base_path( 'vendor' . DIRECTORY_SEPARATOR . 'tendoo' . DIRECTORY_SEPARATOR . 'cloud-breeze' . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR . 'database' . DIRECTORY_SEPARATOR . 'updates' )
-    ],
-
-    'cb-dist' =>   [
-        'driver'    =>  'local',
-        'root'      =>  base_path( 'vendor' . DIRECTORY_SEPARATOR . 'tendoo' . DIRECTORY_SEPARATOR . 'cloud-breeze' . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR . 'public' . DIRECTORY_SEPARATOR . 'dist' )
-    ],
-
-    'cb-public' =>   [
-        'driver'    =>  'local',
-        'root'      =>  base_path( 'public' ),
-    ],
-
-    'cb-config' =>   [
-        'driver'    =>  'local',
-        'root'      =>  base_path( 'vendor' . DIRECTORY_SEPARATOR . 'tendoo' . DIRECTORY_SEPARATOR . 'cloud-breeze' . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR . 'config' )
-    ],
-
-    'cb-database-migrations' =>   [
-        'driver'    =>  'local',
-        'root'      =>  base_path( 'vendor' . DIRECTORY_SEPARATOR . 'tendoo' . DIRECTORY_SEPARATOR . 'cloud-breeze' . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR . 'database' . DIRECTORY_SEPARATOR . 'migrations' )
-    ],
-
-    'cb-temp-core' =>   [
-        'driver'    =>  'local',
-        'root'      =>  base_path(),
-    ]
-    ,
-    'cb-laravel-config' =>   [
-        'driver'    =>  'local',
-        'root'      =>  base_path( 'config' ),
-    ],
-
-    'cb-temp-modules' =>   [
-        'driver'    =>  'local',
-        'root'      =>  base_path( 'modules' ),
-    ],
-
   // ...
 ],
+```
+
+## Register EncryptCookies Middleware
+By default, the cookies registered by Cloud Breeze will be encrypted. With that, Cloud Breeze won't be able to authenticate and remember the user
+authenticated from the login UI provided. You need to register the middleware on the Kernel.php. If you have any specific cookie excaped from the middleware `App\Http\Middleware\EncryptCookies` it will be used on `Tendoo\Core\Http\Middleware\EncryptCookies`. You'll then comment (or delete) the default middleware on `app\Http\Kernel.php` like so :
+
+```php
+// something before...
+protected $middlewareGroups = [
+    'web' => [
+        // \App\Http\Middleware\EncryptCookies::class, <= should be commended or deleted
+        \Tendoo\Core\Http\Middleware\EncryptCookies::class, // <= here
+        // other middleware ...
+    ],
+
+    // something else...
+];
+// something after...
 ```
 
 # How doest that looks like ?

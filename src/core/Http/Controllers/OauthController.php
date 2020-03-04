@@ -99,7 +99,6 @@ class OauthController extends BaseController
          */
         $application    =   Application::where([
             [ 'client_key',     '=', $request->input( 'client_key' )],
-            // [ 'client_secret',  '=', $request->input( 'client_secret' )] // should only be used on header
         ])->first();
 
         if( ! $application instanceof Application ) {

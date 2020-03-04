@@ -387,14 +387,16 @@ class AuthService
             $user           =   User::find( Auth::user()->id );
             $user->role     =   $user->role;
             $token          =   $this->generateToken( $user );
-            
-            return [
-                'status'            =>  'success',
-                'message'           =>  __( 'The user has been successfully connected' ),
-                'user'              =>  $user,
-                'token'             =>  $token,
-                'redirectTo'        =>  Hook::filter( 'after.login.callback', false )
-            ];
+
+            return response()
+                ->json([
+                    'status'            =>  'success',
+                    'message'           =>  __( 'The user has been successfully connected' ),
+                    'user'              =>  $user,
+                    'token'             =>  $token,
+                    'redirectTo'        =>  Hook::filter( 'after.login.callback', false )
+                ])
+                ->cookie( 'auth_token', $token );
         }
 
         throw new WrongCredentialException;

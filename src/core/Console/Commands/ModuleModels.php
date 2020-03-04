@@ -56,10 +56,10 @@ class ModuleModels extends Command
             $fileName       =   $modelsPath . $name;
             $namespace      =   $this->argument( 'namespace' );
 
-            if ( ! Storage::disk( 'cb-modules' )->exists( 
-                $fileName 
+            if ( ! Storage::disk( 'cb-root' )->exists( 
+                CB_MODULES_PATH . $fileName 
             ) ) {
-                Storage::disk( 'cb-modules' )->put( $fileName . '.php', view( 'tendoo::generate.modules.model', compact(
+                Storage::disk( 'cb-root' )->put( CB_MODULES_PATH . $fileName . '.php', view( 'tendoo::generate.modules.model', compact(
                     'modules', 'module', 'name', 'namespace'
                 ) ) );
                 return $this->info( 'The model has been created !' );

@@ -42,13 +42,17 @@ class Modules
          * If we're not loading a specific module directory
          */
         if ( $dir == null ) {
-            // get all modules folders
-            $directories  =   Storage::disk( 'cb-modules' )->directories();
- 
-            // get directories
-            foreach( $directories as $dir ) {
-                $this->__init( $dir );
-            }
+            $directories  =   Storage::disk( 'cb-root' )->directories( CB_MODULES_PATH );
+
+            /**
+             * intersect modules/ and remove it
+             * to make sure $this->__init can load successfully.
+             */
+            collect( $directories )->map( function( $module ) {
+                return str_replace( '/', '\\', $module );
+            })->map( function( $module ) {
+                $this->__init( substr( $module, strlen( CB_MODULES_PATH ) ) );
+            });
         } else {
             $this->__init( $dir );
         }
@@ -59,12 +63,12 @@ class Modules
      * @param string
      * @return void
      */
-    private function __init( $dir ) 
+    public function __init( $dir ) 
     {
         /**
          * Loading files from module directory
          */
-        $rawfiles  =   Storage::disk( 'cb-modules' )->files( $dir );
+        $rawfiles  =   Storage::disk( 'cb-root' )->files( CB_MODULES_PATH . $dir );
         
         /**
          * Just retreive the files name
@@ -138,7 +142,7 @@ class Modules
                     /**
                      * register module service provider
                      */
-                    $servicesProviders   =   Storage::disk( 'cb-modules' )->allFiles( $config[ 'namespace' ] . DIRECTORY_SEPARATOR . 'Providers' );
+                    $servicesProviders   =   Storage::disk( 'cb-root' )->allFiles( CB_MODULES_PATH . $config[ 'namespace' ] . DIRECTORY_SEPARATOR . 'Providers' );
 
                     foreach( $servicesProviders as $service ) {
                         /**
@@ -172,7 +176,7 @@ class Modules
                         /**
                          * Load Module models
                          */
-                        $files   =   Storage::disk( 'cb-modules' )->allFiles( $config[ 'namespace' ] . DIRECTORY_SEPARATOR . $folder );
+                        $files   =   Storage::disk( 'cb-root' )->allFiles( CB_MODULES_PATH . $config[ 'namespace' ] . DIRECTORY_SEPARATOR . $folder );
 
                         foreach( $files as $file ) {
                             /**
@@ -188,7 +192,7 @@ class Modules
                     /**
                      * Load Module Config
                      */
-                    $files   =   Storage::disk( 'cb-modules' )->allFiles( $config[ 'namespace' ] . DIRECTORY_SEPARATOR . 'Config' );
+                    $files   =   Storage::disk( 'cb-root' )->allFiles( CB_MODULES_PATH . $config[ 'namespace' ] . DIRECTORY_SEPARATOR . 'Config' );
                     $moduleConfig       =   [];
 
                     foreach( $files as $file ) {
@@ -209,6 +213,11 @@ class Modules
                     $this->modules[ $config[ 'namespace' ] ]    =   $config;
                 }
             }
+        } else {
+            return [
+                'status'    =>  'failed',
+                'message'   =>  sprintf( __( 'No config.xml has been found on the directory : %s' ), $dir )
+            ];
         }
     }
 
@@ -311,14 +320,14 @@ class Modules
             }
 
             $moduleDir      =   dirname( $module[ 'index-file' ] );
-            $files          =   Storage::disk( 'cb-modules' )->allFiles( ucwords( $namespace ) );
+            $files          =   Storage::disk( 'cb-root' )->allFiles( CB_MODULES_PATH . ucwords( $namespace ) );
 
             /**
              * get ignored manifest
              */
             $manifest           =   false;
-            if ( Storage::disk( 'cb-modules' )->exists( ucwords( $namespace ) . DIRECTORY_SEPARATOR . 'manifest.json' ) ) {
-                $manifest       =   json_decode( Storage::disk( 'cb-modules' )->get( ucwords( $namespace ) . DIRECTORY_SEPARATOR . 'manifest.json' ), true );
+            if ( Storage::disk( 'cb-root' )->exists( CB_MODULES_PATH . ucwords( $namespace ) . DIRECTORY_SEPARATOR . 'manifest.json' ) ) {
+                $manifest       =   json_decode( Storage::disk( 'cb-root' )->get( CB_MODULES_PATH . ucwords( $namespace ) . DIRECTORY_SEPARATOR . 'manifest.json' ), true );
             }
 
             /**
@@ -378,8 +387,8 @@ class Modules
     public function upload( $file )
     {
         // move file to temp directory
-        $path   =   Storage::disk( 'cb-temp-modules' )->putFile( 
-            null, 
+        $path   =   Storage::disk( 'cb-root' )->putFile( 
+            CB_MODULES_PATH, 
             $file 
         );
 
@@ -396,7 +405,7 @@ class Modules
          */
         unlink( $fullPath );
 
-        $directories    =   Storage::disk( 'cb-temp-modules' )->directories();
+        $directories    =   Storage::disk( 'cb-root' )->directories( CB_MODULES_PATH );
         $module         =   [];
         
         /**
@@ -404,7 +413,7 @@ class Modules
          */
         foreach( $directories as $dir ) {
             // browse directory files
-            $rawFiles          =   Storage::disk( 'cb-temp-modules' )->allFiles( $dir );
+            $rawFiles          =   Storage::disk( 'cb-root' )->allFiles( CB_MODULES_PATH . $dir );
 
             /**
              * Just retreive the files name
@@ -419,7 +428,7 @@ class Modules
                 $file   =   $dir . DIRECTORY_SEPARATOR . 'config.xml';
 
                 $xml    =   new \SimpleXMLElement( 
-                    Storage::disk( 'cb-temp-modules' )->get( $file )
+                    Storage::disk( 'cb-root' )->get( CB_MODULES_PATH . $file )
                 );
 
                 if ( 
@@ -468,7 +477,7 @@ class Modules
                  * @step 1 : creating host folder
                  * No errors has been found, We\'ll install the module then
                  */
-                Storage::disk( 'cb-modules' )->makeDirectory( $moduleNamespace );
+                Storage::disk( 'cb-root' )->makeDirectory( CB_MODULES_PATH . $moduleNamespace );
 
                 /**
                  * @step 2 : move files
@@ -476,9 +485,9 @@ class Modules
                  * and create symlink for the assets
                  */
                 foreach( $rawFiles as $file ) {
-                    Storage::disk( 'cb-modules' )->put( 
-                        $file,
-                        Storage::disk( 'cb-temp-modules' )->get( $file )
+                    Storage::disk( 'cb-root' )->put( 
+                        CB_MODULES_PATH . $file,
+                        Storage::disk( 'cb-root' )->get( CB_MODULES_PATH . $file )
                     );
 
                     /**
@@ -516,20 +525,20 @@ class Modules
      */
     public function createSymLink( $moduleNamespace )
     {
-        Storage::disk( 'cb-public' )->makeDirectory( 'modules' );
+        Storage::disk( 'cb-root' )->makeDirectory( CB_PUBLIC_PATH . 'modules' );
 
         /**
          * checks if a public directory exists and create a 
          * link for that directory
          */
         if ( 
-            Storage::disk( 'cb-modules' )->exists( $moduleNamespace . DIRECTORY_SEPARATOR . 'Public' ) && 
+            Storage::disk( 'cb-root' )->exists( CB_MODULES_PATH . $moduleNamespace . DIRECTORY_SEPARATOR . 'Public' ) && 
             ! is_link( base_path( 'public' ) . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . strtolower( $moduleNamespace ) ) 
         ) {
             $target     =   base_path( 'modules/' . $moduleNamespace . '/Public' );
 
             if ( ! \windows_os() ) {
-                Storage::disk( 'cb-public' )->makeDirectory( 'modules/' . $moduleNamespace );
+                Storage::disk( 'cb-root' )->makeDirectory( CB_PUBLIC_PATH . 'modules/' . $moduleNamespace );
                 $link           =   @\symlink( $target, public_path( '/modules/' . strtolower( $moduleNamespace ) ) );
             } else {
                 $mode       =   'J';
@@ -631,19 +640,19 @@ class Modules
          * We should then delete everything and return an error.
          */
 
-        $directories  =   Storage::disk( 'cb-temp-modules' )->allDirectories();
+        $directories  =   Storage::disk( 'cb-root' )->allDirectories( CB_MODULES_PATH );
 
         foreach( $directories as $directory ) {
-            Storage::disk( 'cb-temp-modules' )->deleteDirectory( $directory );
+            Storage::disk( 'cb-root' )->deleteDirectory( CB_MODULES_PATH . $directory );
         }
 
         /**
          * Delete unused files as well
          */
-        $files  =   Storage::disk( 'cb-temp-modules' )->allFiles();
+        $files  =   Storage::disk( 'cb-root' )->allFiles( CB_MODULES_PATH );
 
         foreach( $files as $file ) {
-            Storage::disk( 'cb-temp-modules' )->delete( $file );
+            Storage::disk( 'cb-root' )->delete( CB_MODULES_PATH . $file );
         }
     }
 
@@ -672,8 +681,8 @@ class Modules
              * Run down method for all migrations 
              */
 
-            $migrationFiles   =   Storage::disk( 'cb-modules' )->allFiles( 
-                $module[ 'namespace' ] . DIRECTORY_SEPARATOR . 'Migrations' . DIRECTORY_SEPARATOR
+            $migrationFiles   =   Storage::disk( 'cb-root' )->allFiles( 
+                CB_MODULES_PATH . $module[ 'namespace' ] . DIRECTORY_SEPARATOR . 'Migrations' . DIRECTORY_SEPARATOR
             );
 
             /**
@@ -689,7 +698,7 @@ class Modules
             /**
              * Delete module from DISK
              */
-            Storage::disk( 'cb-modules' )->deleteDirectory( ucwords( $namespace ) );
+            Storage::disk( 'cb-root' )->deleteDirectory( CB_MODULES_PATH . ucwords( $namespace ) );
 
             /**
              * remove symlink if that exists
@@ -883,7 +892,7 @@ class Modules
              */
             $lastVersion        =   $this->options->get( strtolower( $module[ 'namespace' ] ) . '_last_migration', '0.0.0' );
             $currentVersion     =   $module[ 'version' ];
-            $directories        =   Storage::disk( 'cb-modules' )->directories( ucwords( $module[ 'namespace' ] ) . DIRECTORY_SEPARATOR . 'Migrations' . DIRECTORY_SEPARATOR );
+            $directories        =   Storage::disk( 'cb-root' )->directories( CB_MODULES_PATH . ucwords( $module[ 'namespace' ] ) . DIRECTORY_SEPARATOR . 'Migrations' . DIRECTORY_SEPARATOR );
             $version_names      =   [];
 
             foreach( $directories as $dir ) {
@@ -897,8 +906,8 @@ class Modules
                     version_compare( $lastVersion, $version, '<' ) && 
                     version_compare( $currentVersion, $version, '>=' )
                 ) {					
-                    $files      =   Storage::disk( 'cb-modules' )->allFiles(
-                        ucwords( $module[ 'namespace' ] ) . DIRECTORY_SEPARATOR . 'Migrations' . DIRECTORY_SEPARATOR . $version 
+                    $files      =   Storage::disk( 'cb-root' )->allFiles( 
+                        CB_MODULES_PATH . ucwords( $module[ 'namespace' ] ) . DIRECTORY_SEPARATOR . 'Migrations' . DIRECTORY_SEPARATOR . $version 
                     );
 
                     /**
