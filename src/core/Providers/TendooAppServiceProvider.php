@@ -36,26 +36,27 @@ class TendooAppServiceProvider extends ServiceProvider
     public function boot()
     {
         Blade::withoutDoubleEncoding();
-
+        
         /**
          * Model observation
          */
         Role::observe( RoleObserver::class );
         User::observe( UserObserver::class );
-
+        
         /**
          * We might need to publish views as well
          */
         if ( ! is_dir( base_path() . '/public/tendoo-public' ) ) {
-            Artisan::call( 'vendor:publish', [
-                '--tag' => 'tendoo-assets',
-            ]);
+            // Artisan::call( 'vendor:publish', [
+            //     '--tag' => 'tendoo-assets',
+            // ]);
 
-            Artisan::call( 'vendor:publish', [
-                '--tag' => 'tendoo-config',
-            ]);
+            // Artisan::call( 'vendor:publish', [
+            //     '--tag' => 'tendoo-config',
+            // ]);
         }
 
+        
         /**
          * Let's check if the .env exists 
          * if not. Let's create it. since it's needed

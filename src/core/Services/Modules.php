@@ -731,7 +731,7 @@ class Modules
         /**
          * include initial migration files
          */             
-        $filePath   =   base_path() . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . $file;
+        $filePath   =   base_path() . DIRECTORY_SEPARATOR . $file;
         $fileInfo   =   pathinfo( $filePath );
         $fileName   =   $fileInfo[ 'filename' ];
         $className  =   str_replace( ' ', '', ucwords( str_replace( '_', ' ', $fileName ) ) );

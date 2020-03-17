@@ -83,7 +83,7 @@ class Setup
             return $message;
         }
 
-        DotEnvEditor::setKey( 'MAIL_DRIVER', 'log' );
+        DotEnvEditor::setKey( 'MAIL_MAILER', 'log' );
         DotEnvEditor::setKey( 'DB_HOST', $request->input( 'hostname' ) );
         DotEnvEditor::setKey( 'DB_DATABASE', $request->input( 'db_name' ) );
         DotEnvEditor::setKey( 'DB_USERNAME', $request->input( 'username' ) );
@@ -177,7 +177,7 @@ class Setup
         /**
          * Set version to close setup
          */
-        DotenvEditor::setKey( 'CB_VERSION', CB_VERSION );
+        DotenvEditor::setKey( 'CB_VERSION', config( 'tendoo.version' ) );
         DotenvEditor::save();
 
         /**

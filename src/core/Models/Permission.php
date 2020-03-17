@@ -9,6 +9,10 @@ class Permission extends Model
 {
     protected $table    =   'tendoo_permissions';
 
+    public function scopeNamespace( $query, $param ) {
+        return $query->where( 'namespace', $param );
+    }
+
     public function roles()
     {
         return $this->belongsToMany( Role::class, 'tendoo_role_permission' );

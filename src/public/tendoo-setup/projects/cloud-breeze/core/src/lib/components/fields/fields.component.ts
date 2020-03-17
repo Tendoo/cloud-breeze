@@ -3,7 +3,7 @@ import { Field } from '../../interfaces/field';
 import { FormGroup, AbstractControl } from '@angular/forms';
 import { ReCaptcha2Component } from 'ngx-captcha';
 import { ImageCroppedEvent } from 'ngx-image-cropper';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
 	selector: 'cb-field',

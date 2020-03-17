@@ -12,7 +12,7 @@ class PublishCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'tendoo:publish {--asset=}';
+    protected $signature = 'tendoo:publish {--force=}';
 
     /**
      * The console command description.
@@ -41,23 +41,15 @@ class PublishCommand extends Command
         /**
          * moving dist
          */
-        $files  =   Storage::disk( 'cb-root' )->allFiles( CB_DIST_PATH );
+        $path   =   'vendor/tendoo/cloud-breeze/src/public/dist';
+        $files  =   Storage::disk( 'cb-root' )->allFiles( $path );
 
         Storage::disk( 'cb-root' )->deleteDirectory( CB_PUBLIC_PATH . 'tendoo' );
         Storage::disk( 'cb-root' )->makeDirectory( CB_PUBLIC_PATH . 'tendoo' );
 
         foreach( $files as $file ) {
-            Storage::disk( 'cb-root' )->put( CB_PUBLIC_PATH . 'tendoo-public/' . $file, Storage::disk( 'cb-root' )->get( CB_DIST_PATH . $file ) );
-        }
-
-
-        /**
-         * moving config
-         */
-        $files  =   Storage::disk( 'cb-root' )->allFiles( CB_CONFIG_PATH );
-        
-        foreach( $files as $file ) {
-            Storage::disk( 'cb-root' )->put( CB_LARAVELCONFIG_PATH . $file, Storage::disk( 'cb-root' )->get( CB_CONFIG_PATH . $file ) );
+            $destination   =   substr( $file, strlen( $path ) + 1 );
+            Storage::disk( 'cb-root' )->put( CB_PUBLIC_PATH . 'tendoo-public\\' . $destination, Storage::disk( 'cb-root' )->get( $file ) );
         }
 
         $this->info( __( 'Tendoo Assets has been published...' ) );

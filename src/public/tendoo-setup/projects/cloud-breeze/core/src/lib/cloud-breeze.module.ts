@@ -31,7 +31,6 @@ import { LoadingAnimationComponent } from './components/loading-animation/loadin
 import { CrudTableComponent } from './components/crud-table/crud-table.component';
 import { DialogComponent } from './components/dialog/dialog.component';
 import { RouterModule } from '@angular/router';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TendooSpinnerService } from './services/tendoo-spinner.service';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ModuleWithProviders } from '@angular/core';
@@ -87,13 +86,11 @@ export const CB_URL_CONFIG 	=	new InjectionToken<{
 		ReactiveFormsModule,
 		NgxCaptchaModule,
 		RouterModule,
-		BrowserAnimationsModule,
 		FlexLayoutModule,
 		ImageCropperModule,
 	],
 	exports: [ 
 		MaterialModule, 
-		BrowserAnimationsModule,
 		FlexLayoutModule,
 		NgxCaptchaModule,
 

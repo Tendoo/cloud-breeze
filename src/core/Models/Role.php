@@ -60,6 +60,7 @@ class Role extends Model
      * Permission
      * @param string role name
      * @param array permission array
+     * @deprecated
     **/
     public static function AddPermissions( $role_name, $permissions ) 
     {
@@ -115,6 +116,54 @@ class Role extends Model
         }
 
         return false;
+    }
+
+    public static function addPermission( $role_name, $permissions, $silent = true )
+    {
+        $role   =   self::namespace( $role_name );
+
+        if ( $role instanceof Role ) {
+            if ( is_string( $permissions ) ) {
+                $permission     =   Permission::namespace( $permissions )->first();
+
+                if ( $permission instanceof Permission ) {
+                    self::__createRelation( $role, $permission, $silent );
+                }
+            } else if ( is_array( $permissions ) ) {
+                $relations   =   [];
+                foreach( $permissions as $permission ) {
+                    $permission     =   Permission::namespace( $permissions )->first();
+
+                    if ( $permission instanceof Permission ) {
+                        self::__createRelation( $role, $permission, $silent );
+                    }
+                }
+            }
+        }
+    }
+
+    private static function __createRelation( $role, $permission, $silent )
+    {
+        $exists     =   DB::table( 'tendoo_role_permission' )
+            ->where( 'role_id', $role->id )
+            ->where( 'permission_id', $permission->id )
+            ->first();
+
+        if ( empty( $exists ) ) {
+            DB::table( 'tendoo_role_permission' )->insert([
+                'role_id'           =>  $role->id,
+                'permission_id'     =>  $permission->id
+            ]);
+        } else if ( $silent === false ) {
+            throw new CoreException([
+                'status'    =>  'failed',
+                'message'   =>  sprintf(
+                    __( 'A relation already exist because role "%s" and permission "%s".' ),
+                    $role->name,
+                    $permission->name
+                )
+            ]);
+        }
     }
 
     /**

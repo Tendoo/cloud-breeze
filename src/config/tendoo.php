@@ -12,6 +12,10 @@ return [
         'expiration'    =>  60
     ],
 
+    'db_version'        =>  '5.0.1',
+    'version'           =>  '5.0.1',
+    'assets_version'    =>  '1.8.1',
+
     /**
      * Modules
      * -------------------------------

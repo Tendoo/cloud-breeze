@@ -11,9 +11,6 @@ define( 'CB_ROOT', __DIR__ );
  * Updating this will force 
  * assets and database migration
  */
-define( 'CB_VERSION', '5.0.1' );
-define( 'CB_ASSETS_VERSION', '1.8.1' );
-define( 'CB_DB_VERSION', '1.12' );
 
 require_once CB_ROOT . '/core/Services/Helper.php';
 require_once CB_ROOT . '/constants.php';
@@ -62,14 +59,23 @@ class ServiceProvider extends CoreServiceProvider
      * boot method
      */
     public function boot( Router $router )
-    {      
+    {    
+        $this->app->singleton( 'XmlParser', function ($app) {
+            return new XmlReader(new XmlDocument($app));
+        });
+        
+        // $this->app->singleton(
+        //     \Illuminate\Contracts\Debug\ExceptionHandler::class,
+        //     \Tendoo\Core\Exceptions\TendooHandler::class
+        // );
+        
         /**
          * Register DotEnv Editor
          */
         $this->app->bind( 'dotenv-editor', 'Jackiedo\DotenvEditor\DotenvEditor');
         $this->app->bind( 'tendoo.doteditor', 'Jackiedo\DotenvEditor\DotenvEditor');
         $this->app->bind( 'tendoo.hook', 'TorMorten\Eventy\Events');
-    
+        
         /**
          * register CURL
          */
@@ -83,7 +89,6 @@ class ServiceProvider extends CoreServiceProvider
          * Register the route provider 
          * before the Laravel Route Provider
          */
-        $this->app->register( \Barryvdh\Cors\ServiceProvider::class );
         $this->app->register( \Tendoo\Core\Providers\TendooAppServiceProvider::class );
         $this->app->register( \Tendoo\Core\Providers\TendooEventServiceProvider::class );
         $this->app->register( \Tendoo\Core\Providers\TendooModulesServiceProvider::class );
@@ -91,6 +96,7 @@ class ServiceProvider extends CoreServiceProvider
         $this->app->register( \Tendoo\Core\Providers\TendooRouteServiceProvider::class );
         $this->app->register( \TorMorten\Eventy\EventServiceProvider::class );
         $this->app->register( \TorMorten\Eventy\EventBladeServiceProvider::class );
+
 
         /**
          * Register Middleware
@@ -105,7 +111,7 @@ class ServiceProvider extends CoreServiceProvider
         $router->aliasMiddleware( 'tendoo.auth', \Tendoo\Core\Http\Middleware\TendooAuth::class );
         $router->aliasMiddleware( 'tendoo.silent-auth', \Tendoo\Core\Http\Middleware\TendooSilentAuth::class );
         $router->aliasMiddleware( 'tendoo.guest', \Tendoo\Core\Http\Middleware\TendooGuest::class );
-        $router->aliasMiddleware( 'tendoo.cors', \Barryvdh\Cors\HandleCors::class );   
+        $router->aliasMiddleware( 'tendoo.cors', \Fruitcake\Cors\HandleCors::class );   
         $router->aliasMiddleware( 'tendoo.encrypt-cookies', \Tendoo\Core\Http\Middleware\EncryptCookies::class );
         $router->aliasMiddleware( 'tendoo.prevent.not-installed', \Tendoo\Core\Http\Middleware\AppInstalled::class );
         $router->aliasMiddleware( 'tendoo.prevent.installed', \Tendoo\Core\Http\Middleware\AppNotInstalled::class );
@@ -173,38 +179,20 @@ class ServiceProvider extends CoreServiceProvider
     public function register()
     {
         /**
+         * the package configuraiton should be pulished 
+         * without throwing any error
+         */
+        if ( config( 'tendoo.version', false ) === false ) {
+            return false;
+        }
+
+        /**
          *  Changing the Auth Model Provider
          */
         config([ 'auth.providers.users'     =>  [
             'driver'    =>  'eloquent',
             'model'     =>  'Tendoo\Core\Models\User'
         ]]);
-
-        /**
-         * register version
-         */
-        config([
-            'tendoo.db_version'     =>  CB_DB_VERSION,
-            'tendoo.assets_version' =>  CB_ASSETS_VERSION,
-            'tendoo.version'        =>  CB_VERSION
-        ]);
-
-        $this->app->singleton( 'XmlParser', function ($app) {
-            return new XmlReader(new XmlDocument($app));
-        });
-
-        // $this->app->singleton(
-        //     \App\Http\Kernel::class,
-        //     TendooKernel::class
-        // );
-
-        // $this->app->router->prependMiddleware( SafeURLMiddleware::class );
-        // app()->make( \Illuminate\Foundation\Http\Kernel::class )->prependMiddleware( SafeURLMiddleware::class );
-
-        $this->app->singleton(
-            \Illuminate\Contracts\Debug\ExceptionHandler::class,
-            \Tendoo\Core\Exceptions\TendooHandler::class
-        );
     }
 
     /**

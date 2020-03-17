@@ -36,11 +36,11 @@ class HomeController extends BaseController
                 'migrations' =>  [
                     'system'    =>  [
                         'db'    =>  [
-                            'file_version'  =>  CB_DB_VERSION,
+                            'file_version'  =>  config( 'tendoo.db_version' ),
                             'db_version'    =>  $options->get( 'db_version' )
                         ],
                         'assets' =>  [
-                            'file_version'  =>  CB_ASSETS_VERSION,
+                            'file_version'  =>  config( 'tendoo.assets_version' ),
                             'db_version'    =>  $options->get( 'assets_version' )
                         ]
                     ],
