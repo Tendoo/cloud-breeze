@@ -181,3 +181,21 @@ if ( User::allowedTo( 'snap.infinite.gaunglet' ) ) {
 }
 ```
 The user we're making this verification  over, is the one connected. This function won't then work if no users is currently connected.
+
+### Forms & Fields API
+The forms let you retreive from the server a form or field schema that you can use to render your fields on the Frontend. Note that this could be used in combinaison with the "TendooFormsService" & "TendooFieldsService" form the npm package.
+
+### How to register a Form endpoint
+Form configuration can be retreive through an endpoint. Here is how you can make this available :
+
+```php
+// let's register the event first
+use Tendoo\Core\Facades\Hook;
+
+//...
+Hook::addFilter( 'public.forms', useThis( Event::class )->method( 'forms' ) );
+// useThis() .. is a shorthand to write 'Modules\Events\Event@form'
+```
+
+Typically when you'll use the `TendooFormsService` service from the angular library, it will perform a request to the API server
+using the following request : `http://youapi.com/api/tendoo/public/forms/{namespace}/{index?}`, where the namespace stands for the namespace of your public form and the index is the optional attribute sent to the server (usually while fetching a form for a specific entity during a modification).
