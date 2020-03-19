@@ -14,12 +14,12 @@ class TendooModule
         
         // including events files
         foreach( $eventFiles as $file ) {
-            include_once( config( 'tendoo.modules_path' ) . $file );
+            include_once( base_path() . CB_S . $file );
         }
 
         // including events files
         foreach( $fieldsFiles as $file ) {
-            include_once( config( 'tendoo.modules_path' ) . $file );
+            include_once( base_path() . CB_S . $file );
         }
     }
 }

@@ -112,7 +112,10 @@ import { CrudTableComponent } from './tests/crud-table/crud-table.component';
         FormsModule,
         DropzoneModule,
         NgxCaptchaModule,
-        CloudBreezeModule,
+        CloudBreezeModule.forRoot({
+            base: '/api',
+            angular: ''
+        }),
         ImageCropperModule,
     ],
     entryComponents: [

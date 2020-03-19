@@ -30,4 +30,14 @@ class ModuleMigrationRequiredException extends Exception
     {
         return $this->migrations;
     }
+
+    public function render( $request )
+    {
+        return response()->json([
+            'status'    =>  'failed',
+            'class'     =>  str_replace( '\\', '/', ModuleMigrationRequiredException::class ),
+            'message'   =>  $this->getMessage(),
+            'migration'    =>  $this->migrations
+        ], 500 );
+    }
 }

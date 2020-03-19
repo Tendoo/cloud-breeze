@@ -29,6 +29,8 @@ class Modules
         }
 
         $this->xmlParser    =   app()->make( 'XmlParser' );
+
+        Storage::disk( 'cb-root' )->makeDirectory( 'modules' );
     }
 
     /**
@@ -69,7 +71,7 @@ class Modules
          * Loading files from module directory
          */
         $rawfiles  =   Storage::disk( 'cb-root' )->files( CB_MODULES_PATH . $dir );
-        
+
         /**
          * Just retreive the files name
          */
@@ -184,7 +186,7 @@ class Modules
                              */
                             $fileInfo   =   pathinfo(  $modulesPath . $file );
                             if ( $fileInfo[ 'extension' ] == 'php' ) {
-                                include_once( $modulesPath . $file );
+                                include_once( base_path() . CB_S . $file );
                             }
                         }
                     }
@@ -197,7 +199,7 @@ class Modules
 
                     foreach( $files as $file ) {
                         $info           =     pathinfo( $file );
-                        $_config        =   include_once( $modulesPath . $file );
+                        $_config        =   include_once( base_path() . CB_S . $file );
                         $final[ $config[ 'namespace' ] ]    =   [];
                         $final[ $config[ 'namespace' ] ][ $info[ 'filename' ] ]     =   $_config;   
                         $moduleConfig       =   Arr::dot( $final );

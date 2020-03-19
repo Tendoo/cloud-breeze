@@ -111,7 +111,7 @@ class ServiceProvider extends CoreServiceProvider
         $router->aliasMiddleware( 'tendoo.auth', \Tendoo\Core\Http\Middleware\TendooAuth::class );
         $router->aliasMiddleware( 'tendoo.silent-auth', \Tendoo\Core\Http\Middleware\TendooSilentAuth::class );
         $router->aliasMiddleware( 'tendoo.guest', \Tendoo\Core\Http\Middleware\TendooGuest::class );
-        $router->aliasMiddleware( 'tendoo.cors', \Fruitcake\Cors\HandleCors::class );   
+        // $router->aliasMiddleware( 'tendoo.cors', \Tendoo\Core\Http\Middleware\Cors::class );   
         $router->aliasMiddleware( 'tendoo.encrypt-cookies', \Tendoo\Core\Http\Middleware\EncryptCookies::class );
         $router->aliasMiddleware( 'tendoo.prevent.not-installed', \Tendoo\Core\Http\Middleware\AppInstalled::class );
         $router->aliasMiddleware( 'tendoo.prevent.installed', \Tendoo\Core\Http\Middleware\AppNotInstalled::class );

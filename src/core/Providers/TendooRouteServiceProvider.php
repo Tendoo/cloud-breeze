@@ -71,7 +71,10 @@ class TendooRouteServiceProvider extends ServiceProvider
             // include module controllers
             $controllers    =   Storage::disk( 'cb-root' )->files( CB_MODULES_PATH . $module[ 'controllers-relativePath' ] );
             foreach( $controllers as $controller ) {
-                include_once( config( 'tendoo.modules_path' ) . '/' . $controller );
+                $fileInfo   =   pathinfo(  $controller );
+                if ( $fileInfo[ 'extension' ] == 'php' ) {
+                    include_once( base_path() . CB_S . $controller );
+                }
             }
 
             // if module has a web route file

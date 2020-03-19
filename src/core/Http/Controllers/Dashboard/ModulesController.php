@@ -78,10 +78,16 @@ class ModulesController extends DashboardController
             /**
              * When the module activation throw an error
              */
-            throw new CoreException( sprintf( __( 'The module <strong>%s</strong> has been disabled, since it throw that error : <strong>%s</strong>' ), $result[ 'module' ][ 'name' ], $result[ 'message' ] ) );
+            throw new CoreException([
+                'status'    =>  'failed',
+                'message'   =>  sprintf( __( 'The module "%s" has been disabled, since it throw that error : "%s' ), $result[ 'module' ][ 'name' ], $result[ 'message' ] )
+            ]);
         }
 
-        throw new CoreException( __( 'Unable to locate the module.' ) );
+        throw new CoreException([
+            'status'    =>  'failed',
+            'message'   =>  __( 'Unable to locate the module.' )
+        ]);
     }
 
     /**
