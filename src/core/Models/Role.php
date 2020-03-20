@@ -2,11 +2,12 @@
 
 namespace Tendoo\Core\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Collection;
-
+use Illuminate\Support\Facades\DB;
 use Tendoo\Core\Models\Permission;
+
+use Tendoo\Core\Models\RolePermission;
+use Illuminate\Database\Eloquent\Model;
 
 class Role extends Model
 {
@@ -186,12 +187,28 @@ class Role extends Model
         }
     }
 
+
     /**
-     * @todo remove permission
-     * Remove one or more permission to a specific role.
+     * is used to remove a set of permission
+     * attached to the 
+     * @param Query
+     * @param array of permissions
+     * @return void
      */
-    public static function RemovePermissions( $role_name, $permissions )
+    public function scopeRemovePermissions( $query, $permissions )
     {
-        $AllPermissions   =   Permission::whereIn( 'namespace', $permissions );
+        $query
+            ->get()
+            ->each( function( $role ) use ( $permissions ) {
+                collect( $permissions )->each( function( $perm_namespace ) use ( $role ) {
+                    $permission     =   Permission::where([ 'namespace' => $perm_namespace ])->first();
+                    if ( $permission instanceof Permission ) {
+                        RolePermission::where([ 
+                            'role_id' => $role->id, 
+                            'permission_id' => $permission->id, 
+                        ])->delete();
+                    }
+                });
+        });
     }
 }

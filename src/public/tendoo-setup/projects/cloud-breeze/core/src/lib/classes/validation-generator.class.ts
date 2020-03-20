@@ -235,6 +235,6 @@ export class ValidationGenerator {
      * @param form Form object
      */
     static touchFormFields( form: Form ) {
-        ValidationGenerator.touchAllFields( form.formGroup );
+        form.sections.forEach( section => ValidationGenerator.touchAllFields( section.formGroup ) );
     }
 }
