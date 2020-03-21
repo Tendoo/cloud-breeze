@@ -470,3 +470,95 @@ The module helps to extends internal Cloud Breeze features. It could be made by 
 | runMigration    | Observable > AsyncResponse | Run a migration for a specific module, file and version. Usually provided after having enabled the module                                                                                                           |
 | download        | Observable > AsyncResponse | Return an async response that include the file URL, to download a cached zip of the module, which namespace is provided as unique parameter.                                                                        |
 | createSymLink   | Observable > AsyncResponse | If a module include assets, the method helps to create a symbolic link on the public directory of laravel that points to the module public directory.                                                               |
+
+
+### Authentication API
+Cloud Breeze comes with built-in features to proceed an authentication from a form that could have been generated from scratch. This authentication API provides methods that ensure valid authentication and to store authenticated User informations, so that throughout the session, you'll be able to interact with the backend Server (tendoo/cloud-breeze).
+
+#### Login
+This file is available withing the services directory of the package. It can be imported as following : 
+```ts
+import { TendooAuthService } from '@cloud-breeze/core';
+```
+Once imported, you have access to various method such as "login" which requires an object with "username" and "password" as keys. The response returned by the server is either a valid one with a key "status" which worth "success" or the request fails with the a "status" which worth "failed". Here is how to proceed to an authentication.
+
+```ts
+class AppComponent implements OnInit {
+  constructor(
+    private auth: TendooAuthService
+  ){}
+
+  ngOnInit() {
+    this.auth.login({ 
+      username: 'admin',
+      password: '******'
+    }).subscribe( result => {
+      // the authentication was successful
+    }, ( result ) => {
+      // something has happened 
+    })
+  }
+}
+```
+
+Typically the server will provide a json response (in case of valid credentials), that includes auth token. The Auth Token is used throughout the user session to interact with the backend srevice. However, before that token needs to be stored. You can either save the token as a cookie or on the localStorage. The token can also be stored on each outgoing HTTP requests. Here is how to proceed : 
+
+```ts
+this.auth.login({
+  username: 'admin',
+  password: '******'
+}).subscribe( result => {
+  this.auth.setCredentials( result.user, result.token );
+})
+```
+
+A valid response has usually the following shape : 
+
+```json
+{
+    "status": "success",
+    "message": "The user has been successfully connected",
+    "user": {
+        "id": 65,
+        "username": "admin",
+        "active": true,
+        "role_id": 3,
+        "email": "samplemail@gmail.com",
+        "created_at": "2020-03-17T00:40:52.000000Z",
+        "updated_at": "2020-03-17T00:40:52.000000Z",
+        "role": {
+            "id": 3,
+            "name": "Administrator",
+            "namespace": "admin",
+            "description": "Master role which can perform all actions like create users, install\/update\/delete modules and much more.",
+            "created_at": "2020-03-17T00:40:52.000000Z",
+            "updated_at": "2020-03-17T00:40:52.000000Z"
+        }
+    },
+    "token": "*****",
+    "redirectTo": false
+}
+```
+
+#### Logout
+The logout process ensure a session to be closed. It can be performed from using the methods 'logout' like following: 
+
+```ts
+// assuming the auth property is an instance of TendooAuthService
+this.auth.logout(); // return an observable
+```
+
+#### Authenticate a token
+If you have previously saved a token, you might sometime consider authenticating using that token to avoid asking credentials all the time to your users.
+This can be made through the method "tokenLogin", which accept as only parameter the token as following.
+
+```ts
+const token   = localStorage( 'my_token' );
+this.auth.tokenLogin( token ).subscribe( response => {
+  // the authentication was valid
+}, ( result ) => {
+  // maybe the token wasn't valid
+});
+```
+
+The `tokenLogin` methods already save the credentials on each outgoing http request.
