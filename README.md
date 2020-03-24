@@ -3,6 +3,8 @@
 <a href="https://packagist.org/packages/tendoo/cms"><img src="https://poser.pugx.org/tendoo/cms/v/stable.svg" alt="Latest Stable Version"></a>
 <a href="https://packagist.org/packages/tendoo/cms"><img src="https://poser.pugx.org/tendoo/cms/license.svg" alt="License"></a>
 
+[Internal Screenshots](https://github.com/Tendoo/cloud-breeze/wiki/Internal-Screenshots)
+
 # Cloud Breeze : Why this new project
 This package has been create to extend laravel to a modulable Framework. Usually for Laravel, most of the time only one application is created per installation. If the application is huge, it might consist into small several features that are somehow linked together. While this might work for anyone willing to create a single application, it becomes more hard when it comes to create a very large ecosystem with a bunch of differents features that might not be at all related. 
 
@@ -80,31 +82,6 @@ protected $middlewareGroups = [
 // something after...
 ```
 
-# How doest that looks like ?
-## 1 - Installation Welcome page
-![Installation](https://user-images.githubusercontent.com/5265663/52858180-b749d480-3129-11e9-950a-c9216eacf0dc.png)
-
-## 2 - Database Setup
-![Database Setup](https://user-images.githubusercontent.com/5265663/52856253-34724b00-3124-11e9-8cb0-c27db5267d82.png)
-
-## 3 - Application Setup
-![Application Setup](https://user-images.githubusercontent.com/5265663/52856336-6c798e00-3124-11e9-8f82-b3fddc522018.png)
-
-## 4 - Login Page
-![Login Page](https://user-images.githubusercontent.com/5265663/52856378-887d2f80-3124-11e9-9fa6-6334901576f3.png)
-
-## 5 - Media Page
-![Media Page](https://user-images.githubusercontent.com/5265663/52856731-79e34800-3125-11e9-9dd0-c7152d15ab63.png)
-
-## 6 - Full Image Preview
-![Full Image Preview](https://user-images.githubusercontent.com/5265663/52856798-aac37d00-3125-11e9-98fa-d2aa4dd0657f.png)
-
-## 7 - User Management Page
-![User Management](https://user-images.githubusercontent.com/5265663/52856818-bb73f300-3125-11e9-8e75-733734e94e1e.png)
-
-## 8 - Settings Page
-![Settings Page](https://user-images.githubusercontent.com/5265663/52856871-dba3b200-3125-11e9-9010-624ba4e83545.png)
-
 # API
 This describe how the internal API works. 
 
@@ -127,6 +104,7 @@ $role->save();
 ```
 
 So far you've create a role and it's that simple. The second steps is to assign a Permission, but first of all, let's create some permissions
+
 ### Creating a Permission
 A permission allow to perform an action on the system. You can manipulate the permissions using the model `Tendoo\Core\Models\Permission`. Let's then create some permissions for the Super Man role.
 
@@ -166,7 +144,8 @@ You should note there is not specific way to write permission namespace, however
 While you can add permission usin the static method `addPermissions`, you should use `RemovePermissions` to remove permissions on a specific role. Here is the use case of that method.
 
 ```php
-Role::RemovePermissions( 'superman', [ 'snap.infinite.gaunlet' ]);
+Role::namespace( 'superman' )
+  ->removePermission([ 'fly' ]);
 ```
 Note here that the second parameter should always be an array.
 
@@ -182,7 +161,8 @@ if ( User::allowedTo( 'snap.infinite.gaunglet' ) ) {
 ```
 The user we're making this verification  over, is the one connected. This function won't then work if no users is currently connected.
 
-### Forms & Fields API
+
+## Forms & Fields API
 The forms let you retreive from the server a form or field schema that you can use to render your fields on the Frontend. Note that this could be used in combinaison with the "TendooFormsService" & "TendooFieldsService" form the npm package.
 
 ### How to register a Form endpoint
@@ -197,5 +177,149 @@ Hook::addFilter( 'public.forms', useThis( Event::class )->method( 'forms' ) );
 // useThis() .. is a shorthand to write 'Modules\Events\Event@form'
 ```
 
-Typically when you'll use the `TendooFormsService` service from the angular library, it will perform a request to the API server
-using the following request : `http://youapi.com/api/tendoo/public/forms/{namespace}/{index?}`, where the namespace stands for the namespace of your public form and the index is the optional attribute sent to the server (usually while fetching a form for a specific entity during a modification).
+Typically, using the `TendooFormsService` service from the angular library, will perform a request to the API server
+using the following request : 
+
+`http://yourapi.com/api/tendoo/public/forms/{namespace}/{index?}`
+
+Where the `namespace` stands for the namespace of your public form and the `index` is the optional identifier to a resource (for example a user id to populate the for with his details) sent to the server (usually while fetching a form for a specific entity during a modification).
+
+Now, you just need to return the form if the namespace provided match your form namespace.
+
+```php
+namespace Modules\YourModule\Events;
+
+class Event
+{
+  public function forms( $forms, $namespace ) 
+  {
+    if ( $namespace === 'your-namespace' ) {
+      return [
+        'title' =>  __( 'Your Form Titlte' ),
+        'description' => '', // a description here
+        'sections'  =>  [
+          {
+            'title' =>  '', // section title
+            'description' =>  '',
+            'fields'  =>  [ // here to register as many field as the section has.
+              {
+                'label' =>  'Field Name',
+                'name'  =>  'field-name',
+                'validation'  =>  'required',
+                'description' =>  'field description',
+                'appearance' => 'outline', // or any angular material valid field appearance
+              }
+            ]
+          }
+        ]
+      ];
+    }
+
+    return $forms;
+  }
+}
+```
+
+### How to register a Field endpoint
+
+Registering a field endpoint is almost similar to registering a form. It's made through the Hook `public.fields`. 
+
+Note that, if you don\'t need to have
+a complex form architecture including sections, but just want to have the fields, this is what you should use. 
+
+This can be useful to create login & registration page, which doesn't often consist of sections but just fields.
+
+```php
+use Tendoo\Core\Facades\Hook;
+
+// ...
+Hook::addFilter( 'public.fields', useThis( Event::class )->method( 'fields' ) );
+```
+
+Now on the callback, you just need to return the field if the namespace match your fields namespace.
+
+```php
+namespace Modules\YourModule\Events;
+
+class Event
+{
+  public function fields( $fields, $namespace )
+  {
+    if ( $namespace === 'your-fields-namespace' ) {
+      return [
+        [
+          'label' =>  __( 'Username' ),
+          'name'  =>  'username',
+          'validation'  =>  'required',
+          'description' =>  __( 'Your username' ),
+          'appearance'  =>  'outline',
+          'type'      =>  'text'
+        ], [
+          'label' =>  __( 'Password' ),
+          'name'  =>  'password',
+          'validation'  =>  'required',
+          'description' =>  __( 'Your username' ),
+          'appearance'  =>  'outline',
+          'type'      =>  'password' // to turn the text field into a password field
+        ]
+      ]
+    }
+    return $fields;
+  }
+}
+```
+
+
+## Crud API
+the crud API helps you to quickly a create/read/update/delete feature on specific table. The purpose is to create a ready to use UI which most useful feature. This section will then describe how to use this API.
+
+### Register an API namespace
+The first step is to register the namespace. A namespace stand here for a unique identifier. You can define it as you want, but a convention needs it to use the module namespace. You can then end with a similar namespace : `yourmodule.orders` where "yourmodule" is your module namespace, and "orders" the object of the crud.
+
+Here is how a CRUD resource should be defined : 
+
+```php
+use Tendoo\Core\Facades\Hook;
+
+Hook::addFilter( 'register.crud', useThis( CrudEvent::class )->method( 'orderCRUD' ) );
+```
+
+Now from the event class, you just need to return the class that should be used for the CRUD component. Note that, you can automatically generate crud using the `php artisan module:crud` command. At the end of the process, you'll end up with a class that is the reference for the CRUD entity.
+
+```php
+namespace Modules\YourModule\Events;
+
+use Modules\YourModules\Crud\OrdersCRUD;
+
+class CrudEvent
+{
+  public function orderCRUD( $namespace )
+  {
+    if ( $namespace === 'yourmodule.orders' ) {
+      return OrdersCRUD::class;
+    }
+
+    return $namespace;
+  }
+}
+```
+
+Note that the identifier `yourmodule.orders` is what is mentionned while using the `TendooCrudService`, from the Angular Library. Typically here is how you'll perform request using that library.
+
+```ts
+import { TendooCrudService } from '@cloud-breeze/core';
+
+class OrdersComponent implements OnInit {
+  constructor(
+    private tendooCrud: TendooCrudService
+  ){}
+
+  ngOnInit() {
+    this.tendooCrud.getConfig( 'yourmodule.orders' ).subscribe( config => {
+      // render the crud
+    })
+  }
+}
+```
+
+Refer to the [Angular Library](https://www.npmjs.com/package/@cloud-breeze/core) for better examples.
