@@ -108,6 +108,7 @@
             showFirstLastButtons
             (page)="changePage( $event )" 
             [length]="totalEntries"
+            [pageSize]="perPage"
             [pageSizeOptions]="[10, 30, 100, 200]">
         </mat-paginator>
     </mat-card-content>

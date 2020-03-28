@@ -37,7 +37,7 @@ Cloud Breeze ensure you to have a moduleable system with (obviously) modules, th
 
 # Installation
 
-## Download Package
+### Download Package
 Since Cloud Breeze is a package, it could be installed using a composer command : 
 
 `composer require tendoo/cms`
@@ -46,9 +46,10 @@ Then, you need to publish the assets of Cloud Breeze by running the following co
 
 `php artisan tendoo:publish`
 
-The only action you need now, is to access to the home page of your project to start using it.
+It's important to publish the assets, since the system need to save on the database your current Cloud Breeze version. This will be helpful, to
+know exaclty when to perform an update.
 
-## Create Storage Disks
+### Create Storage Disks
 You need to update your filesystems.php file available on the config directory with the following changes : 
 
 ```php
@@ -63,8 +64,9 @@ You need to update your filesystems.php file available on the config directory w
   // ...
 ],
 ```
+Updating the filesystems will allow Cloud Breeze to save modules and to publish useful assets correctly.
 
-## Register EncryptCookies Middleware
+### Register EncryptCookies Middleware
 By default, the cookies registered by Cloud Breeze will be encrypted. With that, Cloud Breeze won't be able to authenticate and remember the user
 authenticated from the login UI provided. You need to register the middleware on the Kernel.php. If you have any specific cookie excaped from the middleware `App\Http\Middleware\EncryptCookies` it will be used on `Tendoo\Core\Http\Middleware\EncryptCookies`. You'll then comment (or delete) the default middleware on `app\Http\Kernel.php` like so :
 
@@ -80,6 +82,81 @@ protected $middlewareGroups = [
     // something else...
 ];
 // something after...
+```
+
+### Change User Model
+Cloud Breeze provides with his own authentication tables and models. The Users table is named `_users` leaded by the table prefix.
+You need so to adjust your authentication congifuration file and make sure the Model used is the one provided by Cloud Breeze. Typically, you'll have to change it like so : 
+
+```php
+'providers' => [
+    'users' => [
+        'driver' => 'eloquent',
+        // 'model' => App\User::class,
+        'model' => Tendoo\Core\Models\User::class, // <= the class here
+    ],
+
+    // 'users' => [
+    //     'driver' => 'database',
+    //     'table' => 'users',
+    // ],
+],
+```
+
+If you're using Cloud Breeze on a old project, make sure to check wether the .env is valid. It might happen Cloud Breeze writes on the same line as an existing
+configuration. This usually crash the application without any hint on what cause that usually.
+
+# Security 
+Cloud Breeze comes with a built-in security system. This system basically is made to prevent Brute-Force attack on login and registration page. Basically, it act as a throttle middleware provided by Laravel, but goes beyong by blacklisting an IP which becomes suspect over the time. Obviouly, this behaviour can be disabled and configured. First you should have published the package to ensure having the configuration "tendoo.php" available on the config directory of your laravel project.
+
+`php artisan vendor:publish`
+
+Once the `config/tendoo.php` file is published, it comes with some configuration that you can set to leverage your security as per your needs. You'll find on that file 2 security  system :
+
+- Anti-Flood Requests
+- Suspicious Requests
+
+While the Anti-Flood Request prevents too many request to be send from one client (based on their IP), the Suspect Request allow you to blacklist immediately any client (user) who try to makes unprobable requests. For example make a GET request /wp-admin/login.php, it looks clearly this client is looking for login page while he shoudln't. The solution let you handle such request and if necessary block them.
+
+The Suspicious Requests configurations looks like this :
+
+```php
+'ip-banner' => [
+    'enable'        =>  true,
+
+    /**
+     * describe what is forbidden
+     * on each request processed
+     */
+    'forbidden'     =>  [
+        '.php',
+    ],
+
+    /**
+     * if a client makes the same mistake
+     * "x" times, his ip will be banned
+     */
+    'mistakes-threshold'    =>  1,
+
+    /**
+     * the ip of the client
+     * will be recorded
+     * on the mentionned htaccess file
+     */
+    'htaccess-blocking'     =>  false,
+
+    'htaccess-path'         =>  ''
+],
+```
+
+For the anti-flood request, you just need to mention how many requests per minutes a client can make. Here is how it looks like : 
+
+```php
+'flood'             =>  [
+    'prevent'       =>  false, // should be enabled
+    'limit'         =>  30,
+    'expiration'    =>  60
+],
 ```
 
 # API

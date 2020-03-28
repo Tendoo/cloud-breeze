@@ -180,27 +180,27 @@ class Crud
                     $query->$junction( $relation[0], $relation[1], $relation[2], $relation[3] );
                 }
             }
+        }
 
-            /**
-             * check if the query has a where statement
-             */
-            if ( $this->listWhere ) {
-                foreach( $this->listWhere as $key => $value ) {
-                    if ( count( $this->listWhere ) > 1 ) {
-                        $query->orWhere( $key, $value );
-                    } else {
-                        $query->where( $key, $value );
-                    }
+        /**
+         * check if the query has a where statement
+         */
+        if ( $this->listWhere ) {
+            foreach( $this->listWhere as $key => $value ) {
+                if ( count( $this->listWhere ) > 1 ) {
+                    $query->orWhere( $key, $value );
+                } else {
+                    $query->where( $key, $value );
                 }
             }
+        }
 
-            /**
-             * try to run the where in statement
-             */
-            if ( $this->whereIn ) {
-                foreach( $this->whereIn as $key => $values ) {
-                    $query->whereIn( $key, $values );
-                }
+        /**
+         * try to run the where in statement
+         */
+        if ( $this->whereIn ) {
+            foreach( $this->whereIn as $key => $values ) {
+                $query->whereIn( $key, $values );
             }
         }
 

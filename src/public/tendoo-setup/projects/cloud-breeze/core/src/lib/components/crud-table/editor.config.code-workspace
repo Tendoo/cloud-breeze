@@ -1,0 +1,11 @@
+{
+	"folders": [
+		{
+			"path": "/var/www/html/laravel-7001"
+		},
+		{
+			"path": "/var/www/html/packages/cloud-breeze"
+		}
+	],
+	"settings": {}
+}

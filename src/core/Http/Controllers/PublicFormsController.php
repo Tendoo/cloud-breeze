@@ -12,9 +12,9 @@ class PublicFormsController extends BaseController
      * @param string form namespace
      * @return array of Section
      */
-    public function getForm( $namespace )  
+    public function getForm( $namespace, $index = null )  
     {
-        if ( empty( $forms     =   Hook::filter( 'public.forms', [], $namespace ) ) ) {
+        if ( empty( $forms     =   Hook::filter( 'public.forms', [], $namespace, $index ) ) ) {
             /**
              * if nothing is returned, then the form probably
              * doesn't exists.
