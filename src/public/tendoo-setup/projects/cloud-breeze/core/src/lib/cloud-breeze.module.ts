@@ -90,7 +90,6 @@ export const CB_URL_CONFIG 	=	new InjectionToken<{
 		ImageCropperModule,
 	],
 	exports: [ 
-		MaterialModule, 
 		FlexLayoutModule,
 		NgxCaptchaModule,
 

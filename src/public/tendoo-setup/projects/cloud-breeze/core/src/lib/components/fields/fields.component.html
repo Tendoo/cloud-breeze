@@ -166,6 +166,7 @@
 			<div class="w-full bg-blue-100">
 				<div class="flex px-4 -mx-4 ">
 					<div class="w-full md:w-2/3 p-2">
+						<span>{{ field.label }}</span>
 						<image-cropper
 							[imageChangedEvent]="imageChangedEvent"
 							[maintainAspectRatio]="field?.data?.maintainAspectRatio || true"

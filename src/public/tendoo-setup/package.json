@@ -10,9 +10,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "build-libraries": "npm run publish-table; npm run publish-dialog",
-    "publish-core": "ng build @cloud-breeze/core && cd dist/cloud-breeze/core && npm publish --access public",
-    "publish-table": "ng build @cloud-breeze/crud-table && (cd dist/cloud-breeze/crud-table) && npm publish --access public",
-    "publish-dialog": "ng build @cloud-breeze/dialog && (cd dist/cloud-breeze/dialog) && npm publish --access public",
+    "publish-core": "ng build @cloud-breeze/core --prod && cd dist/cloud-breeze/core && npm publish --access public",
     "remove-libraries": "npm remove @cloud-breeze/core ; npm remove @cloud-breeze/crud-table ; npm remove @cloud-breeze/dialog",
     "ilib": "npm i @cloud-breeze/core && npm i @cloud-breeze/crud-table && npm i @cloud-breeze/dialog"
   },
