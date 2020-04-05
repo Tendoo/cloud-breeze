@@ -50,7 +50,6 @@
               "sourceMap": false,
               "extractCss": true,
               "namedChunks": false,
-              "aot": true,
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
@@ -145,10 +144,50 @@
         }
       }
     },
+    "@cloud-breeze-legacy/core": {
+      "root": "projects/cloud-breeze-legacy/core",
+      "sourceRoot": "projects/cloud-breeze-legacy/core/src",
+      "projectType": "library",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/cloud-breeze-legacy/core/tsconfig.lib.json",
+            "project": "projects/cloud-breeze-legacy/core/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/cloud-breeze-legacy/core/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/cloud-breeze-legacy/core/src/test.ts",
+            "tsConfig": "projects/cloud-breeze-legacy/core/tsconfig.spec.json",
+            "karmaConfig": "projects/cloud-breeze-legacy/core/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/cloud-breeze-legacy/core/tsconfig.lib.json",
+              "projects/cloud-breeze-legacy/core/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
     "@cloud-breeze/core": {
+      "projectType": "library",
       "root": "projects/cloud-breeze/core",
       "sourceRoot": "projects/cloud-breeze/core/src",
-      "projectType": "library",
       "prefix": "lib",
       "architect": {
         "build": {
@@ -156,13 +195,13 @@
           "options": {
             "tsConfig": "projects/cloud-breeze/core/tsconfig.lib.json",
             "project": "projects/cloud-breeze/core/ng-package.json"
-          }
-        ,          "configurations": {
+          },
+          "configurations": {
             "production": {
               "tsConfig": "projects/cloud-breeze/core/tsconfig.lib.prod.json"
             }
           }
-},
+        },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
@@ -184,7 +223,90 @@
           }
         }
       }
+    },
+    "@cloud-breeze/utilities": {
+      "projectType": "library",
+      "root": "projects/cloud-breeze/utilities",
+      "sourceRoot": "projects/cloud-breeze/utilities/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/cloud-breeze/utilities/tsconfig.lib.json",
+            "project": "projects/cloud-breeze/utilities/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/cloud-breeze/utilities/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/cloud-breeze/utilities/src/test.ts",
+            "tsConfig": "projects/cloud-breeze/utilities/tsconfig.spec.json",
+            "karmaConfig": "projects/cloud-breeze/utilities/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/cloud-breeze/utilities/tsconfig.lib.json",
+              "projects/cloud-breeze/utilities/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "@cloud-breeze/services": {
+      "projectType": "library",
+      "root": "projects/cloud-breeze/services",
+      "sourceRoot": "projects/cloud-breeze/services/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/cloud-breeze/services/tsconfig.lib.json",
+            "project": "projects/cloud-breeze/services/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/cloud-breeze/services/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/cloud-breeze/services/src/test.ts",
+            "tsConfig": "projects/cloud-breeze/services/tsconfig.spec.json",
+            "karmaConfig": "projects/cloud-breeze/services/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/cloud-breeze/services/tsconfig.lib.json",
+              "projects/cloud-breeze/services/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }
   },
-  "defaultProject": "tendoo-setup"
+  "defaultProject": "tendoo-setup",
+  "cli": {
+    "analytics": false
+  }
 }

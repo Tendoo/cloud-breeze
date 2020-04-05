@@ -2,8 +2,9 @@
   "name": "tendoo-setup",
   "version": "0.0.0",
   "scripts": {
+    "postinstall": "ngcc",
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --aot",
     "build": "ng build --prod --vendorChunk --outputHashing=none",
     "build-ct": "cd projects/cloud-tools; ng build; npm publish",
     "test": "ng test",
@@ -11,6 +12,8 @@
     "e2e": "ng e2e",
     "build-libraries": "npm run publish-table; npm run publish-dialog",
     "publish-core": "ng build @cloud-breeze/core --prod && cd dist/cloud-breeze/core && npm publish --access public",
+    "publish-services": "ng build @cloud-breeze/services --prod && cd dist/cloud-breeze/services && npm publish --access public",
+    "publish-utilities": "ng build @cloud-breeze/utilities --prod && cd dist/cloud-breeze/utilities && npm publish --access public",
     "remove-libraries": "npm remove @cloud-breeze/core ; npm remove @cloud-breeze/crud-table ; npm remove @cloud-breeze/dialog",
     "ilib": "npm i @cloud-breeze/core && npm i @cloud-breeze/crud-table && npm i @cloud-breeze/dialog"
   },
@@ -68,5 +71,5 @@
     "ts-node": "~8.2.0",
     "tslint": "~5.17.0",
     "typescript": "~3.8.3"
-  }
+  }  
 }

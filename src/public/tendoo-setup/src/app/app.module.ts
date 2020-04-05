@@ -5,7 +5,6 @@ import { DropzoneModule } from 'ngx-dropzone-wrapper';
 import { CookieService } from 'ngx-cookie-service';
 import { NgxCaptchaModule } from 'ngx-captcha';
 import { CloudBreezeModule } from '@cloud-breeze/core';
-
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from 'src/modules/material.module';
@@ -104,19 +103,20 @@ import { CrudTableComponent } from './tests/crud-table/crud-table.component';
     imports: [
         BrowserModule,
         BrowserAnimationsModule,
-        FlexLayoutModule,
-        ReactiveFormsModule,
-        HttpClientModule,
-        MaterialModule,
-        RoutesModule,
         FormsModule,
+        HttpClientModule,
+        ReactiveFormsModule,
+
+        FlexLayoutModule,
+        RoutesModule,
+        MaterialModule,
         DropzoneModule,
         NgxCaptchaModule,
+        ImageCropperModule,
         CloudBreezeModule.forRoot({
             base: '/api',
             angular: ''
         }),
-        ImageCropperModule,
     ],
     entryComponents: [
         MigrationDialogComponent,

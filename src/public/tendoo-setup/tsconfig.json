@@ -19,10 +19,20 @@
     ],
     "paths": {
       "@cloud-breeze/core": [
+        "dist/cloud-breeze/core",
+        "dist/cloud-breeze/core/cloud-breeze-core",
         "dist/cloud-breeze/core"
       ],
       "@cloud-breeze/core/*": [
         "dist/cloud-breeze/core/*"
+      ],
+      "@cloud-breeze/utilities": [
+        "dist/cloud-breeze/utilities/cloud-breeze-utilities",
+        "dist/cloud-breeze/utilities"
+      ],
+      "@cloud-breeze/services": [
+        "dist/cloud-breeze/services/cloud-breeze-services",
+        "dist/cloud-breeze/services"
       ]
     }
   }

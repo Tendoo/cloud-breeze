@@ -1,0 +1,19 @@
+{
+	"name": "@cloud-breeze/core",
+	"version": "2.0.1-beta.8",
+	"peerDependencies": {
+		"ngx-image-cropper": "^3.1.3",
+		"moment": "~2.24.0",
+		"ngx-cookie-service": "^3.0.2",
+		"ngx-captcha": "^8.0.1",
+		"ng-tailwindcss": "~2.2.0",
+		"@angular/material": "~9.1.2",
+		"@angular/flex-layout": "^9.0.0-beta.29",
+		"@angular/material-moment-adapter": "^9.1.2",
+		"@angular/common": "9.0.6",
+		"@angular/core": "9.0.6"
+	},
+	"devDependencies": {
+		"tailwindcss": "^1.1.4"
+	}
+}

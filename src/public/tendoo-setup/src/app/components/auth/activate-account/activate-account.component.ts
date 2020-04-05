@@ -3,7 +3,7 @@ import { TendooAuthService } from 'src/app/services/tendoo-auth.service';
 import { Router, ActivatedRouteSnapshot, ActivatedRoute } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { TendooService } from 'src/app/services/tendoo.service';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
     selector: 'app-activate-account',

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TendooService } from 'src/app/services/tendoo.service';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { FormGroup } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
