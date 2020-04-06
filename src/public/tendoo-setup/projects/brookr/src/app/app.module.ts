@@ -24,6 +24,11 @@ export const serviceCalled   = ServicesModule;
     CoreModule,
     StoreModule.forRoot({ 
       state : AppReducer
+    }, {
+      runtimeChecks: {
+        strictActionImmutability: false,
+        strictStateImmutability: false
+      }
     }),
     ServicesModule.forRoot({
       angular: '',

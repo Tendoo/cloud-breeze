@@ -6,11 +6,13 @@ export interface AppState {
     dashboardMenus: Menu[],
     authenticated : boolean;
     sidebarToggled: boolean;
+    notificationToggled: boolean;
 }
 
 export const AppInitialState: AppState = {
     authenticated: false,
     sidebarToggled: false,
+    notificationToggled: false,
     dashboardMenus: [
         {
             label: 'Dashboard',
@@ -86,6 +88,7 @@ const reducer    =   createReducer(
     on( AppActions.login, ( state: AppState ) =>  ({ ...state, authenticated: true })),
     on( AppActions.logout, ( state: AppState ) =>  ({ ...state, authenticated: false })),
     on( AppActions.toggleSidebar, ( state: AppState ) => ({ ...state, sidebarToggled : ! state.sidebarToggled })),
+    on( AppActions.toggleNotification, ( state: AppState ) => ({ ...state, notificationToggled : ! state.notificationToggled })),
     on( AppActions.toggleMenu, ( state: AppState, { menu, index }) => {
         let cloneState  =   Object.assign( state, {});
         if ( cloneState.dashboardMenus[ index ].toggled === false ) {

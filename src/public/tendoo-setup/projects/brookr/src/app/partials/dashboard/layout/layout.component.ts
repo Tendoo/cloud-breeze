@@ -32,4 +32,8 @@ export class LayoutComponent implements OnInit, OnDestroy {
   toggleSidebar() {
     this.store.dispatch( AppActions.toggleSidebar() );  
   }
+
+  toggleNotification() {
+    this.store.dispatch( AppActions.toggleNotification() );
+  }
 }
