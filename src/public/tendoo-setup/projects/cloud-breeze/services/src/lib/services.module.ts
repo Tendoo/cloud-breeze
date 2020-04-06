@@ -1,4 +1,4 @@
-import { NgModule, ModuleWithProviders, InjectionToken } from "@angular/core";
+import { NgModule, ModuleWithProviders, Inject } from "@angular/core";
 import { TendooSpinnerService } from "./services/tendoo-spinner.service";
 import { LoaderService } from "./services/loader.service";
 import { TendooUpdateService } from "./services/tendoo-update.service";
@@ -20,16 +20,13 @@ import { TendooUsersService } from "./services/tendoo-users.service";
 import { TendooService } from "./services/tendoo.service";
 import { CookieService } from "ngx-cookie-service";
 import { TendooConfigService } from "./services/tendoo-config.service";
-import { config } from "rxjs";
-
-export interface ConfigOptions {
-	base?: string;
-	angular?: string;
-}
-
-export const CB_URL_CONFIG 	=	new InjectionToken<ConfigOptions>( 'cb-url-config' );
+import { HttpClientModule } from "@angular/common/http";
+import { ConfigOptions, CB_URL_CONFIG } from "./ConfigOptions";
 
 @NgModule({
+	imports: [
+		HttpClientModule
+	],
     providers: [
         TendooSpinnerService,
 		LoaderService,
@@ -55,7 +52,8 @@ export const CB_URL_CONFIG 	=	new InjectionToken<ConfigOptions>( 'cb-url-config'
     ], 
 })
 export class ServicesModule {
-    static forRoot( config: ConfigOptions ): ModuleWithProviders<ServicesModule> {
+    static forRoot( config ?: ConfigOptions ): ModuleWithProviders<ServicesModule> {
+		console.log( config );
         return {
 			ngModule: ServicesModule,
 			providers: [
@@ -63,21 +61,7 @@ export class ServicesModule {
 					provide: CB_URL_CONFIG,
 					useValue: config
 				}, 
-
-				{
-					provide: TendooConfigService,
-					useFactory: providesConfiguration,
-					deps: [ CB_URL_CONFIG ],
-				}
 			]
         }
     }
-}
-
-export function providesConfiguration( options: ConfigOptions ): TendooConfigService {
-	console.log( options );
-	const configService 		=	 new TendooConfigService();
-	configService.angularUrl 	=	options.angular;
-	configService.baseUrl 		=	options.base;
-	return configService;
 }

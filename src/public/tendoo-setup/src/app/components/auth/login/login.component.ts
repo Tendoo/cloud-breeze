@@ -9,8 +9,9 @@ import { CookieService } from 'ngx-cookie-service';
 import * as moment from 'moment';
 import { HelperService } from 'src/app/services/helper.service';
 import { ReCaptcha2Component } from 'ngx-captcha';
-import { Field, ValidationGenerator } from '@cloud-breeze/core';
 import { Observable } from 'rxjs';
+import { Field } from '@cloud-breeze/core';
+import { ValidationGenerator } from '@cloud-breeze/utilities';
 
 @Component({
     selector: 'app-login',

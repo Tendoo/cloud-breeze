@@ -4,7 +4,8 @@ import { TendooService } from 'src/app/services/tendoo.service';
 import { FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Field, ValidationGenerator } from '@cloud-breeze/core';
+import { Field } from '@cloud-breeze/core';
+import { ValidationGenerator } from '@cloud-breeze/utilities';
 
 @Component({
 	selector: 'app-change-password',

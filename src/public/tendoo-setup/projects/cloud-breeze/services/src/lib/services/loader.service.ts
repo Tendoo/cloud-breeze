@@ -14,10 +14,11 @@ declare const tendoo;
 })
 export class LoaderService {
     bulkDeletePath;
-    isLoading           =   false;
+    isLoading               =   false;
     baseUrl;
     angularUrl;
-    protected headers      =   {};
+    static config           =   {};
+    protected headers       =   {};
 
     constructor(
         protected http: HttpClient,

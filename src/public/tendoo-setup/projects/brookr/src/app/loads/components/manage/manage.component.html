@@ -1,0 +1,17 @@
+<app-layout>
+    <div class="mb-2" *ngIf="mode === 'create'">
+        <p class="text-2xl mb-2 font-serif text-gray-800">Assign Load</p>
+        <p class="text-gray-700">Loads are assigned to drivers for delivery.</p>
+    </div>
+    <div class="mb-2" *ngIf="mode === 'edit'">
+        <p class="text-2xl mb-2 font-serif text-gray-800">Edit Load</p>
+        <p class="text-gray-700">Loads are assigned to drivers for delivery.</p>
+    </div>
+    <form *ngIf="form" [formGroup]="form.formGroup">
+        <div class="mb-4" *ngFor="let field of form.sections[0].fields">
+            <input [formControl]="field.control" type="text" class="rounded border border-gray-400 p-2 w-full" placeholder="Load Title">
+            <span class="text-gray-600 my-1 text-xs block">Can automatically be generated.</span>
+        </div>
+        <app-tabs *ngIf="form" [form]="form" (submit)="handleSubmit( $event )"></app-tabs>
+    </form>
+</app-layout>

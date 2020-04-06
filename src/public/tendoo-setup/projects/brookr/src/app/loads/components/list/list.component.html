@@ -1,0 +1,17 @@
+<app-layout>
+    <div class="mb-4 text-gray-800">
+        <span class="block text-2xl mb-2">Available Loads</span> 
+        <p class="text-sm">Manage all assigned loads delivery</p>
+    </div>
+    <div class="flex w-full">
+        <cb-table 
+            (action)="handleAction( $event )" 
+            (sort)="handleSort( $event )" 
+            (refresh)="handleRefresh( $event )" 
+            (page)="handlePagineNavigation( $event )" 
+            (search)="handleSearch( $event )"
+            [is-loading]="isLoading"
+            *ngIf="config" [crud]="config" class="w-full"></cb-table>
+        <!-- <app-table (sort)="handleSort( $event )" (search)="handleSearch( $event )" [config]="config"></app-table> -->
+    </div>   
+</app-layout>

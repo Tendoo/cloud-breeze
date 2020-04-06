@@ -10,6 +10,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
+    "start-brookr": "ng serve brookr & ngtw watch",
     "build-libraries": "npm run publish-table; npm run publish-dialog",
     "publish-core": "ng build @cloud-breeze/core --prod && cd dist/cloud-breeze/core && npm publish --access public",
     "publish-services": "ng build @cloud-breeze/services --prod && cd dist/cloud-breeze/services && npm publish --access public",
@@ -35,6 +36,7 @@
     "@angular/platform-browser": "~9.1.0",
     "@angular/platform-browser-dynamic": "~9.1.0",
     "@angular/router": "~9.1.0",
+    "@ngrx/store": "^9.0.0",
     "core-js": "^3.1.3",
     "hammerjs": "^2.0.8",
     "install": "^0.12.2",
@@ -68,8 +70,9 @@
     "karma-jasmine-html-reporter": "^1.4.2",
     "ng-packagr": "^9.0.0",
     "protractor": "^5.4.2",
+    "tailwindcss": "^1.2.0",
     "ts-node": "~8.2.0",
     "tslint": "~5.17.0",
     "typescript": "~3.8.3"
-  }  
+  }
 }

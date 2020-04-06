@@ -1,5 +1,6 @@
 import { Injectable, Inject } from '@angular/core';
-import { ConfigOptions } from '../services.module';
+import { ConfigOptions, CB_URL_CONFIG } from "../ConfigOptions";
+
 
 @Injectable({
     providedIn: 'root'
@@ -7,4 +8,8 @@ import { ConfigOptions } from '../services.module';
 export class TendooConfigService {
     baseUrl: string;
     angularUrl: string;
+    constructor( @Inject( CB_URL_CONFIG ) options: ConfigOptions ) {
+        this.baseUrl        =   options.base;
+        this.angularUrl     =   options.angular;
+    }
 }

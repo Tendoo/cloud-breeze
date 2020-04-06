@@ -4,7 +4,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { DropzoneModule } from 'ngx-dropzone-wrapper';
 import { CookieService } from 'ngx-cookie-service';
 import { NgxCaptchaModule } from 'ngx-captcha';
-import { CloudBreezeModule } from '@cloud-breeze/core';
+import { CoreModule } from '@cloud-breeze/core';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from 'src/modules/material.module';
@@ -55,6 +55,8 @@ import { ImageCropperModule } from 'ngx-image-cropper';
 import { ActivateAccountComponent } from './components/auth/activate-account/activate-account.component';
 import { RequestActivationComponent } from './components/auth/request-activation/request-activation.component';
 import { CrudTableComponent } from './tests/crud-table/crud-table.component';
+import { ServicesModule } from '@cloud-breeze/services';
+import { UtilityModule } from '@cloud-breeze/utilities';
 
 @NgModule({
     declarations: [
@@ -113,8 +115,10 @@ import { CrudTableComponent } from './tests/crud-table/crud-table.component';
         DropzoneModule,
         NgxCaptchaModule,
         ImageCropperModule,
-        CloudBreezeModule.forRoot({
-            base: '/api',
+        CoreModule,
+        UtilityModule,
+        ServicesModule.forRoot({
+            base: 'http://laravel-7001.std/api/',
             angular: ''
         }),
     ],

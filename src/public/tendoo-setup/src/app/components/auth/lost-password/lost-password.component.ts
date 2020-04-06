@@ -5,7 +5,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { AsyncResponse } from 'src/app/interfaces/async-response';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { Field, ValidationGenerator } from '@cloud-breeze/core';
+import { Field } from '@cloud-breeze/core';
+import { ValidationGenerator } from '@cloud-breeze/utilities';
 
 @Component({
     selector: 'app-lost-password',
