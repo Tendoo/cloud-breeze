@@ -53,7 +53,10 @@ class Modules
             collect( $directories )->map( function( $module ) {
                 return str_replace( '/', '\\', $module );
             })->map( function( $module ) {
-                $this->__init( substr( $module, strlen( CB_MODULES_PATH ) ) );
+                $directory      =       substr( $module, strlen( CB_MODULES_PATH ) );
+                if ( $directory !== '__temp' ) {
+                    $this->__init( $directory );
+                }
             });
         } else {
             $this->__init( $dir );
@@ -101,7 +104,7 @@ class Modules
             // If a module has at least a namespace
             if ( $config[ 'namespace' ] != null ) {
                 // index path
-                $modulesPath        =   config( 'tendoo.modules_path' );
+                $modulesPath        =   base_path() . DIRECTORY_SEPARATOR . CB_MODULES_PATH;
                 $currentModulePath  =   $modulesPath . $dir . DIRECTORY_SEPARATOR;
                 $indexPath          =   $currentModulePath . ucwords( $config[ 'namespace' ] . 'Module.php' );
                 $webRoutesPath      =   $currentModulePath . 'Routes' . DIRECTORY_SEPARATOR . 'web.php';
@@ -216,6 +219,7 @@ class Modules
                     $this->modules[ $config[ 'namespace' ] ]    =   $config;
                 }
             }
+
         } else {
             return [
                 'status'    =>  'failed',
@@ -369,7 +373,7 @@ class Modules
                     strpos( $file, $namespace . '/composer.json' ) ===  false &&
                     strpos( $file, $namespace . '/composer.lock' ) ===  false
                 ) {
-                    $zipArchive->addFile( config( 'tendoo.modules_path' ) . $file, $file );
+                    $zipArchive->addFile( base_path() . DIRECTORY_SEPARATOR . $file, $file );
                 }
             }
 
