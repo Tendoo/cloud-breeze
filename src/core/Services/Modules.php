@@ -340,7 +340,8 @@ class Modules
             $files      =   array_values( collect( $files )->filter( function( $file ) use ( $manifest, $namespace ) {
                 if ( is_array( @$manifest[ 'ignore' ] ) ) {
                     foreach( $manifest[ 'ignore' ] as $check ) {
-                        if ( fnmatch( ucwords( $namespace ) . '/' . $check, $file ) ) {
+                        // if ( fnmatch( ucwords( $namespace ) . '/' . $check, $file ) ) {
+                        if ( strpos( $file, ucwords( $namespace ) . '/' . $check ) ) {
                             return false;
                         }
                     }
@@ -349,6 +350,7 @@ class Modules
                 return true;
                 
             })->toArray() );
+
             
             // create new archive
             $zipArchive     =   new \ZipArchive;
@@ -358,7 +360,7 @@ class Modules
                 \ZipArchive::OVERWRITE 
             );
             $zipArchive->addEmptyDir( ucwords( $namespace ) );
-
+            
             foreach( $files as $index => $file ) {
 
                 /**
@@ -369,7 +371,10 @@ class Modules
                     strpos( $file, $namespace . '/composer.json' ) ===  false &&
                     strpos( $file, $namespace . '/composer.lock' ) ===  false
                 ) {
-                    $zipArchive->addFile( config( 'tendoo.modules_path' ) . $file, $file );
+                    $zipArchive->addFile( 
+                        base_path() . DIRECTORY_SEPARATOR . $file, 
+                        substr( $file, strlen( 'modules' . DIRECTORY_SEPARATOR ) )
+                    );
                 }
             }
 
