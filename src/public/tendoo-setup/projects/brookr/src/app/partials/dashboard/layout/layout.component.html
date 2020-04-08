@@ -1,81 +1,116 @@
-<div class="flex h-full w-full">
-    <div id="sidebar" [ngClass]="{ 
-        'absolute shadow z-50' : ( state$ | async ).sidebarToggled, 
-        'hidden' : ! ( state$ | async ).sidebarToggled
-    }" class="w-64 lg:static lg:shadow-none lg:block flex-shrink-0 h-full bg-gray-200 p-2">
-        <div class="logo flex pb-4 justify-center">
-            <h2 class="brookr-font text-4xl" style="margin: 0;">Brookr</h2>
-        </div>
-        <div class="side-menu flex flex-col text-gray-600">
-            <div [ngClass]="{ 'bg-gray-100 rounded shadow' : menu.toggled }" *ngFor="let menu of ( state$ | async ).dashboardMenus; let index = index" class="flex flex-col">
-                <ng-container *ngIf="menu.childrens !== undefined && menu.childrens.length > 0">
-                    <div (click)="toggleMenu( menu, index )" class="flex hover:bg-gray-300 px-4 py-2 items-center cursor-pointer menu rounded overflow-hidden">
-                        <div class="menu-icon w-5 h-5 pr-2 flex items-center justify-center">
-                            <mat-icon>{{ menu.icon }}</mat-icon>
-                        </div>
-                        <div class="menu-text pl-2 flex items-center justify-between flex-auto">
-                            <span class="text font-semibold font-sans">{{ menu.label }}</span>
-                            <span class="caret flex items-center justify-center" *ngIf="menu.childrens && menu.childrens.length > 0">
-                                <mat-icon *ngIf="menu.toggled">keyboard_arrow_up</mat-icon>
-                                <mat-icon *ngIf="! menu.toggled">keyboard_arrow_down</mat-icon>
-                            </span>
-                        </div>
-                    </div>
-                </ng-container>
-                <ng-container *ngIf="menu.childrens === undefined || menu.childrens.length === 0">
-                    <a (click)="toggleSidebar()" [routerLink]="menu.path" class="flex hover:bg-gray-300 px-4 py-2 items-center cursor-pointer menu rounded overflow-hidden">
-                        <div class="menu-icon w-5 h-5 pr-2 flex items-center justify-center">
-                            <mat-icon>{{ menu.icon }}</mat-icon>
-                        </div>
-                        <div class="menu-text pl-2 flex items-center justify-between flex-auto">
-                            <span class="text font-semibold font-sans">{{ menu.label }}</span>
-                            <span class="caret flex items-center justify-center" *ngIf="menu.childrens && menu.childrens.length > 0">
-                                <mat-icon>keyboard_arrow_down</mat-icon>
-                            </span>
-                        </div>
-                    </a>
-                </ng-container>
-                <ng-container *ngIf="menu.toggled">
-                    <a (click)="toggleSidebar()" [routerLink]="childMenu.path" *ngFor="let childMenu of menu.childrens" class="cursor-pointer menu rounded overflow-hidden flex hover:bg-gray-300 px-4 py-2 items-center">
-                        <div class="menu-icon w-5 h-5 pr-2 flex items-center justify-center">
-                        </div>
-                        <div class="menu-text pl-2 flex items-center justify-between flex-auto">
-                            <span class="text font-semibold font-sans">{{ childMenu.label }}</span>
-                        </div>
-                    </a>
-                </ng-container>
-            </div>
-        </div>
+<div class="w-full h-full flex flex-col">
+    <div class="absolute w-full left-0 top-0 z-50">
+        <mat-progress-bar
+            *ngIf="( state$ | async ).asyncLoading"            
+            class="example-margin absolute"
+            mode="indeterminate">
+        </mat-progress-bar>
     </div>
-    <div *ngIf="( state$ | async ).sidebarToggled" (click)="toggleSidebar()" style="background: rgba(51, 51, 51, 0.3)" class="overlay absolute top-0 lg:hidden w-full h-full z-40 bg-gray-100"></div>
-    <div id="container" class="flex-auto bg-gray-200 flex flex-col">
-        <div id="tool-bar" class="h-16 flex-shrink-0 w-full flex items-center px-2 shadow lg:shadow-none">
-            <div class="left-panel flex flex-auto">
-                <div>
-                    <div (click)="toggleSidebar()" class="lg:hidden hover:shadow hover:bg-gray-100 hover:border-transparent border border-gray-400 cursor-pointer user-profile rounded-lg flex justify-between items-center p-2">
-                        <mat-icon>menu</mat-icon>
-                    </div>
-                </div>
+    <div class="flex h-full w-full">
+        <div id="sidebar" [ngClass]="{ 
+            'absolute shadow z-50' : ( state$ | async ).sidebarToggled, 
+            'hidden' : ! ( state$ | async ).sidebarToggled
+        }" class="w-64 lg:static lg:shadow-none lg:block lg:z-0 flex-shrink-0 h-full bg-gray-200 p-2">
+            <div class="logo flex pb-4 justify-center">
+                <h2 class="brookr-font text-4xl" style="margin: 0;">Brookr</h2>
             </div>
-            <div class="right-panel flex -mx-1">
-                <div class="px-1">
-                    <div (click)="toggleNotification()" [ngClass]="( state$ | async ).notificationToggled ? bg-blue-300 : ''" class="hover:shadow hover:bg-gray-100 hover:border-transparent border border-gray-400 cursor-pointer user-profile rounded-lg flex justify-between items-center p-2">
-                        <mat-icon>notifications</mat-icon>
-                    </div>
-                    <div class="md:w-1/3 rounded shadow bg-white p-2" style="position: absolute;margin-left: -214px;margin-top: -5px;border-top-right-radius: 0;">
-
-                    </div>
-                </div>
-                <div class="px-1">
-                    <div class="hover:shadow hover:bg-gray-100 hover:border-transparent border border-gray-400 cursor-pointer user-profile rounded-lg flex justify-between items-center p-2">
-                        <span class="text-lg">Welcome</span>
-                        <div class="h-6 w-6 ml-2 bg-gray-700 rounded"></div>
-                    </div>
+            <div class="side-menu flex flex-col text-gray-600">
+                <div [ngClass]="{ 'bg-gray-100 rounded shadow' : menu.toggled }" *ngFor="let menu of ( state$ | async ).dashboardMenus; let index = index" class="flex flex-col">
+                    <ng-container *ngIf="menu.childrens !== undefined && menu.childrens.length > 0">
+                        <div (click)="toggleMenu( menu, index )" class="flex hover:bg-gray-300 px-4 py-2 items-center cursor-pointer menu rounded overflow-hidden">
+                            <div class="menu-icon w-5 h-5 pr-2 flex items-center justify-center">
+                                <mat-icon>{{ menu.icon }}</mat-icon>
+                            </div>
+                            <div class="menu-text pl-2 flex items-center justify-between flex-auto">
+                                <span class="text font-semibold font-sans">{{ menu.label }}</span>
+                                <span class="caret flex items-center justify-center" *ngIf="menu.childrens && menu.childrens.length > 0">
+                                    <mat-icon *ngIf="menu.toggled">keyboard_arrow_up</mat-icon>
+                                    <mat-icon *ngIf="! menu.toggled">keyboard_arrow_down</mat-icon>
+                                </span>
+                            </div>
+                        </div>
+                    </ng-container>
+                    <ng-container *ngIf="menu.childrens === undefined || menu.childrens.length === 0">
+                        <a (click)="toggleSidebar()" [routerLink]="menu.path" class="flex hover:bg-gray-300 px-4 py-2 items-center cursor-pointer menu rounded overflow-hidden">
+                            <div class="menu-icon w-5 h-5 pr-2 flex items-center justify-center">
+                                <mat-icon>{{ menu.icon }}</mat-icon>
+                            </div>
+                            <div class="menu-text pl-2 flex items-center justify-between flex-auto">
+                                <span class="text font-semibold font-sans">{{ menu.label }}</span>
+                                <span class="caret flex items-center justify-center" *ngIf="menu.childrens && menu.childrens.length > 0">
+                                    <mat-icon>keyboard_arrow_down</mat-icon>
+                                </span>
+                            </div>
+                        </a>
+                    </ng-container>
+                    <ng-container *ngIf="menu.toggled">
+                        <a (click)="toggleSidebar()" [routerLink]="childMenu.path" *ngFor="let childMenu of menu.childrens" class="cursor-pointer menu rounded overflow-hidden flex hover:bg-gray-300 px-4 py-2 items-center">
+                            <div class="menu-icon w-5 h-5 pr-2 flex items-center justify-center">
+                            </div>
+                            <div class="menu-text pl-2 flex items-center justify-between flex-auto">
+                                <span class="text font-semibold font-sans">{{ childMenu.label }}</span>
+                            </div>
+                        </a>
+                    </ng-container>
                 </div>
             </div>
         </div>
-        <div class="content shadow-lg lg:rounded-tl-lg bg-white p-4 lg:pt-6 lg:pl-6 flex-auto overflow-y-auto">
-            <ng-content></ng-content>
+        <div *ngIf="( state$ | async ).sidebarToggled" (click)="toggleSidebar()" style="background: rgba(51, 51, 51, 0.3)" class="overlay absolute top-0 lg:hidden w-full h-full z-40 bg-gray-100"></div>
+        <div *ngIf="( state$ | async ).notificationsToggled" (click)="toggleNotifications()" style="background: rgba(51, 51, 51, 0.3)" class="overlay absolute top-0 w-full h-full z-40 bg-gray-100"></div>
+        <div id="container" class="flex-auto bg-gray-200 flex flex-col">
+            <div id="tool-bar" class="h-16 flex-shrink-0 w-full flex items-center px-2 shadow lg:shadow-none">
+                <div class="left-panel flex flex-auto">
+                    <div>
+                        <div (click)="toggleSidebar()" class="lg:hidden hover:shadow hover:bg-gray-100 hover:border-transparent border border-gray-400 cursor-pointer user-profile rounded-lg flex justify-between items-center p-2">
+                            <mat-icon>menu</mat-icon>
+                        </div>
+                    </div>
+                </div>
+                <div class="right-panel flex -mx-1">
+                    <div class="px-1">
+                        <div (click)="toggleNotifications()" class="hover:shadow hover:bg-gray-100 hover:border-transparent border border-gray-400 cursor-pointer user-profile rounded-lg flex justify-between items-center p-2">
+                            <mat-icon>notifications</mat-icon>
+                            <span *ngIf="( state$ | async ).notifications.length > 0" class="flex justify-center items-center absolute shadow bg-red-700 text-white w-6 h-6 rounded-full" style="margin: -20px -20px;">{{ ( state$ | async ).notifications.length }}</span>
+                        </div>
+                    </div>
+                    <div class="px-1">
+                        <div class="hover:shadow hover:bg-gray-100 hover:border-transparent border border-gray-400 cursor-pointer user-profile rounded-lg flex justify-between items-center p-2">
+                            <span class="text-lg">Welcome</span>
+                            <div class="h-6 w-6 ml-2 bg-gray-700 rounded"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="content shadow-lg lg:rounded-tl-lg bg-white p-4 lg:pt-6 lg:pl-6 flex-auto overflow-y-auto">
+                <ng-content></ng-content>
+            </div>
+        </div>
+        <div *ngIf="( state$ | async ).notificationsToggled" id="notifications" class="absolute z-50 right-0 w-1/2 lg:w-1/4 flex-shrink-0 h-full bg-gray-200 ng-star-inserted flex flex-col">
+            <div class="border-b border-gray-400 flex flex-col flex h-16">
+                <div class="flex flex-shrink-0 justify-between items-center flex-auto px-2">
+                    <span style="margin: 0" class="text-xl font-semibold">Notifications</span>
+                    <div>
+                        <div (click)="toggleNotifications()" class="border border-gray-400 cursor-pointer user-profile rounded-lg flex justify-between items-center p-2">
+                            <mat-icon>close</mat-icon>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="flex flex-col flex-auto flex-wrap overflow-y-auto">
+                <div class="h-full p-2 flex-shrink-0">
+                    <div class="bg-white flex rounded shadow w-full p-2 mb-2" *ngFor="let notification of ( state$ | async ).notifications">
+                        <div class="notification-body flex-auto pr-2">
+                            <span class="text-lg text-gray-700 block mb-2">{{ notification.title }}</span>
+                            <p class="text-gray-600">{{ notification.description }}</p>
+                        </div>
+                        <div class="controls justify-center">
+                            <button (click)="closeNotification( notification )" class="rounded-full bg-red-600 text-white w-8 h-8 flex justify-center items-center shadow">
+                                <mat-icon>close</mat-icon>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

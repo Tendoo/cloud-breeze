@@ -14,6 +14,7 @@ import { ImageCropperModule } from "ngx-image-cropper";
 import { RouterModule } from "@angular/router";
 import { TruncatePipe } from "./pipes/truncate.pipe";
 import { TruncateMiddlePipe } from "./pipes/truncate-middle.pipe";
+import { DpDatePickerModule } from 'ng2-date-picker';
 
 @NgModule({
     declarations: [
@@ -35,6 +36,7 @@ import { TruncateMiddlePipe } from "./pipes/truncate-middle.pipe";
         ReactiveFormsModule,
         ImageCropperModule,
         RouterModule,
+        DpDatePickerModule,
     ],
     exports: [
         MaterialModule,

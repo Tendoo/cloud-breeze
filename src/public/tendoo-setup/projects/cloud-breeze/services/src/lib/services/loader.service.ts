@@ -1,6 +1,6 @@
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { HttpResponseParserService } from './http-response-parser.service';
 import { AsyncResponse } from '@cloud-breeze/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -14,11 +14,12 @@ declare const tendoo;
 })
 export class LoaderService {
     bulkDeletePath;
-    isLoading               =   false;
+    isLoading                   =   false;
+    static asyncLoading         =   new Subject<boolean>();
     baseUrl;
     angularUrl;
-    static config           =   {};
-    protected headers       =   {};
+    static config               =   {};
+    protected static headers    =   {};
 
     constructor(
         protected http: HttpClient,
@@ -32,6 +33,15 @@ export class LoaderService {
     }
 
     /**
+     * return the list of the currenlty
+     * defined headers.
+     * @param headers
+     */
+    getHeaders(): { [ key: string ] : any } {
+        return LoaderService.headers;
+    }
+
+    /**
      * Submit post request
      * @param string url to access
      * @param data data to submit
@@ -40,7 +50,7 @@ export class LoaderService {
         return new Observable( ( observer ) => {
             this.isLoading  =   true;
             return this.__formDataResponse( <Observable<AsyncResponse>>this.http.post( url, data, Object.assign({
-                headers: this.headers
+                headers: LoaderService.headers
             }, config )), observer )
         });
     }
@@ -69,7 +79,7 @@ export class LoaderService {
         return new Observable( ( observer ) => {
             this.isLoading  =   true;
             return this.__formDataResponse( <Observable<AsyncResponse>>this.http.put( url, data, {
-                headers: this.headers
+                headers: LoaderService.headers
             }), observer )
         });
     }
@@ -83,7 +93,7 @@ export class LoaderService {
         return new Observable( ( observer ) => {
             this.isLoading  =   true;
             return this.http.delete( url, {
-                headers: this.headers
+                headers: LoaderService.headers
             }).subscribe( result => {
                 this.isLoading  =   false;
                 observer.next( result );
@@ -106,7 +116,7 @@ export class LoaderService {
         return new Observable( ( observer ) => {
             this.isLoading  =   true;
             return this.http.get( url, {
-                headers: this.headers
+                headers: LoaderService.headers
             }).subscribe( (result: AsyncResponse ) => {
                 this.httpParser.parse( result ).then( () => {
                     this.isLoading  =   false;

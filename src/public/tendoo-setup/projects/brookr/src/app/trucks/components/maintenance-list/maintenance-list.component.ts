@@ -15,6 +15,7 @@ export class MaintenanceListComponent implements OnInit {
   config: TableConfig;
   isLoading = false;
   sort = {};
+  perPage = {};
   search = {};
   page = {};
   constructor(
@@ -58,7 +59,9 @@ export class MaintenanceListComponent implements OnInit {
   }
 
   handlePagineNavigation( event ) {
-
+    this.perPage  = { per_page : event.pageSize };
+    this.page     = { page : event.pageIndex + 1};
+    this.ngOnInit();
   }
 
   handleSearch( event ) {

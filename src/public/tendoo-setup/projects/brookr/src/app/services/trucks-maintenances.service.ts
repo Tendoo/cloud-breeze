@@ -15,10 +15,10 @@ export class TrucksMaintenancesService {
 
   saveMaintenance( fields, identifier = null ) {
     const method    =   ( [ '', null ].includes( identifier ) ? 'post' : 'put' );
-    return this.tendoo[ method ]( `${this.tendoo.baseUrl}/api/brookr/trucks-maintenances${ identifier ? '/' + identifier : '' }`, fields );
+    return this.tendoo[ method ]( `${this.tendoo.baseUrl}brookr/trucks-maintenances${ identifier ? '/' + identifier : '' }`, fields );
   } 
 
   deleteMaintenance( id ) {
-    return this.tendoo.delete( `${this.baseUrl}/api/brookr/trucks-maintenances/${id}` );
+    return this.tendoo.delete( `${this.baseUrl}brookr/trucks-maintenances/${id}` );
   }
 }

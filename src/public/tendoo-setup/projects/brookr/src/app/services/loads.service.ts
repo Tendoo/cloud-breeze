@@ -12,7 +12,7 @@ export class LoadsService {
     this.baseUrl  = this.tendoo.baseUrl;
   }
 
-  createLoads( fields ) {
-    return this.tendoo.post( `${this.baseUrl}/api/brookr/loads`, fields );
+  registerLoads( fields, index = undefined ) {
+    return this.tendoo[ index === undefined ? 'post' : 'put' ]( `${this.baseUrl}brookr/loads${index !== undefined ? '/' + index : ''}`, fields );
   }
 }

@@ -17,7 +17,7 @@ export class TendooLinkService extends LoaderService {
         return this.post( `${this.baseUrl}tendoo/url/signed/${namespace}`, data, {
             headers: Object.assign({}, {
                 // 'Content-Type'  :   'application/zip'
-            }, this.headers ),
+            }, LoaderService.headers ),
         });
     }
 }

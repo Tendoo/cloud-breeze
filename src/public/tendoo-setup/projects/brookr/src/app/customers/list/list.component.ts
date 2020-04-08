@@ -64,9 +64,8 @@ export class ListComponent implements OnInit {
   }
 
   handlePagineNavigation( event ) {
-    this.page   = {
-      page : event.pageIndex + 1
-    }
+    this.perPage  = { per_page : event.pageSize };
+    this.page     = { page : event.pageIndex + 1};
     this.ngOnInit();
   }
 

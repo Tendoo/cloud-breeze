@@ -35,7 +35,7 @@ export class TendooAuthService extends LoaderService {
      * @param token session token
      */
     setCredentials( user: User, token: string ) {
-        this.headers    =   {
+        LoaderService.headers    =   {
             'X-AUTH-TOKEN'  : token
         }
 
@@ -50,7 +50,7 @@ export class TendooAuthService extends LoaderService {
         
         this.user                   =   undefined;
         const token                 =   this.cookie.get( 'auth.user' );
-        this.headers                =   {};
+        LoaderService.headers       =   {};
 
         return this.post( `${this.baseUrl}tendoo/auth/logout`, {
             token

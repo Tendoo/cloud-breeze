@@ -9,12 +9,21 @@ import { AppReducer } from './store/state';
 import { CommonModule } from '@angular/common';
 import { CoreModule } from '@cloud-breeze/core';
 import { ServicesModule } from '@cloud-breeze/services';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { Interceptor } from './classes/interceptor.class';
 
 export const serviceCalled   = ServicesModule;
 
 @NgModule({
   declarations: [
     AppComponent,
+  ],
+  providers: [
+    {
+			provide: HTTP_INTERCEPTORS,
+			useClass: Interceptor,
+			multi: true
+		}
   ],
   imports: [
     CommonModule,

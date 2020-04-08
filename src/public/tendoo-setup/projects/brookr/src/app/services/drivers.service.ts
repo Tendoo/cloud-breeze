@@ -14,14 +14,14 @@ export class DriversService {
   }
 
   setDriver( form, identifier = null ) {
-    return this.tendoo[ identifier === null ? 'post' : 'put' ]( this.baseUrl + `/api/brookr/drivers${identifier !== null ? '/' + identifier : '' }`, form );
+    return this.tendoo[ identifier === null ? 'post' : 'put' ]( this.baseUrl + `brookr/drivers${identifier !== null ? '/' + identifier : '' }`, form );
   }
 
   deleteDriver( id ) {
-    return this.tendoo.delete( this.baseUrl + '/api/brookr/drivers/' + id );
+    return this.tendoo.delete( this.baseUrl + 'brookr/drivers/' + id );
   }
 
   getDrivers() {
-    return this.tendoo.get( this.baseUrl + '/api/brookr/drivers' );
+    return this.tendoo.get( this.baseUrl + 'brookr/drivers' );
   }
 }

@@ -1,18 +1,25 @@
 import { Menu } from '../interfaces/Menu';
 import { on, createAction, createReducer, Action } from '@ngrx/store';
 import { AppActions } from './action';
+import { Notification } from '../interfaces/Notification';
 
 export interface AppState {
     dashboardMenus: Menu[],
     authenticated : boolean;
     sidebarToggled: boolean;
-    notificationToggled: boolean;
+    notificationsToggled: boolean;
+    fetchNotifications: boolean;
+    notifications: Notification[],
+    asyncLoading: boolean;
 }
 
 export const AppInitialState: AppState = {
     authenticated: false,
+    asyncLoading: false,
+    notifications: [],
+    fetchNotifications: false,
     sidebarToggled: false,
-    notificationToggled: false,
+    notificationsToggled: false,
     dashboardMenus: [
         {
             label: 'Dashboard',
@@ -88,7 +95,25 @@ const reducer    =   createReducer(
     on( AppActions.login, ( state: AppState ) =>  ({ ...state, authenticated: true })),
     on( AppActions.logout, ( state: AppState ) =>  ({ ...state, authenticated: false })),
     on( AppActions.toggleSidebar, ( state: AppState ) => ({ ...state, sidebarToggled : ! state.sidebarToggled })),
-    on( AppActions.toggleNotification, ( state: AppState ) => ({ ...state, notificationToggled : ! state.notificationToggled })),
+    on( AppActions.startAsyncLoading, ( state: AppState ) => ({ ...state, asyncLoading : true })),
+    on( AppActions.stopAsyncLoading, ( state: AppState ) => ({ ...state, asyncLoading : false })),
+    on( AppActions.fetchNotifications, ( state: AppState ) => {
+        return ({...state, fetchNotifications: true });
+    }),
+    on( AppActions.storeNotifications, ( state: AppState, args ) => {
+        return ({...state, notifications : [
+            ...state.notifications,
+            ...args.notifications
+        ]});
+    }),
+    on( AppActions.deleteNotification, ( state: AppState, arg ) => {
+        const notifications     =   state.notifications.filter( n => n.id !== arg.id );
+        return ({
+            ...state,
+            notifications
+        })
+    }),
+    on( AppActions.toggleNotification, ( state: AppState ) => ({ ...state, notificationsToggled : ! state.notificationsToggled })),
     on( AppActions.toggleMenu, ( state: AppState, { menu, index }) => {
         let cloneState  =   Object.assign( state, {});
         if ( cloneState.dashboardMenus[ index ].toggled === false ) {

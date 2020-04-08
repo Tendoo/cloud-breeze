@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Store, select } from '@ngrx/store';
+import { AppState } from './store/state';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-root',

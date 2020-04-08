@@ -23,7 +23,7 @@ export class FieldsComponent implements OnInit {
 	) {}
 	
 	ngOnInit() {
-		if ( [ 'text', 'email', 'select', 'password', 'textarea', 'datetime', 'number', 'multiple_select', 'button', 'switch', 'recaptcha', 'image' ].indexOf( this.field.type ) === -1 ) {
+		if ( [ 'text', 'email', 'select', 'date', 'password', 'textarea', 'datetime', 'number', 'multiple_select', 'button', 'switch', 'recaptcha', 'image' ].indexOf( this.field.type ) === -1 ) {
 			throw( `Unable to render the field '${this.field.name}' with the field type : '${this.field.type}'. This type is not supported.`);
 		}
 
@@ -60,5 +60,16 @@ export class FieldsComponent implements OnInit {
 	
 	loadImageFailed() {
 		this.snackbar.open( 'An error occured while loading the image', 'OK', { duration: 3000 });
+	}
+
+	get dateTimeConfig() {
+		return {...{
+			format: 'YYYY-MM-DD',
+			mode: 'daytime',
+		}, ...(this.field.data || {})  };
+	}
+
+	dateChanged( event ) {
+		console.log( event );
 	}
 }

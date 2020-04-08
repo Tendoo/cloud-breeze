@@ -15,6 +15,9 @@ export class ListComponent implements OnInit {
   isLoading = false;
   sort = {};
   search = {};
+  perPage= {
+    per_page: 2
+  };
   page = {};
   config: BrookrTableConfig;
   searchEnabled   = false;
@@ -42,7 +45,7 @@ export class ListComponent implements OnInit {
 
   ngOnInit(): void {
     this.isLoading  = true;
-    this.tendoo.crud.getConfig( 'brookr.trucks', { ...this.sort, ...this.search, ...this.page }).subscribe( ( crud: BrookrTableConfig ) => {
+    this.tendoo.crud.getConfig( 'brookr.trucks', { ...this.sort, ...this.search, ...this.page, ...this.perPage }).subscribe( ( crud: BrookrTableConfig ) => {
       this.isLoading      =   false;
       this.config         =   crud;
       this.config.title   =   'Trucks List';
@@ -71,7 +74,9 @@ export class ListComponent implements OnInit {
   }
 
   handlePagineNavigation( event ) {
-    console.log( event );
+    this.perPage  = { per_page : event.pageSize };
+    this.page     = { page : event.pageIndex + 1};
+    this.ngOnInit();
   }
 
   handleDelete( event ) {

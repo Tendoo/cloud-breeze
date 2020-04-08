@@ -150,15 +150,16 @@ class Modules
                         /**
                          * @todo run service provider
                          */
-                        if ( is_file( $modulesPath . $service ) ) {
-                            include_once( $modulesPath . $service );
+                        $fileInfo   =   pathinfo( $service );
+
+                        if ( is_file( base_path() . DIRECTORY_SEPARATOR . $service ) && $fileInfo[ 'extension' ] === 'php' ) {
+                            include_once( base_path() . DIRECTORY_SEPARATOR . $service );
     
-                            $fileInfo       =   pathinfo( $service );
                             $className      =   ucwords( $fileInfo[ 'filename' ] );
                             $fullClassName  =   'Modules\\' . $config[ 'namespace' ] . '\\Providers\\' . $className;
     
                             if ( class_exists( $fullClassName ) ) {
-        
+
                                 $config[ 'providers' ][ $className ]   =   new $fullClassName( app() );
                                 
                                 /**

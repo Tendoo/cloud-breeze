@@ -30,9 +30,9 @@ export class AuthComponent implements OnInit {
       this.fields   = result.fields;
       this.loaded   = true;
       // debug
-      this.form.get( 'username' ).setValue( 'admin' );
-      this.form.get( 'password' ).setValue( 'sanches' );
-      this.login();
+      // this.form.get( 'username' ).setValue( 'admin' );
+      // this.form.get( 'password' ).setValue( 'sanches' );
+      // this.login();
     }, ( result ) => {
       this.snackbar.open( result[ 'error' ][ 'message' ] || result.message || 'An unexpected error has occured', 'TRY AGAIN' )
         .afterDismissed()
@@ -57,6 +57,7 @@ export class AuthComponent implements OnInit {
       this.activatedRoute.queryParamMap.subscribe( param => {
         const path = param.get( 'redirect' ) || '/dashboard';
         this.tendoo.auth.setCredentials( result[ 'user' ], result[ 'token' ]);
+        // console.log( this.tendoo.auth.getHeaders() );
         console.log( 'will redirect', path, result[ 'user' ], this.tendoo.auth.getUser() );
         this.snackbar.open( result[ 'message' ], null, { duration: 3000 });
         this.router.navigateByUrl( path );
