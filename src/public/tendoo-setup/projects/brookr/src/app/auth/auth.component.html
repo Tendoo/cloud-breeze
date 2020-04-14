@@ -1,22 +1,23 @@
 <div id="container" class="bg-gray-200 h-full flex justify-center items-center">
-    <div class="p-2 w-full sm:w-2/3 md:w-1/2 lg:w-1/3 flex flex-col items-center">
-        <span class="brookr-font block text-6xl my-3">Brookr</span>
+    <div class="p-2 w-full sm:w-2/3 md:w-1/2 lg:w-1/4 flex flex-col items-center">
+        <span class="brookr-font block text-6xl my-3 text-gray-800">Brookr</span>
+        <span class="my-2 text-gray-700">Loads Delivery Application</span>
         <div class="flex justify-center my-10" *ngIf="! loaded">
             <mat-progress-spinner diameter="60" mode="indeterminate"></mat-progress-spinner>
         </div>
         <div id="login-card" *ngIf="loaded" class="rounded-lg w-full shadow bg-white p-4 my-10">
             <form [formGroup]="form">
                 <cb-field [group]="form" [field]="field" *ngFor="let field of fields"></cb-field>
+                <div class="button-container py-3 flex justify-end">
+                    <button type="submit" [disabled]="isLoggingIn" (click)="login()" [ngClass]="{
+                        'bg-pink-700 text-white' : ! isLoggingIn,
+                        'bg-pink-500 text-gray-100' : isLoggingIn
+                    }" class="rounded shadow px-3 py-2 bg-pink-700 text-white">Login</button>
+                </div>
+                <div class="button-container py-3 flex justify-center">
+                    <a href="#" class="hover:underline text-blue-600 text-sm">Password Lost ?</a>
+                </div>
             </form>
-            <div class="button-container py-3 flex justify-end">
-                <button [disabled]="isLoggingIn" (click)="login()" [ngClass]="{
-                    'bg-pink-700 text-white' : ! isLoggingIn,
-                    'bg-pink-500 text-gray-100' : isLoggingIn
-                }" class="rounded shadow px-3 py-2 bg-pink-700 text-white">Login</button>
-            </div>
-            <div class="button-container py-3 flex justify-center">
-                <a href="#" class="hover:underline text-blue-600 text-sm">Password Lost ?</a>
-            </div>
         </div>
     </div>
 </div>

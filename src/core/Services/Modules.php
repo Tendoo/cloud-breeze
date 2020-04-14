@@ -373,7 +373,7 @@ class Modules
                     strpos( $file, $namespace . '/composer.json' ) ===  false &&
                     strpos( $file, $namespace . '/composer.lock' ) ===  false
                 ) {
-                    $zipArchive->addFile( base_path() . DIRECTORY_SEPARATOR . $file, $file );
+                    $zipArchive->addFile( base_path() . DIRECTORY_SEPARATOR . $file, substr( $file, strlen( 'modules' . DIRECTORY_SEPARATOR ) ) );
                 }
             }
 

@@ -66,7 +66,7 @@ export const AppInitialState: AppState = {
                 }, {
                     label: 'Create',
                     path: '/dashboard/drivers/create'
-                }
+                },
             ]
         }, {
             label: 'Customers',
@@ -80,6 +80,29 @@ export const AppInitialState: AppState = {
                     label: 'Create',
                     path: '/dashboard/customers/create'
                 }
+            ]
+        }, {
+            label: 'Companies',
+            toggled: false,
+            icon: 'business',
+            childrens: [
+                {
+                    label: 'List',
+                    path: '/dashboard/companies'
+                }, {
+                    label: 'Create',
+                    path: '/dashboard/companies/create'
+                }
+            ]
+        }, {
+            label: 'Reports',
+            toggled: false,
+            icon: 'trending_up',
+            childrens: [
+                {
+                    label: 'Driver Statement',
+                    path: '/dashboard/reports/driver-statement'
+                }, 
             ]
         }, {
             label: 'Settings',

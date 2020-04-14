@@ -10,6 +10,7 @@
             (refresh)="handleRefresh( $event )" 
             (page)="handlePagineNavigation( $event )" 
             (search)="handleSearch( $event )"
+            (search-status)="handleSearchStatus( $event )"
             [is-loading]="isLoading"
             *ngIf="config" [crud]="config" class="w-full"></cb-table>
         <!-- <app-table (sort)="handleSort( $event )" (search)="handleSearch( $event )" [config]="config"></app-table> -->

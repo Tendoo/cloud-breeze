@@ -52,6 +52,7 @@ export class ManageComponent implements OnInit {
     }
 
     this.form.sections.forEach( s => ValidationGenerator.deactivateFields( s.fields ) );
+    console.log( this.form.formGroup.value );
     this.loadsService.registerLoads( this.form.formGroup.value, this.id ).subscribe( result => {
       this.snackbar.open( result[ 'message' ], 'OK', { duration: 3000 });
       this.router.navigateByUrl( '/dashboard/loads' );

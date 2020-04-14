@@ -1,8 +1,8 @@
 <app-layout>
     <div class="mb-2">
         <p *ngIf="mode === 'create'" class="text-2xl mb-2 font-serif text-gray-800">Creating a driver</p>
+        <p *ngIf="mode === 'edit'" class="text-2xl mb-2">Editing a driver</p>
         <p class="text-gray-700">Drivers can pickup and deliver loads which are assigned to them or not yet assigned.</p>
     </div>
-    <h1 *ngIf="mode === 'edit'" class="text-2xl mb-2">Editing a driver</h1>
     <app-tabs *ngIf="form" [form]="form" (submit)="handleSubmit( $event )"></app-tabs>
 </app-layout>

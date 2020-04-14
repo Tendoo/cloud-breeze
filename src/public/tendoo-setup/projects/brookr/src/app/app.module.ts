@@ -11,12 +11,16 @@ import { CoreModule } from '@cloud-breeze/core';
 import { ServicesModule } from '@cloud-breeze/services';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Interceptor } from './classes/interceptor.class';
+import { LoadAssignationComponent } from './partials/dashboard/load-assignation/load-assignation.component';
+import { LoadStatusComponent } from './partials/dashboard/load-status/load-status.component';
 
 export const serviceCalled   = ServicesModule;
 
 @NgModule({
   declarations: [
     AppComponent,
+    LoadAssignationComponent,
+    LoadStatusComponent,
   ],
   providers: [
     {
@@ -41,6 +45,7 @@ export const serviceCalled   = ServicesModule;
     }),
     ServicesModule.forRoot({
       angular: '',
+      // base: 'http://brookr.nexopos.com/api/',
       base: 'http://laravel-7001.std/api/'
     })
   ],

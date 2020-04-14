@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, OnChanges } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Observable, Subscription, interval } from 'rxjs';
 import { AppState } from '../../../store/state';
@@ -12,7 +12,7 @@ import { timeInterval, map } from 'rxjs/operators';
   templateUrl: './layout.component.html',
   styleUrls: ['./layout.component.scss']
 })
-export class LayoutComponent implements OnInit, OnDestroy {
+export class LayoutComponent implements OnInit, OnDestroy, OnChanges {
   state$: Observable<AppState>;
   notificationIds: number[];
   loopInterval: Subscription;
@@ -26,17 +26,17 @@ export class LayoutComponent implements OnInit, OnDestroy {
     this.state$             = this.store.pipe( select( 'state' ) );
     this.state$.subscribe( state => {
       this.notificationIds  = state.notifications.map( n => n.id );
-      console.log( this.notificationIds );
     });
-
     const intervalRef   = interval(5000);
     this.loopInterval   = intervalRef.pipe( timeInterval() ).subscribe( v => {
       this.fetchNotifications();
     });
   }
 
+  ngOnChanges() {
+  }
+
   ngOnDestroy() {
-    console.log( 'im called' );
     this.loopInterval.unsubscribe();
   }
 

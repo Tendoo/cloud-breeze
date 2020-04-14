@@ -21,6 +21,7 @@ import { TendooUpdateService } from './tendoo-update.service';
 import { CookieService } from 'ngx-cookie-service';
 import { TendooSettingsService } from './tendoo-settings.service';
 import { TendooConfigService } from './tendoo-config.service';
+import { ResponsiveService } from './responsive.service';
 
 @Injectable({
     providedIn: 'root'
@@ -49,6 +50,7 @@ export class TendooService extends LoaderService {
         public update: TendooUpdateService,
         public title: Title,
         public cookie: CookieService,
+        public responsive: ResponsiveService,
         public settings: TendooSettingsService,
         protected config: TendooConfigService
     ) {

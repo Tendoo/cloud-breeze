@@ -4,6 +4,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { TendooService } from '@cloud-breeze/services';
+import { LoadAssignationComponent } from '../../../partials/dashboard/load-assignation/load-assignation.component';
+import { LoadStatusComponent } from '../../../partials/dashboard/load-status/load-status.component';
 
 @Component({
   selector: 'app-list',
@@ -46,7 +48,51 @@ export class ListComponent implements OnInit {
       });
     } else if ( event.menu.type === 'GOTO' ) {
       this.router.navigateByUrl( event.menu.url.replace( '{id}', event.row.id ) );
+    } else if ( event.menu.type === 'OPEN' && event.menu.namespace === 'open.assign_driver' ) {
+      this.openLoadAssignation( event.menu );
+    } else if ( event.menu.type === 'OPEN' && event.menu.namespace === 'open.change_status' ) {
+      this.openLoadChangeStatus( event.menu );
     }
+  }
+
+  openLoadChangeStatus( menu ) {
+    const dialog  = this.dialog.open( LoadStatusComponent, {
+      id: 'load-status',
+      data: menu,
+      height: [ 
+        this.tendoo.responsive.isSM(),
+        this.tendoo.responsive.isXS(), 
+      ].includes( true ) ? '80%' : '400px',
+      width: [ 
+        this.tendoo.responsive.isSM(),
+        this.tendoo.responsive.isXS(), 
+      ].includes( true ) ? '70%' : '500px',
+    });
+
+    dialog.afterOpened().subscribe( action => {
+      console.log( action );
+      this.ngOnInit();
+    })
+  }
+
+  openLoadAssignation( menu ) {
+    const dialog  = this.dialog.open( LoadAssignationComponent, {
+      id: 'assign-load',
+      data: menu,
+      height: [ 
+        this.tendoo.responsive.isSM(),
+        this.tendoo.responsive.isXS(), 
+      ].includes( true ) ? '80%' : '400px',
+      width: [ 
+        this.tendoo.responsive.isSM(),
+        this.tendoo.responsive.isXS(), 
+      ].includes( true ) ? '70%' : '500px',
+    });
+
+    dialog.afterClosed().subscribe( action => {
+      console.log( action );
+      this.ngOnInit();
+    })
   }
 
   handleSort( event ) {
@@ -59,6 +105,13 @@ export class ListComponent implements OnInit {
       search : event
     }
     this.ngOnInit();
+  }
+
+  handleSearchStatus( status ) {
+    if ( status === false ) {
+      this.search   = {},
+      this.ngOnInit();
+    }
   }
 
   handleRefresh( event ) {

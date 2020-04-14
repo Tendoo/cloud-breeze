@@ -1,6 +1,7 @@
 <div class="w-full h-full flex flex-col">
     <div class="absolute w-full left-0 top-0 z-50">
         <mat-progress-bar
+        height="1"
             *ngIf="( state$ | async ).asyncLoading"            
             class="example-margin absolute"
             mode="indeterminate">

@@ -39,7 +39,9 @@ const routes: Routes = [
       }, {
         path: 'customers',
         loadChildren: () => import('./customers/customers.module').then(m => m.CustomersModule)
-      }]
+      },
+      { path: 'companies', loadChildren: () => import('./companies/companies.module').then(m => m.CompaniesModule) },
+    ]
   },
   {
     path: 'auth',
@@ -48,7 +50,7 @@ const routes: Routes = [
     path: '',
     redirectTo: '/dashboard',
     pathMatch: 'full'
-  }
+  },
 ];
 
 @NgModule({

@@ -18,12 +18,13 @@ export class CrudTableComponent implements OnInit, OnDestroy, OnChanges {
     @Input( 'is-loading' ) isLoading: boolean   =   false;
     @Input( 'bulk-actions' ) bulkActions: any[]    =   [];
     
-    @Output( 'sort' ) sort              =   new EventEmitter();
-    @Output( 'delete' ) delete          =   new EventEmitter();
-    @Output( 'action' ) action          =   new EventEmitter();
-    @Output( 'search' ) searchEvent     =   new EventEmitter();
-    @Output( 'refresh' ) refresh        =   new EventEmitter();
-    @Output( 'page' ) page              =   new EventEmitter();
+    @Output( 'sort' ) sort                  =   new EventEmitter();
+    @Output( 'delete' ) delete              =   new EventEmitter();
+    @Output( 'action' ) action              =   new EventEmitter();
+    @Output( 'search' ) searchEvent         =   new EventEmitter();
+    @Output( 'search-status' ) searchStatus   =   new EventEmitter();
+    @Output( 'refresh' ) refresh            =   new EventEmitter();
+    @Output( 'page' ) page                  =   new EventEmitter();
 
     checkAll: any;
     _crud: TableConfig;
@@ -84,7 +85,7 @@ export class CrudTableComponent implements OnInit, OnDestroy, OnChanges {
     search( field: HTMLInputElement ) {
         if ( field.value.length !== 0 ) {
             return this.searchEvent.emit( 
-                field.value.length
+                field.value
             );
         } 
         return this.snackbar.open( 'You need to input something to search.', 'OK', { duration: 3000 });
@@ -222,6 +223,8 @@ export class CrudTableComponent implements OnInit, OnDestroy, OnChanges {
             this.searchEnabled  =   false;
             this.searchValue    =   '';
         }
+
+        this.searchStatus.emit( this.searchEnabled );
     }
 
     /**

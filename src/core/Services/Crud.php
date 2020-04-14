@@ -146,14 +146,31 @@ class Crud
             }
 
             /**
+             * we're extracting the joined table
+             * to make sure building the alias works
+             */
+            $relations  =   [];
+            
+            collect( $this->relations )->each( function( $relation ) use ( &$relations ){
+                if ( isset( $relation[0] ) ) {
+                    if ( ! is_array( $relation[0] ) ) {
+                        $relations[]    =   $relation;
+                    } else {
+                        collect( $relation )->each( function( $_relation ) use ( &$relations ) {
+                            $relations[]    =   $_relation;
+                        });
+                    }
+                }
+            });
+            
+            /**
              * Build Select for joined table
              */
-            
-            foreach( $this->relations as $relation ) {
+            foreach( $relations as $relation ) {
                 /**
                  * We're caching the columns to avoid once again many DB request
                  */
-                if( ! empty( Cache::get( 'table-columns-' . $relation[0] ) ) && true === false ) {
+                if( ! empty( Cache::get( 'table-columns-' . $relation[0] ) ) ) {
                     $columns        =   Cache::get( 'table-columns-' . $relation[0] );
                 } else {
                     /**
@@ -181,7 +198,6 @@ class Crud
                 }
 
                 foreach( $columns as $index => $column ) {
-
                     $hasAlias           =   explode( 'as', $relation[0]);
 
                     /**
@@ -211,12 +227,24 @@ class Crud
                 $junction   =   is_numeric( $junction ) ? 'join' : $junction;
 
                 if ( in_array( $junction, [ 'join', 'leftJoin', 'rightJoin', 'crossJoin' ] ) ) {
-                    $hasAlias           =   explode( 'as', $relation[0]);
-                    if ( count( $hasAlias ) === 2 ) {
-                        $query->$junction( trim($hasAlias[0]) . ' as ' . trim($hasAlias[1]), $relation[1], $relation[2], $relation[3] );
+                    if ( $junction !== 'join' ) {
+                        foreach( $relation as $junction_relation ) {
+                            $hasAlias           =   explode( 'as', $junction_relation[0]);
+                            if ( count( $hasAlias ) === 2 ) {
+                                $query->$junction( trim($hasAlias[0]) . ' as ' . trim($hasAlias[1]), $junction_relation[1], $junction_relation[2], $junction_relation[3] );
+                            } else {
+                                $query->$junction( $junction_relation[0], $junction_relation[1], $junction_relation[2], $junction_relation[3] );
+                            }
+                        }
                     } else {
-                        $query->$junction( $relation[0], $relation[1], $relation[2], $relation[3] );
+                        $hasAlias           =   explode( 'as', $relation[0]);
+                        if ( count( $hasAlias ) === 2 ) {
+                            $query->$junction( trim($hasAlias[0]) . ' as ' . trim($hasAlias[1]), $relation[1], $relation[2], $relation[3] );
+                        } else {
+                            $query->$junction( $relation[0], $relation[1], $relation[2], $relation[3] );
+                        }
                     }
+
                 }
             }
         }
