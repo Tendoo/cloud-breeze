@@ -6,11 +6,15 @@ import { TendooService } from '@cloud-breeze/services';
 })
 export class DashboardService {
 
-  constructor(
+  constructor(                                                                                                                                                                                                                                                                                                
     private tendoo: TendooService
   ) { }
 
-  getDashboardCardReport() {
-    return this.tendoo.get( `${this.tendoo.baseUrl}/brookr/dashboard` );
+  getReport() {
+    return this.tendoo.post( `${this.tendoo.baseUrl}brookr/dashboard`, {}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     );
+  }
+
+  refreshReport() {
+    return this.tendoo.post( `${this.tendoo.baseUrl}brookr/dashboard/refresh`, {});
   }
 }

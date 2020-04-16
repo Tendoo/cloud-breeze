@@ -24,4 +24,12 @@ export class DriversService {
   getDrivers() {
     return this.tendoo.get( this.baseUrl + 'brookr/drivers' );
   }
+
+  getByMedicalCard() {
+    return this.tendoo.get( this.baseUrl + 'brookr/drivers/medical-expiration' );
+  }
+
+  getByDriverCard() {
+    return this.tendoo.get( this.baseUrl + 'brookr/drivers/driver-expiration' );
+  }
 }

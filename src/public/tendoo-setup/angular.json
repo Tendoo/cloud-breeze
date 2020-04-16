@@ -318,7 +318,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/brookr",
+            "outputPath": "../../../../../laravel-7001/modules/Brookr/Public/brookr",
             "index": "projects/brookr/src/index.html",
             "main": "projects/brookr/src/main.ts",
             "polyfills": "projects/brookr/src/polyfills.ts",

@@ -47,6 +47,8 @@ export class ManageComponent implements OnInit {
       this.snackbar.open( result[ 'message' ], 'OK', { duration: 3000 });
       if ( ! this.identifier ) {
         this.router.navigateByUrl( '/dashboard/trucks' );
+      } else {
+        form.sections.forEach( section => ValidationGenerator.enableFields( section.fields ) );
       }
     }, ( result ) => {
       form.sections.forEach( section => ValidationGenerator.enableFields( section.fields ) );

@@ -141,7 +141,6 @@ const reducer    =   createReducer(
         let cloneState  =   Object.assign( state, {});
         if ( cloneState.dashboardMenus[ index ].toggled === false ) {
             cloneState.dashboardMenus.forEach( _menu => {
-                console.log( _menu );
                 _menu[ 'toggled' ] = false;
             });
             cloneState.dashboardMenus[ index ].toggled   =   !cloneState.dashboardMenus[ index ].toggled;

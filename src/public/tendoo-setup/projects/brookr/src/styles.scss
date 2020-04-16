@@ -2,6 +2,9 @@
 @import './assets/fonts/material-font.css';
 @import '@angular/material/prebuilt-themes/deeppurple-amber.css';
 
+$material-icons-font-path: '~material-icons/iconfont/';
+@import '~material-icons/iconfont/material-icons.scss';
+
 /* You can add global styles to this file, and also import other style files */
 .brookr-font {
     font-family: 'Titillium Web', sans-serif;

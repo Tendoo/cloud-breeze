@@ -45,8 +45,8 @@ export const serviceCalled   = ServicesModule;
     }),
     ServicesModule.forRoot({
       angular: '',
-      // base: 'http://brookr.nexopos.com/api/',
-      base: 'http://laravel-7001.std/api/'
+      base: 'http://brookr.nexopos.com/api/',
+      // base: 'http://laravel-7001.std/api/'
     })
   ],
   bootstrap: [AppComponent]

@@ -47,7 +47,17 @@ export class ListComponent implements OnInit {
   handleAction( event ) {
     switch( event.menu.type ) {
       case 'GOTO' : this.router.navigateByUrl( event.url );break;
+      case 'DELETE' : this.deleteCompany( event );break;
     }
+  }
+
+  deleteCompany( event ) {
+    this.tendoo.delete( event.menu.url ).subscribe( result => {
+      this.snackbar.open( result[ 'message' ], 'OK', { duration: 3000 });
+      this.dialog.getDialogById( event.menu.namespace ).close();
+    }, ( result: HttpErrorResponse ) => {
+      this.snackbar.open( result.error[ 'message' ] || result.message, 'OK', { duration: 6000 });
+    })
   }
 
   handleSort( event ) {

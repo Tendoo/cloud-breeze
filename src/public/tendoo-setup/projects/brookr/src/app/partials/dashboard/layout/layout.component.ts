@@ -27,7 +27,7 @@ export class LayoutComponent implements OnInit, OnDestroy, OnChanges {
     this.state$.subscribe( state => {
       this.notificationIds  = state.notifications.map( n => n.id );
     });
-    const intervalRef   = interval(5000);
+    const intervalRef   = interval(10000);
     this.loopInterval   = intervalRef.pipe( timeInterval() ).subscribe( v => {
       this.fetchNotifications();
     });
