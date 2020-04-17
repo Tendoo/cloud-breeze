@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, isDevMode } from '@angular/core';
 import { TableConfig } from '@cloud-breeze/core';
 import { TendooService } from '@cloud-breeze/services';
 import { DashboardService } from '../services/dashboard.service';
@@ -82,6 +82,7 @@ export class DashboardComponent implements OnInit {
     fields: [],
     links: {},
   }
+  urlPrefix   = ! isDevMode() ? '/modules/brookr/brookr' : '';
   driversByMedical: any[];
   driversByLicense: any[];
   unassignedLoads: any[];
