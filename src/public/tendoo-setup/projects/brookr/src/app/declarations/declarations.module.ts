@@ -9,17 +9,20 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { TableComponent } from '../partials/dashboard/table/table.component';
 import { ServicesModule } from "@cloud-breeze/services";
 import { CoreModule } from '@cloud-breeze/core';
+import { DevComponent } from '../dev/components/dev/dev.component';
 
 @NgModule({
   declarations: [ 
     LayoutComponent, 
     TabsComponent, 
-    TableComponent
+    TableComponent,
+    DevComponent
   ],
   exports: [
     LayoutComponent,
     TabsComponent,
     TableComponent,
+    DevComponent,
     ReactiveFormsModule,
     FormsModule,
     CoreModule,

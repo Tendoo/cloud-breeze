@@ -3,8 +3,8 @@
         <span class="block text-2xl mb-2">Available Loads</span> 
         <p class="text-sm">Manage all assigned loads delivery</p>
     </div>
-    <div class="flex w-full">
-        <cb-table 
+    <div class="w-full flex-auto">
+        <!-- <cb-table 
             (action)="handleAction( $event )" 
             (sort)="handleSort( $event )" 
             (refresh)="handleRefresh( $event )" 
@@ -12,7 +12,16 @@
             (search)="handleSearch( $event )"
             (search-status)="handleSearchStatus( $event )"
             [is-loading]="isLoading"
-            *ngIf="config" [crud]="config" class="w-full"></cb-table>
+            *ngIf="config" [crud]="config" class="w-full"></cb-table> -->
+        <app-dev 
+            (action)="handleAction( $event )"
+            (refresh)="handleRefresh( $event )"  
+            (search)="handleSearch( $event )"
+            (sort)="handleSort( $event )"
+            (search-status)="handleSearchStatus( $event )"
+            *ngIf="config" 
+            [config]="config"
+            ></app-dev>
         <!-- <app-table (sort)="handleSort( $event )" (search)="handleSearch( $event )" [config]="config"></app-table> -->
     </div>   
 </app-layout>

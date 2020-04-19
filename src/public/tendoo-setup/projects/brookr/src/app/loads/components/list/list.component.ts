@@ -30,7 +30,6 @@ export class ListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log( this.tendoo );
     this.tendoo.crud.getConfig( 'brookr.loads', { ...this.page, ...this.search, ...this.sort, ...this.perPage }).subscribe( ( result: TableConfig ) => {
       this.config   = result;
     })
@@ -56,6 +55,7 @@ export class ListComponent implements OnInit {
   }
 
   openLoadChangeStatus( menu ) {
+    console.log( menu );
     const dialog  = this.dialog.open( LoadStatusComponent, {
       id: 'load-status',
       data: menu,
@@ -69,9 +69,9 @@ export class ListComponent implements OnInit {
       ].includes( true ) ? '70%' : '500px',
     });
 
-    dialog.afterOpened().subscribe( action => {
-      console.log( action );
+    dialog.afterClosed().subscribe( action => {
       this.ngOnInit();
+      console.log( action );
     })
   }
 
@@ -90,8 +90,8 @@ export class ListComponent implements OnInit {
     });
 
     dialog.afterClosed().subscribe( action => {
-      console.log( action );
       this.ngOnInit();
+      console.log( action );
     })
   }
 

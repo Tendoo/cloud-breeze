@@ -7,9 +7,14 @@ import {
   RouterModule
 } from '@angular/router';
 import { AuthenticationGuard } from './guards/authentication.guard';
+import { DevComponent } from './dev/components/dev/dev.component';
 
 
 const routes: Routes = [
+  {
+    path: 'dev',
+    component: DevComponent
+  },
   {
     path: 'dashboard',
     canActivate:[
