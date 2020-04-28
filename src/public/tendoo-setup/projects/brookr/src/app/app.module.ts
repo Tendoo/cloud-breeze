@@ -21,7 +21,7 @@ export const serviceCalled   = ServicesModule;
   declarations: [
     AppComponent,
     LoadAssignationComponent,
-    LoadStatusComponent,
+    LoadStatusComponent
   ],
   providers: [
     {

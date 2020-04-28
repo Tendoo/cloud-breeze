@@ -52,10 +52,7 @@ interface PageSize {
 export class DevComponent implements OnInit {
   rows: TableConfigExtended[ 'results' ][ 'data' ];
   // columns   = [];
-  actionsMenus  = [{
-    label: 'Delete Selected',
-    onClick: () => {}
-  }]
+  @Input( 'bulk' ) bulk;
   searchOn  = false;
 
   @Input( 'config' ) 
@@ -105,7 +102,9 @@ export class DevComponent implements OnInit {
 
   columnsNames: string[];
 
-  constructor() {}
+  constructor() {
+    this.bulk   =   this.bulk || [];
+  }
 
   ngOnInit() {
     
@@ -188,7 +187,6 @@ export class DevComponent implements OnInit {
     if ( menu.onClick !== undefined ) {
       menu.onClick( row );
     }
-    console.log( row, menu );
     this.action.emit({ menu, row });
   }
 

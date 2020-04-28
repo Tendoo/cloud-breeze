@@ -1,0 +1,21 @@
+<app-layout>
+    <div class="mb-4 text-gray-800">
+        <span class="block text-2xl mb-2">Loads</span> 
+        <p class="text-sm">list all loads available for the drivers.</p>
+    </div>
+    <div class="flex w-full flex-col">
+        <div class="tab tab-container">
+            <div class="tabs-header flex" style="margin-bottom: -2px;">
+                <div (click)="setTabActive( section )" [ngClass]="{
+                    'bg-gray-100' : section.active,
+                    'bg-gray-300' : ! section.active
+                }" *ngFor="let section of sections" class="tab px-4 py-2 border-2 border-b-0 rounded-t-lg cursor-pointer flex items-center justify center">
+                    {{ section.title }} 
+                </div>
+            </div>
+        </div>
+        <div class="bg-gray-100 border-2">
+            <app-table *ngIf="config" (sort)="handleSort( $event )" (search)="handleSearch( $event )" [config]="config"></app-table>
+        </div>
+    </div>   
+</app-layout>

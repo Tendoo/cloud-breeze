@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ListComponent } from './components/list/list.component';
 import { ManageComponent } from './components/manage/manage.component';
+import { LoadsComponent } from './components/loads/loads.component';
 
 const routes: Routes = [
   { 
@@ -13,6 +14,9 @@ const routes: Routes = [
   }, {
     path: 'edit/:id',
     component: ManageComponent
+  }, {
+    path: 'loads',
+    component: LoadsComponent
   }
 ];
 

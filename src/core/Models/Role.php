@@ -211,4 +211,25 @@ class Role extends Model
                 });
         });
     }
+
+    /**
+     * is used to remove a set of permission
+     * attached to the 
+     * @param Query
+     * @param array of permissions
+     * @return void
+     */
+    public function scopeAddPermissions( $query, $permissions )
+    {
+        $query
+            ->get()
+            ->each( function( $role ) use ( $permissions ) {
+                collect( $permissions )->each( function( $perm_namespace ) use ( $role ) {
+                    $permission     =   Permission::where([ 'namespace' => $perm_namespace ])->first();
+                    if ( $permission instanceof Permission ) {
+                        self::__createRelation( $role, $permission );
+                    }
+                });
+        });
+    }
 }

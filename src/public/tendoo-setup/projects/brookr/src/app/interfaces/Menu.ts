@@ -5,4 +5,6 @@ export interface Menu {
     show?: () => boolean;
     childrens?: Menu[],
     icon?: string;
+    hasPermissions?: string[],
+    hasOnePermission?: string[],    
 }

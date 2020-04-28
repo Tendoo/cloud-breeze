@@ -10,13 +10,15 @@ import { TableComponent } from '../partials/dashboard/table/table.component';
 import { ServicesModule } from "@cloud-breeze/services";
 import { CoreModule } from '@cloud-breeze/core';
 import { DevComponent } from '../dev/components/dev/dev.component';
+import { Debounce } from '../directives/onhover.directive';
 
 @NgModule({
   declarations: [ 
     LayoutComponent, 
     TabsComponent, 
     TableComponent,
-    DevComponent
+    DevComponent,
+    Debounce
   ],
   exports: [
     LayoutComponent,
@@ -27,6 +29,7 @@ import { DevComponent } from '../dev/components/dev/dev.component';
     FormsModule,
     CoreModule,
     MaterialModule,
+    Debounce,
   ],
   imports: [
     RouterModule,

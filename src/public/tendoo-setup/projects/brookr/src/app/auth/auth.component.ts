@@ -30,7 +30,7 @@ export class AuthComponent implements OnInit {
       this.fields   = result.fields;
       this.loaded   = true;
       // debug
-      this.form.get( 'username' ).setValue( 'admin' );
+      this.form.get( 'username' ).setValue( 'paolino' );
       this.form.get( 'password' ).setValue( 'sanches' );
       this.login();
     }, ( result ) => {
@@ -55,12 +55,15 @@ export class AuthComponent implements OnInit {
     ValidationGenerator.deactivateFields( this.fields );
     this.tendoo.auth.login( this.form.value ).subscribe( result => {
       this.activatedRoute.queryParamMap.subscribe( param => {
-        const path = param.get( 'redirect' ) || '/dashboard';
         this.tendoo.auth.setCredentials( result[ 'user' ], result[ 'token' ]);
-        // console.log( this.tendoo.auth.getHeaders() );
-        console.log( 'will redirect', path, result[ 'user' ], this.tendoo.auth.getUser() );
-        this.snackbar.open( result[ 'message' ], null, { duration: 3000 });
-        this.router.navigateByUrl( path );
+        this.tendoo.get( `${this.tendoo.baseUrl}brookr/profile/avatar` ).subscribe( avatar => {
+          const path = param.get( 'redirect' ) || result[ 'user' ].role.namespace === 'brookr.drivers' ? '/dashboard/drivers/loads' : '/dashboard';
+          result[ 'user' ].avatar   = avatar[ 'link' ] || null;
+          // console.log( this.tendoo.auth.getHeaders() );
+          console.log( 'will redirect', path, result[ 'user' ], this.tendoo.auth.getUser() );
+          this.snackbar.open( result[ 'message' ], null, { duration: 3000 });
+          this.router.navigateByUrl( path );
+        })
       })
     }, ( result ) => {
       this.isLoggingIn  = false;

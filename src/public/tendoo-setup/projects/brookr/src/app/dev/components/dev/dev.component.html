@@ -21,7 +21,7 @@
             <div class="px-1">
                 <button mat-stroked-button color="primary" [matMenuTriggerFor]="actionMenus"><mat-icon>more_horiz</mat-icon> Actions</button>
                 <mat-menu #actionMenus="matMenu">
-                    <button (click)="menu.onClick( selected )" *ngFor="let menu of actionsMenus" mat-menu-item>{{ menu.label }}</button>
+                    <button (click)="menu.onClick( selected )" *ngFor="let menu of bulk" mat-menu-item>{{ menu.label }}</button>
                 </mat-menu>
             </div>
         </div>
@@ -79,6 +79,9 @@
                                 </span>
                             </div>
                         </td>
+                    </tr>
+                    <tr>
+                        <td [attr.colspan]="columnsNames.length"><span class="text-gray-700 text-center py-2 block">There is no entries...</span></td>
                     </tr>
                 </tbody>
             </table>

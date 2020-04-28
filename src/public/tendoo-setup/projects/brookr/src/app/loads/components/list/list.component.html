@@ -13,7 +13,7 @@
             (search-status)="handleSearchStatus( $event )"
             [is-loading]="isLoading"
             *ngIf="config" [crud]="config" class="w-full"></cb-table> -->
-        <app-dev 
+        <app-table 
             (action)="handleAction( $event )"
             (refresh)="handleRefresh( $event )"  
             (search)="handleSearch( $event )"
@@ -21,7 +21,8 @@
             (search-status)="handleSearchStatus( $event )"
             *ngIf="config" 
             [config]="config"
-            ></app-dev>
+            [bulk]="bulkMenus"
+            ></app-table>
         <!-- <app-table (sort)="handleSort( $event )" (search)="handleSearch( $event )" [config]="config"></app-table> -->
     </div>   
 </app-layout>
