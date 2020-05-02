@@ -34,6 +34,14 @@ export class ManageComponent implements OnInit {
     });
     
     this.tendoo.forms.getPublicForm( 'brookr.loads', this.id || undefined ).subscribe( ( form: Form ) => {
+      form.sections.forEach( s => {
+        s.fields.forEach( field => {
+          if ( field.type === 'ng-datetime' ) {
+            field[ 'value' ]   = <any>(new Date( <string>field.value ));
+          }
+        });
+      });
+
       this.form     = ValidationGenerator.buildForm( form );
       this.form.sections.forEach( section => {
         if ( section.namespace  === 'main' ) {

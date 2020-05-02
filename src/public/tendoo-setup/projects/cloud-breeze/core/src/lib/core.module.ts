@@ -14,7 +14,17 @@ import { ImageCropperModule } from "ngx-image-cropper";
 import { RouterModule } from "@angular/router";
 import { TruncatePipe } from "./pipes/truncate.pipe";
 import { TruncateMiddlePipe } from "./pipes/truncate-middle.pipe";
-import { DpDatePickerModule } from 'ng2-date-picker';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from '@danielmoncada/angular-datetime-picker';
+
+export const MY_MOMENT_FORMATS = {
+    parseInput: 'YYYY-MM-DD HH:mm',
+    fullPickerInput: 'l LT',
+    datePickerInput: 'l',
+    timePickerInput: 'LT',
+    monthYearLabel: 'MMM YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'MMMM YYYY',
+};
 
 @NgModule({
     declarations: [
@@ -36,7 +46,9 @@ import { DpDatePickerModule } from 'ng2-date-picker';
         ReactiveFormsModule,
         ImageCropperModule,
         RouterModule,
-        DpDatePickerModule,
+        OwlDateTimeModule,
+        OwlNativeDateTimeModule
+
     ],
     exports: [
         MaterialModule,

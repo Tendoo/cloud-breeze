@@ -263,6 +263,13 @@ class Crud
         }
 
         /**
+         * if hook method is defined
+         */
+        if ( method_exists( $this, 'hook' ) ) {
+            $this->hook( $query );
+        }
+
+        /**
          * try to run the where in statement
          */
         if ( $this->whereIn ) {

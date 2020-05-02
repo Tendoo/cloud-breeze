@@ -15,7 +15,12 @@
             </div>
         </div>
         <div class="bg-gray-100 border-2">
-            <app-table *ngIf="config" (sort)="handleSort( $event )" (search)="handleSearch( $event )" [config]="config"></app-table>
+            <app-table 
+                (action)="handleAction( $event )"
+                *ngIf="config" 
+                (sort)="handleSort( $event )" 
+                (search)="handleSearch( $event )" 
+                [config]="config"></app-table>
         </div>
     </div>   
 </app-layout>

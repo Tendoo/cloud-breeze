@@ -330,7 +330,8 @@
             ],
             "styles": [
               "projects/brookr/src/styles.scss",
-              "projects/brookr/src/tailwind-compiled.css"
+              "projects/brookr/src/tailwind-compiled.css",
+              "node_modules/@danielmoncada/angular-datetime-picker/assets/style/picker.min.css"
             ],
             "scripts": []
           },

@@ -30,7 +30,6 @@ export class LayoutComponent implements OnInit, OnDestroy, OnChanges {
 
   ngOnInit(): void {
     this.user           = this.tendoo.auth.getUser();
-    console.log( this.user );
     this.state$         = this.store.pipe( select( 'state' ) );
     this.state$.subscribe( state => {
       this.notificationIds  = state.notifications.map( n => n.id );

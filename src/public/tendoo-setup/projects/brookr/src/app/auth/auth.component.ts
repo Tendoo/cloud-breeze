@@ -31,6 +31,7 @@ export class AuthComponent implements OnInit {
       this.loaded   = true;
       // debug
       this.form.get( 'username' ).setValue( 'paolino' );
+      // this.form.get( 'username' ).setValue( 'admin' );
       this.form.get( 'password' ).setValue( 'sanches' );
       this.login();
     }, ( result ) => {
@@ -57,10 +58,9 @@ export class AuthComponent implements OnInit {
       this.activatedRoute.queryParamMap.subscribe( param => {
         this.tendoo.auth.setCredentials( result[ 'user' ], result[ 'token' ]);
         this.tendoo.get( `${this.tendoo.baseUrl}brookr/profile/avatar` ).subscribe( avatar => {
-          const path = param.get( 'redirect' ) || result[ 'user' ].role.namespace === 'brookr.drivers' ? '/dashboard/drivers/loads' : '/dashboard';
+          console.log( result[ 'user' ].role.namespace );
+          const path = param.get( 'redirect' ) || ( result[ 'user' ].role.namespace === 'brookr.drivers' ? '/dashboard/drivers/loads' : '/dashboard' );
           result[ 'user' ].avatar   = avatar[ 'link' ] || null;
-          // console.log( this.tendoo.auth.getHeaders() );
-          console.log( 'will redirect', path, result[ 'user' ], this.tendoo.auth.getUser() );
           this.snackbar.open( result[ 'message' ], null, { duration: 3000 });
           this.router.navigateByUrl( path );
         })

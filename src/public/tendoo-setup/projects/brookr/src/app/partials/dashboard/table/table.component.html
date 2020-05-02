@@ -74,7 +74,7 @@
                                 <span *ngIf="[ '$actions' ].includes( columnName )">
                                     <button mat-stroked-button color="primary" [matMenuTriggerFor]="entryAction"><mat-icon>more_horiz</mat-icon> Options</button>
                                     <mat-menu #entryAction="matMenu">
-                                        <button (click)="singleActionClick( row[ columnName ], menu )" *ngFor="let menu of row[ columnName ]" mat-menu-item>{{ menu.label }}</button>
+                                        <button (click)="singleActionClick( row, menu )" *ngFor="let menu of row[ columnName ]" mat-menu-item>{{ menu.label }}</button>
                                     </mat-menu>
                                 </span>
                             </div>
