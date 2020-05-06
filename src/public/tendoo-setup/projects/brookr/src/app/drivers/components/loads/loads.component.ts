@@ -8,6 +8,7 @@ import { DialogComponent, Dialog } from '@cloud-breeze/core';
 import { DriverLoadStatus } from '../../../partials/dashboard/driver-load-status/driver-load-status.component';
 import { ConfirmDialogObject } from 'projects/cloud-breeze/core/src/lib/interfaces/confirm-dialog';
 import { PopupComponent } from '../../../partials/dashboard/popup/popup.component';
+import { LoadDeliveryComponent } from '../../../partials/dashboard/popups/load-delivery/load-delivery.component';
 
 @Component({
   selector: 'app-loads',
@@ -62,6 +63,10 @@ export class LoadsComponent implements OnInit {
     return this.sections.filter( s => s.active )[0];
   }
 
+  handleRefresh() {
+    this.setTabActive( this.active );
+  }
+
   handleAction( action ) {
     console.log( action );
     if ( action.menu.namespace === 'handle' ) {
@@ -73,7 +78,9 @@ export class LoadsComponent implements OnInit {
           },
           width: this.tendoo.responsive.isXL() || this.tendoo.responsive.isLG() || this.tendoo.responsive.isMD() ? '600px' : '80%',
           height: this.tendoo.responsive.isXL() || this.tendoo.responsive.isLG() || this.tendoo.responsive.isMD() ? '400px' : '80%',
-        })
+        }).afterClosed().subscribe( _ => {
+          this.setTabActive( this.active );
+        });
       }, ( result: HttpErrorResponse ) => {
         this.snackbar.open( result[ 'error' ].message || result.message, 'OK', { duration: 6000 });
       })
@@ -105,9 +112,9 @@ export class LoadsComponent implements OnInit {
         }
       })
     } else if ( action.menu.namespace === 'brookr.send-delivery-document' ) {
-      this.dialog.open( PopupComponent, {
+      this.dialog.open( LoadDeliveryComponent, {
         id: 'brookr.send-delivery-document',
-        data: {},
+        data: action.row,
         width: [
           this.tendoo.responsive.isLG(),
           this.tendoo.responsive.isMD(),
@@ -117,7 +124,10 @@ export class LoadsComponent implements OnInit {
           this.tendoo.responsive.isLG(),
           this.tendoo.responsive.isMD(),
           this.tendoo.responsive.isXL(),
-        ].includes( true ) ? '600px' : '80%'
+        ].includes( true ) ? '600px' : '80%',
+        disableClose: true
+      }).afterClosed().subscribe( _ => {
+        this.setTabActive( this.active );
       })
     }
   }

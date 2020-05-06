@@ -18,6 +18,7 @@
             <app-table 
                 (action)="handleAction( $event )"
                 *ngIf="config" 
+                (refresh)="handleRefresh( $event )"
                 (sort)="handleSort( $event )" 
                 (search)="handleSearch( $event )" 
                 [config]="config"></app-table>
