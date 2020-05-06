@@ -5,6 +5,9 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent, Dialog } from '@cloud-breeze/core';
+import { DriverLoadStatus } from '../../../partials/dashboard/driver-load-status/driver-load-status.component';
+import { ConfirmDialogObject } from 'projects/cloud-breeze/core/src/lib/interfaces/confirm-dialog';
+import { PopupComponent } from '../../../partials/dashboard/popup/popup.component';
 
 @Component({
   selector: 'app-loads',
@@ -61,37 +64,60 @@ export class LoadsComponent implements OnInit {
 
   handleAction( action ) {
     console.log( action );
-    if ( action.namespace === 'handle' ) {
-      this.tendoo.get( `${this.tendoo.baseUrl}api/brookr/drivers/is-available` ).subscribe( action => {
-        this.dialog.open( DialogComponent, {
+    if ( action.menu.namespace === 'handle' ) {
+      this.tendoo.get( `${this.tendoo.baseUrl}brookr/drivers/is-available` ).subscribe( response => {
+        this.dialog.open( DriverLoadStatus, {
           id: 'load-handle',
-          data: <Dialog>{
-            title: 'Handle Load for Delivery',
-            message: `Would you like to assign yourself to delivery this unassigned load ?`,
-            buttons: [
-              {
-                namespace: 'yes',
-                onClick: () => {
-                  console.log( action );
-                  this.tendoo.get( `${this.tendoo.baseUrl}api/brookr/drivers/self-assign/{id}`.replace( '{id}', action[ 'row' ].id )).subscribe( result => {
-                    this.snackbar.open( result[ 'message' ], 'OK', { duration: 3000 });
-                  }, ( result: HttpErrorResponse ) => {
-                    this.snackbar.open( result[ 'error' ].message || result.message, 'OK', { duration: 5000 });
-                  })
-                },
-                label: 'Yes',
-              }, {
-                namespace: 'cancel',
-                label: 'No',
-                onClick: () => {
-                  this.dialog.getDialogById( 'load-handle' ).close();
-                }
-              }
-            ]
-          }
+          data: {
+            load: action[ 'row' ]
+          },
+          width: this.tendoo.responsive.isXL() || this.tendoo.responsive.isLG() || this.tendoo.responsive.isMD() ? '600px' : '80%',
+          height: this.tendoo.responsive.isXL() || this.tendoo.responsive.isLG() || this.tendoo.responsive.isMD() ? '400px' : '80%',
         })
       }, ( result: HttpErrorResponse ) => {
         this.snackbar.open( result[ 'error' ].message || result.message, 'OK', { duration: 6000 });
+      })
+    } else if ( action.menu.namespace === 'brookr.start-delivery' ) {
+      this.dialog.open( DialogComponent, {
+        id: 'start-delivery',
+        data: <ConfirmDialogObject>{
+          title: 'Start Delivery',
+          message: 'Would you like to start delivery now ?',
+          buttons: [
+            {
+              namespace: 'yes',
+              label: 'Yes',
+              onClick: () => {
+                this.dialog.getDialogById( 'start-delivery' ).close();
+                this.tendoo.get( `${this.tendoo.baseUrl}brookr/loads/start/{id}`.replace( '{id}', action.row.id) ).subscribe( result => {
+                  this.setTabActive( this.active );
+                  this.snackbar.open( result[ 'message' ], 'OK', { duration: 3000 });
+                })
+              }
+            }, {
+              namespace: 'no',
+              label: 'No',
+              onClick: () => {
+                this.dialog.getDialogById( 'start-delivery' ).close();
+              }
+            }
+          ]
+        }
+      })
+    } else if ( action.menu.namespace === 'brookr.send-delivery-document' ) {
+      this.dialog.open( PopupComponent, {
+        id: 'brookr.send-delivery-document',
+        data: {},
+        width: [
+          this.tendoo.responsive.isLG(),
+          this.tendoo.responsive.isMD(),
+          this.tendoo.responsive.isXL(),
+        ].includes( true ) ? '600px' : '80%',
+        height: [
+          this.tendoo.responsive.isLG(),
+          this.tendoo.responsive.isMD(),
+          this.tendoo.responsive.isXL(),
+        ].includes( true ) ? '600px' : '80%'
       })
     }
   }

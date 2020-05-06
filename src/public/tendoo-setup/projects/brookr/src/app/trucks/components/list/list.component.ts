@@ -16,7 +16,7 @@ export class ListComponent implements OnInit {
   sort = {};
   search = {};
   perPage= {
-    per_page: 2
+    per_page: 10
   };
   page = {};
   config: BrookrTableConfig;

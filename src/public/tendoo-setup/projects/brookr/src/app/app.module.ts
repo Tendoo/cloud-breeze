@@ -14,6 +14,8 @@ import { Interceptor } from './classes/interceptor.class';
 import { LoadAssignationComponent } from './partials/dashboard/load-assignation/load-assignation.component';
 import { LoadStatusComponent } from './partials/dashboard/load-status/load-status.component';
 import { DevComponent } from './dev/components/dev/dev.component';
+import { DriverLoadStatus } from './partials/dashboard/driver-load-status/driver-load-status.component';
+import { PopupComponent } from './partials/dashboard/popup/popup.component';
 
 export const serviceCalled   = ServicesModule;
 
@@ -21,7 +23,9 @@ export const serviceCalled   = ServicesModule;
   declarations: [
     AppComponent,
     LoadAssignationComponent,
-    LoadStatusComponent
+    LoadStatusComponent,
+    DriverLoadStatus,
+    PopupComponent
   ],
   providers: [
     {
