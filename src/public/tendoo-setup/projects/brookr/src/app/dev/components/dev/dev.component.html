@@ -1,0 +1,107 @@
+<!-- <div class="w-full flex justify-between">
+    <div class="w-1/3">
+        
+    </div>
+    <div class="overflow-x-auto flex-auto">
+    </div>
+</div> -->
+<div class="shadow rounded-lg bg-white overflow-hidden flex flex-col flex-shrink-0 flex-auto">
+    <div class="table-header flex justify-between p-2">
+        <div class="table-buttons -mx-1 flex items-center">
+            <div class="px-1">
+                <button [routerLink]="config.links.create" mat-icon-button>
+                    <mat-icon>add</mat-icon>
+                </button>
+            </div>
+            <div class="px-1">
+                <button (click)="emitRefresh()" mat-icon-button>
+                    <mat-icon>refresh</mat-icon>
+                </button>
+            </div>
+            <div class="px-1">
+                <button mat-stroked-button color="primary" [matMenuTriggerFor]="actionMenus"><mat-icon>more_horiz</mat-icon> Actions</button>
+                <mat-menu #actionMenus="matMenu">
+                    <button (click)="menu.onClick( selected )" *ngFor="let menu of bulk" mat-menu-item>{{ menu.label }}</button>
+                </mat-menu>
+            </div>
+        </div>
+        <div class="table-buttons -mx-2 flex">
+            <div class="px-2 flex">
+                <button (click)="searchOn = false" *ngIf="searchOn" mat-icon-button class="ml-1 outline-none">
+                    <mat-icon>close</mat-icon>
+                </button>
+                <div *ngIf="searchOn" class="search-field bg-indigo-200 rounded-full overflow-hidden">
+                    <input #searchField type="text" class="h-8 ml-1 pl-2 rounded-l-full bg-indigo-100 outline-none">
+                    <button (click)="emitSearch( searchField )" mat-icon-button class="ml-1 outline-none">
+                        <mat-icon>search</mat-icon>
+                    </button>
+                </div>
+                <button (click)="searchOn = true" *ngIf="! searchOn" mat-icon-button class="ml-1 outline-none">
+                    <mat-icon>search</mat-icon>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="overflow-x-auto overflow-y-auto flex flex-shrink-0">
+        <div class="overflow-y-auto w-full">
+            <table class="w-full table">
+                <thead class="text-gray-700">
+                    <tr>
+                        <td *ngFor="let columnName of columnsNames" class="p-2 border border-gray-200 cursor-pointer" [ngStyle]="{ 'min-width': ( columnName !== '$id' ? columns[ columnName ]?.props?.style?.minWidth || '150px' : '20px' ) }">
+                            <ng-container *ngIf="columnName !== '$id'">
+                                <div (click)="toggleOrderColumn( columnName, columns[ columnName ] )" class="flex justify-between items-center">
+                                    <span style="font-weight: 400;" class="py-2">{{ columns[ columnName ].label }}</span>
+                                    <span>
+                                        <button *ngIf="[ 'asc', 'desc' ].includes( columns[ columnName ].direction )" class="rounded-full h-6 w-6 hover:bg-gray-200 flex justify-center items-center">
+                                            <mat-icon *ngIf="columns[ columnName ].direction === 'desc'">keyboard_arrow_down</mat-icon>
+                                            <mat-icon *ngIf="columns[ columnName ].direction === 'asc'">keyboard_arrow_up</mat-icon>
+                                        </button>
+                                    </span>
+                                </div>
+                            </ng-container>
+                            <ng-container *ngIf="columnName === '$id'">
+                                <mat-checkbox (change)="changeStatus( $event )" [(ngModel)]="columns[ columnName ].checked" color="warn"></mat-checkbox>
+                            </ng-container>
+                        </td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let row of rows" [ngClass]="row?.$props?.className">
+                        <td *ngFor="let columnName of columnsNames" [ngClass]="row?.$props?.tdClassName || 'border-gray-200 text-gray-800'" class="p-2 border">
+                            <div class="flex justify-between items-center">
+                                <span *ngIf="! [ '$actions', '$id' ].includes( columnName )">{{ row[ columnName ] }}</span>
+                                <span *ngIf="[ '$id' ].includes( columnName )"><mat-checkbox [(ngModel)]="row.$props.checked" color="warn"></mat-checkbox></span>
+                                <span *ngIf="[ '$actions' ].includes( columnName )">
+                                    <button mat-stroked-button color="primary" [matMenuTriggerFor]="entryAction"><mat-icon>more_horiz</mat-icon> Options</button>
+                                    <mat-menu #entryAction="matMenu">
+                                        <button (click)="singleActionClick( row[ columnName ], menu )" *ngFor="let menu of row[ columnName ]" mat-menu-item>{{ menu.label }}</button>
+                                    </mat-menu>
+                                </span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td [attr.colspan]="columnsNames.length"><span class="text-gray-700 text-center py-2 block">There is no entries...</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="table-footer p-2 flex justify-between">
+        <div class="-mx-1">
+            <div class="px-1">
+                <div class="pagination -mx-1 flex">
+                    <div class="px-1" *ngFor="let page of pagination( currentPage, totalPages)">
+                        <div (click)="navigateTo( page )" [ngClass]="currentPage === page ? 'bg-blue-300' : ''" class="w-8 h-8 cursor-pointer hover:bg-blue-200 hover:border-blue-200 flex justify-center items-center rounded-full border border-gray-200">{{ page }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="">
+            <button mat-stroked-button color="primary" [matMenuTriggerFor]="entryAction">{{ defaultSize }} Displayed</button>
+            <mat-menu #entryAction="matMenu">
+                <button (click)="setPerPage( menu )" *ngFor="let menu of pageSizes" mat-menu-item>{{ menu.label }}</button>
+            </mat-menu>
+        </div>
+    </div>
+</div>

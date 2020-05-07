@@ -53,7 +53,10 @@ class Modules
             collect( $directories )->map( function( $module ) {
                 return str_replace( '/', '\\', $module );
             })->map( function( $module ) {
-                $this->__init( substr( $module, strlen( CB_MODULES_PATH ) ) );
+                $directory      =       substr( $module, strlen( CB_MODULES_PATH ) );
+                if ( $directory !== '__temp' ) {
+                    $this->__init( $directory );
+                }
             });
         } else {
             $this->__init( $dir );
@@ -101,7 +104,7 @@ class Modules
             // If a module has at least a namespace
             if ( $config[ 'namespace' ] != null ) {
                 // index path
-                $modulesPath        =   config( 'tendoo.modules_path' );
+                $modulesPath        =   base_path() . DIRECTORY_SEPARATOR . CB_MODULES_PATH;
                 $currentModulePath  =   $modulesPath . $dir . DIRECTORY_SEPARATOR;
                 $indexPath          =   $currentModulePath . ucwords( $config[ 'namespace' ] . 'Module.php' );
                 $webRoutesPath      =   $currentModulePath . 'Routes' . DIRECTORY_SEPARATOR . 'web.php';
@@ -150,15 +153,16 @@ class Modules
                         /**
                          * @todo run service provider
                          */
-                        if ( is_file( $modulesPath . $service ) ) {
-                            include_once( $modulesPath . $service );
+                        $fileInfo   =   pathinfo( $service );
+
+                        if ( is_file( base_path() . DIRECTORY_SEPARATOR . $service ) && $fileInfo[ 'extension' ] === 'php' ) {
+                            include_once( base_path() . DIRECTORY_SEPARATOR . $service );
     
-                            $fileInfo       =   pathinfo( $service );
                             $className      =   ucwords( $fileInfo[ 'filename' ] );
                             $fullClassName  =   'Modules\\' . $config[ 'namespace' ] . '\\Providers\\' . $className;
     
                             if ( class_exists( $fullClassName ) ) {
-        
+
                                 $config[ 'providers' ][ $className ]   =   new $fullClassName( app() );
                                 
                                 /**
@@ -215,6 +219,7 @@ class Modules
                     $this->modules[ $config[ 'namespace' ] ]    =   $config;
                 }
             }
+
         } else {
             return [
                 'status'    =>  'failed',
@@ -368,7 +373,7 @@ class Modules
                     strpos( $file, $namespace . '/composer.json' ) ===  false &&
                     strpos( $file, $namespace . '/composer.lock' ) ===  false
                 ) {
-                    $zipArchive->addFile( config( 'tendoo.modules_path' ) . $file, $file );
+                    $zipArchive->addFile( base_path() . DIRECTORY_SEPARATOR . $file, substr( $file, strlen( 'modules' . DIRECTORY_SEPARATOR ) ) );
                 }
             }
 
@@ -388,15 +393,17 @@ class Modules
      */
     public function upload( $file )
     {
-        // move file to temp directory
+        if ( ! is_dir( base_path() . DIRECTORY_SEPARATOR . '__temp' ) ) {
+            mkdir( base_path() . DIRECTORY_SEPARATOR . '__temp' );
+        }
+
         $path   =   Storage::disk( 'cb-root' )->putFile( 
-            CB_MODULES_PATH, 
+            CB_MODULES_PATH . '__temp', 
             $file 
         );
 
-        $fullPath   =   storage_path( 'modules' . DIRECTORY_SEPARATOR . $path );        
+        $fullPath   =   base_path() . DIRECTORY_SEPARATOR . $path;        
         $dir        =   dirname( $fullPath );
-        
         $archive    =   new \ZipArchive;
         $archive->open( $fullPath );
         $archive->extractTo( $dir );
@@ -406,8 +413,8 @@ class Modules
          * Unlink the uploaded zipfile
          */
         unlink( $fullPath );
-
-        $directories    =   Storage::disk( 'cb-root' )->directories( CB_MODULES_PATH );
+        
+        $directories    =   Storage::disk( 'cb-root' )->directories( CB_MODULES_PATH . '__temp' );
         $module         =   [];
         
         /**
@@ -415,7 +422,7 @@ class Modules
          */
         foreach( $directories as $dir ) {
             // browse directory files
-            $rawFiles          =   Storage::disk( 'cb-root' )->allFiles( CB_MODULES_PATH . $dir );
+            $rawFiles          =   Storage::disk( 'cb-root' )->allFiles( $dir );
 
             /**
              * Just retreive the files name
@@ -430,7 +437,7 @@ class Modules
                 $file   =   $dir . DIRECTORY_SEPARATOR . 'config.xml';
 
                 $xml    =   new \SimpleXMLElement( 
-                    Storage::disk( 'cb-root' )->get( CB_MODULES_PATH . $file )
+                    Storage::disk( 'cb-root' )->get( $file )
                 );
 
                 if ( 
@@ -479,17 +486,19 @@ class Modules
                  * @step 1 : creating host folder
                  * No errors has been found, We\'ll install the module then
                  */
-                Storage::disk( 'cb-root' )->makeDirectory( CB_MODULES_PATH . $moduleNamespace );
+                Storage::disk( 'cb-root' )->makeDirectory( $moduleNamespace );
 
                 /**
                  * @step 2 : move files
                  * We're now looping to move files
                  * and create symlink for the assets
                  */
-                foreach( $rawFiles as $file ) {
+
+                 foreach( $rawFiles as $file ) {
+
                     Storage::disk( 'cb-root' )->put( 
-                        CB_MODULES_PATH . $file,
-                        Storage::disk( 'cb-root' )->get( CB_MODULES_PATH . $file )
+                        str_replace( '__temp' . DIRECTORY_SEPARATOR, '', $file ),
+                        Storage::disk( 'cb-root' )->get( $file )
                     );
 
                     /**
@@ -510,7 +519,6 @@ class Modules
                  * the file send is not a valid module
                  */
                 $this->__clearTempFolder();
-                
                 return [
                     'status'    =>  'danger',
                     'code'      =>  'invalid_module'
@@ -642,19 +650,19 @@ class Modules
          * We should then delete everything and return an error.
          */
 
-        $directories  =   Storage::disk( 'cb-root' )->allDirectories( CB_MODULES_PATH );
+        $directories  =   Storage::disk( 'cb-root' )->allDirectories( CB_MODULES_PATH . '__temp' );
 
         foreach( $directories as $directory ) {
-            Storage::disk( 'cb-root' )->deleteDirectory( CB_MODULES_PATH . $directory );
+            Storage::disk( 'cb-root' )->deleteDirectory( $directory );
         }
 
         /**
          * Delete unused files as well
          */
-        $files  =   Storage::disk( 'cb-root' )->allFiles( CB_MODULES_PATH );
+        $files  =   Storage::disk( 'cb-root' )->allFiles( CB_MODULES_PATH . '__temp' );
 
         foreach( $files as $file ) {
-            Storage::disk( 'cb-root' )->delete( CB_MODULES_PATH . $file );
+            Storage::disk( 'cb-root' )->delete( $file );
         }
     }
 

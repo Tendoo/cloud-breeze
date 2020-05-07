@@ -62,7 +62,7 @@ export class TendooMediasService extends LoaderService {
      */
     uploadFile( file ): Promise<File> {
         return new Promise( ( resolve, reject ) => {
-            const headers               =   new HttpHeaders( this.headers );
+            const headers               =   new HttpHeaders( LoaderService.headers );
             const form                  =   new FormData;
             
             form.append( 'file', file );

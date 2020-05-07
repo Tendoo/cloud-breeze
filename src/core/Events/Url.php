@@ -2,7 +2,7 @@
 namespace Tendoo\Core\Events;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Url as UrlHelper;
+use Illuminate\Support\Facades\URL as UrlHelper;
 use Tendoo\Core\Http\Requests\OptionsRequest;
 use Tendoo\Core\Services\Field;
 use Tendoo\Core\Services\DateService;

@@ -63,11 +63,30 @@ trait ArrayHelper {
         if ( $collections ) {
             foreach ( $collections as $collection ) {
                 $id     =   $config[0];
-                $name   =   $config[1];
-                $result[]   =  [
-                    'label'     =>  $collection->$name,
-                    'value'     =>  $collection->$id
-                ];
+                if ( ! is_array( $config[1] ) ) {
+                    $name   =   $config[1];
+
+                    $result[]   =  [
+                        'label'     =>  $collection->$name,
+                        'value'     =>  $collection->$id
+                    ];
+
+                } else {
+                    $name       =   '';
+
+                    foreach( $config[1] as $index => $_name ) {
+                        if ( $index + 1 < count( $config[1] ) ) {
+                            $name   .=  $collection->$_name . ( $config[2] ?? ' ' ); // if separator is not provided
+                        } else {
+                            $name   .=  $collection->$_name;
+                        }
+                    }
+
+                    $result[]       =  [
+                        'label'     =>  $name,
+                        'value'     =>  $collection->$id
+                    ];
+                }                
             }
             return $result;
         }

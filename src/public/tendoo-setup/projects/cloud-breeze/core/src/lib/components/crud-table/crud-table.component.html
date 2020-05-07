@@ -50,7 +50,7 @@
     <mat-divider *ngIf="! isLoading"></mat-divider>
     <mat-progress-bar color="warn" style="height: 1px;position: absolute;left: 0;" *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
     <mat-card-content style="overflow-x: auto;" fxLayout="column">
-        <table matSort (matSortChange)="sortData($event)" mat-table [dataSource]="_crud.results[ 'data' ]" fxFlex>
+        <table matSort (matSortChange)="sortData($event)" mat-table [dataSource]="_crud.results[ 'data' ]" fxFlex="auto" style="width: 100%">
             <!--- Note that these columns can be defined in any order.
                 The actual rendered columns are set as a property on the row definition" -->
             <ng-container *ngFor="let column of columnsNames" [matColumnDef]="column">

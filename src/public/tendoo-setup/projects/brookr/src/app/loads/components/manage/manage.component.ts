@@ -33,7 +33,15 @@ export class ManageComponent implements OnInit {
       }
     });
     
-    this.tendoo.forms.getPublicForm( 'brookr.loads' ).subscribe( ( form: Form ) => {
+    this.tendoo.forms.getPublicForm( 'brookr.loads', this.id || undefined ).subscribe( ( form: Form ) => {
+      form.sections.forEach( s => {
+        s.fields.forEach( field => {
+          if ( field.type === 'ng-datetime' ) {
+            field[ 'value' ]   = <any>(new Date( <string>field.value ));
+          }
+        });
+      });
+
       this.form     = ValidationGenerator.buildForm( form );
       this.form.sections.forEach( section => {
         if ( section.namespace  === 'main' ) {
@@ -48,12 +56,12 @@ export class ManageComponent implements OnInit {
     this.form.sections.forEach( s => ValidationGenerator.touchAllFields( s.formGroup ) );
 
     if ( this.form.formGroup.invalid ) {
-      console.log( this.form );
       return this.snackbar.open( 'Unable to proceed the form is not valid.', 'OK', { duration : 3000 });
     }
 
     this.form.sections.forEach( s => ValidationGenerator.deactivateFields( s.fields ) );
-    this.loadsService.createLoads( this.form.formGroup.value ).subscribe( result => {
+    console.log( this.form.formGroup.value );
+    this.loadsService.registerLoads( this.form.formGroup.value, this.id ).subscribe( result => {
       this.snackbar.open( result[ 'message' ], 'OK', { duration: 3000 });
       this.router.navigateByUrl( '/dashboard/loads' );
     }, ( result: HttpErrorResponse ) => {

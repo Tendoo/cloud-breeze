@@ -1,3 +1,5 @@
+@import "/ng-pick-datetime/assets/style/picker.min.css";
+
 mat-form-field {
     margin-bottom: 10px;
     width: 100%;

@@ -132,7 +132,7 @@ class Crud
              * We're caching the table columns, since we would like to 
              * avoid many DB Calls
              */
-            if( ! empty( Cache::get( 'table-columns-' . $this->table ) ) ) {
+            if( ! empty( Cache::get( 'table-columns-' . $this->table ) ) && true === false ) {
                 $columns        =   Cache::get( 'table-columns-' . $this->table );
             } else {
                 $columns        =   Schema::getColumnListing( $this->table );
@@ -146,24 +146,74 @@ class Crud
             }
 
             /**
+             * we're extracting the joined table
+             * to make sure building the alias works
+             */
+            $relations  =   [];
+            
+            collect( $this->relations )->each( function( $relation ) use ( &$relations ){
+                if ( isset( $relation[0] ) ) {
+                    if ( ! is_array( $relation[0] ) ) {
+                        $relations[]    =   $relation;
+                    } else {
+                        collect( $relation )->each( function( $_relation ) use ( &$relations ) {
+                            $relations[]    =   $_relation;
+                        });
+                    }
+                }
+            });
+            
+            /**
              * Build Select for joined table
              */
-            
-            foreach( $this->relations as $relation ) {
+            foreach( $relations as $relation ) {
                 /**
                  * We're caching the columns to avoid once again many DB request
                  */
                 if( ! empty( Cache::get( 'table-columns-' . $relation[0] ) ) ) {
                     $columns        =   Cache::get( 'table-columns-' . $relation[0] );
                 } else {
-                    $columns    =   Schema::getColumnListing( $relation[0] );
+                    /**
+                     * Will ensure to only pick
+                     * some columns from the related tables
+                     */
+                    $table          =   $relation[0];
+                    $pick           =   $this->pick ?? [];
+                    $hasAlias       =   explode( 'as', $relation[0] ); // if there is an alias, let's just pick the table name
+                    $aliasName      =   $hasAlias[1] ?? false; // for aliased relation. The pick use the alias as a reference.
+                    $columns        =   collect( Schema::getColumnListing( count( $hasAlias ) === 2 ? trim( $hasAlias[0] ) : $relation[0] ) )
+                        ->filter( function( $column ) use ( $pick, $table, $aliasName ) {
+                            $picked     =   $pick[ $aliasName ? trim( $aliasName ) : $table ] ?? [];
+                            if ( ! empty( $picked ) ) {
+                                if ( in_array( $column, $picked ) ) {
+                                    return true;
+                                } else {
+                                    return false;
+                                }
+                            }
+                            return true;
+                    })->toArray();
+
                     Cache::put( 'table-columns-' . $relation[0], $columns, Carbon::now()->addDays(1) );
                 }
 
                 foreach( $columns as $index => $column ) {
-                    $__name             =   $relation[0] . '.' . $column;
-                    $columnsLongName[]  =   $__name;
-                    $select[]           =   $__name . ' as ' . $relation[0] . '_' . $column;
+                    $hasAlias           =   explode( 'as', $relation[0]);
+
+                    /**
+                     * If the relation has an alias, we'll 
+                     * use the provided alias to compose
+                     * the juncture.
+                     */
+                    if ( count( $hasAlias ) === 2 ) {
+                        $__name             =   trim( $hasAlias[1] ) . '.' . $column;
+                        $columnsLongName[]  =   $__name;
+                        $select[]           =   $__name . ' as ' . trim( $hasAlias[1] ) . '_' . $column;
+                    } else {
+                        $__name             =   $relation[0] . '.' . $column;
+                        $columnsLongName[]  =   $__name;
+                        $select[]           =   $__name . ' as ' . $relation[0] . '_' . $column;
+                    }
                 }
             }
 
@@ -177,7 +227,24 @@ class Crud
                 $junction   =   is_numeric( $junction ) ? 'join' : $junction;
 
                 if ( in_array( $junction, [ 'join', 'leftJoin', 'rightJoin', 'crossJoin' ] ) ) {
-                    $query->$junction( $relation[0], $relation[1], $relation[2], $relation[3] );
+                    if ( $junction !== 'join' ) {
+                        foreach( $relation as $junction_relation ) {
+                            $hasAlias           =   explode( 'as', $junction_relation[0]);
+                            if ( count( $hasAlias ) === 2 ) {
+                                $query->$junction( trim($hasAlias[0]) . ' as ' . trim($hasAlias[1]), $junction_relation[1], $junction_relation[2], $junction_relation[3] );
+                            } else {
+                                $query->$junction( $junction_relation[0], $junction_relation[1], $junction_relation[2], $junction_relation[3] );
+                            }
+                        }
+                    } else {
+                        $hasAlias           =   explode( 'as', $relation[0]);
+                        if ( count( $hasAlias ) === 2 ) {
+                            $query->$junction( trim($hasAlias[0]) . ' as ' . trim($hasAlias[1]), $relation[1], $relation[2], $relation[3] );
+                        } else {
+                            $query->$junction( $relation[0], $relation[1], $relation[2], $relation[3] );
+                        }
+                    }
+
                 }
             }
         }
@@ -193,6 +260,13 @@ class Crud
                     $query->where( $key, $value );
                 }
             }
+        }
+
+        /**
+         * if hook method is defined
+         */
+        if ( method_exists( $this, 'hook' ) ) {
+            $this->hook( $query );
         }
 
         /**

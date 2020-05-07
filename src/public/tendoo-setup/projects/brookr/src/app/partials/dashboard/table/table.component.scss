@@ -1,8 +1,6 @@
-:host {
-    width: 100%;
+.min-100 {
+    min-width: 150px;
 }
-@media screen and (max-width: 700px) {
-    .element-table {
-        flex: 0 0 700px;
-    }
+:host {
+    display: grid;
 }
