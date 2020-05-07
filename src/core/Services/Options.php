@@ -67,7 +67,19 @@ class Options
         $this->rawOptions->map( function( $option, $index ) use ( $value, $key, $expiration, &$storedOption ) {
             if ( $key === $option->key ) {
                 $this->hasFound         =   true;
-                $option->value          =   is_array( $value ) ? json_encode( $value ) : empty( $value ) ? '' : $value;
+
+                switch( $value ) {
+                    case is_array( $value ) :
+                        $option->value = json_encode( $value );
+                    break;
+                    case empty( $value ) :
+                        $option->value =    '';
+                    break;
+                    default:
+                        $option->value  =   $value;
+                    break;
+                }
+                
                 $option->expire_on      =   $expiration;
 
                 /**
@@ -95,7 +107,19 @@ class Options
             $this->option               =   new Option;
             $this->option->key          =   trim( strtolower( $key ) );
             $this->option->array        =   false;
-            $this->option->value        =   is_array( $value ) ? json_encode( $value ) : empty( $value ) ? '' : $value;
+
+            switch( $value ) {
+                case is_array( $value ) :
+                    $option->value = json_encode( $value );
+                break;
+                case empty( $value ) :
+                    $option->value =    '';
+                break;
+                default:
+                    $option->value  =   $value;
+                break;
+            }
+
             $this->option->expire_on    =   $expiration;
 
             /**
