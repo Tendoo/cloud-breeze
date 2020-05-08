@@ -110,13 +110,13 @@ class Options
 
             switch( $value ) {
                 case is_array( $value ) :
-                    $option->value = json_encode( $value );
+                    $this->option->value = json_encode( $value );
                 break;
                 case empty( $value ) :
-                    $option->value =    '';
+                    $this->option->value =    '';
                 break;
                 default:
-                    $option->value  =   $value;
+                    $this->option->value  =   $value;
                 break;
             }
 

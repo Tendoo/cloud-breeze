@@ -19,7 +19,7 @@ class CheckMigrations
              * version as described on the files
              */
             if ( $options->get( 'db_version' ) != config( 'tendoo.db_version' ) ) {
-                throw new ShouldUpdateDatabaseException;
+                // throw new ShouldUpdateDatabaseException;
             }
 
             /**
@@ -28,7 +28,7 @@ class CheckMigrations
              * but it might include publishing assets.
              */
             if ( $options->get( 'assets_version' ) != config( 'tendoo.assets_version' ) ) {
-                throw new ShouldUpdateAssetsException;
+                // throw new ShouldUpdateAssetsException;
             }
         }
         return $next( $request );
