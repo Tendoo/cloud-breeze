@@ -1,6 +1,6 @@
 {
   "name": "@cloud-breeze/services",
-  "version": "0.0.12",
+  "version": "0.0.14",
   "peerDependencies": {
     "@angular/common": "^9.1.0",
     "@angular/core": "^9.1.0",

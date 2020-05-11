@@ -8,7 +8,7 @@ import { ConfigOptions, CB_URL_CONFIG } from "../ConfigOptions";
 export class TendooConfigService {
     baseUrl: string;
     angularUrl: string;
-    constructor( @Inject( CB_URL_CONFIG ) options: ConfigOptions ) {
+    constructor( @Inject( CB_URL_CONFIG ) options: ConfigOptions ) { // 
         this.baseUrl        =   options.base;
         this.angularUrl     =   options.angular;
     }

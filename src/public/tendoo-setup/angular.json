@@ -193,6 +193,7 @@
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
+            "aot": false,
             "tsConfig": "projects/cloud-breeze/core/tsconfig.lib.json",
             "project": "projects/cloud-breeze/core/ng-package.json"
           },
@@ -233,6 +234,7 @@
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
+            "aot": false,
             "tsConfig": "projects/cloud-breeze/utilities/tsconfig.lib.json",
             "project": "projects/cloud-breeze/utilities/ng-package.json"
           },
@@ -273,6 +275,7 @@
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
+            "aot": false,
             "tsConfig": "projects/cloud-breeze/services/tsconfig.lib.json",
             "project": "projects/cloud-breeze/services/ng-package.json"
           },
@@ -323,7 +326,7 @@
             "main": "projects/brookr/src/main.ts",
             "polyfills": "projects/brookr/src/polyfills.ts",
             "tsConfig": "projects/brookr/tsconfig.app.json",
-            "aot": true,
+            "aot": false,
             "assets": [
               "projects/brookr/src/favicon.ico",
               "projects/brookr/src/assets"
@@ -422,6 +425,148 @@
           "configurations": {
             "production": {
               "devServerTarget": "brookr:serve:production"
+            }
+          }
+        }
+      }
+    },
+    "helpdesk": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "projects/helpdesk",
+      "sourceRoot": "projects/helpdesk/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/helpdesk",
+            "index": "projects/helpdesk/src/index.html",
+            "main": "projects/helpdesk/src/main.ts",
+            "polyfills": "projects/helpdesk/src/polyfills.ts",
+            "tsConfig": "projects/helpdesk/tsconfig.app.json",
+            "aot": false,
+            "assets": [
+              "projects/helpdesk/src/favicon.ico",
+              "projects/helpdesk/src/assets",
+            ],
+            "styles": [
+              "projects/helpdesk/src/styles.scss",
+              "projects/helpdesk/src/final.scss",
+              "projects/helpdesk/src/animate.scss",
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "hmr": {
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "projects/helpdesk/src/environments/environment.ts",
+                  "with": "projects/helpdesk/src/environments/environment.hmr.ts"
+                }
+              ]
+            },
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/helpdesk/src/environments/environment.ts",
+                  "with": "projects/helpdesk/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "helpdesk:build"
+          },
+          "configurations": {
+            "hmr": {
+              "hmr": true,
+              "browserTarget": "helpdesk:build:hmr"
+            },
+            "production": {
+              "browserTarget": "helpdesk:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "helpdesk:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/helpdesk/src/test.ts",
+            "polyfills": "projects/helpdesk/src/polyfills.ts",
+            "tsConfig": "projects/helpdesk/tsconfig.spec.json",
+            "karmaConfig": "projects/helpdesk/karma.conf.js",
+            "assets": [
+              "projects/helpdesk/src/favicon.ico",
+              "projects/helpdesk/src/assets"
+            ],
+            "styles": [
+              "projects/helpdesk/src/styles.scss"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/helpdesk/tsconfig.app.json",
+              "projects/helpdesk/tsconfig.spec.json",
+              "projects/helpdesk/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/helpdesk/e2e/protractor.conf.js",
+            "devServerTarget": "helpdesk:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "helpdesk:serve:production"
             }
           }
         }
