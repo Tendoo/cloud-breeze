@@ -35,5 +35,8 @@
         "dist/cloud-breeze/services"
       ]
     }
+  },
+  "angularCompilerOptions": {
+    "enableIvy": false
   }
 }

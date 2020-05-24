@@ -14,13 +14,13 @@ import { ImageCropperModule } from "ngx-image-cropper";
 import { RouterModule } from "@angular/router";
 import { TruncatePipe } from "./pipes/truncate.pipe";
 import { TruncateMiddlePipe } from "./pipes/truncate-middle.pipe";
-import { OwlDateTimeModule, OwlNativeDateTimeModule } from '@danielmoncada/angular-datetime-picker';
+import { OwlDateTimeModule, OwlNativeDateTimeModule, OwlMomentDateTimeModule, OWL_DATE_TIME_FORMATS } from '@danielmoncada/angular-datetime-picker';
 
 export const MY_MOMENT_FORMATS = {
-    parseInput: 'YYYY-MM-DD HH:mm',
-    fullPickerInput: 'l LT',
-    datePickerInput: 'l',
-    timePickerInput: 'LT',
+    parseInput: 'DD/MM/YYYY HH:mm',
+    fullPickerInput: 'DD/MM/YYYY HH:mm',
+    datePickerInput: 'DD/MM/YYYY',
+    timePickerInput: 'HH:mm',
     monthYearLabel: 'MMM YYYY',
     dateA11yLabel: 'LL',
     monthYearA11yLabel: 'MMMM YYYY',
@@ -47,8 +47,11 @@ export const MY_MOMENT_FORMATS = {
         ImageCropperModule,
         RouterModule,
         OwlDateTimeModule,
-        OwlNativeDateTimeModule
-
+        // OwlNativeDateTimeModule,
+        OwlMomentDateTimeModule
+    ],
+    providers: [
+        { provide: OWL_DATE_TIME_FORMATS, useValue: MY_MOMENT_FORMATS },
     ],
     exports: [
         MaterialModule,

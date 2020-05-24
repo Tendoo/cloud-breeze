@@ -57,6 +57,11 @@ class Role extends Model
         return self::where( 'namespace', $name )->first();
     }
 
+    public static function withNamespace( $name )
+    {
+        return self::where( 'namespace', $name );
+    }
+
     /**
      * Permission
      * @param string role name

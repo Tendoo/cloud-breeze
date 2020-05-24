@@ -6,6 +6,7 @@
     "ng": "ng",
     "start": "ng serve --aot",
     "build": "ng build --prod --vendorChunk --outputHashing=none",
+    "build-br": "ng build brookr --prod --vendorChunk --outputHashing=none;",
     "build-ct": "cd projects/cloud-tools; ng build; npm publish",
     "test": "ng test",
     "lint": "ng lint",
@@ -16,13 +17,15 @@
     "publish-services": "ng build @cloud-breeze/services --prod && cd dist/cloud-breeze/services && npm publish --access public",
     "publish-utilities": "ng build @cloud-breeze/utilities --prod && cd dist/cloud-breeze/utilities && npm publish --access public",
     "remove-libraries": "npm remove @cloud-breeze/core ; npm remove @cloud-breeze/crud-table ; npm remove @cloud-breeze/dialog",
-    "ilib": "npm i @cloud-breeze/core && npm i @cloud-breeze/crud-table && npm i @cloud-breeze/dialog"
+    "ilib": "npm i @cloud-breeze/core && npm i @cloud-breeze/crud-table && npm i @cloud-breeze/dialog",
+    "serve-helpdesk": "ng serve helpdesk --prod --configuration hmr --host 0.0.0.0"
   },
   "resolutions": {
     "caniuse-lite": "1.0.30000971"
   },
   "private": true,
   "dependencies": {
+    "@angular-devkit/build-angular": "^0.901.6",
     "@angular/animations": "^9.1.0",
     "@angular/cdk": "^9.2.0",
     "@angular/common": "~9.1.0",
@@ -36,27 +39,35 @@
     "@angular/platform-browser": "~9.1.0",
     "@angular/platform-browser-dynamic": "~9.1.0",
     "@angular/router": "~9.1.0",
+    "@angularclass/hmr": "^2.1.3",
     "@danielmoncada/angular-datetime-picker": "^9.3.0",
+    "@fortawesome/angular-fontawesome": "^0.6.1",
+    "@fortawesome/fontawesome-svg-core": "^1.2.28",
+    "@fortawesome/free-solid-svg-icons": "^5.13.0",
     "@ngrx/store": "^9.0.0",
+    "@wordpress/hooks": "^2.8.0",
+    "angular-svg-icon": "^9.2.0",
+    "color-hash": "^1.0.3",
     "core-js": "^3.1.3",
     "hammerjs": "^2.0.8",
     "install": "^0.12.2",
     "material-icons": "^0.3.1",
     "moment": "^2.25.1",
     "ng-pick-datetime": "^7.0.0",
+    "ng-pick-datetime-moment": "^1.0.8",
     "ng2-date-picker": "^9.0.0",
     "ngx-captcha": "^8.0.1",
     "ngx-cookie-service": "^3.0.3",
     "ngx-dropzone-wrapper": "^9.0.0",
     "ngx-image-cropper": "^3.1.4",
+    "ngx-responsive": "^9.0.0",
     "placeholder-loading": "^0.2.5",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
     "zone.js": "~0.10.2"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^0.900.7",
-    "@angular-devkit/build-ng-packagr": "~0.901.0",
+    "@angular-devkit/build-ng-packagr": "^0.901.6",
     "@angular/cli": "^9.1.0",
     "@angular/compiler-cli": "^9.1.0",
     "@angular/language-service": "~9.1.0",
@@ -76,6 +87,6 @@
     "tailwindcss": "^1.2.0",
     "ts-node": "~8.2.0",
     "tslint": "~5.17.0",
-    "typescript": "~3.8.3"
+    "typescript": "^3.8.3"
   }
 }
