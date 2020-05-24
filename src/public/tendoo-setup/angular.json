@@ -193,7 +193,6 @@
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
-            "aot": false,
             "tsConfig": "projects/cloud-breeze/core/tsconfig.lib.json",
             "project": "projects/cloud-breeze/core/ng-package.json"
           },
@@ -353,7 +352,7 @@
               "namedChunks": false,
               "extractLicenses": true,
               "vendorChunk": false,
-              "buildOptimizer": true,
+              "buildOptimizer": false,
               "budgets": [
                 {
                   "type": "initial",
@@ -452,7 +451,7 @@
             "aot": false,
             "assets": [
               "projects/helpdesk/src/favicon.ico",
-              "projects/helpdesk/src/assets",
+              "projects/helpdesk/src/assets"
             ],
             "styles": [
               "projects/helpdesk/src/styles.scss",

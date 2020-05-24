@@ -3,7 +3,7 @@ import { Observable } from "rxjs";
 import { EventEmitter } from "@angular/core";
 
 export interface Field {
-    type: 'text' | 'textarea' | 'email' | 'file' | 'number' | 'datetime' | 'date' | 'hidden' | 'select' | 'multiple_select' | 'password' | 'button' | 'switch' | 'recaptcha' | 'ng-datetime';
+    type: 'text' | 'textarea' | 'email' | 'file' | 'number' | 'datetime' | 'date' | 'hidden' | 'select' | 'multiple_select' | 'password' | 'button' | 'switch' | 'file-upload' | 'recaptcha' | 'ng-datetime';
     name: string;
     label:string;
     value?: string | number | FieldOption;
