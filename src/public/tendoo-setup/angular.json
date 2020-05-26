@@ -233,7 +233,6 @@
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
-            "aot": false,
             "tsConfig": "projects/cloud-breeze/utilities/tsconfig.lib.json",
             "project": "projects/cloud-breeze/utilities/ng-package.json"
           },
@@ -274,7 +273,6 @@
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
-            "aot": false,
             "tsConfig": "projects/cloud-breeze/services/tsconfig.lib.json",
             "project": "projects/cloud-breeze/services/ng-package.json"
           },

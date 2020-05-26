@@ -17,6 +17,7 @@ export class FieldsComponent implements OnInit {
 	
 	imageChangedEvent: 	any = '';
 	avatarBase64: 		any = '';
+	hovered 			=	false;
 	
 	constructor(
 		private snackbar: MatSnackBar
@@ -62,6 +63,10 @@ export class FieldsComponent implements OnInit {
 		this.snackbar.open( 'An error occured while loading the image', 'OK', { duration: 3000 });
 	}
 
+	handleDropped( event ) {
+		console.log( event );
+	}
+
 	get dateTimeConfig() {
 		return {...{
 			format: 'YYYY-MM-DD',
@@ -69,7 +74,32 @@ export class FieldsComponent implements OnInit {
 		}, ...(this.field.data || {})  };
 	}
 
+	isDragHovering() {
+		if ( this.hovered === false ) {
+			this.hovered 	=	true;
+			console.log( 'hovering' );
+		}
+	}
+	hasDragLeft() {
+		this.hovered 	=	false;
+		console.log( 'has left' );
+	}
+
+	handleDrop( event ) {
+		console.log( event, event[0] );
+		this.hovered 	=	false;
+		this.field.control.setValue( event[0] );
+		console.log( this.group );
+	}
+
+	setFileValue( event ) {
+		console.log( Object.values( event ), event );
+		this.field.control.setValue( event );
+		console.log( this.group );
+	}
+
 	dateChanged( event ) {
 		console.log( event );
+		this.hovered 	=	false;
 	}
 }

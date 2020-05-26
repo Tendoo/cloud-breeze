@@ -73,6 +73,16 @@
 		</mat-error>
 	</mat-form-field>
 
+	<div libFileDrop (onHover)="isDragHovering()" (onDrop)="handleDrop( $event )" (onLeaving)="hasDragLeft()" [ngClass]="{ 'border-dashed border-gray-400' : hovered, 'border-transparent' : ! hovered }" class="rounded shadow border-4 flex justify-center items-center bg-white flex flex-col my-2" *ngIf="[ 'file-upload' ].includes( field.type )">
+		<div class="field-title flex justify-center py-2 border-b border-gray-300 w-full text-gray-600">{{ field.label }}</div>
+		<div class="drop-zone flex flex-col flex-auto flex items-center justify-center h-32">
+			<span *ngIf="field.control.value">{{ field.control.value.name }}</span>
+			<button  *ngIf="! field.control.value" (click)="fileInput.click()"  class="rounded-lg bg-green-600 text-white py-2 px-4 font-semibold">Drag file or Click to browse</button>
+			<button *ngIf="field.control.value" (click)="field.control.setValue('')" class="rounded-lg bg-red-600 text-white py-2 px-4 font-semibold">Delete</button>
+			<input (change)="setFileValue( fileInput.files[0] )" type="file" class="hidden" #fileInput/>
+		</div>
+	</div>
+
 	<!-- ng-datetime field -->
 
 	<mat-form-field [appearance]="field.appearance || 'standard'" *ngIf="[ 'ng-datetime' ].indexOf( field.type ) != -1" class="example-full-width w-100">

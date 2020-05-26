@@ -9,12 +9,14 @@ import { MaterialModule } from "./modules/material.module";
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { NgxCaptchaModule } from "ngx-captcha";
 import { CommonModule } from "@angular/common";
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { ImageCropperModule } from "ngx-image-cropper";
 import { RouterModule } from "@angular/router";
 import { TruncatePipe } from "./pipes/truncate.pipe";
 import { TruncateMiddlePipe } from "./pipes/truncate-middle.pipe";
 import { OwlDateTimeModule, OwlNativeDateTimeModule, OwlMomentDateTimeModule, OWL_DATE_TIME_FORMATS } from '@danielmoncada/angular-datetime-picker';
+import { FileDropDirective } from './directives/file-drop.directive';
 
 export const MY_MOMENT_FORMATS = {
     parseInput: 'DD/MM/YYYY HH:mm',
@@ -35,7 +37,8 @@ export const MY_MOMENT_FORMATS = {
         MenuListComponent,
         SubMenuListComponent,
         TruncatePipe,
-        TruncateMiddlePipe
+        TruncateMiddlePipe,
+        FileDropDirective
     ], 
     imports: [
         MaterialModule,
@@ -47,6 +50,7 @@ export const MY_MOMENT_FORMATS = {
         ImageCropperModule,
         RouterModule,
         OwlDateTimeModule,
+        DragDropModule,
         // OwlNativeDateTimeModule,
         OwlMomentDateTimeModule
     ],
