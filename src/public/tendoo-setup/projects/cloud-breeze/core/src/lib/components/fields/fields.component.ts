@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, Output, EventEmitter } from '@angular/core';
 import { Field } from '../../interfaces/field';
 import { FormGroup, AbstractControl } from '@angular/forms';
 import { ReCaptcha2Component } from 'ngx-captcha';
@@ -13,6 +13,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class FieldsComponent implements OnInit {
 	@Input( 'field' ) field: Field;
 	@Input( 'group' ) group: FormGroup;
+	@Output( 'changed' ) changed	=	new EventEmitter;
 	@ViewChild('captchaElem', { static: false }) captchaElem: ReCaptcha2Component;
 	
 	imageChangedEvent: 	any = '';
@@ -77,29 +78,33 @@ export class FieldsComponent implements OnInit {
 	isDragHovering() {
 		if ( this.hovered === false ) {
 			this.hovered 	=	true;
-			console.log( 'hovering' );
 		}
 	}
 	hasDragLeft() {
 		this.hovered 	=	false;
-		console.log( 'has left' );
 	}
 
 	handleDrop( event ) {
-		console.log( event, event[0] );
 		this.hovered 	=	false;
 		this.field.control.setValue( event[0] );
-		console.log( this.group );
+		this.handleSilentUpload();
 	}
 
 	setFileValue( event ) {
-		console.log( Object.values( event ), event );
 		this.field.control.setValue( event );
-		console.log( this.group );
+		this.handleSilentUpload();
+	}
+
+	handleSilentUpload() {
+		this.changed.emit( this.field );
+	}
+
+	resetField( field ) {
+		field.value 	=	'';
+		this.field.control.setValue( '' );
 	}
 
 	dateChanged( event ) {
-		console.log( event );
 		this.hovered 	=	false;
 	}
 }
