@@ -18,7 +18,7 @@
         "doctrine/dbal" : "^2.7",
         "guzzlehttp/guzzle": "^6.3.3",
         "sybio/image-workshop": "^2.1",
-        "orchestra/parser": "^5.0"
+        "orchestra/parser": "^4.0"
     },
     "autoload": {
         "psr-4": {

@@ -28,6 +28,7 @@ use Orchestra\Parser\Xml\Reader as XmlReader;
 use Tendoo\Core\Models\Role;
 use Tendoo\Core\Http\TendooKernel;
 use Tendoo\Core\Observers\RoleObserver;
+
 use Tendoo\Core\Console\Commands\OptionGet;
 use Tendoo\Core\Console\Commands\OptionSet;
 use Tendoo\Core\Console\Commands\EnableModule;
@@ -38,18 +39,16 @@ use Tendoo\Core\Console\Commands\DisableModule;
 use Tendoo\Core\Console\Commands\GenerateModule;
 use Tendoo\Core\Console\Commands\PublishCommand;
 use Tendoo\Core\Console\Commands\RefreshCommand;
-
 use Tendoo\Core\Console\Commands\ModuleController;
 use Tendoo\Core\Console\Commands\ModuleMigrations;
-use Tendoo\Core\Http\Middleware\SafeURLMiddleware;
 use Tendoo\Core\Console\Commands\EnvEditorGetCommand;
-
 use Tendoo\Core\Console\Commands\EnvEditorSetCommand;
 use Tendoo\Core\Console\Commands\ModuleSymlinkCommand;
-
 use Tendoo\Core\Console\Commands\MakeModuleServiceProvider;
 use Tendoo\Core\Console\Commands\ModuleCrudGeneratorCommand;
 use Tendoo\Core\Console\Commands\DeleteExpiredOptionsCommand;
+
+use Tendoo\Core\Http\Middleware\SafeURLMiddleware;
 
 class ServiceProvider extends CoreServiceProvider
 {
@@ -63,11 +62,6 @@ class ServiceProvider extends CoreServiceProvider
         $this->app->singleton( 'XmlParser', function ($app) {
             return new XmlReader(new XmlDocument($app));
         });
-        
-        // $this->app->singleton(
-        //     \Illuminate\Contracts\Debug\ExceptionHandler::class,
-        //     \Tendoo\Core\Exceptions\TendooHandler::class
-        // );
         
         /**
          * Register DotEnv Editor
@@ -116,6 +110,7 @@ class ServiceProvider extends CoreServiceProvider
         $router->aliasMiddleware( 'tendoo.prevent.not-installed', \Tendoo\Core\Http\Middleware\AppInstalled::class );
         $router->aliasMiddleware( 'tendoo.prevent.installed', \Tendoo\Core\Http\Middleware\AppNotInstalled::class );
         $router->aliasMiddleware( 'tendoo.prevent.flood', \Tendoo\Core\Http\Middleware\PreventFloodRequest::class );   
+        $router->aliasMiddleware( 'tendoo.can-register', \Tendoo\Core\Http\Middleware\CheckRegistrationStatus::class );
         $router->aliasMiddleware( 'tendoo.safe-url', SafeURLMiddleware::class );   
         
         $corePath       =   base_path() . _SLASH_ . 'core' . _SLASH_ ;
