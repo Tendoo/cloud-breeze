@@ -1,9 +1,9 @@
 <?php
 
-namespace Tendoo\Core\Console\Commands;
+namespace CloudBreeze\Core\Console\Commands;
 
 use Illuminate\Console\Command;
-use Tendoo\Core\Services\Options;
+use CloudBreeze\Core\Services\Options;
 
 class OptionDelete extends Command
 {

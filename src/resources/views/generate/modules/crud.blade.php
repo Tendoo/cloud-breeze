@@ -4,12 +4,12 @@
 namespace Modules\{{ ucwords( $module[ 'namespace' ] ) }}\Crud;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-use Tendoo\Core\Services\Crud;
-use Tendoo\Core\Services\Field;
-use Tendoo\Core\Services\Helper;
-use Tendoo\Core\Models\User;
-use Tendoo\Core\Facades\Hook;
-use Tendoo\Core\Services\Users;
+use CloudBreeze\Core\Services\Crud;
+use CloudBreeze\Core\Services\Field;
+use CloudBreeze\Core\Services\Helper;
+use CloudBreeze\Core\Models\User;
+use CloudBreeze\Core\Facades\Hook;
+use CloudBreeze\Core\Services\Users;
 use {{ trim( $model_name ) }};
 
 class {{ ucwords( $Str::camel( $resource_name ) ) }}Crud extends Crud
@@ -263,7 +263,7 @@ class {{ ucwords( $Str::camel( $resource_name ) ) }}Crud extends Crud
          * Deleting licence is only allowed for admin
          * and supervisor.
          */
-        $user   =   app()->make( 'Tendoo\Core\Services\Users' );
+        $user   =   app()->make( 'CloudBreeze\Core\Services\Users' );
         if ( ! $user->is([ 'admin', 'supervisor' ]) ) {
             return response()->json([
                 'status'    =>  'failed',

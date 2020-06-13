@@ -1,9 +1,9 @@
 <?php
-namespace Tendoo\Core\Events;
+namespace CloudBreeze\Core\Events;
 
-use Tendoo\Core\Http\Requests\OptionsRequest;
-use Tendoo\Core\Services\Validation;
-use Tendoo\Core\Fields\Dashboard\GeneralSettings;
+use CloudBreeze\Core\Http\Requests\OptionsRequest;
+use CloudBreeze\Core\Services\Validation;
+use CloudBreeze\Core\Fields\Dashboard\GeneralSettings;
 
 class Settings
 {

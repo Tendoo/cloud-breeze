@@ -1,6 +1,6 @@
 <?php
 
-namespace Tendoo\Core\Http\Requests;
+namespace CloudBreeze\Core\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 

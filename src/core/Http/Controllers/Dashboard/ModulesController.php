@@ -1,17 +1,17 @@
 <?php
-namespace Tendoo\Core\Http\Controllers\Dashboard;
+namespace CloudBreeze\Core\Http\Controllers\Dashboard;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Log;
 
-use Tendoo\Core\Http\Controllers\DashboardController;
-use Tendoo\Core\Http\Requests\PostModuleRequest;
-use Tendoo\Core\Exceptions\CoreException;
-use Tendoo\Core\Exceptions\ModuleMigrationRequiredException;
-use Tendoo\Core\Exceptions\AccessDeniedException;
-use Tendoo\Core\Exceptions\NotFoundException;
-use Tendoo\Core\Facades\Hook;
+use CloudBreeze\Core\Http\Controllers\DashboardController;
+use CloudBreeze\Core\Http\Requests\PostModuleRequest;
+use CloudBreeze\Core\Exceptions\CoreException;
+use CloudBreeze\Core\Exceptions\ModuleMigrationRequiredException;
+use CloudBreeze\Core\Exceptions\AccessDeniedException;
+use CloudBreeze\Core\Exceptions\NotFoundException;
+use CloudBreeze\Core\Facades\Hook;
 
 class ModulesController extends DashboardController
 {

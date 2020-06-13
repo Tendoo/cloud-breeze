@@ -1,6 +1,6 @@
 <?php
 
-namespace Tendoo\Core\Exceptions;
+namespace CloudBreeze\Core\Exceptions;
 
 use Exception;
 use Illuminate\Session\TokenMismatchException;

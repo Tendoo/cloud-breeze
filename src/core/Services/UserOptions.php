@@ -1,8 +1,8 @@
 <?php
-namespace Tendoo\Core\Services;
+namespace CloudBreeze\Core\Services;
 
-use Tendoo\Core\Models\Option;
-use Tendoo\Core\Services\Options;
+use CloudBreeze\Core\Models\Option;
+use CloudBreeze\Core\Services\Options;
 
 class UserOptions extends Options
 {

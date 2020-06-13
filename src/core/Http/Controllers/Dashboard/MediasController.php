@@ -2,17 +2,17 @@
 /**
  * @todo review for api-server
  */
-namespace Tendoo\Core\Http\Controllers\Dashboard;
+namespace CloudBreeze\Core\Http\Controllers\Dashboard;
 
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
-use Tendoo\Core\Exceptions\NotFoundException;
-use Tendoo\Core\Models\Media;
-use Tendoo\Core\Services\DateService;
-use Tendoo\Core\Services\MediaService;
-use Tendoo\Core\Http\Controllers\DashboardController;
+use CloudBreeze\Core\Exceptions\NotFoundException;
+use CloudBreeze\Core\Models\Media;
+use CloudBreeze\Core\Services\DateService;
+use CloudBreeze\Core\Services\MediaService;
+use CloudBreeze\Core\Http\Controllers\DashboardController;
 
 class MediasController extends DashboardController
 {

@@ -1,7 +1,7 @@
 <?php
-namespace Tendoo\Core\Services;
-use Tendoo\Core\Models\User;
-use Tendoo\Core\Models\Role;
+namespace CloudBreeze\Core\Services;
+use CloudBreeze\Core\Models\User;
+use CloudBreeze\Core\Models\Role;
 
 class Guard
 {

@@ -1,8 +1,8 @@
 <{{ '?php' }}
 namespace Modules\{{ $module[ 'namespace' ] }}\Events;
 
-// use Tendoo\Core\Services\Menus;
-// use Tendoo\Core\Services\Helper;
+// use CloudBreeze\Core\Services\Menus;
+// use CloudBreeze\Core\Services\Helper;
 
 /**
  * Register Events

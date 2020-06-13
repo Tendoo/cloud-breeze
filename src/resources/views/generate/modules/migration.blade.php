@@ -1,4 +1,4 @@
-@inject( 'SchemaService', 'Tendoo\Core\Services\Schema' )<{{ '?php' }}
+@inject( 'SchemaService', 'CloudBreeze\Core\Services\Schema' )<{{ '?php' }}
 @inject( 'Str', 'Illuminate\Support\Str' )
 /**
  * Table Migration

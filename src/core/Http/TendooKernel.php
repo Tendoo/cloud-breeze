@@ -1,10 +1,10 @@
 <?php 
-namespace Tendoo\Core\Http;
+namespace CloudBreeze\Core\Http;
 use App\Http\Kernel;
 use Illuminate\Routing\Router;
-use Tendoo\Core\Http\Middleware\EncryptCookies;
+use CloudBreeze\Core\Http\Middleware\EncryptCookies;
 use Illuminate\Contracts\Foundation\Application;
-use Tendoo\Core\Http\Middleware\VerifyCsrfToken;
+use CloudBreeze\Core\Http\Middleware\VerifyCsrfToken;
 
 class TendooKernel extends Kernel {
     public function __construct( Application $app, Router $router )

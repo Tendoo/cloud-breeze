@@ -1,7 +1,7 @@
 <?php
 
-namespace Tendoo\Core\Services;
-use Tendoo\Core\Models\Site as SiteModel;
+namespace CloudBreeze\Core\Services;
+use CloudBreeze\Core\Models\Site as SiteModel;
 
 class Site
 {

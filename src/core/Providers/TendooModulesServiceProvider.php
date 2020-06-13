@@ -1,8 +1,8 @@
 <?php
-namespace Tendoo\Core\Providers;
+namespace CloudBreeze\Core\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Tendoo\Core\Services\Modules;
+use CloudBreeze\Core\Services\Modules;
 
 class TendooModulesServiceProvider extends ServiceProvider
 {
@@ -24,7 +24,7 @@ class TendooModulesServiceProvider extends ServiceProvider
     public function register()
     {
         // register module singleton
-        $this->app->singleton( 'Tendoo\Core\Services\Modules', function( $app ) {
+        $this->app->singleton( 'CloudBreeze\Core\Services\Modules', function( $app ) {
             $modules    =   new Modules;
             $modules->load();
             return $modules;

@@ -1,16 +1,16 @@
 <?php
-namespace Tendoo\Core\Fields\Dashboard;
+namespace CloudBreeze\Core\Fields\Dashboard;
 
-use Tendoo\Core\Models\Role;
-use Tendoo\Core\Services\Helper;
-use Tendoo\Core\Services\Options;
-use Tendoo\Core\Facades\Field;
+use CloudBreeze\Core\Models\Role;
+use CloudBreeze\Core\Services\Helper;
+use CloudBreeze\Core\Services\Options;
+use CloudBreeze\Core\Facades\Field;
 
 class GeneralSettings
 {
     public function generalSettings()
     {
-        $options                    =   app()->make( 'Tendoo\Core\Services\Options' );
+        $options                    =   app()->make( 'CloudBreeze\Core\Services\Options' );
         $app_name                   =   new \StdClass;
         $app_name->name             =   'app_name';
         $app_name->label            =   __( 'Application Name' );
@@ -49,7 +49,7 @@ class GeneralSettings
 
     public function registration()
     {
-        $options    =   app()->make( 'Tendoo\Core\Services\Options' );
+        $options    =   app()->make( 'CloudBreeze\Core\Services\Options' );
 
         $allow_registration                         =   new \StdClass;
         $allow_registration->name                   =   'allow_registration';
@@ -134,7 +134,7 @@ class GeneralSettings
      */
     public function emailSettingsFields()
     {
-        $options                    =   app()->make( 'Tendoo\Core\Services\Options' );
+        $options                    =   app()->make( 'CloudBreeze\Core\Services\Options' );
 
         $mail_driver                 =   new \StdClass;
         $mail_driver->name           =   'app_mail_driver';

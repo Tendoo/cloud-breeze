@@ -1,10 +1,10 @@
 <?php
-namespace Tendoo\Core\Http\Middleware;
-use Tendoo\Core\Services\Options;
-use Tendoo\Core\Services\Helper;
+namespace CloudBreeze\Core\Http\Middleware;
+use CloudBreeze\Core\Services\Options;
+use CloudBreeze\Core\Services\Helper;
 use Illuminate\Support\Facades\Storage;
-use Tendoo\Core\Exceptions\ShouldUpdateAssetsException;
-use Tendoo\Core\Exceptions\ShouldUpdateDatabaseException;
+use CloudBreeze\Core\Exceptions\ShouldUpdateAssetsException;
+use CloudBreeze\Core\Exceptions\ShouldUpdateDatabaseException;
 use Closure;
 
 class CheckMigrations

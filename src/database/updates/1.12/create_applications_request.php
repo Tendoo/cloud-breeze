@@ -1,10 +1,10 @@
 <?php
-namespace Tendoo\Database\Updates\v1_12;
+namespace CloudBreeze\Database\Updates\v1_12;
 
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-use Tendoo\Core\Models\Option;
+use CloudBreeze\Core\Models\Option;
 use CreateApplicationTable;
 
 class CreateApplicationsRequest extends Migration

@@ -1,9 +1,9 @@
 <?php
-namespace Tendoo\Core\Console\Commands;
+namespace CloudBreeze\Core\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Str;
-use Tendoo\Core\Services\Helper;
+use CloudBreeze\Core\Services\Helper;
 use Illuminate\Support\Facades\Storage;
 
 class MakeModuleServiceProvider extends Command
@@ -37,7 +37,7 @@ class MakeModuleServiceProvider extends Command
         if ( Helper::AppIsInstalled() ) {
             if ( ! empty( $this->argument( 'namespace' ) && ! empty( $this->argument( 'name' ) ) ) ) {
                 
-                $modules     =   app()->make( 'Tendoo\Core\Services\Modules' );
+                $modules     =   app()->make( 'CloudBreeze\Core\Services\Modules' );
 
                 /**
                  * Check if the module exists

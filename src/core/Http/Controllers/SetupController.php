@@ -1,16 +1,16 @@
 <?php
 
-namespace Tendoo\Core\Http\Controllers;
+namespace CloudBreeze\Core\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Cookie;
-use Tendoo\Core\Services\Page;
-use Tendoo\Core\Http\Requests\SetupDatabaseRequest;
-use Tendoo\Core\Http\Requests\SetupAppDetailsRequest;
-use Tendoo\Core\Services\Setup;
-use Tendoo\Core\Exceptions\DBConnexionException;
+use CloudBreeze\Core\Services\Page;
+use CloudBreeze\Core\Http\Requests\SetupDatabaseRequest;
+use CloudBreeze\Core\Http\Requests\SetupAppDetailsRequest;
+use CloudBreeze\Core\Services\Setup;
+use CloudBreeze\Core\Exceptions\DBConnexionException;
 
 class SetupController extends Controller
 {
@@ -26,7 +26,7 @@ class SetupController extends Controller
      * Post Database details
      *
      * @since  1.0
-     * @param  Tendoo\Core\Http\Requests\SetupDatabaseRequest $request
+     * @param  CloudBreeze\Core\Http\Requests\SetupDatabaseRequest $request
      * @return \Illiminate\Http\RedirectResponse
      */
     public function post_database( SetupDatabaseRequest $request )
@@ -42,7 +42,7 @@ class SetupController extends Controller
      * Post App details
      *
      * @since  1.0
-     * @param  Tendoo\Core\Http\Requests\SetupDatabaseRequest $request
+     * @param  CloudBreeze\Core\Http\Requests\SetupDatabaseRequest $request
      * @return \Illiminate\Http\RedirectResponse
      */
     public function post_appdetails( SetupAppDetailsRequest $request )

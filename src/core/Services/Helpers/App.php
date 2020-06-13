@@ -1,5 +1,5 @@
 <?php
-namespace Tendoo\Core\Services\Helpers;
+namespace CloudBreeze\Core\Services\Helpers;
 
 use Jackiedo\DotenvEditor\Facades\DotenvEditor;
 use Illuminate\Support\Facades\View;

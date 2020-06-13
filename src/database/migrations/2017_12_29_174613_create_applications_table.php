@@ -13,8 +13,8 @@ class CreateApplicationsTable extends Migration
      */
     public function up()
     {
-        if ( ! Schema::hasTable('tendoo_apps') ) {
-            Schema::create('tendoo_apps', function (Blueprint $table) {
+        if ( ! Schema::hasTable('cb_apps') ) {
+            Schema::create('cb_apps', function (Blueprint $table) {
                 $table->increments('id');
                 $table->string( 'name' );
                 $table->string( 'callback_url' );
@@ -35,6 +35,6 @@ class CreateApplicationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tendoo_apps');
+        Schema::dropIfExists('cb_apps');
     }
 }

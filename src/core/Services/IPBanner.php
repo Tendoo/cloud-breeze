@@ -1,7 +1,7 @@
 <?php
-namespace Tendoo\Core\Services;
+namespace CloudBreeze\Core\Services;
 
-use Tendoo\Core\Models\BannedIP;
+use CloudBreeze\Core\Models\BannedIP;
 
 class IPBanner 
 {

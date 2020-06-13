@@ -1,10 +1,10 @@
 <?php
 
-namespace Tendoo\Core\Http\Requests;
+namespace CloudBreeze\Core\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Tendoo\Core\Services\Validation;
-use Tendoo\Core\Fields\Frontend\SetupFields;
+use CloudBreeze\Core\Services\Validation;
+use CloudBreeze\Core\Fields\Frontend\SetupFields;
 
 class SetupAppDetailsRequest extends FormRequest
 {

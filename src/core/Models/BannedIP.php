@@ -1,11 +1,11 @@
 <?php
-namespace Tendoo\Core\Models;
+namespace CloudBreeze\Core\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
 class BannedIP extends Model 
 {
-    protected $table = 'tendoo_banned_ip';
+    protected $table = 'cb_banned_ip';
     
     protected $cats     =   [
         'banned'    =>  'boolean'

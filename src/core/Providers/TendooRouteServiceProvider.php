@@ -1,6 +1,6 @@
 <?php
 
-namespace Tendoo\Core\Providers;
+namespace CloudBreeze\Core\Providers;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Routing\Router;
@@ -8,7 +8,7 @@ use App\Http\Kernel\Kernel;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Storage;
 
-use Tendoo\Core\Services\Modules;
+use CloudBreeze\Core\Services\Modules;
 
 class TendooRouteServiceProvider extends ServiceProvider
 {
@@ -19,7 +19,7 @@ class TendooRouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    protected $namespace = 'Tendoo\Core\Http\Controllers';
+    protected $namespace = 'CloudBreeze\Core\Http\Controllers';
 
     /**
      * Define your route model bindings, pattern filters, etc.

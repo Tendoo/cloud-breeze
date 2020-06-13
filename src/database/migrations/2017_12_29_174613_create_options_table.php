@@ -13,7 +13,7 @@ class CreateOptionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('tendoo_options', function (Blueprint $table) {
+        Schema::create('cb_options', function (Blueprint $table) {
             $table->increments('id');
             $table->integer( 'user_id' )->nullable();
             $table->string( 'key' );
@@ -31,6 +31,6 @@ class CreateOptionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tendoo_options');
+        Schema::dropIfExists('cb_options');
     }
 }

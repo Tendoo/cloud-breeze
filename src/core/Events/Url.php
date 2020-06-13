@@ -1,11 +1,11 @@
 <?php
-namespace Tendoo\Core\Events;
+namespace CloudBreeze\Core\Events;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\URL as UrlHelper;
-use Tendoo\Core\Http\Requests\OptionsRequest;
-use Tendoo\Core\Services\Field;
-use Tendoo\Core\Services\DateService;
+use CloudBreeze\Core\Http\Requests\OptionsRequest;
+use CloudBreeze\Core\Services\Field;
+use CloudBreeze\Core\Services\DateService;
 
 class Url
 {

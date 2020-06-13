@@ -1,5 +1,5 @@
 <?php
-namespace Tendoo\Core\Events;
+namespace CloudBreeze\Core\Events;
 
 class Errors 
 {

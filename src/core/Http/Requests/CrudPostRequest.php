@@ -1,13 +1,13 @@
 <?php
 
-namespace Tendoo\Core\Http\Requests;
+namespace CloudBreeze\Core\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Event;
-use Tendoo\Core\Services\Helper;
-use Tendoo\Core\Facades\Hook;
-use Tendoo\Core\Crud\Applications;
-use Tendoo\Core\Exceptions\CoreException;
+use CloudBreeze\Core\Services\Helper;
+use CloudBreeze\Core\Facades\Hook;
+use CloudBreeze\Core\Crud\Applications;
+use CloudBreeze\Core\Exceptions\CoreException;
 
 class CrudPostRequest extends FormRequest
 {

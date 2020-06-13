@@ -13,7 +13,7 @@ class CreateMediasTable extends Migration
      */
     public function up()
     {
-        Schema::create('tendoo_medias', function (Blueprint $table) {
+        Schema::create('cb_medias', function (Blueprint $table) {
             $table->increments('id');
             $table->string( 'name' )->unique();
             $table->string( 'extension' );
@@ -30,6 +30,6 @@ class CreateMediasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tendoo_medias');
+        Schema::dropIfExists('cb_medias');
     }
 }

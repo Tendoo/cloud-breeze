@@ -1,12 +1,12 @@
 <?php
-namespace Tendoo\Core\Events;
+namespace CloudBreeze\Core\Events;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Tendoo\Core\Services\Field;
+use CloudBreeze\Core\Services\Field;
 use Illuminate\Support\Facades\Mail;
-use Tendoo\Core\Services\Users as UsersServices;
-use Tendoo\Core\Models\Role;
-use Tendoo\Core\Mail\PasswordResetRequested;
+use CloudBreeze\Core\Services\Users as UsersServices;
+use CloudBreeze\Core\Models\Role;
+use CloudBreeze\Core\Mail\PasswordResetRequested;
 
 class Users
 {
@@ -51,7 +51,7 @@ class Users
      */
     public function notifyPasswordResetToAdmins( $user, $hashCode ) 
     {
-        $options    =   app()->make( 'Tendoo\Core\Services\Options' );
+        $options    =   app()->make( 'CloudBreeze\Core\Services\Options' );
 
         /**
          * Only notify when the option is enabled

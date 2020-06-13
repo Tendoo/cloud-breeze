@@ -1,11 +1,11 @@
 <?php
-namespace Tendoo\Core\Observers;
+namespace CloudBreeze\Core\Observers;
 
-use Tendoo\Core\Models\User;
+use CloudBreeze\Core\Models\User;
 
 use Illuminate\Support\Facades\DB;
-use Tendoo\Core\Models\Permission;
-use Tendoo\Core\Services\UserOptions;
+use CloudBreeze\Core\Models\Permission;
+use CloudBreeze\Core\Services\UserOptions;
 
 class UserObserver 
 {

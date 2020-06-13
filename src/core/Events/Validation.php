@@ -1,8 +1,8 @@
 <?php
-namespace Tendoo\Core\Events;
+namespace CloudBreeze\Core\Events;
 
-use Tendoo\Core\Fields\Frontend\Authentication;
-use Tendoo\Core\Services\Validation as ValidationExtractor;
+use CloudBreeze\Core\Fields\Frontend\Authentication;
+use CloudBreeze\Core\Services\Validation as ValidationExtractor;
 
 class Validation
 {

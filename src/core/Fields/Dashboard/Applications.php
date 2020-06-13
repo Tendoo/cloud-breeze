@@ -1,7 +1,7 @@
 <?php
-namespace Tendoo\Core\Fields\Dashboard;
+namespace CloudBreeze\Core\Fields\Dashboard;
 
-use Tendoo\Core\Models\Application;
+use CloudBreeze\Core\Models\Application;
 use Illuminate\Validation\Rule;
 
 class Applications 

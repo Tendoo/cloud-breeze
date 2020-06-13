@@ -68,14 +68,14 @@ Updating the filesystems will allow Cloud Breeze to save modules and to publish 
 
 ### Register EncryptCookies Middleware
 By default, the cookies registered by Cloud Breeze will be encrypted. With that, Cloud Breeze won't be able to authenticate and remember the user
-authenticated from the login UI provided. You need to register the middleware on the Kernel.php. If you have any specific cookie excaped from the middleware `App\Http\Middleware\EncryptCookies` it will be used on `Tendoo\Core\Http\Middleware\EncryptCookies`. You'll then comment (or delete) the default middleware on `app\Http\Kernel.php` like so :
+authenticated from the login UI provided. You need to register the middleware on the Kernel.php. If you have any specific cookie excaped from the middleware `App\Http\Middleware\EncryptCookies` it will be used on `CloudBreeze\Core\Http\Middleware\EncryptCookies`. You'll then comment (or delete) the default middleware on `app\Http\Kernel.php` like so :
 
 ```php
 // something before...
 protected $middlewareGroups = [
     'web' => [
         // \App\Http\Middleware\EncryptCookies::class, <= should be commended or deleted
-        \Tendoo\Core\Http\Middleware\EncryptCookies::class, // <= here
+        \CloudBreeze\Core\Http\Middleware\EncryptCookies::class, // <= here
         // other middleware ...
     ],
 
@@ -93,7 +93,7 @@ You need so to adjust your authentication congifuration file and make sure the M
     'users' => [
         'driver' => 'eloquent',
         // 'model' => App\User::class,
-        'model' => Tendoo\Core\Models\User::class, // <= the class here
+        'model' => CloudBreeze\Core\Models\User::class, // <= the class here
     ],
 
     // 'users' => [
@@ -166,11 +166,11 @@ This describe how the internal API works.
 A role allow you to group users whom should have the same attributes. For example, you could have a editor role on your system, if for example you're planning to create blog where such role will be needed. Once a role is created, you can assign permission to it. A permission is the capacity to perform an action on the system. Assigning a permissions is not the only step as you need to verify if a user has the permission to perform certains actoin through his role.
 
 ### Creating Role
-Creating a role is possible thanks to the class `Tendoo\Core\Models\Role`. A role has a name, and a `namespace` which is more like a computer identifier for the entity. Let's consider the following example : 
+Creating a role is possible thanks to the class `CloudBreeze\Core\Models\Role`. A role has a name, and a `namespace` which is more like a computer identifier for the entity. Let's consider the following example : 
 
 ```php
 <?php
-use Tendoo\Core\Models\Role;
+use CloudBreeze\Core\Models\Role;
 
 $role   = new Role;
 $role->name   =   __( 'Super Man' );
@@ -183,10 +183,10 @@ $role->save();
 So far you've create a role and it's that simple. The second steps is to assign a Permission, but first of all, let's create some permissions
 
 ### Creating a Permission
-A permission allow to perform an action on the system. You can manipulate the permissions using the model `Tendoo\Core\Models\Permission`. Let's then create some permissions for the Super Man role.
+A permission allow to perform an action on the system. You can manipulate the permissions using the model `CloudBreeze\Core\Models\Permission`. Let's then create some permissions for the Super Man role.
 
 ```php
-use Tendoo\Core\Models\Permission;
+use CloudBreeze\Core\Models\Permission;
 
 // ...
 $permission   = new Permission;
@@ -201,7 +201,7 @@ Now we've create permission, let's give Super Man the capacity to fly. It should
 on the Model class, taking as  first parameter, the namespace of the role and on second parameter the namespace of the permission. `Role::addPermissions( '[role namespace]', '[permission namespace]' );`. Let's have a look at a concret example
 
 ```php
-use Tendoo\Core\Models\Role;
+use CloudBreeze\Core\Models\Role;
 
 // ... 
 Role::addPermissions( 'superman', 'fly' );
@@ -210,7 +210,7 @@ Role::addPermissions( 'superman', 'fly' );
 You can also add a bunch of permission by passing an array to the second parameter.
 
 ```php
-use Tendoo\Core\Models\Role;
+use CloudBreeze\Core\Models\Role;
 
 // ...
 Role::addPermissions( 'superman', [ 'fly', 'eyelazer', 'frozen.breath' ]);
@@ -230,7 +230,7 @@ Note here that the second parameter should always be an array.
 As said above, the verification of a permission is made on role through the User model. You can then check if the User class. Here is how you should proceed : 
 
 ```php
-use Tendoo\Core\Models\User;
+use CloudBreeze\Core\Models\User;
 
 if ( User::allowedTo( 'snap.infinite.gaunglet' ) ) {
   /// you're not strong enough
@@ -247,7 +247,7 @@ Form configuration can be retreive through an endpoint. Here is how you can make
 
 ```php
 // let's register the event first
-use Tendoo\Core\Facades\Hook;
+use CloudBreeze\Core\Facades\Hook;
 
 //...
 Hook::addFilter( 'public.forms', useThis( Event::class )->method( 'forms' ) );
@@ -307,7 +307,7 @@ a complex form architecture including sections, but just want to have the fields
 This can be useful to create login & registration page, which doesn't often consist of sections but just fields.
 
 ```php
-use Tendoo\Core\Facades\Hook;
+use CloudBreeze\Core\Facades\Hook;
 
 // ...
 Hook::addFilter( 'public.fields', useThis( Event::class )->method( 'fields' ) );
@@ -356,7 +356,7 @@ The first step is to register the namespace. A namespace stand here for a unique
 Here is how a CRUD resource should be defined : 
 
 ```php
-use Tendoo\Core\Facades\Hook;
+use CloudBreeze\Core\Facades\Hook;
 
 Hook::addFilter( 'register.crud', useThis( CrudEvent::class )->method( 'orderCRUD' ) );
 ```

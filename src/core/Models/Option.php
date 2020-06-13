@@ -1,12 +1,12 @@
 <?php
 
-namespace Tendoo\Core\Models;
+namespace CloudBreeze\Core\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
 class Option extends Model
 {
-    protected $table = 'tendoo_options';
+    protected $table = 'cb_options';
     
     //
     public function scopeKey( $query, $key )

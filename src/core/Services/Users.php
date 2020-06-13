@@ -1,19 +1,19 @@
 <?php
-namespace Tendoo\Core\Services;
+namespace CloudBreeze\Core\Services;
 
-use Tendoo\Core\Models\Role;
-use Tendoo\Core\Models\User;
-use Tendoo\Core\Models\Permission;
+use CloudBreeze\Core\Models\Role;
+use CloudBreeze\Core\Models\User;
+use CloudBreeze\Core\Models\Permission;
 
-use Tendoo\Core\Services\UserOptions;
-use Tendoo\Core\Services\DateService;
+use CloudBreeze\Core\Services\UserOptions;
+use CloudBreeze\Core\Services\DateService;
 
-use Tendoo\Core\Facades\Hook;
+use CloudBreeze\Core\Facades\Hook;
 
-use Tendoo\Core\Mail\ActivateAccountMail;
+use CloudBreeze\Core\Mail\ActivateAccountMail;
 
-use Tendoo\Core\Exceptions\NotFoundException;
-use Tendoo\Core\Exceptions\AccessDeniedException;
+use CloudBreeze\Core\Exceptions\NotFoundException;
+use CloudBreeze\Core\Exceptions\AccessDeniedException;
 
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Auth;

@@ -1,9 +1,9 @@
 <?php
 
-namespace Tendoo\Core\Http\Middleware;
+namespace CloudBreeze\Core\Http\Middleware;
 
 use Closure;
-use Tendoo\Core\Services\Helper;
+use CloudBreeze\Core\Services\Helper;
 
 class CheckRegistrationStatus
 {
@@ -17,7 +17,7 @@ class CheckRegistrationStatus
     public function handle($request, Closure $next)
     {
         if ( Helper::AppIsInstalled() ) {
-            $options    =   app()->make( 'Tendoo\Core\Services\Options' );
+            $options    =   app()->make( 'CloudBreeze\Core\Services\Options' );
     
             /**
              * It's not strict. So it's not proceeding a strict comparison

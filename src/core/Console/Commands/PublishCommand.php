@@ -1,6 +1,6 @@
 <?php
 
-namespace Tendoo\Core\Console\Commands;
+namespace CloudBreeze\Core\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Storage;

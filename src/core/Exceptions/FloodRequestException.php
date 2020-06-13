@@ -1,5 +1,5 @@
 <?php
-namespace Tendoo\Core\Exceptions;
+namespace CloudBreeze\Core\Exceptions;
 use Exception;
 
 class FloodRequestException extends Exception

@@ -1,7 +1,7 @@
 <?php
-namespace Tendoo\Core\Http\Controllers\Dashboard;
+namespace CloudBreeze\Core\Http\Controllers\Dashboard;
 
-use Tendoo\Core\Http\Controllers\DashboardController;
+use CloudBreeze\Core\Http\Controllers\DashboardController;
 use Illuminate\Http\Request;
 
 class TablesController extends DashboardController 

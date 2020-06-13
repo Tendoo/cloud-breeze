@@ -1,19 +1,19 @@
 <?php
-namespace Tendoo\Core\Crud;
+namespace CloudBreeze\Core\Crud;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
-use Tendoo\Core\Services\Crud;
-use Tendoo\Core\Services\Field;
-use Tendoo\Core\Services\Helper;
-use Tendoo\Core\Models\User;
-use Tendoo\Core\Facades\Hook;
-use Tendoo\Core\Models\Option as OptionModel;
-use Tendoo\Core\Services\Users as UserService;
-use Tendoo\Core\Exceptions\AccessDeniedException;
-use Tendoo\Core\Fields\Dashboard\UserRegistration;
-use Tendoo\Core\Fields\Dashboard\User as UserFields;
+use CloudBreeze\Core\Services\Crud;
+use CloudBreeze\Core\Services\Field;
+use CloudBreeze\Core\Services\Helper;
+use CloudBreeze\Core\Models\User;
+use CloudBreeze\Core\Facades\Hook;
+use CloudBreeze\Core\Models\Option as OptionModel;
+use CloudBreeze\Core\Services\Users as UserService;
+use CloudBreeze\Core\Exceptions\AccessDeniedException;
+use CloudBreeze\Core\Fields\Dashboard\UserRegistration;
+use CloudBreeze\Core\Fields\Dashboard\User as UserFields;
 
 class Users extends Crud
 {
@@ -36,7 +36,7 @@ class Users extends Crud
     /**
      * Model Used
      */
-    protected $model      =   'Tendoo\Core\Models\User';
+    protected $model      =   'CloudBreeze\Core\Models\User';
 
     /**
      * Adding relation

@@ -1,12 +1,12 @@
 <?php
-namespace Tendoo\Core\Http\Controllers;
+namespace CloudBreeze\Core\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
-use Tendoo\Core\Services\Update;
-use Tendoo\Core\Services\Options;
-use Tendoo\Core\Exceptions\AccessDeniedException;
+use CloudBreeze\Core\Services\Update;
+use CloudBreeze\Core\Services\Options;
+use CloudBreeze\Core\Exceptions\AccessDeniedException;
 use Illuminate\Support\Facades\Artisan;
 
 class UpdateController extends Controller 
@@ -20,7 +20,7 @@ class UpdateController extends Controller
          */
         $this->middleware( function( $request, $next ){
             
-            $this->options      =   app()->make( 'Tendoo\Core\Services\Options' );
+            $this->options      =   app()->make( 'CloudBreeze\Core\Services\Options' );
 
             if ( $this->options->get( 'db_version' ) === config( 'tendoo.db_version' ) ) {
                 throw new \Exception( __( 'Updating the database is not required.' ) );
@@ -35,7 +35,7 @@ class UpdateController extends Controller
          */
         $this->middleware( function( $request, $next ){
             
-            $this->options      =   app()->make( 'Tendoo\Core\Services\Options' );
+            $this->options      =   app()->make( 'CloudBreeze\Core\Services\Options' );
 
             if ( $this->options->get( 'assets_version' ) === config( 'tendoo.assets_version' ) ) {
                 throw new \Exception( __( 'Updating the files is not required.' ) );
@@ -51,7 +51,7 @@ class UpdateController extends Controller
      */
     public function postUpdate( Request $request)
     {
-        $options    =   app()->make( 'Tendoo\Core\Services\Options' );
+        $options    =   app()->make( 'CloudBreeze\Core\Services\Options' );
         $update     =   app()->make( Update::class );
 
         /**
@@ -91,7 +91,7 @@ class UpdateController extends Controller
             $details    =   pathinfo( $file );
             $version    =   str_replace( '.', '_',  $details[ 'dirname' ] );
             $className  =   Str::studly( $details[ 'filename' ] );
-            $className  =   'Tendoo\Database\Updates\v' . $version . '\\' . $className;
+            $className  =   'CloudBreeze\Database\Updates\v' . $version . '\\' . $className;
             $class      =   new $className;
 
             /**
@@ -135,7 +135,7 @@ class UpdateController extends Controller
         /**
          * if the publish is done. We can then close this
          */
-        $options    =   app()->make( 'Tendoo\Core\Services\Options' );
+        $options    =   app()->make( 'CloudBreeze\Core\Services\Options' );
         $options->set( 'assets_version', config( 'tendoo.assets_version' ) );
 
         return [

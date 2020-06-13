@@ -1,19 +1,19 @@
 <?php
 
-namespace Tendoo\Core\Models;
+namespace CloudBreeze\Core\Models;
 
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
-use Tendoo\Core\Models\Permission;
+use CloudBreeze\Core\Models\Permission;
 
-use Tendoo\Core\Models\RolePermission;
+use CloudBreeze\Core\Models\RolePermission;
 use Illuminate\Database\Eloquent\Model;
 
 class Role extends Model
 {
 
     private static $cachedPermissions   =   [];
-    protected $table    =   'tendoo_roles';
+    protected $table    =   'cb_roles';
 
     
     /**
@@ -43,7 +43,7 @@ class Role extends Model
 
     public function permissions()
     {
-        return $this->belongsToMany( Permission::class, 'tendoo_role_permission' );
+        return $this->belongsToMany( Permission::class, 'cb_role_permission' );
     }
 
     /**
@@ -116,7 +116,7 @@ class Role extends Model
              * if the relation array is set, then we can insert all
              */
             if ( $relations ) {
-                DB::table( 'tendoo_role_permission' )->insert( $relations );
+                DB::table( 'cb_role_permission' )->insert( $relations );
             }
             return true;
         }
@@ -150,13 +150,13 @@ class Role extends Model
 
     private static function __createRelation( $role, $permission, $silent )
     {
-        $exists     =   DB::table( 'tendoo_role_permission' )
+        $exists     =   DB::table( 'cb_role_permission' )
             ->where( 'role_id', $role->id )
             ->where( 'permission_id', $permission->id )
             ->first();
 
         if ( empty( $exists ) ) {
-            DB::table( 'tendoo_role_permission' )->insert([
+            DB::table( 'cb_role_permission' )->insert([
                 'role_id'           =>  $role->id,
                 'permission_id'     =>  $permission->id
             ]);

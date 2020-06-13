@@ -1,9 +1,9 @@
 <?php
-namespace Tendoo\Core\Http\Controllers\Dashboard;
+namespace CloudBreeze\Core\Http\Controllers\Dashboard;
 
-use Tendoo\Core\Http\Controllers\BaseController;
+use CloudBreeze\Core\Http\Controllers\BaseController;
 use Illuminate\Http\Request;
-use Tendoo\Core\Facades\Hook;
+use CloudBreeze\Core\Facades\Hook;
 
 class OptionsController extends BaseController
 {

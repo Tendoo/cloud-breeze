@@ -1,13 +1,13 @@
 <?php
 
-namespace Tendoo\Core\Models;
+namespace CloudBreeze\Core\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Tendoo\Core\Models\Role;
+use CloudBreeze\Core\Models\Role;
 
 class Permission extends Model
 {
-    protected $table    =   'tendoo_permissions';
+    protected $table    =   'cb_permissions';
 
     public function scopeNamespace( $query, $param ) {
         return $query->where( 'namespace', $param );
@@ -15,7 +15,7 @@ class Permission extends Model
 
     public function roles()
     {
-        return $this->belongsToMany( Role::class, 'tendoo_role_permission' );
+        return $this->belongsToMany( Role::class, 'cb_role_permission' );
     }
 
     /**

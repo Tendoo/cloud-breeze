@@ -1,5 +1,5 @@
 <?php
-namespace Tendoo;
+namespace CloudBreeze;
 
 if ( ! defined( '_SLASH_' ) ) {
     define( '_SLASH_', DIRECTORY_SEPARATOR );
@@ -12,7 +12,7 @@ define( 'CB_ROOT', __DIR__ );
  * assets and database migration
  */
 
-require_once CB_ROOT . '/core/Services/Helper.php';
+// require_once CB_ROOT . '/core/Services/Helper.php';
 require_once CB_ROOT . '/constants.php';
 require_once CB_ROOT . '/core/Services/HelperFunctions.php';
 
@@ -25,30 +25,30 @@ use Illuminate\Support\ServiceProvider as CoreServiceProvider;
 use Jackiedo\DotenvEditor\DotenvEditor;
 use Orchestra\Parser\Xml\Document as XmlDocument;
 use Orchestra\Parser\Xml\Reader as XmlReader;
-use Tendoo\Core\Models\Role;
-use Tendoo\Core\Http\TendooKernel;
-use Tendoo\Core\Observers\RoleObserver;
+use CloudBreeze\Core\Models\Role;
+use CloudBreeze\Core\Http\TendooKernel;
+use CloudBreeze\Core\Observers\RoleObserver;
 
-use Tendoo\Core\Console\Commands\OptionGet;
-use Tendoo\Core\Console\Commands\OptionSet;
-use Tendoo\Core\Console\Commands\EnableModule;
-use Tendoo\Core\Console\Commands\ModuleModels;
-use Tendoo\Core\Console\Commands\OptionDelete;
-use Tendoo\Core\Console\Commands\ResetCommand;
-use Tendoo\Core\Console\Commands\DisableModule;
-use Tendoo\Core\Console\Commands\GenerateModule;
-use Tendoo\Core\Console\Commands\PublishCommand;
-use Tendoo\Core\Console\Commands\RefreshCommand;
-use Tendoo\Core\Console\Commands\ModuleController;
-use Tendoo\Core\Console\Commands\ModuleMigrations;
-use Tendoo\Core\Console\Commands\EnvEditorGetCommand;
-use Tendoo\Core\Console\Commands\EnvEditorSetCommand;
-use Tendoo\Core\Console\Commands\ModuleSymlinkCommand;
-use Tendoo\Core\Console\Commands\MakeModuleServiceProvider;
-use Tendoo\Core\Console\Commands\ModuleCrudGeneratorCommand;
-use Tendoo\Core\Console\Commands\DeleteExpiredOptionsCommand;
+use CloudBreeze\Core\Console\Commands\OptionGet;
+use CloudBreeze\Core\Console\Commands\OptionSet;
+use CloudBreeze\Core\Console\Commands\EnableModule;
+use CloudBreeze\Core\Console\Commands\ModuleModels;
+use CloudBreeze\Core\Console\Commands\OptionDelete;
+use CloudBreeze\Core\Console\Commands\ResetCommand;
+use CloudBreeze\Core\Console\Commands\DisableModule;
+use CloudBreeze\Core\Console\Commands\GenerateModule;
+use CloudBreeze\Core\Console\Commands\PublishCommand;
+use CloudBreeze\Core\Console\Commands\RefreshCommand;
+use CloudBreeze\Core\Console\Commands\ModuleController;
+use CloudBreeze\Core\Console\Commands\ModuleMigrations;
+use CloudBreeze\Core\Console\Commands\EnvEditorGetCommand;
+use CloudBreeze\Core\Console\Commands\EnvEditorSetCommand;
+use CloudBreeze\Core\Console\Commands\ModuleSymlinkCommand;
+use CloudBreeze\Core\Console\Commands\MakeModuleServiceProvider;
+use CloudBreeze\Core\Console\Commands\ModuleCrudGeneratorCommand;
+use CloudBreeze\Core\Console\Commands\DeleteExpiredOptionsCommand;
 
-use Tendoo\Core\Http\Middleware\SafeURLMiddleware;
+use CloudBreeze\Core\Http\Middleware\SafeURLMiddleware;
 
 class ServiceProvider extends CoreServiceProvider
 {
@@ -59,6 +59,8 @@ class ServiceProvider extends CoreServiceProvider
      */
     public function boot( Router $router )
     {    
+        // $this->app->register( \Laravel\Sanctum\SanctumServiceProvider::class );
+
         $this->app->singleton( 'XmlParser', function ($app) {
             return new XmlReader(new XmlDocument($app));
         });
@@ -74,20 +76,20 @@ class ServiceProvider extends CoreServiceProvider
          * register CURL
          */
         $this->app->bind( 'tendoo.curl', 'Ixudra\Curl\CurlService' );
-        $this->app->bind( 'tendoo.page', 'Tendoo\Core\Services\Page' );
-        $this->app->bind( 'tendoo.helper', 'Tendoo\Core\Services\Helper' );
-        $this->app->bind( 'tendoo.field', 'Tendoo\Core\Services\Field' );
-        $this->app->bind( 'tendoo.modules', 'Tendoo\Core\Services\Modules' );
+        $this->app->bind( 'tendoo.page', 'CloudBreeze\Core\Services\Page' );
+        $this->app->bind( 'tendoo.helper', 'CloudBreeze\Core\Services\Helper' );
+        $this->app->bind( 'tendoo.field', 'CloudBreeze\Core\Services\Field' );
+        $this->app->bind( 'tendoo.modules', 'CloudBreeze\Core\Services\Modules' );
         
         /**
          * Register the route provider 
          * before the Laravel Route Provider
          */
-        $this->app->register( \Tendoo\Core\Providers\TendooAppServiceProvider::class );
-        $this->app->register( \Tendoo\Core\Providers\TendooEventServiceProvider::class );
-        $this->app->register( \Tendoo\Core\Providers\TendooModulesServiceProvider::class );
-        $this->app->register( \Tendoo\Core\Providers\TendooUserOptionsServiceProvider::class );
-        $this->app->register( \Tendoo\Core\Providers\TendooRouteServiceProvider::class );
+        $this->app->register( \CloudBreeze\Core\Providers\TendooAppServiceProvider::class );
+        $this->app->register( \CloudBreeze\Core\Providers\TendooEventServiceProvider::class );
+        $this->app->register( \CloudBreeze\Core\Providers\TendooModulesServiceProvider::class );
+        $this->app->register( \CloudBreeze\Core\Providers\TendooUserOptionsServiceProvider::class );
+        $this->app->register( \CloudBreeze\Core\Providers\TendooRouteServiceProvider::class );
         $this->app->register( \TorMorten\Eventy\EventServiceProvider::class );
         $this->app->register( \TorMorten\Eventy\EventBladeServiceProvider::class );
 
@@ -95,22 +97,22 @@ class ServiceProvider extends CoreServiceProvider
         /**
          * Register Middleware
          */
-        $router->aliasMiddleware( 'app.installed', \Tendoo\Core\Http\Middleware\AppInstalled::class );
-        $router->aliasMiddleware( 'app.notInstalled', \Tendoo\Core\Http\Middleware\AppNotInstalled::class );
-        $router->aliasMiddleware( 'expect.unlogged', \Tendoo\Core\Http\Middleware\RedirectIfAuthenticated::class );
-        $router->aliasMiddleware( 'expect.logged', \Tendoo\Core\Http\Middleware\RedirectIfNotAuthenticated::class ); 
-        $router->aliasMiddleware( 'can.register', \Tendoo\Core\Http\Middleware\CheckRegistrationStatus::class );
-        $router->aliasMiddleware( 'check.migrations', \Tendoo\Core\Http\Middleware\CheckMigrations::class );
-        $router->aliasMiddleware( 'tendoo.guard', \Tendoo\Core\Http\Middleware\LoadApi::class );
-        $router->aliasMiddleware( 'tendoo.auth', \Tendoo\Core\Http\Middleware\TendooAuth::class );
-        $router->aliasMiddleware( 'tendoo.silent-auth', \Tendoo\Core\Http\Middleware\TendooSilentAuth::class );
-        $router->aliasMiddleware( 'tendoo.guest', \Tendoo\Core\Http\Middleware\TendooGuest::class );
-        $router->aliasMiddleware( 'tendoo.cors', \Tendoo\Core\Http\Middleware\Cors::class );   
-        $router->aliasMiddleware( 'tendoo.encrypt-cookies', \Tendoo\Core\Http\Middleware\EncryptCookies::class );
-        $router->aliasMiddleware( 'tendoo.prevent.not-installed', \Tendoo\Core\Http\Middleware\AppInstalled::class );
-        $router->aliasMiddleware( 'tendoo.prevent.installed', \Tendoo\Core\Http\Middleware\AppNotInstalled::class );
-        $router->aliasMiddleware( 'tendoo.prevent.flood', \Tendoo\Core\Http\Middleware\PreventFloodRequest::class );   
-        $router->aliasMiddleware( 'tendoo.can-register', \Tendoo\Core\Http\Middleware\CheckRegistrationStatus::class );
+        $router->aliasMiddleware( 'app.installed', \CloudBreeze\Core\Http\Middleware\AppInstalled::class );
+        $router->aliasMiddleware( 'app.notInstalled', \CloudBreeze\Core\Http\Middleware\AppNotInstalled::class );
+        $router->aliasMiddleware( 'expect.unlogged', \CloudBreeze\Core\Http\Middleware\RedirectIfAuthenticated::class );
+        $router->aliasMiddleware( 'expect.logged', \CloudBreeze\Core\Http\Middleware\RedirectIfNotAuthenticated::class ); 
+        $router->aliasMiddleware( 'can.register', \CloudBreeze\Core\Http\Middleware\CheckRegistrationStatus::class );
+        $router->aliasMiddleware( 'check.migrations', \CloudBreeze\Core\Http\Middleware\CheckMigrations::class );
+        $router->aliasMiddleware( 'tendoo.guard', \CloudBreeze\Core\Http\Middleware\LoadApi::class );
+        $router->aliasMiddleware( 'tendoo.auth', \CloudBreeze\Core\Http\Middleware\TendooAuth::class );
+        $router->aliasMiddleware( 'tendoo.silent-auth', \CloudBreeze\Core\Http\Middleware\TendooSilentAuth::class );
+        $router->aliasMiddleware( 'tendoo.guest', \CloudBreeze\Core\Http\Middleware\TendooGuest::class );
+        $router->aliasMiddleware( 'tendoo.cors', \CloudBreeze\Core\Http\Middleware\Cors::class );   
+        $router->aliasMiddleware( 'tendoo.encrypt-cookies', \CloudBreeze\Core\Http\Middleware\EncryptCookies::class );
+        $router->aliasMiddleware( 'tendoo.prevent.not-installed', \CloudBreeze\Core\Http\Middleware\AppInstalled::class );
+        $router->aliasMiddleware( 'tendoo.prevent.installed', \CloudBreeze\Core\Http\Middleware\AppNotInstalled::class );
+        $router->aliasMiddleware( 'tendoo.prevent.flood', \CloudBreeze\Core\Http\Middleware\PreventFloodRequest::class );   
+        $router->aliasMiddleware( 'tendoo.can-register', \CloudBreeze\Core\Http\Middleware\CheckRegistrationStatus::class );
         $router->aliasMiddleware( 'tendoo.safe-url', SafeURLMiddleware::class );   
         
         $corePath       =   base_path() . _SLASH_ . 'core' . _SLASH_ ;
@@ -186,7 +188,7 @@ class ServiceProvider extends CoreServiceProvider
          */
         config([ 'auth.providers.users'     =>  [
             'driver'    =>  'eloquent',
-            'model'     =>  'Tendoo\Core\Models\User'
+            'model'     =>  'CloudBreeze\Core\Models\User'
         ]]);
     }
 

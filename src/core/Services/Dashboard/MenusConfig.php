@@ -1,7 +1,7 @@
 <?php
-namespace Tendoo\Core\Services\Dashboard;
+namespace CloudBreeze\Core\Services\Dashboard;
 
-use Tendoo\Core\Services\Menus;
+use CloudBreeze\Core\Services\Menus;
 
 class MenusConfig extends Menus
 {
@@ -11,7 +11,7 @@ class MenusConfig extends Menus
     {
         parent::__construct();
 
-        $this->user             =   app()->make( \Tendoo\Core\Services\Users::class );
+        $this->user             =   app()->make( \CloudBreeze\Core\Services\Users::class );
 
         $dashboard              =   new \stdClass;
         $dashboard->text        =   __( 'Dashboard' );
@@ -35,7 +35,7 @@ class MenusConfig extends Menus
      */
     public function registerMediaMenu()
     {
-        $user       =   app()->make( \Tendoo\Core\Services\Users::class );
+        $user       =   app()->make( \CloudBreeze\Core\Services\Users::class );
 
         if ( $user->is([ 'admin', 'supervisor' ] ) ) {
             $media              =   new \stdClass;
@@ -54,7 +54,7 @@ class MenusConfig extends Menus
      */
     public function registerUserMenu()
     {
-        $user       =   app()->make( \Tendoo\Core\Services\Users::class );
+        $user       =   app()->make( \CloudBreeze\Core\Services\Users::class );
 
         if ( $user->is([ 'admin' ] ) ) {
             $users                  =   new \stdClass;
@@ -87,7 +87,7 @@ class MenusConfig extends Menus
      */
     public function registerSettingsMenu()
     {
-        $user       =   app()->make( \Tendoo\Core\Services\Users::class );
+        $user       =   app()->make( \CloudBreeze\Core\Services\Users::class );
 
         if ( $user->is([ 'admin', 'supervisor' ] ) ) {
             $settings               =   new \stdClass;
@@ -132,7 +132,7 @@ class MenusConfig extends Menus
      */
     public function registerModulesMenu()
     {
-        $user       =   app()->make( \Tendoo\Core\Services\Users::class );
+        $user       =   app()->make( \CloudBreeze\Core\Services\Users::class );
 
         if ( $user->is([ 'admin', 'supervisor' ] ) ) {
             $modules                =   new \stdClass;
@@ -165,7 +165,7 @@ class MenusConfig extends Menus
      */
     public function registerApplicationsMenu()
     {
-        $user       =   app()->make( \Tendoo\Core\Services\Users::class );
+        $user       =   app()->make( \CloudBreeze\Core\Services\Users::class );
 
         if ( $user->is([ 'admin', 'supervisor' ] ) ) {
             $applications                =   new \stdClass;

@@ -1,13 +1,13 @@
 <?php
 
-namespace Tendoo\Core\Http\Controllers;
+namespace CloudBreeze\Core\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Tendoo\Core\Services\Setup;
-use Tendoo\Core\Services\Helper;
-use Tendoo\Core\Exceptions\NotFoundException;
-use Tendoo\Core\Exceptions\AccessDeniedException;
-use Tendoo\Core\Services\Options;
+use CloudBreeze\Core\Services\Setup;
+use CloudBreeze\Core\Services\Helper;
+use CloudBreeze\Core\Exceptions\NotFoundException;
+use CloudBreeze\Core\Exceptions\AccessDeniedException;
+use CloudBreeze\Core\Services\Options;
 
 class HomeController extends BaseController
 {

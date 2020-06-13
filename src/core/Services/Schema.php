@@ -1,5 +1,5 @@
 <?php
-namespace Tendoo\Core\Services;
+namespace CloudBreeze\Core\Services;
 
 class Schema
 {

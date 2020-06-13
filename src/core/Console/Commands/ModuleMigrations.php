@@ -1,13 +1,13 @@
 <?php
 
-namespace Tendoo\Core\Console\Commands;
+namespace CloudBreeze\Core\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
-use Tendoo\Core\Services\Modules;
-use Tendoo\Core\Services\Setup;
-use Tendoo\Core\Services\Helper;
+use CloudBreeze\Core\Services\Modules;
+use CloudBreeze\Core\Services\Setup;
+use CloudBreeze\Core\Services\Helper;
 
 class ModuleMigrations extends Command
 {

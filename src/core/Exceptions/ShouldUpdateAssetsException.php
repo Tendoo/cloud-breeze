@@ -1,5 +1,5 @@
 <?php
-namespace Tendoo\Core\Exceptions;
+namespace CloudBreeze\Core\Exceptions;
 
 class ShouldUpdateAssetsException extends \Exception {
 

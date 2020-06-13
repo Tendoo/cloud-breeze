@@ -1,11 +1,11 @@
 <?php
-namespace Tendoo\Core\Fields\Frontend;
+namespace CloudBreeze\Core\Fields\Frontend;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Event;
-use Tendoo\Core\Facades\Hook;
-use Tendoo\Core\Services\Helper;
-use Tendoo\Core\Services\Options;
+use CloudBreeze\Core\Facades\Hook;
+use CloudBreeze\Core\Services\Helper;
+use CloudBreeze\Core\Services\Options;
 
 class Authentication 
 {

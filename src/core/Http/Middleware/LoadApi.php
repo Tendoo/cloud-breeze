@@ -1,19 +1,19 @@
 <?php
 
-namespace Tendoo\Core\Http\Middleware;
+namespace CloudBreeze\Core\Http\Middleware;
 
 use Closure;
-use Tendoo\Core\Services\Oauth;
-use Tendoo\Core\Services\Helper;
-use Tendoo\Core\Models\Application;
+use CloudBreeze\Core\Services\Oauth;
+use CloudBreeze\Core\Services\Helper;
+use CloudBreeze\Core\Models\Application;
 use Illuminate\Support\Facades\Auth;
-use Tendoo\Core\Models\Oauth as OauthModel;
+use CloudBreeze\Core\Models\Oauth as OauthModel;
 use Jackiedo\DotenvEditor\Facades\DotenvEditor;
-use Tendoo\Core\Exceptions\ApiUnknowTokenException;
-use Tendoo\Core\Exceptions\ApiMissingTokenException;
-use Tendoo\Core\Exceptions\ApiAmbiguousTokenException;
-use Tendoo\Core\Exceptions\ApiForbiddenScopeException;
-use Tendoo\Core\Exceptions\ApiUnknowEndpointException;
+use CloudBreeze\Core\Exceptions\ApiUnknowTokenException;
+use CloudBreeze\Core\Exceptions\ApiMissingTokenException;
+use CloudBreeze\Core\Exceptions\ApiAmbiguousTokenException;
+use CloudBreeze\Core\Exceptions\ApiForbiddenScopeException;
+use CloudBreeze\Core\Exceptions\ApiUnknowEndpointException;
 
 class LoadApi
 {

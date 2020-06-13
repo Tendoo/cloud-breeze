@@ -1,11 +1,11 @@
 <?php
-namespace Tendoo\Core\Console\Commands;
+namespace CloudBreeze\Core\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Collection;
-use Tendoo\Core\Services\Options;
-use Tendoo\Core\Services\DateService;
-use Tendoo\Core\Services\Modules;
+use CloudBreeze\Core\Services\Options;
+use CloudBreeze\Core\Services\DateService;
+use CloudBreeze\Core\Services\Modules;
 use Carbon\Carbon;
 
 class ModuleSymlinkCommand extends Command

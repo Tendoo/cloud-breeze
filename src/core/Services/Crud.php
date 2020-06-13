@@ -1,5 +1,5 @@
 <?php
-namespace Tendoo\Core\Services;
+namespace CloudBreeze\Core\Services;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Cache;
 use Carbon\Carbon;
-use Tendoo\Core\Facades\Hook;
+use CloudBreeze\Core\Facades\Hook;
 
 class Crud 
 {

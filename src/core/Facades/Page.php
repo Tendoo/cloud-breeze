@@ -1,5 +1,5 @@
 <?php
-namespace Tendoo\Core\Facades;
+namespace CloudBreeze\Core\Facades;
 
 use Illuminate\Support\Facades\Facade;
 

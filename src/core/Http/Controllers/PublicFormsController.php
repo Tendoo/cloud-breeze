@@ -1,9 +1,9 @@
 <?php
-namespace Tendoo\Core\Http\Controllers;
+namespace CloudBreeze\Core\Http\Controllers;
 
-use Tendoo\Core\Facades\Hook;
-use Tendoo\Core\Services\Field;
-use Tendoo\Core\Exceptions\CoreException;
+use CloudBreeze\Core\Facades\Hook;
+use CloudBreeze\Core\Services\Field;
+use CloudBreeze\Core\Exceptions\CoreException;
 
 class PublicFormsController extends BaseController
 {

@@ -1,15 +1,15 @@
 <?php
-namespace Tendoo\Core\Events;
+namespace CloudBreeze\Core\Events;
 
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Event;
 
-use Tendoo\Core\Http\Requests\OptionsRequest;
-use Tendoo\Core\Services\Field;
-use Tendoo\Core\Models\User;
-use Tendoo\Core\Fields\Frontend\Authentication;
-use Tendoo\Core\Fields\Frontend\SetupFields;
+use CloudBreeze\Core\Http\Requests\OptionsRequest;
+use CloudBreeze\Core\Services\Field;
+use CloudBreeze\Core\Models\User;
+use CloudBreeze\Core\Fields\Frontend\Authentication;
+use CloudBreeze\Core\Fields\Frontend\SetupFields;
 
 
 class Fields

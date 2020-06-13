@@ -1,16 +1,16 @@
 <?php
-namespace Tendoo\Core\Http\Controllers\Dashboard;
+namespace CloudBreeze\Core\Http\Controllers\Dashboard;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Hash;
-use Tendoo\Core\Models\User;
-use Tendoo\Core\Models\Oauth;
-use Tendoo\Core\Models\Option as OptionModel;
-use Tendoo\Core\Services\Field;
-use Tendoo\Core\Http\Controllers\DashboardController;
-use Tendoo\Core\Facades\Hook;
+use CloudBreeze\Core\Models\User;
+use CloudBreeze\Core\Models\Oauth;
+use CloudBreeze\Core\Models\Option as OptionModel;
+use CloudBreeze\Core\Services\Field;
+use CloudBreeze\Core\Http\Controllers\DashboardController;
+use CloudBreeze\Core\Facades\Hook;
 use Validator;
 
 class FormsController extends DashboardController 

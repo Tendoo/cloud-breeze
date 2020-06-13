@@ -1,13 +1,13 @@
 <?php
 
-namespace Tendoo\Core\Http\Middleware;
+namespace CloudBreeze\Core\Http\Middleware;
 
 use Closure;
 use Jackiedo\DotenvEditor\Facades\DotenvEditor;
-use Tendoo\Core\Exceptions\TendooInstalledException;
-use Tendoo\Core\Exceptions\WrongCredentialException;
-use Tendoo\Core\Exceptions\AccessDeniedException;
-use Tendoo\Core\Models\User;
+use CloudBreeze\Core\Exceptions\TendooInstalledException;
+use CloudBreeze\Core\Exceptions\WrongCredentialException;
+use CloudBreeze\Core\Exceptions\AccessDeniedException;
+use CloudBreeze\Core\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 

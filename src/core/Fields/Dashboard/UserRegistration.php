@@ -1,9 +1,9 @@
 <?php
-namespace Tendoo\Core\Fields\Dashboard;
+namespace CloudBreeze\Core\Fields\Dashboard;
 
-use Tendoo\Core\Services\Options;
-use Tendoo\Core\Services\Helper;
-use Tendoo\Core\Facades\Hook;
+use CloudBreeze\Core\Services\Options;
+use CloudBreeze\Core\Services\Helper;
+use CloudBreeze\Core\Facades\Hook;
 
 class UserRegistration 
 {

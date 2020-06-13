@@ -1,6 +1,6 @@
 <?php
 
-namespace Tendoo\Core\Http\Controllers;
+namespace CloudBreeze\Core\Http\Controllers;
 
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;

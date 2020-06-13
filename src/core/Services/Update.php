@@ -1,9 +1,9 @@
 <?php
-namespace Tendoo\Core\Services;
+namespace CloudBreeze\Core\Services;
 
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Artisan;
-use Tendoo\Core\Services\Options;
+use CloudBreeze\Core\Services\Options;
 
 class Update
 {

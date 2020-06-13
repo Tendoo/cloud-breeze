@@ -1,27 +1,27 @@
 <?php
 
-namespace Tendoo\Core\Providers;
+namespace CloudBreeze\Core\Providers;
 
-use Tendoo\Core\Models\Role;
-use Tendoo\Core\Models\User;
-use Tendoo\Core\Services\Users;
-use Tendoo\Core\Services\Helper;
-use Tendoo\Core\Services\Options;
-use Tendoo\Core\Models\Permission;
+use CloudBreeze\Core\Models\Role;
+use CloudBreeze\Core\Models\User;
+use CloudBreeze\Core\Services\Users;
+use CloudBreeze\Core\Services\Helper;
+use CloudBreeze\Core\Services\Options;
+use CloudBreeze\Core\Models\Permission;
 use Illuminate\Encryption\Encrypter;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Blade;
-use Tendoo\Core\Services\AuthService;
-use Tendoo\Core\Services\DateService;
-use Tendoo\Core\Services\UserOptions;
+use CloudBreeze\Core\Services\AuthService;
+use CloudBreeze\Core\Services\DateService;
+use CloudBreeze\Core\Services\UserOptions;
 use Illuminate\Support\Facades\Schema;
-use Tendoo\Core\Services\MediaService;
+use CloudBreeze\Core\Services\MediaService;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\ServiceProvider;
-use Tendoo\Core\Observers\RoleObserver;
-use Tendoo\Core\Observers\UserObserver;
+use CloudBreeze\Core\Observers\RoleObserver;
+use CloudBreeze\Core\Observers\UserObserver;
 use Illuminate\Console\Scheduling\Schedule;
 use Jackiedo\DotenvEditor\Facades\DotenvEditor;
 

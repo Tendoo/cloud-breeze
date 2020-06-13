@@ -13,7 +13,7 @@ class CreatePermissionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('tendoo_permissions', function (Blueprint $table) {
+        Schema::create('cb_permissions', function (Blueprint $table) {
             $table->increments('id');
             $table->string( 'name' )->unique();
             $table->string( 'namespace' )->unique();
@@ -29,6 +29,6 @@ class CreatePermissionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tendoo_permissions');
+        Schema::dropIfExists('cb_permissions');
     }
 }

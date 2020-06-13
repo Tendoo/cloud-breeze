@@ -1,10 +1,10 @@
 <?php
-namespace Tendoo\Core\Http\Middleware;
+namespace CloudBreeze\Core\Http\Middleware;
 
 use Closure;
-use Tendoo\Core\Services\IPBanner;
-use Tendoo\Core\Models\BannedIP;
-use Tendoo\Core\Exceptions\ClientBannedException;
+use CloudBreeze\Core\Services\IPBanner;
+use CloudBreeze\Core\Models\BannedIP;
+use CloudBreeze\Core\Exceptions\ClientBannedException;
 
 class SafeURLMiddleware
 {

@@ -1,5 +1,5 @@
 <?php
-namespace Tendoo\Core\Fields\Frontend;
+namespace CloudBreeze\Core\Fields\Frontend;
 
 class SetupFields
 {

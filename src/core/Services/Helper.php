@@ -1,11 +1,11 @@
 <?php
-namespace Tendoo\Core\Services;
+namespace CloudBreeze\Core\Services;
 
-use Tendoo\Core\Services\Helpers\ArrayHelper;
-use Tendoo\Core\Services\Helpers\App;
-use Tendoo\Core\Services\Helpers\Routes;
-use Tendoo\Core\Services\Helpers\Validation;
-use Tendoo\Core\Services\Helpers\Modules;
+use CloudBreeze\Core\Services\Helpers\App;
+use CloudBreeze\Core\Services\Helpers\Routes;
+use CloudBreeze\Core\Services\Helpers\Modules;
+use CloudBreeze\Core\Services\Helpers\Validation;
+use CloudBreeze\Core\Services\Helpers\ArrayHelper;
 
 class Helper
 {

@@ -1,10 +1,10 @@
 <?php
-namespace Tendoo\Core\Services;
+namespace CloudBreeze\Core\Services;
 
 use Carbon\Carbon;
-use Tendoo\Core\Services\DateService;
-use Tendoo\Core\Models\Media;
-use Tendoo\Core\Exceptions\NotFoundException;
+use CloudBreeze\Core\Services\DateService;
+use CloudBreeze\Core\Models\Media;
+use CloudBreeze\Core\Exceptions\NotFoundException;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;

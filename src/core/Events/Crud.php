@@ -1,14 +1,14 @@
 <?php
-namespace Tendoo\Core\Events;
+namespace CloudBreeze\Core\Events;
 
-use Tendoo\Core\Crud\Users;
-use Tendoo\Core\Crud\ApplicationCrud;
-use Tendoo\Core\Fields\Dashboard\User as UserFields;
-use Tendoo\Core\Fields\Dashboard\Applications;
-use Tendoo\Core\Services\Validation;
-use Tendoo\Core\Models\Application;
-use Tendoo\Core\Models\User;
-use Tendoo\Core\Facades\Hook;
+use CloudBreeze\Core\Crud\Users;
+use CloudBreeze\Core\Crud\ApplicationCrud;
+use CloudBreeze\Core\Fields\Dashboard\User as UserFields;
+use CloudBreeze\Core\Fields\Dashboard\Applications;
+use CloudBreeze\Core\Services\Validation;
+use CloudBreeze\Core\Models\Application;
+use CloudBreeze\Core\Models\User;
+use CloudBreeze\Core\Facades\Hook;
 
 use Illuminate\Foundation\Http\FormRequest;
 

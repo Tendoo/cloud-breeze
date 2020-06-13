@@ -1,5 +1,5 @@
 <?php
-namespace Tendoo\Core\Http\Controllers;
+namespace CloudBreeze\Core\Http\Controllers;
 
 use Validator;
 use Carbon\Carbon;
@@ -8,14 +8,14 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
-use Tendoo\Core\Models\Application;
-use Tendoo\Core\Models\Oauth;
-use Tendoo\Core\Facades\Hook;
-use Tendoo\Core\Services\DateService;
-use Tendoo\Core\Exceptions\NotFoundException;
-use Tendoo\Core\Exceptions\ApiUnknowScopeException;
-use Tendoo\Core\Exceptions\ExpiredRequestException;
-use Tendoo\Core\Exceptions\BadRequestException;
+use CloudBreeze\Core\Models\Application;
+use CloudBreeze\Core\Models\Oauth;
+use CloudBreeze\Core\Facades\Hook;
+use CloudBreeze\Core\Services\DateService;
+use CloudBreeze\Core\Exceptions\NotFoundException;
+use CloudBreeze\Core\Exceptions\ApiUnknowScopeException;
+use CloudBreeze\Core\Exceptions\ExpiredRequestException;
+use CloudBreeze\Core\Exceptions\BadRequestException;
 
 class ApplicationsController extends Controller
 {

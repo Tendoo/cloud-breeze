@@ -1,10 +1,10 @@
 <?php
-namespace Tendoo\Core\Http\Controllers;
+namespace CloudBreeze\Core\Http\Controllers;
 
-use Tendoo\Core\Services\Field;
-use Tendoo\Core\Exceptions\CoreException;
-use Tendoo\Core\Services\Modules;
-use Tendoo\Core\Facades\Hook;
+use CloudBreeze\Core\Services\Field;
+use CloudBreeze\Core\Exceptions\CoreException;
+use CloudBreeze\Core\Services\Modules;
+use CloudBreeze\Core\Facades\Hook;
 
 class PublicFieldsController extends BaseController
 {

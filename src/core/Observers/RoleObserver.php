@@ -1,10 +1,10 @@
 <?php
-namespace Tendoo\Core\Observers;
+namespace CloudBreeze\Core\Observers;
 
 use Illuminate\Support\Facades\DB;
 
-use Tendoo\Core\Models\Permission;
-use Tendoo\Core\Models\Role;
+use CloudBreeze\Core\Models\Permission;
+use CloudBreeze\Core\Models\Role;
 
 class RoleObserver 
 {

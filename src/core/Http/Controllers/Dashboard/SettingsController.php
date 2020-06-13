@@ -1,12 +1,12 @@
 <?php
 
-namespace Tendoo\Core\Http\Controllers\Dashboard;
+namespace CloudBreeze\Core\Http\Controllers\Dashboard;
 
 use Illuminate\Http\Request;
-use Tendoo\Core\Http\Controllers\DashboardController;
+use CloudBreeze\Core\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Event;
-use Tendoo\Core\Http\Requests\OptionsRequest;
-use Tendoo\Core\Facades\Hook;
+use CloudBreeze\Core\Http\Requests\OptionsRequest;
+use CloudBreeze\Core\Facades\Hook;
 
 class SettingsController extends DashboardController
 {

@@ -1,11 +1,11 @@
 <?php
 
-namespace Tendoo\Core\Console\Commands;
+namespace CloudBreeze\Core\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
-use Tendoo\Core\Services\Modules;
+use CloudBreeze\Core\Services\Modules;
 
 class ModuleCrudGeneratorCommand extends Command
 {

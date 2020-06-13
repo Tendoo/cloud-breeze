@@ -13,7 +13,7 @@ class CreateBannedIpTable extends Migration
      */
     public function up()
     {
-        Schema::create('tendoo_banned_ip', function (Blueprint $table) {
+        Schema::create('cb_banned_ip', function (Blueprint $table) {
             $table->increments('id');
             $table->string( 'ip' )->unique();
             $table->string( 'user_agent' );
@@ -31,6 +31,6 @@ class CreateBannedIpTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tendoo_banned_ip');
+        Schema::dropIfExists('cb_banned_ip');
     }
 }

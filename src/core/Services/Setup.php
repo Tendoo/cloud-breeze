@@ -1,5 +1,5 @@
 <?php
-namespace Tendoo\Core\Services;
+namespace CloudBreeze\Core\Services;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
@@ -8,12 +8,12 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Jackiedo\DotenvEditor\Facades\DotenvEditor;
-use Tendoo\Core\Mail\SetupComplete;
-use Tendoo\Core\Models\User;
-use Tendoo\Core\Models\Role;
-use Tendoo\Core\Models\Permission;
-use Tendoo\Core\Services\Options;
-use Tendoo\Core\Services\UserOptions;
+use CloudBreeze\Core\Mail\SetupComplete;
+use CloudBreeze\Core\Models\User;
+use CloudBreeze\Core\Models\Role;
+use CloudBreeze\Core\Models\Permission;
+use CloudBreeze\Core\Services\Options;
+use CloudBreeze\Core\Services\UserOptions;
 
 class Setup
 {
@@ -122,7 +122,7 @@ class Setup
          * We assume so far the application is installed
          * then we can launch option service
          */
-        $this->options  =   app()->make( 'Tendoo\Core\Services\Options' );
+        $this->options  =   app()->make( 'CloudBreeze\Core\Services\Options' );
         
         /**
          * Add permissions
@@ -169,7 +169,7 @@ class Setup
         /**
          * define option for the admin
          */
-        $this->userOptions  =   app()->make( 'Tendoo\Core\Services\UserOptions' );
+        $this->userOptions  =   app()->make( 'CloudBreeze\Core\Services\UserOptions' );
         $this->userOptions->set( 'theme_class', 'dark-theme' ); 
 
         Auth::logout();

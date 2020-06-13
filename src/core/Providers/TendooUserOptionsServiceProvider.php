@@ -1,10 +1,10 @@
 <?php
 
-namespace Tendoo\Core\Providers;
+namespace CloudBreeze\Core\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Auth;
-use Tendoo\Core\Services\UserOptions;
+use CloudBreeze\Core\Services\UserOptions;
 
 class TendooUserOptionsServiceProvider extends ServiceProvider
 {    

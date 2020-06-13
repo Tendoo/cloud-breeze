@@ -1,17 +1,17 @@
 <?php
-namespace Tendoo\Core\Http\Controllers;
+namespace CloudBreeze\Core\Http\Controllers;
 
-use Tendoo\Core\Services\Helper;
-use Tendoo\Core\Services\Modules;
-use Tendoo\Core\Models\User;
-use Tendoo\Core\Services\Page;
-use Tendoo\Core\Services\Options;
-use Tendoo\Core\Services\DateService;
-use Tendoo\Core\Services\UserOptions;
-use Tendoo\Core\Services\Users;
-use Tendoo\Core\Exceptions\FeatureDisabledException;
-use Tendoo\Core\Exceptions\AccessDeniedException;
-use Tendoo\Core\Exceptions\RoleDeniedException;
+use CloudBreeze\Core\Services\Helper;
+use CloudBreeze\Core\Services\Modules;
+use CloudBreeze\Core\Models\User;
+use CloudBreeze\Core\Services\Page;
+use CloudBreeze\Core\Services\Options;
+use CloudBreeze\Core\Services\DateService;
+use CloudBreeze\Core\Services\UserOptions;
+use CloudBreeze\Core\Services\Users;
+use CloudBreeze\Core\Exceptions\FeatureDisabledException;
+use CloudBreeze\Core\Exceptions\AccessDeniedException;
+use CloudBreeze\Core\Exceptions\RoleDeniedException;
 
 use Illuminate\Support\Facades\Event;
 

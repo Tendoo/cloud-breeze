@@ -1,9 +1,9 @@
 <?php
-namespace Tendoo\Core\Http\Requests;
+namespace CloudBreeze\Core\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Tendoo\Core\Services\Field;
-use Tendoo\Core\Models\User;
+use CloudBreeze\Core\Services\Field;
+use CloudBreeze\Core\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 class PutUserRequest extends FormRequest

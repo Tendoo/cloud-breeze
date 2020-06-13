@@ -1,5 +1,5 @@
 <?php
-namespace Tendoo\Core\Http\Controllers;
+namespace CloudBreeze\Core\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
@@ -11,35 +11,35 @@ use Illuminate\Support\Str;
 use Carbon\Carbon;
 use Exception;
 
-use Tendoo\Core\Facades\Hook;
+use CloudBreeze\Core\Facades\Hook;
 
-use Tendoo\Core\Services\Page;
-use Tendoo\Core\Services\Oauth;
-use Tendoo\Core\Services\UserOptions;
-use Tendoo\Core\Services\AuthService;
-use Tendoo\Core\Services\Users;
-use Tendoo\Core\Services\Options;
+use CloudBreeze\Core\Services\Page;
+use CloudBreeze\Core\Services\Oauth;
+use CloudBreeze\Core\Services\UserOptions;
+use CloudBreeze\Core\Services\AuthService;
+use CloudBreeze\Core\Services\Users;
+use CloudBreeze\Core\Services\Options;
 
-use Tendoo\Core\Models\Oauth as OauthModel;
-use Tendoo\Core\Models\Application;
-use Tendoo\Core\Models\User;
+use CloudBreeze\Core\Models\Oauth as OauthModel;
+use CloudBreeze\Core\Models\Application;
+use CloudBreeze\Core\Models\User;
 
-use Tendoo\Core\Exceptions\OauthDeniedException;
-use Tendoo\Core\Exceptions\AccessDeniedException;
-use Tendoo\Core\Exceptions\CoreException;
-use Tendoo\Core\Exceptions\WrongCredentialException;
-use Tendoo\Core\Exceptions\WrongOauthScopeException;
+use CloudBreeze\Core\Exceptions\OauthDeniedException;
+use CloudBreeze\Core\Exceptions\AccessDeniedException;
+use CloudBreeze\Core\Exceptions\CoreException;
+use CloudBreeze\Core\Exceptions\WrongCredentialException;
+use CloudBreeze\Core\Exceptions\WrongOauthScopeException;
 
-use Tendoo\Core\Mail\PasswordReset;
-use Tendoo\Core\Mail\PasswordUpdated;
-use Tendoo\Core\Mail\UserRegistrationMail;
+use CloudBreeze\Core\Mail\PasswordReset;
+use CloudBreeze\Core\Mail\PasswordUpdated;
+use CloudBreeze\Core\Mail\UserRegistrationMail;
 
-use Tendoo\Core\Http\Requests\LoginRequest;
-use Tendoo\Core\Http\Requests\PostRegisterRequest;
-use Tendoo\Core\Http\Requests\RecoveryRequest;
-use Tendoo\Core\Http\Requests\PasswordChangeRequest;
-use Tendoo\Core\Http\Requests\PostOauthRequest;
-use Tendoo\Core\Facades\Curl;
+use CloudBreeze\Core\Http\Requests\LoginRequest;
+use CloudBreeze\Core\Http\Requests\PostRegisterRequest;
+use CloudBreeze\Core\Http\Requests\RecoveryRequest;
+use CloudBreeze\Core\Http\Requests\PasswordChangeRequest;
+use CloudBreeze\Core\Http\Requests\PostOauthRequest;
+use CloudBreeze\Core\Facades\Curl;
 
 class OauthController extends BaseController
 {

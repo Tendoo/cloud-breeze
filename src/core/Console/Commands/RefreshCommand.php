@@ -1,10 +1,10 @@
 <?php
 
-namespace Tendoo\Core\Console\Commands;
+namespace CloudBreeze\Core\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
-use Tendoo\Core\Services\Update;
+use CloudBreeze\Core\Services\Update;
 
 class RefreshCommand extends Command
 {

@@ -13,7 +13,7 @@ class CreateRolesTable extends Migration
      */
     public function up()
     {
-        Schema::create('tendoo_roles', function (Blueprint $table) {
+        Schema::create('cb_roles', function (Blueprint $table) {
             $table->increments('id');
             $table->string( 'name' )->unique();
             $table->string( 'namespace' )->unique();
@@ -22,7 +22,7 @@ class CreateRolesTable extends Migration
         });
 
         // Permissions Relation with Roles
-        Schema::create('tendoo_role_permission', function (Blueprint $table) {
+        Schema::create('cb_role_permission', function (Blueprint $table) {
             $table->integer( 'permission_id' );
             $table->integer( 'role_id' );
             $table->primary([ 'permission_id', 'role_id' ]);
@@ -36,7 +36,7 @@ class CreateRolesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tendoo_roles');
-        Schema::dropIfExists('tendoo_role_permission');
+        Schema::dropIfExists('cb_roles');
+        Schema::dropIfExists('cb_role_permission');
     }
 }

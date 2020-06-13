@@ -1,9 +1,9 @@
 <?php
-namespace Tendoo\Core\Models;
+namespace CloudBreeze\Core\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
 class Media extends Model 
 {
-    protected $table    =   'tendoo_medias';
+    protected $table    =   'cb_medias';
 }

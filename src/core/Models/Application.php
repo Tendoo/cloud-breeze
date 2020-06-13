@@ -1,9 +1,9 @@
 <?php
-namespace Tendoo\Core\Models;
+namespace CloudBreeze\Core\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
 class Application extends Model 
 {
-    protected $table    =   'tendoo_apps';
+    protected $table    =   'cb_apps';
 }

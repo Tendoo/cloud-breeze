@@ -1,9 +1,9 @@
 <?php
 
-namespace Tendoo\Core\Http\Controllers\Dashboard;
+namespace CloudBreeze\Core\Http\Controllers\Dashboard;
 
 use Illuminate\Http\Request;
-use Tendoo\Core\Http\Controllers\DashboardController;
+use CloudBreeze\Core\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Event;
 
 class UpdateController extends DashboardController

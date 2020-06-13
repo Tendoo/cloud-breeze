@@ -2,7 +2,7 @@
 namespace Modules\{{ $module[ 'namespace' ] }};
 
 use Illuminate\Support\Facades\Event;
-use Tendoo\Core\Services\TendooModule;
+use CloudBreeze\Core\Services\TendooModule;
 
 class {{ $module[ 'namespace' ] }}Module extends TendooModule
 {

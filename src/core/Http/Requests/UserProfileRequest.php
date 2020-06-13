@@ -1,10 +1,10 @@
 <?php
 
-namespace Tendoo\Core\Http\Requests;
+namespace CloudBreeze\Core\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Tendoo\Core\Services\Field;
-use Tendoo\Core\Facades\Hook;
+use CloudBreeze\Core\Services\Field;
+use CloudBreeze\Core\Facades\Hook;
 
 class UserProfileRequest extends FormRequest
 {

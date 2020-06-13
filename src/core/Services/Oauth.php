@@ -1,9 +1,9 @@
 <?php
-namespace Tendoo\Core\Services;
+namespace CloudBreeze\Core\Services;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Tendoo\Core\Models\Option;
+use CloudBreeze\Core\Models\Option;
 
 class Oauth
 {

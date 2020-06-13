@@ -1,5 +1,5 @@
 <?php
-namespace Tendoo\Core\Fields\Dashboard;
+namespace CloudBreeze\Core\Fields\Dashboard;
 
 use Illuminate\Support\Facades\Auth;
 
@@ -41,7 +41,7 @@ class ProfileFields
      */
     public function userGeneralFields()
     {
-        $userOptions            =   app()->make( 'Tendoo\Core\Services\UserOptions' );
+        $userOptions            =   app()->make( 'CloudBreeze\Core\Services\UserOptions' );
         
         $email              =   new \stdClass;
         $email->type        =   'email';

@@ -1,23 +1,23 @@
 <?php
 
-namespace Tendoo\Core\Providers;
+namespace CloudBreeze\Core\Providers;
 
 use Illuminate\Support\Facades\Event;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
-use Tendoo\Core\Facades\Hook;
+use CloudBreeze\Core\Facades\Hook;
 use Illuminate\Support\Facades\Auth;
 
-use Tendoo\Core\Events\Crud as CrudEvents;
-use Tendoo\Core\Events\Forms;
-use Tendoo\Core\Events\Errors;
-use Tendoo\Core\Events\Crud;
-use Tendoo\Core\Events\Settings;
-use Tendoo\Core\Events\Users;
-use Tendoo\Core\Events\Options;
-use Tendoo\Core\Events\Url;
-use Tendoo\Core\Events\Tabs;
-use Tendoo\Core\Events\Fields;
-use Tendoo\Core\Events\Validation;
+use CloudBreeze\Core\Events\Crud as CrudEvents;
+use CloudBreeze\Core\Events\Forms;
+use CloudBreeze\Core\Events\Errors;
+use CloudBreeze\Core\Events\Crud;
+use CloudBreeze\Core\Events\Settings;
+use CloudBreeze\Core\Events\Users;
+use CloudBreeze\Core\Events\Options;
+use CloudBreeze\Core\Events\Url;
+use CloudBreeze\Core\Events\Tabs;
+use CloudBreeze\Core\Events\Fields;
+use CloudBreeze\Core\Events\Validation;
 
 class TendooEventServiceProvider extends ServiceProvider
 {

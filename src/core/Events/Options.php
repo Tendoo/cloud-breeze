@@ -1,10 +1,10 @@
 <?php
-namespace Tendoo\Core\Events;
+namespace CloudBreeze\Core\Events;
 
-use Tendoo\Core\Http\Requests\OptionsRequest;
-use Tendoo\Core\Services\Field;
-use Tendoo\Core\Facades\Hook;
-use Tendoo\Core\Services\Options as OptionsService;
+use CloudBreeze\Core\Http\Requests\OptionsRequest;
+use CloudBreeze\Core\Services\Field;
+use CloudBreeze\Core\Facades\Hook;
+use CloudBreeze\Core\Services\Options as OptionsService;
 
 class Options {
     /**

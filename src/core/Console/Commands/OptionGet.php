@@ -1,11 +1,11 @@
 <?php
 
-namespace Tendoo\Core\Console\Commands;
+namespace CloudBreeze\Core\Console\Commands;
 
 use Illuminate\Console\Command;
-use Tendoo\Core\Services\Options;
-use Tendoo\Core\Services\OptionWrapper;
-use Tendoo\Core\Models\Option;
+use CloudBreeze\Core\Services\Options;
+use CloudBreeze\Core\Services\OptionWrapper;
+use CloudBreeze\Core\Models\Option;
 
 
 class OptionGet extends Command

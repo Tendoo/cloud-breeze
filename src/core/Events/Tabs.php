@@ -1,13 +1,13 @@
 <?php
-namespace Tendoo\Core\Events;
+namespace CloudBreeze\Core\Events;
 
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Event;
 
-use Tendoo\Core\Http\Controllers\Dashboard\FormsController;
-use Tendoo\Core\Services\Field;
-use Tendoo\Core\Models\User;
+use CloudBreeze\Core\Http\Controllers\Dashboard\FormsController;
+use CloudBreeze\Core\Services\Field;
+use CloudBreeze\Core\Models\User;
 
 
 class Tabs

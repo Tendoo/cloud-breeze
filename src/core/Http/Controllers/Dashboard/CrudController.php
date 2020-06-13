@@ -2,17 +2,17 @@
 /**
  * @todo review for api-server
  */
-namespace Tendoo\Core\Http\Controllers\Dashboard;
+namespace CloudBreeze\Core\Http\Controllers\Dashboard;
 
 use Illuminate\Http\Request;
-use Tendoo\Core\Http\Controllers\DashboardController;
-use Tendoo\Core\Http\Requests\CrudPostRequest;
-use Tendoo\Core\Http\Requests\CrudPutRequest;
-use Tendoo\Core\Facades\Hook;
+use CloudBreeze\Core\Http\Controllers\DashboardController;
+use CloudBreeze\Core\Http\Requests\CrudPostRequest;
+use CloudBreeze\Core\Http\Requests\CrudPutRequest;
+use CloudBreeze\Core\Facades\Hook;
 use Illuminate\Support\Facades\Event;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Tendoo\Core\Exceptions\CrudException;
-use Tendoo\Core\Events\CrudInit;
+use CloudBreeze\Core\Exceptions\CrudException;
+use CloudBreeze\Core\Events\CrudInit;
 use Exception;
 
 class CrudController extends DashboardController

@@ -7,8 +7,8 @@
 
 namespace Modules\{{ $module[ 'namespace' ] }}\Http\Controllers;
 use Illuminate\Support\Facades\View;
-use Tendoo\Core\Http\Controllers\DashboardController;
-// use Tendoo\Core\Services\Page;
+use CloudBreeze\Core\Http\Controllers\DashboardController;
+// use CloudBreeze\Core\Services\Page;
 
 class {{ $name }} extends DashboardController
 {

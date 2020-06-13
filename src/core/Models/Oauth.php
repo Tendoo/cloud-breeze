@@ -1,12 +1,12 @@
 <?php
-namespace Tendoo\Core\Models;
+namespace CloudBreeze\Core\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Tendoo\Core\Services\DateService;
+use CloudBreeze\Core\Services\DateService;
 
 class Oauth extends Model
 {
-    protected $table    = 'tendoo_oauth';
+    protected $table    = 'cb_oauth';
 
     public function scopeToken( $query, $token )
     {

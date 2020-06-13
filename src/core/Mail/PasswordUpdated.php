@@ -1,6 +1,6 @@
 <?php
 
-namespace Tendoo\Core\Mail;
+namespace CloudBreeze\Core\Mail;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
@@ -40,7 +40,7 @@ class PasswordUpdated extends Mailable
      */
     public function build()
     {
-        $options    =   app()->make( 'Tendoo\Core\Services\Options' );
+        $options    =   app()->make( 'CloudBreeze\Core\Services\Options' );
         return $this->from( $options->get( 'app_mail_from_address', 'notifications@tendoo.org' ) )
             ->subject( __( '🎉 Password Successfully Updated !' ) )
             ->markdown('tendoo::email.password-updated', [

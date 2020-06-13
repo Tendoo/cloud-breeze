@@ -1,8 +1,8 @@
 <?php
-namespace Tendoo\Core\Services;
+namespace CloudBreeze\Core\Services;
 
-use Tendoo\Core\Facades\Curl;
-use Tendoo\Core\Services\Options;
+use CloudBreeze\Core\Facades\Curl;
+use CloudBreeze\Core\Services\Options;
 
 class Validation 
 {

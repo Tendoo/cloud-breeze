@@ -1,12 +1,12 @@
 <?php
-namespace Tendoo\Core\Fields\Dashboard;
+namespace CloudBreeze\Core\Fields\Dashboard;
 
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
-use Tendoo\Core\Models\Role;
-use Tendoo\Core\Models\User as UserModel;
-use Tendoo\Core\Services\Helper;
+use CloudBreeze\Core\Models\Role;
+use CloudBreeze\Core\Models\User as UserModel;
+use CloudBreeze\Core\Services\Helper;
 
 class User
 {

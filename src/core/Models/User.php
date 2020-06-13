@@ -1,24 +1,24 @@
 <?php
 
-namespace Tendoo\Core\Models;
+namespace CloudBreeze\Core\Models;
 
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Auth;
-use Tendoo\Core\Services\UserOptions;
+use App\User as UserDefault;
+use CloudBreeze\Core\Services\UserOptions;
 
-class User extends Tendoo_Model
+class User extends UserDefault
 {
     use Notifiable;
 
-    protected $table  =   'tendoo_users';
+    protected $table  =   'users';
 
     protected $casts    =   [
         'active'    =>  'boolean'
     ];
 
     /**
-     * @var Tendoo\Core\Services\UserOptions;
+     * @var CloudBreeze\Core\Services\UserOptions;
      */
     public $options;
 

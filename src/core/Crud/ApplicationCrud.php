@@ -1,20 +1,20 @@
 <?php
-namespace Tendoo\Core\Crud;
-use Tendoo\Core\Services\Crud;
+namespace CloudBreeze\Core\Crud;
+use CloudBreeze\Core\Services\Crud;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use Tendoo\Core\Services\Field;
-use Tendoo\Core\Services\Helper;
-use Tendoo\Core\Services\Users;
-use Tendoo\Core\Models\User;
-use Tendoo\Core\Models\Application;
-use Tendoo\Core\Models\Option as OptionModel;
-use Tendoo\Core\Facades\Hook;
-use Tendoo\Core\Exceptions\CrudException;
-use Tendoo\Core\Exceptions\AccessDeniedException;
+use CloudBreeze\Core\Services\Field;
+use CloudBreeze\Core\Services\Helper;
+use CloudBreeze\Core\Services\Users;
+use CloudBreeze\Core\Models\User;
+use CloudBreeze\Core\Models\Application;
+use CloudBreeze\Core\Models\Option as OptionModel;
+use CloudBreeze\Core\Facades\Hook;
+use CloudBreeze\Core\Exceptions\CrudException;
+use CloudBreeze\Core\Exceptions\AccessDeniedException;
 
 class ApplicationCrud extends Crud
 {
@@ -37,7 +37,7 @@ class ApplicationCrud extends Crud
     /**
      * Model Used
      */
-    protected $model      =   'Tendoo\Core\Models\Application';
+    protected $model      =   'CloudBreeze\Core\Models\Application';
 
     /**
      * Adding relation

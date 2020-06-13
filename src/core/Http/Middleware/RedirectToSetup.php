@@ -1,9 +1,9 @@
 <?php
 
-namespace Tendoo\Core\Http\Middleware;
+namespace CloudBreeze\Core\Http\Middleware;
 
 use Closure;
-use Tendoo\Core\Services\Helper;
+use CloudBreeze\Core\Services\Helper;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Cookie;

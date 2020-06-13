@@ -4,5 +4,5 @@
  */
 config([ 'auth.providers.users'     =>  [
     'driver'    =>  'eloquent',
-    'model'     =>  'Tendoo\Core\Models\User'
+    'model'     =>  'CloudBreeze\Core\Models\User'
 ]]);

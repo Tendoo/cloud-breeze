@@ -1,11 +1,11 @@
 <?php
 
-namespace Tendoo\Core\Http\Middleware;
+namespace CloudBreeze\Core\Http\Middleware;
 
 use Closure;
 use Jackiedo\DotenvEditor\Facades\DotenvEditor;
-use Tendoo\Core\Services\Helper;
-use Tendoo\Core\Exceptions\TendooNotInstalledException;
+use CloudBreeze\Core\Services\Helper;
+use CloudBreeze\Core\Exceptions\TendooNotInstalledException;
 
 class AppInstalled
 {

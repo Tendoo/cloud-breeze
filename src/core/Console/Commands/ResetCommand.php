@@ -1,6 +1,6 @@
 <?php
 
-namespace Tendoo\Core\Console\Commands;
+namespace CloudBreeze\Core\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
@@ -8,9 +8,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Cookie;
 use Jackiedo\DotenvEditor\Facades\DotenvEditor;
-use Tendoo\Core\Services\Helper;
-use Tendoo\Core\Facades\Hook;
-use Tendoo\Core\Services\Modules;
+use CloudBreeze\Core\Services\Helper;
+use CloudBreeze\Core\Facades\Hook;
+use CloudBreeze\Core\Services\Modules;
 
 class ResetCommand extends Command
 {

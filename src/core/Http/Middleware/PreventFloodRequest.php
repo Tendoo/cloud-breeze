@@ -1,11 +1,11 @@
 <?php
-namespace Tendoo\Core\Http\Middleware;
+namespace CloudBreeze\Core\Http\Middleware;
 
 use Closure;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Carbon\Carbon;
-use Tendoo\Core\Exceptions\FloodRequestException;
+use CloudBreeze\Core\Exceptions\FloodRequestException;
 
 class PreventFloodRequest
 {

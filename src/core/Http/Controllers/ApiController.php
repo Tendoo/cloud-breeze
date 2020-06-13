@@ -1,20 +1,20 @@
 <?php
 
-namespace Tendoo\Core\Http\Controllers;
+namespace CloudBreeze\Core\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Collection;
-use Tendoo\Core\Servies\Modules;
-use Tendoo\Core\Facades\Hook;
+use CloudBreeze\Core\Servies\Modules;
+use CloudBreeze\Core\Facades\Hook;
 use Illuminate\Support\Facades\Auth;
-use Tendoo\Core\Services\Oauth;
-use Tendoo\Core\Models\Oauth as OauthModel;
-use Tendoo\Core\Exceptions\ApiAmbiguousTokenException;
-use Tendoo\Core\Exceptions\ApiMissingTokenException;
-use Tendoo\Core\Exceptions\ApiForbiddenScopeException;
-use Tendoo\Core\Exceptions\ApiUnknowTokenException;
-use Tendoo\Core\Exceptions\ApiUnknowEndpointException;
+use CloudBreeze\Core\Services\Oauth;
+use CloudBreeze\Core\Models\Oauth as OauthModel;
+use CloudBreeze\Core\Exceptions\ApiAmbiguousTokenException;
+use CloudBreeze\Core\Exceptions\ApiMissingTokenException;
+use CloudBreeze\Core\Exceptions\ApiForbiddenScopeException;
+use CloudBreeze\Core\Exceptions\ApiUnknowTokenException;
+use CloudBreeze\Core\Exceptions\ApiUnknowEndpointException;
 
 class ApiController extends BaseController
 {

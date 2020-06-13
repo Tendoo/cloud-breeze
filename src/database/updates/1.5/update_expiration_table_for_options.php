@@ -1,5 +1,5 @@
 <?php
-namespace Tendoo\Database\Updates\v1_5;
+namespace CloudBreeze\Database\Updates\v1_5;
 
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
