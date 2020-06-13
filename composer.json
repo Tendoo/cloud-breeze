@@ -18,8 +18,7 @@
         "doctrine/dbal" : "^2.7",
         "guzzlehttp/guzzle": "^6.3.3",
         "sybio/image-workshop": "^2.1",
-        "orchestra/parser": "^4.0",
-        "laravel/sanctum": "^2.4"
+        "orchestra/parser": "^4.0"
     },
     "autoload": {
         "psr-4": {

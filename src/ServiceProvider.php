@@ -17,7 +17,6 @@ require_once CB_ROOT . '/constants.php';
 require_once CB_ROOT . '/core/Services/HelperFunctions.php';
 
 use Illuminate\Http\Request;
-
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider as CoreServiceProvider;
