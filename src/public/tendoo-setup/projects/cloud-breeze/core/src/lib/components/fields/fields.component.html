@@ -3,7 +3,7 @@
 	
 	<mat-form-field [appearance]="field.appearance || 'standard'" *ngIf="[ 'text', 'password', 'email' ].indexOf( field.type ) != -1" class="example-full-width w-100">
 		<mat-label>{{ field.label }}</mat-label>
-		<input [readonly]="field.readonly" [type]="field.type" [formControlName]="field.name" matInput [placeholder]="field.label" [value]="field.value ? field.value : ''">
+		<input [readonly]="field.readonly" [type]="field.type" [formControlName]="field.name" matInput [placeholder]="field.label" [value]="field.value || field.value !== undefined ? field.value : ''">
 		<span matPrefix *ngIf="field.prefix">{{ field.prefix }}</span>
     	<span matSuffix *ngIf="field.suffix">{{ field.suffix }}</span>
 		<mat-hint *ngIf="field.control.valid || field.control.untouched">{{ field.description }}</mat-hint>
@@ -175,7 +175,7 @@
 	
 	<mat-form-field [appearance]="field.appearance || 'standard'" *ngIf="[ 'number' ].indexOf( field.type ) != -1" class="example-full-width w-100">
 		<mat-label>{{ field.label }}</mat-label>
-		<input [readonly]="field.readonly" [formControlName]="field.name" matInput type="number" [placeholder]="field.label" [value]="field.value ? field.value : ''">
+		<input [readonly]="field.readonly" [formControlName]="field.name" matInput type="number" [placeholder]="field.label" [value]="field.value !== undefined ? field.value : 0">
 		<span matPrefix *ngIf="field.prefix">{{ field.prefix }}</span>
     	<span matSuffix *ngIf="field.suffix">{{ field.suffix }}</span>
 		<mat-hint *ngIf="field.control.valid || field.control.untouched">{{ field.description }}</mat-hint>

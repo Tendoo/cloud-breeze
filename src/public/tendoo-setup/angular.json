@@ -311,26 +311,26 @@
           "style": "scss"
         }
       },
-      "root": "projects/brookr",
-      "sourceRoot": "projects/brookr/src",
+      "root": "projects/brookr-ui",
+      "sourceRoot": "projects/brookr-ui/src",
       "prefix": "app",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "outputPath": "../../../../../laravel-7001/modules/Brookr/Public/brookr",
-            "index": "projects/brookr/src/index.html",
-            "main": "projects/brookr/src/main.ts",
-            "polyfills": "projects/brookr/src/polyfills.ts",
-            "tsConfig": "projects/brookr/tsconfig.app.json",
+            "index": "projects/brookr-ui/src/index.html",
+            "main": "projects/brookr-ui/src/main.ts",
+            "polyfills": "projects/brookr-ui/src/polyfills.ts",
+            "tsConfig": "projects/brookr-ui/tsconfig.app.json",
             "aot": false,
             "assets": [
-              "projects/brookr/src/favicon.ico",
-              "projects/brookr/src/assets"
+              "projects/brookr-ui/src/favicon.ico",
+              "projects/brookr-ui/src/assets"
             ],
             "styles": [
-              "projects/brookr/src/styles.scss",
-              "projects/brookr/src/tailwind-compiled.css",
+              "projects/brookr-ui/src/styles.scss",
+              "projects/brookr-ui/src/tailwind-compiled.css",
               "node_modules/@danielmoncada/angular-datetime-picker/assets/style/picker.min.css"
             ],
             "scripts": []
@@ -339,8 +339,8 @@
             "production": {
               "fileReplacements": [
                 {
-                  "replace": "projects/brookr/src/environments/environment.ts",
-                  "with": "projects/brookr/src/environments/environment.prod.ts"
+                  "replace": "projects/brookr-ui/src/environments/environment.ts",
+                  "with": "projects/brookr-ui/src/environments/environment.prod.ts"
                 }
               ],
               "optimization": true,
@@ -386,16 +386,16 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "projects/brookr/src/test.ts",
-            "polyfills": "projects/brookr/src/polyfills.ts",
-            "tsConfig": "projects/brookr/tsconfig.spec.json",
-            "karmaConfig": "projects/brookr/karma.conf.js",
+            "main": "projects/brookr-ui/src/test.ts",
+            "polyfills": "projects/brookr-ui/src/polyfills.ts",
+            "tsConfig": "projects/brookr-ui/tsconfig.spec.json",
+            "karmaConfig": "projects/brookr-ui/karma.conf.js",
             "assets": [
-              "projects/brookr/src/favicon.ico",
-              "projects/brookr/src/assets"
+              "projects/brookr-ui/src/favicon.ico",
+              "projects/brookr-ui/src/assets"
             ],
             "styles": [
-              "projects/brookr/src/styles.scss"
+              "projects/brookr-ui/src/styles.scss"
             ],
             "scripts": []
           }
@@ -404,9 +404,9 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "projects/brookr/tsconfig.app.json",
-              "projects/brookr/tsconfig.spec.json",
-              "projects/brookr/e2e/tsconfig.json"
+              "projects/brookr-ui/tsconfig.app.json",
+              "projects/brookr-ui/tsconfig.spec.json",
+              "projects/brookr-ui/e2e/tsconfig.json"
             ],
             "exclude": [
               "**/node_modules/**"
@@ -416,7 +416,7 @@
         "e2e": {
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
-            "protractorConfig": "projects/brookr/e2e/protractor.conf.js",
+            "protractorConfig": "projects/brookr-ui/e2e/protractor.conf.js",
             "devServerTarget": "brookr:serve"
           },
           "configurations": {
