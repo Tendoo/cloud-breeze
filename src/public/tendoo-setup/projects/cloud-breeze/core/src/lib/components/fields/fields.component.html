@@ -19,7 +19,7 @@
 
 	<!-- text field field -->
 	
-	<div [appearance]="field.appearance || 'standard'" *ngIf="[ 'file' ].indexOf( field.type ) != -1" class="flex flex-col">
+	<div *ngIf="[ 'file' ].indexOf( field.type ) != -1" class="flex flex-col">
 		<span class="text-lg block">{{ field.label }}</span>
 		<input [readonly]="field.readonly" [type]="field.type" [formControlName]="field.name" [placeholder]="field.label">
 		<span matPrefix *ngIf="field.prefix">{{ field.prefix }}</span>
@@ -76,16 +76,23 @@
 	<!-- File Upload -->
 
 	<div libFileDrop (onHover)="isDragHovering()" (onDrop)="handleDrop( $event )" (onLeaving)="hasDragLeft()" [ngClass]="{ 'border-dashed border-gray-400' : hovered, 'border-transparent' : ! hovered }" class="rounded shadow border-4 flex justify-center items-center bg-white flex flex-col my-2" *ngIf="[ 'file-upload' ].includes( field.type )">
-		<div class="field-title f																																																																																																																		lex justify-center py-2 border-b border-gray-300 w-full text-gray-600">{{ field.label }}</div>
+		<div class="field-title flex justify-center py-2 border-b border-gray-300 w-full text-gray-600">{{ field.label }}</div>
 		<div class="drop-zone w-full p-2">
 			<input (change)="setFileValue( fileInput.files[0] )" type="file" class="hidden" #fileInput/>
 			<div class="flex flex-col flex-auto flex items-center justify-center h-32" *ngIf="[ '', null ].includes( field.control.value )">
 				<button (click)="fileInput.click()"  class="rounded-lg bg-green-600 text-white py-2 px-4 font-semibold">Drag file or Click to browse</button>
 			</div>
 			<div class="p-2 rounded-lg bg-green-200 flex flex-auto items-center justify-between" *ngIf="field.control.value">
-				<span class="flex-auto flex-shrink-0 text-gray-800 font-semibold">{{ field.control.value.name || field.control.value }}</span>
-				<div>
-					<button *ngIf="field.data?.upload?.isUploading === false || field.control.value?.name" (click)="resetField( fileInput )" class="rounded-full bg-red-600 text-white w-8 h-8 flex justify-center items-center font-semibold">X</button>
+				<span class="flex-auto flex-shrink-0 text-gray-800 font-semibold">{{ ( field.control.value.name || field.control.value ) | truncate:10 }}</span>
+				<div class="flex">
+					<div class="mx-1" *ngIf="field.data.file">
+						<a target="_blank" [href]="field.data.file" class="rounded-full bg-blue-600 text-white w-8 h-8 flex justify-center items-center font-semibold">
+							<span class="material-icons">visibility</span>
+						</a>
+					</div>
+					<div class="mx-1">
+						<button *ngIf="field.data?.upload?.isUploading === false || field.control.value" (click)="resetField( fileInput )" class="rounded-full bg-red-600 text-white w-8 h-8 flex justify-center items-center font-semibold">X</button>
+					</div>
 					<mat-spinner *ngIf="field?.data?.upload?.isUploading === true" mode="indeterminate" diameter="30"></mat-spinner>
 				</div>
 			</div>
@@ -133,9 +140,9 @@
 		</mat-error>
 	</mat-form-field>
 	
-	<mat-form-field [appearance]="field.appearance || 'standard'" *ngIf="field.type == 'multiple_select'" multiple class="w-100">
+	<mat-form-field [appearance]="field.appearance || 'standard'" *ngIf="field.type == 'multiple_select'" class="w-100">
 		<mat-label>{{ field.label }}</mat-label>
-		<mat-select [formControlName]="field.name" [placeholder]="field.label">
+		<mat-select [formControlName]="field.name" [placeholder]="field.label" multiple>
 			<mat-option *ngFor="let option of field.options" [value]="option.value">
 			{{ option.label }}
 			</mat-option>
