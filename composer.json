@@ -22,7 +22,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Tendoo\\": "src/"
+            "Tendoo\\": "./src/"
         }
     },
     "prefer-stable": true,

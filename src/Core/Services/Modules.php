@@ -239,7 +239,7 @@ class Modules
          * Required to autoload module components
          */
 
-        include_once( CB_ROOT . DIRECTORY_SEPARATOR .'core' . DIRECTORY_SEPARATOR . 'Services' . DIRECTORY_SEPARATOR . 'TendooModule.php' );
+        include_once( CB_ROOT . DIRECTORY_SEPARATOR .'Core' . DIRECTORY_SEPARATOR . 'Services' . DIRECTORY_SEPARATOR . 'TendooModule.php' );
 
         foreach( $this->modules as $module ) {
             if ( ! $module[ 'enabled' ] ) {

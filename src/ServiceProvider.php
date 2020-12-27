@@ -12,9 +12,9 @@ define( 'CB_ROOT', __DIR__ );
  * assets and database migration
  */
 
-require_once CB_ROOT . '/core/Services/Helper.php';
+require_once CB_ROOT . '/Core/Services/Helper.php';
 require_once CB_ROOT . '/constants.php';
-require_once CB_ROOT . '/core/Services/HelperFunctions.php';
+require_once CB_ROOT . '/Core/Services/HelperFunctions.php';
 
 use Illuminate\Http\Request;
 
