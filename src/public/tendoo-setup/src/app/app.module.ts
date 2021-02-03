@@ -57,6 +57,7 @@ import { RequestActivationComponent } from './components/auth/request-activation
 import { CrudTableComponent } from './tests/crud-table/crud-table.component';
 import { ServicesModule } from '@cloud-breeze/services';
 import { UtilityModule } from '@cloud-breeze/utilities';
+import { LocationComponent } from './partials/dashboard/loads/location/location.component';
 
 @NgModule({
     declarations: [
@@ -101,6 +102,7 @@ import { UtilityModule } from '@cloud-breeze/utilities';
         ActivateAccountComponent,
         RequestActivationComponent,
         CrudTableComponent,
+        LocationComponent,
     ],
     imports: [
         BrowserModule,

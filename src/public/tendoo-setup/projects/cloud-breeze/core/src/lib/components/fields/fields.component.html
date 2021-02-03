@@ -37,7 +37,7 @@
 	
 	<!-- Date field -->
 	
-	<mat-form-field [appearance]="field.appearance || 'standard'" *ngIf="field.type === 'date'" class="w-100">
+	<mat-form-field (change)="emitChanged()" [appearance]="field.appearance || 'standard'" *ngIf="field.type === 'date'" class="w-100">
 		<mat-label>{{ field.label }}</mat-label>
 		<input [readonly]="field.readonly" [formControlName]="field.name" matInput [matDatepicker]="picker" [placeholder]="field.label">
 		<span matPrefix *ngIf="field.prefix">{{ field.prefix }}</span>
@@ -57,7 +57,7 @@
 
 	<!-- DateTime Field -->
 
-	<mat-form-field [appearance]="field.appearance || 'standard'" *ngIf="field.type === 'datetime'" class="example-full-width w-100">
+	<mat-form-field (change)="emitChanged()" [appearance]="field.appearance || 'standard'" *ngIf="field.type === 'datetime'" class="example-full-width w-100">
 		<mat-label>{{ field.label }}</mat-label>
 		<input theme="dp-material" [readonly]="field.readonly" [type]="'datetime-local'" [formControlName]="field.name" matInput [placeholder]="field.label" [value]="field.value ? field.value : ''">
 		<span matPrefix *ngIf="field.prefix">{{ field.prefix }}</span>
@@ -83,7 +83,7 @@
 				<button (click)="fileInput.click()"  class="rounded-lg bg-green-600 text-white py-2 px-4 font-semibold">Drag file or Click to browse</button>
 			</div>
 			<div class="p-2 rounded-lg bg-green-200 flex flex-auto items-center justify-between" *ngIf="field.control.value">
-				<span class="flex-auto flex-shrink-0 text-gray-800 font-semibold">{{ ( field.control.value.name || field.control.value ) | truncate:10 }}</span>
+				<p class="w-3/4 flex-shrink-0 text-gray-800 font-semibold">{{ ( field.control.value.name || field.control.value ) }}</p>
 				<div class="flex">
 					<div class="mx-1" *ngIf="field.data.file">
 						<a target="_blank" [href]="field.data.file" class="rounded-full bg-blue-600 text-white w-8 h-8 flex justify-center items-center font-semibold">
@@ -101,7 +101,7 @@
 
 	<!-- ng-datetime field -->
 
-	<mat-form-field [appearance]="field.appearance || 'standard'" *ngIf="[ 'ng-datetime' ].indexOf( field.type ) != -1" class="example-full-width w-100">
+	<mat-form-field (change)="emitChanged()" [appearance]="field.appearance || 'standard'" *ngIf="[ 'ng-datetime' ].indexOf( field.type ) != -1" class="example-full-width w-100">
 		<mat-label>{{ field.label }}</mat-label>
 		<input [owlDateTime]="dt1" [owlDateTimeTrigger]="dt1" [readonly]="field.readonly" [type]="field.type" [formControlName]="field.name" matInput [placeholder]="field.label" [value]="field.value ? field.value : ''">
 		<owl-date-time #dt1></owl-date-time>
@@ -120,7 +120,7 @@
 	
 	<!-- select field -->
 	
-	<mat-form-field [appearance]="field.appearance || 'standard'" *ngIf="field.type == 'select'" class="w-100">
+	<mat-form-field (change)="emitChanged()" [appearance]="field.appearance || 'standard'" *ngIf="field.type == 'select'" class="w-100">
 		<mat-label>{{ field.label }}</mat-label>
 		<mat-select [formControlName]="field.name" [placeholder]="field.label">
 			<mat-option *ngFor="let option of field.options" [value]="option.value">
@@ -140,7 +140,7 @@
 		</mat-error>
 	</mat-form-field>
 	
-	<mat-form-field [appearance]="field.appearance || 'standard'" *ngIf="field.type == 'multiple_select'" class="w-100">
+	<mat-form-field (change)="emitChanged()" [appearance]="field.appearance || 'standard'" *ngIf="field.type == 'multiple_select'" class="w-100">
 		<mat-label>{{ field.label }}</mat-label>
 		<mat-select [formControlName]="field.name" [placeholder]="field.label" multiple>
 			<mat-option *ngFor="let option of field.options" [value]="option.value">

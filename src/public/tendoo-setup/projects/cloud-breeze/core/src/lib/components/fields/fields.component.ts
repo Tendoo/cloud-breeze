@@ -95,6 +95,10 @@ export class FieldsComponent implements OnInit {
 		this.handleSilentUpload();
 	}
 
+	emitChanged() {
+		this.changed.emit( this.field );
+	}
+
 	handleSilentUpload() {
 		this.changed.emit( this.field );
 	}
