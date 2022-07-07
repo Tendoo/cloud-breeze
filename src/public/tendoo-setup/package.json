@@ -54,7 +54,7 @@
     "install": "^0.12.2",
     "jspdf": "^1.5.3",
     "material-icons": "^0.3.1",
-    "moment": "^2.25.1",
+    "moment": "^2.29.4",
     "ng-pick-datetime": "^7.0.0",
     "ng-pick-datetime-moment": "^1.0.8",
     "ng2-date-picker": "^9.0.0",
